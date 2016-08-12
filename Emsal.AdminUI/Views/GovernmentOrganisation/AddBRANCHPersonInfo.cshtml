@@ -1,0 +1,99 @@
+﻿@model Emsal.AdminUI.Models.Organisation
+@{
+    ViewBag.Title = "AddASCUser";
+    Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
+}
+
+
+<div class="container">
+    <div class="container col-md-6 col-md-offset-3" style="border-radius: 5px; margin-top: 30px; margin-bottom:30px; box-shadow:1px 1px 2px 3px #ddd; background-color:white">
+        <br />
+
+        <h2 style="text-align:center">Şəxsi Məlumatlar</h2>
+        <br /><br /><br />
+        @using (Html.BeginForm("AddBRANCHPersonInfo", "GovernmentOrganisation", FormMethod.Post))
+        {
+            @Html.HiddenFor(model => model.Pin)
+            @Html.HiddenFor(model => model.UserName)
+            @Html.HiddenFor(model => model.Password)
+            @Html.HiddenFor(model => model.Email)
+            @Html.HiddenFor(model => model.ASCId)
+            @Html.HiddenFor(model => model.KTNId)
+            <div class="form-group" style="padding:5px">
+                <label>Adı</label>
+                @Html.TextBoxFor(x => x.Name, new { @class = "form-control", id = "name" })
+                @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+            </div>
+            <p class="text-danger" id="nameAlert"></p><br />
+            <div class="form-group" style="padding:5px">
+                @Html.LabelFor(x => x.Surname)
+                @Html.TextBoxFor(x => x.Surname, new { @class = "form-control", id = "surname" })
+                @Html.ValidationMessageFor(x => x.Surname, "", new { @class = "text-danger" })
+            </div>
+            <p class="text-danger" id="surnameAlert"></p><br />
+
+            <div class="form-group" style="padding:5px">
+                @Html.LabelFor(x => x.FatherName)
+                @Html.TextBoxFor(x => x.FatherName, new { @class = "form-control", id = "fathername" })
+                @Html.ValidationMessageFor(x => x.FatherName, "", new { @class = "text-danger" })
+            </div>
+            <p class="text-danger" id="fatherNameAlert"></p><br />
+
+            <div class="form-group" style="padding:5px">
+                <label>Doğum Tarixi</label>
+                @Html.TextBoxFor(x => x.Birthday, new { @class = "form-control datepicker" })
+                @Html.ValidationMessageFor(x => x.Birthday, "", new { @class = "text-danger" })
+            </div>
+            <p class="text-danger" id="dateAlert"></p><br />
+            <div class="form-group" style="padding:5px">
+                <label>Cinsi</label>
+                <select class="form-control" id="Gender" name="Gender">
+                    <option>Cinsi Seçin</option>
+                    <option>Kişi</option>
+                    <option>Qadın</option>
+                </select>
+            </div>
+            <p class="text-danger" id="genderAlert"></p><br />
+            <div class="form-group" style="padding:5px">
+                <label>Təhsil</label>
+                <select class="form-control" id="education" name="Education">
+                    <option>Təhsil Seçin</option>
+                    @{
+                        if (Model != null)
+                        {
+                            foreach (var item in Model.EducationList)
+                            {
+                                <option>@item.name</option>
+                            }
+                        }
+
+                    }
+                </select>
+            </div>
+            <p class="text-danger" id="educationAlert"></p><br />
+
+            <div class="form-group" style="padding:5px">
+                <label>İş</label>
+                <select class="form-control" id="Job" name="Job">
+                    <option>İş seçin</option>
+                    @{
+                        if (Model != null)
+                        {
+                            foreach (var item in Model.JobList)
+                            {
+                                <option>@item.name</option>
+                            }
+                        }
+
+                    }
+                </select>
+            </div>
+            <p class="text-danger" id="jobAlert"></p><br />
+                <div class="col-md-6 col-md-offset-4" style="margin-bottom:20px">
+                    <input type="submit" class="btn btn-success" value="Davam Et" />
+                </div>
+       }
+        <div class="clearfix" style="height: 200px;"></div>
+    </div>
+
+</div>

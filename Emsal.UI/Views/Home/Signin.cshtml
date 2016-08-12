@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Signin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="sign-in-page inner-bottom-sm">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 sign-in col-md-offset-3">
+            <h4 class="">Giriş</h4>
+            <p class="">İstifadəçi adını və şifrəni daxil edərək təsdiqləyin</p>
+            <form role="form" class="register-form outer-top-xs">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" class="info-title">İstifadəçi adı <span>*</span></label>
+                    <input type="text" placeholder="İstifadəçi adı" id="exampleInputEmail1" class="form-control unicase-form-control text-input">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1" class="info-title">Şifrə <span>*</span></label>
+                    <input placeholder="Şifrə" type="password" id="exampleInputPassword1" class="form-control unicase-form-control text-input">
+                </div>
+                <div class="radio outer-xs">
+                    <button class="btn-upper btn btn-primary checkout-page-button" type="submit" id="linkToSpecialSummary">TƏSDİQ ET</button>
+                    <a class="forgot-password pull-right" href="#">İstifadəçi adını və ya şifrəni unutmusunuz?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

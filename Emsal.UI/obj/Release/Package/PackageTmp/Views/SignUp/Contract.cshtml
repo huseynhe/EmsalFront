@@ -1,0 +1,124 @@
+﻿@model Emsal.UI.Models.User
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="MediaCenter, Template, eCommerce">
+    <meta name="robots" content="all">
+
+    <title>emsal</title>
+
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="~/Content/css/main.css">
+    <link rel="stylesheet" href="~/Content/css/green.css">
+    <link rel="stylesheet" href="~/Content/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/Content/css/owl.transitions.css">
+    <link href="~/Content/css/lightbox.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/css/animate.min.css">
+    <link rel="stylesheet" href="~/Content/css/rateit.css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="~/Content/css/config.css">
+
+    <link href="~/Content/css/green.css" rel="alternate stylesheet" title="Green color">
+    <link href="~/Content/css/blue.css" rel="alternate stylesheet" title="Blue color">
+    <link href="~/Content/css/red.css" rel="alternate stylesheet" title="Red color">
+    <link href="~/Content/css/orange.css" rel="alternate stylesheet" title="Orange color">
+    <link href="~/Content/css/dark-green.css" rel="alternate stylesheet" title="Darkgreen color">
+
+    <link rel="stylesheet" href="~/Content/css/font-awesome.min.css">
+
+</head>
+<body>
+
+    @*style="position:fixed;width:100%;z-index:1000;background:#fff;"*@
+    <header class="header-style-1 header-style-2" style="position:fixed;width:100%;z-index:1000;background:#fff;">
+        <div class=" main-header" style="padding: 0;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-3 logo-holder" style="margin-top: 0;">
+                        <div class="logo">
+                            <a href="/" style="font-weight: bold; font-size: 45px;">
+                                EMSAL
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-8 top-search-holder top-cart-row" style="padding-top: 20px;">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="icon fa fa-phone"></i>(012) 444 4444
+                            </div>
+                            <div class="col-xs-3">
+                                <i class="icon fa fa-envelope"></i>info@emsal.az
+                            </div>
+
+                            <div class="col-xs-3" style="margin-left:10px;">
+                                <a href="/Login"><span class="glyphicon glyphicon-home" aria-hidden="true">Giriş</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </header>
+
+
+
+    <div class="clearfix" style="height: 200px;"></div>
+    <div class="container">
+        <div class="container" style="border:2px dashed gray; color:black">
+            <br />
+            <div class="row">
+                <div class="col-xs-4">
+                    <b>Ad</b>
+                </div>
+                <div class="col-xs-6" style="text-decoration: underline;">
+                    <span>@Model.FuturePerson.Name</span>
+                </div>
+                <div class="col-xs-2" style="text-decoration: underline;">
+                    @*<a href="/SignUp/GeneratePDF?Username=@Model.FutureUser.Username&password=@Model.Password"><span class="glyphicon glyphicon-print" aria-hidden="true">CapEt</span></a>*@<br /><br />
+                </div>
+            </div><br />
+            <div class="row">
+                <div class="col-xs-4">
+                    <b>Soyad</b>
+                </div>
+                <div class="col-xs-8" style="text-decoration: underline;">
+                    <span>@Model.FuturePerson.Surname</span>
+                </div>
+            </div><br />
+            <div class="row">
+                <div class="col-xs-4">
+                    <b>Ata adı</b>
+                </div>
+                <div class="col-xs-8" style="text-decoration: underline;">
+                    <span>@Model.FuturePerson.FatherName</span>
+                </div>
+            </div><br />
+            <div class="row">
+                <div class="col-xs-4">
+                    <b>Fin nömre</b>
+                </div>
+                <div class="col-xs-8" style="text-decoration: underline;">
+                    <span>@Model.FuturePerson.PinNumber</span>
+                </div>
+            </div><br />
+            <hr />
+        </div>
+        <div class="container" style="color:black">
+            <br />
+           
+        </div>
+
+    </div>
+</body>
+</html>

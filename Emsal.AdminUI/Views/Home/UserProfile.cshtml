@@ -1,0 +1,236 @@
+﻿@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content">
+    <div class="col-md-offset-3 col-md-6">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#info" data-toggle="tab">Şəxsi məlumatlar</a></li>
+                <li><a href="#view" data-toggle="tab">Görünüş</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="active tab-pane" id="info">
+                    <span class="text-success col-md-12" id="formsuccess" style="margin-bottom:10px;font-weight:bold;"></span>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Ad</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="name" class="form-control" placeholder="Ad">
+                                <span id="dname" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Soyad</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="surname" class="form-control" placeholder="Soyad">
+                                <span id="dsurname" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Ata adı</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="fathername" class="form-control" placeholder="Ata adı">
+                                <span id="dfathername" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">E-poçt</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="email" class="form-control" placeholder="E-poçt">
+                                <span id="demail" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Telefon</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="phone" class="form-control" placeholder="Telefon">
+                                <span id="dphone" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputExperience" class="col-sm-2 control-label">Qeyd</label>
+                            <div class="col-sm-10">
+                                <textarea id="note" class="form-control" placeholder="Qeyd"></textarea>
+                                <span id="dnote" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div onclick="checkForm()" class="btn btn-danger">Təsdiqlə</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+
+
+                <div class="tab-pane" id="view">
+                    <h4 class="control-sidebar-heading">Görünüş</h4>
+                    <ul class="list-unstyled clearfix">
+                        <li style="float:left; width: 33.33333%; padding: 5px;">
+                            <a class="clearfix full-opacity-hover" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" data-skin="skin-blue" href="javascript:void(0);">
+                                <div>
+                                    <span style="display:block; width: 20%; float: left; height: 7px; background: #367fa9;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 7px;" class="bg-light-blue"></span>
+                                </div>
+                                <div>
+                                    <span style="display:block; width: 20%; float: left; height: 20px; background: #222d32;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7;"></span>
+                                </div>
+                            </a>
+                            <p class="text-center no-margin">Göy</p>
+                        </li>
+                        <li style="float:left; width: 33.33333%; padding: 5px;">
+                            <a class="clearfix full-opacity-hover" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" data-skin="skin-black" href="javascript:void(0);">
+                                <div class="clearfix" style="box-shadow: 0 0 2px rgba(0,0,0,0.1)">
+                                    <span style="display:block; width: 20%; float: left; height: 7px; background: #fefefe;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 7px; background: #fefefe;"></span>
+                                </div>
+                                <div>
+                                    <span style="display:block; width: 20%; float: left; height: 20px; background: #222;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7;"></span>
+                                </div>
+                            </a>
+                            <p class="text-center no-margin">Qara</p>
+                        </li>
+                        <li style="float:left; width: 33.33333%; padding: 5px;">
+                            <a class="clearfix full-opacity-hover" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" data-skin="skin-purple" href="javascript:void(0);">
+                                <div>
+                                    <span class="bg-purple-active" style="display:block; width: 20%; float: left; height: 7px;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 7px;" class="bg-purple"></span>
+                                </div>
+                                <div>
+                                    <span style="display:block; width: 20%; float: left; height: 20px; background: #222d32;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7;"></span>
+                                </div>
+                            </a>
+                            <p class="text-center no-margin">Bənövşəyi</p>
+                        </li>
+                        <li style="float:left; width: 33.33333%; padding: 5px;">
+                            <a class="clearfix full-opacity-hover" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" data-skin="skin-green" href="javascript:void(0);">
+                                <div>
+                                    <span class="bg-green-active" style="display:block; width: 20%; float: left; height: 7px;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 7px;" class="bg-green"></span>
+                                </div>
+                                <div>
+                                    <span style="display:block; width: 20%; float: left; height: 20px; background: #222d32;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7;"></span>
+                                </div>
+                            </a>
+                            <p class="text-center no-margin">Yaşıl</p>
+                        </li>
+                        <li style="float:left; width: 33.33333%; padding: 5px;">
+                            <a class="clearfix full-opacity-hover" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" data-skin="skin-red" href="javascript:void(0);">
+                                <div>
+                                    <span class="bg-red-active" style="display:block; width: 20%; float: left; height: 7px;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 7px;" class="bg-red"></span>
+                                </div>
+                                <div>
+                                    <span style="display:block; width: 20%; float: left; height: 20px; background: #222d32;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7;"></span>
+                                </div>
+                            </a>
+                            <p class="text-center no-margin">Qırmızı</p>
+                        </li>
+                        <li style="float:left; width: 33.33333%; padding: 5px;">
+                            <a class="clearfix full-opacity-hover" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" data-skin="skin-yellow" href="javascript:void(0);">
+                                <div>
+                                    <span class="bg-yellow-active" style="display:block; width: 20%; float: left; height: 7px;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 7px;" class="bg-yellow"></span>
+                                </div>
+                                <div>
+                                    <span style="display:block; width: 20%; float: left; height: 20px; background: #222d32;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7;"></span>
+                                </div>
+                            </a>
+                            <p class="text-center no-margin">Sarı</p>
+                        </li>
+                        <li style="float:left; width: 33.33333%; padding: 5px;">
+                            <a class="clearfix full-opacity-hover" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" data-skin="skin-blue-light" href="javascript:void(0);">
+                                <div>
+                                    <span style="display:block; width: 20%; float: left; height: 7px; background: #367fa9;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 7px;" class="bg-light-blue"></span>
+                                </div>
+                                <div>
+                                    <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7;"></span>
+                                </div>
+                            </a>
+                            <p style="font-size: 12px" class="text-center no-margin">Açıq göy</p>
+                        </li>
+                        <li style="float:left; width: 33.33333%; padding: 5px;">
+                            <a class="clearfix full-opacity-hover" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" data-skin="skin-black-light" href="javascript:void(0);">
+                                <div class="clearfix" style="box-shadow: 0 0 2px rgba(0,0,0,0.1)">
+                                    <span style="display:block; width: 20%; float: left; height: 7px; background: #fefefe;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 7px; background: #fefefe;"></span>
+                                </div>
+                                <div>
+                                    <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7;"></span>
+                                </div>
+                            </a>
+                            <p style="font-size: 12px" class="text-center no-margin">Açıq qara</p>
+                        </li>
+                        <li style="float:left; width: 33.33333%; padding: 5px;">
+                            <a class="clearfix full-opacity-hover" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" data-skin="skin-purple-light" href="javascript:void(0);">
+                                <div>
+                                    <span class="bg-purple-active" style="display:block; width: 20%; float: left; height: 7px;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 7px;" class="bg-purple"></span>
+                                </div>
+                                <div>
+                                    <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7;"></span>
+                                </div>
+                            </a>
+                            <p style="font-size: 12px" class="text-center no-margin">Açıq bənövşəyi</p>
+                        </li>
+                        <li style="float:left; width: 33.33333%; padding: 5px;">
+                            <a class="clearfix full-opacity-hover" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" data-skin="skin-green-light" href="javascript:void(0);">
+                                <div>
+                                    <span class="bg-green-active" style="display:block; width: 20%; float: left; height: 7px;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 7px;" class="bg-green"></span>
+                                </div>
+                                <div>
+                                    <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7;"></span>
+                                </div>
+                            </a>
+                            <p style="font-size: 12px" class="text-center no-margin">Açıq yaşıl</p>
+                        </li>
+                        <li style="float:left; width: 33.33333%; padding: 5px;">
+                            <a class="clearfix full-opacity-hover" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" data-skin="skin-red-light" href="javascript:void(0);">
+                                <div>
+                                    <span class="bg-red-active" style="display:block; width: 20%; float: left; height: 7px;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 7px;" class="bg-red"></span>
+                                </div>
+                                <div>
+                                    <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7;"></span>
+                                </div>
+                            </a>
+                            <p style="font-size: 12px" class="text-center no-margin">Açıq qırmızı</p>
+                        </li>
+                        <li style="float:left; width: 33.33333%; padding: 5px;">
+                            <a class="clearfix full-opacity-hover" style="display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)" data-skin="skin-yellow-light" href="javascript:void(0);">
+                                <div>
+                                    <span class="bg-yellow-active" style="display:block; width: 20%; float: left; height: 7px;"></span>
+                                    <span style="display:block; width: 80%; float: left; height: 7px;" class="bg-yellow"></span>
+                                </div>
+                                <div>
+                                    <span style="display:block; width: 20%; float: left; height: 20px; background: #f9fafc;">
+                                    </span>
+                                    <span style="display:block; width: 80%; float: left; height: 20px; background: #f4f5f7;"></span>
+                                </div>
+                            </a>
+                            <p style="font-size: 12px;" class="text-center no-margin">Açıq sarı</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  

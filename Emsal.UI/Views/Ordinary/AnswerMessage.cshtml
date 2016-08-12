@@ -1,0 +1,28 @@
+﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+@{
+    ViewBag.Title = "Index";
+    
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+
+<br /><br /><br />
+
+<h2 style="text-align:center">Mesaj Yazın</h2>
+<br />
+@using (Html.BeginForm("AnswerMessage", "Ordinary", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    
+    @Html.HiddenFor(model => model.ComMessageId)
+    @Html.HiddenFor(model => model.Type)
+    @Html.HiddenFor(model => model.CommunicatedUserId)
+    <div class="form-group">
+        @Html.LabelFor(x => x.Message)
+        <textarea name="Message" id="message" class="form-control"></textarea>
+        @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+    </div>
+            <p class="text-danger" id="pinAlert"></p><br />
+
+    <div>
+        <input type="submit" class="btn btn-success" value="Göndər" />
+    </div>
+}

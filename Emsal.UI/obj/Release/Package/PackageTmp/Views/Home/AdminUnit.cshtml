@@ -1,0 +1,37 @@
+﻿@model Emsal.UI.Models.ProductCatalogViewModel
+    
+@{
+    ViewBag.Title = "Region";
+    Layout = "";
+}
+
+<div class="col-md-12">
+    @*<a class="btn btn-primary pull-right" onclick="GetAdminUnit(0)">
+        <span class="glyphicon glyphicon-backward"></span>  Geri
+    </a>*@
+
+    <div class="text-promary" style="font-size:18px;padding:5px;margin-bottom: 10px;">
+        @*<i class="fa fa-info-circle"></i> Rayonlar &nbsp;&nbsp; - &nbsp;&nbsp; seçilmiş region:*@
+        <a class="label label-primary margin-right" style="font-size:16px;">
+            <i class="fa fa-map-marker"></i> @Model.fullAddress
+        </a>
+    </div>
+</div>
+
+
+    <div class="list-group">
+@if (Model.PRMAdminUnitList.Count > 0)
+{
+foreach (var item in Model.PRMAdminUnitList)
+{
+        <div class="col-md-3">
+            <a style="cursor:pointer;" class="list-group-item" onclick="GetAdminUnit(@item.Id)"><i class="fa fa-chevron-circle-right"></i> @item.Name</a>
+        </div>
+    }
+}
+else {
+    <div class="col-md-3">
+        <a style="cursor:pointer;" class="list-group-item" onclick="GetUserInfoBy(@Model.PRMAdminUnit.Id, this)"><i class="fa fa-chevron-circle-right"></i> @Model.PRMAdminUnit.Name</a>
+    </div>
+}
+    </div>

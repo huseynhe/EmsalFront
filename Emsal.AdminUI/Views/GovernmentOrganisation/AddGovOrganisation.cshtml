@@ -1,0 +1,55 @@
+﻿@model Emsal.AdminUI.Models.Organisation
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
+}
+
+    <div class="container">
+        @{
+            if (TempData["CustomError"] != null)
+            {
+                <h4 style="color:red">Bu istifadəçi sistemdə mövcuddur.</h4>
+            }
+        }
+        <div class="container col-md-6 col-md-offset-3" style="border-radius: 5px; margin-top: 30px; margin-bottom:30px; box-shadow:1px 1px 2px 3px #ddd; background-color:white">
+            <br />
+
+            <h2 style="text-align:center">Qeydiyyatdan Keç</h2>
+            <br /><br /><br />
+            @using (Html.BeginForm("AddGovOrganisation", "GovernmentOrganisation", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(x => x.UserName)
+                    @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", id = "username" })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+                <p class="text-danger" id="usernameAlert"></p><br />
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Voen)
+                    @Html.TextBoxFor(x => x.Voen, new { @class = "form-control", id = "voen" })
+                    @Html.ValidationMessageFor(model => model.Voen, "", new { @class = "text-danger" })
+                </div>
+               
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Password)
+                    @Html.PasswordFor(x => x.Password, new { @class = "form-control", id = "password", autocomplete = "off" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+                <p class="text-danger" id="passwordAlert"></p><br />
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Email)
+                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", id = "email", type = "email" })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+                <p class="text-danger" id="emailAlert"></p><br />
+
+                <div class="col-md-6 col-md-offset-4" style="margin-bottom:20px">
+                    <input type="submit" class="btn btn-success" value="Davam Et" id="sendInfo" />
+                </div>
+            }
+            <div class="clearfix" style="height: 200px;"></div>
+        </div>
+
+    </div>

@@ -1,0 +1,167 @@
+﻿@model Emsal.UI.Models.PotentialProductionViewModel
+
+@{
+    ViewBag.Title = "ProductCatalog";
+    Layout = "";
+}
+
+@if (Model.ProductCatalogListFEA != null)
+{
+    <input hidden name="productId" value="@Model.productIds.LastOrDefault()" id="productId" />
+    for (var i = 0; i < Model.ProductCatalogListFEA.Count(); i++)
+    {
+        if (Model.ProductCatalogListFEA[i].Count() > 0)
+        {
+            <div class="form-group col-md-3">
+                <select name="prodId[@{ @Model.arrPNum }]" required onchange="GetProductCatalog(this)" size="8" class="form-control unicase-form-control select">
+                    @foreach (var item in Model.ProductCatalogListFEA[i])
+                    {
+                        if (item.Id == Model.productIds[i + 1])
+                        {
+                            <option selected value="@item.Id">@item.ProductName</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@item.ProductName</option>
+                        }
+                    }
+                </select>
+                <span data-valmsg-replace="true" data-valmsg-for="prodId[@{ @Model.arrPNum }]" class="field-validation-valid text-danger"></span>
+            </div>
+    }
+    else
+    {
+        <div class="clearfix"></div>
+
+        int e = 0;
+
+        foreach (var item in Model.EnumCategoryList)
+        {
+            if (Model.ProductCatalogControlList.Select(x => x.EnumCategoryId).ToList().Contains(item.Id))
+            {
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">@item.description</label>
+                        <input hidden name="pcId[@{ @e }]" value="@Model.ProductionControlList[e].Id" />
+                        <input hidden name="enumCat[@{ @e }]" value="@item.Id" />
+                        <select required name="enumVal[@{ @e }]" class="form-control">
+                            <option value="">Seçim edin</option>
+                            @foreach (var item2 in Model.EnumValueList)
+                            {
+                                if (item2.enumCategory_enumCategoryId == item.Id)
+                                {
+                                    if (Model.ProductCatalogControlList.Select(x => x.EnumValueId).ToList().Contains(item2.Id))
+                                    {
+                                        if (Model.productionControlEVIds.Contains(@item2.Id))
+                                        {
+                                            <option selected value="@item2.Id">@item2.name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item2.Id">@item2.name</option>
+                                        }
+
+                                    }
+                                }
+                            }
+                        </select>
+                        <span data-valmsg-replace="true" data-valmsg-for="enumVal[@{ @e }]" class="field-validation-valid text-danger"></span>
+                    </div>
+                </div>
+            e = e + 1;
+        }
+    }
+
+
+
+
+    <div class="col-md-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.size, htmlAttributes: new { @class = "control-label" })
+            <input type="number" step="0.01" value="@Model.size" min="0.001" required name="size" id="size" placeholder="məs: 3 və ya 1.5" class="form-control">
+            @Html.ValidationMessageFor(model => model.size, "", new { @class = "text-danger" })
+        </div>
+    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label" })
+                            <input type="number" step="0.01" min="0.001" value="@Model.price" required class="form-control" placeholder="məs: 4 və ya 0.3" name="price" id="price">
+                            @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+            }
+        }
+
+    }
+    else
+    {    
+        if (Model.ProductCatalogList.Count > 0)
+        {
+
+            <div class="form-group col-md-3">
+                <select name="prodId[@{ @Model.arrPNum }]" required onchange="GetProductCatalog(this)" size="8" class="form-control unicase-form-control select">
+                    @foreach (var item in Model.ProductCatalogList)
+                    {
+                        <option value="@item.Id">@item.ProductName</option>
+                    }
+                </select>
+                <span data-valmsg-replace="true" data-valmsg-for="prodId[@{ @Model.arrPNum }]" class="field-validation-valid text-danger"></span>
+            </div>
+    }
+    else
+    {
+
+        <div class="clearfix"></div>
+
+        int e = 0;
+
+        foreach (var item in Model.EnumCategoryList)
+        {
+            if (Model.ProductCatalogControlList.Select(x => x.EnumCategoryId).ToList().Contains(item.Id))
+            {
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="size">@item.description</label>
+                        <input hidden name="enumCat[@{ @e }]" value="@item.Id" />
+                        <select required name="enumVal[@{ @e }]" class="form-control">
+                            <option value="">Seçim edin</option>
+                            @foreach (var item2 in Model.EnumValueList)
+                            {
+                                if (item2.enumCategory_enumCategoryId == item.Id)
+                                {
+                                    if (Model.ProductCatalogControlList.Select(x => x.EnumValueId).ToList().Contains(item2.Id))
+                                    {
+                                        <option value="@item2.Id">@item2.name</option>
+                                    }
+                                }
+                            }
+                        </select>
+                        <span data-valmsg-replace="true" data-valmsg-for="enumVal[@{ @e }]" class="field-validation-valid text-danger"></span>
+                    </div>
+                </div>
+            e = e + 1;
+        }
+    }
+
+
+    <div class="col-md-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.size, htmlAttributes: new { @class = "control-label" })
+            <input type="number" step="0.01" value="@Model.size" min="0.001" required name="size" id="size" placeholder="məs: 3 və ya 1.5" class="form-control">
+            @Html.ValidationMessageFor(model => model.size, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label" })
+            <input type="number" step="0.01" min="0.001" value="@Model.price" required class="form-control" placeholder="məs: 4 və ya 0.3" name="price" id="price">
+            @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+                @*<input name="eml" required type="text" />
+                    <span data-valmsg-replace="true" data-valmsg-for="eml" class="field-validation-valid text-danger"></span>*@
+        }
+
+    }

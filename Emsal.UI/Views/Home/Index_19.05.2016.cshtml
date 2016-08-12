@@ -1,0 +1,868 @@
+﻿@model Emsal.UI.Models.ProductCatalogViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.prodAltName = "";
+    Model.prodName = "";
+}
+<div class="furniture-container homepage-container">
+    <div class="row">
+        @*@foreach (var item in Model.ProductCatalogList)
+            {
+                <label class="radio-inline">
+                    <input onclick="setParId(this)" type="radio" value="@item.Id" name="optradio">@item.ProductName (@item.ProductDescription)
+                </label>
+                <div class="clearfix"></div>
+            }*@
+        <div class="col-xs-12 col-sm-12 col-md-3 sidebar">
+            <div class="side-menu side-menu2 animate-dropdown outer-bottom-xs">
+                <div class="head"><i class="icon fa fa-align-justify fa-fw"></i>KATEQORİYALAR</div>
+                <nav class="yamm megamenu-horizontal" role="navigation">
+                    <ul class="nav">
+                        @foreach (var item in Model.ProductCatalogList.Where(x => x.ProductCatalogParentID == 0))
+                        {
+                            <li class="dropdown menu-item">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.ProductName</a>
+                                <ul class="dropdown-menu mega-menu">
+                                    <li class="yamm-content">
+                                        <div class="row">
+                                            @foreach (var item1 in Model.ProductCatalogList.Where(x => x.ProductCatalogParentID > 0))
+                                            {
+                                                if (item.Id == item1.ProductCatalogParentID)
+                                                {
+                                                    <div class="col-sm-12 col-md-3">
+                                                        <ul class="links list-unstyled">
+                                                            <li>
+                                                                <a href="detail.html">
+                                                                    @item1.ProductName
+
+                                                                    @foreach (var item2 in Model.ProductCatalogList.Where(x => x.ProductCatalogParentID > 0))
+                                                                    {
+                                                                        if (item1.Id == item2.ProductCatalogParentID)
+                                                                        {
+                                                                            @item2.ProductName
+                                                                        }
+                                                                    }
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+
+                <div class="sidebar-widget outer-bottom-small wow fadeInUp">
+                    <h3 class="section-title">Xüsusi təkliflər</h3>
+                    <div class="sidebar-widget-body outer-top-xs">
+                        <div class="owl-carousel sidebar-carousel special-offer custom-carousel owl-theme outer-top-xs">
+                            <div class="item">
+                                <div class="products special-product">
+                                    <div class="product">
+                                        <div class="product-micro">
+                                            <div class="row product-micro-row">
+                                                <div class="col col-xs-5">
+                                                    <div class="product-image">
+                                                        <div class="image">
+                                                            <a href="Content/images/furniture-products/gk.jpg" data-lightbox="image-1" data-title="">
+                                                                <img data-echo="Content/images/furniture-products/gkm.jpg" src="Content/images/blank.gif" alt="">
+                                                                <div class="zoom-overlay"></div>
+                                                            </a>
+                                                        </div>
+                                                    </div><!-- /.product-image -->
+                                                </div><!-- /.col -->
+                                                <div class="col col-xs-7">
+                                                    <div class="product-info">
+                                                        <h3 class="name"><a href="#">Gədəbəy kartofu</a></h3>
+                                                        <div class="product-price">
+                                                            <span class="price">1.3 man</span>
+                                                        </div><!-- /.product-price -->
+                                                        <div class="action"><a href="detail2.html" class="lnk btn btn-primary">Ətraflı</a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="product">
+                                        <div class="product-micro">
+                                            <div class="row product-micro-row">
+                                                <div class="col col-xs-5">
+                                                    <div class="product-image">
+                                                        <div class="image">
+                                                            <a href="Content/images/furniture-products/cl.jpg" data-lightbox="image-1" data-title="">
+                                                                <img data-echo="Content/images/furniture-products/clm.jpg" src="Content/images/blank.gif" alt="">
+                                                                <div class="zoom-overlay"></div>
+                                                            </a>
+                                                        </div>
+                                                    </div><!-- /.product-image -->
+                                                </div><!-- /.col -->
+                                                <div class="col col-xs-7">
+                                                    <div class="product-info">
+                                                        <h3 class="name"><a href="#">Çiyələk</a></h3>
+                                                        <div class="product-price">
+                                                            <span class="price">2.3 man</span>
+                                                        </div><!-- /.product-price -->
+                                                        <div class="action"><a href="detail2.html" class="lnk btn btn-primary">Ətraflı</a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="product">
+                                        <div class="product-micro">
+                                            <div class="row product-micro-row">
+                                                <div class="col col-xs-5">
+                                                    <div class="product-image">
+                                                        <div class="image">
+                                                            <a href="Content/images/furniture-products/xr.jpg" data-lightbox="image-1" data-title="">
+                                                                <img data-echo="Content/images/furniture-products/xrm.jpg" src="Content/images/blank.gif" alt="">
+                                                                <div class="zoom-overlay"></div>
+                                                            </a>
+                                                        </div>
+                                                    </div><!-- /.product-image -->
+                                                </div><!-- /.col -->
+                                                <div class="col col-xs-7">
+                                                    <div class="product-info">
+                                                        <h3 class="name"><a href="#">Xiyar</a></h3>
+                                                        <div class="product-price">
+                                                            <span class="price">0.8 man</span>
+                                                        </div><!-- /.product-price -->
+                                                        <div class="action"><a href="detail2.html" class="lnk btn btn-primary">Ətraflı</a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="products special-product">
+                                    <div class="product">
+                                        <div class="product-micro">
+                                            <div class="row product-micro-row">
+                                                <div class="col col-xs-5">
+                                                    <div class="product-image">
+                                                        <div class="image">
+                                                            <a href="Content/images/furniture-products/cl.jpg" data-lightbox="image-1" data-title="">
+                                                                <img data-echo="Content/images/furniture-products/clm.jpg" src="Content/images/blank.gif" alt="">
+                                                                <div class="zoom-overlay"></div>
+                                                            </a>
+                                                        </div>
+                                                    </div><!-- /.product-image -->
+                                                </div><!-- /.col -->
+                                                <div class="col col-xs-7">
+                                                    <div class="product-info">
+                                                        <h3 class="name"><a href="#">Çiyələk</a></h3>
+                                                        <div class="product-price">
+                                                            <span class="price">2.3 man</span>
+                                                        </div><!-- /.product-price -->
+                                                        <div class="action"><a href="detail2.html" class="lnk btn btn-primary">Ətraflı</a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="product">
+                                        <div class="product-micro">
+                                            <div class="row product-micro-row">
+                                                <div class="col col-xs-5">
+                                                    <div class="product-image">
+                                                        <div class="image">
+                                                            <a href="Content/images/furniture-products/gk.jpg" data-lightbox="image-1" data-title="">
+                                                                <img data-echo="Content/images/furniture-products/gkm.jpg" src="Content/images/blank.gif" alt="">
+                                                                <div class="zoom-overlay"></div>
+                                                            </a>
+                                                        </div>
+                                                    </div><!-- /.product-image -->
+                                                </div><!-- /.col -->
+                                                <div class="col col-xs-7">
+                                                    <div class="product-info">
+                                                        <h3 class="name"><a href="#">Gədəbəy kartofu</a></h3>
+                                                        <div class="product-price">
+                                                            <span class="price">1.3 man</span>
+                                                        </div><!-- /.product-price -->
+                                                        <div class="action"><a href="detail2.html" class="lnk btn btn-primary">Ətraflı</a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="product">
+                                        <div class="product-micro">
+                                            <div class="row product-micro-row">
+                                                <div class="col col-xs-5">
+                                                    <div class="product-image">
+                                                        <div class="image">
+                                                            <a href="Content/images/furniture-products/xr.jpg" data-lightbox="image-1" data-title="">
+                                                                <img data-echo="Content/images/furniture-products/xrm.jpg" src="Content/images/blank.gif" alt="">
+                                                                <div class="zoom-overlay"></div>
+                                                            </a>
+                                                        </div>
+                                                    </div><!-- /.product-image -->
+                                                </div><!-- /.col -->
+                                                <div class="col col-xs-7">
+                                                    <div class="product-info">
+                                                        <h3 class="name"><a href="#">Xiyar</a></h3>
+                                                        <div class="product-price">
+                                                            <span class="price">0.8 man</span>
+                                                        </div><!-- /.product-price -->
+                                                        <div class="action"><a href="detail2.html" class="lnk btn btn-primary">Ətraflı</a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.sidebar-widget-body -->
+                </div>
+
+
+                <div class="sidebar-widget hot-deals wow fadeInUp">
+                    <h3 class="section-title">Təkliflər</h3>
+                    <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-xs">
+
+                        <div class="item">
+                            <div class="products">
+                                <div class="hot-deal-wrapper">
+                                    <div class="image">
+                                        <img src="Content/images/furniture-products/cld.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="product-info text-left m-t-20">
+                                    <h3 class="name"><a href="detail.html">Çiyələk </a></h3>
+                                    <div class="product-price">
+                                        <span class="price">2.4 man</span>
+                                    </div>
+                                </div>
+                                <div class="action"><a href="detail.html" class="lnk btn btn-primary">Ətraflı</a></div>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <div class="products">
+                                <div class="hot-deal-wrapper">
+                                    <div class="image">
+                                        <img src="Content/images/furniture-products/gkd.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="product-info text-left m-t-20">
+                                    <h3 class="name"><a href="detail.html">Kartof </a></h3>
+                                    <div class="product-price">
+                                        <span class="price">0.9 man</span>
+                                    </div>
+                                </div>
+                                <div class="action"><a href="detail.html" class="lnk btn btn-primary">Ətraflı</a></div>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <div class="products">
+                                <div class="hot-deal-wrapper">
+                                    <div class="image">
+                                        <img src="Content/images/furniture-products/xrd.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="product-info text-left m-t-20">
+                                    <h3 class="name"><a href="detail.html">Xiyat </a></h3>
+                                    <div class="product-price">
+                                        <span class="price">2.4 man</span>
+                                    </div>
+                                </div>
+                                <div class="action"><a href="detail.html" class="lnk btn btn-primary">Ətraflı</a></div>
+                            </div>
+                        </div>
+
+
+                    </div><!-- /.sidebar-widget -->
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder">
+            <div id="hero" class="homepage-slider3">
+                <div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
+                    <div class="full-width-slider">
+                        <div class="item" style="background-image: url(Content/images/sliders/fur1.jpg);">
+                            <div class="container-fluid">
+                                <div class="caption vertical-center text-left">
+                                    <!--	<div class="small fadeInDown-1">
+                                        italia trend
+                                    </div>
+
+                                    <div class="big-text fadeInDown-2">
+                                        open minded design
+                                    </div>
+
+                                    <div class="excerpt fadeInDown-3 hidden-xs">created for customers with modern,active and easy lifestyles ,this collection features sleek,innovative designs envisioned in the style center of italy.</div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="full-width-slider">
+                        <div class="item full-width-slider" style="background-image: url(Content/images/sliders/fur2.jpg);">
+                            <div class="container-fluid">
+                                <div class="caption vertical-center text-left">
+                                    <!--<div class="small fadeInDown-1">
+                                        italia trend
+                                    </div>
+
+                                    <div class="big-text fadeInDown-2">
+                                        open minded design
+                                    </div>
+
+                                    <div class="excerpt fadeInDown-3 hidden-xs">created for customers with modern,active and easy lifestyles ,this collection features sleek,innovative designs envisioned in the style center of italy.</div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="full-width-slider">
+                        <div class="item full-width-slider" style="background-image: url(Content/images/sliders/fur3.jpg);">
+                            <div class="container-fluid">
+                                <div class="caption vertical-center text-left">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-boxes wow fadeInUp">
+                <div class="info-boxes-inner">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-4 col-lg-4">
+                            <div class="info-box">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <h4 class="info-box-heading green"> 200</h4>
+                                    </div>
+                                </div>
+                                <h6 class="text">Gün ərzində verilmiş sifarişlər (ton ilə)</h6>
+                            </div>
+                        </div>
+                        <div class="hidden-md col-sm-4 col-lg-4">
+                            <div class="info-box">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <h4 class="info-box-heading orange">436</h4>
+                                    </div>
+                                </div>
+                                <h6 class="text">Ümumi məhsul çeşidi (ədəd ilə)</h6>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-4 col-lg-4">
+                            <div class="info-box">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <h4 class="info-box-heading red">14799</h4>
+                                    </div>
+                                </div>
+                                <h6 class="text">Qeydiyyatdan keçmiş sahibkarlar</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <section class="section featured-product wow fadeInUp">
+                <h3 class="section-title">Tələb olunan məhsullar</h3>
+                <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
+
+                    <div class="item item-carousel">
+                        <div class="products">
+                            <div class="product">
+                                <div class="product-image">
+                                    <div class="image">
+                                        <a href="detail.html"><img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/cls.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="product-info text-left">
+                                    <h3 class="name"><a href="detail.html">Çiyələk </a></h3>
+                                    <div class="description"></div>
+                                    <div class="product-price">
+                                        <span class="price">3.5 man</span>
+                                    </div>
+                                </div>
+                                <div class="action"><a class="lnk btn btn-primary" href="detail.html">Ətraflı</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item item-carousel">
+                        <div class="products">
+                            <div class="product">
+                                <div class="product-image">
+                                    <div class="image">
+                                        <a href="detail.html"><img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/gks.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="product-info text-left">
+                                    <h3 class="name"><a href="detail.html">Gədəbəy kartofu </a></h3>
+                                    <div class="description"></div>
+                                    <div class="product-price">
+                                        <span class="price">1.2 man</span>
+                                    </div>
+                                </div>
+                                <div class="action"><a class="lnk btn btn-primary" href="detail.html">Ətraflı</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item item-carousel">
+                        <div class="products">
+                            <div class="product">
+                                <div class="product-image">
+                                    <div class="image">
+                                        <a href="detail.html"><img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/xrs.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="product-info text-left">
+                                    <h3 class="name"><a href="detail.html">Xiyar </a></h3>
+                                    <div class="description"></div>
+                                    <div class="product-price">
+                                        <span class="price">0.9 man</span>
+                                    </div>
+                                </div>
+                                <div class="action"><a class="lnk btn btn-primary" href="detail.html">Ətraflı</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item item-carousel">
+                        <div class="products">
+                            <div class="product">
+                                <div class="product-image">
+                                    <div class="image">
+                                        <a href="detail.html"><img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/ets.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="product-info text-left">
+                                    <h3 class="name"><a href="detail.html">Ət </a></h3>
+                                    <div class="description"></div>
+                                    <div class="product-price">
+                                        <span class="price">6.5 man</span>
+                                    </div>
+                                </div>
+                                <div class="action"><a class="lnk btn btn-primary" href="detail.html">Ətraflı</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item item-carousel">
+                        <div class="products">
+                            <div class="product">
+                                <div class="product-image">
+                                    <div class="image">
+                                        <a href="detail.html"><img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/cls.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="product-info text-left">
+                                    <h3 class="name"><a href="detail.html">Çiyələk </a></h3>
+                                    <div class="description"></div>
+                                    <div class="product-price">
+                                        <span class="price">3.5 man</span>
+                                    </div>
+                                </div>
+                                <div class="action"><a class="lnk btn btn-primary" href="detail.html">Ətraflı</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item item-carousel">
+                        <div class="products">
+                            <div class="product">
+                                <div class="product-image">
+                                    <div class="image">
+                                        <a href="detail.html"><img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/gks.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="product-info text-left">
+                                    <h3 class="name"><a href="detail.html">Gədəbəy kartofu </a></h3>
+                                    <div class="description"></div>
+                                    <div class="product-price">
+                                        <span class="price">1.2 man</span>
+                                    </div>
+                                </div>
+                                <div class="action"><a class="lnk btn btn-primary" href="detail.html">Ətraflı</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /.home-owl-carousel -->
+            </section><!-- /.section -->
+
+            <section class="section featured-product wow fadeInUp">
+                <h3 class="section-title">Təklif olunan məhsullar</h3>
+                <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
+
+                    <div class="item item-carousel">
+                        <div class="products">
+                            <div class="product">
+                                <div class="product-image">
+                                    <div class="image">
+                                        <a href="detail.html"><img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/cls.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="product-info text-left">
+                                    <h3 class="name"><a href="detail.html">Çiyələk </a></h3>
+                                    <div class="description"></div>
+                                    <div class="product-price">
+                                        <span class="price">3.5 man</span>
+                                    </div>
+                                </div>
+                                <div class="action"><a class="lnk btn btn-primary" href="detail.html">Ətraflı</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item item-carousel">
+                        <div class="products">
+                            <div class="product">
+                                <div class="product-image">
+                                    <div class="image">
+                                        <a href="detail.html"><img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/gks.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="product-info text-left">
+                                    <h3 class="name"><a href="detail.html">Gədəbəy kartofu </a></h3>
+                                    <div class="description"></div>
+                                    <div class="product-price">
+                                        <span class="price">1.2 man</span>
+                                    </div>
+                                </div>
+                                <div class="action"><a class="lnk btn btn-primary" href="detail.html">Ətraflı</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item item-carousel">
+                        <div class="products">
+                            <div class="product">
+                                <div class="product-image">
+                                    <div class="image">
+                                        <a href="detail.html"><img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/xrs.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="product-info text-left">
+                                    <h3 class="name"><a href="detail.html">Xiyar </a></h3>
+                                    <div class="description"></div>
+                                    <div class="product-price">
+                                        <span class="price">0.9 man</span>
+                                    </div>
+                                </div>
+                                <div class="action"><a class="lnk btn btn-primary" href="detail.html">Ətraflı</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item item-carousel">
+                        <div class="products">
+                            <div class="product">
+                                <div class="product-image">
+                                    <div class="image">
+                                        <a href="detail.html"><img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/ets.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="product-info text-left">
+                                    <h3 class="name"><a href="detail.html">Ət </a></h3>
+                                    <div class="description"></div>
+                                    <div class="product-price">
+                                        <span class="price">6.5 man</span>
+                                    </div>
+                                </div>
+                                <div class="action"><a class="lnk btn btn-primary" href="detail.html">Ətraflı</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item item-carousel">
+                        <div class="products">
+                            <div class="product">
+                                <div class="product-image">
+                                    <div class="image">
+                                        <a href="detail.html"><img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/cls.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="product-info text-left">
+                                    <h3 class="name"><a href="detail.html">Çiyələk </a></h3>
+                                    <div class="description"></div>
+                                    <div class="product-price">
+                                        <span class="price">3.5 man</span>
+                                    </div>
+                                </div>
+                                <div class="action"><a class="lnk btn btn-primary" href="detail.html">Ətraflı</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item item-carousel">
+                        <div class="products">
+                            <div class="product">
+                                <div class="product-image">
+                                    <div class="image">
+                                        <a href="detail.html"><img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/gks.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="product-info text-left">
+                                    <h3 class="name"><a href="detail.html">Gədəbəy kartofu </a></h3>
+                                    <div class="description"></div>
+                                    <div class="product-price">
+                                        <span class="price">1.2 man</span>
+                                    </div>
+                                </div>
+                                <div class="action"><a class="lnk btn btn-primary" href="detail.html">Ətraflı</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /.home-owl-carousel -->
+            </section><!-- /.section -->
+
+        </div>
+
+    </div>
+
+
+    <div id="product-tabs-slider" class="scroll-tabs inner-bottom-vs  wow fadeInUp">
+        <div class="more-info-tab clearfix ">
+            <h3 class="new-product-title pull-left">Kateqoriyalara görə</h3>
+            <ul class="nav nav-tabs nav-tab-line pull-right" id="new-products-1">
+                <li class="active"><a href="#all" data-toggle="tab">Bütün məhsullar</a></li>
+                <li><a href="#terevez" data-toggle="tab">Tərəvəz</a></li>
+                <li><a href="#meyve" data-toggle="tab">Meyvə</a></li>
+                <li><a href="#et" data-toggle="tab">Ət məhsulları</a></li>
+            </ul>
+        </div>
+
+        <div class="tab-content outer-top-xs">
+            <div class="tab-pane in active" id="all">
+                <div class="product-slider">
+                    <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
+
+                        <div class="item item-carousel">
+                            <div class="products">
+                                <div class="product">
+                                    <div class="product-image">
+                                        <div class="image">
+                                            <a href="detail.html">
+                                                <img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/gk.jpg" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-info text-left">
+                                        <h3 class="name"><a href="detail.html">Gədəbəy kartofu</a></h3>
+                                        <div class="description"></div>
+                                    </div>
+                                    <div class="action"><a href="detail.html" class="lnk btn btn-primary">Ətraflı</a></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item item-carousel">
+                            <div class="products">
+                                <div class="product">
+                                    <div class="product-image">
+                                        <div class="image">
+                                            <a href="detail.html">
+                                                <img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/cl.jpg" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-info text-left">
+                                        <h3 class="name"><a href="detail.html">Çiyələk</a></h3>
+                                        <div class="description"></div>
+                                    </div>
+                                    <div class="action"><a href="detail.html" class="lnk btn btn-primary">Ətraflı</a></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item item-carousel">
+                            <div class="products">
+                                <div class="product">
+                                    <div class="product-image">
+                                        <div class="image">
+                                            <a href="detail.html">
+                                                <img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/xr.jpg" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-info text-left">
+                                        <h3 class="name"><a href="detail.html">Xiyar</a></h3>
+                                        <div class="description"></div>
+                                    </div>
+                                    <div class="action"><a href="detail.html" class="lnk btn btn-primary">Ətraflı</a></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item item-carousel">
+                            <div class="products">
+                                <div class="product">
+                                    <div class="product-image">
+                                        <div class="image">
+                                            <a href="detail.html">
+                                                <img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/et.jpg" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-info text-left">
+                                        <h3 class="name"><a href="detail.html">Ət</a></h3>
+                                        <div class="description"></div>
+                                    </div>
+                                    <div class="action"><a href="detail.html" class="lnk btn btn-primary">Ətraflı</a></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item item-carousel">
+                            <div class="products">
+                                <div class="product">
+                                    <div class="product-image">
+                                        <div class="image">
+                                            <a href="detail.html">
+                                                <img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/gk.jpg" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-info text-left">
+                                        <h3 class="name"><a href="detail.html">Gədəbəy kartofu</a></h3>
+                                        <div class="description"></div>
+                                    </div>
+                                    <div class="action"><a href="detail.html" class="lnk btn btn-primary">Ətraflı</a></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="terevez">
+                <div class="product-slider">
+                    <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
+                        <div class="item item-carousel">
+                            <div class="products">
+                                <div class="product">
+                                    <div class="product-image">
+                                        <div class="image">
+                                            <a href="detail.html">
+                                                <img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/gk.jpg" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-info text-left">
+                                        <h3 class="name"><a href="detail.html">Gədəbəy kartofu</a></h3>
+                                        <div class="description"></div>
+                                    </div>
+                                    <div class="action"><a href="detail.html" class="lnk btn btn-primary">Ətraflı</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item item-carousel">
+                            <div class="products">
+                                <div class="product">
+                                    <div class="product-image">
+                                        <div class="image">
+                                            <a href="detail.html">
+                                                <img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/xr.jpg" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-info text-left">
+                                        <h3 class="name"><a href="detail.html">Gədəbəy kartofu</a></h3>
+                                        <div class="description"></div>
+                                    </div>
+                                    <div class="action"><a href="detail.html" class="lnk btn btn-primary">Xiyar</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.home-owl-carousel -->
+                </div>
+                <!-- /.product-slider -->
+            </div>
+            <div class="tab-pane" id="meyve">
+                <div class="product-slider">
+                    <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
+                        <div class="item item-carousel">
+                            <div class="products">
+                                <div class="product">
+                                    <div class="product-image">
+                                        <div class="image">
+                                            <a href="detail.html">
+                                                <img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/cl.jpg" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-info text-left">
+                                        <h3 class="name"><a href="detail.html">Gədəbəy kartofu</a></h3>
+                                        <div class="description"></div>
+                                    </div>
+                                    <div class="action"><a href="detail.html" class="lnk btn btn-primary">Çiyələk</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="et">
+                <div class="product-slider">
+                    <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
+                        <div class="item item-carousel">
+                            <div class="products">
+                                <div class="product">
+                                    <div class="product-image">
+                                        <div class="image">
+                                            <a href="detail.html">
+                                                <img src="Content/images/blank.gif" data-echo="Content/images/furniture-products/et.jpg" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-info text-left">
+                                        <h3 class="name"><a href="detail.html">Gədəbəy kartofu</a></h3>
+                                        <div class="description"></div>
+                                    </div>
+                                    <div class="action"><a href="detail.html" class="lnk btn btn-primary">Ət</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="col-md-6">
+           <label class="radio-inline">
+          <input onclick="setParId(this)" type="radio" value="0" name="optradio">Parent
+        </label>
+        <div class="clearfix"></div>
+
+    @foreach (var item in Model.ProductCatalogList)
+    {
+          <label class="radio-inline">
+          <input onclick="setParId(this)" type="radio" value="@item.Id" name="optradio">@item.ProductName (@item.ProductDescription)
+        </label>
+        <div class="clearfix"></div>
+    }
+
+    </div>*@
+

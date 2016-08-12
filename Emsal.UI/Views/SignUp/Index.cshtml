@@ -1,0 +1,85 @@
+﻿@model Emsal.UI.Models.User
+@{
+    Layout = "~/Views/Shared/_SignUpLayout.cshtml";
+}
+
+<div class="container col-md-6 col-md-offset-3" style="border-radius: 5px; margin-top: 30px; margin-bottom:30px; box-shadow:1px 1px 2px 3px #ddd">
+    <br />
+    @{
+        if (TempData["UserSignUpError"] != null)
+        {
+            <h4 style="color:red">Bu istifadəçi sistemdə mövcuddur.</h4>
+        }
+    }<br /><br />
+
+
+    <h2 style="text-align:center">Qeydiyyatdan Keç</h2>
+    <br /><br /><br />
+    @using (Html.BeginForm("Index", "SignUp", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(model => model.finvoen)
+        @Html.HiddenFor(model => model.finvoenType)
+        @Html.ValidationSummary(true)
+        <div class="form-group" style="padding:5px">
+            @*@Html.LabelFor(x => x.UserName)*@
+            <label>İstifadəçi adı</label>
+            @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", id = "username" })
+            @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "text-danger" })
+        </div>
+            <p class="text-danger" id="usernameAlert"></p><br />
+            <div class="form-group">
+                <label>Şəxsin növü</label>
+                <select class="form-control" id="userType" name="UserType">
+                    @{
+                        if (Model.finvoen != null && Model.finvoen != "")
+                        {
+                            if (Model.finvoen != "")
+                            {
+                                if (Model.finvoenType == 1)
+                                {
+                                    <option selected value="fizikişexs">Fiziki Şexs</option>
+                                    <option value="legalPerson">Hüquqi Şexs</option>
+                                }
+                                if (Model.finvoenType == 2)
+                                {
+                                    <option value="fizikişexs">Fiziki Şexs</option>
+                                    <option selected value="legalPerson">Hüquqi Şexs</option>
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            <option value="fizikişexs">Fiziki Şexs</option>
+                            <option value="legalPerson">Hüquqi Şexs</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group" id="pinDiv" style="padding:5px;">
+                @Html.LabelFor(model => model.Pin)
+                @Html.TextBoxFor(model => model.Pin, new { @class = "form-control", id = "pin" })
+                @Html.ValidationMessageFor(x => x.Pin, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group" id="voenDiv" style="padding:5px; display:none;">
+                @Html.LabelFor(model => model.Voen)
+                @Html.TextBoxFor(model => model.Voen, new { @class = "form-control", id = "voen" })
+            </div>
+            <div class="form-group" style="padding:5px">
+                @Html.LabelFor(x => x.Password)
+                @Html.PasswordFor(x => x.Password, new { @class = "form-control", id = "password", autocomplete = "off" })
+                @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group" style="padding:5px">
+                @Html.LabelFor(x => x.Email)
+                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", id = "email", type = "email" })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6 col-md-offset-4" style="margin-bottom:20px">
+                <input type="submit" class="btn btn-success" value="Davam Et" id="sendInfo" />
+            </div>
+                        }
+    <div class="clearfix" style="height: 20px;"></div>
+</div>

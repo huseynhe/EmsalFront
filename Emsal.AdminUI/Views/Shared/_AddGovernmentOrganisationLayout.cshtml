@@ -1,0 +1,547 @@
+﻿@model Emsal.AdminUI.Models.Organisation
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/Content/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="~/Content/css/skins/_all-skins.min.css">
+    <link href="~/Content/css/flat/blue.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/css/morris.css">
+    <link rel="stylesheet" href="~/Content/css/jquery-jvectormap-1.2.2.css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap3-wysihtml5.min.css">
+    <link href="~/Content/css/custom.css" rel="stylesheet" />
+
+    <script src="~/Content/js/jquery.js"></script>
+    <script src="~/Content/js/jQuery-2.2.0.min.js"></script>
+
+    <script src="~/Content/js/addPotentialGovOrg.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    @*<link href="src/listbox.css" rel="stylesheet">
+    <script src="src/listbox.js"></script>*@
+    <link href="~/Content/css/select2.min.css" rel="stylesheet" />
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+  
+   
+    <div class="wrapper">
+
+        <header class="main-header">
+            <a href="/" class="logo">
+                <span class="logo-mini">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                </span>
+                <span class="logo-lg"><b>EMSAL</b></span>
+            </a>
+            <nav class="navbar navbar-static-top">
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-envelope-o"></i>
+                                <span class="label label-success">4</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">Yeni müraciətlər</li>
+                                <li>
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="/Home/UserAppealDetail">
+                                                <div class="pull-left">
+                                                    <img src="~/Content/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                </div>
+                                                <h4>
+                                                    @Model.Admin.Username
+                                                    <small><i class="fa fa-clock-o"></i> 5 dəq.</small>
+                                                </h4>
+                                                <p>Yeni sistemlə bağlı</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Home/UserAppealDetail">
+                                                <div class="pull-left">
+                                                    <img src="~/Content/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                </div>
+                                                <h4>
+                                                    @Model.Admin.Username
+                                                    <small><i class="fa fa-clock-o"></i> 5 dəq.</small>
+                                                </h4>
+                                                <p>Yeni sistemlə bağlı</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="~/Content/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                </div>
+                                                <h4>
+                                                    @Model.Admin.Username
+                                                    <small><i class="fa fa-clock-o"></i> 5 dəq.</small>
+                                                </h4>
+                                                <p>Yeni sistemlə bağlı</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Home/UserAppealDetail">
+                                                <div class="pull-left">
+                                                    <img src="~/Content/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                </div>
+                                                <h4>
+                                                    @Model.Admin.Username
+                                                    <small><i class="fa fa-clock-o"></i> 5 dəq.</small>
+                                                </h4>
+                                                <p>Yeni sistemlə bağlı</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="/Home/UserAppeal">Bütün müraciətlərim</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-flag-o"></i>
+                                <span class="label label-danger">3</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">Yeni müraciətlər</li>
+                                <li>
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="/Home/UserAppealDetail">
+                                                <div class="pull-left">
+                                                    <img src="~/Content/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                </div>
+                                                <h4>
+                                                    @Model.Admin.Username
+                                                    <small><i class="fa fa-clock-o"></i> 5 dəq.</small>
+                                                </h4>
+                                                <p>Yeni sistemlə bağlı</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Home/UserAppealDetail">
+                                                <div class="pull-left">
+                                                    <img src="~/Content/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                </div>
+                                                <h4>
+                                                    @Model.Admin.Username
+                                                    <small><i class="fa fa-clock-o"></i> 5 dəq.</small>
+                                                </h4>
+                                                <p>Yeni sistemlə bağlı</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Home/UserAppealDetail">
+                                                <div class="pull-left">
+                                                    <img src="~/Content/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                </div>
+                                                <h4>
+                                                    @Model.Admin.Username
+                                                    <small><i class="fa fa-clock-o"></i> 5 dəq.</small>
+                                                </h4>
+                                                <p>Yeni sistemlə bağlı</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="/Home/UserAppeal">Bütün müraciətlər</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="~/Content/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                <span class="hidden-xs">@Model.Admin.Username
+</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="user-header">
+                                    <img src="~/Content/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                    <p>
+                                        @Model.Admin.Username
+
+                                        <small>07.05.2012</small>
+                                    </p>
+                                </li>
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="/Home/UserProfile" class="btn btn-default btn-flat">Profil</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="/AdminLogin/Index" class="btn btn-default btn-flat">Çıxış</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        @*<li>
+                              <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                            </li>*@
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <aside class="main-sidebar">
+            <section class="sidebar">
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="~/Content/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        <p>@Model.Admin.Username
+</p>
+                        <a href="#"><i style="color:green;" class="fa fa-circle text-success"></i> Aktiv</a>
+                    </div>
+                </div>
+                <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Axtar...">
+                        <span class="input-group-btn">
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+                <ul class="sidebar-menu">
+                    <li class="header">KEÇİDLƏR</li>
+                    <li>
+                        <a href="/">
+                            <i class="fa fa-th"></i> <span>Məhsullar</span>
+                        </a>
+                    </li>
+
+                    @*<li>
+                        <a href="/GovernmentOrganisation">
+                            <i class="fa fa-th"></i> <span>Təşkilatlar</span>
+                        </a>
+                    </li>*@
+                    
+                    
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-list-alt"></i>
+                            <span>İstifadəçilər</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/GovernmentOrganisation"><i class="fa fa-circle-o"></i>Dövlət Təşkilatları</a></li>
+                        </ul>
+                        <ul class="treeview-menu">
+                            <li><a href="/GovernmentOrganisation/Organisations"><i class="fa fa-circle-o"></i>Hüquqi Şəxslər</a></li>
+                        </ul>
+                        <ul class="treeview-menu">
+                            <li><a href="/GovernmentOrganisation/Individuals"><i class="fa fa-circle-o"></i>Fiziki Şəxslər</a></li>
+                        </ul>
+                        <ul class="treeview-menu">
+                            <li><a href="/GovernmentOrganisation/ASCUsers"><i class="fa fa-circle-o"></i>ASC İstifadəçilər</a></li>
+                        </ul>
+                        <ul class="treeview-menu">
+                            <li><a href="/GovernmentOrganisation/KTNUsers"><i class="fa fa-circle-o"></i>KTN İstifadəçilər</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/ASC/Index">
+                            <i class="fa fa-list-alt"></i> <span>ASC</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/KTN/Index">
+                            <i class="fa fa-list-alt"></i> <span>KTN</span>
+                        </a>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="">
+                            <i class="fa fa-list-alt"></i>
+                            <span>Rol Əməliyatları</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="/RoleManagement/Pages">
+                                    <i class="fa fa-circle-o"></i> <span>Səhifələr</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="treeview-menu">
+                            <li><a href="/RoleManagement"><i class="fa fa-circle-o"></i>İstifadəçilər</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-list-alt"></i>
+                            <span>Offer</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/OfferProduction/Index/?statusEV=Yayinda"><i class="fa fa-circle-o"></i> Yeni</a></li>
+                        </ul>
+                        <ul class="treeview-menu">
+                            <li><a href="/OfferProduction/Index/?statusEV=Tesdiqlenen"><i class="fa fa-circle-o"></i> Təsdiqlənən</a></li>
+                        </ul>
+                        <ul class="treeview-menu">
+                            <li><a href="/OfferProduction/Index/?statusEV=reject"><i class="fa fa-circle-o"></i> İmtina olunan </a></li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-list-alt"></i>
+                            <span>Tələb</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/DemandProduction/Index/?statusEV=Yayinda"><i class="fa fa-circle-o"></i> Yeni</a></li>
+                        </ul>
+                        <ul class="treeview-menu">
+                            <li><a href="/DemandProduction/Index/?statusEV=Tesdiqlenen"><i class="fa fa-circle-o"></i> Təsdiqlənən</a></li>
+                        </ul>
+                        <ul class="treeview-menu">
+                            <li><a href="/DemandProduction/Index/?statusEV=reject"><i class="fa fa-circle-o"></i> İmtina olunan </a></li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-list-alt"></i>
+                            <span>Potensial</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/PotentialProduction/Index/?statusEV=Tesdiqlenmeyen"><i class="fa fa-circle-o"></i> Yeni</a></li>
+                        </ul>
+                        <ul class="treeview-menu">
+                            <li><a href="/PotentialProduction/Index/?statusEV=Tesdiqlenen"><i class="fa fa-circle-o"></i> Təsdiqlənən</a></li>
+                        </ul>
+                        <ul class="treeview-menu">
+                            <li><a href="/PotentialProduction/Index/?statusEV=reject"><i class="fa fa-circle-o"></i> İmtina olunan</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-list-alt"></i>
+                            <span>Elanlar</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/Announcement"><i class="fa fa-circle-o"></i> Yeni</a></li>
+                        </ul>
+                        <ul class="treeview-menu">
+                            <li><a href="/Announcement/Approv"><i class="fa fa-circle-o"></i> Əlavə edilmişlər</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-list-alt"></i>
+                            <span>Qiymətlər</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/ProductPrice"><i class="fa fa-circle-o"></i> Yeni</a></li>
+                        </ul>
+                        <ul class="treeview-menu">
+                            <li><a href="/ProductPrice/Approv"><i class="fa fa-circle-o"></i> Əlavə edilmişlər</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-list-alt"></i>
+                            <span>Siyahılar</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/EnumCategory"><i class="fa fa-circle-o"></i> EnumCategory</a></li>
+                        </ul>
+                        <ul class="treeview-menu">
+                            <li><a href="/EnumValue"><i class="fa fa-circle-o"></i> EnumValue</a></li>
+                        </ul>
+                        <ul class="treeview-menu">
+                            <li><a href="/AdminUnit"><i class="fa fa-circle-o"></i> AdminUnit</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-pie-chart"></i>
+                            <span>Hesabatlar</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/Home/Report"><i class="fa fa-circle-o"></i> Hesabat_1</a></li>
+                            <li><a href="/Home/Report2"><i class="fa fa-circle-o"></i> Hesabat_2</a></li>
+                            <li><a href="/Home/Report3"><i class="fa fa-circle-o"></i> Hesabat_3</a></li>
+                            <li><a href="/Home/Report4"><i class="fa fa-circle-o"></i> Hesabat_4</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-users"></i>
+                            <span>İştirakçılar</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-circle-o"></i> ASC</a></li>
+                            <li><a href="#"><i class="fa fa-circle-o"></i> Təşkilat</a></li>
+                            <li><a href="#"><i class="fa fa-circle-o"></i> Vətəndaşlar</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-cogs"></i> <span>Əməliyyatlar</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-files-o"></i> <span>Sənədlərin idarə olunması</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-bullhorn"></i> <span>Elan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-clipboard"></i> <span>Müqavilələrin idarə olunması</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-credit-card"></i> <span>Ödəniş</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-archive"></i> <span>Anbar</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-server"></i> <span>Loqistika və CİS-server</span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+            </div>
+            <strong>&copy; 2016 </strong>
+        </footer>
+        <div class="control-sidebar-bg"></div>
+    </div>
+
+    <script src="~/Content/js/icheck.min.js"></script>
+    <script src="~/Content/js/icheckJS.js"></script>
+
+    <script src="~/Content/js/jquery-ui.min.js"></script>
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/jquery.validate.js"></script>
+    <script src="~/Content/js/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Content/js/raphael-min.js"></script>
+    <script src="~/Content/js/morris.min.js"></script>
+    <script src="~/Content/js/jquery.sparkline.min.js"></script>
+    <script src="~/Content/js/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="~/Content/js/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="~/Content/js/jquery.knob.js"></script>
+    <script src="~/Content/js/moment.min.js"></script>
+    <script src="~/Content/js/bootstrap3-wysihtml5.all.min.js"></script>
+    <script src="~/Content/js/jquery.slimscroll.min.js"></script>
+    <script src="~/Content/js/fastclick.js"></script>
+    <script src="~/Content/js/app.min.js"></script>
+    <script src="~/Content/js/demo.js"></script>
+    <script src="~/Content/js/tree.js"></script>
+    <script src="~/Content/js/adminUnit.js"></script>
+   <script src="~/Content/js/select2.min.js"></script>
+   
+           <script>
+        function GetAdminUnit(elem) {
+            pId = $(elem).val();
+            $(elem).parent().nextAll().remove();
+
+            if (pId > 0) {
+                $.ajax({
+                    url: '/GovernmentOrganisation/AdminUnit?pId=' + pId,
+                    type: 'GET',
+                    //data: { "pId": appId},
+                    success: function (result) {
+                        $('#addressId').val(pId);
+                        $(elem).parent().parent().append(result);
+
+                        $('.select2').select2();
+                    },
+                    error: function () {
+
+                    }
+                });
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+        $("#ktnSelect").select2();
+    </script>
+
+    <link href="~/Content/css/datepicker.css" rel="stylesheet" />
+    <script src="~/Content/js/bootstrap-datepicker.js"></script>
+    <script>
+        $().ready(function () {
+
+            $('.datepicker, input[type=datetime]').datepicker({
+                format: 'dd.mm.yyyy',
+                autoclose: true,
+                "setDate": new Date()
+            })
+             .attr('readonly', 'readonly')
+            .on('changeDate', function (ev) {
+                (ev.viewMode == 'days') ? $(this).datepicker('hide') : '';
+            });
+
+        });
+    </script>
+    <div id="getImage" class="modal fade">
+        <div class="modal-dialog" style="width: 60%; height: 90%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Fayl</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="getImageMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

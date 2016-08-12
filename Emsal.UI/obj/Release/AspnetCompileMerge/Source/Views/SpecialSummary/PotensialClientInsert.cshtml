@@ -1,0 +1,489 @@
+﻿@{
+    ViewBag.Title = "PotensialClientInsert";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Insert elan</title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="~/Content/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="~/Content/css/jumbotron.css" rel="stylesheet">
+    <link href="~/Content/css/style.css" rel="stylesheet">
+
+    <link href="~/Content/css/owl.carousel.css" rel="stylesheet">
+    <link href="~/Content/css/owl.theme.css" rel="stylesheet">
+    <link href="~/Content/css/ihover.css" rel="stylesheet">
+    <link href="~/Content/css/js-image-slider.css" rel="stylesheet">
+    <link href="~/Content/css/ddmenu.css" rel="stylesheet">
+
+    <link href="~/Content/css/progress_style.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700' rel='stylesheet' type='text/css'>
+
+    <link href="css/fine-uploader-gallery.min.css" rel="stylesheet">
+
+    <!-- Bootstrap core JS -->
+    <script src="~/Content/js/angular.min.js"></script>
+    <script src="~/Content/js/jquery-1.12.3.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="~/Content/js/ie-emulation-modes-warning.js"></script>
+
+    <script src="~/Content/js/owl.carousel.js"></script>
+    <script src="~/Content/js/ddmenu.js"></script>
+    <script src="~/Content/js/cast_sender.js"></script>
+    <script src="~/Content/js/jssor.slider.mini.js"></script>
+    <script src="~/Content/js/js-image-slider.js"></script>
+
+    <script src="~/Content/js/emsal.js"></script>
+    <script type="text/javascript" src="~/Content/js/bootstrap-filestyle.min.js"> </script>
+    <script src="~/Content/js/fine-uploader.min.js"></script>
+
+
+    <script type="text/template" id="qq-template-gallery">
+        <div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-area-text="Drop files here">
+            <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
+                <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
+            </div>
+            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+                <span class="qq-upload-drop-area-text-selector"></span>
+            </div>
+            <div class="qq-upload-button-selector qq-upload-button">
+                <div><h3><span class="glyphicon glyphicon glyphicon-upload" aria-hidden="true"></span></h3>Sənədi yüklə</div>
+            </div>
+            <span class="qq-drop-processing-selector qq-drop-processing">
+                <span>Processing dropped files...</span>
+                <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+            </span>
+            <ul class="qq-upload-list-selector qq-upload-list" role="region" aria-live="polite" aria-relevant="additions removals">
+                <li>
+                    <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                    <div class="qq-progress-bar-container-selector qq-progress-bar-container">
+                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+                    </div>
+                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                    <div class="qq-thumbnail-wrapper">
+                        <img class="qq-thumbnail-selector" qq-max-size="120" qq-server-scale>
+                    </div>
+                    <button type="button" class="qq-upload-cancel-selector qq-upload-cancel">X</button>
+                    <button type="button" class="qq-upload-retry-selector qq-upload-retry">
+                        <span class="qq-btn qq-retry-icon" aria-label="Retry"></span>
+                        Retry
+                    </button>
+
+                    <div class="qq-file-info">
+                        <div class="qq-file-name">
+                            <span class="qq-upload-file-selector qq-upload-file"></span>
+                            <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>
+                        </div>
+                        <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                        <span class="qq-upload-size-selector qq-upload-size"></span>
+                        <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">
+                            <span class="qq-btn qq-delete-icon" aria-label="Delete"></span>
+                        </button>
+                        <button type="button" class="qq-btn qq-upload-pause-selector qq-upload-pause">
+                            <span class="qq-btn qq-pause-icon" aria-label="Pause"></span>
+                        </button>
+                        <button type="button" class="qq-btn qq-upload-continue-selector qq-upload-continue">
+                            <span class="qq-btn qq-continue-icon" aria-label="Continue"></span>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+
+            <dialog class="qq-alert-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Close</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-confirm-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">No</button>
+                    <button type="button" class="qq-ok-button-selector">Yes</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-prompt-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <input type="text">
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Cancel</button>
+                    <button type="button" class="qq-ok-button-selector">Ok</button>
+                </div>
+            </dialog>
+        </div>
+    </script>
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><h3>emsal.gov.az</h3></a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <form class="navbar-form navbar-right">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Axtar...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </button>
+                            </span>
+                        </div>
+                        <div class="navbar_right_login">
+                            <span><a href="">Ətraflı axtar</a></span>
+                            <a href="" id="per_inf">Əhmədov Məmməd<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a>
+                            <a href=""><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
+                            <a href=""><span class="glyphicon glyphicon-bell" aria-hidden="true"></span></a>
+                            <a href=""><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
+                            <a href="" style="padding-right:0px;"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
+                        </div>
+                    </form>
+                </div><!--/.navbar-collapse -->
+
+                <div class="per_information">
+                    <ul class="list-unstyled">
+                        <a href=""><li>Qısa məzmun</li></a>
+                        <a href=""><li>Elanlar</li></a>
+                        <a href=""><li>Favorilərim</li></a>
+                        <a href=""><li>Qeydiyyatım</li></a>
+                        <a href=""><li>Çıxış</li></a>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <section>
+        <div class="container">
+            <a href="" class="add-classified-help">Elan vermə qaydaları</a>
+            <div class="clear-both"></div>
+            <div class="potensial_client">
+
+                <h4>Məhsulu seçin</h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="insert_elan">
+                            <div class="insert_elan_block">
+                                <ul class="list-unstyled">
+                                    <li id="t1"><a href="">Heyvan mənşəli məhsullar</a></li>
+                                    <li id="t2"><a href="">Bitki mənşəli məhsullar</a></li>
+                                    <li id="t3"><a href="">Göbələklər</a></li>
+                                    <li id="t4"><a href="">Yosunlar</a></li>
+                                    <li id="t5"><a href="">Qeyri-üzvi məhsullar</a></li>
+                                    <li id="t6"><a href="">Kütləvi istehlak malları</a></li>
+                                    <li id="t7"><a href="">Uşaq qidaları</a></li>
+                                </ul>
+                                <ul class="list-unstyled">
+                                    <li id="tt1"><a href="">Ət və ət məhsulları</a></li>
+                                    <li id="tt2"><a href="">Balıq və balıq məhsulları</a></li>
+                                    <li id="tt3"><a href="">Süd və süd məhsulları</a></li>
+                                    <li id="tt4"><a href="">Molyuskalar</a></li>
+                                    <li id="tt5"><a href="">Xərçəngkimilər</a></li>
+                                </ul>
+                                <ul class="list-unstyled">
+                                    <li id="tt1"><a href="">Ət</a></li>
+                                    <li id="tt2"><a href="">Süd</a></li>
+                                    <li id="tt3"><a href="">Qatıq</a></li>
+                                    <li id="tt4"><a href="">Pendir</a></li>
+                                    <li id="tt5"><a href="">Yağ</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <h5>Miqdarı (Həcmi)</h5>
+                            <input type="text" class="form-control" id="inputText1" placeholder="10">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <h5>Ölçü vahidi</h5>
+                            <select class="form-control">
+                                <option>Ölçü vahidini seçin</option>
+                                <option>Litr</option>
+                                <option>Kq</option>
+                                <option>Baş</option>
+                                <option>Metr</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <h5>Qiyməti</h5>
+                            <input type="text" class="form-control" id="inputText1" placeholder="10 AZN">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="clear-both"></div>
+
+                <h4>Sənədləri yükləyin</h4>
+                <div class="row">
+                    <div class="progress_lr">
+                        <p>Yüklədiyiniz sənədlərin sayı<span class="text-bold text-red">0/10</span></p>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width:1%">
+                                <span class="sr-only">1% Complete (danger)</span>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <select class="form-control">
+                                <option>Sənədin növü</option>
+                                <option>A1</option>
+                                <option>A2</option>
+                                <option>A3</option>
+                                <option>A4</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div id="fine-uploader-gallery"></div>
+
+                        <!-- Your code to create an instance of Fine Uploader and bind to the DOM/template
+                        ====================================================================== -->
+                        <script>
+								var galleryUploader = new qq.FineUploader({
+									element: document.getElementById("fine-uploader-gallery"),
+									template: 'qq-template-gallery',
+									request: {
+										endpoint: '/server/uploads'
+									},
+									thumbnails: {
+										placeholders: {
+											waitingPath: '/source/placeholders/waiting-generic.png',
+											notAvailablePath: '/source/placeholders/not_available-generic.png'
+										}
+									},
+									validation: {
+										allowedExtensions: ['jpeg', 'jpg', 'gif', 'png', 'pdf']
+									}
+								});
+                        </script>
+
+                    </div>
+
+
+                </div>
+
+                <h4>Regionu seçin</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <select class="form-control">
+                                <option>İqtisadi rayonu seçin</option>
+                                <option>Quba-Xaçmaz</option>
+                                <option>Şəki-Zaqatala</option>
+                                <option>Yuxarı Qarabağ</option>
+                                <option>Naxçıvan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control">
+                                <option>Rayonu və ya şəhəri seçin</option>
+                                <option>Quba</option>
+                                <option>Xaçmaz</option>
+                                <option>Qusar</option></option>
+                                <option>Xudat</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="~/Content/img/azerbaijan_eco_map1.png" alt="">
+                    </div>
+
+                </div>
+
+                <h4>Seçilmiş məhsullar</h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tr>
+                                    <th>&#8470;</th>
+                                    <th>Məhsulun adı</th>
+                                    <th>Ölçü vahidi</th>
+                                    <th>Qiyməti</th>
+                                    <th>Region</th>
+                                    <th>Dəyişdir</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Qatıq</td>
+                                    <td>Kq</td>
+                                    <td>10 AZN</td>
+                                    <td>Siyəzən</td>
+                                    <td><a href="">Redaktə et</a></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Süd</td>
+                                    <td>Litr</td>
+                                    <td>10 AZN</td>
+                                    <td>Şamaxı</td>
+                                    <td><a href="">Redaktə et</a></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Ət</td>
+                                    <td>Kq</td>
+                                    <td>10 AZN</td>
+                                    <td>Bərdə</td>
+                                    <td><a href="">Redaktə et</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="button" class="btn btn-danger text-bold f-right">DAVAM ET</button>
+                    <button type="button" class="btn btn-primary text-bold f-left">Yeni məhsul əlavə et</button>
+                </div>
+                <div class="clear-both"></div>
+            </div>
+        </div>
+
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer_menu">
+                <div class="row">
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <ul class="list-unstyled">
+                            <li><h4>Korporativ</h4></li>
+                            <li><a href="">Haqqımızda</a></li>
+                            <li><a href="">Media ilə əlaqələr və şəkillər</a></li>
+                            <li><a href="">İnsan resursları</a></li>
+                            <li><a href="">Əlaqə</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <ul class="list-unstyled">
+                            <li><h4>Xidmətlərimiz</h4></li>
+                            <li><a href="">Təhlükəsiz elektron ticarət</a></li>
+                            <li><a href="">Elanların qəbulu</a></li>
+                            <li><a href="">Məhsulların yerbəyer olunması</a></li>
+                            <li><a href="">Məhsulların paylanması</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <ul class="list-unstyled">
+                            <li><h4>Məhsullar</h4></li>
+                            <li><a href="">Heyvan mənşəli məhsullar</a></li>
+                            <li><a href="">Bitki mənşəli məhsullar</a></li>
+                            <li><a href="">Ərzaq məhsulları</a></li>
+                            <li><a href="">Digər</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <ul class="list-unstyled">
+                            <li><h4>Bizi izləyin</h4></li>
+                            <li><a title="Facebook" target="_blank" href="">Facebook</a></li>
+                            <li><a title="Twitter" target="_blank" href="">Twitter</a></li>
+                            <li><a title="Linkedin" target="_blank" href="">Linkedin</a></li>
+                            <li><a title="Google" target="_blank" href="">Google+</a></li>
+                            <li><a title="Pinterest" target="_blank" href="">Pinterest</a></li>
+                            <li><a title="Youtube" target="_blank" href="">Youtube</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="phone_email_play_store">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="phone_email">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <img src="~/Content/img/phone.png">
+                                    <div class="phone">
+                                        <p>1652 Çağrı mərkəzi</p>
+                                        <p>1652 Çağrı mərkəzi</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <img src="~/Content/img/email.png">
+                                    <div class="phone">
+                                        <p>Dəstək mərkəzi</p>
+                                        <p>emsal.gov.az</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clear-both"></div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="play_store">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href=""><img src="~/Content/img/google_play.png"></a>
+                                </li>
+                                <li>
+                                    <a href=""><img src="~/Content/img/apple_store.png"></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clear-both"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note">
+                <p>
+                    emlak.gov.az saytında iştirak edən istifadəçilərin yaratdığı bütün məzmun, görüş və məlumatların doğruluğu,
+                    əksiksiz və dəyişməz olduğu, yayımlanması ilə əlaqədar qanuni öhdəliklər məzmunu təşkil edən istifadəçiyə aiddir.
+                    Bu məzmunun, görüş və məlumatların səhv, nöqsan və ya qanunlarla təşkil qaydalara etməsində emlak.gov.az
+                    heç bir şəkildə məsul deyil. Əgər suallarınız üçün elan sahibi ilə əlaqəyə keçə bilərsiniz.
+                </p>
+            </div>
+
+            <div class="copyright">
+                <p class="f-left">Copyright ©2016, emsal.gov.az</p>
+                <p class="f-right">Limitli adətlərdə və müəyyən kateqoriyalarda</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+</body>
+</html>

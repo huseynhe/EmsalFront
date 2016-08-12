@@ -1,0 +1,48 @@
+﻿@model Emsal.AdminUI.Models.Organisation
+@{
+    ViewBag.Title = "EditKTN";
+    Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
+}
+
+<div class="container col-md-6 col-md-offset-3" style="border-radius: 5px; margin-top: 30px; margin-bottom:30px; box-shadow:1px 1px 2px 3px #ddd; background-color:white">
+    <br /><br /><br />
+
+    <h2 style="text-align:center">Məlumatlara düzəliş et</h2>
+    <br />
+    @using (Html.BeginForm("EditKTN", "KTN", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name)
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "name" })
+        </div>
+        <hr />
+        @*<h3> Məhsulun yerləşdiyi yeri seçin </h3><br />
+
+        <div class="form-group" id="AdminUnit">
+            <script>
+                $(document).ready(function () {
+                    $.ajax({
+                        url: '/GovernmentOrganisation/AdminUnit?pId=0',
+                        type: 'GET',
+                        success: function (result) {
+                            $('#AdminUnit').html(result);
+
+                            $("select[name='adId[0]']").change();
+                        },
+                        error: function () {
+
+                        }
+                    });
+                });
+            </script>
+        </div>*@
+        <div class="col-md-4 col-md-offset-5" style="margin-bottom:20px; padding:5px">
+            <input type="submit" class="btn btn-success" value="Davam Et" id="sendInfo" />
+        </div>
+    }
+
+    <div class="clearfix" style="height: 20px;"></div>
+</div>
+
+
+

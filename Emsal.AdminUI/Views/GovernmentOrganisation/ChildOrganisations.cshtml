@@ -1,0 +1,88 @@
+﻿@model Emsal.AdminUI.Models.Organisation
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
+}
+
+
+<link href="~/Content/css/OrganisationTreeView.css" rel="stylesheet">
+@*<script src="~/Content/js/jquery-1.12.3.js"></script>*@
+<script src="~/Content/js/OrganisationTreeView.js"></script>
+@*<link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/bootstrap-theme.css" rel="stylesheet">*@
+@*<link rel="stylesheet" href="~/Content/css/AdminLTE.min.css">*@
+    
+<div class="clearfix" style="height:20px;"></div>
+
+    <div class="row" style="padding-left:30px;">
+        <div class="col-xs-7" style="color:blue">
+            <h4>Alt təşkilatlar</h4>
+        </div>
+        <div class="col-xs-4">
+            <a class="btn btn-primary" href="/GovernmentOrganisation/AddChildOrganisation?parentId=@Model.ParentOrganisation.Id"><span class="glyphicon glyphicon-plus"></span> Əlavə et</a>
+        </div>
+    </div>
+    <div class="row" style="padding-left:30px;">
+        <div>
+            @{
+
+                <ul id="tree1">
+                    @foreach (var item in Model.ForeignOrganisationArray)
+                    {
+                        <li id="@item.Id">
+                            <a href="#" onclick="getOrganisation(@item.Id)">@item.name</a>
+
+
+                            <a href='/GovernmentOrganisation/OrganisationInfo?Id=@item.Id' class='badge bg-red'><span class='glyphicon glyphicon-info-sign'></span></a>
+                            <a href='/GovernmentOrganisation/EditChildOrganisation?Id=@item.Id' class='badge bg-light-blue'><span class='glyphicon glyphicon-pencil'></span></a>
+                            <a href="/GovernmentOrganisation/DeleteChildOrganisation?Id=@item.userId&parentId=@Model.ParentOrganisation.Id" class="badge bg-red"><span class="glyphicon glyphicon-remove"></span></a>
+                            <a href="/GovernmentOrganisation/AddChildOrganisation?parentId=@item.Id" class="badge bg-light-blue"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+
+<script>
+    localStorage.clear();
+    function getOrganisation(id) {
+        if (localStorage.getItem(id) === "entered") {
+            $("#1" + id).hide();
+            localStorage.setItem(id, "closed");
+            return 0;
+        }
+        if (localStorage.getItem(id) === "closed") {
+            $("#1" + id).show();
+            localStorage.setItem(id, "entered");
+            return 0;
+        }
+        $.ajax({
+            url: '/GovernmentOrganisation/GetOrganisations?orgId=' + id,
+            type: 'GET',
+            success: function (resultt) {
+                if (resultt.length != 0) {
+                    $("#" + id).prepend("<i class='indicator glyphicon glyphicon-chevron-right'></i>");
+                    $("#" + id).append("<ul id=1" + id + "></ul>");
+                    resultt.map(function (itemmm) {
+                        $("#1" + id).append("<li id =" + itemmm.Id + "><a href='#' onclick='getOrganisation(" + itemmm.Id + ")'>" + itemmm.name + "</a>&nbsp;" +
+                                            "<a href='/GovernmentOrganisation/OrganisationInfo?Id="+itemmm.Id+"' class='badge bg-red'><span class='glyphicon glyphicon-info-sign'></span></a>&nbsp;" +
+                                            "<a href='/GovernmentOrganisation/EditChildOrganisation?Id="+itemmm.Id+"' class='badge bg-light-blue'><span class='glyphicon glyphicon-pencil'></span></a>&nbsp;" +
+                                            "<a href='/GovernmentOrganisation/DeleteChildOrganisation?Id=" + itemmm.userId + "&parentId=" + id + "'class='badge bg-red'><span class='glyphicon glyphicon-remove'></span></a>&nbsp;" +
+                                            "<a href='/GovernmentOrganisation/AddChildOrganisation?parentId=" + itemmm.Id + "'class='badge bg-light-blue'><span class='glyphicon glyphicon-plus-sign'></span></a></li>");
+                    })
+                    localStorage.setItem(id, "entered");
+                }
+
+            },
+            error: function (err) {
+                console.log(err);
+
+            }
+        })
+
+    }
+</script>
+<script>
+    $('#tree1').treed({ openedClass: 'glyphicon-chevron-right', closedClass: 'glyphicon-chevron-down' });
+</script>

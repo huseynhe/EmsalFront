@@ -1,0 +1,86 @@
+﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+
+@{
+    ViewBag.Title = "ReceivedMessages";
+}
+@using PagedList.Mvc;
+
+@{
+    if (Model.ComMessageList.Count == 0)
+    {
+        <div class="white_fon">
+            <p>Heç nə tapılmadı</p>
+        </div>
+    }
+    else
+    {
+        string fromUser = "";
+        foreach (var message in Model.PagingReceivedMessages)
+        {
+            //System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            //var createdDate = dtDateTime.AddSeconds((double)message.createdDate).ToLocalTime();
+            DateTime createdDate = DateTime.Now;
+            if (message.createdDate != null)
+            {
+                createdDate = new DateTime((long)message.createdDate);
+            }
+            foreach (var user in Model.UserList)
+            {
+                if (user.Id == message.fromUserID)
+                {
+                    fromUser = user.Username;
+                }
+
+            }
+            <div class='white_fon'>
+                <table class='responcive'>
+                    <tr>
+                        <td colspan='2'>
+                            <span>
+                                <a href='/Ordinary/PrivateConversation/?otherUser=@message.fromUserID'>
+                                    @fromUser
+                                </a><span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src='http://emsal.az/staticFiles/male.png' style='max-width:100px;max-height:77px'></td>
+                        <td>
+                            <p>
+                                <a href="/Ordinary/MessageDetail?Id=@message.Id">
+                                    @{
+                                        if (message.message.Length > 20)
+                                        {
+                                            <span>@message.message.ToString().Substring(0, 20)...</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@message.message</span>
+                                        }
+                                    }
+                                </a>
+                            </p>
+                            <p>
+                                Mesajın tarixi: @createdDate.Day.ToString()/@createdDate.Month.ToString()/@(createdDate.Year + 1950)
+                            </p>
+                        </td>
+                        <td class='text-right'>
+                            <div class='btn-group'>
+                                <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Əməliyyatlar <span class='caret'></span></button><ul class='dropdown-menu'>
+                                    <li><a href='/Ordinary/DeleteComMessage?Id=@message.Id'>Sil</a></li>
+                                    <li><a href='/Ordinary/AnswerMessage?Id=@message.Id'>Cavab Yaz</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        }
+
+        <div class="box-footer clearfix">
+            Səhifə @(Model.PagingReceivedMessages.PageCount < Model.PagingReceivedMessages.PageNumber ? 0 : Model.PagingReceivedMessages.PageNumber) (cəmi @Model.PagingReceivedMessages.PageCount)
+            @Html.PagedListPager(Model.PagingReceivedMessages, page => Url.Action("ReceivedMessages", "Ordinary",new { page }))
+        </div>
+    }
+}
+

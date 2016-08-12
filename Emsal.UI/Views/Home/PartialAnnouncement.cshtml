@@ -1,0 +1,66 @@
+﻿@model Emsal.UI.Models.ProductCatalogViewModel
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+    Model.prodAltName = "";
+    Model.prodName = "";
+    int i = 0;
+}
+
+
+
+<ul class="thumbnails list-unstyled list-inline">
+    @foreach (var item in Model.Paging)
+    {
+                i = i + 1;
+        <li class="col-md-3">
+            <div class="thumbnail text-center">
+                @if (item.productCatalogDocumentList.Count() > 0)
+                {
+                    <img class="img-responsive" src="@item.productCatalogDocumentList.FirstOrDefault().documentUrl@item.productCatalogDocumentList.FirstOrDefault().documentName" />
+                }
+                else
+                {
+                    <img src="~/Content/img/noimage.png" />
+                }
+
+                <div class="caption">
+                    <h4 class="text-bold">@item.announcement.product_name</h4>
+                    <h4 class="text-bold text-red">@item.announcement.quantity @item.announcement.quantity_type_Name</h4>
+                    <a href="/Home/AnnouncementDetail/@item.announcement.Id" class="btn btn-default text-bold f-left">BAX</a>
+                    <button type="button" class="btn btn-primary text-white text-bold f-right">@item.announcement.unit_price AZN</button>
+                </div>
+            </div>
+        </li>
+        if(i==4)
+        {
+<div class="clearfix"></div>
+            i = 0;
+        }
+    }
+</ul>
+
+        @if (Model.Paging.Count() == 0)
+        {
+            <h5 class="text-center">Qeyd tapılmadı</h5>
+        }
+
+
+<div class="navig">
+
+<div class="clearfix"></div>
+
+@if (Model.noPaged==0)
+{
+   <div class="box-footer clearfix">
+    Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
+    @Html.PagedListPager(Model.Paging, page => Url.Action("Announcement", new { page }))
+</div> 
+}
+
+    </div>
+
+
+

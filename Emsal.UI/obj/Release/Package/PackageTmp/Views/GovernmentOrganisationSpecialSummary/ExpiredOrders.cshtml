@@ -1,0 +1,87 @@
+﻿@model Emsal.UI.Models.DemandProductionViewModel
+@{
+    ViewBag.Title = "Orders";
+}
+
+@{
+    if (Model.DemandProductionList.Count == 0)
+    {
+        <div class='white_fon'>
+            <p>Heç nə tapılmadı</p>
+        </div>
+
+    }
+    else
+    {
+        foreach (var item in Model.DemandProductionList)
+        {
+            int quantity = (int)item.quantity;
+            int totalPrice = quantity * (int)item.unit_price;
+            string quantityUnit = "";
+            List<string> shipmentPeriod = new List<string>();
+            string shipmetPlace = "";
+
+            foreach (var enumV in Model.EnumValueList)
+            {
+                foreach (var itemmm in Model.ProductionControlList)
+                {
+                    if (itemmm.Demand_Production_Id == item.Id && itemmm.EnumValueId == enumV.Id)
+                    {
+                        quantityUnit = enumV.name;
+                    }
+                }
+
+            }
+            string productName = "";
+            foreach (var product in Model.ProductCatalogList)
+            {
+                if (product.Id == item.product_Id)
+                {
+                    productName = product.ProductName;
+                }
+
+            }
+
+            foreach (var modelMonth in Model.modelMonthsList)
+            {
+                if (modelMonth.productionId == item.Id)
+                {
+                    shipmentPeriod.Add(modelMonth.monthName);
+                }
+            }
+
+
+            foreach (var address in Model.ProductAddressList)
+            {
+                if (address.Id == item.address_Id)
+                {
+                    shipmetPlace = address.addressDesc;
+                }
+            }
+
+
+            <div class="white_fon">
+                <table class="responcive">
+                    <tr>
+                        <td style="padding-left:5px; color:red">@productName</td>
+                    </tr>
+                    <tr>
+                        <td><img src='http://emsal.az/staticFiles/notFound.png' style='max-width:100px;max-height:77px'></td>
+                        <td>
+                            <p>
+                                Tədarük olunacaq dövr : @{foreach (var per in shipmentPeriod)
+                                    {
+                                        <span style="color:green">@per &nbsp;</span>
+                                    }
+                                }
+                            </p>
+                            <p>Təqdim olunacaq yer : <span style="color:green">@shipmetPlace</span></p>
+                        </td>
+                        <td><p style="color:red">Məhsulun miqdarı : @item.quantity  @quantityUnit</p></td>
+                    </tr>
+                </table>
+            </div>
+                                        }
+
+                                    }
+}

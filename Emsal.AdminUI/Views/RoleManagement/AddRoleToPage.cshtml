@@ -1,0 +1,38 @@
+﻿@model Emsal.AdminUI.Models.Organisation
+@{
+    ViewBag.Title = "AddUserRole";
+    Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3>Rol Əlavə Et</h3>
+                    @*<h3 class="box-title col-md-12">EnumCategory <a class="btn btn-primary pull-right" href="@Url.Action("Create","EnumCategory")"><span class="glyphicon glyphicon-plus"></span> Əlavə et</a></h3>*@
+                </div>
+                <div class="box-body table-responsive">
+                    @using (Html.BeginForm("AddRoleToPage", "RoleManagement", new { pageId = Model.AuthenticatedPart.ID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="form-group">
+                            <select class="form-control" name="UserRoleType">
+                                @foreach (var item in Model.UserRoleArray)
+                                {
+                                    <option class="glyphicon glyphicon-ok tooltip" title="elave et">@item.Name - @item.Description</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-md-offset-5" style="margin-bottom:20px; padding:5px">
+                            <input type="submit" class="btn btn-success" value="Əlavə Et" />
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

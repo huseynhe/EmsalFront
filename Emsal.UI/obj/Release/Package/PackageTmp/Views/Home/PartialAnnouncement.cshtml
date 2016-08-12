@@ -1,0 +1,43 @@
+﻿@model Emsal.UI.Models.ProductCatalogViewModel
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+    Model.prodAltName = "";
+    Model.prodName = "";
+}
+
+    @foreach (var item in Model.Paging)
+{
+    <a href="/Home/AnnouncementDetail/@item.Id" class="col-md-4" style="margin-bottom: 15px;">
+        <div style="background: #fafafa; border-radius: 3px; display: table;width:100%;">
+            <div class="col-md-12">
+                <h4>@item.product_name @item.quantity @item.quantity_type_Name</h4>
+                <div style="margin-top: 5px; float: left; width: 100%; margin-bottom: 5px;">
+                    <i class="fa fa-link" style="float: right;"></i>
+                </div>
+            </div>
+        </div>
+    </a>
+}
+
+@if (Model.Paging.Count() == 0)
+{
+    <h5>Qeyd tapılmadı</h5>
+}
+
+<div class="clearfix"></div>
+
+@if (Model.noPaged==0)
+{
+   <div class="box-footer clearfix">
+    Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
+    @Html.PagedListPager(Model.Paging, page => Url.Action("Announcement", new { page }))
+</div> 
+}
+
+
+
+
+

@@ -1,0 +1,70 @@
+﻿@*@model IEnumerable<Emsal.AdminUI.Models.EnumCategoryViewModel>*@
+@model Emsal.UI.Models.User
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+}
+
+<p>
+
+</p>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <div class="clearfix" style="height: 50px;"></div>
+                    <h3 style="text-align:center; text-decoration:double"><b>@Model.UserName</b> tərəfindən yaradılan istifadəçilər</h3>
+                </div>
+                <div class="clearfix" style="height: 30px;"></div>
+
+                <div class="box-body table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                Şəxsin növü (fiziki/hüquqi)
+                            </th>
+                            <th>
+                                Şəxsin rolu (satıcı/istifadəçi)
+                            </th>
+                        </tr>
+
+
+                        @foreach (var item in Model.PagingCreatedUsers)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem=> item.UserType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Role)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    Səhifə @(Model.PagingCreatedUsers.PageCount < Model.PagingCreatedUsers.PageNumber ? 0 : Model.PagingCreatedUsers.PageNumber) (cəmi @Model.PagingCreatedUsers.PageCount)
+                    @Html.PagedListPager(Model.PagingCreatedUsers, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

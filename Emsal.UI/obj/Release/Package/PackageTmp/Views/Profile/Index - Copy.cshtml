@@ -1,0 +1,159 @@
+﻿@model Emsal.UI.Models.ProductCatalogViewModel
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    function GetProductCatalog(elem)
+    {
+        var pId = $(elem).val();
+        $(elem).parent().nextAll().remove();
+
+        $.ajax({
+            url: '/Profile/ProductCatalog?pId=' + pId,
+            type: 'GET',
+            //data: { "pId": appId},
+            success: function (result) {
+                $(elem).parent().parent().append(result);
+            },
+            error: function () {
+
+            }
+        });
+
+    }
+</script>
+<div id="content">
+    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+        <li class="active"><a href="#addProduct" data-toggle="tab">Məhsul əlavə et</a></li>
+        <li><a href="#products" data-toggle="tab">Əlavə edilmiş məhsullar</a>
+        <li><a href="#profileInfo" data-toggle="tab">Profil məlumatları</a>
+    </ul>
+    <div id="my-tab-content" class="tab-content">
+        <div class="tab-pane active" id="addProduct">
+            <div class="sign-in-page inner-bottom-sm">
+                <br /><br />
+                <div class="row">
+                  @Html.Action("ProductCatalog", "Profile", new { parentId = 0 })
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="products">
+            <br /><br />
+            <div class="col-md-2"><img alt="imga" src="~/Content/images/furniture-products/cls.jpg"></div>
+            <div class="col-md-3">
+                <div class="product-name" style="font-size: 20px;"><a style="color: #000;" href="#">Çiyələk (500 kq)</a></div>
+
+                <div style="font-size: 20px;" class="price">
+                    2.5 man
+                </div>
+            </div>
+            <div class="col-md-1 close-btn">
+                <a class=" text-danger" href="#">
+                    <i style="font-size: 15px;" class="fa fa-times"> sil</i>
+                </a>
+                <a class=" text-danger" href="#">
+                    <i style="font-size: 15px;" class="fa fa-pencil"> dəyişdir</i>
+                </a>
+                <a class=" text-danger" href="#">
+                    <i style="font-size: 15px;" class="fa fa-files-o"> nüsxə</i>
+                </a>
+            </div>
+
+            <div class="col-md-2"><img alt="imga" src="~/Content/images/furniture-products/gks.jpg"></div>
+            <div class="col-md-3">
+                <div class="product-name" style="font-size: 20px;"><a style="color: #000;" href="#">Gədəbəy kartofu (234 kq)</a></div>
+
+                <div style="font-size: 20px;" class="price">
+                    1.3 man
+                </div>
+            </div>
+            <div class="col-md-1 close-btn">
+                <a class=" text-danger" href="#">
+                    <i style="font-size: 15px;" class="fa fa-times"> sil</i>
+                </a>
+                <a class=" text-danger" href="#">
+                    <i style="font-size: 15px;" class="fa fa-pencil"> dəyişdir</i>
+                </a>
+                <a class=" text-danger" href="#">
+                    <i style="font-size: 15px;" class="fa fa-files-o"> nüsxə</i>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+            <br /><br />
+            <div class="col-md-2"><img alt="imga" src="~/Content/images/furniture-products/xrs.jpg"></div>
+            <div class="col-md-3">
+                <div class="product-name" style="font-size: 20px;"><a style="color: #000;" href="#">Xiyar (1200 kq)</a></div>
+
+                <div style="font-size: 20px;" class="price">
+                    0.9 man
+                </div>
+            </div>
+            <div class="col-md-1 close-btn">
+                <a class=" text-danger" href="#">
+                    <i style="font-size: 15px;" class="fa fa-times"> sil</i>
+                </a>
+                <a class=" text-danger" href="#">
+                    <i style="font-size: 15px;" class="fa fa-pencil"> dəyişdir</i>
+                </a>
+                <a class=" text-danger" href="#">
+                    <i style="font-size: 15px;" class="fa fa-files-o"> nüsxə</i>
+                </a>
+            </div>
+
+
+            <div class="col-md-2"><img alt="imga" src="~/Content/images/furniture-products/ets.jpg"></div>
+            <div class="col-md-3">
+                <div class="product-name" style="font-size: 20px;"><a style="color: #000;" href="#">Ət (700 kq)</a></div>
+
+                <div style="font-size: 20px;" class="price">
+                    1.3 man
+                </div>
+            </div>
+            <div class="col-md-1 close-btn">
+                <a class=" text-danger" href="#">
+                    <i style="font-size: 15px;" class="fa fa-times"> sil</i>
+                </a>
+                <a class=" text-danger" href="#">
+                    <i style="font-size: 15px;" class="fa fa-pencil"> dəyişdir</i>
+                </a>
+                <a class=" text-danger" href="#">
+                    <i style="font-size: 15px;" class="fa fa-files-o"> nüsxə</i>
+                </a>
+            </div>
+
+            <div class="clearfix"></div>
+            <br /><br />
+        </div>
+        <div class="tab-pane" id="profileInfo">
+            <br /><br />
+            <div class="col-md-3">
+                <img src="~/Content/images/profil.png" alt="" style="width: 100%; border-radius: 10px; border: 1px solid; padding: 3px;">
+            </div>
+            <div class="col-md-3">
+                <i class="fa fa-chevron-right"></i>
+                <label>Ad, soyad, ata adı:</label>
+                <br />MƏMMƏDOV MƏMMƏD ƏHMƏD
+            </div>
+            <div class="col-md-3">
+                <i class="fa fa-chevron-right"></i>
+                <label>E-poçt:</label>
+                <br />mammadovmmammad@gmail.com
+            </div>
+            <div class="col-md-3">
+                <i class="fa fa-chevron-right"></i>
+                <label>Ünvan:</label>
+                <br />Bakı şəhəri, Nərimanov rayonu, Fətəli x. Xoyski küçəsi
+            </div>
+            <div class="col-md-3">
+                <i class="fa fa-chevron-right"></i>
+                <label>Telefon:</label>
+                <br />(012) 444 4444, (050) 222 2222
+            </div>
+            <div class="clearfix"></div>
+            <br /><br />
+        </div>
+    </div>
+</div>

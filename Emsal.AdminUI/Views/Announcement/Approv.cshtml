@@ -1,0 +1,74 @@
+﻿@model Emsal.AdminUI.Models.AnnouncementViewModel
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<p>
+
+</p>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    @*              <h3 class="box-title col-md-12">EnumCategory <a class="btn btn-primary pull-right" href="@Url.Action("Create","DemandProduction")"><span class="glyphicon glyphicon-plus"></span> Əlavə et</a></h3>*@
+                </div>
+                <div class="box-body table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            @*<th>#</th>*@
+                            <th>
+                                Məhsulun adı
+                            </th>
+                            <th>
+                                Miqdarı (vahidi)
+                            </th>
+                            <th>
+                                Qiyməti (bir ölçü vahidinə düşən) (AZN-lə) 
+                            </th>
+                            <th>
+                                Qeyd
+                            </th>
+                            <th style="width: 60px" class="shsingle">sil</th>
+                        </tr>
+
+
+                        @foreach (var item in Model.Paging)
+                        {
+                            <tr>
+                                @*<td>
+                                        <input onchange="getCheckedList()" name="ids" value="@item.productionID" class="ch" type="checkbox">
+                                    </td>*@
+                                <td>
+                                    @item.product_name
+                                </td>
+                                <td>
+                                    @item.quantity @item.quantity_type_Name
+                                </td>
+                                <td>
+                                    @item.unit_price AZN
+                                </td>
+                                <td>
+                                    @item.description
+                                </td>
+                                <td class="shsingle">
+                                        <a href="/Announcement/Delete/@item.Id" class="badge bg-light-blue">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </a>
+                                    </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+
+                <div class="box-footer clearfix">
+                    Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
+                    @Html.PagedListPager(Model.Paging, page => Url.Action("Approv", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

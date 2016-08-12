@@ -1,0 +1,59 @@
+﻿@model Emsal.UI.Models.UserViewModel
+
+@{
+    ViewBag.Title = "ReceivedMessages";
+}
+
+@{ 
+    if(Model.ComMessageList.Count == 0)
+    {
+        <div class="white_fon">
+            <p>Heç nə tapılmadı</p>
+        </div>
+    }
+    else
+    {
+        string fromUser = "";
+        foreach (var message in Model.ComMessageList)
+        {
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            var createdDate = dtDateTime.AddSeconds((double)message.createdDate).ToLocalTime();
+
+            foreach (var user in Model.UserList)
+            {
+                if (user.Id == message.fromUserID)
+                {
+                    fromUser = user.Username;
+                }
+
+            }
+            <div class='white_fon'>
+                <table class='responcive'>
+                    <tr>
+                        <td colspan='2'>
+                            <span>
+                                <a href=''>
+                                    @fromUser
+                                </a><span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src='http://emsal.az/staticFiles/male.png' style='max-width:100px;max-height:77px'></td>
+                        <td>
+                            <p>@message.message </p><p>Mesajın tarixi: @createdDate.Day/@createdDate.Month/@createdDate.Year</p>
+                        </td>
+                        <td class='text-right'>
+                            <div class='btn-group'>
+                                <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Əməliyyatlar <span class='caret'></span></button><ul class='dropdown-menu'>
+                                    <li><a href='/GovernmentOrganisationSpecialSummary/DeleteComMessage?Id=@message.Id'>Sil</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        }
+    }
+}
+

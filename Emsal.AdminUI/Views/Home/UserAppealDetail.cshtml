@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "UserAppealDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content">
+    <div class="col-md-12 content">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Müraciətin mətni</h3>
+                <div class="box-tools pull-right">
+                    <a title="Previous" data-toggle="tooltip" class="btn btn-box-tool" href="#"><i class="fa fa-chevron-left"></i></a>
+                    <a title="Next" data-toggle="tooltip" class="btn btn-box-tool" href="#"><i class="fa fa-chevron-right"></i></a>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <div class="mailbox-read-info">
+                    <h3>Yeni sistemlə bağlı</h3>
+                    <h5>
+                        From: test@emsal.az
+                        <span class="mailbox-read-time pull-right">07.05.2016 12:12:12</span>
+                    </h5>
+                </div>
+                <!-- /.mailbox-read-info -->
+                <div class="mailbox-controls with-border text-right">
+                    <div class="btn-group">
+                        <button title="Sil" data-container="body" data-toggle="tooltip" class="btn btn-default btn-sm" type="button">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                    <!-- /.btn-group -->
+                    <button title="Çap et" data-toggle="tooltip" class="btn btn-default btn-sm" type="button">
+                        <i class="fa fa-print"></i>
+                    </button>
+                </div>
+                <!-- /.mailbox-controls -->
+                <div class="mailbox-read-message">
+                    <p>Salam,</p>
+                    <p>
+                        Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni
+                    </p>
+                    <p>
+                        Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni Müraciətin mətni müraciətin mətni
+                    </p>
+                    <p>Təşəkkür edirəm</p>
+                </div>
+            </div>
+        </div>
+        <!-- /. box -->
+    </div>
+
+
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class=""><a style="font-weight:bold;" href="#answer" data-toggle="tab">Müraciətə cavab ver</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" id="answer">
+                <span class="text-success col-md-12" id="formsuccess" style="margin-bottom:10px;font-weight:bold;"></span>
+                <div>
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Müraciətə cavab ver</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <textarea class="form-control" style="height: 200px"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="btn btn-default btn-file">
+                                <i class="fa fa-paperclip"></i> Sənəd əlavə et
+                                <input type="file" name="attachment">
+                            </div>
+                            <p class="help-block">Max. 32MB</p>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane"></i> Göndər</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

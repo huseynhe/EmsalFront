@@ -1,0 +1,583 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4A28EB3A-2C7B-4198-B7BF-9BA2434AE080}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Emsal.AdminUI</RootNamespace>
+    <AssemblyName>Emsal.AdminUI</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BCrypt.Net, Version=0.1.4141.31969, Culture=neutral, PublicKeyToken=f3bc8f8c31beeb49, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.Net.0.1.0\lib\net35\BCrypt.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\AdminLoginController.cs" />
+    <Compile Include="Controllers\ASCController.cs" />
+    <Compile Include="Controllers\GovernmentOrganisationController.cs" />
+    <Compile Include="Controllers\AdminUnitController.cs" />
+    <Compile Include="Controllers\KTNController.cs" />
+    <Compile Include="Controllers\OrdinaryController.cs" />
+    <Compile Include="Controllers\ProductPriceController.cs" />
+    <Compile Include="Controllers\ProductionDocumentController.cs" />
+    <Compile Include="Controllers\DemandProductionController.cs" />
+    <Compile Include="Controllers\EnumCategoryController.cs" />
+    <Compile Include="Controllers\EnumValueController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OfferProductionController.cs" />
+    <Compile Include="Controllers\AnnouncementController.cs" />
+    <Compile Include="Controllers\PotentialProductionController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\RoleManagementController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\EmsalAdminAuthentication.cs" />
+    <Compile Include="Infrastructure\RoleProvider.cs" />
+    <Compile Include="Models\ActionName.cs" />
+    <Compile Include="Models\AuthLogin.cs" />
+    <Compile Include="Models\Organisation.cs" />
+    <Compile Include="Models\ProductPriceModel.cs" />
+    <Compile Include="Models\ProductionDocumentModel.cs" />
+    <Compile Include="Models\AnnouncementModel.cs" />
+    <Compile Include="Models\AdminUnitViewModel.cs" />
+    <Compile Include="Models\DemandProductionViewModel.cs" />
+    <Compile Include="Models\EnumCategoryViewModel.cs" />
+    <Compile Include="Models\EnumValueViewModel.cs" />
+    <Compile Include="Models\OfferProductionViewModel.cs" />
+    <Compile Include="Models\PotentialProductionViewModel.cs" />
+    <Compile Include="Models\ProductCatalogViewModel.cs" />
+    <Compile Include="Models\ReportViewModel.cs" />
+    <Compile Include="Models\UserInfoViewModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="bin\BCrypt.Net.dll" />
+    <Content Include="bin\BCrypt.Net.xml" />
+    <Content Include="bin\Emsal.AdminUI.dll" />
+    <Content Include="bin\Emsal.AdminUI.pdb" />
+    <Content Include="bin\Emsal.Utility.dll" />
+    <Content Include="bin\Emsal.Utility.pdb" />
+    <Content Include="bin\Emsal.WebInt.dll" />
+    <Content Include="bin\Emsal.WebInt.pdb" />
+    <Content Include="bin\Emsal.WebInt.XmlSerializers.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Microsoft.Web.Mvc.FixedDisplayModes.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="bin\NLog.dll" />
+    <Content Include="bin\NLog.xml" />
+    <Content Include="bin\PagedList.dll" />
+    <Content Include="bin\PagedList.Mvc.dll" />
+    <Content Include="bin\PagedList.Mvc.xml" />
+    <Content Include="bin\PagedList.xml" />
+    <Content Include="bin\System.Net.Http.dll" />
+    <Content Include="bin\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\System.Net.Http.Formatting.xml" />
+    <Content Include="bin\System.Net.Http.WebRequest.dll" />
+    <Content Include="bin\System.Net.Http.WebRequest.xml" />
+    <Content Include="bin\System.Net.Http.xml" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Http.dll" />
+    <Content Include="bin\System.Web.Http.WebHost.dll" />
+    <Content Include="bin\System.Web.Http.WebHost.xml" />
+    <Content Include="bin\System.Web.Http.xml" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="Content\css\AdminLTE.min.css" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\bootstrap3-wysihtml5.min.css" />
+    <Content Include="Content\css\custom.css" />
+    <Content Include="Content\css\datepicker.css" />
+    <Content Include="Content\css\datepicker3.css" />
+    <Content Include="Content\css\daterangepicker-bs3.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\ionicons.min.css" />
+    <Content Include="Content\css\jquery-jvectormap-1.2.2.css" />
+    <Content Include="Content\css\morris.css" />
+    <Content Include="Content\css\select2.min.css" />
+    <Content Include="Content\css\skins\skin-black-light.css" />
+    <Content Include="Content\css\skins\skin-black-light.min.css" />
+    <Content Include="Content\css\skins\skin-black.css" />
+    <Content Include="Content\css\skins\skin-black.min.css" />
+    <Content Include="Content\css\skins\skin-blue-light.css" />
+    <Content Include="Content\css\skins\skin-blue-light.min.css" />
+    <Content Include="Content\css\skins\skin-blue.css" />
+    <Content Include="Content\css\skins\skin-blue.min.css" />
+    <Content Include="Content\css\skins\skin-green-light.css" />
+    <Content Include="Content\css\skins\skin-green-light.min.css" />
+    <Content Include="Content\css\skins\skin-green.css" />
+    <Content Include="Content\css\skins\skin-green.min.css" />
+    <Content Include="Content\css\skins\skin-purple-light.css" />
+    <Content Include="Content\css\skins\skin-purple-light.min.css" />
+    <Content Include="Content\css\skins\skin-purple.css" />
+    <Content Include="Content\css\skins\skin-purple.min.css" />
+    <Content Include="Content\css\skins\skin-red-light.css" />
+    <Content Include="Content\css\skins\skin-red-light.min.css" />
+    <Content Include="Content\css\skins\skin-red.css" />
+    <Content Include="Content\css\skins\skin-red.min.css" />
+    <Content Include="Content\css\skins\skin-yellow-light.css" />
+    <Content Include="Content\css\skins\skin-yellow-light.min.css" />
+    <Content Include="Content\css\skins\skin-yellow.css" />
+    <Content Include="Content\css\skins\skin-yellow.min.css" />
+    <Content Include="Content\css\skins\_all-skins.css" />
+    <Content Include="Content\css\skins\_all-skins.min.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\ionicons.svg" />
+    <Content Include="Content\img\avatar.png" />
+    <Content Include="Content\img\avatar04.png" />
+    <Content Include="Content\img\avatar2.png" />
+    <Content Include="Content\img\avatar3.png" />
+    <Content Include="Content\img\avatar5.png" />
+    <Content Include="Content\img\boxed-bg.jpg" />
+    <Content Include="Content\img\boxed-bg.png" />
+    <Content Include="Content\img\credit\american-express.png" />
+    <Content Include="Content\img\credit\cirrus.png" />
+    <Content Include="Content\img\credit\mastercard.png" />
+    <Content Include="Content\img\credit\mestro.png" />
+    <Content Include="Content\img\credit\paypal.png" />
+    <Content Include="Content\img\credit\paypal2.png" />
+    <Content Include="Content\img\credit\visa.png" />
+    <Content Include="Content\img\default-50x50.gif" />
+    <Content Include="Content\img\icons.png" />
+    <Content Include="Content\img\photo1.png" />
+    <Content Include="Content\img\photo2.png" />
+    <Content Include="Content\img\photo3.jpg" />
+    <Content Include="Content\img\photo4.jpg" />
+    <Content Include="Content\img\user1-128x128.jpg" />
+    <Content Include="Content\img\user2-160x160.jpg" />
+    <Content Include="Content\img\user3-128x128.jpg" />
+    <Content Include="Content\img\user4-128x128.jpg" />
+    <Content Include="Content\img\user5-128x128.jpg" />
+    <Content Include="Content\img\user6-128x128.jpg" />
+    <Content Include="Content\img\user7-128x128.jpg" />
+    <Content Include="Content\img\user8-128x128.jpg" />
+    <Content Include="Content\js\addPotentialGovOrg.js" />
+    <Content Include="Content\js\adminUnit.js" />
+    <Content Include="Content\js\app.min.js" />
+    <Content Include="Content\js\bootstrap-datepicker.js" />
+    <Content Include="Content\js\bootstrap-treeview.js" />
+    <Content Include="Content\js\bootstrap.js" />
+    <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\bootstrap3-wysihtml5.all.min.js" />
+    <Content Include="Content\js\Chart.js" />
+    <Content Include="Content\js\Chart.min.js" />
+    <Content Include="Content\js\ChartJS.js" />
+    <Content Include="Content\js\custom.js" />
+    <Content Include="Content\js\dashboard.js" />
+    <Content Include="Content\js\daterangepicker.js" />
+    <Content Include="Content\js\demo.js" />
+    <Content Include="Content\js\fastclick.js" />
+    <Content Include="Content\css\flat\aero%402x.png" />
+    <Content Include="Content\css\flat\aero.css" />
+    <Content Include="Content\css\flat\aero.png" />
+    <Content Include="Content\css\flat\blue%402x.png" />
+    <Content Include="Content\css\flat\blue.css" />
+    <Content Include="Content\css\flat\blue.png" />
+    <Content Include="Content\css\flat\flat%402x.png" />
+    <Content Include="Content\css\flat\flat.css" />
+    <Content Include="Content\css\flat\flat.png" />
+    <Content Include="Content\css\flat\green%402x.png" />
+    <Content Include="Content\css\flat\green.css" />
+    <Content Include="Content\css\flat\green.png" />
+    <Content Include="Content\css\flat\grey%402x.png" />
+    <Content Include="Content\css\flat\grey.css" />
+    <Content Include="Content\css\flat\grey.png" />
+    <Content Include="Content\css\flat\orange%402x.png" />
+    <Content Include="Content\css\flat\orange.css" />
+    <Content Include="Content\css\flat\orange.png" />
+    <Content Include="Content\css\flat\pink%402x.png" />
+    <Content Include="Content\css\flat\pink.css" />
+    <Content Include="Content\css\flat\pink.png" />
+    <Content Include="Content\css\flat\purple%402x.png" />
+    <Content Include="Content\css\flat\purple.css" />
+    <Content Include="Content\css\flat\purple.png" />
+    <Content Include="Content\css\flat\red%402x.png" />
+    <Content Include="Content\css\flat\red.css" />
+    <Content Include="Content\css\flat\red.png" />
+    <Content Include="Content\css\flat\yellow%402x.png" />
+    <Content Include="Content\css\flat\yellow.css" />
+    <Content Include="Content\css\flat\yellow.png" />
+    <Content Include="Content\css\flat\_all.css" />
+    <Content Include="Content\js\flotJS.js" />
+    <Content Include="Content\js\icheck.min.js" />
+    <Content Include="Content\js\icheckJS.js" />
+    <Content Include="Content\js\inlineJS.js" />
+    <Content Include="Content\js\jQuery-2.2.0.min.js" />
+    <Content Include="Content\js\jquery-jvectormap-1.2.2.min.js" />
+    <Content Include="Content\js\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="Content\js\jquery-ui.min.js" />
+    <Content Include="Content\js\jquery.flot.categories.js" />
+    <Content Include="Content\js\jquery.flot.js" />
+    <Content Include="Content\js\jquery.flot.pie.min.js" />
+    <Content Include="Content\js\jquery.flot.resize.js" />
+    <Content Include="Content\js\jquery.js" />
+    <Content Include="Content\js\jquery.knob.js" />
+    <Content Include="Content\js\jquery.slimscroll.min.js" />
+    <Content Include="Content\js\jquery.sparkline.min.js" />
+    <Content Include="Content\js\jquery.validate.js" />
+    <Content Include="Content\js\jquery.validate.unobtrusive.js" />
+    <Content Include="Content\js\moment.min.js" />
+    <Content Include="Content\js\morris.min.js" />
+    <Content Include="Content\js\morrisJS.js" />
+    <Content Include="Content\js\npm.js" />
+    <Content Include="Content\js\pagedList.js" />
+    <Content Include="Content\js\raphael-min.js" />
+    <Content Include="Content\js\select2.min.js" />
+    <Content Include="Content\js\tree.js" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\profileImage\117bfbc2-77b5-4f74-b3ab-3553060b4ef9.jpg" />
+    <Content Include="Content\profileImage\11eea2c8-07ce-4e9d-a5d7-039fa7e3915e.png" />
+    <Content Include="Content\profileImage\3c591df9-e3c3-4352-9943-552eec67888c.jpg" />
+    <Content Include="Content\profileImage\77f620be-1464-4a33-baa8-1e333903af4d.png" />
+    <Content Include="Content\profileImage\b1cd71ab-b071-4f05-a1c5-9436b5a14f78.jpg" />
+    <Content Include="Content\profileImage\dc075e73-4836-41b8-a6bd-1826d8b022e0.png" />
+    <Content Include="Content\profileImage\f4beab90-fe34-48c8-877e-38f9650c9f11.png" />
+    <Content Include="Content\profileImage\fc997a83-9e4d-401e-9209-4010dc379f3d.png" />
+    <Content Include="Content\profileImage\noimage.png" />
+    <Content Include="Global.asax" />
+    <Content Include="Views\Home\ProdCatVal.cshtml" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\tempFile\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\bootstrap.css.map" />
+    <Content Include="Content\css\bootstrap.min.css.map" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\fontawesome-webfontn.woff" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\fonts\ionicons.eot" />
+    <Content Include="Content\fonts\ionicons.ttf" />
+    <Content Include="Content\fonts\ionicons.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\fonts\glyphicons-halflings-regularn.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\MainPage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\UserProfile.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\UserAppeal.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\UserAppealDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Report.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Report2.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Report3.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Report4.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Emsal.Utility\Emsal.Utility.csproj">
+      <Project>{99e1d23d-1d59-47d4-b440-1d081e12447f}</Project>
+      <Name>Emsal.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Emsal.WebInt\Emsal.WebInt.csproj">
+      <Project>{3c0106b1-bf1d-414d-bdf1-f4801d0f6ca3}</Project>
+      <Name>Emsal.WebInt</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EnumCategory\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EnumCategory\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EnumCategory\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AdminUnit\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DemandProduction\Index.cshtml" />
+    <Content Include="Views\EnumValue\Create.cshtml" />
+    <Content Include="Views\EnumValue\Edit.cshtml" />
+    <Content Include="Views\EnumValue\Index.cshtml" />
+    <Content Include="Views\EnumValue\IndexBy.cshtml" />
+    <Content Include="Views\PotentialProduction\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EnumCategory\PartialIndex.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Emsal.AdminUI.dll.config" />
+    <None Include="Properties\PublishProfiles\Ferid.pubxml" />
+    <Content Include="Views\OfferProduction\Index.cshtml" />
+    <Content Include="Views\DemandProduction\IndexApprov.cshtml" />
+    <Content Include="Views\OfferProduction\IndexApprov.cshtml" />
+    <Content Include="Views\PotentialProduction\IndexApprov.cshtml" />
+    <Content Include="Views\Announcement\Index.cshtml" />
+    <Content Include="Views\OfferProduction\Edit.cshtml" />
+    <Content Include="Views\OfferProduction\IndexReject.cshtml" />
+    <Content Include="Views\PotentialProduction\Edit.cshtml" />
+    <Content Include="Views\PotentialProduction\IndexReject.cshtml" />
+    <Content Include="Views\DemandProduction\Edit.cshtml" />
+    <Content Include="Views\DemandProduction\IndexReject.cshtml" />
+    <Content Include="Views\Announcement\Approv.cshtml" />
+    <Content Include="Views\ProductionDocument\Index.cshtml" />
+    <Content Include="Views\ProductionDocument\GetFile.cshtml" />
+    <Content Include="Views\ProductPrice\Index.cshtml" />
+    <Content Include="Views\ProductPrice\Approv.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\AddGovOrganisation.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\AddAddressInfo.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\AddGovernmentOrganisationInfo.cshtml" />
+    <Content Include="Views\Shared\_AddGovernmentOrganisationLayout.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\Index.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\PartialIndex.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\Edit.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\EditOrganisation.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\EditAddress.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\Individuals.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\Organisations.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\PartialOrganisation.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\PartialIndividuals.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\EditPerson.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\Pages.cshtml" />
+    <Content Include="Views\RoleManagement\Index.cshtml" />
+    <Content Include="Views\RoleManagement\PartialIndex.cshtml" />
+    <Content Include="Views\RoleManagement\UserRoles.cshtml" />
+    <Content Include="Views\RoleManagement\AddUserRole.cshtml" />
+    <Content Include="Views\RoleManagement\Pages.cshtml" />
+    <Content Include="Views\RoleManagement\PartialPages.cshtml" />
+    <Content Include="Views\RoleManagement\AddRoleToPage.cshtml" />
+    <Content Include="Views\RoleManagement\PageRoles.cshtml" />
+    <Content Include="Views\AdminLogin\Index.cshtml" />
+    <Content Include="Views\DemandProduction\PartialIndex.cshtml" />
+    <Content Include="Views\OfferProduction\PartialIndex.cshtml" />
+    <Content Include="Views\PotentialProduction\PartialIndex.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\AdminUnit.cshtml" />
+    <Content Include="Views\ASC\Index.cshtml" />
+    <Content Include="Views\ASC\PartialIndex.cshtml" />
+    <Content Include="Views\KTN\Index.cshtml" />
+    <Content Include="Views\KTN\PartialIndex.cshtml" />
+    <Content Include="Views\ASC\AddASC.cshtml" />
+    <Content Include="Views\ASC\EditASC.cshtml" />
+    <Content Include="Views\KTN\AddKTN.cshtml" />
+    <Content Include="Views\KTN\EditKTN.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\ASCUsers.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\PartialASCUsers.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\AddBRANCHUser.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\AddBRANCHPersonInfo.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\AddBRANCHAddressInfo.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\EditBRANCHUser.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\KTNUsers.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\BranchResponsibility.cshtml" />
+    <Content Include="Views\Ordinary\OrdAdminUnit.cshtml" />
+    <Content Include="Views\Report\Report.cshtml" />
+    <Content Include="Views\Report\Report2.cshtml" />
+    <Content Include="Views\Report\Report3.cshtml" />
+    <Content Include="Views\Report\Report4.cshtml" />
+    <Content Include="Views\Report\DemandOffer.cshtml" />
+    <Content Include="Views\Report\AdminUnit.cshtml" />
+    <Content Include="Views\Report\DemandOfferDonut.cshtml" />
+    <Content Include="Views\Report\DemandOfferDonutM.cshtml" />
+    <Content Include="Views\Report\DemandOfferProduct.cshtml" />
+    <Content Include="Views\Report\DemandOfferProductM.cshtml" />
+    <Content Include="Views\Report\PotentialClient.cshtml" />
+    <Content Include="Views\Report\PotentialClientM.cshtml" />
+    <Content Include="Views\Report\ProductCatalog.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\PartialKTNUsers.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\ChildOrganisations.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\AddChildOrganisation.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\EditChildOrganisation.cshtml" />
+    <Content Include="Views\GovernmentOrganisation\OrganisationInfo.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:57242/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

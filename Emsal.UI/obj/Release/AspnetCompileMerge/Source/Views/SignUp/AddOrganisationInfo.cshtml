@@ -1,0 +1,228 @@
+﻿@model Emsal.UI.Models.User
+@{
+    Layout = "~/Views/Shared/_SignUpLayout.cshtml";
+}
+
+<div class="container col-md-6 col-md-offset-3" style="border-radius: 5px; margin-top: 30px; margin-bottom:30px; box-shadow:1px 1px 2px 3px #ddd">
+    <br /><br /><br />
+
+    <h2 style="text-align:center">Qeydiyatı Tamamla</h2>
+    <br /><br /><br />
+    @using (Html.BeginForm("AddOrganisationInfo", "SignUp", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(x => x.UserName)
+            @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", id = "username" })
+        </div>
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(x => x.AddressId)
+            @Html.TextBoxFor(x => x.AddressId, new { @class = "form-control", id = "addressId" })
+        </div>
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(x => x.Password)
+            @Html.TextBoxFor(x => x.Password, new { @class = "form-control", id = "password", autocomplete = "off" })
+        </div>
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(x => x.Email)
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control", id = "email", autocomplete = "off" })
+        </div>
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(x => x.FutureUserRole)
+            @Html.TextBoxFor(x => x.FutureUserRole, new { @class = "form-control", id = "futureUserRole", autocomplete = "off" })
+        </div>
+        <div class="form-group" style="padding:5px; display:none">
+            <input type="text" name="Country" value="@Model.Country" />
+        </div>
+
+        <div class="form-group" style="padding:5px; display:none">
+            <input type="text" name="CityId" value="@Model.CityId" />
+        </div>
+
+        <div class="form-group" style="padding:5px; display:none">
+            <input type="text" name="VillageId" value="@Model.VillageId" />
+        </div>
+
+        <div class="form-group" style="padding:5px; display:none">
+            <input type="text" name="Village" value="@Model.ThroughfareId" />
+        </div>
+
+            <div class="form-group" style="padding:5px; display:none">
+                @Html.LabelFor(x => x.FullAddress)
+                <input type="text" name="FullAddress" id="fullAddress" value="@Model.FullAddress" class="form-control" />
+            </div>
+            <div class="form-group" style="padding:5px;">
+                <label>Şirkət Adı</label>
+                @Html.TextBoxFor(x => x.Name, new { @class = "form-control", id = "name" })
+            </div>
+            <p class="text-danger" id="nameAlert"></p><br />
+
+            <a class="btn btn-default-focus" style="margin-left:5px; padding-left:3px; color:gray" data-toggle="modal" href="managerInfo" data-target="#managerInfo">Şirkətin Meneceri haqqında məlumatları doldurun</a>
+            <br /><br />
+            <div id="managerInfo" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Şirkət Meneceri Məlumatları</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group" style="padding:5px">
+                                @Html.LabelFor(x => x.ManagerName)
+                                @Html.TextBoxFor(x => x.ManagerName, new { @class = "form-control", id = "name" })
+                            </div>
+                            <p class="text-danger" id="managerNameAlert"></p><br />
+                            <div class="form-group" style="padding:5px">
+                                <label>Menecer soyadı</label>
+                                @Html.TextBoxFor(x => x.Surname, new { @class = "form-control", id = "surname" })
+                            </div>
+                            <p class="text-danger" id="managerNameAlert"></p><br />
+                            <div class="form-group" style="padding:5px; display:none;">
+                                @Html.LabelFor(x => x.Voen)
+                                @Html.TextBoxFor(x => x.Voen, new { @class = "form-control", id = "voen" })
+                            </div>
+                            <p class="text-danger" id="voenAlert"></p><br />
+                            <div class="form-group" style="padding:5px;">
+                                <label>Menecer Fin</label>
+                                @Html.TextBoxFor(x => x.Pin, new { @class = "form-control", id = "pin" })
+                            </div>
+                            <p class="text-danger" id="pin"></p><br />
+                            <div class="form-group" style="padding:5px;">
+                                <label>Menecerin Ata adı</label>
+                                @Html.TextBoxFor(x => x.FatherName, new { @class = "form-control", id = "fatherName" })
+                            </div>
+                            <p class="text-danger" id="fatherName"></p><br />
+                            <div class="form-group" style="padding:5px">
+                                <label>Menecerin doğum Tarixi</label>
+                                <input name="Birthday" type="text" class="form-control" id="datepicker" />
+                            </div>
+                            <p class="text-danger" id="dateAlert"></p><br />
+                            <div class="form-group" style="padding:5px">
+                                <label>Cinsiyyət</label>
+                                <select class="form-control" id="Gender" name="Gender">
+                                    <option>Cinsiyyət Seçin</option>
+                                    <option>Kişi</option>
+                                    <option>Qadın</option>
+                                </select>
+                            </div>
+                            <p class="text-danger" id="genderAlert"></p><br />
+                            <div class="form-group" style="padding:5px">
+                                <label>Tehsil</label>
+                                <select class="form-control" id="education" name="Education">
+                                    <option>Tehsil Seçin</option>
+                                    @{
+                                        if (Model != null)
+                                        {
+                                            foreach (var item in Model.EducationList)
+                                            {
+                                                <option>@item.name</option>
+                                            }
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                            <p class="text-danger" id="educationAlert"></p><br />
+
+                            <div class="form-group" style="padding:5px">
+                                <label>İş</label>
+                                <select class="form-control" id="Job" name="Job">
+                                    <option>İş seçin</option>
+                                    @{
+                                        if (Model != null)
+                                        {
+                                            foreach (var item in Model.JobList)
+                                            {
+                                                <option>@item.name</option>
+                                            }
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                            <p class="text-danger" id="jobAlert"></p><br />
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="sendManagerInfo">Davam Et</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <a class="btn btn-default-focus" style="margin-left:5px; padding-left:3px; color:gray" data-toggle="modal" href="#managerAddressInfo" data-target="#managerAddressInfo">Menecerin Adres melumatlarını doldurun</a>
+
+            <div id="managerAddressInfo" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Şirkət Meneceri Adres Məlumatları</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group" style="padding:5px">
+                                <label>Ölkə</label>
+                                <select class="form-control" id="managerCountry" name="managerCountry">
+                                    @{
+                                        if (Model != null)
+                                        {
+                                            foreach (var item in Model.PRMAdminUnitList)
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                            <p class="text-danger" id="managerCountryAlert"></p><br />
+
+                            <div class="form-group" style="padding:5px">
+                                <label>Şəhər</label>
+                                <select class="form-control" id="managerCity" name="managerCity"></select>
+                            </div>
+                            <p class="text-danger" id="managerCityAlert"></p><br />
+
+                            <div class="form-group" style="padding:5px">
+                                <label>Kənd</label>
+                                <select class="form-control" id="managerVillage" name="managerVillage"></select>
+                            </div>
+                            <p class="text-danger" id="managerVillageAlert"></p><br />
+
+                            <div class="form-group" style="padding:5px">
+                                <label>Küçə</label>
+                                <select class="form-control" id="managerThroughfare" name="managerThroughfare"></select>
+                            </div>
+                            <p class="text-danger" id="managerThroughfareAlert"></p><br />
+
+                            <div class="form-group" style="padding:5px">
+                                @Html.LabelFor(x => x.ManagerFullAddress)
+                                @Html.TextBoxFor(x => x.ManagerFullAddress, new { @class = "form-control", id = "managerFullAddress" })
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Davam Et</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <br />            <br />
+
+
+            <div class="col-md-6 col-md-offset-4" style="margin-bottom:20px; padding:5px">
+                <input type="submit" class="btn btn-success" value="Qeydiyyatdan Keç" id="sendInfo" />
+            </div>
+                                        }
+
+    <div class="clearfix" style="height: 20px;"></div>
+</div>

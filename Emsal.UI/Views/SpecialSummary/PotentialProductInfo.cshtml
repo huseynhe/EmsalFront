@@ -1,0 +1,46 @@
+﻿@model Emsal.UI.Models.OfferProductionViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+<div class="clearfix" style="height:50px"></div>
+
+<div class="container col-md-6 col-md-offset-3" style="box-shadow:1px 1px 2px 3px #ddd; padding-bottom:50px;padding-top:50px; ">
+
+    <h4 style="text-align:center;"><strong>@Model.ProductName - @Model.ProductParentName</strong></h4>
+    <div class="clearfix" style="height:20px"></div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.LabelFor(x => x.Quantity)
+        </dt>
+        <dd>
+            @Model.Quantity @Model.QuantityTypeStr
+        </dd>
+        <dt>
+            @Html.LabelFor(x => x.startDate)
+        </dt>
+
+        <dd>
+            @Model.StartDateStr
+        </dd>
+        <dt>
+            @Html.LabelFor(x => x.endDate)
+        </dt>
+        <dd>
+            @Model.EndDateStr
+        </dd>
+        <dt>
+            <label>Məhsulun yerləşdiyi ünvan</label>
+        </dt>
+        <dd>
+            @Model.Address
+           
+        </dd>
+    </dl>
+
+    <div class="col-md-6 col-md-offset-5" style="margin-bottom:20px; padding:5px">
+        <a class="btn btn-success" href="/SpecialSummary/Index">Geri</a>
+    </div>
+</div>
+
+
+<div class="clearfix" style="height:550px"></div>

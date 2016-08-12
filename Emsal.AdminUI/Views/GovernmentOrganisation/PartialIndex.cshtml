@@ -1,0 +1,71 @@
+﻿@*@model IEnumerable<Emsal.AdminUI.Models.EnumCategoryViewModel>*@
+@model Emsal.AdminUI.Models.Organisation
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+}
+
+<p>
+
+</p>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3>Dövlət Təşkilatları<a class="btn btn-primary pull-right" href="/GovernmentOrganisation/AddGovOrganisation"><span class="glyphicon glyphicon-plus"></span> Əlavə et</a></h3>
+                    @*<h3 class="box-title col-md-12">EnumCategory <a class="btn btn-primary pull-right" href="@Url.Action("Create","EnumCategory")"><span class="glyphicon glyphicon-plus"></span> Əlavə et</a></h3>*@
+                </div>
+                <div class="box-body table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UserName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                        </tr>
+
+
+                        @foreach (var item in Model.Paging)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Username)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    <a href="/GovernmentOrganisation/ChildOrganisations/?orgUserId=@item.Id" class="badge bg-light-blue">
+                                        <span>Alt Təşkilatlar</span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/GovernmentOrganisation/Edit/@item.Id" class="badge bg-light-blue">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/GovernmentOrganisation/Delete/@item.Id" class="badge bg-red">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
+                    @Html.PagedListPager(Model.Paging, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

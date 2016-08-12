@@ -1,0 +1,105 @@
+﻿@model Emsal.UI.Models.OfferStateViewModel
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+}
+
+@using (Html.BeginForm("Approv", "OfferState", FormMethod.Post))
+{
+
+                    <!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        @if (Model.isMain == 0)
+                        {
+                            <div class="checkbox btn-group">
+                                <label style="margin-left: 10px;">
+                                    <input id="allCheck" onclick="chcheckList(this)" type="checkbox"> Hamısını seç
+                                </label>
+                            </div>
+                            <div class="btn-group" id="chall">
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <span class="glyphicon glyphicon-check"></span>&nbsp;təsdiqlə
+                                </button>
+                            </div>
+
+                        }
+                        <input hidden id="checkedList" />
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped table-bordered">
+                                <tbody>
+                                    @foreach (var item in Model.Paging)
+                                    {
+                                        <tr>
+                                            @if (Model.isMain == 0)
+                                            {
+                                                <td class="col-md-1">
+                                                    <input onchange="getCheckedList()" name="ids" value="@item.productionID" class="ch" type="checkbox">
+                                                </td>
+                                            }
+                                            <td class="col-md-2">
+                                                @item.productName
+                                            </td>
+                                            <td class="col-md-1">
+                                                @item.quantity @item.enumValueName
+                                            </td>
+                                            <td class="col-md-1">
+                                                @item.unitPrice AZN
+                                            </td>
+                                            <td class="col-md-2">
+                                                @item.description
+                                            </td>
+                                            <td class="col-md-2">
+@if (item.person != null) {
+                                               <span>@item.person.Name @item.person.Surname @item.person.FatherName (@item.person.gender)<br />
+                                                pin: @item.person.PinNumber</span> 
+                                                }
+                                            </td>
+                                            <td class="col-md-2">
+                                                <table>
+                                                    @foreach (var itm in item.productionDocumentList)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @itm.documentRealName&nbsp;
+
+                                                                (@Math.Round(((decimal)itm.documentSize / 1024) / 1024, 2)  mb)&nbsp;&nbsp;
+
+                                                                <div class="glyphicon glyphicon-eye-open text-primary" onclick="getAttachmentFile(@itm.Id)" style="cursor:pointer;"></div>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </table>
+                                            </td>
+                                            @if (Model.isMain == 0)
+                                            {
+                                                <td class="col-md-1 shsingle text-center">
+                                                    <a href="/OfferState/Edit/@item.productionID" class="badge bg-light-blue">
+                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                    </a>
+                                                </td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="box-footer clearfix">
+                        Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
+                        @Html.PagedListPager(Model.Paging, page => Url.Action("Index", new { page, stateStatusEV = Model.stateStatusEV, productName=Model.productName, userInfo=Model.userInfo }))
+                    </div>
+
+
+}
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#chall').hide();
+    });
+</script>

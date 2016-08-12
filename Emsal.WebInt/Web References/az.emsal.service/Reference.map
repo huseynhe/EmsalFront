@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://service.emsal.az/EmsalService.svc?xsd=xsd4" filename="EmsalService.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://service.emsal.az/EmsalService.svc?xsd=xsd5" filename="EmsalService0.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://service.emsal.az/EmsalService.svc?xsd=xsd2" filename="EmsalService1.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://service.emsal.az/EmsalService.svc?xsd=xsd3" filename="EmsalService2.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://service.emsal.az/EmsalService.svc?xsd=xsd0" filename="EmsalService3.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="http://service.emsal.az/EmsalService.svc?disco" filename="EmsalService.disco" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://service.emsal.az/EmsalService.svc?xsd=xsd1" filename="EmsalService4.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://service.emsal.az/EmsalService.svc?wsdl" filename="EmsalService.wsdl" />
+  </Results>
+</DiscoveryClientResultsFile>

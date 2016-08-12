@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="MediaCenter, Template, eCommerce">
+    <meta name="robots" content="all">
+
+    <title>emsal</title>
+    
+    <link href="~/Content/UI/css/bootstrap.css" rel="stylesheet">
+    <link href="~/Content/UI/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="~/Content/UI/css/style.css" rel="stylesheet">
+    <link href="~/Content/UI/css/owl.carousel.css" rel="stylesheet">
+    <link href="~/Content/UI/css/owl.theme.css" rel="stylesheet">
+    <link href="~/Content/UI/css/ihover.css" rel="stylesheet">
+    <link href="~/Content/UI/css/bootstrap-select.css" rel="stylesheet">
+    <link href="~/Content/UI/css/font-awesome.css" rel="stylesheet" />
+
+    <script src="~/Content/UI/js/jquery-1.11.3.min.js"></script>
+    <script src="~/Content/UI/js/bootstrap.js"></script>
+    <script src="~/Content/UI/js/owl.carousel.js"></script>
+    <script src="~/Content/UI/js/slide_elan.js"></script>
+    <script src="~/Content/UI/js/bootstrap-select.js"></script>
+
+    <script src="~/Content/UI/js/custom.js"></script>
+    <script src="~/Content/UI/js/addPotentialUser.js"></script>
+    @*<script src="~/Content/UI/js/specialSummary.js"></script>*@
+
+
+    <script src="~/Content/UI/js/emsal.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    @*<script src="//code.jquery.com/jquery-1.10.2.js"></script>*@
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+</head>
+<body>
+
+
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-2 text-center">
+                    <a href="/">
+                        <img class="logo" src="/Content/UI/img/logo.png">
+                        <h5 class="text-white">Satınalan təşkilatların ərzaq məhsullarına tələbatı portalı</h5>
+                    </a>
+                </div>
+                <div class="col-sm-12 col-md-10">
+                    <div class="row"><br />
+                        <h4 hidden class="text-white text-bold text-center" style="padding-bottom:20px;">Dövlət müəssisə və təşkilatları (idarələri) tərəfindən ərzaq məhsullarının mərkəzləşdirilmiş qaydada dövlət büdcəsinin vəsaitləri hesabına satın alınması Portalı</h4>
+                        <div class="col-sm-12 col-md-9">
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-9">
+                                    <form class="form-inline">
+                                        <div class="form-group col-md-12">
+                                            <input autocomplete="off" onkeyup="searchAnnouncement(this)" style="width:100%;" type="text" class="form-control" id="formGroupInputLarge" placeholder="Elanlar üzrə axtarış ...">
+                                            <div style="position: absolute; width: calc(100% - 30px); float: left; z-index: 1000;" id="searchAnnouncementResult"></div>
+                                        </div>
+                                        @*<button type="button" class="btn bg_colorG text-white text-bold col-md-4">AXTAR</button>*@
+                                    </form>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <img class="chagri" src="/Content/UI/img/cagri.png">
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-sm-12 col-md-3">
+                            <div class="reg">
+                                <a href="/Login" type="button" class="btn enter text-white text-bold bg_colorG box-shadow">GİRİŞ</a>
+                                <a href="/SignUp" type="button" class="btn text-white text-bold bg_colorG box-shadow">QEYDİYYAT</a>
+                            </div>
+                            <div class="clear-both"></div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top:20px;">
+
+                        <div class="col-sm-12 col-md-8">
+                            <nav class="navbar navbar-default">
+                                <div class="container">
+                                    <!-- Brand and toggle get grouped for better mobile display -->
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+
+                                    </div>
+
+                                    <!-- Collect the nav links, forms, and other content for toggling -->
+                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                        <ul class="nav navbar-nav">
+                                            <li class="dropdown">
+                                                <a href="/" id="menu">ELANLAR</a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="/Home/PotentialUser" id="menu">POTENSİAL İSTEHSALÇILAR</a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="/" id="menu">TƏKLİFLƏR</a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="/" id="menu">QANUNVERİCİLİK</a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="/" id="menu">HAQQIMIZDA</a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="/Home/Contact" id="menu">ƏLAQƏ</a>
+                                            </li>
+                                        </ul>
+                                    </div><!-- /.navbar-collapse -->
+                                </div><!-- /.container-fluid -->
+                            </nav>
+                        </div>
+
+                        <div class="col-sm-12 col-md-4">
+                            <div class="insert_elan box-shadow">
+                                <a href="/OfferProduction">
+                                    <img src="/Content/UI/img/insert_elan.png">
+                                    <h3>Təklif yerləşdirmək</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </header>
+
+
+        <div>
+            @RenderBody()
+        </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer_below">
+                <div class="f-left">
+                    <span>© Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi, 2016</span>
+                </div>
+                <div class="f-right">
+                    <a href="/"><img src="~/Content/UI/img/face.png"></a>
+                    <a href="/"><img src="~/Content/UI/img/twit.png"></a>
+                    <a href="/"><img src="~/Content/UI/img/instag.png"></a>
+                    <a href="/Home/Pages"><img src="~/Content/UI/img/google.png"></a>
+
+                </div>
+
+            </div>
+            <div class="clear-both"></div>
+
+        </div>
+    </footer>
+
+
+
+    <script src="~/Content/js/jquery.validate.js"></script>
+    <script src="~/Content/js/jquery.validate.unobtrusive.js"></script>
+
+    <link href="~/Content/UI/css/select2.min.css" rel="stylesheet" />
+    <script src="~/Content/UI/js/select2.min.js"></script>
+    <script type="text/javascript">
+        $('.select2').select2();
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#puserBut").click(function () {
+                $("#puserMenu").animate({
+                    height: 'toggle'
+                });
+            });
+        });
+    </script> 
+
+
+    <script>
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+        $("#userType").on("change", function () {
+            if ($("#userType").val() == "legalPerson") {
+                $("#voenDiv").css("display", "block");
+                $("#pinDiv").css("display", "none");
+            }
+            else {
+                $("#voenDiv").css("display", "none");
+                $("#pinDiv").css("display", "block");
+            }
+        })
+    </script>
+</body>
+</html>

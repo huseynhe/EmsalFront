@@ -1,0 +1,53 @@
+﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+@{
+    ViewBag.Title = "Orders";
+}
+@using PagedList.Mvc;
+@{
+    if (Model.DemandProductionList.Count == 0)
+    {
+        <div class='white_fon'>
+            <p>Heç nə tapılmadı</p>
+        </div>
+
+    }
+    else
+    {
+        foreach (var item in Model.PagingDemand)
+        {
+            <div class="white_fon">
+                <table class="responcive">
+                    <tr>
+                        <td style="padding-left:5px; color:red">@item.ProductName - @item.ParentName</td>
+                    </tr>
+                    <tr>
+                        @{
+                            if (item.ProductProfilePicture != null)
+                            {
+                                <td width="10%"><a href="/GovernmentOrganisationSpecialSummary/DemandProductInfo?Id=@item.ProductId"><img src=@item.ProductProfilePicture style='max-width:100px;max-height:77px'></a></td>
+                            }
+                            else
+                            {
+                                <td width="10%"><a href="/GovernmentOrganisationSpecialSummary/DemandProductInfo?Id=@item.ProductId"><img src='http://emsal.az/staticFiles/notFound.png' style='max-width:100px;max-height:77px' /></a></td>
+                            }
+                        }
+                        <td width="70%">
+                            <p>
+                                Tədarük olunacaq dövr :<span style="color:green">@item.ShipmentPeriod</span>
+                            </p>
+                            <p>Təqdim olunacaq yer : <span style="color:green">@item.ShipmentPlace</span></p>
+
+                        </td>
+                        <td width="20%">
+                            <p style="color:red">Məhsulun miqdarı : @item.ProductQuantity  @item.QuantityType</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+         <div class="box-footer clearfix">
+            Səhifə @(Model.PagingDemand.PageCount < Model.PagingDemand.PageNumber ? 0 : Model.PagingDemand.PageNumber) (cəmi @Model.PagingDemand.PageCount)
+            @Html.PagedListPager(Model.PagingDemand, page => Url.Action("OnAirDemands", "GovernmentOrganisationSpecialSummary", new { page }))
+        </div>
+    }
+}

@@ -1,0 +1,32 @@
+﻿@model Emsal.AdminUI.Models.Organisation
+
+@{
+    ViewBag.Title = "Offer";
+    Layout = "";
+}
+
+@if (Model.PRMAdminUnitList.Count > 0)
+{
+    <div class="form-group col-md-6">
+
+        <select required name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+            <option value="">Seçim edin</option>
+
+            @foreach (var item in Model.PRMAdminUnitList)
+            {
+                if (item.Name == "Azərbaycan Respublikası")
+                {
+
+                    <option selected value="@item.Id">@item.Name</option>
+                }
+                else
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            }
+        </select>
+
+        <span data-valmsg-replace="true" data-valmsg-for="adId[@{ @Model.arrNum }]" class="field-validation-valid text-danger"></span>
+    </div>
+    }
+

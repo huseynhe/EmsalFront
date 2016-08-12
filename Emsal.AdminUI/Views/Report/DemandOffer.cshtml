@@ -1,0 +1,86 @@
+﻿@model Emsal.AdminUI.Models.ReportViewModel
+    
+@{
+    ViewBag.Title = "Report";
+    Layout = "";  
+}
+<script src="~/Content/js/Chart.js"></script>
+<script src="~/Content/js/ChartJS.js"></script>
+
+<input hidden id="demands" value="@Model.strDemand" />
+<input hidden id="offers" value="@Model.strOffer" />
+<input hidden id="products" value="@Model.strProducts" />
+
+<br />
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Məhsulların tələb - <span style="background:#d2d6de;" class="btn btn-lg"></span> və təklif - <span style="background:#00a65a;" class="btn btn-lg"></span> üzrə bölgüsü  </h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <canvas id="barChart" style="height:400px"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Məhsulların tələb - <span style="background:#d2d6de;" class="btn btn-lg"></span> və təklif - <span style="background:#4f98c3;" class="btn btn-lg"></span> üzrə bölgüsü  </h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <canvas id="areaChart" style="height:400px"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" style="display:none;">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Məhsulların aylar üzrə bölgüsü</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <canvas id="lineChart" style="height:250px"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Məhsulların pay bölgüsü (ton)</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <canvas id="pieChart" style="height:250px"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+

@@ -1,0 +1,32 @@
+﻿@model Emsal.UI.Models.UserViewModel
+@{
+    ViewBag.Title = "Index";
+    if (Model.Person == null)
+    {
+        Layout = "~/Views/Shared/_OrganisationSpecialSummaryLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_SpecialSummaryLayout.cshtml";
+    }
+}
+
+<br /><br /><br />
+
+<h2 style="text-align:center">Cavab Yazın</h2>
+<br />
+@using (Html.BeginForm("AnswerMessage", "SpecialSummary", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    
+    @Html.HiddenFor(model => model.ComMessageId)
+    <div class="form-group">
+        @Html.LabelFor(x => x.Message)
+        @Html.TextBoxFor(x => x.Message, new { @class = "form-control", id = "message" })
+        @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+    </div>
+            <p class="text-danger" id="pinAlert"></p><br />
+
+    <div>
+        <input type="submit" class="btn btn-success" value="Göndər" />
+    </div>
+}

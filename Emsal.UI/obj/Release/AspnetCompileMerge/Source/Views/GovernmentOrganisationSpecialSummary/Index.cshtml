@@ -1,0 +1,308 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSpecialSummary.cshtml";
+}   
+<script src="~/Content/js/governmentSpecialSummary.js"></script>
+            <div class="tab_panel_block">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#Admin" aria-controls="home" role="tab" data-toggle="tab"><h5 class="text-bold">Məhsullar</h5></a></li>
+                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"><h5 class="text-bold"><span class="adSoyad">@Model.User.Username</span><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></h5></a></li>
+
+                    <li>
+                        <a href="/DemandProduction" class="btn btn-info active pull-right">
+                            <i class="glyphicon glyphicon-link"></i>&nbsp;Sifariş yerləşdir
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Tab panes -->
+
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="Admin">
+
+                    <div class="tab_panel_block_left">
+
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" href="#collapse1">Məhsullarım<span class="glyphicon glyphicon-menu-down f-right text-gray" aria-hidden="true"></span></a>
+                                    </h4>
+                                </div>
+                                <div id="collapse1" class="panel-collapse collapse">
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a data-toggle="collapse" id="orders" href="">Sifarişlərim <span id="order_num"></span></a></li>
+                                        <li class="list-group-item"><a data-toggle="collapse" id="expiredOrders" href="">Vaxtı Bitmiş Sifarişlərim <span id="expired_order_num"></span></a></li>
+
+                                       @* <li class="list-group-item"><a data-toggle="collapse" id="contracts" href="">Müqavilələrim <span id="contract_num"></span> </a></li>*@
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab_panel_block_right">
+
+                        <!--Orders  -->
+
+                        <div class="OrderMain">
+                            <div class="mesajlar">
+                                <h4 class="text-bold">Sifarişlər</h4>
+
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Elan və ya göndərənin adına görə axtarış edə bilərsiniz">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">Axtar</button>
+                                    </span>
+                                </div>
+
+                                <div id="ordersBody">
+                                    @Html.Action("Orders","GovernmentOrganisationSpecialSummary",new { UserID = 1})
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ExpiredOrderMain" style="display:none">
+                            <div class="mesajlar">
+                                <h4 class="text-bold">Vaxtı Bitmiş Sifarişlər</h4>
+
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Elan və ya göndərənin adına görə axtarış edə bilərsiniz">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">Axtar</button>
+                                    </span>
+                                </div>
+
+                                <div id="expiredOrdersBody">
+                                    @Html.Action("ExpiredOrders", "GovernmentOrganisationSpecialSummary", new { UserID = 1 })
+                                </div>
+                            </div>
+                        </div>
+
+                         <!--Contracts-->
+                        <div class="ContractMain" style="display:none">
+                            <div class="mesajlar">
+                                <h4 class="text-bold">Müqavilələr</h4>
+
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Elan və ya göndərənin adına görə axtarış edə bilərsiniz">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">Axtar</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mesajMain">
+                            <div class="mesajlar">
+                                <h4 class="text-bold">Mesajlarım</h4><br />
+
+                                <div class="white_fon" style="padding: 20px 10px;">
+                                    <p class="f-left" id="MessageMain"></p>
+                                    <p class="f-right" id="MesType">
+
+                                        <select id="InboxMessagesSelect" style="display:none">
+                                            <option value="1">Tarixə görə (artan sıra ilə)</option>
+                                            <option value="2">Tarixə görə (azalan sıra ilə)</option>
+                                        </select>
+                                        <select id="SentMessagesSelect" style="display:none">
+                                            <option value="1">Tarixə görə (artan sıra ilə)</option>
+                                            <option value="2">Tarixə görə (azalan sıra ilə)</option>
+                                        </select>
+                                    </p>
+                                    <div class="clear-both"></div>
+                                </div>
+
+                                <div id="ReceivedMessagesMain">
+                                    @Html.Action("ReceivedMessages", "GovernmentOrganisationSpecialSummary", new { userId = 2})
+                                </div>
+                                <div id="ReceivedMessagesSortedForDateAsc">
+                                    @Html.Action("ReceivedMessagesSortedForDateAsc", "GovernmentOrganisationSpecialSummary", new { userId = 2 })
+                                </div>
+                                <div id="ReceivedMessagesSortedForDateDes">
+                                   @Html.Action("ReceivedMessagesSortedForDateDes", "GovernmentOrganisationSpecialSummary", new { userId = 2})
+                                </div>
+                                <div id="SentMessagesMain">
+                                    @Html.Action("SentMessages", "GovernmentOrganisationSpecialSummary", new { userId = 2 })
+                                </div>
+                                 <div id="SentMessagesSortedForDateAsc">
+                                    @Html.Action("SentMessagesSortedForDateAsc", "GovernmentOrganisationSpecialSummary", new { userId = 2 })
+                                </div>
+                                <div id="SentMessagesSortedForDateDes">
+                                    @Html.Action("SentMessagesSortedForDateDes", "GovernmentOrganisationSpecialSummary", new { userId = 2 })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="clear-both"></div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="settings">
+
+                    <div class="tab_panel_block_left">
+
+                        <div class="panel-group">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="profile-header-container">
+                                        <div class="profile-header-img">
+                                            <img class="img-responsive" style="width:188.8px" src=@Model.User.ProfileImageUrl />
+                                            <!-- badge -->
+                                            <div class="rank-label-container">
+                                                <span class="label label-default rank-label">100 puntos</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                @*<div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" href="#collapse2">Haqqımda<span class="glyphicon glyphicon-menu-down f-right text-gray" aria-hidden="true"></span></a>
+                                    </h4>
+                                </div>*@
+                                <div id="collapse2" style="display:block">
+                                    <ul class="list-group" style="margin-bottom:0">
+                                        <li class="list-group-item"><a data-toggle="collapse" href="" id="personalInfoButton">Şəxsi məlumatlar</a></li>
+                                        <li class="list-group-item"><a data-toggle="collapse" href="" id="personalEmail">E-mail</a></li>
+                                        <li class="list-group-item"><a data-toggle="collapse" href="" id="currentPassword">Şifrəni dəyişdir</a></li>
+                                        <li class="list-group-item"><a data-toggle="collapse" href="">Qeydiyyatdan imtina</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="tab_panel_block_right">
+                        <div class="person_settings" id="personalInfos">
+                            <h4 class="text-bold">Şəxsi məlumatlar</h4>
+                            <div class="white_fon">
+                                <table>
+                                    <tr>
+                                        <td>İstifadəçi adı</td>
+                                        <td class="userNameEkle">@Model.User.Username</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div id="gupdatePerson" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Şəxsi Məlumatlar</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    <label>İstifadəçi adı</label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <input type="text" id="gupUserName" class="form-control" value="@Model.User.Username" readonly/><br />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button id="gchangeDetails" class="btn btn-danger">Təsdiqlə</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="person_settings" id="personalEmail2" style="display:none">
+                            <h4 class="text-bold">E-mail</h4>
+                            <div class="white_fon">
+                                <p>
+                                    <br />
+                                    Elanlarınız, və mesajlarınız ilə
+                                    əlaqəli vacib mesajların sizə çatacağından
+                                    əmin olabilmək üçün emailinizin düzgün qeyd olunduğundan emin olun.
+                                </p><br />
+                                <p>Mövcud email adresiniz: <b><span id="currentEmail">@Model.User.Email</span></b></p><br />
+
+                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#EmailModal">Dəyişdir</button>
+
+                                <!-- Modal -->
+                                
+                                <div id="EmailModal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Emaili Deyişdir</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <div class="col-md-3">
+                                                        <label>Email</label>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <input type="email" class="form-control" id="updateEmail" value="@Model.User.Email" />
+                                                    </div><br />
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="updateEmailAction" class="btn btn-danger">Təsdiqlə</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                        <div class="person_settings" id="currentPasswordBody" style="display:none">
+                            <h4 class="text-bold">E-mail</h4>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    <label>Mövcud Şifrə</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="password" class="form-control" id="oldPassword"/><br />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    <label>Yeni Şifrə</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="newPassword1" /><br />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    <label>Yeni Şifrə Təkrar</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="newPassword2" /><br />
+                                </div>
+                            </div><br /><br /><br />
+                            <div>
+                                <h4 id="wrongPassword" style="color:red;"></h4>
+                            </div>
+                            <div class="form-group col-md-2 col-md-offset-5">
+                                <br />
+                                <button id="changePassword" class="btn btn-danger">Təsdiqlə</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="clear-both"></div>
+
+            </div>

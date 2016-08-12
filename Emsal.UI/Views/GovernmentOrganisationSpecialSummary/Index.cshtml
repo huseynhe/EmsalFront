@@ -1,0 +1,40 @@
+﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSpecialSummary.cshtml";
+}
+
+
+
+<div class="tesdiqlenen">
+    <div class="mesajlar">
+        <h4 class="text-bold">Təsdiqlənən Sifarişlər</h4>
+        <div id="specialSummaryMain">
+            @Html.Partial("PartialIndex")
+        </div>
+    </div>
+</div>
+@if (TempData["ChangePassword"] != null)
+{
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $("#myModal").modal('show');
+            });
+    </script>
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Məlumat</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="successMessage">Dövlət Təşkilatı Uğurlu bir şəkildə əlavə olundu</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}      

@@ -1,0 +1,110 @@
+﻿@*@model IEnumerable<Emsal.AdminUI.Models.EnumCategoryViewModel>*@
+@model Emsal.AdminUI.Models.EnumValueViewModel
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+
+</p>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    @*<h3 class="box-title col-md-12">EnumCategory <a class="btn btn-primary pull-right" href="@Url.Action("Create","EnumValue")"><span class="glyphicon glyphicon-plus"></span> Əlavə et</a></h3>*@
+                </div>
+                <div class="box-body table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.description)
+                            </th>
+                            @*<th>
+                                @Html.DisplayNameFor(model => model.createdDate)
+                            </th>*@
+                    @*        <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LastUpdatedStatus)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.createdUser)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.createdDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.updatedUser)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.updatedDate)
+                            </th>*@
+                            <th  style="width: 60px">redaktə</th>
+                            <th  style="width: 60px">sil</th>
+                        </tr>
+
+
+                        @foreach (var item in Model.Paging)
+                      {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.description)
+                                </td>
+                                   @*<td>
+                                    @Html.DisplayFor(modelItem => item.createdDate)
+                                </td>*@
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LastUpdatedStatus)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.createdUser)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.createdDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.updatedUser)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.updatedDate)
+                                </td>*@
+                                <td>
+                                    <a href="/EnumValue/Edit/@item.Id" class="badge bg-light-blue">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/EnumValue/Delete/@item.Id" class="badge bg-red">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
+                    @Html.PagedListPager(Model.Paging, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
+        </div>
+    </div> 
+    </section>
+
+

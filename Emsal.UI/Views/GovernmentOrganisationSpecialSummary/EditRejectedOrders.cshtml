@@ -1,0 +1,169 @@
+﻿@model Emsal.UI.Models.DemandProductionViewModel
+@{
+    ViewBag.Title = "EditToOffer";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+
+}
+<div class="clearfix" style="height:50px;"></div>
+<h3>Düzəlişlər Et</h3>
+<div class="clearfix" style="height:20px;"></div>
+
+@using (Html.BeginForm("EditRejectedOrders", "GovernmentOrganisationSpecialSummary", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.Id)
+    <div class="editToOferrMain">
+        <div id="mainf">
+
+            <div class="col-md-12"><label class="control-label">Məhsulun çatdırılacağı ünvan</label></div>
+
+            <div class="form-group" id="profileAdminUnit">
+                <script>
+                    $(document).ready(function () {
+                        $.ajax({
+                            url: '/Ordinary/AdminUnit?pId=0',
+                            type: 'GET',
+                            success: function (result) {
+                                $('#profileAdminUnit').html(result);
+
+                                $("select[name='adId[0]']").change();
+                            },
+                            error: function () {
+
+                            }
+                        });
+                    });
+                </script>
+            </div>
+
+            <div class="clearfix" style="height:170px;"></div>
+
+            <hr /><br /><br />
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.startDate, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.startDate, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.endDate, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                </div>
+            </div><div class="clearfix" style="height:100px;"></div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Quantity)
+                    @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Ölçü Vahidi</label>
+                    <select class="form-control" name="quantityType">
+                        @foreach (var item in Model.EnumValueList)
+                        {
+                            <option value="@item.Id">@item.name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Məhsul</label>
+                    @Html.TextBoxFor(model => model.ProductCatalog.ProductName, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+            @*<div class="col-md-3">
+                <div class="form-group">
+                    <label>Məhsulun növü</label>
+                    <select class="form-control" name="ProductType">
+                        @foreach (var item in Model.ProductCatalogArray)
+                        {
+                            <option value="@item.Id">@item.ProductName</option>
+                        }
+                    </select>
+
+                </div>
+            </div>*@
+            <div class="clearfix" style="height:100px"></div>
+        </div>
+        <div class="clearfix" style="height:20px"></div>
+
+
+            <div class="container well">
+                <h4>Hansı aylarda məhsul verə bilərsiniz?</h4><br />
+
+                <div class="col-md-6 well">
+                        <input style="opacity: 0; position: absolute;" required id="selectedMonth" name="checkedMonth" />
+                        @foreach (var item in Model.EnumValueMonthList)
+                        {
+                            <div class="col-sm-3" style="padding: 0;">
+                                <div class="checkbox">
+                                    <label>
+                                        <input value="@item.Id" type="checkbox" class="check ch">
+                                        <span class="chn">@item.description</span>
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                    <span data-valmsg-replace="true" data-valmsg-for="checkedMonth" class="field-validation-valid text-danger"></span>
+
+                </div>
+               
+                <div class="col-md-5" style="margin-left:5px">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.shippingSchedule, htmlAttributes: new { @class = "control-label" })
+                        <div class="clearfix"></div>
+                        <div class="btn-group" data-toggle="buttons">
+                            @foreach (var item in Model.EnumValueShippingScheduleList)
+                            {
+                                <label class="btn btn-primary">
+                                    <input required type="radio" name="shippingSchedule" value="@item.Id" autocomplete="off">
+                                    @item.description
+                                </label>
+                            }
+                        </div>
+                        <div class="clearfix"></div>
+                        <span data-valmsg-replace="true" data-valmsg-for="shippingSchedule" class="field-validation-valid text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-md-offset-5" style="margin-bottom:20px; padding:5px">
+                <input type="submit" class="btn btn-success" value="Davam Et" id="sendInfo" />
+            </div>
+        </div>
+}
+
+
+<script>
+        function GetAdminUnit(elem) {
+            pId = $(elem).val();
+            $(elem).parent().nextAll().remove();
+
+            if (pId > 0) {
+                $.ajax({
+                    url: '/SignUp/AdminUnit?pId=' + pId,
+                    type: 'GET',
+                    //data: { "pId": appId},
+                    success: function (result) {
+                        $('#addressId').val(pId);
+                        $(elem).parent().parent().append(result);
+
+                        $('.select2').select2();
+                    },
+                    error: function () {
+
+                    }
+                });
+            }
+        }
+</script>

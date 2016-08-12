@@ -1,0 +1,59 @@
+﻿
+@model Emsal.UI.Models.ProductCatalogViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section id="center">
+    <div class="container">
+        <div class="col-md-3" id="puserMenu" style="background: #fafafa; padding-bottom: 10px;border: 3px solid #f2f2f2; border-radius: 0 0 5px 5px;">
+            @*@Html.Action("AdminUnit", "Home", new { pId = 0 })*@
+            <script>
+                $(document).ready(function () {
+                    $.ajax({
+                        url: '/Home/AdminUnit?pId=0',
+                        type: 'GET',
+                        success: function (result) {
+                            $('#puserMenu').html(result);
+
+                            $('.select2').select2();
+                        },
+                        error: function () {
+
+                        }
+                    });
+                });
+            </script>
+        </div>
+
+        <div class="col-md-9" style="background:#fff;">
+            <div class="col-md-4 col-md-offset-8" style="padding:0;">
+
+            </div>
+            <div class="clearfix"></div>
+            <br />
+            <table class="table table-bordered" style="margin:0;">
+                <thead>
+                    <tr>
+                        <th class="col-sm-3"><div class="col-sm-8">Ad | Hüquqi şəxsin adı</div><div style="cursor:pointer;float:right;" onclick="GetUserInfo(this,'name')" class="sortingpu"></div></th>
+                        <th class="col-sm-3"><div class="col-sm-8">Soyad </div><div style="cursor:pointer;float:right;" onclick="GetUserInfo(this,'surname')" class="sortingpu"></div></th>
+                        @*<th class="col-sm-5"><div class="col-sm-8">Bölgə</div><div style="cursor:pointer;float:right;" onclick="GetUserInfo(this, 'adminUnitName')" class="sortingpu"></div></th>*@
+                        <th class="col-sm-1">Keçid</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-sm-3"><input onkeyup="UserInfoSearch(this, 'name')" class="form-control" placeholder="axtar" /></td>
+                        <td class="col-sm-3"><input onkeyup="UserInfoSearch(this, 'surname')" class="form-control" placeholder="axtar" /></td>
+                        @*<td class="col-sm-5"><input onkeyup="UserInfoSearch(this, 'adminUnitName')" class="form-control" placeholder="axtar" /></td>*@
+                        <td class="col-sm-1"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            @Html.Action("UserInfo", "Home")
+        </div>
+    </div>
+</section>

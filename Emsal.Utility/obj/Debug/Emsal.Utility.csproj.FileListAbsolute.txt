@@ -1,0 +1,54 @@
+H:\projects\Emsal_20.07.2016_3\Emsal\Emsal.Utility\bin\Debug\Emsal.Utility.dll
+H:\projects\Emsal_20.07.2016_3\Emsal\Emsal.Utility\bin\Debug\Emsal.Utility.pdb
+H:\projects\Emsal_20.07.2016_3\Emsal\Emsal.Utility\bin\Debug\NLog.dll
+H:\projects\Emsal_20.07.2016_3\Emsal\Emsal.Utility\bin\Debug\NLog.xml
+H:\projects\Emsal_20.07.2016_3\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.csprojResolveAssemblyReference.cache
+H:\projects\Emsal_20.07.2016_3\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.dll
+H:\projects\Emsal_20.07.2016_3\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.pdb
+H:\projects\Emsal_22.07.2016_2\Emsal\Emsal.Utility\bin\Debug\Emsal.Utility.dll
+H:\projects\Emsal_22.07.2016_2\Emsal\Emsal.Utility\bin\Debug\Emsal.Utility.pdb
+H:\projects\Emsal_22.07.2016_2\Emsal\Emsal.Utility\bin\Debug\NLog.dll
+H:\projects\Emsal_22.07.2016_2\Emsal\Emsal.Utility\bin\Debug\NLog.xml
+H:\projects\Emsal_22.07.2016_2\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.csprojResolveAssemblyReference.cache
+H:\projects\Emsal_22.07.2016_2\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.dll
+H:\projects\Emsal_22.07.2016_2\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.pdb
+C:\Users\Ferid\Desktop\Emsal\Emsal.Utility\bin\Debug\Emsal.Utility.dll
+C:\Users\Ferid\Desktop\Emsal\Emsal.Utility\bin\Debug\Emsal.Utility.pdb
+C:\Users\Ferid\Desktop\Emsal\Emsal.Utility\bin\Debug\NLog.dll
+C:\Users\Ferid\Desktop\Emsal\Emsal.Utility\bin\Debug\NLog.xml
+C:\Users\Ferid\Desktop\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.dll
+C:\Users\Ferid\Desktop\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.pdb
+H:\projects\Emsal_25.07.2016_4\Emsal\Emsal.Utility\bin\Debug\Emsal.Utility.dll
+H:\projects\Emsal_25.07.2016_4\Emsal\Emsal.Utility\bin\Debug\Emsal.Utility.pdb
+H:\projects\Emsal_25.07.2016_4\Emsal\Emsal.Utility\bin\Debug\NLog.dll
+H:\projects\Emsal_25.07.2016_4\Emsal\Emsal.Utility\bin\Debug\NLog.xml
+H:\projects\Emsal_25.07.2016_4\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.csprojResolveAssemblyReference.cache
+H:\projects\Emsal_25.07.2016_4\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.dll
+H:\projects\Emsal_25.07.2016_4\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.pdb
+D:\KTN Porjects\Emsal\Emsal\Emsal.Utility\bin\Debug\Emsal.Utility.dll
+D:\KTN Porjects\Emsal\Emsal\Emsal.Utility\bin\Debug\Emsal.Utility.pdb
+D:\KTN Porjects\Emsal\Emsal\Emsal.Utility\bin\Debug\NLog.dll
+D:\KTN Porjects\Emsal\Emsal\Emsal.Utility\bin\Debug\NLog.xml
+D:\KTN Porjects\Emsal\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.dll
+D:\KTN Porjects\Emsal\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.pdb
+D:\KTN Porjects\Emsal\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.csprojResolveAssemblyReference.cache
+C:\Windows\system32\config\systemprofile\Desktop\Emsal\Emsal.Utility\bin\Debug\Emsal.Utility.dll
+C:\Windows\system32\config\systemprofile\Desktop\Emsal\Emsal.Utility\bin\Debug\Emsal.Utility.pdb
+C:\Windows\system32\config\systemprofile\Desktop\Emsal\Emsal.Utility\bin\Debug\NLog.dll
+C:\Windows\system32\config\systemprofile\Desktop\Emsal\Emsal.Utility\bin\Debug\NLog.xml
+C:\Windows\system32\config\systemprofile\Desktop\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.dll
+C:\Windows\system32\config\systemprofile\Desktop\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.pdb
+C:\Users\Ferid\Desktop\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.csprojResolveAssemblyReference.cache
+D:\KTN Porjects\Emsal Yeni\Emsal\Emsal\Emsal.Utility\bin\Debug\Emsal.Utility.dll
+D:\KTN Porjects\Emsal Yeni\Emsal\Emsal\Emsal.Utility\bin\Debug\Emsal.Utility.pdb
+D:\KTN Porjects\Emsal Yeni\Emsal\Emsal\Emsal.Utility\bin\Debug\NLog.dll
+D:\KTN Porjects\Emsal Yeni\Emsal\Emsal\Emsal.Utility\bin\Debug\NLog.xml
+D:\KTN Porjects\Emsal Yeni\Emsal\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.csprojResolveAssemblyReference.cache
+D:\KTN Porjects\Emsal Yeni\Emsal\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.dll
+D:\KTN Porjects\Emsal Yeni\Emsal\Emsal\Emsal.Utility\obj\Debug\Emsal.Utility.pdb
+D:\KTN Porjects\Emsal Yeni\Front\Emsal.Utility\bin\Debug\Emsal.Utility.dll
+D:\KTN Porjects\Emsal Yeni\Front\Emsal.Utility\bin\Debug\Emsal.Utility.pdb
+D:\KTN Porjects\Emsal Yeni\Front\Emsal.Utility\bin\Debug\NLog.xml
+D:\KTN Porjects\Emsal Yeni\Front\Emsal.Utility\obj\Debug\Emsal.Utility.csprojResolveAssemblyReference.cache
+D:\KTN Porjects\Emsal Yeni\Front\Emsal.Utility\obj\Debug\Emsal.Utility.dll
+D:\KTN Porjects\Emsal Yeni\Front\Emsal.Utility\obj\Debug\Emsal.Utility.pdb

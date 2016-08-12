@@ -1,0 +1,21 @@
+﻿@model Emsal.UI.Models.ProductionDocumentViewModel
+
+@{
+    Layout = "";
+}
+
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        @if (Model.FCType == "application/pdf")
+        {
+            <object class="img-responsive img-thumbnail" type="@Model.FCType" data="@Model.tempFileDirectoryFV@Model.ProductionDocument.documentName" style="width:100%;height:700px;">this is not working as expected</object>
+        }
+        else
+        {
+            <object class="img-responsive img-thumbnail" type="@Model.FCType" data="@Model.tempFileDirectoryFV@Model.ProductionDocument.documentName" style="max-width:100%;">this is not working as expected</object>
+        }
+    </div>
+</div>
+
+

@@ -1,0 +1,114 @@
+﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSpecialSummary.cshtml";
+}
+
+
+<link href="~/Content/css/OrganisationTreeView.css" rel="stylesheet">
+@*<script src="~/Content/js/jquery-1.12.3.js"></script>*@
+<script src="~/Content/js/OrganisationTreeView.js"></script>
+@*<link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/bootstrap-theme.css" rel="stylesheet">*@
+@*<link rel="stylesheet" href="~/Content/css/AdminLTE.min.css">*@
+<div class="container" style="margin-top:30px;">
+    <div class="row">
+        <div class="col-xs-7" style="color:blue">
+            <h4>Alt təşkilatlar</h4>
+        </div>
+        <div class="col-xs-4">
+            <a class="btn btn-primary" href="/GovernmentOrganisationSpecialSummary/AddChildOrganisation?parentId=@Model.ParentOrganisation.Id"><span class="glyphicon glyphicon-plus"></span> Əlavə et</a>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            @{
+               
+                <ul id="tree1">
+                    @foreach (var item in Model.OrganisationArray)
+                    {
+                        <li id="@item.Id">
+                            <a href="#" onclick="getOrganisation(@item.Id)">@item.name</a>
+                           
+
+                            <a href='/GovernmentOrganisationSpecialSummary/OrganisationInfo?Id=@item.Id' class='badge bg-red'><span class='glyphicon glyphicon-info-sign'></span></a>
+                            <a href='/GovernmentOrganisationSpecialSummary/EditChildOrganisation?Id=@item.Id' class='badge bg-light-blue'><span class='glyphicon glyphicon-pencil'></span></a>
+                            <a href="/GovernmentOrganisationSpecialSummary/DeleteChildOrganisation?Id=@item.userId&parentId=@Model.ParentOrganisation.Id" class="badge bg-red"><span class="glyphicon glyphicon-remove"></span></a>
+                            <a href="/GovernmentOrganisationSpecialSummary/AddChildOrganisation?parentId=@item.Id" class="badge bg-light-blue"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    localStorage.clear();
+    function getOrganisation(id) {
+        if (localStorage.getItem(id) === "entered") {
+            $("#1" + id).hide();
+            localStorage.setItem(id, "closed");
+            return 0;
+        }
+        if (localStorage.getItem(id) === "closed") {
+            $("#1" + id).show();
+            localStorage.setItem(id, "entered");
+            return 0;
+        }
+        $.ajax({
+            url: '/GovernmentOrganisationSpecialSummary/GetOrganisations?orgId=' + id,
+            type: 'GET',
+            success: function (resultt) {
+                if (resultt.length != 0) {
+                    $("#" + id).prepend("<i class='indicator glyphicon glyphicon-chevron-right'></i>");
+                    $("#" + id).append("<ul id=1" + id + "></ul>");
+                    resultt.map(function (itemmm) {
+                        $("#1" + id).append("<li id =" + itemmm.Id + "><a href='#' onclick='getOrganisation(" + itemmm.Id + ")'>" + itemmm.name + "</a>&nbsp;" +
+                                            "<a href='/GovernmentOrganisationSpecialSummary/OrganisationInfo?Id="+ itemmm.Id + "' class='badge bg-red'><span class='glyphicon glyphicon-info-sign'></span></a>&nbsp;" +
+                                            "<a href='/GovernmentOrganisationSpecialSummary/EditChildOrganisation?Id="+ itemmm.Id + "'class='badge bg-light-blue'><span class='glyphicon glyphicon-pencil'></span></a>&nbsp;" +
+                                            "<a href='/GovernmentOrganisationSpecialSummary/DeleteChildOrganisation?Id=" + itemmm.userId + "&parentId=" + id + "'class='badge bg-red'><span class='glyphicon glyphicon-remove'></span></a>&nbsp;" +
+                                            "<a href='/GovernmentOrganisationSpecialSummary/AddChildOrganisation?parentId=" + itemmm.Id + "'class='badge bg-light-blue'><span class='glyphicon glyphicon-plus-sign'></span></a></li>");
+                    })
+                    localStorage.setItem(id, "entered");
+                }
+
+            },
+            error: function () {
+                alert("asdgasdg");
+
+            }
+        })
+
+    }
+</script>
+<script>
+    $('#tree1').treed({ openedClass: 'glyphicon-chevron-right', closedClass: 'glyphicon-chevron-down' });
+</script>
+
+
+
+@if (TempData["denied"] != null)
+{
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $("#myModal").modal('show');
+            });
+    </script>
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Məlumat</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="successMessage">İstifadəçiyə bu hüquq verilməyib</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}      

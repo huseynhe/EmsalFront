@@ -1,0 +1,246 @@
+﻿@{
+    ViewBag.Title = "PhoneRegister2";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Login_after</title>
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="~/Content/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="~/Content/css/jumbotron.css" rel="stylesheet">
+    <link href="~/Content/css/style.css" rel="stylesheet">
+
+    <link href="~/Content/css/owl.carousel.css" rel="stylesheet">
+    <link href="~/Content/css/owl.theme.css" rel="stylesheet">
+    <link href="~/Content/css//ihover.css" rel="stylesheet">
+    <link href="~/Content/css/js-image-slider.css" rel="stylesheet">
+    <link href="~/Content/css/ddmenu.css" rel="stylesheet">
+
+    <!-- Bootstrap core JS -->
+
+    <script src="~/Content/js/jquery-1.12.3.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="~/Content/js/ie-emulation-modes-warning.js"></script>
+
+    <script src="~/Content/js/owl.carousel.js"></script>
+    <script src="~/Content/js/ddmenu.js"></script>
+    <script src="~/Content/js/cast_sender.js"></script>
+    <script src="~/Content/js/jssor.slider.mini.js"></script>
+    <script src="~/Content/js/js-image-slider.js"></script>
+
+    <script src="~/Content/js/emsal.js"></script>
+
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/"><h3>emsal.gov.az</h3></a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <form class="navbar-form navbar-right">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Axtar...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </button>
+                            </span>
+                        </div>
+                        <div class="navbar_right_login">
+                            <span><a href="">Ətraflı axtar</a></span>
+                            <a href="" id="per_inf">Əhmədov Məmməd<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a>
+                            <a href=""><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
+                            <a href=""><span class="glyphicon glyphicon-bell" aria-hidden="true"></span></a>
+                            <a href=""><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
+                            <a href=""><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
+                            <span><button type="button" class="btn btn-primary">Pulsuz elan ver</button></span>
+                        </div>
+                    </form>
+                </div><!--/.navbar-collapse -->
+                <div class="per_information">
+                    <ul class="list-unstyled">
+                        <a href=""><li>Qısa məzmun</li></a>
+                        <a href=""><li>Elanlar</li></a>
+                        <a href=""><li>Favorilərim</li></a>
+                        <a href=""><li>Qeydiyyatım</li></a>
+                        <a href=""><li>Çıxış</li></a>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <section>
+        <div class="container">
+            <div class="login_kod_menu">
+                <ul class="list-unstyled">
+                    <a href=""><li><img src="~/Content/img/number_1.png"><span>Mobil nömrənizlə girin</span></li></a>
+                    <a href=""><li class="active"><img src="~/Content/img/number_2.png"><span>Təsdiq kodunuzu yazın</span></li></a>
+                    <a href=""><li><img src="~/Content/img/number_ok.png"><span>Təsdiq etmisiniz</span></li></a>
+                </ul>
+            </div>
+            <div class="user-login_2">
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                        <img src="~/Content/img/mobile_phone.png">
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-8">
+                        <div class="user-login_2_right">
+                            <h3 class="text-bold">Təsdiq kodunu telefonunuza göndərdik</h3>
+                            <h4>Gələn kodu aşağıda yazın</h4>
+                            <h4 class="text-bold">Təsdiq kodu</h4>
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <input data-toggle="tooltip" class="form-control" data-placement="right" title="Tooltip on right" placeholder="789568" id="confirmationMessage">
+                                </div>
+                            </form>
+                            <form>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary text-bold" id="checkMessage">Təsdiqlə</button>
+                                </div>
+                            </form><br />
+                            <div id="confirmationErrorMessage"></div>
+                            <p>Telefon nömrəniz 055 222 22 22<a href="">     Dəyişdir</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear-both"></div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="footer_menu">
+                <div class="row">
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <ul class="list-unstyled">
+                            <li><h4>Korporativ</h4></li>
+                            <li><a href="">Haqqımızda</a></li>
+                            <li><a href="">Media ilə əlaqələr və şəkillər</a></li>
+                            <li><a href="">İnsan resursları</a></li>
+                            <li><a href="">Əlaqə</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <ul class="list-unstyled">
+                            <li><h4>Xidmətlərimiz</h4></li>
+                            <li><a href="">Təhlükəsiz elektron ticarət</a></li>
+                            <li><a href="">Elanların qəbulu</a></li>
+                            <li><a href="">Məhsulların yerbəyer olunması</a></li>
+                            <li><a href="">Məhsulların paylanması</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <ul class="list-unstyled">
+                            <li><h4>Məhsullar</h4></li>
+                            <li><a href="">Heyvan mənşəli məhsullar</a></li>
+                            <li><a href="">Bitki mənşəli məhsullar</a></li>
+                            <li><a href="">Ərzaq məhsulları</a></li>
+                            <li><a href="">Digər</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <ul class="list-unstyled">
+                            <li><h4>Bizi izləyin</h4></li>
+                            <li><a title="Facebook" target="_blank" href="">Facebook</a></li>
+                            <li><a title="Twitter" target="_blank" href="">Twitter</a></li>
+                            <li><a title="Linkedin" target="_blank" href="">Linkedin</a></li>
+                            <li><a title="Google" target="_blank" href="">Google+</a></li>
+                            <li><a title="Pinterest" target="_blank" href="">Pinterest</a></li>
+                            <li><a title="Youtube" target="_blank" href="">Youtube</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="phone_email_play_store">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="phone_email">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <img src="~/Content/img/phone.png">
+                                    <div class="phone">
+                                        <p>1652 Çağrı mərkəzi</p>
+                                        <p>1652 Çağrı mərkəzi</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <img src="~/Content/img/email.png">
+                                    <div class="phone">
+                                        <p>Dəstək mərkəzi</p>
+                                        <p>emsal.gov.az</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clear-both"></div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="play_store">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href=""><img src="~/Content/img/google_play.png"></a>
+                                </li>
+                                <li>
+                                    <a href=""><img src="~/Content/img/apple_store.png"></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clear-both"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="note">
+                <p>
+                    emlak.gov.az saytında iştirak edən istifadəçilərin yaratdığı bütün məzmun, görüş və məlumatların doğruluğu,
+                    əksiksiz və dəyişməz olduğu, yayımlanması ilə əlaqədar qanuni öhdəliklər məzmunu təşkil edən istifadəçiyə aiddir.
+                    Bu məzmunun, görüş və məlumatların səhv, nöqsan və ya qanunlarla təşkil qaydalara etməsində emlak.gov.az
+                    heç bir şəkildə məsul deyil. Əgər suallarınız üçün elan sahibi ilə əlaqəyə keçə bilərsiniz.
+                </p>
+            </div>
+            <div class="copyright">
+                <p class="f-left">Copyright ©2016, emsal.gov.az</p>
+                <p class="f-right">Limitli adətlərdə və müəyyən kateqoriyalarda</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        $("#checkMessage").on("click", function () {
+            $.ajax({
+                url: "/SpecialSummary/CheckConfirmationMessage/",
+                type: "GET",
+                data: { message: document.getElementById("confirmationMessage").value },
+                success: function (item) {
+                    if (item === "True") {
+                        window.location.href = "/SpecialSummary/PhoneRegisterLast/";
+                    }
+                    else {
+                        $("#confirmationErrorMessage").html("<h3 style = 'color:red'>Təsdiq kodunuz düzgün deyil</h3>")
+                    }
+                },
+                error: function () {
+
+                }
+            })
+        })
+    </script>
+</body>
+</html>

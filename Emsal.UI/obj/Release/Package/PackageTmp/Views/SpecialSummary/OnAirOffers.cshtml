@@ -1,0 +1,80 @@
+﻿@model Emsal.UI.Models.ProductsViewModel
+@{
+    ViewBag.Title = "Offers";
+}
+@{
+    string productName = "";
+    if (Model.OfferProductionList.Count == 0)
+    {
+        <div class='white_fon'>
+            <p>Heç nə tapılmadı</p>
+        </div>
+
+    }
+    else {
+        foreach (var item in Model.OfferProductionList)
+        {
+            // System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            // var endDate = dtDateTime.AddSeconds((double)item.endDate).ToLocalTime();
+            DateTime endDate = DateTime.Now;
+            if (item.endDate != null)
+            {
+                endDate = new DateTime((long)item.endDate);
+            }
+
+            int quantity = (int)item.quantity;
+            int totalPrice = quantity * (int)item.unit_price;
+            string quantityUnit = "";
+
+
+            foreach (var enumV in Model.EnumValueList)
+            {
+                foreach (var itemmm in Model.ProductionControlList)
+                {
+                    if(itemmm.Offer_Production_Id == item.Id && itemmm.EnumValueId == enumV.Id)
+                    {
+                        quantityUnit = enumV.name;
+                    }
+                }
+
+            }
+
+            foreach (var catalog in Model.ProductCatalogList)
+            {
+                if(item.product_Id == catalog.Id)
+                {
+                    productName = catalog.ProductName;
+                }
+            }
+
+            <div class='white_fon'>
+                <table class='responcive'>
+                    <tr>
+                        <td colspan='3'><p class='text-right text-bold text-red'>@totalPrice AZN</p></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:5px; color:red">@productName</td>
+                    </tr>
+                    <tr>
+                        <td><img src='http://emsal.az/staticFiles/notFound.png' style='max-width:100px;max-height:77px'></td>
+                        <td>
+                            <p>Təklifin bitmə tarixi: @endDate.Day/@endDate.Month/@endDate.Year </p>
+                            <p>Təklifin miqdarı: @quantity @quantityUnit </p>
+                        </td>
+                        <td class='text-right'>
+                            <div class='btn-group'>
+                                <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Əməliyyatlar <span class='caret'></span></button>
+                                <ul class='dropdown-menu'>
+                                    <li><a href='/SpecialSummary/DeleteOfferProduction?Id=@item.Id'>Sil</a></li>
+                                    <li role='separator' class='divider'></li>
+                                    <li><a href=''>Qeyd</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+
+    }
+}

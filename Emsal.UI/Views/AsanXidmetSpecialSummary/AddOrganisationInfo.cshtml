@@ -1,0 +1,142 @@
+﻿@model Emsal.UI.Models.User
+@{
+    Layout = "~/Views/Shared/_SignUpLayout.cshtml";
+}
+
+<div class="container col-md-6 col-md-offset-3" style="border-radius: 5px; margin-top: 30px; margin-bottom:30px; box-shadow:1px 1px 2px 3px #ddd">
+    <br /><br /><br />
+
+    <h2 style="text-align:center">Qeydiyatı Tamamla</h2>
+    <br /><br /><br />
+    @using (Html.BeginForm("AddOrganisationInfo", "AsanXidmetSpecialSummary", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.UserName)
+        @Html.HiddenFor(model => model.AddressId)
+        @Html.HiddenFor(model => model.Password)
+        @Html.HiddenFor(model => model.Email)
+        @Html.HiddenFor(model => model.FutureUserRole)
+        @Html.HiddenFor(model => model.AddressId)
+        @Html.HiddenFor(model => model.FullAddress)
+
+
+        <div class="form-group" style="padding:5px;">
+            <label>Şirkət Adı</label>
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control", id = "name" })
+            @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+
+        </div>
+        <p class="text-danger" id="nameAlert"></p><br />
+
+        <br /><hr /><br />
+
+        <h3 class="modal-title">Şirkət Meneceri Məlumatları</h3><br />
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group" style="padding:5px">
+                    @Html.LabelFor(x => x.ManagerName)
+                    @Html.TextBoxFor(x => x.ManagerName, new { @class = "form-control", id = "name" })
+                    @Html.ValidationMessageFor(x => x.ManagerName, "", new { @class = "text-danger" })
+                </div>
+                <p class="text-danger" id="managerNameAlert"></p><br />
+            </div>
+            
+
+            <div class="col-md-4">
+                <div class="form-group" style="padding:5px">
+                    <label>Menecer soyadı</label>
+                    @Html.TextBoxFor(x => x.Surname, new { @class = "form-control", id = "surname" })
+                    @Html.ValidationMessageFor(x => x.Surname, "", new { @class = "text-danger" })
+                </div>
+                <p class="text-danger" id="surnameAlert"></p><br />
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-group" style="padding:5px;">
+                    <label>Menecerin Ata adı</label>
+                    @Html.TextBoxFor(x => x.FatherName, new { @class = "form-control", id = "fathername" })
+                    @Html.ValidationMessageFor(x => x.FatherName, "", new { @class = "text-danger" })
+                </div>
+                <p class="text-danger" id="fathernameAlert"></p><br />
+            </div>
+         </div>
+            
+            
+        <div class="form-group" style="padding:5px;">
+            <label>Menecer Fin</label>
+            @Html.TextBoxFor(x => x.Pin, new { @class = "form-control", id = "pin" })
+            @Html.ValidationMessageFor(x => x.Pin, "", new { @class = "text-danger" })
+        </div>
+        <p class="text-danger" id="pinAlert"></p><br />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group" style="padding:5px; ">
+                    <label>Menecerin doğum Tarixi</label>
+                    <input name="Birthday" type="text" class="form-control datepicker" />
+                </div>
+                <p class="text-danger" id="dateAlert"></p><br />
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" style="padding:5px">
+                    <label>Cinsi</label>
+                    <select class="form-control" id="Gender" name="Gender">
+                        <option>Cinsi Seçin</option>
+                        <option>Kişi</option>
+                        <option>Qadın</option>
+                    </select>
+                </div>
+                <p class="text-danger" id="genderAlert"></p><br />
+            </div>
+        </div>
+       <div class="row">
+           <div class="col-md-6">
+               <div class="form-group" style="padding:5px">
+                   <label>Təhsil</label>
+                   <select class="form-control" id="education" name="Education">
+                       <option>Təhsil Seçin</option>
+                       @{
+                           if (Model != null)
+                           {
+                               foreach (var item in Model.EducationList)
+                               {
+                                   <option>@item.name</option>
+                               }
+                           }
+
+                       }
+                   </select>
+               </div>
+               <p class="text-danger" id="educationAlert"></p><br />
+           </div>
+           <div class="col-md-6">
+               <div class="form-group" style="padding:5px">
+                   <label>İş</label>
+                   <select class="form-control" id="Job" name="Job">
+                       <option>İş seçin</option>
+                       @{
+                           if (Model != null)
+                           {
+                               foreach (var item in Model.JobList)
+                               {
+                                   <option>@item.name</option>
+                               }
+                           }
+
+                       }
+                   </select>
+               </div>
+               <p class="text-danger" id="jobAlert"></p><br />
+           </div>
+       </div>
+       
+        <br />            <br />
+
+
+        <div class="col-md-6 col-md-offset-4" style="margin-bottom:20px; padding:5px">
+            <input type="submit" class="btn btn-success" value="Qeydiyyatdan Keç" id="sendInfo" />
+        </div>
+                    }
+
+    <div class="clearfix" style="height: 20px;"></div>
+</div>
