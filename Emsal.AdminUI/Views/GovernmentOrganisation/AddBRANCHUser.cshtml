@@ -20,6 +20,8 @@
         <br /><br /><br />
         @using (Html.BeginForm("AddBRANCHUser", "GovernmentOrganisation", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
+            @Html.HiddenFor(x=>x.userType)
+            <input  type="hidden" value="@Model.userType" id="branchType" />
             <div class="form-group">
                 @Html.LabelFor(x => x.UserName)
                 @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", id = "username" })
@@ -31,7 +33,7 @@
                 @Html.TextBoxFor(x => x.Pin, new { @class = "form-control", id = "pin" })
             </div>
                 <p class="text-danger" id="pinAlert"></p><br />
-                <div class="form-group">
+                @*<div class="form-group">
                     <label>İstifadəçi növü</label>
                     <select name="userType" id="userType" class="form-control">
                         <option>İstifadəçi növü</option>
@@ -40,7 +42,7 @@
                     </select>
                     @Html.ValidationMessageFor(model => model.userType, "", new { @class = "text-danger" })
                     <p class="text-danger" id="userTypeAlert"></p><br />
-                </div>
+                </div>*@
                 <div class="form-group" id="asc" style="padding:5px;display:none">
                     <label>ASC</label>
                     <select name="ASCId" class="form-control">
@@ -93,20 +95,17 @@
 
 
 <script>
-    $("#userType").on("change", function () {
-        if ($("#userType").val() == "ASC") {
+    alert($("#branchType").val());
+    
+        if ($("#branchType").val() == "asc") {
             $("#asc").css("display", "block");
             $("#ktn").css("display", "none");
         }
-        if ($("#userType").val() == "KTN") {
+        if ($("#branchType").val() == "ktn") {
             $("#ktn").css("display", "block");
             $("#asc").css("display", "none");
         }
-        if ($("#userType").val() === "İstifadəçi növü") {
-            $("#ktn").css("display", "none");
-            $("#asc").css("display", "none");
-        }
-    })
+        
 
 
     $("#sendInfo").on("click", function (e) {

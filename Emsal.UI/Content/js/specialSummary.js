@@ -116,17 +116,23 @@
 
 
     function convertTodate(elem) {
-        if (elem.endDate === undefined) {
-            if (elem.birtday === undefined) {
-                date = new Date(elem.createdDate * 1000);
+        if (elem != null) {
+            if (elem.endDate === undefined) {
+                if (elem.birtday === undefined) {
+                    date = new Date(elem.createdDate * 1000);
+                }
+                else {
+                    date = new Date(elem.birtday * 1000);
+                }
             }
             else {
-                date = new Date(elem.birtday * 1000);
+                date = new Date(elem.endDate * 1000);
             }
         }
         else {
-            date = new Date(elem.endDate * 1000);
+            date = new Date();
         }
+       
         var month = date.getUTCMonth() + 1;
         var day = date.getUTCDate();
         var year = date.getUTCFullYear();
@@ -151,7 +157,6 @@
         data: { Id: 1 },
         success: function (data) {
             $(".adSoyad").html(data.NameSurname);
-            $(".aDbbSoyad").html(data.Person.Name + "," + data.Person.Surname )
             $(".userNameEkle").html(data.User.Username);
             $(".education").html(data.EducationLevel);
             $(".job").html(data.Job);
@@ -159,13 +164,20 @@
             var date = convertTodate(data.Person);
             ////////////////////////////
             $(".birthday").html(date);
-            $(".gender").html(data.Person.gender);
+            if (data.Person != null) {
+                $(".aDbbSoyad").html(data.Person.Name + "," + data.Person.Surname)
+                $(".gender").html(data.Person.gender);
+                $("#upGender").val(data.Person.gender);
+                $("#upName").val(data.Person.Name);
+                $("#upSurname").val(data.Person.Surname);
+            }
+            
             $("#upUserName").val(data.User.Username);
-            $("#upName").val(data.Person.Name);
+            
             localStorage.setItem("name", $("#upName").val());
-            $("#upSurname").val(data.Person.Surname);
+            
             $("#upBirthDate").val(date);
-            $("#upGender").val(data.Person.gender);
+           
             $("#upJob").val(data.Job);
 
             $("#currentEmail").html(data.User.Email);

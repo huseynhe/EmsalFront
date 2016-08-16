@@ -52,3 +52,10 @@ D:\KTN Porjects\Emsal Yeni\Front\Emsal.Utility\bin\Debug\NLog.xml
 D:\KTN Porjects\Emsal Yeni\Front\Emsal.Utility\obj\Debug\Emsal.Utility.csprojResolveAssemblyReference.cache
 D:\KTN Porjects\Emsal Yeni\Front\Emsal.Utility\obj\Debug\Emsal.Utility.dll
 D:\KTN Porjects\Emsal Yeni\Front\Emsal.Utility\obj\Debug\Emsal.Utility.pdb
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.Utility\bin\Debug\Emsal.Utility.dll
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.Utility\bin\Debug\Emsal.Utility.pdb
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.Utility\bin\Debug\NLog.dll
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.Utility\bin\Debug\NLog.xml
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.csprojResolveAssemblyReference.cache
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.dll
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.pdb

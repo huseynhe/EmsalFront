@@ -191,7 +191,7 @@ namespace Emsal.UI.Controllers
         public ActionResult PrivateConversation(long?userId, long?otherUser, int? page)
         {
             binput = new BaseInput();
-            int pageSize = 3;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
 
             modelUser = new SpecialSummaryViewModel();

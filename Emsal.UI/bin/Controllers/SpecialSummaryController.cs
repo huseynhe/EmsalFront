@@ -14,7 +14,7 @@ using PagedList;
 
 namespace Emsal.UI.Controllers
 {
-    [EmsalAuthorization(AuthorizedAction = ActionName.specialSummary)]
+    //[EmsalAuthorization(AuthorizedAction = ActionName.specialSummary)]
 
     public class SpecialSummaryController : Controller
     {

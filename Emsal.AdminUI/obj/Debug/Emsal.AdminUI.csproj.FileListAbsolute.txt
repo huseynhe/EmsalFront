@@ -92,3 +92,15 @@ D:\KTN Porjects\Emsal Yeni\Front\Emsal.AdminUI\bin\NLog.dll
 D:\KTN Porjects\Emsal Yeni\Front\Emsal.AdminUI\bin\Emsal.Utility.pdb
 D:\KTN Porjects\Emsal Yeni\Front\Emsal.AdminUI\bin\Emsal.WebInt.pdb
 D:\KTN Porjects\Emsal Yeni\Front\Emsal.AdminUI\bin\NLog.xml
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.AdminUI\bin\Emsal.AdminUI.dll.config
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.AdminUI\bin\Emsal.AdminUI.dll
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.AdminUI\bin\Emsal.AdminUI.pdb
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.AdminUI\bin\Emsal.Utility.dll
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.AdminUI\bin\Emsal.WebInt.dll
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.AdminUI\bin\NLog.dll
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.AdminUI\bin\Emsal.Utility.pdb
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.AdminUI\bin\Emsal.WebInt.pdb
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.AdminUI\bin\NLog.xml
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.AdminUI\obj\Debug\Emsal.AdminUI.csprojResolveAssemblyReference.cache
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.AdminUI\obj\Debug\Emsal.AdminUI.dll
+C:\Users\Ferid\Desktop\EmsalFront\Emsal.AdminUI\obj\Debug\Emsal.AdminUI.pdb

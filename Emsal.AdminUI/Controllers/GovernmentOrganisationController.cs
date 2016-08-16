@@ -1400,7 +1400,7 @@ namespace Emsal.AdminUI.Controllers
                 ? (ActionResult)PartialView("PartialKTNUsers", modelUser)
                 : View(modelUser);
         }
-        public ActionResult AddBRANCHUser(long? UserId)
+        public ActionResult AddBRANCHUser(long? UserId, string type)
         {
                 Organisation modelUser = new Organisation();
 
@@ -1417,6 +1417,8 @@ namespace Emsal.AdminUI.Controllers
                 BaseOutput ascsOut = srv.WS_GetPRM_ASCBranches(binput, out modelUser.ASCBranchArray);
                 BaseOutput ktnOut = srv.WS_GetPRM_KTNBranches(binput, out modelUser.KTNBranchArray);
 
+                modelUser.userType = type;
+                
                 return View(modelUser);
         }
 
@@ -1591,6 +1593,7 @@ namespace Emsal.AdminUI.Controllers
             //add person
             modelUser.Person.Name = form.Name;
             modelUser.Person.Surname = form.Surname;
+            modelUser.Person.FatherName = form.FatherName;
             modelUser.Person.address_Id = modelUser.FutureAddress == null ? 0 : modelUser.FutureAddress.Id;
             modelUser.Person.address_IdSpecified = true;
             modelUser.Person.birtday = ConvertStringYearMonthDayFormatToTimestamp(form);

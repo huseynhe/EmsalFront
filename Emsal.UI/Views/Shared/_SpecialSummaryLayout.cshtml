@@ -73,7 +73,7 @@
                         </div>
                         <div class="navbar_right_login">
                             <span><a href="">Ətraflı axtar</a></span>
-                            <a href="" id="per_inf" class="adSoyad">@*@Model.NameSurname*@<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a>
+                            <a href="" id="per_inf" class="adSoyad">@Model.NameSurname<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a>
                             <a href="" id="per_mes"><span class="glyphicon glyphicon-envelope" aria-hidden="true"><span style="color:red">@Model.MessageCount</span></a>
                             <a href=""><span class="glyphicon glyphicon-bell" aria-hidden="true"></span></a>
                             <a href=""><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
@@ -110,7 +110,7 @@
 
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#admin" aria-controls="home" role="tab" data-toggle="tab"><h5 class="text-bold">Məhsullar</h5></a></li>
-                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"><h5 class="text-bold"><span class="adSoyad">@Model.NameSurname</span><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></h5></a></li>
+                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"><h5 class="text-bold"><span class="adSoyad" id="godadd">@Model.NameSurname</span><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></h5></a></li>
 
                     <li>
                         <a href="/OfferProduction" class="btn btn-info active pull-right">

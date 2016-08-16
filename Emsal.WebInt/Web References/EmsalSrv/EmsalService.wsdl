@@ -310,6 +310,96 @@
   <wsdl:message name="IEmsalService_WS_GetPotentialClientCount_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetPotentialClientCountResponse" />
   </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_AddProductionCalendar_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_AddProductionCalendar" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_AddProductionCalendar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_AddProductionCalendarResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_DeleteProductionCalendar_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_DeleteProductionCalendar" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_DeleteProductionCalendar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_DeleteProductionCalendarResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendar_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendar" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarById_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarById" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarDemandID_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarDemandID" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarDemandID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarDemandIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarPrice_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarPrice" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarPrice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarBymonthseVId_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarBymonthseVId" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarBymonthseVId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarBymonthseVIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarDay_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarDay" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarDay_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarDayResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarOclock_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarOclock" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarOclock_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarOclockResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendartransportationeVId2_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendartransportationeVId2" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendartransportationeVId2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendartransportationeVId2Response" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarpartOfytypeeVId_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarpartOfytypeeVId" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarpartOfytypeeVId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarpartOfytypeeVIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_UpdateProductionCalendar2_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_UpdateProductionCalendar2" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_UpdateProductionCalendar2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_UpdateProductionCalendar2Response" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarOfferID_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarOfferID" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarOfferID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarOfferIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarProductionId2_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarProductionId2" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarProductionId2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarProductionId2Response" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarProductiontypeEVId2_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarProductiontypeEVId2" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarProductiontypeEVId2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarProductiontypeEVId2Response" />
+  </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetForeign_OrganisationsByParentId_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetForeign_OrganisationsByParentId" />
   </wsdl:message>
@@ -2041,6 +2131,66 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetPotentialClientCount" message="tns:IEmsalService_WS_GetPotentialClientCount_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetPotentialClientCountResponse" message="tns:IEmsalService_WS_GetPotentialClientCount_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="WS_AddProductionCalendar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_AddProductionCalendar" message="tns:IEmsalService_WS_AddProductionCalendar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_AddProductionCalendarResponse" message="tns:IEmsalService_WS_AddProductionCalendar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_DeleteProductionCalendar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_DeleteProductionCalendar" message="tns:IEmsalService_WS_DeleteProductionCalendar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_DeleteProductionCalendarResponse" message="tns:IEmsalService_WS_DeleteProductionCalendar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendar" message="tns:IEmsalService_WS_GetProductionCalendar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarResponse" message="tns:IEmsalService_WS_GetProductionCalendar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarById" message="tns:IEmsalService_WS_GetProductionCalendarById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarByIdResponse" message="tns:IEmsalService_WS_GetProductionCalendarById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarDemandID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarDemandID" message="tns:IEmsalService_WS_GetProductionCalendarDemandID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarDemandIDResponse" message="tns:IEmsalService_WS_GetProductionCalendarDemandID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarPrice">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarPrice" message="tns:IEmsalService_WS_GetProductionCalendarPrice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarPriceResponse" message="tns:IEmsalService_WS_GetProductionCalendarPrice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarBymonthseVId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarBymonthseVId" message="tns:IEmsalService_WS_GetProductionCalendarBymonthseVId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarBymonthseVIdResponse" message="tns:IEmsalService_WS_GetProductionCalendarBymonthseVId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarDay">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarDay" message="tns:IEmsalService_WS_GetProductionCalendarDay_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarDayResponse" message="tns:IEmsalService_WS_GetProductionCalendarDay_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarOclock">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarOclock" message="tns:IEmsalService_WS_GetProductionCalendarOclock_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarOclockResponse" message="tns:IEmsalService_WS_GetProductionCalendarOclock_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendartransportationeVId2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendartransportationeVId2" message="tns:IEmsalService_WS_GetProductionCalendartransportationeVId2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendartransportationeVId2Response" message="tns:IEmsalService_WS_GetProductionCalendartransportationeVId2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarpartOfytypeeVId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarpartOfytypeeVId" message="tns:IEmsalService_WS_GetProductionCalendarpartOfytypeeVId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarpartOfytypeeVIdResponse" message="tns:IEmsalService_WS_GetProductionCalendarpartOfytypeeVId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_UpdateProductionCalendar2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_UpdateProductionCalendar2" message="tns:IEmsalService_WS_UpdateProductionCalendar2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_UpdateProductionCalendar2Response" message="tns:IEmsalService_WS_UpdateProductionCalendar2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarOfferID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarOfferID" message="tns:IEmsalService_WS_GetProductionCalendarOfferID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarOfferIDResponse" message="tns:IEmsalService_WS_GetProductionCalendarOfferID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarProductionId2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarProductionId2" message="tns:IEmsalService_WS_GetProductionCalendarProductionId2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarProductionId2Response" message="tns:IEmsalService_WS_GetProductionCalendarProductionId2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarProductiontypeEVId2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarProductiontypeEVId2" message="tns:IEmsalService_WS_GetProductionCalendarProductiontypeEVId2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarProductiontypeEVId2Response" message="tns:IEmsalService_WS_GetProductionCalendarProductiontypeEVId2_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="WS_GetForeign_OrganisationsByParentId">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetForeign_OrganisationsByParentId" message="tns:IEmsalService_WS_GetForeign_OrganisationsByParentId_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetForeign_OrganisationsByParentIdResponse" message="tns:IEmsalService_WS_GetForeign_OrganisationsByParentId_OutputMessage" />
@@ -3507,6 +3657,141 @@
     </wsdl:operation>
     <wsdl:operation name="WS_GetPotentialClientCount">
       <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetPotentialClientCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_AddProductionCalendar">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_AddProductionCalendar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_DeleteProductionCalendar">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_DeleteProductionCalendar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendar">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarById">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendarById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarDemandID">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendarDemandID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarPrice">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendarPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarBymonthseVId">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendarBymonthseVId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarDay">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendarDay" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarOclock">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendarOclock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendartransportationeVId2">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendartransportationeVId2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarpartOfytypeeVId">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendarpartOfytypeeVId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_UpdateProductionCalendar2">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_UpdateProductionCalendar2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarOfferID">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendarOfferID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarProductionId2">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendarProductionId2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarProductiontypeEVId2">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendarProductiontypeEVId2" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

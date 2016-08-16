@@ -129,6 +129,36 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private System.Threading.SendOrPostCallback WS_GetPotentialClientCountOperationCompleted;
         
+        private System.Threading.SendOrPostCallback WS_AddProductionCalendarOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_DeleteProductionCalendarOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetProductionCalendarOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetProductionCalendarByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetProductionCalendarDemandIDOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetProductionCalendarPriceOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetProductionCalendarBymonthseVIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetProductionCalendarDayOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetProductionCalendarOclockOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetProductionCalendartransportationeVId2OperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetProductionCalendarpartOfytypeeVIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_UpdateProductionCalendar2OperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetProductionCalendarOfferIDOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetProductionCalendarProductionId2OperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetProductionCalendarProductiontypeEVId2OperationCompleted;
+        
         private System.Threading.SendOrPostCallback WS_GetForeign_OrganisationsByParentIdOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_AddProductCatalogControlOperationCompleted;
@@ -826,6 +856,51 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         public event WS_GetPotentialClientCountCompletedEventHandler WS_GetPotentialClientCountCompleted;
+        
+        /// <remarks/>
+        public event WS_AddProductionCalendarCompletedEventHandler WS_AddProductionCalendarCompleted;
+        
+        /// <remarks/>
+        public event WS_DeleteProductionCalendarCompletedEventHandler WS_DeleteProductionCalendarCompleted;
+        
+        /// <remarks/>
+        public event WS_GetProductionCalendarCompletedEventHandler WS_GetProductionCalendarCompleted;
+        
+        /// <remarks/>
+        public event WS_GetProductionCalendarByIdCompletedEventHandler WS_GetProductionCalendarByIdCompleted;
+        
+        /// <remarks/>
+        public event WS_GetProductionCalendarDemandIDCompletedEventHandler WS_GetProductionCalendarDemandIDCompleted;
+        
+        /// <remarks/>
+        public event WS_GetProductionCalendarPriceCompletedEventHandler WS_GetProductionCalendarPriceCompleted;
+        
+        /// <remarks/>
+        public event WS_GetProductionCalendarBymonthseVIdCompletedEventHandler WS_GetProductionCalendarBymonthseVIdCompleted;
+        
+        /// <remarks/>
+        public event WS_GetProductionCalendarDayCompletedEventHandler WS_GetProductionCalendarDayCompleted;
+        
+        /// <remarks/>
+        public event WS_GetProductionCalendarOclockCompletedEventHandler WS_GetProductionCalendarOclockCompleted;
+        
+        /// <remarks/>
+        public event WS_GetProductionCalendartransportationeVId2CompletedEventHandler WS_GetProductionCalendartransportationeVId2Completed;
+        
+        /// <remarks/>
+        public event WS_GetProductionCalendarpartOfytypeeVIdCompletedEventHandler WS_GetProductionCalendarpartOfytypeeVIdCompleted;
+        
+        /// <remarks/>
+        public event WS_UpdateProductionCalendar2CompletedEventHandler WS_UpdateProductionCalendar2Completed;
+        
+        /// <remarks/>
+        public event WS_GetProductionCalendarOfferIDCompletedEventHandler WS_GetProductionCalendarOfferIDCompleted;
+        
+        /// <remarks/>
+        public event WS_GetProductionCalendarProductionId2CompletedEventHandler WS_GetProductionCalendarProductionId2Completed;
+        
+        /// <remarks/>
+        public event WS_GetProductionCalendarProductiontypeEVId2CompletedEventHandler WS_GetProductionCalendarProductiontypeEVId2Completed;
         
         /// <remarks/>
         public event WS_GetForeign_OrganisationsByParentIdCompletedEventHandler WS_GetForeign_OrganisationsByParentIdCompleted;
@@ -3270,6 +3345,524 @@ namespace Emsal.WebInt.EmsalSrv {
             if ((this.WS_GetPotentialClientCountCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.WS_GetPotentialClientCountCompleted(this, new WS_GetPotentialClientCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_AddProductionCalendar", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_AddProductionCalendar([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblProductionCalendar ProductionCalendar, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblProductionCalendar productionCalendarOut) {
+            object[] results = this.Invoke("WS_AddProductionCalendar", new object[] {
+                        baseinput,
+                        ProductionCalendar});
+            productionCalendarOut = ((tblProductionCalendar)(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_AddProductionCalendarAsync(BaseInput baseinput, tblProductionCalendar ProductionCalendar) {
+            this.WS_AddProductionCalendarAsync(baseinput, ProductionCalendar, null);
+        }
+        
+        /// <remarks/>
+        public void WS_AddProductionCalendarAsync(BaseInput baseinput, tblProductionCalendar ProductionCalendar, object userState) {
+            if ((this.WS_AddProductionCalendarOperationCompleted == null)) {
+                this.WS_AddProductionCalendarOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_AddProductionCalendarOperationCompleted);
+            }
+            this.InvokeAsync("WS_AddProductionCalendar", new object[] {
+                        baseinput,
+                        ProductionCalendar}, this.WS_AddProductionCalendarOperationCompleted, userState);
+        }
+        
+        private void OnWS_AddProductionCalendarOperationCompleted(object arg) {
+            if ((this.WS_AddProductionCalendarCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_AddProductionCalendarCompleted(this, new WS_AddProductionCalendarCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_DeleteProductionCalendar", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_DeleteProductionCalendar([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblProductionCalendar ProductionCalendar) {
+            object[] results = this.Invoke("WS_DeleteProductionCalendar", new object[] {
+                        baseinput,
+                        ProductionCalendar});
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_DeleteProductionCalendarAsync(BaseInput baseinput, tblProductionCalendar ProductionCalendar) {
+            this.WS_DeleteProductionCalendarAsync(baseinput, ProductionCalendar, null);
+        }
+        
+        /// <remarks/>
+        public void WS_DeleteProductionCalendarAsync(BaseInput baseinput, tblProductionCalendar ProductionCalendar, object userState) {
+            if ((this.WS_DeleteProductionCalendarOperationCompleted == null)) {
+                this.WS_DeleteProductionCalendarOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_DeleteProductionCalendarOperationCompleted);
+            }
+            this.InvokeAsync("WS_DeleteProductionCalendar", new object[] {
+                        baseinput,
+                        ProductionCalendar}, this.WS_DeleteProductionCalendarOperationCompleted, userState);
+        }
+        
+        private void OnWS_DeleteProductionCalendarOperationCompleted(object arg) {
+            if ((this.WS_DeleteProductionCalendarCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_DeleteProductionCalendarCompleted(this, new WS_DeleteProductionCalendarCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendar", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetProductionCalendar([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseInput, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProductionCalendar[] ProductionCalendar) {
+            object[] results = this.Invoke("WS_GetProductionCalendar", new object[] {
+                        baseInput});
+            ProductionCalendar = ((tblProductionCalendar[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarAsync(BaseInput baseInput) {
+            this.WS_GetProductionCalendarAsync(baseInput, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarAsync(BaseInput baseInput, object userState) {
+            if ((this.WS_GetProductionCalendarOperationCompleted == null)) {
+                this.WS_GetProductionCalendarOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionCalendarOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetProductionCalendar", new object[] {
+                        baseInput}, this.WS_GetProductionCalendarOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetProductionCalendarOperationCompleted(object arg) {
+            if ((this.WS_GetProductionCalendarCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetProductionCalendarCompleted(this, new WS_GetProductionCalendarCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendarById", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetProductionCalendarById([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long Id, [System.Xml.Serialization.XmlIgnoreAttribute()] bool IdSpecified, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblProductionCalendar ProductionCalendar) {
+            object[] results = this.Invoke("WS_GetProductionCalendarById", new object[] {
+                        baseinput,
+                        Id,
+                        IdSpecified});
+            ProductionCalendar = ((tblProductionCalendar)(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarByIdAsync(BaseInput baseinput, long Id, bool IdSpecified) {
+            this.WS_GetProductionCalendarByIdAsync(baseinput, Id, IdSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarByIdAsync(BaseInput baseinput, long Id, bool IdSpecified, object userState) {
+            if ((this.WS_GetProductionCalendarByIdOperationCompleted == null)) {
+                this.WS_GetProductionCalendarByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionCalendarByIdOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetProductionCalendarById", new object[] {
+                        baseinput,
+                        Id,
+                        IdSpecified}, this.WS_GetProductionCalendarByIdOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetProductionCalendarByIdOperationCompleted(object arg) {
+            if ((this.WS_GetProductionCalendarByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetProductionCalendarByIdCompleted(this, new WS_GetProductionCalendarByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendarDemandID", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetProductionCalendarDemandID([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long demand_id, [System.Xml.Serialization.XmlIgnoreAttribute()] bool demand_idSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProductionCalendar[] ProductionCalendar) {
+            object[] results = this.Invoke("WS_GetProductionCalendarDemandID", new object[] {
+                        baseinput,
+                        demand_id,
+                        demand_idSpecified});
+            ProductionCalendar = ((tblProductionCalendar[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarDemandIDAsync(BaseInput baseinput, long demand_id, bool demand_idSpecified) {
+            this.WS_GetProductionCalendarDemandIDAsync(baseinput, demand_id, demand_idSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarDemandIDAsync(BaseInput baseinput, long demand_id, bool demand_idSpecified, object userState) {
+            if ((this.WS_GetProductionCalendarDemandIDOperationCompleted == null)) {
+                this.WS_GetProductionCalendarDemandIDOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionCalendarDemandIDOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetProductionCalendarDemandID", new object[] {
+                        baseinput,
+                        demand_id,
+                        demand_idSpecified}, this.WS_GetProductionCalendarDemandIDOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetProductionCalendarDemandIDOperationCompleted(object arg) {
+            if ((this.WS_GetProductionCalendarDemandIDCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetProductionCalendarDemandIDCompleted(this, new WS_GetProductionCalendarDemandIDCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendarPrice", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetProductionCalendarPrice([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, decimal price, [System.Xml.Serialization.XmlIgnoreAttribute()] bool priceSpecified, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblProductionCalendar ProductionCalendar) {
+            object[] results = this.Invoke("WS_GetProductionCalendarPrice", new object[] {
+                        baseinput,
+                        price,
+                        priceSpecified});
+            ProductionCalendar = ((tblProductionCalendar)(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarPriceAsync(BaseInput baseinput, decimal price, bool priceSpecified) {
+            this.WS_GetProductionCalendarPriceAsync(baseinput, price, priceSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarPriceAsync(BaseInput baseinput, decimal price, bool priceSpecified, object userState) {
+            if ((this.WS_GetProductionCalendarPriceOperationCompleted == null)) {
+                this.WS_GetProductionCalendarPriceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionCalendarPriceOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetProductionCalendarPrice", new object[] {
+                        baseinput,
+                        price,
+                        priceSpecified}, this.WS_GetProductionCalendarPriceOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetProductionCalendarPriceOperationCompleted(object arg) {
+            if ((this.WS_GetProductionCalendarPriceCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetProductionCalendarPriceCompleted(this, new WS_GetProductionCalendarPriceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendarBymonthseVId", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetProductionCalendarBymonthseVId([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long months_eV_Id, [System.Xml.Serialization.XmlIgnoreAttribute()] bool months_eV_IdSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProductionCalendar[] ProductionCalendarlList) {
+            object[] results = this.Invoke("WS_GetProductionCalendarBymonthseVId", new object[] {
+                        baseinput,
+                        months_eV_Id,
+                        months_eV_IdSpecified});
+            ProductionCalendarlList = ((tblProductionCalendar[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarBymonthseVIdAsync(BaseInput baseinput, long months_eV_Id, bool months_eV_IdSpecified) {
+            this.WS_GetProductionCalendarBymonthseVIdAsync(baseinput, months_eV_Id, months_eV_IdSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarBymonthseVIdAsync(BaseInput baseinput, long months_eV_Id, bool months_eV_IdSpecified, object userState) {
+            if ((this.WS_GetProductionCalendarBymonthseVIdOperationCompleted == null)) {
+                this.WS_GetProductionCalendarBymonthseVIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionCalendarBymonthseVIdOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetProductionCalendarBymonthseVId", new object[] {
+                        baseinput,
+                        months_eV_Id,
+                        months_eV_IdSpecified}, this.WS_GetProductionCalendarBymonthseVIdOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetProductionCalendarBymonthseVIdOperationCompleted(object arg) {
+            if ((this.WS_GetProductionCalendarBymonthseVIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetProductionCalendarBymonthseVIdCompleted(this, new WS_GetProductionCalendarBymonthseVIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendarDay", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetProductionCalendarDay([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long day, [System.Xml.Serialization.XmlIgnoreAttribute()] bool daySpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProductionCalendar[] ProductionCalendarlList) {
+            object[] results = this.Invoke("WS_GetProductionCalendarDay", new object[] {
+                        baseinput,
+                        day,
+                        daySpecified});
+            ProductionCalendarlList = ((tblProductionCalendar[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarDayAsync(BaseInput baseinput, long day, bool daySpecified) {
+            this.WS_GetProductionCalendarDayAsync(baseinput, day, daySpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarDayAsync(BaseInput baseinput, long day, bool daySpecified, object userState) {
+            if ((this.WS_GetProductionCalendarDayOperationCompleted == null)) {
+                this.WS_GetProductionCalendarDayOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionCalendarDayOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetProductionCalendarDay", new object[] {
+                        baseinput,
+                        day,
+                        daySpecified}, this.WS_GetProductionCalendarDayOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetProductionCalendarDayOperationCompleted(object arg) {
+            if ((this.WS_GetProductionCalendarDayCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetProductionCalendarDayCompleted(this, new WS_GetProductionCalendarDayCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendarOclock", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetProductionCalendarOclock([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long oclock, [System.Xml.Serialization.XmlIgnoreAttribute()] bool oclockSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProductionCalendar[] ProductionCalendarlList) {
+            object[] results = this.Invoke("WS_GetProductionCalendarOclock", new object[] {
+                        baseinput,
+                        oclock,
+                        oclockSpecified});
+            ProductionCalendarlList = ((tblProductionCalendar[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarOclockAsync(BaseInput baseinput, long oclock, bool oclockSpecified) {
+            this.WS_GetProductionCalendarOclockAsync(baseinput, oclock, oclockSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarOclockAsync(BaseInput baseinput, long oclock, bool oclockSpecified, object userState) {
+            if ((this.WS_GetProductionCalendarOclockOperationCompleted == null)) {
+                this.WS_GetProductionCalendarOclockOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionCalendarOclockOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetProductionCalendarOclock", new object[] {
+                        baseinput,
+                        oclock,
+                        oclockSpecified}, this.WS_GetProductionCalendarOclockOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetProductionCalendarOclockOperationCompleted(object arg) {
+            if ((this.WS_GetProductionCalendarOclockCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetProductionCalendarOclockCompleted(this, new WS_GetProductionCalendarOclockCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendartransportationeVId2", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetProductionCalendartransportationeVId2([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long type_eV_Id, [System.Xml.Serialization.XmlIgnoreAttribute()] bool type_eV_IdSpecified, long year_id, [System.Xml.Serialization.XmlIgnoreAttribute()] bool year_idSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProductionCalendar[] ProductionCalendarlList) {
+            object[] results = this.Invoke("WS_GetProductionCalendartransportationeVId2", new object[] {
+                        baseinput,
+                        type_eV_Id,
+                        type_eV_IdSpecified,
+                        year_id,
+                        year_idSpecified});
+            ProductionCalendarlList = ((tblProductionCalendar[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendartransportationeVId2Async(BaseInput baseinput, long type_eV_Id, bool type_eV_IdSpecified, long year_id, bool year_idSpecified) {
+            this.WS_GetProductionCalendartransportationeVId2Async(baseinput, type_eV_Id, type_eV_IdSpecified, year_id, year_idSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendartransportationeVId2Async(BaseInput baseinput, long type_eV_Id, bool type_eV_IdSpecified, long year_id, bool year_idSpecified, object userState) {
+            if ((this.WS_GetProductionCalendartransportationeVId2OperationCompleted == null)) {
+                this.WS_GetProductionCalendartransportationeVId2OperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionCalendartransportationeVId2OperationCompleted);
+            }
+            this.InvokeAsync("WS_GetProductionCalendartransportationeVId2", new object[] {
+                        baseinput,
+                        type_eV_Id,
+                        type_eV_IdSpecified,
+                        year_id,
+                        year_idSpecified}, this.WS_GetProductionCalendartransportationeVId2OperationCompleted, userState);
+        }
+        
+        private void OnWS_GetProductionCalendartransportationeVId2OperationCompleted(object arg) {
+            if ((this.WS_GetProductionCalendartransportationeVId2Completed != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetProductionCalendartransportationeVId2Completed(this, new WS_GetProductionCalendartransportationeVId2CompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendarpartOfytypeeVId", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetProductionCalendarpartOfytypeeVId([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long partOfyear_eV_Id, [System.Xml.Serialization.XmlIgnoreAttribute()] bool partOfyear_eV_IdSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProductionCalendar[] ProductionCalendarlList) {
+            object[] results = this.Invoke("WS_GetProductionCalendarpartOfytypeeVId", new object[] {
+                        baseinput,
+                        partOfyear_eV_Id,
+                        partOfyear_eV_IdSpecified});
+            ProductionCalendarlList = ((tblProductionCalendar[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarpartOfytypeeVIdAsync(BaseInput baseinput, long partOfyear_eV_Id, bool partOfyear_eV_IdSpecified) {
+            this.WS_GetProductionCalendarpartOfytypeeVIdAsync(baseinput, partOfyear_eV_Id, partOfyear_eV_IdSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarpartOfytypeeVIdAsync(BaseInput baseinput, long partOfyear_eV_Id, bool partOfyear_eV_IdSpecified, object userState) {
+            if ((this.WS_GetProductionCalendarpartOfytypeeVIdOperationCompleted == null)) {
+                this.WS_GetProductionCalendarpartOfytypeeVIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionCalendarpartOfytypeeVIdOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetProductionCalendarpartOfytypeeVId", new object[] {
+                        baseinput,
+                        partOfyear_eV_Id,
+                        partOfyear_eV_IdSpecified}, this.WS_GetProductionCalendarpartOfytypeeVIdOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetProductionCalendarpartOfytypeeVIdOperationCompleted(object arg) {
+            if ((this.WS_GetProductionCalendarpartOfytypeeVIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetProductionCalendarpartOfytypeeVIdCompleted(this, new WS_GetProductionCalendarpartOfytypeeVIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_UpdateProductionCalendar2", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_UpdateProductionCalendar2([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblProductionCalendar ProductionCalendar, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblProductionCalendar ProductionCalendarOut) {
+            object[] results = this.Invoke("WS_UpdateProductionCalendar2", new object[] {
+                        baseinput,
+                        ProductionCalendar});
+            ProductionCalendarOut = ((tblProductionCalendar)(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_UpdateProductionCalendar2Async(BaseInput baseinput, tblProductionCalendar ProductionCalendar) {
+            this.WS_UpdateProductionCalendar2Async(baseinput, ProductionCalendar, null);
+        }
+        
+        /// <remarks/>
+        public void WS_UpdateProductionCalendar2Async(BaseInput baseinput, tblProductionCalendar ProductionCalendar, object userState) {
+            if ((this.WS_UpdateProductionCalendar2OperationCompleted == null)) {
+                this.WS_UpdateProductionCalendar2OperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_UpdateProductionCalendar2OperationCompleted);
+            }
+            this.InvokeAsync("WS_UpdateProductionCalendar2", new object[] {
+                        baseinput,
+                        ProductionCalendar}, this.WS_UpdateProductionCalendar2OperationCompleted, userState);
+        }
+        
+        private void OnWS_UpdateProductionCalendar2OperationCompleted(object arg) {
+            if ((this.WS_UpdateProductionCalendar2Completed != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_UpdateProductionCalendar2Completed(this, new WS_UpdateProductionCalendar2CompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendarOfferID", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetProductionCalendarOfferID([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long offer_Id, [System.Xml.Serialization.XmlIgnoreAttribute()] bool offer_IdSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProductionCalendar[] ProductionCalendar) {
+            object[] results = this.Invoke("WS_GetProductionCalendarOfferID", new object[] {
+                        baseinput,
+                        offer_Id,
+                        offer_IdSpecified});
+            ProductionCalendar = ((tblProductionCalendar[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarOfferIDAsync(BaseInput baseinput, long offer_Id, bool offer_IdSpecified) {
+            this.WS_GetProductionCalendarOfferIDAsync(baseinput, offer_Id, offer_IdSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarOfferIDAsync(BaseInput baseinput, long offer_Id, bool offer_IdSpecified, object userState) {
+            if ((this.WS_GetProductionCalendarOfferIDOperationCompleted == null)) {
+                this.WS_GetProductionCalendarOfferIDOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionCalendarOfferIDOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetProductionCalendarOfferID", new object[] {
+                        baseinput,
+                        offer_Id,
+                        offer_IdSpecified}, this.WS_GetProductionCalendarOfferIDOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetProductionCalendarOfferIDOperationCompleted(object arg) {
+            if ((this.WS_GetProductionCalendarOfferIDCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetProductionCalendarOfferIDCompleted(this, new WS_GetProductionCalendarOfferIDCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendarProductionId2", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetProductionCalendarProductionId2([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long Production_Id, [System.Xml.Serialization.XmlIgnoreAttribute()] bool Production_IdSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProductionCalendar[] ProductionCalendar) {
+            object[] results = this.Invoke("WS_GetProductionCalendarProductionId2", new object[] {
+                        baseinput,
+                        Production_Id,
+                        Production_IdSpecified});
+            ProductionCalendar = ((tblProductionCalendar[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarProductionId2Async(BaseInput baseinput, long Production_Id, bool Production_IdSpecified) {
+            this.WS_GetProductionCalendarProductionId2Async(baseinput, Production_Id, Production_IdSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarProductionId2Async(BaseInput baseinput, long Production_Id, bool Production_IdSpecified, object userState) {
+            if ((this.WS_GetProductionCalendarProductionId2OperationCompleted == null)) {
+                this.WS_GetProductionCalendarProductionId2OperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionCalendarProductionId2OperationCompleted);
+            }
+            this.InvokeAsync("WS_GetProductionCalendarProductionId2", new object[] {
+                        baseinput,
+                        Production_Id,
+                        Production_IdSpecified}, this.WS_GetProductionCalendarProductionId2OperationCompleted, userState);
+        }
+        
+        private void OnWS_GetProductionCalendarProductionId2OperationCompleted(object arg) {
+            if ((this.WS_GetProductionCalendarProductionId2Completed != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetProductionCalendarProductionId2Completed(this, new WS_GetProductionCalendarProductionId2CompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendarProductiontypeEVId2", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetProductionCalendarProductiontypeEVId2([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long production_type_eV_Id, [System.Xml.Serialization.XmlIgnoreAttribute()] bool production_type_eV_IdSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProductionCalendar[] ProductionCalendar) {
+            object[] results = this.Invoke("WS_GetProductionCalendarProductiontypeEVId2", new object[] {
+                        baseinput,
+                        production_type_eV_Id,
+                        production_type_eV_IdSpecified});
+            ProductionCalendar = ((tblProductionCalendar[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarProductiontypeEVId2Async(BaseInput baseinput, long production_type_eV_Id, bool production_type_eV_IdSpecified) {
+            this.WS_GetProductionCalendarProductiontypeEVId2Async(baseinput, production_type_eV_Id, production_type_eV_IdSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarProductiontypeEVId2Async(BaseInput baseinput, long production_type_eV_Id, bool production_type_eV_IdSpecified, object userState) {
+            if ((this.WS_GetProductionCalendarProductiontypeEVId2OperationCompleted == null)) {
+                this.WS_GetProductionCalendarProductiontypeEVId2OperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionCalendarProductiontypeEVId2OperationCompleted);
+            }
+            this.InvokeAsync("WS_GetProductionCalendarProductiontypeEVId2", new object[] {
+                        baseinput,
+                        production_type_eV_Id,
+                        production_type_eV_IdSpecified}, this.WS_GetProductionCalendarProductiontypeEVId2OperationCompleted, userState);
+        }
+        
+        private void OnWS_GetProductionCalendarProductiontypeEVId2OperationCompleted(object arg) {
+            if ((this.WS_GetProductionCalendarProductiontypeEVId2Completed != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetProductionCalendarProductiontypeEVId2Completed(this, new WS_GetProductionCalendarProductiontypeEVId2CompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -21576,6 +22169,482 @@ namespace Emsal.WebInt.EmsalSrv {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
+    public partial class tblProductionCalendar {
+        
+        private long idField;
+        
+        private bool idFieldSpecified;
+        
+        private System.Nullable<long> lastUpdateStatusField;
+        
+        private bool lastUpdateStatusFieldSpecified;
+        
+        private System.Nullable<long> production_IdField;
+        
+        private bool production_IdFieldSpecified;
+        
+        private System.Nullable<long> production_type_eV_IdField;
+        
+        private bool production_type_eV_IdFieldSpecified;
+        
+        private System.Nullable<long> statusField;
+        
+        private bool statusFieldSpecified;
+        
+        private System.Nullable<long> createdDateField;
+        
+        private bool createdDateFieldSpecified;
+        
+        private string createdUserField;
+        
+        private System.Nullable<long> dayField;
+        
+        private bool dayFieldSpecified;
+        
+        private System.Nullable<long> demand_IdField;
+        
+        private bool demand_IdFieldSpecified;
+        
+        private System.Nullable<long> months_eV_IdField;
+        
+        private bool months_eV_IdFieldSpecified;
+        
+        private System.Nullable<long> oclockField;
+        
+        private bool oclockFieldSpecified;
+        
+        private System.Nullable<long> offer_IdField;
+        
+        private bool offer_IdFieldSpecified;
+        
+        private System.Nullable<long> partOfyear_eV_IdField;
+        
+        private bool partOfyear_eV_IdFieldSpecified;
+        
+        private System.Nullable<decimal> priceField;
+        
+        private bool priceFieldSpecified;
+        
+        private System.Nullable<decimal> quantityField;
+        
+        private bool quantityFieldSpecified;
+        
+        private System.Nullable<long> type_eV_IdField;
+        
+        private bool type_eV_IdFieldSpecified;
+        
+        private System.Nullable<long> updatedDateField;
+        
+        private bool updatedDateFieldSpecified;
+        
+        private string updatedUserField;
+        
+        private System.Nullable<long> year_eV_IdField;
+        
+        private bool year_eV_IdFieldSpecified;
+        
+        /// <remarks/>
+        public long Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool IdSpecified {
+            get {
+                return this.idFieldSpecified;
+            }
+            set {
+                this.idFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> LastUpdateStatus {
+            get {
+                return this.lastUpdateStatusField;
+            }
+            set {
+                this.lastUpdateStatusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool LastUpdateStatusSpecified {
+            get {
+                return this.lastUpdateStatusFieldSpecified;
+            }
+            set {
+                this.lastUpdateStatusFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> Production_Id {
+            get {
+                return this.production_IdField;
+            }
+            set {
+                this.production_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool Production_IdSpecified {
+            get {
+                return this.production_IdFieldSpecified;
+            }
+            set {
+                this.production_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> Production_type_eV_Id {
+            get {
+                return this.production_type_eV_IdField;
+            }
+            set {
+                this.production_type_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool Production_type_eV_IdSpecified {
+            get {
+                return this.production_type_eV_IdFieldSpecified;
+            }
+            set {
+                this.production_type_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> Status {
+            get {
+                return this.statusField;
+            }
+            set {
+                this.statusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool StatusSpecified {
+            get {
+                return this.statusFieldSpecified;
+            }
+            set {
+                this.statusFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> createdDate {
+            get {
+                return this.createdDateField;
+            }
+            set {
+                this.createdDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool createdDateSpecified {
+            get {
+                return this.createdDateFieldSpecified;
+            }
+            set {
+                this.createdDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string createdUser {
+            get {
+                return this.createdUserField;
+            }
+            set {
+                this.createdUserField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> day {
+            get {
+                return this.dayField;
+            }
+            set {
+                this.dayField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool daySpecified {
+            get {
+                return this.dayFieldSpecified;
+            }
+            set {
+                this.dayFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> demand_Id {
+            get {
+                return this.demand_IdField;
+            }
+            set {
+                this.demand_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool demand_IdSpecified {
+            get {
+                return this.demand_IdFieldSpecified;
+            }
+            set {
+                this.demand_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> months_eV_Id {
+            get {
+                return this.months_eV_IdField;
+            }
+            set {
+                this.months_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool months_eV_IdSpecified {
+            get {
+                return this.months_eV_IdFieldSpecified;
+            }
+            set {
+                this.months_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> oclock {
+            get {
+                return this.oclockField;
+            }
+            set {
+                this.oclockField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool oclockSpecified {
+            get {
+                return this.oclockFieldSpecified;
+            }
+            set {
+                this.oclockFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> offer_Id {
+            get {
+                return this.offer_IdField;
+            }
+            set {
+                this.offer_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool offer_IdSpecified {
+            get {
+                return this.offer_IdFieldSpecified;
+            }
+            set {
+                this.offer_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> partOfyear_eV_Id {
+            get {
+                return this.partOfyear_eV_IdField;
+            }
+            set {
+                this.partOfyear_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool partOfyear_eV_IdSpecified {
+            get {
+                return this.partOfyear_eV_IdFieldSpecified;
+            }
+            set {
+                this.partOfyear_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<decimal> price {
+            get {
+                return this.priceField;
+            }
+            set {
+                this.priceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool priceSpecified {
+            get {
+                return this.priceFieldSpecified;
+            }
+            set {
+                this.priceFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<decimal> quantity {
+            get {
+                return this.quantityField;
+            }
+            set {
+                this.quantityField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool quantitySpecified {
+            get {
+                return this.quantityFieldSpecified;
+            }
+            set {
+                this.quantityFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> type_eV_Id {
+            get {
+                return this.type_eV_IdField;
+            }
+            set {
+                this.type_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool type_eV_IdSpecified {
+            get {
+                return this.type_eV_IdFieldSpecified;
+            }
+            set {
+                this.type_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> updatedDate {
+            get {
+                return this.updatedDateField;
+            }
+            set {
+                this.updatedDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool updatedDateSpecified {
+            get {
+                return this.updatedDateFieldSpecified;
+            }
+            set {
+                this.updatedDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string updatedUser {
+            get {
+                return this.updatedUserField;
+            }
+            set {
+                this.updatedUserField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> year_eV_Id {
+            get {
+                return this.year_eV_IdField;
+            }
+            set {
+                this.year_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool year_eV_IdSpecified {
+            get {
+                return this.year_eV_IdFieldSpecified;
+            }
+            set {
+                this.year_eV_IdFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")]
     public partial class PotentialClientDetail {
         
@@ -25264,6 +26333,508 @@ namespace Emsal.WebInt.EmsalSrv {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((PotentialClientDetail[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_AddProductionCalendarCompletedEventHandler(object sender, WS_AddProductionCalendarCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_AddProductionCalendarCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_AddProductionCalendarCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblProductionCalendar productionCalendarOut {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblProductionCalendar)(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_DeleteProductionCalendarCompletedEventHandler(object sender, WS_DeleteProductionCalendarCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_DeleteProductionCalendarCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_DeleteProductionCalendarCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetProductionCalendarCompletedEventHandler(object sender, WS_GetProductionCalendarCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetProductionCalendarCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetProductionCalendarCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblProductionCalendar[] ProductionCalendar {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblProductionCalendar[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetProductionCalendarByIdCompletedEventHandler(object sender, WS_GetProductionCalendarByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetProductionCalendarByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetProductionCalendarByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblProductionCalendar ProductionCalendar {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblProductionCalendar)(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetProductionCalendarDemandIDCompletedEventHandler(object sender, WS_GetProductionCalendarDemandIDCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetProductionCalendarDemandIDCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetProductionCalendarDemandIDCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblProductionCalendar[] ProductionCalendar {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblProductionCalendar[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetProductionCalendarPriceCompletedEventHandler(object sender, WS_GetProductionCalendarPriceCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetProductionCalendarPriceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetProductionCalendarPriceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblProductionCalendar ProductionCalendar {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblProductionCalendar)(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetProductionCalendarBymonthseVIdCompletedEventHandler(object sender, WS_GetProductionCalendarBymonthseVIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetProductionCalendarBymonthseVIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetProductionCalendarBymonthseVIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblProductionCalendar[] ProductionCalendarlList {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblProductionCalendar[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetProductionCalendarDayCompletedEventHandler(object sender, WS_GetProductionCalendarDayCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetProductionCalendarDayCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetProductionCalendarDayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblProductionCalendar[] ProductionCalendarlList {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblProductionCalendar[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetProductionCalendarOclockCompletedEventHandler(object sender, WS_GetProductionCalendarOclockCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetProductionCalendarOclockCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetProductionCalendarOclockCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblProductionCalendar[] ProductionCalendarlList {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblProductionCalendar[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetProductionCalendartransportationeVId2CompletedEventHandler(object sender, WS_GetProductionCalendartransportationeVId2CompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetProductionCalendartransportationeVId2CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetProductionCalendartransportationeVId2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblProductionCalendar[] ProductionCalendarlList {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblProductionCalendar[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetProductionCalendarpartOfytypeeVIdCompletedEventHandler(object sender, WS_GetProductionCalendarpartOfytypeeVIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetProductionCalendarpartOfytypeeVIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetProductionCalendarpartOfytypeeVIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblProductionCalendar[] ProductionCalendarlList {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblProductionCalendar[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_UpdateProductionCalendar2CompletedEventHandler(object sender, WS_UpdateProductionCalendar2CompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_UpdateProductionCalendar2CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_UpdateProductionCalendar2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblProductionCalendar ProductionCalendarOut {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblProductionCalendar)(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetProductionCalendarOfferIDCompletedEventHandler(object sender, WS_GetProductionCalendarOfferIDCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetProductionCalendarOfferIDCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetProductionCalendarOfferIDCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblProductionCalendar[] ProductionCalendar {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblProductionCalendar[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetProductionCalendarProductionId2CompletedEventHandler(object sender, WS_GetProductionCalendarProductionId2CompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetProductionCalendarProductionId2CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetProductionCalendarProductionId2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblProductionCalendar[] ProductionCalendar {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblProductionCalendar[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetProductionCalendarProductiontypeEVId2CompletedEventHandler(object sender, WS_GetProductionCalendarProductiontypeEVId2CompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetProductionCalendarProductiontypeEVId2CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetProductionCalendarProductiontypeEVId2CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblProductionCalendar[] ProductionCalendar {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblProductionCalendar[])(this.results[1]));
             }
         }
     }

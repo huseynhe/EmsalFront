@@ -32,15 +32,5 @@ namespace Emsal.WebInt.Properties {
                 return ((string)(this["Emsal_WebInt_EmsalSrv_EmsalService"]));
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://service.emsal.az/EmsalService.svc")]
-        public string Emsal_WebInt_az_emsal_service_EmsalService {
-            get {
-                return ((string)(this["Emsal_WebInt_az_emsal_service_EmsalService"]));
-            }
-        }
     }
 }
