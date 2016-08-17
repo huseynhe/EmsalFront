@@ -15,7 +15,7 @@ using System.Web.Security;
 
 namespace Emsal.AdminUI.Controllers
 {
-    [EmsalAdminAuthentication(AuthorizedAction = ActionName.admin)]
+    //[EmsalAdminAuthentication(AuthorizedAction = ActionName.admin)]
 
     public class GovernmentOrganisationController : Controller
     {
@@ -939,10 +939,12 @@ namespace Emsal.AdminUI.Controllers
             
             if(route == "gov")
             {
+                TempData["govDeleted"] = "info";
                 return RedirectToAction("Index", "GovernmentOrganisation");
             }
            else if(route == "org")
             {
+                TempData["orgDeleted"] = "info";
                 return RedirectToAction("Organisations", "GovernmentOrganisation");
             }
             else
@@ -975,14 +977,17 @@ namespace Emsal.AdminUI.Controllers
 
             if (IsPerson((long)modelUser.User.userType_eV_ID))
             {
+                TempData["indDeleted"] = "info";
                 return RedirectToAction("Individuals", "GovernmentOrganisation");
             }
             else if(IsASC((long)modelUser.User.userType_eV_ID))
             {
+                TempData["ascDeleted"] = "info";
                 return RedirectToAction("ASCUsers", "GovernmentOrganisation");
             }
             else
             {
+                TempData["ktnDeleted"] = "info";
                 return RedirectToAction("KTNUsers", "GovernmentOrganisation");
             }
         }

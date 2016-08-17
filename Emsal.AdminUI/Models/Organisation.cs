@@ -113,8 +113,8 @@ namespace Emsal.AdminUI.Models
         public long CityId { get; set; }
         public tblPerson Manager;
 
-        [Required(ErrorMessage = "Menecer adı daxil edilməmişdir")]
-        [Display(Name = "Menecer adı")]
+        [Required(ErrorMessage = "Məsul şəxsin adı daxil edilməmişdir")]
+        [Display(Name = "Məsul şəxsin adı")]
         public string ManagerName { get; set; }
 
         [Required(ErrorMessage = "Soyad daxil edilməmişdir")]

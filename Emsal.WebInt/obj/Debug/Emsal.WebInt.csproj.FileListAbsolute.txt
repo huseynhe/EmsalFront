@@ -144,4 +144,3 @@ C:\Users\Ferid\Desktop\EmsalFront\Emsal.WebInt\bin\Debug\Emsal.WebInt.dll
 C:\Users\Ferid\Desktop\EmsalFront\Emsal.WebInt\bin\Debug\Emsal.WebInt.pdb
 C:\Users\Ferid\Desktop\EmsalFront\Emsal.WebInt\obj\Debug\Emsal.WebInt.dll
 C:\Users\Ferid\Desktop\EmsalFront\Emsal.WebInt\obj\Debug\Emsal.WebInt.pdb
-C:\Users\Ferid\Desktop\EmsalFront\Emsal.WebInt\obj\Debug\Emsal.WebInt.csprojResolveAssemblyReference.cache

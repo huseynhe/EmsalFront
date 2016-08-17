@@ -49,12 +49,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="EmsalService.cs" />
-    <Compile Include="Web References\EmsalSrv2\Reference.cs">
+    <Compile Include="Web References\EmsalSrv\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="Web References\EmsalSrv\Reference.cs">
+    <Compile Include="Web References\EmsalSrv2\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -84,25 +84,6 @@
     <None Include="Web References\EmsalSrv2\DemanProductionGroup1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\EmsalSrv2\EmsalService.wsdl" />
-    <None Include="Web References\EmsalSrv2\EmsalService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\EmsalSrv2\EmsalService0.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\EmsalSrv2\EmsalService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\EmsalSrv2\EmsalService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\EmsalSrv2\EmsalService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\EmsalSrv2\EmsalService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Web References\EmsalSrv2\PotentialClientDetail1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -114,10 +95,6 @@
     </None>
     <None Include="Web References\EmsalSrv2\ProductPriceDetail1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\EmsalSrv2\tblAddress1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -394,6 +371,29 @@
     <None Include="Web References\EmsalSrv\UserInfo.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\EmsalSrv2\EmsalService.wsdl" />
+    <None Include="Web References\EmsalSrv2\EmsalService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\EmsalSrv2\EmsalService0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\EmsalSrv2\EmsalService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\EmsalSrv2\EmsalService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\EmsalSrv2\EmsalService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\EmsalSrv2\EmsalService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\EmsalSrv2\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WebReferenceUrl Include="http://localhost:56875/EmsalService.svc">
@@ -420,10 +420,10 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web References\EmsalSrv2\EmsalService.disco" />
+    <None Include="Web References\EmsalSrv\EmsalService.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web References\EmsalSrv\EmsalService.disco" />
+    <None Include="Web References\EmsalSrv2\EmsalService.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

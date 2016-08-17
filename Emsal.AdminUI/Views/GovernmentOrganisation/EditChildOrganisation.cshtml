@@ -5,7 +5,7 @@
 }
 <div class="clearfix" style="height:50px;"></div>
 
-<div class="container">
+<div class="container" style="font-size:11px">
     <div class="col-md-10 col-md-offset-1" style="box-shadow:1px 1px 2px 3px #00ff90;">
 
         <h3>Düzəliş Et</h3>
@@ -100,7 +100,16 @@
 
 
             <h3>Məsul Şəxsin Məlumatları</h3><br />
-            <div class="well">
+            <div class="well" style="font-size:11spx">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" style="padding:5px;">
+                            <label class="labelEdit required">Məsul Şəxsin Fini</label>
+                            @Html.TextBoxFor(x => x.Pin, new { @class = "form-control", id = "pin" })
+                            @Html.ValidationMessageFor(x => x.Pin, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group" style="padding:5px">
@@ -124,15 +133,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group" style="padding:5px;">
-                            <label class="labelEdit required">Məsul Şəxsin Fini</label>
-                            @Html.TextBoxFor(x => x.Pin, new { @class = "form-control", id = "pin" })
-                            @Html.ValidationMessageFor(x => x.Pin, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
+              
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group" style="padding:5px">

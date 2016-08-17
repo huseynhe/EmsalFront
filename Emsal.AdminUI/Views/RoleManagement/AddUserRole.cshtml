@@ -19,7 +19,7 @@
                             <select class="form-control" name="UserRoleType">
                                 @foreach (var item in Model.UserRoleArray)
                                 {
-                                    <option class="glyphicon glyphicon-ok">@item.Name - @item.Description</option>
+                                    <option class="glyphicon glyphicon-ok" value="@item.Name">@item.Description</option>
                                 }
                             </select>
                         </div>
