@@ -63,26 +63,6 @@ namespace Emsal.AdminUI.Controllers
                 ? (ActionResult)PartialView("PartialIndex", modelUser)
                 : View(modelUser);
         }
-        public ActionResult AddGovOrganisation(long?UserId)
-        {
-            modelUser = new Organisation();
-
-            BaseOutput roles = srv.WS_GetRoles(binput, out modelUser.UserRoleArray);
-
-            modelUser.UserRoleList = modelUser.UserRoleArray.ToList();
-            if (User != null && User.Identity.IsAuthenticated)
-            {
-                FormsIdentity identity = (FormsIdentity)User.Identity;
-                if (identity.Ticket.UserData.Length > 0)
-                {
-                    UserId = Int32.Parse(identity.Ticket.UserData);
-                }
-            }
-            BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
-
-            return View(modelUser);
-        }
-
 
         //child organisations part
         public ActionResult ChildOrganisations(long? UserId, long? orgId, long? orgUserId)
@@ -138,7 +118,6 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput organisationByParentId = srv.WS_GetForeign_OrganisationsByParentId(binput, (long)organisationId, true, out modelUser.ForeignOrganisationArray);
             return Json(modelUser.ForeignOrganisationArray, JsonRequestBehavior.AllowGet);
         }
-
 
 
         public ActionResult AddChildOrganisation(long? UserId, long? parentId)
@@ -599,7 +578,6 @@ namespace Emsal.AdminUI.Controllers
         }
 
 
-
         public ActionResult DeleteChildOrganisation(long? UserId, long? Id, long? parentId)
         {
             binput = new BaseInput();
@@ -646,238 +624,6 @@ namespace Emsal.AdminUI.Controllers
 
             return RedirectToAction("Index");
         }
-
-
-
-        [HttpPost]
-        public ActionResult AddGovOrganisation(Organisation form)
-        {
-            if (CheckExistence(form))
-            {
-                binput = new BaseInput();
-
-                Organisation modelUser = new Organisation();
-
-                modelUser.FutureUser = new tblUser();
-                modelUser.FutureAddress = new tblAddress();
-                modelUser.UserRole = new tblUserRole();
-
-                modelUser.FutureUser.Username = form.UserName;
-                modelUser.FutureUser.Email = form.Email;
-                modelUser.FutureUser.Password = BCrypt.Net.BCrypt.HashPassword(form.Password, 5);
-                modelUser.Voen = form.Voen;
-                modelUser.FutureUser.Status = 1;
-
-                modelUser.Password = form.Password;
-
-                BaseOutput adminunits = srv.WS_GetPRM_AdminUnits(binput, out modelUser.PRMAdminUnitArray);
-                modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.Where(x => x.ParentID == 0).ToList();
-
-                return AddAddressInfo(modelUser.FutureUser, modelUser.Voen, null);
-            }
-            else
-            {
-                TempData["CustomError"] = "Bu adda istifadəçi sistemdə mövcuddur.";
-                return RedirectToAction("AddGovOrganisation");
-            }
-           
-        }
-
-        public ActionResult AddAddressInfo(tblUser FutureUser, string Voen, long? UserId)
-        {
-            Session["arrONum"] = null;
-            Organisation modelUser = new Organisation();
-
-            BaseOutput adminunits = srv.WS_GetPRM_AdminUnits(binput, out modelUser.PRMAdminUnitArray);
-            modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.Where(x => x.ParentID == 0).ToList();
-
-           
-            modelUser.Email = FutureUser.Email;
-
-            modelUser.Password = FutureUser.Password;
-            modelUser.Voen = Voen;
-            if (User != null && User.Identity.IsAuthenticated)
-            {
-                FormsIdentity identity = (FormsIdentity)User.Identity;
-                if (identity.Ticket.UserData.Length > 0)
-                {
-                    UserId = Int32.Parse(identity.Ticket.UserData);
-                }
-            }
-            BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
-            return View("AddAddressInfo", modelUser);
-        }
-
-        [HttpPost]
-        public ActionResult AddAddressInfo(Organisation form)
-        {
-            binput = new BaseInput();
-            Organisation modelUser = new Organisation();
-            
-            modelUser.AddressId = form.adId.LastOrDefault();    
-            modelUser.UserName = form.UserName;
-            modelUser.Voen = form.Voen;
-            return AddGovernmentOrganisationInfo(modelUser.UserName, form.Password, form.Email, modelUser.AddressId,form.FullAddress, modelUser.Voen,null);
-        }
-
-        public ActionResult AddGovernmentOrganisationInfo(string userName, string password, string email, long AddressId, string fullAddress, string Voen, long? UserId )
-        {
-            ModelState.Clear();
-            Session["arrONum"] = null;
-            Organisation modelUser = new Models.Organisation();
-
-            modelUser.UserName = userName;
-            modelUser.Password = password;
-            modelUser.Email = email;
-            modelUser.FullAddress = fullAddress;
-            modelUser.UserName = userName;
-            modelUser.Password = password;
-            modelUser.AddressId = AddressId;
-            modelUser.Voen = Voen;
-            modelUser.FullAddress = fullAddress;
-            BaseOutput adminunits = srv.WS_GetPRM_AdminUnits(binput, out modelUser.PRMAdminUnitArray);
-            modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.Where(x => x.ParentID == 0).ToList();
-
-            BaseOutput enumcatEd = srv.WS_GetEnumCategorysByName(binput, "Tehsil", out modelUser.EnumCategory);
-
-            if (modelUser.EnumCategory == null)
-            {
-                modelUser.EnumCategory = new tblEnumCategory();
-            }
-            BaseOutput enumvalEd = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
-
-            modelUser.EducationList = modelUser.EnumValueArray.ToList();
-
-            BaseOutput enumcatJob = srv.WS_GetEnumCategorysByName(binput, "İş-Təşkilat", out modelUser.EnumCategory);
-            if (modelUser.EnumCategory == null)
-            {
-                modelUser.EnumCategory = new tblEnumCategory();
-            }
-            BaseOutput enumvalJob = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
-            modelUser.JobList = modelUser.EnumValueArray.ToList();
-
-            if (User != null && User.Identity.IsAuthenticated)
-            {
-                FormsIdentity identity = (FormsIdentity)User.Identity;
-                if (identity.Ticket.UserData.Length > 0)
-                {
-                    UserId = Int32.Parse(identity.Ticket.UserData);
-                }
-            }
-            BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
-            return View("AddGovernmentOrganisationInfo", modelUser);
-        }
-
-        [HttpPost]
-        public ActionResult AddGovernmentOrganisationInfo(Organisation form)
-        {
-            binput = new BaseInput();
-
-            Organisation modelUser = new Organisation();
-            modelUser.ForeignOrganisation = new tblForeign_Organization();
-            modelUser.FutureAddress = new tblAddress();
-            modelUser.FutureUser = new tblUser();
-            modelUser.UserRole = new tblUserRole();
-
-            modelUser.FutureUser.Username = form.UserName;
-            modelUser.FutureUser.Email = form.Email;
-            modelUser.FutureUser.Password = BCrypt.Net.BCrypt.HashPassword(form.Password, 5);
-            modelUser.FutureUser.Status = 1;
-
-            BaseOutput personEnumOut = srv.WS_GetEnumValueByName(binput, "legalPerson", out modelUser.EnumValue);
-
-            modelUser.FutureUser.userType_eV_ID = modelUser.EnumValue.Id;
-            modelUser.FutureUser.userType_eV_IDSpecified = true;
-
-            modelUser.FutureUser.StatusSpecified = true;
-            BaseOutput userOut = srv.WS_AddUser(binput, modelUser.FutureUser, out modelUser.FutureUser);
-
-            
-           //give roles to user
-            BaseOutput usertypeProducerOut = srv.WS_GetRoleByName(binput, "governmentOrganisation", out modelUser.Role);
-
-            modelUser.UserRole.RoleId = modelUser.Role.Id;
-            modelUser.UserRole.RoleIdSpecified = true;
-            modelUser.UserRole.UserId = modelUser.FutureUser.Id;
-            modelUser.UserRole.UserIdSpecified = true;
-            modelUser.UserRole.Status = 1;
-            modelUser.UserRole.StatusSpecified = true;
-            BaseOutput addUserRole = srv.WS_AddUserRole(binput, modelUser.UserRole, out modelUser.UserRole);
-
-            //add address informations
-            modelUser.FutureAddress.fullAddress = form.FullAddress;
-            modelUser.FutureAddress.Status = 1;
-            modelUser.FutureAddress.StatusSpecified = true;
-            modelUser.FutureAddress.user_Id = modelUser.FutureUser.Id;
-            modelUser.FutureAddress.user_IdSpecified = true;
-            modelUser.FutureAddress.user_type_eV_IdSpecified = true;
-            modelUser.FutureAddress.adminUnit_Id = form.AddressId;
-         
-            modelUser.FutureAddress.adminUnit_IdSpecified = true;
-            BaseOutput address = srv.WS_AddAddress(binput, modelUser.FutureAddress, out modelUser.FutureAddress);
-
-            //add manager
-
-            modelUser.Manager = new tblPerson();
-            modelUser.Manager.Name = form.ManagerName;
-
-            modelUser.Manager.PinNumber = form.Pin;
-            modelUser.Manager.FatherName = form.FatherName;
-            modelUser.Manager.Surname = form.UserName;
-            modelUser.Manager.birtday = ConvertStringYearMonthDayFormatToTimestamp(form);
-            modelUser.Manager.birtdaySpecified = true;
-            modelUser.Manager.gender = form.Gender;
-
-            BaseOutput educationEnum = srv.WS_GetEnumValueByName(binput, form.Education, out modelUser.EnumValue);
-            modelUser.Manager.educationLevel_eV_Id = modelUser.EnumValue == null ? 0: modelUser.EnumValue.Id;
-            modelUser.Manager.educationLevel_eV_IdSpecified = true;
-
-            BaseOutput jobEnum = srv.WS_GetEnumValueByName(binput, form.Job, out modelUser.EnumValue);
-            modelUser.Manager.job_eV_Id = modelUser.EnumValue == null ? 0 : modelUser.EnumValue.Id;
-            modelUser.Manager.job_eV_IdSpecified = true;
-
-            modelUser.Manager.Status = 1;
-            modelUser.Manager.StatusSpecified = true;
-
-            //modelUser.Manager.address_Id = modelUser.ManagerFutureAddress.Id;
-            modelUser.Manager.address_IdSpecified = true;
-
-            BaseOutput managerOut = srv.WS_AddPerson(binput, modelUser.Manager, out modelUser.Manager);
-
-
-
-            //add foreign organisation
-            modelUser.ForeignOrganisation.name = form.Name;
-            modelUser.ForeignOrganisation.Status = 1;
-
-            modelUser.ForeignOrganisation.address_Id = modelUser.FutureAddress.Id;
-            modelUser.ForeignOrganisation.address_IdSpecified = true;
-
-            modelUser.ForeignOrganisation.userId = modelUser.FutureUser.Id;
-            modelUser.ForeignOrganisation.userIdSpecified = true;
-
-            modelUser.ForeignOrganisation.voen = form.Voen;
-            modelUser.ForeignOrganisation.manager_Id = modelUser.Manager.Id;
-
-            modelUser.ForeignOrganisation.manager_IdSpecified = true;
-
-            BaseOutput foreignOrganisationOut = srv.WS_AddForeign_Organization(binput, modelUser.ForeignOrganisation, out modelUser.ForeignOrganisation);
-            TempData["GovSuccess"] = "info";
-
-            return RedirectToAction("Index", "GovernmentOrganisation");
-        }
-
-        //public JsonResult GetAdminUnitsByParentId(long Id)
-        //{
-        //    binput = new BaseInput();
-
-        //    Organisation modelUser = new Organisation();
-
-        //    srv.WS_GetAdminUnitsByParentId(binput, (int)Id, true, out modelUser.PRMAdminUnitArray);
-
-        //    modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.ToList();
-        //    return Json(modelUser.PRMAdminUnitList, JsonRequestBehavior.AllowGet);
-        //}
 
         public JsonResult GetThroughfaresByAdminUnitId(long Id)
         {
@@ -1747,6 +1493,134 @@ namespace Emsal.AdminUI.Controllers
 
         }
 
+        public ActionResult AddGovOrganisation(long? UserId)
+        {
 
+            binput = new BaseInput();
+
+            Session["arrONum"] = null;
+            modelUser = new Organisation();
+
+            if (User != null && User.Identity.IsAuthenticated)
+            {
+                FormsIdentity identity = (FormsIdentity)User.Identity;
+                if (identity.Ticket.UserData.Length > 0)
+                {
+                    UserId = Int32.Parse(identity.Ticket.UserData);
+                }
+            }
+            BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
+
+
+            BaseOutput edcationCatOut = srv.WS_GetEnumCategorysByName(binput, "Tehsil", out modelUser.EnumCategory);
+            BaseOutput eductationOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
+            modelUser.EducationList = modelUser.EnumValueArray.ToList();
+
+            BaseOutput jobCatOut = srv.WS_GetEnumCategorysByName(binput, "İş-Təşkilat", out modelUser.EnumCategory);
+            BaseOutput jobbOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
+            modelUser.JobList = modelUser.EnumValueArray.ToList();
+
+            return View(modelUser);
+        }
+
+        [HttpPost]
+        public ActionResult AddGovOrganisation(Organisation form)
+        {
+            binput = new BaseInput();
+
+            Organisation modelUser = new Organisation();
+            modelUser.ForeignOrganisation = new tblForeign_Organization();
+            modelUser.FutureAddress = new tblAddress();
+            modelUser.FutureUser = new tblUser();
+            modelUser.UserRole = new tblUserRole();
+
+            modelUser.FutureUser.Username = form.UserName;
+            modelUser.FutureUser.Email = form.Email;
+            modelUser.FutureUser.Password = BCrypt.Net.BCrypt.HashPassword(form.Password, 5);
+            modelUser.FutureUser.Status = 1;
+
+            BaseOutput personEnumOut = srv.WS_GetEnumValueByName(binput, "legalPerson", out modelUser.EnumValue);
+
+            modelUser.FutureUser.userType_eV_ID = modelUser.EnumValue.Id;
+            modelUser.FutureUser.userType_eV_IDSpecified = true;
+
+            modelUser.FutureUser.StatusSpecified = true;
+            BaseOutput userOut = srv.WS_AddUser(binput, modelUser.FutureUser, out modelUser.FutureUser);
+
+
+            //give roles to user
+            BaseOutput usertypeProducerOut = srv.WS_GetRoleByName(binput, "governmentOrganisation", out modelUser.Role);
+
+            modelUser.UserRole.RoleId = modelUser.Role.Id;
+            modelUser.UserRole.RoleIdSpecified = true;
+            modelUser.UserRole.UserId = modelUser.FutureUser.Id;
+            modelUser.UserRole.UserIdSpecified = true;
+            modelUser.UserRole.Status = 1;
+            modelUser.UserRole.StatusSpecified = true;
+            BaseOutput addUserRole = srv.WS_AddUserRole(binput, modelUser.UserRole, out modelUser.UserRole);
+
+            //add address informations
+            modelUser.FutureAddress.fullAddress = form.FullAddress;
+            modelUser.FutureAddress.Status = 1;
+            modelUser.FutureAddress.StatusSpecified = true;
+            modelUser.FutureAddress.user_Id = modelUser.FutureUser.Id;
+            modelUser.FutureAddress.user_IdSpecified = true;
+            modelUser.FutureAddress.user_type_eV_IdSpecified = true;
+            modelUser.FutureAddress.adminUnit_Id = form.AddressId;
+
+            modelUser.FutureAddress.adminUnit_IdSpecified = true;
+            BaseOutput address = srv.WS_AddAddress(binput, modelUser.FutureAddress, out modelUser.FutureAddress);
+
+            //add manager
+
+            modelUser.Manager = new tblPerson();
+            modelUser.Manager.Name = form.ManagerName;
+
+            modelUser.Manager.PinNumber = form.Pin;
+            modelUser.Manager.FatherName = form.FatherName;
+            modelUser.Manager.Surname = form.UserName;
+            modelUser.Manager.birtday = ConvertStringYearMonthDayFormatToTimestamp(form);
+            modelUser.Manager.birtdaySpecified = true;
+            modelUser.Manager.gender = form.Gender;
+
+            BaseOutput educationEnum = srv.WS_GetEnumValueByName(binput, form.Education, out modelUser.EnumValue);
+            modelUser.Manager.educationLevel_eV_Id = modelUser.EnumValue == null ? 0 : modelUser.EnumValue.Id;
+            modelUser.Manager.educationLevel_eV_IdSpecified = true;
+
+            BaseOutput jobEnum = srv.WS_GetEnumValueByName(binput, form.Job, out modelUser.EnumValue);
+            modelUser.Manager.job_eV_Id = modelUser.EnumValue == null ? 0 : modelUser.EnumValue.Id;
+            modelUser.Manager.job_eV_IdSpecified = true;
+
+            modelUser.Manager.Status = 1;
+            modelUser.Manager.StatusSpecified = true;
+
+            //modelUser.Manager.address_Id = modelUser.ManagerFutureAddress.Id;
+            modelUser.Manager.address_IdSpecified = true;
+
+            BaseOutput managerOut = srv.WS_AddPerson(binput, modelUser.Manager, out modelUser.Manager);
+
+
+
+            //add foreign organisation
+            modelUser.ForeignOrganisation.name = form.Name;
+            modelUser.ForeignOrganisation.Status = 1;
+
+            modelUser.ForeignOrganisation.address_Id = modelUser.FutureAddress.Id;
+            modelUser.ForeignOrganisation.address_IdSpecified = true;
+
+            modelUser.ForeignOrganisation.userId = modelUser.FutureUser.Id;
+            modelUser.ForeignOrganisation.userIdSpecified = true;
+
+            modelUser.ForeignOrganisation.voen = form.Voen;
+            modelUser.ForeignOrganisation.manager_Id = modelUser.Manager.Id;
+
+            modelUser.ForeignOrganisation.manager_IdSpecified = true;
+
+            BaseOutput foreignOrganisationOut = srv.WS_AddForeign_Organization(binput, modelUser.ForeignOrganisation, out modelUser.ForeignOrganisation);
+            TempData["GovSuccess"] = "info";
+
+            return RedirectToAction("Index", "GovernmentOrganisation");
+
+        }
     }
 }

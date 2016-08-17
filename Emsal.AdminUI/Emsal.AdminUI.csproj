@@ -485,8 +485,6 @@
     <Content Include="Views\ProductPrice\Index.cshtml" />
     <Content Include="Views\ProductPrice\Approv.cshtml" />
     <Content Include="Views\GovernmentOrganisation\AddGovOrganisation.cshtml" />
-    <Content Include="Views\GovernmentOrganisation\AddAddressInfo.cshtml" />
-    <Content Include="Views\GovernmentOrganisation\AddGovernmentOrganisationInfo.cshtml" />
     <Content Include="Views\Shared\_AddGovernmentOrganisationLayout.cshtml" />
     <Content Include="Views\GovernmentOrganisation\Index.cshtml" />
     <Content Include="Views\GovernmentOrganisation\PartialIndex.cshtml" />
