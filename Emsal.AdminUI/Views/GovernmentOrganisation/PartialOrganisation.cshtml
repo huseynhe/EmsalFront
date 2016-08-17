@@ -26,16 +26,22 @@
                                 @Html.DisplayNameFor(model => model.UserName)
                             </th>
                             <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.Email)
                             </th>
                         </tr>
 
 
-                        @foreach (var item in Model.Paging)
+                        @foreach (var item in Model.PagingOrganisation)
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Username)
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrganisationName)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Email)
@@ -56,8 +62,8 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
-                    @Html.PagedListPager(Model.Paging, page => Url.Action("Organisations", new { page }))
+                    Səhifə @(Model.PagingOrganisation.PageCount < Model.PagingOrganisation.PageNumber ? 0 : Model.PagingOrganisation.PageNumber) (cəmi @Model.PagingOrganisation.PageCount)
+                    @Html.PagedListPager(Model.PagingOrganisation, page => Url.Action("Organisations", new { page }))
                 </div>
             </div>
         </div>

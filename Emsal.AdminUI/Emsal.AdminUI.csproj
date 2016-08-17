@@ -146,6 +146,8 @@
     <Compile Include="Infrastructure\RoleProvider.cs" />
     <Compile Include="Models\ActionName.cs" />
     <Compile Include="Models\AuthLogin.cs" />
+    <Compile Include="Models\GovOrAnyOrganisation.cs" />
+    <Compile Include="Models\Individual.cs" />
     <Compile Include="Models\Organisation.cs" />
     <Compile Include="Models\ProductPriceModel.cs" />
     <Compile Include="Models\ProductionDocumentModel.cs" />

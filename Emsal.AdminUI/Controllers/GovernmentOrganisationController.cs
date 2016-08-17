@@ -42,9 +42,22 @@ namespace Emsal.AdminUI.Controllers
             //get roles by name gelecek bura
             BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
             BaseOutput bouput = srv.WS_GetGovernmentOrganisations(binput, 12, true, out modelUser.UserArray);
-            modelUser.UserList = modelUser.UserArray.ToList();
 
-            modelUser.Paging = modelUser.UserList.ToPagedList(pageNumber, pageSize);
+            modelUser.GovernmentOrganisationList = new List<GovOrAnyOrganisation>();
+            foreach (var item in modelUser.UserArray)
+            {
+                modelUser.GovernmentOrganisation = new GovOrAnyOrganisation();
+                modelUser.GovernmentOrganisation.UserName = item.Username;
+
+                BaseOutput OrgOut = srv.WS_GetForeign_OrganizationByUserId(binput, item.Id, true, out modelUser.ForeignOrganisation);
+                modelUser.GovernmentOrganisation.OrganisationName = modelUser.ForeignOrganisation.name;
+                modelUser.GovernmentOrganisation.Email = item.Email;
+                modelUser.GovernmentOrganisation.Id = item.Id;
+
+                modelUser.GovernmentOrganisationList.Add(modelUser.GovernmentOrganisation);
+            }
+
+            modelUser.PagingOrganisation = modelUser.GovernmentOrganisationList.ToPagedList(pageNumber, pageSize);
 
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("PartialIndex", modelUser)
@@ -1299,10 +1312,25 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput enumPersonOut = srv.WS_GetEnumValueByName(binput, "fizikişexs", out modelUser.EnumValue);
             BaseOutput bouput = srv.WS_GetUsersByUserType(binput, modelUser.EnumValue.Id, true, out modelUser.UserArray);
 
-            modelUser.UserList = modelUser.UserArray.Where(x=>x.Username != null).ToList();
+            modelUser.IndividualList = new List<Individual>();
+            foreach (var item in modelUser.UserArray)
+            {
+                modelUser.Individual = new Individual();
+                modelUser.Individual.Username = item.Username;
 
+                BaseOutput personOut = srv.WS_GetPersonByUserId(binput, item.Id, true, out modelUser.Person);
 
-            modelUser.Paging = modelUser.UserList.ToPagedList(pageNumber, pageSize);
+                modelUser.Individual.Name = modelUser.Person.Name;
+                modelUser.Individual.Surname = modelUser.Person.Surname;
+                modelUser.Individual.Fathername = modelUser.Person.FatherName;
+                modelUser.Individual.Email = item.Email;
+                modelUser.Individual.Id = item.Id;
+
+                modelUser.IndividualList.Add(modelUser.Individual);
+            }
+            
+
+            modelUser.PagingIndividual = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
 
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("PartialIndividuals", modelUser)
@@ -1333,10 +1361,22 @@ namespace Emsal.AdminUI.Controllers
 
             BaseOutput userOut = srv.WS_GetOrganisationTypeUsers(binput, modelUser.Role.Id, true, modelUser.EnumValue.Id, true, out modelUser.UserArray);
 
-            modelUser.UserList = modelUser.UserArray.Where(x=>x.Username!=null).ToList();
+            modelUser.GovernmentOrganisationList = new List<GovOrAnyOrganisation>();
+            foreach (var item in modelUser.UserArray)
+            {
+                modelUser.GovernmentOrganisation = new GovOrAnyOrganisation();
+                modelUser.GovernmentOrganisation.UserName = item.Username;
+
+                BaseOutput OrgOut = srv.WS_GetForeign_OrganizationByUserId(binput, item.Id, true, out modelUser.ForeignOrganisation);
+                modelUser.GovernmentOrganisation.OrganisationName = modelUser.ForeignOrganisation.name;
+                modelUser.GovernmentOrganisation.Email = item.Email;
+                modelUser.GovernmentOrganisation.Id = item.Id;
+
+                modelUser.GovernmentOrganisationList.Add(modelUser.GovernmentOrganisation);
+            }
 
 
-            modelUser.Paging = modelUser.UserList.ToPagedList(pageNumber, pageSize);
+            modelUser.PagingOrganisation = modelUser.GovernmentOrganisationList.ToPagedList(pageNumber, pageSize);
 
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("PartialOrganisation", modelUser)

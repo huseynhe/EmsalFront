@@ -135,7 +135,7 @@ namespace Emsal.UI.Controllers
         public ActionResult ReceivedMessages(int? page, long? userId)
         {
             binput = new BaseInput();
-            int pageSize = 3;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
 
             modelUser = new SpecialSummaryViewModel();
@@ -177,7 +177,7 @@ namespace Emsal.UI.Controllers
         public ActionResult SentMessages(int? page, long? userId)
         {
             binput = new BaseInput();
-            int pageSize = 3;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
             modelUser = new SpecialSummaryViewModel();
 

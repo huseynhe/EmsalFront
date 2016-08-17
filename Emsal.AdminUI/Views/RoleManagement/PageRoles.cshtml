@@ -29,7 +29,7 @@
                                 @{
                                     foreach (var item in Model.PageRoles)
                                     {
-                                        <span class="badge bg-info" title="@item.Description">@item.Name&thinsp;</span><a href="/RoleManagement/DeletePageRole?pageId=@Model.AuthenticatedPart.ID&roleId=@item.Id" class="badge bg-red" title="Rolu sil">
+                                        <span class="badge bg-info">@item.Description&thinsp;</span><a href="/RoleManagement/DeletePageRole?pageId=@Model.AuthenticatedPart.ID&roleId=@item.Id" class="badge bg-red" title="Rolu sil">
                                             <span class="glyphicon glyphicon-remove"></span>
                                         </a><br /><br />
                                     }

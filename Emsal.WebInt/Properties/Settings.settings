@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="Emsal_WebInt_EmsalSrv_EmsalService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://localhost:56875/EmsalService.svc</Value>
+      <Value Profile="(Default)">http://service.emsal.az/EmsalService.svc</Value>
     </Setting>
   </Settings>
 </SettingsFile>

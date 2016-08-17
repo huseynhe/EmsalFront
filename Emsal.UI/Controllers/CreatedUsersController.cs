@@ -23,7 +23,7 @@ namespace Emsal.UI.Controllers
         {
             CreatedUser created;
 
-            int pageSize = 3;
+            int pageSize = 15;
             int pageNumber = (page ?? 1);
             long? userId = null;
             modelUser = new User();
@@ -54,6 +54,9 @@ namespace Emsal.UI.Controllers
                     if(modelUser.FuturePerson != null)
                     {
                         created.Name = modelUser.FuturePerson.Name;
+                        created.Surname = modelUser.FuturePerson.Surname;
+                        created.FatherName = modelUser.FuturePerson.FatherName;
+                        created.UserType = "Fiziki Şəxs";
                     }
                 }
                 if(modelUser.EnumValue.name == "legalPerson")
@@ -62,10 +65,10 @@ namespace Emsal.UI.Controllers
                     if(modelUser.ForeignOrganisation != null)
                     {
                         created.Name = modelUser.ForeignOrganisation.name;
+                        created.UserType = "Hüquqi Şəxs";
                     }
                 }
 
-                created.UserType = modelUser.EnumValue.name;
                 created.Id = item.Id;
                 BaseOutput rolesOut = srv.WS_GetUserRolesByUserId(baseInput, (long)item.Id, true, out modelUser.UserRolesArray);
 
