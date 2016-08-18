@@ -228,10 +228,6 @@ namespace Emsal.UI.Controllers
                     //modelDemandProduction.productAddressIds = modelDemandProduction.ProductAddress.fullAddressId.Split(',').Select(long.Parse).ToArray();
                     //    modelDemandProduction.PRMAdminUnitList = modelDemandProduction.PRMAdminUnitArray.ToList();
 
-
-
-
-
                     modelDemandProduction.ProductAddress.fullAddressId = "0," + modelDemandProduction.ProductAddress.fullAddressId;
                     modelDemandProduction.productAddressIds = modelDemandProduction.ProductAddress.fullAddressId.Split(',').Select(long.Parse).ToArray();
 

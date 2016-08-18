@@ -29,6 +29,8 @@ namespace Emsal.WebInt.EmsalSrv {
     [System.Web.Services.WebServiceBindingAttribute(Name="BasicHttpBinding_IEmsalService", Namespace="http://tempuri.org/")]
     public partial class EmsalService : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
+        private System.Threading.SendOrPostCallback WS_GetPotensialUserForAdminUnitIdListOperationCompleted;
+        
         private System.Threading.SendOrPostCallback WS_GetPotensialUserListByNameOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetPotensialUserListBySurnameOperationCompleted;
@@ -295,6 +297,8 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private System.Threading.SendOrPostCallback WS_GetAdminUnitListForIDOperationCompleted;
         
+        private System.Threading.SendOrPostCallback WS_GetForeign_OrganizationsListForIDOperationCompleted;
+        
         private System.Threading.SendOrPostCallback WS_GetProductCatalogListForIDOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetPotensialProductionDetailistForUserOperationCompleted;
@@ -326,8 +330,6 @@ namespace Emsal.WebInt.EmsalSrv {
         private System.Threading.SendOrPostCallback WS_GetDemanProductionGroupListOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetPotensialUserListOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback WS_GetPotensialUserForAdminUnitIdListOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetConfirmedPotential_ProductionsByStateAndUserIdForPriceAscOperationCompleted;
         
@@ -706,6 +708,9 @@ namespace Emsal.WebInt.EmsalSrv {
                 this.useDefaultCredentialsSetExplicitly = true;
             }
         }
+        
+        /// <remarks/>
+        public event WS_GetPotensialUserForAdminUnitIdListCompletedEventHandler WS_GetPotensialUserForAdminUnitIdListCompleted;
         
         /// <remarks/>
         public event WS_GetPotensialUserListByNameCompletedEventHandler WS_GetPotensialUserListByNameCompleted;
@@ -1107,6 +1112,9 @@ namespace Emsal.WebInt.EmsalSrv {
         public event WS_GetAdminUnitListForIDCompletedEventHandler WS_GetAdminUnitListForIDCompleted;
         
         /// <remarks/>
+        public event WS_GetForeign_OrganizationsListForIDCompletedEventHandler WS_GetForeign_OrganizationsListForIDCompleted;
+        
+        /// <remarks/>
         public event WS_GetProductCatalogListForIDCompletedEventHandler WS_GetProductCatalogListForIDCompleted;
         
         /// <remarks/>
@@ -1153,9 +1161,6 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         public event WS_GetPotensialUserListCompletedEventHandler WS_GetPotensialUserListCompleted;
-        
-        /// <remarks/>
-        public event WS_GetPotensialUserForAdminUnitIdListCompletedEventHandler WS_GetPotensialUserForAdminUnitIdListCompleted;
         
         /// <remarks/>
         public event WS_GetConfirmedPotential_ProductionsByStateAndUserIdForPriceAscCompletedEventHandler WS_GetConfirmedPotential_ProductionsByStateAndUserIdForPriceAscCompleted;
@@ -1666,6 +1671,41 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         public event WS_GetConfirmedPotential_ProductionsByStateAndUserIdForPriceDesCompletedEventHandler WS_GetConfirmedPotential_ProductionsByStateAndUserIdForPriceDesCompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetPotensialUserForAdminUnitIdList", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetPotensialUserForAdminUnitIdList([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long adminUnitId, [System.Xml.Serialization.XmlIgnoreAttribute()] bool adminUnitIdSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")] out UserInfo[] itemList) {
+            object[] results = this.Invoke("WS_GetPotensialUserForAdminUnitIdList", new object[] {
+                        baseinput,
+                        adminUnitId,
+                        adminUnitIdSpecified});
+            itemList = ((UserInfo[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetPotensialUserForAdminUnitIdListAsync(BaseInput baseinput, long adminUnitId, bool adminUnitIdSpecified) {
+            this.WS_GetPotensialUserForAdminUnitIdListAsync(baseinput, adminUnitId, adminUnitIdSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetPotensialUserForAdminUnitIdListAsync(BaseInput baseinput, long adminUnitId, bool adminUnitIdSpecified, object userState) {
+            if ((this.WS_GetPotensialUserForAdminUnitIdListOperationCompleted == null)) {
+                this.WS_GetPotensialUserForAdminUnitIdListOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetPotensialUserForAdminUnitIdListOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetPotensialUserForAdminUnitIdList", new object[] {
+                        baseinput,
+                        adminUnitId,
+                        adminUnitIdSpecified}, this.WS_GetPotensialUserForAdminUnitIdListOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetPotensialUserForAdminUnitIdListOperationCompleted(object arg) {
+            if ((this.WS_GetPotensialUserForAdminUnitIdListCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetPotensialUserForAdminUnitIdListCompleted(this, new WS_GetPotensialUserForAdminUnitIdListCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetPotensialUserListByName", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -6166,6 +6206,41 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetForeign_OrganizationsListForID", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetForeign_OrganizationsListForID([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long Id, [System.Xml.Serialization.XmlIgnoreAttribute()] bool IdSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblForeign_Organization[] itemList) {
+            object[] results = this.Invoke("WS_GetForeign_OrganizationsListForID", new object[] {
+                        baseinput,
+                        Id,
+                        IdSpecified});
+            itemList = ((tblForeign_Organization[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetForeign_OrganizationsListForIDAsync(BaseInput baseinput, long Id, bool IdSpecified) {
+            this.WS_GetForeign_OrganizationsListForIDAsync(baseinput, Id, IdSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetForeign_OrganizationsListForIDAsync(BaseInput baseinput, long Id, bool IdSpecified, object userState) {
+            if ((this.WS_GetForeign_OrganizationsListForIDOperationCompleted == null)) {
+                this.WS_GetForeign_OrganizationsListForIDOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetForeign_OrganizationsListForIDOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetForeign_OrganizationsListForID", new object[] {
+                        baseinput,
+                        Id,
+                        IdSpecified}, this.WS_GetForeign_OrganizationsListForIDOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetForeign_OrganizationsListForIDOperationCompleted(object arg) {
+            if ((this.WS_GetForeign_OrganizationsListForIDCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetForeign_OrganizationsListForIDCompleted(this, new WS_GetForeign_OrganizationsListForIDCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductCatalogListForID", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public BaseOutput WS_GetProductCatalogListForID([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long ID, [System.Xml.Serialization.XmlIgnoreAttribute()] bool IDSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProductCatalog[] itemList) {
@@ -6717,41 +6792,6 @@ namespace Emsal.WebInt.EmsalSrv {
             if ((this.WS_GetPotensialUserListCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.WS_GetPotensialUserListCompleted(this, new WS_GetPotensialUserListCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetPotensialUserForAdminUnitIdList", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public BaseOutput WS_GetPotensialUserForAdminUnitIdList([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long adminUnitId, [System.Xml.Serialization.XmlIgnoreAttribute()] bool adminUnitIdSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")] out UserInfo[] itemList) {
-            object[] results = this.Invoke("WS_GetPotensialUserForAdminUnitIdList", new object[] {
-                        baseinput,
-                        adminUnitId,
-                        adminUnitIdSpecified});
-            itemList = ((UserInfo[])(results[1]));
-            return ((BaseOutput)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void WS_GetPotensialUserForAdminUnitIdListAsync(BaseInput baseinput, long adminUnitId, bool adminUnitIdSpecified) {
-            this.WS_GetPotensialUserForAdminUnitIdListAsync(baseinput, adminUnitId, adminUnitIdSpecified, null);
-        }
-        
-        /// <remarks/>
-        public void WS_GetPotensialUserForAdminUnitIdListAsync(BaseInput baseinput, long adminUnitId, bool adminUnitIdSpecified, object userState) {
-            if ((this.WS_GetPotensialUserForAdminUnitIdListOperationCompleted == null)) {
-                this.WS_GetPotensialUserForAdminUnitIdListOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetPotensialUserForAdminUnitIdListOperationCompleted);
-            }
-            this.InvokeAsync("WS_GetPotensialUserForAdminUnitIdList", new object[] {
-                        baseinput,
-                        adminUnitId,
-                        adminUnitIdSpecified}, this.WS_GetPotensialUserForAdminUnitIdListOperationCompleted, userState);
-        }
-        
-        private void OnWS_GetPotensialUserForAdminUnitIdListOperationCompleted(object arg) {
-            if ((this.WS_GetPotensialUserForAdminUnitIdListCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.WS_GetPotensialUserForAdminUnitIdListCompleted(this, new WS_GetPotensialUserForAdminUnitIdListCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -22230,6 +22270,10 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private bool quantityFieldSpecified;
         
+        private System.Nullable<long> transportation_eV_IdField;
+        
+        private bool transportation_eV_IdFieldSpecified;
+        
         private System.Nullable<long> type_eV_IdField;
         
         private bool type_eV_IdFieldSpecified;
@@ -22559,6 +22603,28 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.quantityFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> transportation_eV_Id {
+            get {
+                return this.transportation_eV_IdField;
+            }
+            set {
+                this.transportation_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool transportation_eV_IdSpecified {
+            get {
+                return this.transportation_eV_IdFieldSpecified;
+            }
+            set {
+                this.transportation_eV_IdFieldSpecified = value;
             }
         }
         
@@ -24713,6 +24779,40 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.viewStringField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetPotensialUserForAdminUnitIdListCompletedEventHandler(object sender, WS_GetPotensialUserForAdminUnitIdListCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetPotensialUserForAdminUnitIdListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetPotensialUserForAdminUnitIdListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public UserInfo[] itemList {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((UserInfo[])(this.results[1]));
             }
         }
     }
@@ -29121,6 +29221,40 @@ namespace Emsal.WebInt.EmsalSrv {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetForeign_OrganizationsListForIDCompletedEventHandler(object sender, WS_GetForeign_OrganizationsListForIDCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetForeign_OrganizationsListForIDCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetForeign_OrganizationsListForIDCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblForeign_Organization[] itemList {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblForeign_Organization[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
     public delegate void WS_GetProductCatalogListForIDCompletedEventHandler(object sender, WS_GetProductCatalogListForIDCompletedEventArgs e);
     
     /// <remarks/>
@@ -29634,40 +29768,6 @@ namespace Emsal.WebInt.EmsalSrv {
         private object[] results;
         
         internal WS_GetPotensialUserListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public BaseOutput Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((BaseOutput)(this.results[0]));
-            }
-        }
-        
-        /// <remarks/>
-        public UserInfo[] itemList {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((UserInfo[])(this.results[1]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    public delegate void WS_GetPotensialUserForAdminUnitIdListCompletedEventHandler(object sender, WS_GetPotensialUserForAdminUnitIdListCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class WS_GetPotensialUserForAdminUnitIdListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal WS_GetPotensialUserForAdminUnitIdListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

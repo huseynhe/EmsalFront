@@ -10,6 +10,12 @@
       <xsd:import schemaLocation="http://localhost:56875/EmsalService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IEmsalService_WS_GetPotensialUserForAdminUnitIdList_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetPotensialUserForAdminUnitIdList" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetPotensialUserForAdminUnitIdList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetPotensialUserForAdminUnitIdListResponse" />
+  </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetPotensialUserListByName_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetPotensialUserListByName" />
   </wsdl:message>
@@ -808,6 +814,12 @@
   <wsdl:message name="IEmsalService_WS_GetAdminUnitListForID_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetAdminUnitListForIDResponse" />
   </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetForeign_OrganizationsListForID_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetForeign_OrganizationsListForID" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetForeign_OrganizationsListForID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetForeign_OrganizationsListForIDResponse" />
+  </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetProductCatalogListForID_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetProductCatalogListForID" />
   </wsdl:message>
@@ -903,12 +915,6 @@
   </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetPotensialUserList_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetPotensialUserListResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetPotensialUserForAdminUnitIdList_InputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetPotensialUserForAdminUnitIdList" />
-  </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetPotensialUserForAdminUnitIdList_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetPotensialUserForAdminUnitIdListResponse" />
   </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetConfirmedPotential_ProductionsByStateAndUserIdForPriceAsc_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetConfirmedPotential_ProductionsByStateAndUserIdForPriceAsc" />
@@ -1931,6 +1937,10 @@
     <wsdl:part name="parameters" element="tns:WS_GetConfirmedPotential_ProductionsByStateAndUserIdForPriceDesResponse" />
   </wsdl:message>
   <wsdl:portType name="IEmsalService">
+    <wsdl:operation name="WS_GetPotensialUserForAdminUnitIdList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetPotensialUserForAdminUnitIdList" message="tns:IEmsalService_WS_GetPotensialUserForAdminUnitIdList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetPotensialUserForAdminUnitIdListResponse" message="tns:IEmsalService_WS_GetPotensialUserForAdminUnitIdList_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="WS_GetPotensialUserListByName">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetPotensialUserListByName" message="tns:IEmsalService_WS_GetPotensialUserListByName_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetPotensialUserListByNameResponse" message="tns:IEmsalService_WS_GetPotensialUserListByName_OutputMessage" />
@@ -2463,6 +2473,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetAdminUnitListForID" message="tns:IEmsalService_WS_GetAdminUnitListForID_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetAdminUnitListForIDResponse" message="tns:IEmsalService_WS_GetAdminUnitListForID_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="WS_GetForeign_OrganizationsListForID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetForeign_OrganizationsListForID" message="tns:IEmsalService_WS_GetForeign_OrganizationsListForID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetForeign_OrganizationsListForIDResponse" message="tns:IEmsalService_WS_GetForeign_OrganizationsListForID_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="WS_GetProductCatalogListForID">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductCatalogListForID" message="tns:IEmsalService_WS_GetProductCatalogListForID_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductCatalogListForIDResponse" message="tns:IEmsalService_WS_GetProductCatalogListForID_OutputMessage" />
@@ -2526,10 +2540,6 @@
     <wsdl:operation name="WS_GetPotensialUserList">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetPotensialUserList" message="tns:IEmsalService_WS_GetPotensialUserList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetPotensialUserListResponse" message="tns:IEmsalService_WS_GetPotensialUserList_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="WS_GetPotensialUserForAdminUnitIdList">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetPotensialUserForAdminUnitIdList" message="tns:IEmsalService_WS_GetPotensialUserForAdminUnitIdList_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetPotensialUserForAdminUnitIdListResponse" message="tns:IEmsalService_WS_GetPotensialUserForAdminUnitIdList_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="WS_GetConfirmedPotential_ProductionsByStateAndUserIdForPriceAsc">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetConfirmedPotential_ProductionsByStateAndUserIdForPriceAsc" message="tns:IEmsalService_WS_GetConfirmedPotential_ProductionsByStateAndUserIdForPriceAsc_InputMessage" />
@@ -3214,6 +3224,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IEmsalService" type="tns:IEmsalService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="WS_GetPotensialUserForAdminUnitIdList">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetPotensialUserForAdminUnitIdList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="WS_GetPotensialUserListByName">
       <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetPotensialUserListByName" style="document" />
       <wsdl:input>
@@ -4411,6 +4430,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="WS_GetForeign_OrganizationsListForID">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetForeign_OrganizationsListForID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="WS_GetProductCatalogListForID">
       <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductCatalogListForID" style="document" />
       <wsdl:input>
@@ -4548,15 +4576,6 @@
     </wsdl:operation>
     <wsdl:operation name="WS_GetPotensialUserList">
       <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetPotensialUserList" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="WS_GetPotensialUserForAdminUnitIdList">
-      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetPotensialUserForAdminUnitIdList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -270,5 +270,15 @@ namespace Emsal.AdminUI.Models
         public Individual[] IndividualArray { get; set; }
         public List<Individual> IndividualList { get; set; }
 
+
+        public long AdminUnitId { get; set; }
+
+
+        public List<long> GivenAdminUnitIds { get; set; }
+        public long[] productAddressIds { get; set; }
+
+        public IList<tblPRM_AdminUnit>[] PRMAdminUnitArrayPa { get; set; }
+
+
     }
 }

@@ -20,6 +20,8 @@ function GetProductCatalog(elem) {
     });
 };
 
+
+
 function GetAdminUnit(elem) {
     pId = $(elem).val();
     $(elem).parent().nextAll().remove();
@@ -41,6 +43,7 @@ function GetAdminUnit(elem) {
         });
     }
 }
+
 
 
 function sendFiles() {

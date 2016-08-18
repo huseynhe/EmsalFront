@@ -151,6 +151,7 @@
       <xs:element minOccurs="0" name="partOfyear_eV_Id" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="price" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="quantity" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="transportation_eV_Id" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="type_eV_Id" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="updatedDate" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="updatedUser" nillable="true" type="xs:string" />

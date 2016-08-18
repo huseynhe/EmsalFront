@@ -5,31 +5,63 @@
     Layout = "";
 }
 
-@if (Model.PRMAdminUnitList.Count > 0)
-{
-    <div class="form-group col-md-6">
+@if (Model.PRMAdminUnitArrayPa != null)
+    {
+        for (var i = 0; i < Model.PRMAdminUnitArrayPa.Count(); i++)
+        {
+            if (Model.PRMAdminUnitArrayPa[i].Count() > 0)
+            {
+                <div class="form-group col-md-3">
+                    <select required name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+                        @foreach (var itm in Model.PRMAdminUnitArrayPa[i])
+                        {
+                            if (itm.Id == Model.GivenAdminUnitIds[i])
+                            {
+                                <option selected value="@itm.Id">@itm.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@itm.Id">@itm.Name</option>
+                            }
+                        }
+                    </select>
+                    <span data-valmsg-replace="true" data-valmsg-for="adId[@{ @Model.arrNum }]" class="field-validation-valid text-danger"></span>
+                </div>
+            Model.arrNum = Model.arrNum + 1;
+        }
+    }
 
-        <select required name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
-            @foreach (var item in Model.PRMAdminUnitList)
+    <div class="clearfix"></div>
+}
+
+
+        else {
+            if (Model.PRMAdminUnitList.Count > 0)
+            {
+            <div class="form-group col-md-6">
+
+            <select required name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+            @foreach(var item in Model.PRMAdminUnitList)
             {
                 if (item.Name == "Azərbaycan Respublikası")
                 {
-                    <option selected value="@item.Id">@item.Name</option>
+                    <option selected value = "@item.Id" > @item.Name </option >
                 }
                 else
                 {
-                    <option value="@item.Id">@item.Name</option>
+                    <option value = "@item.Id" > @item.Name </option >
                 }
             }
-        </select>
+            </select>
 
-        <span data-valmsg-replace="true" data-valmsg-for="adId[@{ @Model.arrNum }]" class="field-validation-valid text-danger"></span>
-    </div>
+            <span data-valmsg-replace="true" data-valmsg-for="adId[@{ @Model.arrNum }]" class="field-validation-valid text-danger"></span>
+        </div>
     }
     else
     {
         <div class="clearfix"></div>
 
-        
+
+        }
     }
 

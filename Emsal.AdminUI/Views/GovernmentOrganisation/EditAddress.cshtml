@@ -15,7 +15,7 @@
             <script>
                 $(document).ready(function () {
                     $.ajax({
-                        url: '/GovernmentOrganisation/AdminUnit?pId=0',
+                        url: '/GovernmentOrganisation/AdminUnit?pId=0&adminUnitId=@Model.AdminUnitId',
                         type: 'GET',
                         success: function (result) {
                             $('#AdminUnit').html(result);
