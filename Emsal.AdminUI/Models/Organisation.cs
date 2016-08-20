@@ -279,6 +279,9 @@ namespace Emsal.AdminUI.Models
 
         public IList<tblPRM_AdminUnit>[] PRMAdminUnitArrayPa { get; set; }
 
+        [Display(Name = "Tam Ünvan")]
+        public string descAddress { get; set; }
 
+        public long RedirectToParent { get; set; }
     }
 }

@@ -19,7 +19,6 @@ namespace Emsal.UI.Controllers
         //
         // GET: /GovernmentOrganisation/
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
-
         private BaseInput binput;
         SpecialSummaryViewModel modelUser;
 

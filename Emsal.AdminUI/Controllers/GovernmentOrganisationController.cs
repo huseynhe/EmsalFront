@@ -120,7 +120,7 @@ namespace Emsal.AdminUI.Controllers
         }
 
 
-        public ActionResult AddChildOrganisation(long? UserId, long? parentId)
+        public ActionResult AddChildOrganisation(long? UserId, long? parentId, long redirect)
         {
             binput = new BaseInput();
 
@@ -146,7 +146,7 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput jobCatOut = srv.WS_GetEnumCategorysByName(binput, "İş-Təşkilat", out modelUser.EnumCategory);
             BaseOutput jobbOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
             modelUser.JobList = modelUser.EnumValueArray.ToList();
-
+            modelUser.RedirectToParent = redirect;
             return View("AddChildOrganisation", modelUser);
         }
 
@@ -326,7 +326,7 @@ namespace Emsal.AdminUI.Controllers
                 BaseOutput foreignOrganisationOut = srv.WS_AddForeign_Organization(binput, modelUser.ForeignOrganisation, out modelUser.ForeignOrganisation);
 
 
-                return RedirectToAction("Index");
+                return Redirect("/GovernmentOrganisation/ChildOrganisations/?orgId=" + form.RedirectToParent);
             }
             else
             {
@@ -336,7 +336,7 @@ namespace Emsal.AdminUI.Controllers
 
         }
 
-        public ActionResult EditChildOrganisation(long? UserId, long? Id)
+        public ActionResult EditChildOrganisation(long? UserId, long? Id, long? redirect)
         {
             binput = new BaseInput();
 
@@ -423,6 +423,8 @@ namespace Emsal.AdminUI.Controllers
             //modelUser.Birthday = modelUser.Manager.birtday;
 
             BaseOutput adminnOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
+
+            modelUser.RedirectToParent = redirect == null ? 0 : (long)redirect;
 
             return View("EditChildOrganisation", modelUser);
         }
@@ -532,10 +534,11 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput updateOrganisation = srv.WS_UpdateForeign_Organization(binput, modelUser.ForeignOrganisation, out modelUser.ForeignOrganisation);
 
 
-            return RedirectToAction("Index", "GovernmentOrganisation");
+            return Redirect("/GovernmentOrganisation/ChildOrganisations?&orgId=" + form.RedirectToParent);
+
         }
 
-        public ActionResult OrganisationInfo(long? UserId, long? Id)
+        public ActionResult OrganisationInfo(long? UserId, long? Id, long? redirect)
         {
             binput = new BaseInput();
             modelUser = new Organisation();
@@ -574,11 +577,13 @@ namespace Emsal.AdminUI.Controllers
             }
             BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
 
+            modelUser.RedirectToParent = redirect == null ? 0: (long)redirect;
+
             return View(modelUser);
         }
 
 
-        public ActionResult DeleteChildOrganisation(long? UserId, long? Id, long? parentId)
+        public ActionResult DeleteChildOrganisation(long? UserId, long? Id, long? parentId, long? redirect)
         {
             binput = new BaseInput();
             modelUser = new Organisation();
@@ -622,7 +627,7 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput deleteManager = srv.WS_DeletePerson(binput, modelUser.Manager);
 
 
-            return RedirectToAction("Index");
+            return Redirect("/GovernmentOrganisation/ChildOrganisations?&orgId="+ redirect);
         }
 
         public JsonResult GetThroughfaresByAdminUnitId(long Id)
@@ -1425,7 +1430,12 @@ namespace Emsal.AdminUI.Controllers
             binput = new BaseInput();
 
             Organisation modelUser = new Organisation();
-            
+
+            BaseOutput bouput = srv.WS_GetPRM_AdminUnits(binput, out modelUser.PRMAdminUnitArray);
+
+
+
+            modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.Where(x => x.ParentID == pId).ToList();
 
             if (adminUnitId != null)
             {
@@ -1451,23 +1461,24 @@ namespace Emsal.AdminUI.Controllers
                     modelUser.GivenAdminUnitIds.Add(ids[i]);
                 }
 
-                modelUser.PRMAdminUnitArrayPa = new IList<tblPRM_AdminUnit>[modelUser.GivenAdminUnitIds.Count()];
+                modelUser.PRMAdminUnitArrayPa = new IList<tblPRM_AdminUnit>[modelUser.GivenAdminUnitIds.Count()-1];
 
                 int s = 0;
                 foreach (long itm in modelUser.GivenAdminUnitIds)
                 {
                     BaseOutput gpc = srv.WS_GetAdminUnitsByParentId(binput, (int)itm, true, out modelUser.PRMAdminUnitArray);
                     modelUser.PRMAdminUnitArrayPa[s] = modelUser.PRMAdminUnitArray.ToList();
+                   
                     s = s + 1;
+                    if (s == modelUser.GivenAdminUnitIds.Count() - 1)
+                    {
+                        break;
+                    }
                 }
 
             }
 
-            BaseOutput bouput = srv.WS_GetPRM_AdminUnits(binput, out modelUser.PRMAdminUnitArray);
-
-           
-
-            modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.Where(x => x.ParentID == pId).ToList();
+          
 
             //BaseOutput bouputs = srv.WS_GetAdminUnitsByParentId(baseInput, pId, true, out modelOfferProduction.PRMAdminUnitArray);
             //modelOfferProduction.PRMAdminUnitList = modelOfferProduction.PRMAdminUnitArray.ToList();
