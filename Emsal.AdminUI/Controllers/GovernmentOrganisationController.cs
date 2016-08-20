@@ -264,7 +264,7 @@ namespace Emsal.AdminUI.Controllers
                     BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "mobilePhone", out modelUser.EnumValue);
                     modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
                     modelUser.ComunicationInformations.comTypeSpecified = true;
-                    modelUser.ComunicationInformations.communication = form.ManagerMobilePhone;
+                    modelUser.ComunicationInformations.communication = form.mobilePhonePrefix + form.ManagerMobilePhone;
                     modelUser.ComunicationInformations.description = form.ManagerMobilePhone;
                     modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
                     modelUser.ComunicationInformations.PersonIdSpecified = true;
@@ -396,23 +396,43 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelUser.CommunicationInformationsArray);
             modelUser.CommunicationInformationsList = modelUser.CommunicationInformationsArray.Where(x => x.PersonId == modelUser.Manager.Id).ToList();
 
+            //not entered communications
+            modelUser.NullCommunicationsList = new List<string>();
 
             //get emailtype enum value
             BaseOutput emailEnumOut = srv.WS_GetEnumValueByName(binput, "email", out modelUser.EnumValue);
             modelUser.ManagerEmail = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).ToList().Count == 0 ? null : modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault().communication;
+            if(modelUser.ManagerEmail == null)
+            {
+                TempData["email"] = "info";
+            }
 
             //get HomePhone type enum value
             BaseOutput homePhoneOut = srv.WS_GetEnumValueByName(binput, "homePhone", out modelUser.EnumValue);
             modelUser.ManagerHomePhone = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).ToList().Count == 0 ? null : modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault().communication;
-
+            if (modelUser.ManagerHomePhone == null)
+            {
+                TempData["homePhone"] = "info";
+            }
             //get MobilePhone type enum value
             BaseOutput mobilePhoneOut = srv.WS_GetEnumValueByName(binput, "mobilePhone", out modelUser.EnumValue);
-            modelUser.ManagerMobilePhone = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).ToList().Count == 0 ? null : modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault().communication;
-
+            if(modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).ToList().Count > 0)
+            {
+                string a = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault().communication;
+                modelUser.ManagerMobilePhone = a.Substring(3, 7);
+                modelUser.mobilePhonePrefix = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault().communication.Substring(0, 3);
+            }
+            if (modelUser.ManagerMobilePhone == null)
+            {
+                TempData["mobilePhone"] = "info";
+            }
             //get WorkPhone type enum value
             BaseOutput workPhoneOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelUser.EnumValue);
             modelUser.ManagerWorkPhone = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).ToList().Count == 0 ? null : modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault().communication;
-
+            if (modelUser.ManagerWorkPhone == null)
+            {
+                TempData["workPhone"]= "info";
+            }
 
             //get the gender
             modelUser.Gender = modelUser.Manager.gender;
@@ -426,12 +446,15 @@ namespace Emsal.AdminUI.Controllers
 
             modelUser.RedirectToParent = redirect == null ? 0 : (long)redirect;
 
+
+
             return View("EditChildOrganisation", modelUser);
         }
 
         [HttpPost]
         public ActionResult EditChildOrganisation(long? UserId, Organisation form, long OrganisationId)
         {
+            TempData.Clear();
             binput = new BaseInput();
             modelUser = new Organisation();
 
@@ -499,6 +522,8 @@ namespace Emsal.AdminUI.Controllers
                 if (item.comType == modelUser.EnumValue.Id)
                 {
                     item.communication = form.ManagerEmail;
+                    item.description = form.ManagerEmail;
+
                     BaseOutput updateemail = srv.WS_UpdateCommunication(binput, item, out modelUser.ComunicationInformations);
                 }
 
@@ -506,22 +531,95 @@ namespace Emsal.AdminUI.Controllers
                 if (item.comType == modelUser.EnumValue.Id)
                 {
                     item.communication = form.ManagerHomePhone;
+                    item.description = form.ManagerHomePhone;
                     BaseOutput updateemail = srv.WS_UpdateCommunication(binput, item, out modelUser.ComunicationInformations);
                 }
 
                 BaseOutput mobilePhoneOut = srv.WS_GetEnumValueByName(binput, "mobilePhone", out modelUser.EnumValue);
                 if (item.comType == modelUser.EnumValue.Id)
                 {
-                    item.communication = form.ManagerMobilePhone;
+                    item.communication = form.mobilePhonePrefix + form.ManagerMobilePhone;
+                    item.description = form.mobilePhonePrefix + form.ManagerMobilePhone;
                     BaseOutput updateemail = srv.WS_UpdateCommunication(binput, item, out modelUser.ComunicationInformations);
                 }
                 BaseOutput workPhoneOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelUser.EnumValue);
                 if (item.comType == modelUser.EnumValue.Id)
                 {
                     item.communication = form.ManagerWorkPhone;
+                    item.description = form.ManagerWorkPhone;
+
                     BaseOutput updateemail = srv.WS_UpdateCommunication(binput, item, out modelUser.ComunicationInformations);
                 }
             }
+
+            //add manager communication informations
+
+            if(TempData["email"] != null)
+            {
+                modelUser.ComunicationInformations = new tblCommunication();
+                BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "email", out modelUser.EnumValue);
+                modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
+                modelUser.ComunicationInformations.comTypeSpecified = true;
+                modelUser.ComunicationInformations.communication = form.ManagerEmail;
+                modelUser.ComunicationInformations.description = form.ManagerEmail;
+                modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
+                modelUser.ComunicationInformations.PersonIdSpecified = true;
+                modelUser.ComunicationInformations.priorty = 1;
+                modelUser.ComunicationInformations.priortySpecified = true;
+
+                BaseOutput comunicationOUtt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
+
+            }
+
+            if(TempData["homePhone"] != null)
+            {
+                modelUser.ComunicationInformations = new tblCommunication();
+                BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "homePhone", out modelUser.EnumValue);
+                modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
+                modelUser.ComunicationInformations.comTypeSpecified = true;
+                modelUser.ComunicationInformations.communication = form.ManagerHomePhone;
+                modelUser.ComunicationInformations.description = form.ManagerHomePhone;
+                modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
+                modelUser.ComunicationInformations.PersonIdSpecified = true;
+                modelUser.ComunicationInformations.priorty = 1;
+                modelUser.ComunicationInformations.priortySpecified = true;
+
+                BaseOutput comunicationOUtt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
+
+            }
+            if (TempData["mobilePhone"] != null)
+            {
+                modelUser.ComunicationInformations = new tblCommunication();
+                BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "mobilePhone", out modelUser.EnumValue);
+                modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
+                modelUser.ComunicationInformations.comTypeSpecified = true;
+                modelUser.ComunicationInformations.communication = form.mobilePhonePrefix + form.ManagerMobilePhone;
+                modelUser.ComunicationInformations.description = form.mobilePhonePrefix + form.ManagerMobilePhone;
+                modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
+                modelUser.ComunicationInformations.PersonIdSpecified = true;
+                modelUser.ComunicationInformations.priorty = 1;
+                modelUser.ComunicationInformations.priortySpecified = true;
+
+                BaseOutput comunicationOUtt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
+
+            }
+            if (TempData["workPhone"] != null)
+            {
+                modelUser.ComunicationInformations = new tblCommunication();
+                BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelUser.EnumValue);
+                modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
+                modelUser.ComunicationInformations.comTypeSpecified = true;
+                modelUser.ComunicationInformations.communication = form.ManagerWorkPhone;
+                modelUser.ComunicationInformations.description = form.ManagerWorkPhone;
+                modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
+                modelUser.ComunicationInformations.PersonIdSpecified = true;
+                modelUser.ComunicationInformations.priorty = 1;
+                modelUser.ComunicationInformations.priortySpecified = true;
+
+                BaseOutput comunicationOUtt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
+
+            }
+
             //update address
             BaseOutput addressOut = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
             modelUser.FutureAddress.adminUnit_Id = form.adId.LastOrDefault();

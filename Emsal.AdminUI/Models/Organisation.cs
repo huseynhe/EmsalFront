@@ -227,17 +227,18 @@ namespace Emsal.AdminUI.Models
 
         [Display(Name = "Məsul Şəxsin ev telefonu")]
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefon nömrəsi 10 rəqəmdən ibarət olmalıdır")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefon nömrəsi 10 rəqəmdən ibarət olmalıdır və tərkibində hərf olmamaldır")]
         public string ManagerHomePhone { get; set; }
 
 
         [Required(ErrorMessage = "Məsul Şəxsin iş telefonu daxil edilməmişdir")]
         [Display(Name = "Məsul Şəxsin iş telefonu")]
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefon nömrəsi 10 rəqəmdən ibarət olmalıdır")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefon nömrəsi 10 rəqəmdən ibarət olmalıdır və tərkibində hərf olmamaldır")]
         public string ManagerWorkPhone { get; set; }
+
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefon nömrəsi 10 rəqəmdən ibarət olmalıdır")]
+        [RegularExpression(@"^([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Mobil nömrəsi 7 rəqəmdən ibarət olmalıdır.Tərkibində hərf olmamaldır")]
         [Display(Name = "Məsul Şəxsin mobil telefonu")]
         public string ManagerMobilePhone { get; set; }
 
@@ -283,5 +284,11 @@ namespace Emsal.AdminUI.Models
         public string descAddress { get; set; }
 
         public long RedirectToParent { get; set; }
+
+
+        public string mobilePhonePrefix { get; set; }
+
+
+        public List<string> NullCommunicationsList { get; set;}
     }
 }

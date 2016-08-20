@@ -60,14 +60,6 @@
 
             </div><br /><br />
             <h3>Təşkilatın Yerləşdiyi Ünvan</h3><br />
-            @*<div class="well">
-                <div class="row">
-                    @foreach (var item in Model.PRMAdminUnitArray)
-                    {
-                        <span>@item.Name</span>
-                    }
-                </div>
-            </div>*@
             <div class="well">
                 <div class="row">
                     <div class="form-group" id="AdminUnit">
@@ -88,12 +80,6 @@
                 });
                         </script>
                     </div>
-                    @*<div class="col-md-12">
-                        <div class="form-group">
-                            <label>Tam Ünvan</label>
-                            <input type="text" name="fullAddress" id="descAddress" class="form-control" value=@Model.FullAddress>
-                        </div>
-                    </div>*@
                 </div>
             </div>
 
@@ -136,33 +122,67 @@
                 </div>
               
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="form-group" style="padding:5px">
                             @Html.LabelFor(x => x.ManagerEmail, new { @class = "control-label required" })
                             @Html.TextBoxFor(x => x.ManagerEmail, new { @class = "form-control", type = "email" })
                             @Html.ValidationMessageFor(x => x.ManagerEmail, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="form-group" style="padding:5px">
                             @Html.LabelFor(x => x.ManagerHomePhone, new { @class = "control-label" })
                             @Html.TextBoxFor(x => x.ManagerHomePhone, new { @class = "form-control" })
                         </div>
                     </div>
-                    <div class="col-md-3">
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
                         <div class="form-group" style="padding:5px">
                             @Html.LabelFor(x => x.ManagerWorkPhone, new { @class = "control-label required" })
                             @Html.TextBoxFor(x => x.ManagerWorkPhone, new { @class = "form-control" })
                             @Html.ValidationMessageFor(x => x.ManagerWorkPhone, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group" style="padding:5px">
+                    <div class="col-md-6">
+                        <div class="form-group">
                             @Html.LabelFor(x => x.ManagerMobilePhone, new { @class = "control-label" })
-                            @Html.TextBoxFor(x => x.ManagerMobilePhone, new { @class = "form-control" })
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <select class="form-control" name="mobilePhonePrefix">
+                                        @{
+                                            if (Model.mobilePhonePrefix == "050")
+                                            {
+                                                <option selected="selected">050</option>
+                                                <option>055</option>
+                                                <option>070</option>
+                                            }
+                                            else if (Model.mobilePhonePrefix == "055")
+                                            {
+                                                <option>050</option>
+                                                <option selected="selected">055</option>
+                                                <option>070</option>
+                                            }
+                                            else
+                                            {
+                                                <option>050</option>
+                                                <option>055</option>
+                                                <option selected="selected">070</option>
+                                            }
+
+                                        }
+
+
+                                    </select>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ManagerMobilePhone, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            
                         </div>
+                     </div>
                     </div>
-                </div>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group" style="padding:5px">
@@ -303,4 +323,10 @@
             e.preventDefault();
         }
     })
+
+
+</script>
+
+<script>
+
 </script>

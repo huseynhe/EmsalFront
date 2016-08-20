@@ -132,32 +132,45 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="form-group" style="padding:5px; font-size:10px">
                             @Html.LabelFor(x => x.ManagerEmail, new { @class = "control-label required" })
                             @Html.TextBoxFor(x => x.ManagerEmail, new { @class = "form-control", type = "email" })
                             @Html.ValidationMessageFor(x => x.ManagerEmail, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="form-group" style="padding:5px">
                             @Html.LabelFor(x => x.ManagerHomePhone, new { @class = "control-label" })
                             @Html.TextBoxFor(x => x.ManagerHomePhone, new { @class = "form-control" })
                             @Html.ValidationMessageFor(x => x.ManagerHomePhone, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-3">
+                  </div>
+                <div class="row">
+                    <div class="col-md-6">
                         <div class="form-group" style="padding:5px">
                             @Html.LabelFor(x => x.ManagerWorkPhone, new { @class = "control-label required" })
                             @Html.TextBoxFor(x => x.ManagerWorkPhone, new { @class = "form-control" })
                             @Html.ValidationMessageFor(x => x.ManagerWorkPhone, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group" style="padding:5px">
+                    <div class="col-md-6">
+                        <div class="form-group">
                             @Html.LabelFor(x => x.ManagerMobilePhone, new { @class = "control-label" })
-                            @Html.TextBoxFor(x => x.ManagerMobilePhone, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(x => x.ManagerMobilePhone, "", new { @class = "text-danger" })
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <select class="form-control" name="mobilePhonePrefix">
+                                        <option>050</option>
+                                        <option>055</option>
+                                        <option>070</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ManagerMobilePhone, new { @class = "form-control" })
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
