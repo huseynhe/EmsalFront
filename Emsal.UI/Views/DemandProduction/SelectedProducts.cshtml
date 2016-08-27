@@ -12,7 +12,21 @@
 <h4>Tələb olunan məhsullar</h4>
 <div class="row">
     <div class="col-md-12">
-        @*	<div class="table-responsive">*@
+        @if (Model.isPDF == false)
+{
+    if (Model.noButton == false)
+    {
+        <a href="/DemandProduction/SelectedProducts?pdf=true&noButton=false" class="btn btn-lg btn-success active pull-left">
+            <i class="glyphicon glyphicon-save-file"></i>&nbsp;Yüklə
+        </a>
+
+                        <button class="btn btn-primary btn-lg pull-right btnadd" type="submit">
+                    <i class="glyphicon glyphicon-plus"></i>&nbsp;Tələbinizi əlavə edin
+                </button>
+                <div class="clearfix"></div>
+                <br />
+    }
+        }
         <table class="table table-bordered">
             <tr>
                 <th>Məhsulun adı</th>
@@ -20,7 +34,7 @@
                 <th>Ölçü vahidi</th>
                 @*<th>Qrafik</th>
                     <th>Aylar</th>*@
-                @*<th>Ünvan</th>*@
+                <th>Ünvan</th>
                 <th>Qeyd</th>
                 @if (Model.isPDF == false)
                 {
@@ -32,17 +46,14 @@
             @{
                 foreach (var item in Model.ProductionDetailList)
                 {
-
                     <tr>
                         <td>@item.productName</td>
                         <td>@item.quantity</td>
                         <td>@item.enumValueName</td>
-                        @*<td>--</td>
-                            <td>@item.months</td>*@
+                        <td>@item.fullAddress (@item.addressDesc)</td>
                         <td>@item.description</td>
                         @if (Model.isPDF == false)
                         {
-
                             <td>
                                 <div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="deleteSelectedDemandProduct(@item.productionID)"></div>
                             </td>
@@ -54,57 +65,50 @@
                     if (item.productionCalendarList.Count() > 0)
                     {
                         <tr>
-                            <td colspan="6" style="padding:0;">
-                                <table class="table">
+                            <td colspan="8" style="padding:0;">
+                                <table class="table" style="margin:0;">
                                     <tr>
+                                        <th>tipi</th>
                                         <th>il</th>
                                         <th>rüb</th>
                                         <th>ay</th>
                                         <th>gün</th>
                                         <th>saat</th>
                                         <th>miqdar</th>
+                                        <th>miqdar (cəmi)</th>
                                     </tr>
                                     @foreach (var itemc in item.productionCalendarList)
                                     {
                                         tquantity = (itemc.quantity * itemc.transportation_eV_Id);
                                         <tr>
+                                            <td> @if(itemc.TypeDescription!=null)
+                                                 {
+                                                     <span>@itemc.TypeDescription</span>
+                                                 }
+                                                  </td>
                                             <td> @itemc.year </td>
                                             <td> @itemc.partOfyear</td>
-                                            <td> @itemc.TypeName</td>
+                                            <td> @itemc.MonthDescription</td>
                                             <td> @itemc.day</td>
                                             <td> @itemc.oclock</td>
+                                            <td> @itemc.quantity</td>
                                             <td> @tquantity</td>
-                                    </tr>
+                                        </tr>
                                     }
                                 </table>
                             </td>
                         </tr>
                     }
-
+                    if (item != Model.ProductionDetailList.LastOrDefault()) { 
                     <tr>
-                        <td colspan="6" style="padding:0;background:#f2f2f2;">
+                        <td colspan="8" style="padding:0;background:#f2f2f2;">
                             &nbsp;
                         </td>
                     </tr>
+            }
                 }
             }
         </table>
-        @if (Model.isPDF == false)
-{
-    if (Model.noButton == false)
-    {
-
-        <a href="/DemandProduction/SelectedProducts?pdf=true&noButton=false" class="btn btn-success active pull-left">
-            <i class="glyphicon glyphicon-save-file"></i>&nbsp;Yüklə
-        </a>
-
-
-                        <button class="btn btn-primary btn-lg pull-right btnadd" type="submit">
-                    <i class="glyphicon glyphicon-plus"></i>&nbsp;Tələbinizi əlavə edin
-                </button>
-    }
-        }
-
     </div>
 </div>
 @*	</div>*@
