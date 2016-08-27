@@ -9,8 +9,6 @@ namespace Emsal.UI.Models
 {
     public class OfferProductionViewModel : UserRoles
     {
-       
-        
         public string messageSuccess = "Yadda saxlanıldı.";
         public int fileSize = 2097152;
         public string fileDirectory = @"D:\fls";
@@ -18,6 +16,7 @@ namespace Emsal.UI.Models
 
         public int arrNum = 0;
         public int arrPNum = 0;
+        public string fullAddressId = "";
 
         public tblUser User;
         public tblPerson Person;
@@ -52,6 +51,9 @@ namespace Emsal.UI.Models
         public IList<tblEnumValue> EnumValueList { get; set; }
         public tblEnumValue[] EnumValueArray;
         public IList<tblEnumValue> EnumValueMonthList { get; set; }
+        public IList<tblEnumValue> EnumValueMonthListFV { get; set; }
+        public IList<tblEnumValue> EnumValueMonthListFVL { get; set; }
+        public IList<tblEnumValue> EnumValueMonthListFVE { get; set; }
         public IList<tblEnumValue> EnumValueShippingScheduleList { get; set; }
         public IList<tblEnumValue> EnumValueDocumentTypeList { get; set; }
 
@@ -64,12 +66,19 @@ namespace Emsal.UI.Models
         public IList<tblProductionControl> ProductionControlList { get; set; }
         public tblProductionControl[] ProductionControlArray;
 
+
+        public tblProductionCalendar LProductionCalendar;
+        public IList<tblProductionCalendar> LProductionCalendarList { get; set; }
+        public tblProductionCalendar[] LProductionCalendarArray;
+
         public tblProduction_Document ProductionDocument;
         public IList<tblProduction_Document> ProductionDocumentList { get; set; }
         public tblProduction_Document[] ProductionDocumentArray;
 
         public tblPRM_AdminUnit PRMAdminUnit;
         public IList<tblPRM_AdminUnit> PRMAdminUnitList { get; set; }
+        public IList<tblPRM_AdminUnit> PRMAdminUnitListFA { get; set; }
+        public IList<tblPRM_AdminUnit>[] PRMAdminUnitArrayFA { get; set; }
         public tblPRM_AdminUnit[] PRMAdminUnitArray;
 
         public tblProductAddress ProductAddress;
@@ -90,6 +99,10 @@ namespace Emsal.UI.Models
 
         public long totalSize = 0;
 
+        public long Id { get; set; }
+        public long productionCalendarId { get; set; }
+        public long productAddressId { get; set; }
+        public long[] productAddressIds { get; set; }
 
 
         //[Display(Name = "Başlıq")]
@@ -104,12 +117,12 @@ namespace Emsal.UI.Models
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         //[Range(typeof(decimal), "1", "79228162514264337593543950335")]
-        public string price { get; set; }
+        public string[] price { get; set; }
 
         [Display(Name = "Miqdarı (Həcmi)")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
-        public string size { get; set; }
+        public string[] size { get; set; }
 
         public int productId { get; set; }
 
@@ -117,6 +130,8 @@ namespace Emsal.UI.Models
         public int[] enumCat { get; set; }
 
         public int[] enumVal { get; set; }
+        public int[] hour { get; set; }
+        public int[] day { get; set; }
 
         [Display(Name = "Ünvan")]
         //[Required(ErrorMessage = "{0} xanası məcburidir.")]
@@ -151,9 +166,29 @@ namespace Emsal.UI.Models
          public virtual DateTime? endDate { get; set; }
 
 
-        public string ProductName { get; set; }
-        public string ProductParentName { get; set; }
+        [Display(Name = "Başlama tarixi")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public virtual int startDateYear { get; set; }
 
+        [Display(Name = "Başlama tarixi")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public virtual string startDateMonth { get; set; }
+
+
+        [Display(Name = "Bitmə tarixi")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public virtual int endDateYear { get; set; }
+
+        [Display(Name = "Bitmə tarixi")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public virtual string endDateMonth { get; set; }
+
+
+        public string ProductName { get; set; }
         [Display(Name = "Məhsulun Miqdarı")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         public string Quantity { get; set; }
@@ -165,15 +200,14 @@ namespace Emsal.UI.Models
         public string Address { get; set; }
         public string QuantityTypeStr { get; set; }
 
+        public int[] month { get; set; }
+        public int[] year { get; set; }
+        public int[] howMany { get; set; }
+
+
+        public string ProductParentName { get; set; }
         public string StartDateStr { get; set; }
         public string EndDateStr { get; set; }
-
-        public long Id { get; set; }
-
         public string UnitPrice { get; set; }
-
-
-    
-    
     }
 }

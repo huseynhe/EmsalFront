@@ -8,14 +8,25 @@
 
 @if (Model.PRMAdminUnitArrayFA != null)
 {
-    <input hidden name="addressId" id="addressId" value="@Model.productAddressIds.LastOrDefault()" />
+    if (Model.productAddressIds[Model.productAddressIds.Count() - 1] == 0)
+    {
+        <input hidden name="addressId" id="addressId" value="@Model.productAddressIds[Model.productAddressIds.Count() - 2]" />
+    }
+    else
+    {
+        <input hidden name="addressId" id="addressId" value="@Model.productAddressIds.LastOrDefault()" />
+    }
 
     for (var i = 0; i < Model.PRMAdminUnitArrayFA.Count(); i++)
     {
         if (Model.PRMAdminUnitArrayFA[i].Count() > 0)
         {
             <div class="form-group col-md-3">
-                <select required name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+                <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+                    @if (Model.arrNum > 0)
+                    {
+                        <option value="">Seçim edin</option>
+                    }
                     @foreach (var itm in Model.PRMAdminUnitArrayFA[i])
                     {
                         if (itm.Id == Model.productAddressIds[i + 1])
@@ -49,8 +60,11 @@
         if (Model.PRMAdminUnitList.Count > 0)
         {
             <div class="form-group col-md-3">
-                <select required name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
-                    <option value="">Seçim edin</option>
+                <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+                    @if (Model.arrNum > 0)
+                    {
+                        <option value="">Seçim edin</option>
+                    }
                     @foreach (var item in Model.PRMAdminUnitList)
                     {
                         if (item.Name == "Azərbaycan Respublikası")
@@ -64,10 +78,12 @@
                     }
                 </select>
                 <span data-valmsg-replace="true" data-valmsg-for="adId[@{ @Model.arrNum }]" class="field-validation-valid text-danger"></span>
+                @if (Model.arrNum == 0)
+                {
+                    <span data-valmsg-replace="true" data-valmsg-for="addressId" class="field-validation-valid text-danger"></span>
+                }
             </div>
-    }
-    else
-    {
+                    }
         <div class="clearfix"></div>
 
         <div class="col-md-12">
@@ -76,7 +92,7 @@
                 <input type="text" name="descAddress" id="descAddress" placeholder="məs: Azadlıq prospekti 22, mənzil 33" class="form-control">
             </div>
         </div>
-        }
+       
     }
 
 

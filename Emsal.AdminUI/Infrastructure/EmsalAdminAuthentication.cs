@@ -21,7 +21,7 @@ namespace Emsal.AdminUI.Infrastructure
             binput = new BaseInput();
 
             BaseOutput partOut = srv.WS_GetAuthenticatedPartByName(binput, this.AuthorizedAction, out modelUser.AuthenticatedPart);
-           // srv.WS_createDb();
+            //srv.WS_createDb();
             BaseOutput privilegedRolesOut = srv.WS_GetPrivilegedRolesByAuthenticatedPartId(binput, modelUser.AuthenticatedPart.ID, true, out modelUser.PrivilegedRolesArray);
 
             foreach (var item in modelUser.PrivilegedRolesArray)

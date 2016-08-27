@@ -147,6 +147,11 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput jobbOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
             modelUser.JobList = modelUser.EnumValueArray.ToList();
             modelUser.RedirectToParent = redirect;
+
+            BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelUser.EnumCategory);
+            BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
+            modelUser.MobilePhonePrefixList = modelUser.EnumValueArray.ToList();
+
             return View("AddChildOrganisation", modelUser);
         }
 
@@ -446,6 +451,10 @@ namespace Emsal.AdminUI.Controllers
 
             modelUser.RedirectToParent = redirect == null ? 0 : (long)redirect;
 
+
+            BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelUser.EnumCategory);
+            BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
+            modelUser.MobilePhonePrefixList = modelUser.EnumValueArray.ToList();
 
 
             return View("EditChildOrganisation", modelUser);
@@ -1171,9 +1180,14 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, item.Id, true, out modelUser.Person);
 
-                modelUser.Individual.Name = modelUser.Person.Name;
-                modelUser.Individual.Surname = modelUser.Person.Surname;
-                modelUser.Individual.Fathername = modelUser.Person.FatherName;
+                //sehv
+                if (modelUser.Person != null)
+                {
+                    modelUser.Individual.Name = modelUser.Person.Name;
+                    modelUser.Individual.Surname = modelUser.Person.Surname;
+                    modelUser.Individual.Fathername = modelUser.Person.FatherName;
+                }
+                //
                 modelUser.Individual.Email = item.Email;
                 modelUser.Individual.Id = item.Id;
 

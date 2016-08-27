@@ -114,6 +114,7 @@ namespace Emsal.AdminUI.Models
         public tblUserRole[] UserRolesArray;
         public List<tblEnumValue> EducationList { get; set; }
         public List<tblEnumValue> JobList { get; set; }
+        public List<tblEnumValue> MobilePhonePrefixList { get; set; }
 
         public long UserRoleId { get; set; }
         public long Status { get; set; }

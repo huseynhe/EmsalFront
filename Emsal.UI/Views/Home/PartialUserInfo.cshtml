@@ -16,7 +16,7 @@
             <tr>
                 <td class="col-sm-3">@item.name</td>
                 <td class="col-sm-3">@item.surname</td>
-                @*<td class="col-sm-5">item.parentAdminUnitName</td>*@
+                @*<td class="col-sm-5">@item.products</td>*@
                 <td class="col-sm-1 text-center">
                     @if (item.pinNumber != "")
                     {
@@ -61,7 +61,7 @@
 <div class="clearfix"></div>
 <div class="box-footer clearfix">
     Səhifə @(Model.PagingUserInfo.PageCount < Model.PagingUserInfo.PageNumber ? 0 : Model.PagingUserInfo.PageNumber) (cəmi @Model.PagingUserInfo.PageCount)
-    @Html.PagedListPager(Model.PagingUserInfo, page => Url.Action("UserInfo", new { page, addressId=Model.addressId, sort = Model.sort, name=Model.name, surname=Model.surname }))
+    @Html.PagedListPager(Model.PagingUserInfo, page => Url.Action("UserInfo", new { page, addressId=Model.addressId, sort = Model.sort, name=Model.name, surname=Model.surname, products = Model.products }))
 </div>
 
 

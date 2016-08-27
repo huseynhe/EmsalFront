@@ -305,16 +305,61 @@ namespace Emsal.AdminUI.Controllers
 
         public ActionResult UserProfile()
         {
-            return View();
+            baseInput = new BaseInput();
+            modelProductCatalog = new ProductCatalogViewModel();
+
+            long? UserId = null;
+            if (User != null && User.Identity.IsAuthenticated)
+            {
+                FormsIdentity identity = (FormsIdentity)User.Identity;
+                if (identity.Ticket.UserData.Length > 0)
+                {
+                    UserId = Int32.Parse(identity.Ticket.UserData);
+                }
+            }
+            BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelProductCatalog.Admin);
+            baseInput.userName = modelProductCatalog.Admin.Username;
+
+            return View(modelProductCatalog);
         }
 
         public ActionResult UserAppeal()
         {
-            return View();
+            baseInput = new BaseInput();
+            modelProductCatalog = new ProductCatalogViewModel();
+
+            long? UserId = null;
+            if (User != null && User.Identity.IsAuthenticated)
+            {
+                FormsIdentity identity = (FormsIdentity)User.Identity;
+                if (identity.Ticket.UserData.Length > 0)
+                {
+                    UserId = Int32.Parse(identity.Ticket.UserData);
+                }
+            }
+            BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelProductCatalog.Admin);
+            baseInput.userName = modelProductCatalog.Admin.Username;
+
+            return View(modelProductCatalog);
         }
         public ActionResult UserAppealDetail()
         {
-            return View();
+            baseInput = new BaseInput();
+            modelProductCatalog = new ProductCatalogViewModel();
+
+            long? UserId = null;
+            if (User != null && User.Identity.IsAuthenticated)
+            {
+                FormsIdentity identity = (FormsIdentity)User.Identity;
+                if (identity.Ticket.UserData.Length > 0)
+                {
+                    UserId = Int32.Parse(identity.Ticket.UserData);
+                }
+            }
+            BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelProductCatalog.Admin);
+            baseInput.userName = modelProductCatalog.Admin.Username;
+
+            return View(modelProductCatalog);
         }
         public ActionResult Login()
         {

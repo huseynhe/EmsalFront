@@ -66,9 +66,7 @@ namespace Emsal.UI.Controllers
 
             BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId(baseInput, (long)UserId, true, modelOfferMonitoring.EnumValue.Id, true, out modelOfferMonitoring.ProductionDetailArray);
 
-            //modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailArray.Where(x => x.enumCategoryId == modelOfferMonitoring.EnumCategory.Id).ToList();
-
-            modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailArray.ToList();
+            modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailArray.Where(x => x.enumCategoryId == modelOfferMonitoring.EnumCategory.Id).ToList();
 
             if (sproductName != null)
             {
@@ -150,12 +148,6 @@ namespace Emsal.UI.Controllers
                     modelOfferMonitoring.OfferProduction.monitoring_eV_Id = modelOfferMonitoring.EnumValueST.Id;
                     modelOfferMonitoring.OfferProduction.monitoring_eV_IdSpecified = true;
 
-
-                    //ferid deyişiklik
-                    modelOfferMonitoring.OfferProduction.state_eV_Id = modelOfferMonitoring.EnumValueST.Id;
-                    modelOfferMonitoring.OfferProduction.state_eV_IdSpecified = true;
-                    //////////////////////////////
-
                     BaseOutput ecout = srv.WS_UpdateOffer_Production(baseInput, modelOfferMonitoring.OfferProduction, out modelOfferMonitoring.OfferProduction);
 
                     modelOfferMonitoring.ComMessage = new tblComMessage();
@@ -236,16 +228,13 @@ namespace Emsal.UI.Controllers
 
             BaseOutput bouput = srv.WS_GetOffer_ProductionById(baseInput, model.Id, true, out model.OfferProduction);
 
-            BaseOutput envalyd = srv.WS_GetEnumValueById(baseInput, model.monitoringStatusEVId,true, out model.EnumValueST);
+            //BaseOutput envalyd = srv.WS_GetEnumValueById(baseInput, model.monitoringStatusEVId,true, out model.EnumValueST);
+
+            BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "reedited", out model.EnumValueST);
+
 
             model.OfferProduction.monitoring_eV_Id = model.EnumValueST.Id;
             model.OfferProduction.monitoring_eV_IdSpecified = true;
-
-            //ferid
-            model.OfferProduction.state_eV_Id = model.EnumValueST.Id;
-            model.OfferProduction.state_eV_IdSpecified = true;
-
-            /////////////
 
             BaseOutput ecout = srv.WS_UpdateOffer_Production(baseInput, model.OfferProduction, out model.OfferProduction);
 

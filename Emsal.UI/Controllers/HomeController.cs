@@ -24,7 +24,7 @@ namespace Emsal.UI.Controllers
         private static string ssort;
         private static string sname;
         private static string ssurname;
-        private static string sadminUnitName;
+        private static string sproducts;
 
         //Bir defe calisdir Db yaratsin sonra comment et 
         //srv.WS_createDb();
@@ -63,27 +63,27 @@ namespace Emsal.UI.Controllers
 
             modelProductCatalog = new ProductCatalogViewModel();
 
-            //long userId = 0;
+            long userId = 0;
 
-            //if (User != null && User.Identity.IsAuthenticated)
-            //{
-            //    FormsIdentity identity = (FormsIdentity)User.Identity;
-            //    if (identity.Ticket.UserData.Length > 0)
-            //    {
-            //        userId = Int32.Parse(identity.Ticket.UserData);
-            //    }            
-            //}
+            if (User != null && User.Identity.IsAuthenticated)
+            {
+                FormsIdentity identity = (FormsIdentity)User.Identity;
+                if (identity.Ticket.UserData.Length > 0)
+                {
+                    userId = Int32.Parse(identity.Ticket.UserData);
+                }
+            }
 
-            //    BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelProductCatalog.User);
-            
-            //    if(modelProductCatalog.User!=null)
-            //{
-            //    Session["musername"] = modelProductCatalog.User.Username;
-            //}
-            //else
-            //{
-            //    Session["musername"] = null;
-            //}
+            BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelProductCatalog.User);
+
+            if (modelProductCatalog.User != null)
+            {
+                Session["musername"] = modelProductCatalog.User.Username;
+            }
+            else
+            {
+                Session["musername"] = null;
+            }
             //BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelProductCatalog.User);
             //BaseOutput person = srv.WS_GetPersonByUserId(baseInput, (long)userId, true, out modelProductCatalog.Person);
 
@@ -189,7 +189,7 @@ namespace Emsal.UI.Controllers
             //return View(modelProductCatalog);
         }
 
-        public ActionResult UserInfo( int? page, int addressId=0, string sort=null, string name=null, string surname=null, string adminUnitName=null)
+        public ActionResult UserInfo( int? page, int addressId=0, string sort=null, string name=null, string surname=null, string products = null)
         {
             if(sort!=null)
                 sort = StripTag.strSqlBlocker(sort.ToLower());
@@ -197,16 +197,16 @@ namespace Emsal.UI.Controllers
                 name = StripTag.strSqlBlocker(name.ToLower());
             if (surname != null)
                 surname = StripTag.strSqlBlocker(surname.ToLower());
-            if (adminUnitName != null)
-                adminUnitName = StripTag.strSqlBlocker(adminUnitName.ToLower());
+            if (products != null)
+                products = StripTag.strSqlBlocker(products.ToLower());
 
-            if (addressId==0 && sort==null && name==null && surname==null && adminUnitName==null)
+            if (addressId==0 && sort==null && name==null && surname==null && products == null)
             {
                 saddressId = 0;
                 ssort = null;
                 sname = null;
                 ssurname = null;
-                sadminUnitName = null;
+                sproducts = null;
             }
 
             if (addressId > 0)
@@ -217,6 +217,8 @@ namespace Emsal.UI.Controllers
                 sname = name;
             if (surname != null)
                 ssurname = surname;
+            if (products != null)
+                sproducts = products;
 
 
             baseInput = new BaseInput();
@@ -228,7 +230,7 @@ namespace Emsal.UI.Controllers
 
             if (saddressId > 0)
             {
-                BaseOutput uia = srv.WS_GetPotensialUserForAdminUnitIdList(baseInput, addressId, true, out modelProductCatalog.UserInfoArray);
+                BaseOutput uia = srv.WS_GetPotensialUserForAdminUnitIdList(baseInput, saddressId, true, out modelProductCatalog.UserInfoArray);
             }
             else {
                 BaseOutput ui = srv.WS_GetPotensialUserList(baseInput, out modelProductCatalog.UserInfoArray);
@@ -267,7 +269,8 @@ namespace Emsal.UI.Controllers
             modelProductCatalog.addressId = saddressId;
             modelProductCatalog.sort = ssort;
             modelProductCatalog.name = sname;
-            modelProductCatalog.surname = ssurname;            
+            modelProductCatalog.surname = ssurname; 
+            modelProductCatalog.products = sproducts;            
 
             modelProductCatalog.PagingUserInfo = modelProductCatalog.UserInfoList.ToPagedList(pageNumber, pageSize);
 
@@ -284,7 +287,7 @@ namespace Emsal.UI.Controllers
             modelProductCatalog = new ProductCatalogViewModel();
 
             BaseOutput bouput = srv.WS_GetProductCatalogsByParentId(baseInput,pId,true, out modelProductCatalog.ProductCatalogArray);
-            modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogArray.ToList();
+            modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogArray.OrderBy(x=>x.ProductName).ToList();
 
             modelProductCatalog.ProductCatalogListPC = new List<tblProductCatalog>();
             foreach (tblProductCatalog itm in modelProductCatalog.ProductCatalogList)

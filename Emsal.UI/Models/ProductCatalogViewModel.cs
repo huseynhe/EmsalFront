@@ -7,8 +7,8 @@ using System.Web;
 
 namespace Emsal.UI.Models
 {
-    public class ProductCatalogViewModel : UserRoles
-    { 
+    public class ProductCatalogViewModel
+    {
         public string prodAltName;
         public string prodName;
 
@@ -46,6 +46,10 @@ namespace Emsal.UI.Models
         public AnnouncementDetail AnnouncementDetail;
         public IList<AnnouncementDetail> AnnouncementDetailList { get; set; }
         public AnnouncementDetail[] AnnouncementDetailArray;
+
+        public ProductionDetail ProductionDetail;
+        public IList<ProductionDetail> ProductionDetailList { get; set; }
+        public ProductionDetail[] ProductionDetailArray;
 
         public tblPotential_Production PotentialProduction;
         public IList<tblPotential_Production> PotentialProductionList { get; set; }
@@ -97,6 +101,7 @@ namespace Emsal.UI.Models
         public Announced[] AnnouncedArray;
 
         public PagedList.IPagedList<AnnouncementDetail> Paging { get; set; }
+        public PagedList.IPagedList<ProductionDetail> PagingProduction { get; set; }
 
         public PagedList.IPagedList<UserInfo> PagingUserInfo { get; set; }
 
@@ -120,13 +125,16 @@ namespace Emsal.UI.Models
         public int noPaged { get; set; }
 
         public DateTime createdDate { get; set; }
+
+
         public DateTime startDate { get; set; }
+
         public DateTime endDate { get; set; }
 
         public int addressId { get; set; }
         public string sort { get; set; }
         public string name { get; set; }
         public string surname { get; set; }
-        public string adminUnitName { get; set; }
+        public string products { get; set; }
     }
 }

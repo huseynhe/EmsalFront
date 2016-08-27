@@ -24,7 +24,8 @@
     <div class="box-body">
 
         <div class="form-group col-md-12">
-            @Html.LabelFor(model => model.monitoringStatusEVId, htmlAttributes: new { @class = "control-label" })
+            --
+            @*@Html.LabelFor(model => model.monitoringStatusEVId, htmlAttributes: new { @class = "control-label" })
             <select name="monitoringStatusEVId" required class="form-control unicase-form-control select">
                 <option selected value="">Seçim edin</option>
                 @foreach (var item in Model.EnumValueList)
@@ -32,7 +33,7 @@
                     <option value="@item.Id">@item.description</option>
                 }
             </select>
-            <span data-valmsg-replace="true" data-valmsg-for="monitoringStatusEVId" class="field-validation-valid text-danger"></span>
+            <span data-valmsg-replace="true" data-valmsg-for="monitoringStatusEVId" class="field-validation-valid text-danger"></span>*@
         </div>
 
              <div class="col-md-12">

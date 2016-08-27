@@ -9,8 +9,6 @@ namespace Emsal.UI.Models
 {
     public class PotentialProductionViewModel : UserRoles
     {
-       
-
         public string messageSuccess = "Yadda saxlanıldı.";
         public int fileSize = 2097152;
         public string fileDirectory = @"D:\fls";
@@ -173,6 +171,7 @@ namespace Emsal.UI.Models
         public string Title { get; set; }
 
         public long ProductType { get; set; }
+
 
     }
 }

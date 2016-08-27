@@ -87,32 +87,30 @@
 
 
             <h3>Məsul Şəxsin Məlumatları</h3><br />
-            <div class="well" style="font-size:11spx">
+            <div class="well" style="font-size:11px">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-3">
                         <div class="form-group" style="padding:5px;">
                             <label class="labelEdit required">Məsul Şəxsin Fini</label>
                             @Html.TextBoxFor(x => x.Pin, new { @class = "form-control", id = "pin" })
                             @Html.ValidationMessageFor(x => x.Pin, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group" style="padding:5px">
                             <label class="labelEdit required">Adı</label>
                             @Html.TextBoxFor(x => x.ManagerName, new { @class = "form-control", id = "name" })
                             @Html.ValidationMessageFor(x => x.ManagerName, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group" style="padding:5px">
                             <label class="labelEdit required">Soyadı</label>
                             @Html.TextBoxFor(x => x.Surname, new { @class = "form-control", id = "surname" })
                             @Html.ValidationMessageFor(x => x.Surname, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group" style="padding:5px;">
                             <label class="labelEdit required">Ata adı</label>
                             @Html.TextBoxFor(x => x.FatherName, new { @class = "form-control", id = "fatherName" })
@@ -150,29 +148,17 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <select class="form-control" name="mobilePhonePrefix">
-                                        @{
-                                            if (Model.mobilePhonePrefix == "050")
+                                        @foreach (var item in Model.MobilePhonePrefixList)
+                                        {
+                                            if (Model.mobilePhonePrefix == item.name)
                                             {
-                                                <option selected="selected">050</option>
-                                                <option>055</option>
-                                                <option>070</option>
-                                            }
-                                            else if (Model.mobilePhonePrefix == "055")
-                                            {
-                                                <option>050</option>
-                                                <option selected="selected">055</option>
-                                                <option>070</option>
+                                                <option selected value="@item.name">@item.description</option>
                                             }
                                             else
                                             {
-                                                <option>050</option>
-                                                <option>055</option>
-                                                <option selected="selected">070</option>
+                                                <option value="@item.name">@item.description</option>
                                             }
-
                                         }
-
-
                                     </select>
                                 </div>
                                 <div class="col-md-8">

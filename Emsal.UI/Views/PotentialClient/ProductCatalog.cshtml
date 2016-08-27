@@ -44,7 +44,7 @@
                         <label class="control-label">@item.description</label>
                         <input hidden name="pcId[@{ @e }]" value="@Model.ProductionControlList[e].Id" />
                         <input hidden name="enumCat[@{ @e }]" value="@item.Id" />
-                        <select required name="enumVal[@{ @e }]" class="form-control">
+                        <select required name="enumVal[@{ @e }]" class="form-control select2">
                             <option value="">Seçim edin</option>
                             @foreach (var item2 in Model.EnumValueList)
                             {
@@ -116,7 +116,7 @@
                     <div class="form-group">
                         <label class="control-label" for="size">@item.description</label>
                         <input hidden name="enumCat[@{ @e }]" value="@item.Id" />
-                        <select required name="enumVal[@{ @e }]" class="form-control">
+                        <select required name="enumVal[@{ @e }]" class="form-control select2">
                             <option value="">Seçim edin</option>
                             @foreach (var item2 in Model.EnumValueList)
                             {

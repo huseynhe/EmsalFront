@@ -12,7 +12,13 @@ function GetProductCatalog(elem) {
             $('#productId').val(pId);
             $(elem).parent().parent().append(result);
 
+            //if (result == "")
+            //{
+            //    $('#calendarMainDiv').show();
+            //    GetUnitofmeasurement(pId);
+            //}
             getChooseFileTemplate(pId);
+            $('.select2').select2();
         },
         error: function () {
 
@@ -20,9 +26,51 @@ function GetProductCatalog(elem) {
     });
 };
 
+
+var Unitofmeasurementresult;
+function GetUnitofmeasurement(pId) {
+    $.ajax({
+        url: '/OfferProduction/Unitofmeasurement?pId=' + pId,
+        type: 'GET',
+        success: function (result) {
+            Unitofmeasurementresult = result;
+
+            return result;
+        },
+        error: function () {
+
+        }
+    });
+};
+
+
 function GetAdminUnit(elem) {
     pId = $(elem).val();
     $(elem).parent().nextAll().remove();
+    //var dd = 0;
+    //while (dd < 4) {
+        
+    //    dd++;
+    //    alert(dd);
+    //}
+
+    if (pId == '') {
+        var name = $(elem).attr('name');
+        var i = name.substring(5, name.length - 1);
+        var valu = 0;
+        var val = 0;
+
+        for (var d = 0; d <i; d++)
+        {
+            val = $('select[name="adId[' + d + ']"]').val();
+
+            if (val != undefined) {
+                valu = $('select[name="adId[' + d + ']"]').val();
+            }
+        }
+
+        $('#addressId').val(valu);
+    }
 
     if (pId > 0) {
         $.ajax({

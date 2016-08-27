@@ -29,6 +29,7 @@ namespace Emsal.UI.Models
         public IList<tblPotential_Production> PotentialProductionList { get; set; }
         public IList<tblPotential_Production> SelectedPotentialProductionList { get; set; }
         public tblPotential_Production[] PotentialProductionArray;
+
         public tblProductCatalog ProductCatalog;
         public IList<tblProductCatalog> ProductCatalogList { get; set; }
         public IList<tblProductCatalog> ProductCatalogListPC { get; set; }
@@ -47,6 +48,8 @@ namespace Emsal.UI.Models
         public IList<tblEnumValue> EnumValueList { get; set; }
         public tblEnumValue[] EnumValueArray;
         public IList<tblEnumValue> EnumValueMonthList { get; set; }
+        public IList<tblEnumValue> EnumValueMonthListFV { get; set; }
+        public IList<tblEnumValue> EnumValueMonthListFVE { get; set; }
         public IList<tblEnumValue> EnumValueShippingScheduleList { get; set; }
         public IList<tblEnumValue> EnumValueDocumentTypeList { get; set; }
 
@@ -80,6 +83,12 @@ namespace Emsal.UI.Models
         public IList<tblProduction_Calendar> ProductionCalendarList { get; set; }
         public tblProduction_Calendar[] ProductionCalendarArray;
 
+        public tblForeign_Organization ForeignOrganization;
+        public IList<tblForeign_Organization> ForeignOrganizationList { get; set; }
+        public IList<tblForeign_Organization> ForeignOrganizationListFA { get; set; }
+        public IList<tblForeign_Organization>[] ForeignOrganizationArrayFA { get; set; }
+        public tblForeign_Organization[] ForeignOrganizationArray;
+
         public ProductionDetail ProductionDetail;
         public IList<ProductionDetail> ProductionDetailList { get; set; }
         public ProductionDetail[] ProductionDetailArray;
@@ -88,13 +97,17 @@ namespace Emsal.UI.Models
         public IList<SelectedProduct> SelectedProductList { get; set; }
         public SelectedProduct[] SelectedProductArray;
 
-
+        
+        public tblProductionCalendar LProductionCalendar;
+        public IList<tblProductionCalendar> LProductionCalendarList { get; set; }
+        public tblProductionCalendar[] LProductionCalendarArray;
 
         public string[] selectedMonth { get; set; }
 
         public bool isPDF { get; set; }
         public bool noButton { get; set; }
         public long userId { get; set; }
+        public string fullAddressId = "";
 
         public long totalSize = 0;
 
@@ -121,12 +134,12 @@ namespace Emsal.UI.Models
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         //[Range(typeof(decimal), "1", "79228162514264337593543950335")]
-        public string price { get; set; }
+        public string[] price { get; set; }
 
         [Display(Name = "Miqdarı (Həcmi)")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
-        public string size { get; set; }
+        public string[] size { get; set; }
 
         public int productId { get; set; }
         public long[] productIds { get; set; }
@@ -138,6 +151,9 @@ namespace Emsal.UI.Models
         public int[] enumVal { get; set; }
         public int[] adId { get; set; }
         public int[] prodId { get; set; }
+
+        public int[] hour { get; set; }
+        public int[] day { get; set; }
 
         [Display(Name = "Ünvan")]
         //[Required(ErrorMessage = "{0} xanası məcburidir.")]
@@ -170,6 +186,33 @@ namespace Emsal.UI.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         public virtual DateTime? endDate { get; set; }
+
+        [Display(Name = "Başlama tarixi")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public virtual int startDateYear { get; set; }
+
+        [Display(Name = "Başlama tarixi")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public virtual string startDateMonth { get; set; }
+
+
+        [Display(Name = "Bitmə tarixi")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public virtual int endDateYear { get; set; }
+
+        [Display(Name = "Bitmə tarixi")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public virtual string endDateMonth { get; set; }
+
+        public int[] month { get; set; }
+        public int[] year { get; set; }
+        public int[] howMany { get; set; }
+
+
 
         //ferid
         public MonthsModel modelMonths { get; set; }

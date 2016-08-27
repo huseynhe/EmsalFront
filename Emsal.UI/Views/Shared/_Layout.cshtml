@@ -28,7 +28,7 @@
 
     <script src="~/Content/UI/js/custom.js"></script>
     <script src="~/Content/UI/js/addPotentialUser.js"></script>
-    @*<script src="~/Content/UI/js/specialSummary.js"></script>*@
+    <script src="~/Content/UI/js/specialSummary.js"></script>
 
 
     <script src="~/Content/UI/js/emsal.js"></script>
@@ -76,8 +76,16 @@
 
                         <div class="col-sm-12 col-md-3">
                             <div class="reg">
-                                <a href="/Login" type="button" class="btn enter text-white text-bold bg_colorG box-shadow">GİRİŞ</a>
-                                <a href="/SignUp" type="button" class="btn text-white text-bold bg_colorG box-shadow">QEYDİYYAT</a>
+                                @if (Session["musername"] == null)
+                                {
+                                    <a href="/Login" type="button" class="btn enter text-white text-bold bg_colorG box-shadow">GİRİŞ</a>
+                                        <a href="/SignUp" type="button" class="btn text-white text-bold bg_colorG box-shadow">QEYDİYYAT</a>
+                                }
+                                else
+                                {
+                                    <div class="btn text-white text-bold bg_colorG box-shadow">@Session["musername"]</div>
+                                    <a href="/Login/Logout" type="button" class="btn text-white text-bold bg_colorG box-shadow"><span class="glyphicon glyphicon-log-out"></span><span>&nbsp;ÇIXIŞ</span> </a>
+                                }
                             </div>
                             <div class="clear-both"></div>
                         </div>
@@ -109,7 +117,7 @@
                                                 <a href="/Home/PotentialUser" id="menu">POTENSİAL İSTEHSALÇILAR</a>
                                             </li>
                                             <li class="dropdown">
-                                                <a href="/" id="menu">TƏKLİFLƏR</a>
+                                                <a href="/OfferHome" id="menu">TƏKLİFLƏR</a>
                                             </li>
                                             <li class="dropdown">
                                                 <a href="/" id="menu">QANUNVERİCİLİK</a>

@@ -213,7 +213,8 @@ namespace Emsal.UI.Controllers
 
             BaseOutput bouput = srv.WS_GetPotential_ProductionById(baseInput, model.Id, true, out model.PotentialProduction);
 
-            BaseOutput envalyd = srv.WS_GetEnumValueById(baseInput, model.monitoringStatusEVId, true, out model.EnumValueST);
+            //BaseOutput envalyd = srv.WS_GetEnumValueById(baseInput, model.monitoringStatusEVId, true, out model.EnumValueST);
+            BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "reedited", out model.EnumValueST);
 
             model.PotentialProduction.state_eV_Id = model.EnumValueST.Id;
             model.PotentialProduction.state_eV_IdSpecified = true;

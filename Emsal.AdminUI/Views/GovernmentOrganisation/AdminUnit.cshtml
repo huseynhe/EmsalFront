@@ -14,7 +14,11 @@
             {
                 <div class="form-group col-md-6">
                     <select required name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
-                        @foreach (var itm in Model.PRMAdminUnitArrayPa[i])
+                        @if (Model.arrNum > 0)
+                        {
+                            <option value=""> Seçim edin</option>
+                        }
+                         @foreach (var itm in Model.PRMAdminUnitArrayPa[i])
                         {
                             if (itm.Id == Model.GivenAdminUnitIds[i+1])
                             {
@@ -49,7 +53,11 @@
             <div class="form-group col-md-6">
 
             <select required name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
-            @foreach(var item in Model.PRMAdminUnitList)
+            @if (Model.arrNum > 0)
+            {
+                <option value = "" > Seçim edin</option >
+            }
+                @foreach(var item in Model.PRMAdminUnitList)
             {
                 if (item.Name == "Azərbaycan Respublikası")
                 {

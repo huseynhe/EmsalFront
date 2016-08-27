@@ -14,7 +14,7 @@ using Emsal.AdminUI.Infrastructure;
 
 namespace Emsal.AdminUI.Controllers
 {
-    //[EmsalAdminAuthentication(AuthorizedAction = ActionName.admin)]
+    [EmsalAdminAuthentication(AuthorizedAction = ActionName.admin)]
     public class ProductPriceController : Controller
     {
         private BaseInput baseInput;
@@ -60,7 +60,7 @@ namespace Emsal.AdminUI.Controllers
         public ActionResult Index(ProductPriceViewModel model)
         {
             baseInput = new BaseInput();
-            int pageSize = 20;
+            int pageSize = 100;
             int pageNumber = 1;
 
             long? UserId = null;

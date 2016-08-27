@@ -3,8 +3,16 @@
 @{
     ViewBag.Title = "Offer";
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+
+    int fi = 0;
+    if(Model.fullAddressId!="")
+    {
+        Model.fullAddressId = "0," + Model.fullAddressId;
+        fi = Model.fullAddressId.Split(',').Select(long.Parse).ToArray().Count() - 2;
+    }
 }
 <script src="~/ContentProfile/js/OfferProduction.js"></script>
+
 
 @using (Html.BeginForm("Index", "OfferProduction", FormMethod.Post,
                              new { enctype = "multipart/form-data" }))
@@ -16,6 +24,33 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="potensial_client">
 
+
+        <h4>Məhsulun yerləşdiyi yeri seçin</h4>
+        <div class="row">
+
+            <input style="opacity:0;position:absolute;" name="addressId" id="addressId" />
+
+            <div class="sign-in-page inner-bottom-sm" id="offerProductionAdminUnit">
+                <script>
+                        $(document).ready(function () {
+                            $.ajax({
+                                url: '/OfferProduction/AdminUnit?pId=0',
+                                type: 'GET',
+                                success: function (result) {
+                                    $('#offerProductionAdminUnit').html(result);
+
+                                    $("select[name='adId[@fi]']").change();
+                                },
+                                error: function () {
+
+                                }
+                            });
+                        });
+                </script>
+                @*@Html.Action("AdminUnit", "OfferProduction", new { pId = 0 })*@
+            </div>
+        </div>
+
         <h4>Məhsulu seçin</h4>
 
         <input hidden name="productId" id="productId" />
@@ -24,39 +59,122 @@
 
             <div class="sign-in-page inner-bottom-sm" id="offerProductionProductCatalog">
                 <script>
-                        $(document).ready(function () {
-                            $.ajax({
-                                url: '/OfferProduction/ProductCatalog?pId=0',
-                                type: 'GET',
-                                success: function (result) {
-                                    $('#offerProductionProductCatalog').html(result);
-                                },
-                                error: function () {
+                    $(document).ready(function () {
+                        $.ajax({
+                            url: '/OfferProduction/ProductCatalog?pId=0',
+                            type: 'GET',
+                            success: function (result) {
+                                $('#offerProductionProductCatalog').html(result);
+                            },
+                            error: function () {
 
-                                }
-                            });
+                            }
                         });
+                    });
                 </script>
                 @*@Html.Action("ProductCatalog", "OfferProduction", new { pId = 0 })*@
             </div>
 
             <div class="clearfix"></div>
             <hr /><br />
-            <div class="col-md-3">
+            @*<div class="col-md-3">
                 <div class="form-group">
                     @Html.LabelFor(model => model.startDate, htmlAttributes: new { @class = "control-label" })
                     @Html.EditorFor(model => model.startDate, new { @class = "form-control", required = "required" })
                     @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
                 </div>
-            </div>
-            <div class="col-md-3">
+            </div>*@
+            <div class="col-md-3" hidden>
                 <div class="form-group">
                     @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label" })
                     @Html.EditorFor(model => model.endDate, new { @class = "form-control", required = "required" })
                     @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
                 </div>
             </div>
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.startDateYear, htmlAttributes: new { @class = "control-label" })
+                <select onchange="Getotherdate(this,'y','o')" required name="startDateYear" id="startDateYear" class="form-control select2">
+                    <option value="">Seçim edin</option>
+                    @for (var i = 0; i <= 1; i++)
+                    {
+                        <option value="@(DateTime.Now.Year+i)">@(DateTime.Now.Year + i)</option>
+                    }
+                </select>
+                <span data-valmsg-replace="true" data-valmsg-for="startDateYear" class="field-validation-valid text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label for="startDate" class="control-label">&nbsp;</label>
+                <select required name="startDateMonth" onchange="Getotherdate(this, 'm','o')" id="startDateMonth" class="form-control select2">
+                    <option value="">Seçim edin</option>
+                    @foreach (var item in Model.EnumValueMonthList)
+                     {
+                        <option value="@item.Id">@item.description</option>
+                    }
+                </select>
+                <span data-valmsg-replace="true" data-valmsg-for="startDateMonth" class="field-validation-valid text-danger"></span>
+            </div>
+
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.endDateYear, htmlAttributes: new { @class = "control-label" })
+                <select required name="endDateYear" id="endDateYear" onchange="Getotherdate(this, '','o')" class="form-control select2">
+                    <option value="">Seçim edin</option>
+                </select>
+                <span data-valmsg-replace="true" data-valmsg-for="endDateYear" class="field-validation-valid text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label for="endDate" class="control-label">&nbsp;</label>
+                <select required name="endDateMonth" id="endDateMonth" onchange="Getotherdate(this, '','o')" class="form-control select2">
+                    <option value="">Seçim edin</option>
+                    @foreach (var item in Model.EnumValueMonthList)
+                    {
+                        <option value="@item.Id">@item.description</option>
+                    }
+                </select>
+                <span data-valmsg-replace="true" data-valmsg-for="endDateMonth" class="field-validation-valid text-danger"></span>
+            </div>
+
         </div>
+
+
+        <div>
+            <h4>Hansı aylarda məhsul verə bilərsiniz?</h4>
+            <div class="row">
+                <div class="col-md-7" id="calendarMainDiv">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.shippingSchedule, htmlAttributes: new { @class = "control-label" })
+                        <div class="clearfix"></div>
+                        <div class="btn-group" data-toggle="buttons" id="">
+                            @foreach (var item in Model.EnumValueShippingScheduleList)
+                            {
+                                <label class="btn btn-primary shippingSchedule">
+                                    <input type="text" class="hinp" hidden value="@item.name" />
+                                    <input  required type="radio" name="shippingSchedule" value="@item.Id" autocomplete="off">
+                                    @item.description
+                                </label>
+                            }
+                        </div>
+                        <div class="clearfix"></div>
+                        <span data-valmsg-replace="true" data-valmsg-for="shippingSchedule" class="field-validation-valid text-danger"></span>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+                    <hr />
+                    <br />
+                    @*<h5>Seçilmiş aylar</h5>*@
+                    <div class="form-group chMonthName">
+                    </div>
+
+
+
+                </div>
+<div id="getmonthresult"></div>
+            </div>
+        </div>
+
         <div class="clear-both"></div>
         <h4>Sənədləri yükləyin</h4>
 
@@ -83,96 +201,6 @@
                 @*@Html.Action("SelectedDocuments", "OfferProduction")*@
             </div>
         </div>
-
-        <h4>Hansı aylarda məhsul verə bilərsiniz?</h4>
-        <div class="row">
-            <div class="col-md-5">
-                <h5>Aylar</h5>
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingOne">
-                            @*<div class="checkbox">
-                                <label>
-                                    <input onclick="chcheckMonth(this)" type="checkbox" class="check" id="checkAll">
-                                    Hamısını seç
-                                </label>
-                            </div>*@
-                        </div>
-                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                            <div class="panel-body">
-                                <input style="opacity: 0; position: absolute;" name="checkedMonth" required id="selectedMonth" />
-                                @foreach (var item in Model.EnumValueMonthList)
-                                {
-                                    <div class="col-sm-3" style="padding: 0;">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input value="@item.Id" type="checkbox" class="check ch">
-                                                <span class="chn">@item.description</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                        <span data-valmsg-replace="true" data-valmsg-for="checkedMonth" class="field-validation-valid text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-7">
-                <h5>Seçilmiş aylar</h5>
-                <div class="form-group chMonthName">
-                </div>
-
-                <div class="clearfix"></div>
-                <br />
-                <hr />
-                <br />
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.shippingSchedule, htmlAttributes: new { @class = "control-label" })
-                    <div class="clearfix"></div>
-                    <div class="btn-group" data-toggle="buttons">
-                        @foreach (var item in Model.EnumValueShippingScheduleList)
-                        {
-                            <label class="btn btn-primary">
-                                <input required type="radio" name="shippingSchedule" value="@item.Id" autocomplete="off">
-                                @item.description
-                            </label>
-                        }
-                    </div>
-                    <div class="clearfix"></div>
-                    <span data-valmsg-replace="true" data-valmsg-for="shippingSchedule" class="field-validation-valid text-danger"></span>
-                </div>
-
-            </div>
-        </div>
-
-        <h4>Məhsulun yerləşdiyi yeri seçin</h4>
-        <div class="row">
-
-            <input hidden name="addressId" id="addressId" />
-            
-                        <div class="sign-in-page inner-bottom-sm" id="offerProductionAdminUnit">
-                            <script>
-                        $(document).ready(function () {
-                            $.ajax({
-                                url: '/OfferProduction/AdminUnit?pId=0',
-                                type: 'GET',
-                                success: function (result) {
-                                    $('#offerProductionAdminUnit').html(result);
-
-                                    $("select[name='adId[0]']").change();
-                                },
-                                error: function () {
-
-                                }
-                            });
-                        });
-                            </script>
-                @*@Html.Action("AdminUnit", "OfferProduction", new { pId = 0 })*@
-            </div>
-        </div>
-
 
         <div class="clearfix"></div>
         <div class="form-group">

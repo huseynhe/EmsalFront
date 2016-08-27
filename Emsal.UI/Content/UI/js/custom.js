@@ -105,11 +105,10 @@ function GetAdminUnit(elem) {
             type: 'GET',
             //data: { "pId": appId},
             success: function (result) {
-                //$('#puserMenu').html(result);
-                if (result == "")
-                {
+                //if (result == "")
+                //{
                     GetUserInfoBy(pId, elem);
-                }
+                //}
                
                 $(elem).parent().parent().append(result);
 
@@ -278,3 +277,52 @@ function searchAnnouncement(elem) {
         }
     });
 }
+
+
+
+
+var oldopId = 0;
+function GetHomeOffer(elem, pId, isMain) {
+
+    if (isMain == 1 && oldopId == pId) {
+        $('.resp').html('');
+        pId = 0;
+    }
+    else {
+        if (isMain == 1) {
+            $('.resp').html('');
+        }
+        $.ajax({
+            url: '/OfferHome/ProductCatalog?pId=' + pId,
+            type: 'GET',
+            //data: { "pId": appId},
+            success: function (result) {
+                if (result.length < 10) {
+                    GetOfferProduction(pId);
+                }
+                //$('.resp').html('');
+                $(elem).parent().parent().find('.resp').html(result);
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    oldopId = pId;
+};
+
+
+function GetOfferProduction(productId) {
+    $('#responceAnnouncement').html('');
+    $.ajax({
+        url: '/OfferHome/OfferProduction?productId=' + productId,
+        type: 'GET',
+        success: function (result) {
+            $('#responceAnnouncement').html(result);
+        },
+        error: function () {
+
+        }
+    });
+};

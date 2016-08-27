@@ -13,6 +13,7 @@ function GetProductCatalog(elem) {
             $(elem).parent().parent().append(result);
 
             getChooseFileTemplate(pId);
+            callSelect2();
         },
         error: function () {
 
@@ -21,6 +22,21 @@ function GetProductCatalog(elem) {
 };
 
 
+var Unitofmeasurementresult;
+function GetUnitofmeasurement(pId) {
+    $.ajax({
+        url: '/DemandProduction/Unitofmeasurement?pId=' + pId,
+        type: 'GET',
+        success: function (result) {
+            Unitofmeasurementresult = result;
+
+            return result;
+        },
+        error: function () {
+
+        }
+    });
+};
 
 function GetAdminUnit(elem) {
     pId = $(elem).val();
@@ -35,7 +51,7 @@ function GetAdminUnit(elem) {
                 $('#addressId').val(pId);
                 $(elem).parent().parent().append(result);
 
-                $('.select2').select2();
+                callSelect2();
             },
             error: function () {
 
@@ -44,7 +60,50 @@ function GetAdminUnit(elem) {
     }
 }
 
+function callSelect2()
+{
+    $('.select2').select2();
+}
 
+function GetForeignOrganization(elem) {
+    pId = $(elem).val();
+    $(elem).parent().nextAll().remove();
+
+    if (pId == '') {
+        var name = $(elem).attr('name');
+        var i = name.substring(5, name.length - 1);
+        var valu = 0;
+        var val = 0;
+
+        for (var d = 0; d < i; d++) {
+            val = $('select[name="adId[' + d + ']"]').val();
+
+            if (val != undefined) {
+                valu = $('select[name="adId[' + d + ']"]').val();
+            }
+        }
+
+        $('#addressId').val(valu);
+    }
+
+    if (pId > 0) {
+        $.ajax({
+            url: '/DemandProduction/ForeignOrganization?pId=' + pId,
+            type: 'GET',
+            //data: { "pId": appId},
+            success: function (result) {
+                $('#addressId').val(pId);
+                ofopid = pId;
+                $(elem).parent().parent().append(result);
+
+                callSelect2();
+            },
+            error: function () {
+
+            }
+        });
+    }
+}
 
 function sendFiles() {
     documentType = $('#documentTypes').val();
@@ -87,7 +146,6 @@ function sendFiles() {
 
 
 function getSelectedDocuments() {
-
     $.ajax({
         url: '/DemandProduction/SelectedDocuments',
         type: 'GET',
@@ -131,6 +189,37 @@ function deleteSelectedDocument(id) {
         }
     });
 }
+
+
+function deleteProductionCalendar(id, dId) {
+    $.ajax({
+        url: '/DemandProduction/DeleteProductionCalendar?&id=' + id,
+        type: 'GET',
+        data: {},
+        success: function (result) {
+            getProductionCalendar(dId);
+        },
+        error: function () {
+
+        }
+    });
+}
+
+
+function getProductionCalendar(dId) {
+    $.ajax({
+        url: '/DemandProduction/ProductionCalendar?dId='+dId,
+        type: 'GET',
+        data: {},
+        success: function (result) {
+            $('#productionCalendar').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
+
 
 function deleteSelectedDemandProduct(id) {
     $.ajax({

@@ -1039,8 +1039,10 @@ namespace Emsal.UI.Controllers
             ////get types of the product ex -> çekilmiş et, hise verilmiş et exc.
             //BaseOutput typeOut = srv.WS_GetProductCatalogsByParentId(binput, (int)modelPotentialProduct.ProductCatalog.Id, true, out modelPotentialProduct.ProductCatalogArray);
 
-            modelPotentialProduct.Quantity = modelPotentialProduct.PotentialProduction.quantity == null  ? null : modelPotentialProduct.PotentialProduction.quantity.ToString().Replace(',','.');
+            //duz
+            modelPotentialProduct.Quantity = modelPotentialProduct.PotentialProduction.quantity == null ? null : modelPotentialProduct.PotentialProduction.quantity.ToString().Replace(',', '.');
             modelPotentialProduct.UnitPrice = modelPotentialProduct.PotentialProduction.unit_price == null ? null : modelPotentialProduct.PotentialProduction.unit_price.ToString().Replace(',', '.'); ;
+            //
             return View(modelPotentialProduct);
         }
 
@@ -1082,8 +1084,10 @@ namespace Emsal.UI.Controllers
             modelPotential.PotentialProduction.fullProductId = c;
             try
             {
+                //duz
                 modelPotential.PotentialProduction.quantity = (decimal)float.Parse(form.Quantity.Replace('.', ','));
                 modelPotential.PotentialProduction.quantitySpecified = true;
+                //
 
                 //modelPotential.PotentialProduction.quantity_type_eV_Id = form.QuantityType;
                 //modelPotential.PotentialProduction.quantity_type_eV_IdSpecified = true;
@@ -1091,8 +1095,10 @@ namespace Emsal.UI.Controllers
                 modelPotential.PotentialProduction.total_price = modelPotential.PotentialProduction.quantity * modelPotential.PotentialProduction.unit_price;
                 modelPotential.PotentialProduction.total_priceSpecified = true;
 
+                //duz
                 modelPotential.PotentialProduction.unit_price = (decimal)float.Parse(form.UnitPrice.Replace('.', ',')); ;
                 modelPotential.PotentialProduction.unit_priceSpecified = true;
+                //
             }
             catch (Exception)
             {
@@ -1124,13 +1130,15 @@ namespace Emsal.UI.Controllers
 
             //get product parent
             BaseOutput parentOut = srv.WS_GetProductCatalogsById(binput, (int)modelProduction.ProductCatalog.ProductCatalogParentID, true, out modelProduction.ProductCatalog);
+            //duz
             modelProduction.ProductParentName = modelProduction.ProductCatalog.ProductName;
 
 
             modelProduction.Quantity = modelProduction.OfferProduction.quantity.ToString();
+            //
 
             //get the quantity type
-            
+
             BaseOutput productControllOut = srv.WS_GetProductionControlsByOfferProductionId(binput, modelProduction.OfferProduction.Id, true, out modelProduction.ProductionControlArray);
 
 
@@ -1140,11 +1148,13 @@ namespace Emsal.UI.Controllers
             modelProduction.startDate = new DateTime((long)modelProduction.OfferProduction.startDate);
             modelProduction.endDate = new DateTime((long)modelProduction.OfferProduction.endDate);
 
+            //duz
             DateTime end = (DateTime)modelProduction.endDate;
             modelProduction.EndDateStr = end.ToString("d");
 
             DateTime start = (DateTime)modelProduction.startDate;
             modelProduction.StartDateStr = start.ToString("d");
+            //
 
 
             //get full address
@@ -1183,9 +1193,12 @@ namespace Emsal.UI.Controllers
 
             //get product parent
             BaseOutput parentOut = srv.WS_GetProductCatalogsById(binput, (int)modelProduction.ProductCatalog.ProductCatalogParentID, true, out modelProduction.ProductCatalog);
+
             modelProduction.ProductParentName = modelProduction.ProductCatalog.ProductName;
 
+            //duz
             modelProduction.Quantity = modelProduction.PotentialProduction.quantity.ToString();
+            //
 
             //get the quantity type
             BaseOutput productControllOut = srv.WS_GetProductionControlsByPotentialProductionId(binput, modelProduction.PotentialProduction.Id, true, out modelProduction.ProductionControlArray);
@@ -1197,11 +1210,13 @@ namespace Emsal.UI.Controllers
             modelProduction.startDate = new DateTime((long)modelProduction.PotentialProduction.startDate);
             modelProduction.endDate = new DateTime((long)modelProduction.PotentialProduction.endDate);
 
+            //duz
             DateTime end = (DateTime)modelProduction.endDate;
             modelProduction.EndDateStr = end.ToString("d");
 
             DateTime start = (DateTime)modelProduction.startDate;
             modelProduction.StartDateStr = start.ToString("d");
+            //
 
             //get full address
             BaseOutput prodAddrOut = srv.WS_GetProductAddressById(binput, (long)modelProduction.PotentialProduction.productAddress_Id, true, out modelProduction.ProductAddress);
@@ -1257,10 +1272,14 @@ namespace Emsal.UI.Controllers
             ////get types of the product ex -> çekilmiş et, hise verilmiş et exc.
             //BaseOutput typeOut = srv.WS_GetProductCatalogsByParentId(binput, (int)modelProduction.ProductCatalog.ProductCatalogParentID, true, out modelProduction.ProductCatalogArray);
 
+            //duz
             modelProduction.UnitPrice = modelProduction.OfferProduction.unit_price.ToString().Replace(',', '.');
+            //
             //BaseOutput productParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelProduction.ProductCatalog.ProductCatalogParentID, true, out modelProduction.ProductCatalog);
             //get the ölçü vahidi
-            modelProduction.Quantity = modelProduction.OfferProduction.quantity.ToString().Replace(',','.');
+            //duz
+            modelProduction.Quantity = modelProduction.OfferProduction.quantity.ToString().Replace(',', '.');
+            //
             BaseOutput measureOut = srv.WS_GetEnumCategorysByName(binput, "olcuVahidi", out modelProduction.EnumCategory);
             BaseOutput enumValueOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelProduction.EnumCategory.Id, true, out modelProduction.EnumValueArray);
 
@@ -1293,12 +1312,13 @@ namespace Emsal.UI.Controllers
             ///////////
             try
             {
-
+                //duz
                 modeloffer.OfferProduction.unit_price = (decimal)float.Parse(form.UnitPrice.Replace('.', ','));
                 modeloffer.OfferProduction.unit_priceSpecified = true;
 
                 modeloffer.OfferProduction.quantity = (decimal)float.Parse(form.Quantity.Replace('.', ','));
                 modeloffer.OfferProduction.quantitySpecified = true;
+                //
             }
             catch (Exception ex)
             {

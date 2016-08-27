@@ -153,6 +153,7 @@
     </Compile>
     <Compile Include="Controllers\KTNSpecialSummaryController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\OfferHomeController.cs" />
     <Compile Include="Controllers\OfferMonitoringController.cs" />
     <Compile Include="Controllers\OfferProductionController.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1041,6 +1042,18 @@
     <Content Include="Views\GovernmentOrganisationSpecialSummary\OrganisationInfo.cshtml" />
     <Content Include="Views\Ordinary\PrivateConversation.cshtml" />
     <Content Include="Views\Ordinary\PartialPrivateConversation.cshtml" />
+    <Content Include="Views\OfferHome\Index.cshtml" />
+    <Content Include="Views\OfferHome\OfferProduction.cshtml" />
+    <Content Include="Views\OfferHome\OfferProductionDetail.cshtml" />
+    <Content Include="Views\OfferHome\PartialOfferProduction.cshtml" />
+    <Content Include="Views\OfferHome\PCDetail.cshtml" />
+    <Content Include="Views\OfferHome\ProductCatalog.cshtml" />
+    <Content Include="Views\DemandProduction\ForeignOrganization.cshtml" />
+    <Content Include="Views\DemandProduction\Getmonth.cshtml" />
+    <Content Include="Views\DemandProduction\Unitofmeasurement.cshtml" />
+    <Content Include="Views\DemandProduction\ProductionCalendar.cshtml" />
+    <Content Include="Views\OfferProduction\Getmonth.cshtml" />
+    <Content Include="Views\OfferProduction\Unitofmeasurement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

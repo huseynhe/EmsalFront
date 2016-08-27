@@ -526,6 +526,15 @@
             });
 
         });
+
+
+        jQuery('.numbersOnly').keyup(function () {
+            this.value = this.value.replace(/[^0-9\.]/g, '');
+
+            if (this.value.length > 7) {
+                this.value = this.value.slice(0, 7);
+            }
+        });
     </script>
     <div id="getImage" class="modal fade">
         <div class="modal-dialog" style="width: 60%; height: 90%;">

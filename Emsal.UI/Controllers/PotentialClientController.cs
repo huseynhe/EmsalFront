@@ -14,8 +14,8 @@ using System.Web.Security;
 namespace Emsal.UI.Controllers
 {
 
-    //[EmsalAuthorization(AuthorizedAction = ActionName.potentialProduction)]
-    [EmsalAuthorization(AuthorizedAction = ActionName.Ordinary)]
+     [EmsalAuthorization(AuthorizedAction = ActionName.potentialProduction)]
+    //[EmsalAuthorization(AuthorizedAction = ActionName.Ordinary)]
     public class PotentialClientController : Controller
     {
         private BaseInput baseInput;
@@ -28,6 +28,7 @@ namespace Emsal.UI.Controllers
         {
             Session["arrPCNum"] = null;
             Session["arrNum"] = null;
+            Session["arrNumFU"] = null;
 
             string userIpAddress = this.Request.ServerVariables["REMOTE_ADDR"];
 
@@ -57,7 +58,7 @@ namespace Emsal.UI.Controllers
 
             Session["arrPCNum"] = null;
             Session["arrNum"] = null;
-
+            Session["arrNumFU"] = null;
 
             return View(modelPotentialProduction);
         }
@@ -142,13 +143,13 @@ namespace Emsal.UI.Controllers
                 BaseOutput aur = srv.WS_AddUserRole(baseInput, modelPotentialProduction.tblUserRole, out modelPotentialProduction.tblUserRole);
 
                 modelPotentialProduction.Address = new tblAddress();
-                modelPotentialProduction.Address.adminUnit_Id = model.addressId;
+                modelPotentialProduction.Address.adminUnit_Id = model.addressIdFU;
                 modelPotentialProduction.Address.adminUnit_IdSpecified = true;
                 modelPotentialProduction.Address.addressDesc = model.descAddress;
                 modelPotentialProduction.Address.user_Id = modelPotentialProduction.User.Id;
                 modelPotentialProduction.Address.user_IdSpecified = true;
 
-                BaseOutput galf = srv.WS_GetAdminUnitListForID(baseInput, model.addressId, true, out modelPotentialProduction.PRMAdminUnitArray);
+                BaseOutput galf = srv.WS_GetAdminUnitListForID(baseInput, model.addressIdFU, true, out modelPotentialProduction.PRMAdminUnitArray);
                 modelPotentialProduction.PRMAdminUnitList = modelPotentialProduction.PRMAdminUnitArray.ToList();
                 modelPotentialProduction.Address.fullAddress = string.Join(",", modelPotentialProduction.PRMAdminUnitList.Select(x => x.Name));
 
@@ -207,8 +208,8 @@ namespace Emsal.UI.Controllers
 
                 modelPotentialProduction.PotentialProduction.product_IdSpecified = true;
 
-                modelPotentialProduction.PotentialProduction.quantity = Convert.ToDecimal(model.size.Replace('.', ','));
-                //modelPotentialProduction.PotentialProduction.quantity = Convert.ToDecimal(model.size);
+                //modelPotentialProduction.PotentialProduction.quantity = Convert.ToDecimal(model.size.Replace('.', ','));
+                modelPotentialProduction.PotentialProduction.quantity = Convert.ToDecimal(model.size);
                 modelPotentialProduction.PotentialProduction.quantitySpecified = true;
 
                 modelPotentialProduction.PotentialProduction.isSelected = true;
@@ -435,6 +436,7 @@ namespace Emsal.UI.Controllers
             }
             Session["arrPCNum"] = null;
             Session["arrNum"] = null;
+            Session["arrNumFU"] = null;
 
             return View(modelPotentialProduction);
         }
@@ -465,7 +467,8 @@ namespace Emsal.UI.Controllers
             modelPotentialProduction.PotentialProduction.product_Id = model.productId;
                 modelPotentialProduction.PotentialProduction.description = model.description;
 
-                modelPotentialProduction.PotentialProduction.quantity = Convert.ToDecimal(model.size.Replace('.', ','));
+                //modelPotentialProduction.PotentialProduction.quantity = Convert.ToDecimal(model.size.Replace('.', ','));
+                modelPotentialProduction.PotentialProduction.quantity = Convert.ToDecimal(model.size);
                 modelPotentialProduction.PotentialProduction.quantitySpecified = true;
 
             DateTime startDate = (DateTime)model.startDate;
@@ -630,8 +633,9 @@ namespace Emsal.UI.Controllers
             }
 
 
-            if (modelPotentialProduction.ProductCatalogList.Count() == 0 && ppId>0)
-            {
+            //if (modelPotentialProduction.ProductCatalogList.Count() == 0 && ppId>0)
+                if (ppId > 0)
+                {
                 BaseOutput gpp = srv.WS_GetPotential_ProductionById(baseInput, ppId, true, out modelPotentialProduction.PotentialProduction);
 
                 modelPotentialProduction.Id = modelPotentialProduction.PotentialProduction.Id;
@@ -735,20 +739,45 @@ namespace Emsal.UI.Controllers
                         modelPotentialProduction.PRMAdminUnitArrayFA[s] = modelPotentialProduction.PRMAdminUnitArray.ToList();
                         s = s + 1;
                     }
+
+                    if (modelPotentialProduction.PRMAdminUnitArrayFA[s - 1].Count() > 0)
+                    {
+                        modelPotentialProduction.ProductAddress.fullAddressId = modelPotentialProduction.ProductAddress.fullAddressId + ",0";
+                        modelPotentialProduction.productAddressIds = modelPotentialProduction.ProductAddress.fullAddressId.Split(',').Select(long.Parse).ToArray();
+                    }
                 }
             }
 
-            if (Session["arrNum"] == null)
+            
+            if (status != null)
             {
-                Session["arrNum"] = modelPotentialProduction.arrNum;
+                if (Session["arrNumFU"] == null)
+                {
+                    Session["arrNumFU"] = modelPotentialProduction.arrNumFU;
+                }
+                else
+                {
+                    modelPotentialProduction.arrNumFU = (long)Session["arrNumFU"] + 1;
+                    Session["arrNumFU"] = modelPotentialProduction.arrNumFU;
+                }
+
+                return View("AdminUnitFU", modelPotentialProduction);
             }
             else
             {
-                modelPotentialProduction.arrNum = (long)Session["arrNum"] + 1;
-                Session["arrNum"] = modelPotentialProduction.arrNum;
-            }
+
+                if (Session["arrNum"] == null)
+                {
+                    Session["arrNum"] = modelPotentialProduction.arrNum;
+                }
+                else
+                {
+                    modelPotentialProduction.arrNum = (long)Session["arrNum"] + 1;
+                    Session["arrNum"] = modelPotentialProduction.arrNum;
+                }
 
                 return View("AdminUnit", modelPotentialProduction);
+            } 
                         
         }
         

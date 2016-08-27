@@ -15,6 +15,7 @@ namespace Emsal.UI.Models
         public List<string> fileTypes = new List<string> { "image/jpeg", "image/png", "application/pdf" };
 
         public long arrNum = 0;
+        public long arrNumFU = 0;
         public long arrPNum = 0;
 
         public tblUser User;
@@ -25,6 +26,7 @@ namespace Emsal.UI.Models
         public IList<tblPotential_Production> PotentialProductionList { get; set; }
         public IList<tblPotential_Production> SelectedPotentialProductionList { get; set; }
         public tblPotential_Production[] PotentialProductionArray;
+
         public tblProductCatalog ProductCatalog;
         public IList<tblProductCatalog> ProductCatalogList { get; set; }
         public IList<tblProductCatalog> ProductCatalogListPC { get; set; }

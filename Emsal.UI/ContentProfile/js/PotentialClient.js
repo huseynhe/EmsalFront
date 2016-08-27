@@ -11,7 +11,7 @@ function GetProductCatalog(elem) {
         success: function (result) {
             $('#productId').val(pId);
             $(elem).parent().parent().append(result);
-
+            $('.select2').select2();
         },
         error: function () {
 
@@ -22,6 +22,23 @@ function GetProductCatalog(elem) {
 function GetAdminUnit(elem) {
     pId = $(elem).val();
     $(elem).parent().nextAll().remove();
+
+    if (pId == '') {
+        var name = $(elem).attr('name');
+        var i = name.substring(5, name.length - 1);
+        var valu = 0;
+        var val = 0;
+
+        for (var d = 0; d < i; d++) {
+            val = $('select[name="adId[' + d + ']"]').val();
+
+            if (val != undefined) {
+                valu = $('select[name="adId[' + d + ']"]').val();
+            }
+        }
+
+        $('#addressId').val(valu);
+    }
 
     if (pId > 0) {
         $.ajax({
@@ -45,9 +62,26 @@ function GetAdminUnitFU(elem) {
     pId = $(elem).val();
     $(elem).parent().nextAll().remove();
 
+    if (pId == '') {
+        var name = $(elem).attr('name');
+        var i = name.substring(7, name.length - 1);
+        var valu = 0;
+        var val = 0;
+
+        for (var d = 0; d < i; d++) {
+            val = $('select[name="adfuId[' + d + ']"]').val();
+
+            if (val != undefined) {
+                valu = $('select[name="adfuId[' + d + ']"]').val();
+            }
+        }
+
+        $('#addressIdFU').val(valu);
+    }
+
     if (pId > 0) {
         $.ajax({
-            url: '/PotentialClient/AdminUnit?pId=' + pId + '&status=1',
+            url: '/PotentialClient/AdminUnit?pId=' + pId+'&status=1',
             type: 'GET',
             //data: { "pId": appId},
             success: function (result) {
@@ -130,7 +164,7 @@ function getChooseFileTemplate(pId) {
             $('#btnUploadFile').addClass('disabled');
         },
         error: function () {
-
+           
         }
     });
 }
@@ -182,7 +216,8 @@ function getSelectedProducts() {
 function finvoennull(v) {
     $('#' + v).val('');
 
-    if (v == "FIN") {
+    if(v=="FIN")
+    {
         elem = $('#name');
         $(elem).attr('disabled', false);
         $(elem).val('');
@@ -197,7 +232,8 @@ function finvoennull(v) {
     }
 
 
-    if (v == "VOEN") {
+    if(v=="VOEN")
+    {
         elem = $('#legalPName');
         $(elem).attr('disabled', false);
         $(elem).val('');
