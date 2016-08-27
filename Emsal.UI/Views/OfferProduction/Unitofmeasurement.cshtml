@@ -1,0 +1,64 @@
+﻿@model Emsal.UI.Models.OfferProductionViewModel
+
+@{
+    ViewBag.Title = "ProductCatalog";
+    Layout = "";
+}
+
+    <div class="clearfix"></div>
+    @{ 
+        @*int e = 0;
+
+        foreach (var item in Model.EnumCategoryList)
+        {
+            if (Model.ProductCatalogControlList.Select(x => x.EnumCategoryId).ToList().Contains(item.Id))
+            {
+	<div class="col-md-4">
+		<div class="form-group">
+			<label class="control-label" for="size">@item.description</label>
+            <input hidden name="enumCat[5555][@{ @e }]" value="@item.Id" />
+			<select required  name="enumVal[5555][@{ @e }]" class="form-control">
+
+				<option value="">Seçim edin</option>
+
+                @foreach (var item2 in Model.EnumValueList)
+                {
+                    if (item2.enumCategory_enumCategoryId == item.Id)
+                    {
+                        if (Model.ProductCatalogControlList.Select(x => x.EnumValueId).ToList().Contains(item2.Id))
+                        {
+				<option value="@item2.Id">@item2.name</option>
+                        }
+                    }
+                }
+
+			</select>
+            <span data-valmsg-replace="true" data-valmsg-for="enumVal[5555][@{ @e }]" class="field-validation-valid text-danger"></span>
+		</div>
+	</div>
+                        e = e + 1;
+                    }
+                }*@
+
+
+
+	<div class="col-md-4">
+				<div class="form-group">
+                    <br />
+			 @Html.LabelFor(model => model.size, htmlAttributes: new { @class = "control-label" })
+                    @*@Html.TextBoxFor(model => model.size, new { @class = "form-control",type="number", Value = "" })*@
+              <input onchange="getSizeValue(this)" onkeyup="getSizeValue(this)" type="number" step="0.01" min="0.001" required name="size[5555]" id="size[5555]" placeholder="3 və ya 1.5" class="form-control size">
+                    <span data-valmsg-replace="true" data-valmsg-for="size[5555]" class="field-validation-valid text-danger"></span>
+		</div>
+
+	</div>
+	<div class="col-md-4">
+		<div class="form-group">
+             @Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label" })
+            @*@Html.TextBoxFor(model => model.price, new { @class = "form-control" })*@
+				<input type="number" step="0.01" min="0.001" required class="form-control" placeholder="4 və ya 0.3" name="price[5555]" id="price[5555]">
+            <span data-valmsg-replace="true" data-valmsg-for="price[5555]" class="field-validation-valid text-danger"></span>
+		</div>
+	</div>
+
+                }
