@@ -29,6 +29,8 @@ namespace Emsal.WebInt.EmsalSrv {
     [System.Web.Services.WebServiceBindingAttribute(Name="BasicHttpBinding_IEmsalService", Namespace="http://tempuri.org/")]
     public partial class EmsalService : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
+        private System.Threading.SendOrPostCallback WS_GetProductionCalendarDayOperationCompleted;
+        
         private System.Threading.SendOrPostCallback WS_GetProductionCalendarOclockOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetProductionCalendartransportationeVId2OperationCompleted;
@@ -42,6 +44,8 @@ namespace Emsal.WebInt.EmsalSrv {
         private System.Threading.SendOrPostCallback WS_GetProductionCalendarProductionId2OperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetProductionCalendarProductiontypeEVId2OperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetPotensialUserListOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetPotensialUserForAdminUnitIdListOperationCompleted;
         
@@ -167,7 +171,7 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private System.Threading.SendOrPostCallback WS_GetProductionCalendarBymonthseVIdOperationCompleted;
         
-        private System.Threading.SendOrPostCallback WS_GetProductionCalendarDayOperationCompleted;
+        private System.Threading.SendOrPostCallback WS_GetProductionDocumentsByGroupIdOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetProductionDocumentsByGroupIdAndPotential_Production_IdOperationCompleted;
         
@@ -295,7 +299,7 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private System.Threading.SendOrPostCallback WS_GetDemanProductionGroupListOperationCompleted;
         
-        private System.Threading.SendOrPostCallback WS_GetPotensialUserListOperationCompleted;
+        private System.Threading.SendOrPostCallback WS_GetUsersOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetUserByUserNameOperationCompleted;
         
@@ -423,8 +427,6 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private System.Threading.SendOrPostCallback WS_UpdateProductionDocumentForGroupIDOperationCompleted;
         
-        private System.Threading.SendOrPostCallback WS_GetProductionDocumentsByGroupIdOperationCompleted;
-        
         private System.Threading.SendOrPostCallback WS_UpdateCommunicationOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetCommunicationsOperationCompleted;
@@ -531,6 +533,8 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private System.Threading.SendOrPostCallback WS_GetAnnouncementDetailsOperationCompleted;
         
+        private System.Threading.SendOrPostCallback WS_GetNewAnnouncementDetailsOperationCompleted;
+        
         private System.Threading.SendOrPostCallback WS_GetAnnouncementsByYearAndPartOfYearOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_AddEmployeeOperationCompleted;
@@ -550,8 +554,6 @@ namespace Emsal.WebInt.EmsalSrv {
         private System.Threading.SendOrPostCallback WS_UpdateUserOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetUserByIdOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback WS_GetUsersOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_createDbOperationCompleted;
         
@@ -720,6 +722,9 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
+        public event WS_GetProductionCalendarDayCompletedEventHandler WS_GetProductionCalendarDayCompleted;
+        
+        /// <remarks/>
         public event WS_GetProductionCalendarOclockCompletedEventHandler WS_GetProductionCalendarOclockCompleted;
         
         /// <remarks/>
@@ -739,6 +744,9 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         public event WS_GetProductionCalendarProductiontypeEVId2CompletedEventHandler WS_GetProductionCalendarProductiontypeEVId2Completed;
+        
+        /// <remarks/>
+        public event WS_GetPotensialUserListCompletedEventHandler WS_GetPotensialUserListCompleted;
         
         /// <remarks/>
         public event WS_GetPotensialUserForAdminUnitIdListCompletedEventHandler WS_GetPotensialUserForAdminUnitIdListCompleted;
@@ -927,7 +935,7 @@ namespace Emsal.WebInt.EmsalSrv {
         public event WS_GetProductionCalendarBymonthseVIdCompletedEventHandler WS_GetProductionCalendarBymonthseVIdCompleted;
         
         /// <remarks/>
-        public event WS_GetProductionCalendarDayCompletedEventHandler WS_GetProductionCalendarDayCompleted;
+        public event WS_GetProductionDocumentsByGroupIdCompletedEventHandler WS_GetProductionDocumentsByGroupIdCompleted;
         
         /// <remarks/>
         public event WS_GetProductionDocumentsByGroupIdAndPotential_Production_IdCompletedEventHandler WS_GetProductionDocumentsByGroupIdAndPotential_Production_IdCompleted;
@@ -1119,7 +1127,7 @@ namespace Emsal.WebInt.EmsalSrv {
         public event WS_GetDemanProductionGroupListCompletedEventHandler WS_GetDemanProductionGroupListCompleted;
         
         /// <remarks/>
-        public event WS_GetPotensialUserListCompletedEventHandler WS_GetPotensialUserListCompleted;
+        public event WS_GetUsersCompletedEventHandler WS_GetUsersCompleted;
         
         /// <remarks/>
         public event WS_GetUserByUserNameCompletedEventHandler WS_GetUserByUserNameCompleted;
@@ -1311,9 +1319,6 @@ namespace Emsal.WebInt.EmsalSrv {
         public event WS_UpdateProductionDocumentForGroupIDCompletedEventHandler WS_UpdateProductionDocumentForGroupIDCompleted;
         
         /// <remarks/>
-        public event WS_GetProductionDocumentsByGroupIdCompletedEventHandler WS_GetProductionDocumentsByGroupIdCompleted;
-        
-        /// <remarks/>
         public event WS_UpdateCommunicationCompletedEventHandler WS_UpdateCommunicationCompleted;
         
         /// <remarks/>
@@ -1473,6 +1478,9 @@ namespace Emsal.WebInt.EmsalSrv {
         public event WS_GetAnnouncementDetailsCompletedEventHandler WS_GetAnnouncementDetailsCompleted;
         
         /// <remarks/>
+        public event WS_GetNewAnnouncementDetailsCompletedEventHandler WS_GetNewAnnouncementDetailsCompleted;
+        
+        /// <remarks/>
         public event WS_GetAnnouncementsByYearAndPartOfYearCompletedEventHandler WS_GetAnnouncementsByYearAndPartOfYearCompleted;
         
         /// <remarks/>
@@ -1501,9 +1509,6 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         public event WS_GetUserByIdCompletedEventHandler WS_GetUserByIdCompleted;
-        
-        /// <remarks/>
-        public event WS_GetUsersCompletedEventHandler WS_GetUsersCompleted;
         
         /// <remarks/>
         public event WS_createDbCompletedEventHandler WS_createDbCompleted;
@@ -1696,6 +1701,41 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         public event WS_DeleteCommunicationCompletedEventHandler WS_DeleteCommunicationCompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendarDay", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetProductionCalendarDay([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long day, [System.Xml.Serialization.XmlIgnoreAttribute()] bool daySpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProductionCalendar[] ProductionCalendarlList) {
+            object[] results = this.Invoke("WS_GetProductionCalendarDay", new object[] {
+                        baseinput,
+                        day,
+                        daySpecified});
+            ProductionCalendarlList = ((tblProductionCalendar[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarDayAsync(BaseInput baseinput, long day, bool daySpecified) {
+            this.WS_GetProductionCalendarDayAsync(baseinput, day, daySpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarDayAsync(BaseInput baseinput, long day, bool daySpecified, object userState) {
+            if ((this.WS_GetProductionCalendarDayOperationCompleted == null)) {
+                this.WS_GetProductionCalendarDayOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionCalendarDayOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetProductionCalendarDay", new object[] {
+                        baseinput,
+                        day,
+                        daySpecified}, this.WS_GetProductionCalendarDayOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetProductionCalendarDayOperationCompleted(object arg) {
+            if ((this.WS_GetProductionCalendarDayCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetProductionCalendarDayCompleted(this, new WS_GetProductionCalendarDayCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendarOclock", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -1941,6 +1981,37 @@ namespace Emsal.WebInt.EmsalSrv {
             if ((this.WS_GetProductionCalendarProductiontypeEVId2Completed != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.WS_GetProductionCalendarProductiontypeEVId2Completed(this, new WS_GetProductionCalendarProductiontypeEVId2CompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetPotensialUserList", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetPotensialUserList([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")] out UserInfo[] itemList) {
+            object[] results = this.Invoke("WS_GetPotensialUserList", new object[] {
+                        baseinput});
+            itemList = ((UserInfo[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetPotensialUserListAsync(BaseInput baseinput) {
+            this.WS_GetPotensialUserListAsync(baseinput, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetPotensialUserListAsync(BaseInput baseinput, object userState) {
+            if ((this.WS_GetPotensialUserListOperationCompleted == null)) {
+                this.WS_GetPotensialUserListOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetPotensialUserListOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetPotensialUserList", new object[] {
+                        baseinput}, this.WS_GetPotensialUserListOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetPotensialUserListOperationCompleted(object arg) {
+            if ((this.WS_GetPotensialUserListCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetPotensialUserListCompleted(this, new WS_GetPotensialUserListCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -4033,37 +4104,35 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendarDay", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionDocumentsByGroupId", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public BaseOutput WS_GetProductionCalendarDay([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long day, [System.Xml.Serialization.XmlIgnoreAttribute()] bool daySpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProductionCalendar[] ProductionCalendarlList) {
-            object[] results = this.Invoke("WS_GetProductionCalendarDay", new object[] {
+        public BaseOutput WS_GetProductionDocumentsByGroupId([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string GroupID, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProduction_Document[] itemList) {
+            object[] results = this.Invoke("WS_GetProductionDocumentsByGroupId", new object[] {
                         baseinput,
-                        day,
-                        daySpecified});
-            ProductionCalendarlList = ((tblProductionCalendar[])(results[1]));
+                        GroupID});
+            itemList = ((tblProduction_Document[])(results[1]));
             return ((BaseOutput)(results[0]));
         }
         
         /// <remarks/>
-        public void WS_GetProductionCalendarDayAsync(BaseInput baseinput, long day, bool daySpecified) {
-            this.WS_GetProductionCalendarDayAsync(baseinput, day, daySpecified, null);
+        public void WS_GetProductionDocumentsByGroupIdAsync(BaseInput baseinput, string GroupID) {
+            this.WS_GetProductionDocumentsByGroupIdAsync(baseinput, GroupID, null);
         }
         
         /// <remarks/>
-        public void WS_GetProductionCalendarDayAsync(BaseInput baseinput, long day, bool daySpecified, object userState) {
-            if ((this.WS_GetProductionCalendarDayOperationCompleted == null)) {
-                this.WS_GetProductionCalendarDayOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionCalendarDayOperationCompleted);
+        public void WS_GetProductionDocumentsByGroupIdAsync(BaseInput baseinput, string GroupID, object userState) {
+            if ((this.WS_GetProductionDocumentsByGroupIdOperationCompleted == null)) {
+                this.WS_GetProductionDocumentsByGroupIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionDocumentsByGroupIdOperationCompleted);
             }
-            this.InvokeAsync("WS_GetProductionCalendarDay", new object[] {
+            this.InvokeAsync("WS_GetProductionDocumentsByGroupId", new object[] {
                         baseinput,
-                        day,
-                        daySpecified}, this.WS_GetProductionCalendarDayOperationCompleted, userState);
+                        GroupID}, this.WS_GetProductionDocumentsByGroupIdOperationCompleted, userState);
         }
         
-        private void OnWS_GetProductionCalendarDayOperationCompleted(object arg) {
-            if ((this.WS_GetProductionCalendarDayCompleted != null)) {
+        private void OnWS_GetProductionDocumentsByGroupIdOperationCompleted(object arg) {
+            if ((this.WS_GetProductionDocumentsByGroupIdCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.WS_GetProductionCalendarDayCompleted(this, new WS_GetProductionCalendarDayCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.WS_GetProductionDocumentsByGroupIdCompleted(this, new WS_GetProductionDocumentsByGroupIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -6225,33 +6294,33 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetPotensialUserList", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetUsers", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public BaseOutput WS_GetPotensialUserList([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")] out UserInfo[] itemList) {
-            object[] results = this.Invoke("WS_GetPotensialUserList", new object[] {
+        public BaseOutput WS_GetUsers([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblUser[] itemList) {
+            object[] results = this.Invoke("WS_GetUsers", new object[] {
                         baseinput});
-            itemList = ((UserInfo[])(results[1]));
+            itemList = ((tblUser[])(results[1]));
             return ((BaseOutput)(results[0]));
         }
         
         /// <remarks/>
-        public void WS_GetPotensialUserListAsync(BaseInput baseinput) {
-            this.WS_GetPotensialUserListAsync(baseinput, null);
+        public void WS_GetUsersAsync(BaseInput baseinput) {
+            this.WS_GetUsersAsync(baseinput, null);
         }
         
         /// <remarks/>
-        public void WS_GetPotensialUserListAsync(BaseInput baseinput, object userState) {
-            if ((this.WS_GetPotensialUserListOperationCompleted == null)) {
-                this.WS_GetPotensialUserListOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetPotensialUserListOperationCompleted);
+        public void WS_GetUsersAsync(BaseInput baseinput, object userState) {
+            if ((this.WS_GetUsersOperationCompleted == null)) {
+                this.WS_GetUsersOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetUsersOperationCompleted);
             }
-            this.InvokeAsync("WS_GetPotensialUserList", new object[] {
-                        baseinput}, this.WS_GetPotensialUserListOperationCompleted, userState);
+            this.InvokeAsync("WS_GetUsers", new object[] {
+                        baseinput}, this.WS_GetUsersOperationCompleted, userState);
         }
         
-        private void OnWS_GetPotensialUserListOperationCompleted(object arg) {
-            if ((this.WS_GetPotensialUserListCompleted != null)) {
+        private void OnWS_GetUsersOperationCompleted(object arg) {
+            if ((this.WS_GetUsersCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.WS_GetPotensialUserListCompleted(this, new WS_GetPotensialUserListCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.WS_GetUsersCompleted(this, new WS_GetUsersCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -8354,39 +8423,6 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionDocumentsByGroupId", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public BaseOutput WS_GetProductionDocumentsByGroupId([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string GroupID, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProduction_Document[] itemList) {
-            object[] results = this.Invoke("WS_GetProductionDocumentsByGroupId", new object[] {
-                        baseinput,
-                        GroupID});
-            itemList = ((tblProduction_Document[])(results[1]));
-            return ((BaseOutput)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void WS_GetProductionDocumentsByGroupIdAsync(BaseInput baseinput, string GroupID) {
-            this.WS_GetProductionDocumentsByGroupIdAsync(baseinput, GroupID, null);
-        }
-        
-        /// <remarks/>
-        public void WS_GetProductionDocumentsByGroupIdAsync(BaseInput baseinput, string GroupID, object userState) {
-            if ((this.WS_GetProductionDocumentsByGroupIdOperationCompleted == null)) {
-                this.WS_GetProductionDocumentsByGroupIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionDocumentsByGroupIdOperationCompleted);
-            }
-            this.InvokeAsync("WS_GetProductionDocumentsByGroupId", new object[] {
-                        baseinput,
-                        GroupID}, this.WS_GetProductionDocumentsByGroupIdOperationCompleted, userState);
-        }
-        
-        private void OnWS_GetProductionDocumentsByGroupIdOperationCompleted(object arg) {
-            if ((this.WS_GetProductionDocumentsByGroupIdCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.WS_GetProductionDocumentsByGroupIdCompleted(this, new WS_GetProductionDocumentsByGroupIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_UpdateCommunication", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public BaseOutput WS_UpdateCommunication([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblCommunication inputItem, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblCommunication updatedItem) {
@@ -10178,6 +10214,37 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetNewAnnouncementDetails", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetNewAnnouncementDetails([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")] out AnnouncementDetail[] itemlist) {
+            object[] results = this.Invoke("WS_GetNewAnnouncementDetails", new object[] {
+                        baseinput});
+            itemlist = ((AnnouncementDetail[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetNewAnnouncementDetailsAsync(BaseInput baseinput) {
+            this.WS_GetNewAnnouncementDetailsAsync(baseinput, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetNewAnnouncementDetailsAsync(BaseInput baseinput, object userState) {
+            if ((this.WS_GetNewAnnouncementDetailsOperationCompleted == null)) {
+                this.WS_GetNewAnnouncementDetailsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetNewAnnouncementDetailsOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetNewAnnouncementDetails", new object[] {
+                        baseinput}, this.WS_GetNewAnnouncementDetailsOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetNewAnnouncementDetailsOperationCompleted(object arg) {
+            if ((this.WS_GetNewAnnouncementDetailsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetNewAnnouncementDetailsCompleted(this, new WS_GetNewAnnouncementDetailsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetAnnouncementsByYearAndPartOfYear", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public BaseOutput WS_GetAnnouncementsByYearAndPartOfYear([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string year, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string month, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblAnnouncement[] itemList) {
@@ -10506,37 +10573,6 @@ namespace Emsal.WebInt.EmsalSrv {
             if ((this.WS_GetUserByIdCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.WS_GetUserByIdCompleted(this, new WS_GetUserByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetUsers", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public BaseOutput WS_GetUsers([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblUser[] itemList) {
-            object[] results = this.Invoke("WS_GetUsers", new object[] {
-                        baseinput});
-            itemList = ((tblUser[])(results[1]));
-            return ((BaseOutput)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void WS_GetUsersAsync(BaseInput baseinput) {
-            this.WS_GetUsersAsync(baseinput, null);
-        }
-        
-        /// <remarks/>
-        public void WS_GetUsersAsync(BaseInput baseinput, object userState) {
-            if ((this.WS_GetUsersOperationCompleted == null)) {
-                this.WS_GetUsersOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetUsersOperationCompleted);
-            }
-            this.InvokeAsync("WS_GetUsers", new object[] {
-                        baseinput}, this.WS_GetUsersOperationCompleted, userState);
-        }
-        
-        private void OnWS_GetUsersOperationCompleted(object arg) {
-            if ((this.WS_GetUsersCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.WS_GetUsersCompleted(this, new WS_GetUsersCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -25484,6 +25520,40 @@ namespace Emsal.WebInt.EmsalSrv {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetProductionCalendarDayCompletedEventHandler(object sender, WS_GetProductionCalendarDayCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetProductionCalendarDayCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetProductionCalendarDayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblProductionCalendar[] ProductionCalendarlList {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblProductionCalendar[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
     public delegate void WS_GetProductionCalendarOclockCompletedEventHandler(object sender, WS_GetProductionCalendarOclockCompletedEventArgs e);
     
     /// <remarks/>
@@ -25716,6 +25786,40 @@ namespace Emsal.WebInt.EmsalSrv {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((tblProductionCalendar[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetPotensialUserListCompletedEventHandler(object sender, WS_GetPotensialUserListCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetPotensialUserListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetPotensialUserListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public UserInfo[] itemList {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((UserInfo[])(this.results[1]));
             }
         }
     }
@@ -27742,17 +27846,17 @@ namespace Emsal.WebInt.EmsalSrv {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    public delegate void WS_GetProductionCalendarDayCompletedEventHandler(object sender, WS_GetProductionCalendarDayCompletedEventArgs e);
+    public delegate void WS_GetProductionDocumentsByGroupIdCompletedEventHandler(object sender, WS_GetProductionDocumentsByGroupIdCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class WS_GetProductionCalendarDayCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class WS_GetProductionDocumentsByGroupIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal WS_GetProductionCalendarDayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal WS_GetProductionDocumentsByGroupIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -27766,10 +27870,10 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
-        public tblProductionCalendar[] ProductionCalendarlList {
+        public tblProduction_Document[] itemList {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((tblProductionCalendar[])(this.results[1]));
+                return ((tblProduction_Document[])(this.results[1]));
             }
         }
     }
@@ -29902,17 +30006,17 @@ namespace Emsal.WebInt.EmsalSrv {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    public delegate void WS_GetPotensialUserListCompletedEventHandler(object sender, WS_GetPotensialUserListCompletedEventArgs e);
+    public delegate void WS_GetUsersCompletedEventHandler(object sender, WS_GetUsersCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class WS_GetPotensialUserListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class WS_GetUsersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal WS_GetPotensialUserListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal WS_GetUsersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -29926,10 +30030,10 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
-        public UserInfo[] itemList {
+        public tblUser[] itemList {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((UserInfo[])(this.results[1]));
+                return ((tblUser[])(this.results[1]));
             }
         }
     }
@@ -31998,40 +32102,6 @@ namespace Emsal.WebInt.EmsalSrv {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    public delegate void WS_GetProductionDocumentsByGroupIdCompletedEventHandler(object sender, WS_GetProductionDocumentsByGroupIdCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class WS_GetProductionDocumentsByGroupIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal WS_GetProductionDocumentsByGroupIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public BaseOutput Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((BaseOutput)(this.results[0]));
-            }
-        }
-        
-        /// <remarks/>
-        public tblProduction_Document[] itemList {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((tblProduction_Document[])(this.results[1]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
     public delegate void WS_UpdateCommunicationCompletedEventHandler(object sender, WS_UpdateCommunicationCompletedEventArgs e);
     
     /// <remarks/>
@@ -33802,6 +33872,40 @@ namespace Emsal.WebInt.EmsalSrv {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetNewAnnouncementDetailsCompletedEventHandler(object sender, WS_GetNewAnnouncementDetailsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetNewAnnouncementDetailsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetNewAnnouncementDetailsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public AnnouncementDetail[] itemlist {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((AnnouncementDetail[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
     public delegate void WS_GetAnnouncementsByYearAndPartOfYearCompletedEventHandler(object sender, WS_GetAnnouncementsByYearAndPartOfYearCompletedEventArgs e);
     
     /// <remarks/>
@@ -34120,40 +34224,6 @@ namespace Emsal.WebInt.EmsalSrv {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((tblUser)(this.results[1]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    public delegate void WS_GetUsersCompletedEventHandler(object sender, WS_GetUsersCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class WS_GetUsersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal WS_GetUsersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public BaseOutput Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((BaseOutput)(this.results[0]));
-            }
-        }
-        
-        /// <remarks/>
-        public tblUser[] itemList {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((tblUser[])(this.results[1]));
             }
         }
     }

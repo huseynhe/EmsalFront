@@ -46,11 +46,21 @@ namespace Emsal.AdminUI.Models
         public IList<tblPRM_AdminUnit> PRMAdminUnitList { get; set; }
         public tblPRM_AdminUnit[] PRMAdminUnitArray;
 
+
+        public tblForeign_Organization ForeignOrganization;
+        public IList<tblForeign_Organization> ForeignOrganizationList { get; set; }
+        public IList<tblForeign_Organization> ForeignOrganizationListFA { get; set; }
+        public IList<tblForeign_Organization>[] ForeignOrganizationArrayFA { get; set; }
+        public tblForeign_Organization[] ForeignOrganizationArray;
+
+
         public PotentialClientDetail PotentialClientDetail;
         public IList<PotentialClientDetail> PotentialClientDetailList { get; set; }
         public PotentialClientDetail[] PotentialClientDetailArray;
 
         public string fullAddress { get; set; }
+
+        public string fullFO { get; set; }
 
 
         public long[] demands { get; set; }

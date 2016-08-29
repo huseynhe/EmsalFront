@@ -20,7 +20,7 @@
                 @foreach (var item in Model.AnnouncementDetailList)
                 {
                     <a href="/Home/AnnouncementDetail/@item.announcement.Id" class="list-group-item">
-                        <div class="col-sm-7">@item.announcement.product_name 
+                        <div class="col-sm-7">@item.announcement.product_name (@item.parentName)
                         
                         @if (DatetimeExtension.toShortDate(item.announcement.startDate).ToShortDateString() != "01.01.0001" && DatetimeExtension.toShortDate(item.announcement.endDate).ToShortDateString() != "01.01.0001")
                         {

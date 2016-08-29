@@ -23,10 +23,10 @@ function GetAdminUnit(elem) {
     pId = $(elem).val();
     $(elem).parent().nextAll().remove();
 
+        var valu = 0;
     if (pId == '') {
         var name = $(elem).attr('name');
         var i = name.substring(5, name.length - 1);
-        var valu = 0;
         var val = 0;
 
         for (var d = 0; d < i; d++) {
@@ -37,7 +37,8 @@ function GetAdminUnit(elem) {
             }
         }
 
-        $('#addressId').val(valu);
+        //$('#addressId').val(valu);
+        pId = valu;
     }
 
     if (pId > 0) {
@@ -48,6 +49,10 @@ function GetAdminUnit(elem) {
             success: function (result) {
                 $('#addressId').val(pId);
                 $(elem).parent().parent().append(result);
+
+                if (valu > 0) {
+                    $(elem).parent().remove();
+                }
 
                 $('.select2').select2();
             },
@@ -62,10 +67,10 @@ function GetAdminUnitFU(elem) {
     pId = $(elem).val();
     $(elem).parent().nextAll().remove();
 
+        var valu = 0;
     if (pId == '') {
         var name = $(elem).attr('name');
         var i = name.substring(7, name.length - 1);
-        var valu = 0;
         var val = 0;
 
         for (var d = 0; d < i; d++) {
@@ -76,7 +81,8 @@ function GetAdminUnitFU(elem) {
             }
         }
 
-        $('#addressIdFU').val(valu);
+        //$('#addressIdFU').val(valu);
+        pId = valu;
     }
 
     if (pId > 0) {
@@ -87,6 +93,10 @@ function GetAdminUnitFU(elem) {
             success: function (result) {
                 $('#addressIdFU').val(pId);
                 $(elem).parent().parent().append(result);
+
+                if (valu > 0) {
+                    $(elem).parent().remove();
+                }
 
                 $('.select2').select2();
             },

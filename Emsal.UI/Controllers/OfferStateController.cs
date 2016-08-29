@@ -76,7 +76,6 @@ namespace Emsal.UI.Controllers
 
             BaseOutput gpp = srv.WS_GetOfferProductionDetailistForStateEVId(baseInput, (long)UserId, true, modelOfferState.EnumValue.Id, true, out modelOfferState.ProductionDetailArray);
 
-            //modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailArray.Where(x => x.enumCategoryId == modelOfferState.EnumCategory.Id).ToList();
             modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailArray.ToList();
 
             if (sproductName != null)

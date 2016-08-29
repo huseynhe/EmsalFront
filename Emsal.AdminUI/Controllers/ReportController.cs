@@ -64,7 +64,16 @@ namespace Emsal.AdminUI.Controllers
 
 
             BaseOutput dor = srv.WS_GetDemandOfferDetailID(baseInput, auid, true, out modelReport.DemandOfferDetailArray);
-            modelReport.DemandOfferDetailList = modelReport.DemandOfferDetailArray.ToList();
+
+            if (modelReport.DemandOfferDetailArray != null)
+            {
+                modelReport.DemandOfferDetailList = modelReport.DemandOfferDetailArray.ToList();
+            }
+            else
+            {
+                modelReport.DemandOfferDetailList = new List<DemandOfferDetail>();
+            }
+            
 
             int i = 0;
             string oldPr = "";
@@ -78,7 +87,7 @@ namespace Emsal.AdminUI.Controllers
             {
                 if (oldPr != item.productName)
                 {
-                    modelReport.products[i] = item.productName;
+                    modelReport.products[i] = item.productName+item.productParentName;
                     var ss = modelReport.DemandOfferDetailList.Where(x => x.productName == item.productName).ToList();
 
                     foreach (var itm in ss)
@@ -133,7 +142,31 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
+        public ActionResult ForeignOrganization(int pId = 0)
+        {
+            baseInput = new BaseInput();
 
+            modelReport = new ReportViewModel();
+
+
+            BaseOutput gfolid = srv.WS_GetForeign_OrganizationsListForID(baseInput, pId, true, out modelReport.ForeignOrganizationArray);
+            modelReport.ForeignOrganizationList = modelReport.ForeignOrganizationArray.ToList();
+            modelReport.fullFO = string.Join(",", modelReport.ForeignOrganizationList.Select(x => x.name));
+
+
+            BaseOutput bouput = srv.WS_GetForeign_OrganisationsByParentId(baseInput, pId, true, out modelReport.ForeignOrganizationArray);
+            modelReport.ForeignOrganizationList = modelReport.ForeignOrganizationArray.ToList();
+
+
+            if (modelReport.ForeignOrganizationList.Count() == 0)
+            {
+                return new EmptyResult();
+            }
+            else
+            {
+                return View(modelReport);
+            }
+        }
 
         public ActionResult DemandOfferProduct(int prodId = 0)
         {
@@ -396,14 +429,22 @@ namespace Emsal.AdminUI.Controllers
 
 
             BaseOutput dor = srv.WS_GetOfferDetailByAmdminID(baseInput, auid, true, out modelReport.DemandOfferDetailArray);
-            modelReport.DemandOfferDetailList = modelReport.DemandOfferDetailArray.ToList();
+
+            if(modelReport.DemandOfferDetailArray!=null)
+            {               
+                modelReport.DemandOfferDetailList = modelReport.DemandOfferDetailArray.ToList();
+            }
+            else
+            {
+                modelReport.DemandOfferDetailList = new List<DemandOfferDetail>();
+            }
 
             modelReport.ReportDonutList = new  List<ReportDonut>();
 
            foreach(var item in modelReport.DemandOfferDetailList)
             {
                 modelReport.ReportDonut = new ReportDonut();
-                modelReport.ReportDonut.label = item.productName;
+                modelReport.ReportDonut.label = item.productName+item.productParentName;
                 modelReport.ReportDonut.value = item.count;
 
                 modelReport.ReportDonutList.Add(modelReport.ReportDonut);
@@ -434,14 +475,22 @@ namespace Emsal.AdminUI.Controllers
 
 
             BaseOutput dor = srv.WS_GetOfferDetailByAmdminID(baseInput, auid, true, out modelReport.DemandOfferDetailArray);
-            modelReport.DemandOfferDetailList = modelReport.DemandOfferDetailArray.ToList();
+            if (modelReport.DemandOfferDetailArray != null)
+            {
+                modelReport.DemandOfferDetailList = modelReport.DemandOfferDetailArray.ToList();
+            }
+            else
+            {
+                modelReport.DemandOfferDetailList=new List<DemandOfferDetail>();
+            }
+            
 
             modelReport.ReportDonutList = new List<ReportDonut>();
 
             foreach (var item in modelReport.DemandOfferDetailList)
             {
                 modelReport.ReportDonut = new ReportDonut();
-                modelReport.ReportDonut.label = item.productName;
+                modelReport.ReportDonut.label = item.productName+item.productParentName;
                 modelReport.ReportDonut.value = item.count;
 
                 modelReport.ReportDonutList.Add(modelReport.ReportDonut);
@@ -484,7 +533,7 @@ namespace Emsal.AdminUI.Controllers
             foreach (var item in modelReport.DemandOfferDetailList)
             {
                 modelReport.ReportDonut = new ReportDonut();
-                modelReport.ReportDonut.label = item.productName;
+                modelReport.ReportDonut.label = item.productName+item.productParentName;
                 modelReport.ReportDonut.value = item.count;
 
                 modelReport.ReportDonutList.Add(modelReport.ReportDonut);
