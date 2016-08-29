@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using PagedList;
 using Emsal.UI.Infrastructure;
+using Emsal.Utility.CustomObjects;
 
 namespace Emsal.UI.Controllers
 {
@@ -27,6 +28,14 @@ namespace Emsal.UI.Controllers
 
         public ActionResult Index(int? page, string monitoringStatusEV = null, string productName = null, string userInfo = null)
         {
+
+            if (monitoringStatusEV != null)
+                monitoringStatusEV = StripTag.strSqlBlocker(monitoringStatusEV.ToLower());
+            if (productName != null)
+                productName = StripTag.strSqlBlocker(productName.ToLower());
+            if (userInfo != null)
+                userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
+
             int pageSize = 10;
             int pageNumber = (page ?? 1);
 
@@ -70,28 +79,28 @@ namespace Emsal.UI.Controllers
 
             if (sproductName != null)
             {
-                modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.productName.Contains(sproductName)).ToList();
+                modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.productName.ToLowerInvariant().Contains(sproductName)).ToList();
             }
 
             if (suserInfo != null)
             {
-                if (modelOfferMonitoring.ProductionDetailList.Where(x => x.person.Name.Contains(suserInfo)).ToList().Count() > 0)
+                if (modelOfferMonitoring.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
                 {
-                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.person.Name.Contains(suserInfo)).ToList();
+                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList();
                 }
 
-                if (modelOfferMonitoring.ProductionDetailList.Where(x => x.person.Surname.Contains(suserInfo)).ToList().Count() > 0)
+                if (modelOfferMonitoring.ProductionDetailList.Where(x => x.person.Surname.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
                 {
-                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.person.Surname.Contains(suserInfo)).ToList();
+                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.person.Surname.ToLowerInvariant().Contains(suserInfo)).ToList();
                 }
 
-                if (modelOfferMonitoring.ProductionDetailList.Where(x => x.person.FatherName.Contains(suserInfo)).ToList().Count() > 0)
+                if (modelOfferMonitoring.ProductionDetailList.Where(x => x.person.FatherName.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
                 {
-                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.person.FatherName.Contains(suserInfo)).ToList();
+                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.person.FatherName.ToLowerInvariant().Contains(suserInfo)).ToList();
                 }
                 else
                 {
-                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.person.Name.Contains(suserInfo)).ToList();
+                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList();
                 }
             }
 

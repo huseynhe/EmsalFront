@@ -68,17 +68,23 @@ namespace Emsal.UI.Controllers
 
             BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId(baseInput, (long)modelProductCatalog.EnumValue.Id, true, out modelProductCatalog.ProductionDetailArray);
 
-            if (productId > 0)
+            if (modelProductCatalog.ProductionDetailArray != null)
             {
-                modelProductCatalog.noPaged = 1;
+                if (productId > 0)
+                {
+                    modelProductCatalog.noPaged = 1;
 
-                modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.Where(x => x.productId == productId).ToList();
+                    modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.Where(x => x.productId == productId).ToList();
+                }
+                else
+                {
+                    modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.ToList();
+                }
             }
             else
             {
-                modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.ToList();
+                modelProductCatalog.ProductionDetailList = new List<ProductionDetail>();
             }
-
             modelProductCatalog.PagingProduction = modelProductCatalog.ProductionDetailList.ToPagedList(pageNumber, pageSize);
 
             return Request.IsAjaxRequest()
@@ -99,13 +105,22 @@ namespace Emsal.UI.Controllers
             BaseOutput bouput = srv.WS_GetProductCatalogsByParentId(baseInput,pId,true, out modelProductCatalog.ProductCatalogArray);
             modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogArray.OrderBy(x => x.ProductName).ToList();
 
+            modelProductCatalog.ProductionDetailList = new List<ProductionDetail>();
+
             modelProductCatalog.ProductCatalogListPC = new List<tblProductCatalog>();
             foreach (tblProductCatalog itm in modelProductCatalog.ProductCatalogList)
             {
                 BaseOutput gpcbpid = srv.WS_GetProductCatalogsByParentId(baseInput, (int)itm.Id, true, out modelProductCatalog.ProductCatalogArrayPC);
 
                 BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId(baseInput, (long)modelProductCatalog.EnumValue.Id, true, out modelProductCatalog.ProductionDetailArray);
-                modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.Where(x => x.productId == itm.Id).ToList();
+                if (modelProductCatalog.ProductionDetailArray!=null) {
+                    modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.Where(x => x.productId == itm.Id).ToList();
+                }
+            else
+            {
+                modelProductCatalog.ProductionDetailList = new List<ProductionDetail>();
+            }
+      
                 itm.ProductDescription = modelProductCatalog.ProductionDetailList.Count().ToString();
 
                 if (modelProductCatalog.ProductCatalogArrayPC.ToList().Count == 0)

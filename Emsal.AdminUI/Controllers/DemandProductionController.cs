@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using PagedList;
 using System.Web.Security;
 using Emsal.AdminUI.Infrastructure;
+using Emsal.Utility.CustomObjects;
 
 namespace Emsal.AdminUI.Controllers
 {
@@ -29,6 +30,15 @@ namespace Emsal.AdminUI.Controllers
 
         public ActionResult Index(int? page, string statusEV = null, string productName = null, string userInfo = null, string adminUnit=null)
         {
+            if (statusEV != null)
+                statusEV = StripTag.strSqlBlocker(statusEV.ToLower());
+            if (productName != null)
+                productName = StripTag.strSqlBlocker(productName.ToLower());
+            if (userInfo != null)
+                userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
+            if (adminUnit != null)
+                adminUnit = StripTag.strSqlBlocker(adminUnit.ToLower());
+
             int pageSize = 20;
             int pageNumber = (page ?? 1);
 
@@ -74,33 +84,33 @@ namespace Emsal.AdminUI.Controllers
 
             if (sproductName != null)
             {
-                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.productName.Contains(sproductName)).ToList();
+                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.productName.ToLowerInvariant().Contains(sproductName)).ToList();
             }
 
             if (sadminUnit != null)
             {
-                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.foreignOrganization.name.Contains(sadminUnit)).ToList();
+                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.foreignOrganization.name.ToLowerInvariant().Contains(sadminUnit)).ToList();
             }
 
             if (suserInfo != null)
             {
-                if (modelDemandProduction.ProductionDetailList.Where(x => x.person.Name.Contains(suserInfo)).ToList().Count() > 0)
+                if (modelDemandProduction.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
                 {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.Name.Contains(suserInfo)).ToList();
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList();
                 }
 
-                if (modelDemandProduction.ProductionDetailList.Where(x => x.person.Surname.Contains(suserInfo)).ToList().Count() > 0)
+                if (modelDemandProduction.ProductionDetailList.Where(x => x.person.Surname.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
                 {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.Surname.Contains(suserInfo)).ToList();
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.Surname.ToLowerInvariant().Contains(suserInfo)).ToList();
                 }
 
-                if (modelDemandProduction.ProductionDetailList.Where(x => x.person.FatherName.Contains(suserInfo)).ToList().Count() > 0)
+                if (modelDemandProduction.ProductionDetailList.Where(x => x.person.FatherName.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
                 {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.FatherName.Contains(suserInfo)).ToList();
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.FatherName.ToLowerInvariant().Contains(suserInfo)).ToList();
                 }
                 else
                 {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.Name.Contains(suserInfo)).ToList();
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList();
                 }
             }
 

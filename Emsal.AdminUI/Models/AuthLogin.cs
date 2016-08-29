@@ -5,7 +5,7 @@ namespace Emsal.AdminUI.Models
     public class AuthLogin
     {
         [Required(ErrorMessage = "İstifadəçi adı daxil edilməmişdir")]
-        [Display(Name = "İstifadəçi Adı")]
+        [Display(Name = "İstifadəçi adı")]
         public string Username { get; set; }
 
         [Required(ErrorMessage = "Şifrə daxil edilməmişdir")]
