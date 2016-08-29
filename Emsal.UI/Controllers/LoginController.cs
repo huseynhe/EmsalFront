@@ -203,6 +203,7 @@ namespace Emsal.UI.Controllers
         {
             FormsAuthentication.SignOut();
             TempData.Clear();
+            Session["musername"] = null;
             return RedirectToAction("Index");
         }
     }
