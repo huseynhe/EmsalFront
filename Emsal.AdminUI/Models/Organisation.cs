@@ -53,8 +53,8 @@ namespace Emsal.AdminUI.Models
 
         public string UserRoleTypeSeller { get; set; }
 
-        [Required(ErrorMessage = "Email daxil edilməmişdir")]
-        [Display(Name = "Email")]
+        [Required(ErrorMessage = "Elektron poçt daxil edilməmişdir")]
+        [Display(Name = "Elektron poçt")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Təşkilat adı daxil edilməmişdir")]
@@ -115,6 +115,8 @@ namespace Emsal.AdminUI.Models
         public List<tblEnumValue> EducationList { get; set; }
         public List<tblEnumValue> JobList { get; set; }
         public List<tblEnumValue> MobilePhonePrefixList { get; set; }
+
+        public List<tblEnumValue> WorkPhonePrefixList { get; set; }
 
         public long UserRoleId { get; set; }
         public long Status { get; set; }
@@ -235,7 +237,7 @@ namespace Emsal.AdminUI.Models
         [Required(ErrorMessage = "Məsul Şəxsin iş telefonu daxil edilməmişdir")]
         [Display(Name = "Məsul Şəxsin iş telefonu")]
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefon nömrəsi 10 rəqəmdən ibarət olmalıdır və tərkibində hərf olmamaldır")]
+        [RegularExpression(@"^([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefon nömrəsi 7 rəqəmdən ibarət olmalıdır və tərkibində hərf olmamaldır")]
         public string ManagerWorkPhone { get; set; }
 
         [DataType(DataType.PhoneNumber)]
@@ -289,7 +291,7 @@ namespace Emsal.AdminUI.Models
 
         public string mobilePhonePrefix { get; set; }
 
-
+        public string WorkPhonePrefix { get; set; }
         public List<string> NullCommunicationsList { get; set;}
     }
 }

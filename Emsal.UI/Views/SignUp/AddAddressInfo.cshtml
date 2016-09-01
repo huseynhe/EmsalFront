@@ -12,33 +12,13 @@
     {
         @Html.HiddenFor(model => model.finvoenType)
         @Html.HiddenFor(model => model.finvoen)
+        @Html.HiddenFor(model => model.UserName)
+        @Html.HiddenFor(model => model.Pin)
+        @Html.HiddenFor(model => model.Voen)
+        @Html.HiddenFor(model => model.Password)
+        @Html.HiddenFor(model => model.Email)
+        @Html.HiddenFor(model => model.FutureUserRole)
 
-
-        <div class="form-group" style="display:none">
-            @Html.LabelFor(x => x.UserName)
-            @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", id = "username" })
-        </div>
-        <div class="form-group" style="padding:5px; display:none;">
-            @Html.LabelFor(x => x.Pin)
-            @Html.TextBoxFor(x => x.Pin, new { @class = "form-control", id = "pin" })
-        </div>
-        <div class="form-group" style="padding:5px; display:none;">
-            @Html.LabelFor(x => x.Voen)
-            @Html.TextBoxFor(x => x.Voen, new { @class = "form-control", id = "voen" })
-        </div>
-        <div class="form-group" style="display:none">
-            @Html.LabelFor(x => x.Password)
-            @Html.TextBoxFor(x => x.Password, new { @class = "form-control", id = "password", autocomplete = "off" })
-        </div>
-        <div class="form-group" style="display:none">
-            @Html.LabelFor(x => x.Email)
-            @Html.TextBoxFor(x => x.Email, new { @class = "form-control", id = "email", autocomplete = "off" })
-        </div>
-        <div class="form-group" style="display:none">
-            @Html.LabelFor(x => x.FutureUserRole)
-            @Html.TextBoxFor(x => x.FutureUserRole, new { @class = "form-control", id = "futureUserRole", autocomplete = "off" })
-        </div>
-        
 
             <div class="form-group" id="signUpAdminUnit">
                 <script>
@@ -60,11 +40,6 @@
                 @*@Html.Action("AdminUnit", "OfferProduction", new { pId = 0 })*@
             </div>
             <div class="clearfix"></div><div class="clearfix"></div>
-            @*<div class="form-group" style="margin-left:12px; margin-right:5px">
-                <label>Küçə</label>
-                <select class="form-control" id="throughfare" name="Throughfare"></select>
-            </div>
-            <p class="text-danger" id="throughfareAlert"></p><br />*@
 
             <div class="col-md-6 col-md-offset-4" style="margin-bottom:20px; padding:5px">
                 <input type="submit" class="btn btn-success" value="Davam Et" id="sendInfo" />

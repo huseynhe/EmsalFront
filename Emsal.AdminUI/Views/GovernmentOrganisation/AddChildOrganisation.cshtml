@@ -130,30 +130,36 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group" style="padding:5px; font-size:10px">
                             @Html.LabelFor(x => x.ManagerEmail, new { @class = "control-label required" })
                             @Html.TextBoxFor(x => x.ManagerEmail, new { @class = "form-control", type = "email" })
                             @Html.ValidationMessageFor(x => x.ManagerEmail, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group" style="padding:5px">
-                            @Html.LabelFor(x => x.ManagerHomePhone, new { @class = "control-label" })
-                            @Html.TextBoxFor(x => x.ManagerHomePhone, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(x => x.ManagerHomePhone, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                  </div>
+                </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group" style="padding:5px">
+                    <div class="col-md-12">
+                        <div class="form-group">
                             @Html.LabelFor(x => x.ManagerWorkPhone, new { @class = "control-label required" })
-                            @Html.TextBoxFor(x => x.ManagerWorkPhone, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(x => x.ManagerWorkPhone, "", new { @class = "text-danger" })
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <select class="form-control" name="workPhonePrefix">
+                                        <option value="">Seçim edin</option>
+                                        @foreach (var item in Model.WorkPhonePrefixList)
+                                        {
+                                            <option value="@item.name">@item.description (@item.name)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ManagerWorkPhone, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.ManagerWorkPhone, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
                             @Html.LabelFor(x => x.ManagerMobilePhone, new { @class = "control-label" })
                             <div class="row">
@@ -167,7 +173,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-8">
-                                    @Html.TextBoxFor(x => x.ManagerMobilePhone, new { @class = "form-control numbersOnly" })
+                                    @Html.TextBoxFor(x => x.ManagerMobilePhone, new { @class = "form-control" })
                                 </div>
                             </div>
 
@@ -175,14 +181,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group" style="padding:5px">
                             <label class="labelEdit required">Doğum Tarixi</label>
                             @Html.TextBoxFor(x => x.Birthday, new { @class = "form-control datepicker" })
                             @Html.ValidationMessageFor(x => x.Birthday, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group" style="padding:5px">
                             <label class="required">Cinsi</label>
                             <select class="form-control" id="Gender" name="Gender">
@@ -193,7 +199,7 @@
                             <span id="GenderAlert" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group" style="padding:5px">
                             <label>Təhsili</label>
                             <select class="form-control" id="education" name="Education">
@@ -213,7 +219,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    @*<div class="col-md-3">
                         <div class="form-group" style="padding:5px">
                             <label>Vəzifəsi</label>
                             <select class="form-control" id="Job" name="Job">
@@ -232,7 +238,7 @@
                                 }
                             </select>
                         </div>
-                    </div>
+                    </div>*@
 
                 </div>
             </div>

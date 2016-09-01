@@ -3,96 +3,231 @@
     ViewBag.Title = "AddASCUser";
     Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
 }
-<div class="container" style="box-shadow:1px 1px 2px 3px #ddd;">
-    @{
-        if (TempData["CustomError"] != null)
-        {
-            <h4 style="color:red">Bu email və ya istifadəçi adıyla sistemdə istifadəçi mövcuddur.</h4>
-        }
-    }
-</div>
+<div class="clearfix" style="height:50px;"></div>
 <div class="container">
-    <div class="container col-md-6 col-md-offset-3" style="border-radius: 5px; margin-top: 30px; margin-bottom:30px; box-shadow:1px 1px 2px 3px #ddd; background-color:white">
-        <br />
-       
+    <div class="col-md-10 col-md-offset-1" style="box-shadow:1px 1px 2px 3px #00ff90;">
 
         <h2 style="text-align:center">İstifadəçi əlavə et</h2>
-        <br /><br /><br />
+        <br />
         @using (Html.BeginForm("AddBRANCHUser", "GovernmentOrganisation", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
-            @Html.HiddenFor(x=>x.userType)
-            <input  type="hidden" value="@Model.userType" id="branchType" />
-            <div class="form-group">
-                @Html.LabelFor(x => x.UserName)
-                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", id = "username" })
-                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-            </div>
-            <p class="text-danger" id="usernameAlert"></p><br />
-            <div class="form-group" id="pinDiv" style="padding:5px;">
-                @Html.LabelFor(x => x.Pin)
-                @Html.TextBoxFor(x => x.Pin, new { @class = "form-control", id = "pin" })
-            </div>
-                <p class="text-danger" id="pinAlert"></p><br />
-                @*<div class="form-group">
-                    <label>İstifadəçi növü</label>
-                    <select name="userType" id="userType" class="form-control">
-                        <option>İstifadəçi növü</option>
-                        <option>ASC</option>
-                        <option>KTN</option>
-                    </select>
-                    @Html.ValidationMessageFor(model => model.userType, "", new { @class = "text-danger" })
-                    <p class="text-danger" id="userTypeAlert"></p><br />
-                </div>*@
-                <div class="form-group" id="asc" style="padding:5px;display:none">
-                    <label>ASC</label>
-                    <select name="ASCId" class="form-control">
-                        <option>Seçim edin</option>
-                        @foreach (var item in Model.ASCBranchArray)
-                        {
-                            <option value="@item.Id">@item.Name</option>
-                        }
-                    </select>
-                </div>
-                <div class="form-group" id="ktn" style="padding:5px;display:none">
-                    <label>KTN</label>
-                    <select name="KTNId" class="form-control">
-                        <option>Seçim edin</option>
-                        @foreach (var item in Model.KTNBranchArray)
-                        {
-                            <option value="@item.Id">@item.Name</option>
-                        }
-                    </select>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Password)
-                    @Html.PasswordFor(x => x.Password, new { @class = "form-control", id = "password", autocomplete = "off" })
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                </div>
-                <p class="text-danger" id="passwordAlert"></p><br />
+            @Html.HiddenFor(x => x.userType)
+            <input type="hidden" value="@Model.userType" id="branchType" />
 
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Email)
-                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", id = "email", type = "email" })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            <div class="well" style="margin:8px; font-size:11px">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" id="asc" style="padding:5px;display:none">
+                            <label>ASC</label>
+                            <select name="ASCId" class="form-control">
+                                <option>Seçim edin</option>
+                                @foreach (var item in Model.ASCBranchArray)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group" id="ktn" style="padding:5px;display:none">
+                            <label>KTN</label>
+                            <select name="KTNId" class="form-control">
+                                <option>Seçim edin</option>
+                                @foreach (var item in Model.KTNBranchArray)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.UserName)
+                            @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", id = "username" })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Password)
+                            @Html.PasswordFor(x => x.Password, new { @class = "form-control", id = "password", autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Email)
+                            @Html.TextBoxFor(x => x.Email, new { @class = "form-control", id = "email", type = "email" })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                  
+                </div>
+               
                 
 
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" id="pinDiv">
+                            @Html.LabelFor(x => x.Pin)
+                            @Html.TextBoxFor(x => x.Pin, new { @class = "form-control", id = "pin" })
+                            @Html.ValidationMessageFor(x => x.Pin, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" style="padding:5px">
+                            <label>Adı</label>
+                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control", id = "name" })
+                            @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" style="padding:5px">
+                            @Html.LabelFor(x => x.Surname)
+                            @Html.TextBoxFor(x => x.Surname, new { @class = "form-control", id = "surname" })
+                            @Html.ValidationMessageFor(x => x.Surname, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" style="padding:5px">
+                            @Html.LabelFor(x => x.FatherName)
+                            @Html.TextBoxFor(x => x.FatherName, new { @class = "form-control", id = "fathername" })
+                            @Html.ValidationMessageFor(x => x.FatherName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                 </div>
+                 <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" style="padding:5px">
+                            <label>Doğum Tarixi</label>
+                            @Html.TextBoxFor(x => x.Birthday, new { @class = "form-control datepicker" })
+                            @Html.ValidationMessageFor(x => x.Birthday, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                     <div class="col-md-6">
+                         <div class="form-group" style="padding:5px">
+                             <label>Cinsi</label>
+                             <select class="form-control" id="Gender" name="Gender">
+                                 <option>Cinsi Seçin</option>
+                                 <option>Kişi</option>
+                                 <option>Qadın</option>
+                             </select>
+                         </div>
+                         <p class="text-danger" id="genderAlert"></p><br />
+                     </div>
+                   
 
+                </div>
+            </div>
 
+          
+            <div class="well" style="margin:8px;font-size:11px">
+                <div class="row">
+                    <h4 style="margin-left:10px">Ünvan Məlumatları</h4>
+                    <div class="form-group" id="AdminUnit">
+                        <script>
+                        $(document).ready(function () {
+                            $.ajax({
+                                url: '/GovernmentOrganisation/AdminUnit?pId=0',
+                                type: 'GET',
+                                success: function (result) {
+                                    $('#AdminUnit').html(result);
 
+                                    $("select[name='adId[0]']").change();
+                                },
+                                error: function () {
 
+                                }
+                            });
+                        });
+                        </script>
+                    </div>
+                       
+                </div>
+            </div>
+            <div class="well" style="margin:8px;font-size:11px">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" style="padding:5px">
+                            <label>Təhsil</label>
+                            <select class="form-control" id="education" name="Education">
+                                <option>Təhsil Seçin</option>
+                                @{
+                                    if (Model != null)
+                                    {
+                                        foreach (var item in Model.EducationList)
+                                        {
+                                            <option>@item.name</option>
+                                        }
+                                    }
+
+                                }
+                            </select>
+                            <p class="text-danger" id="educationAlert"></p><br />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group" style="padding:5px">
+                            <label>İş</label>
+                            <select class="form-control" id="Job" name="Job">
+                                <option>İş seçin</option>
+                                @{
+                                    if (Model != null)
+                                    {
+                                        foreach (var item in Model.JobList)
+                                        {
+                                            <option>@item.name</option>
+                                        }
+                                    }
+
+                                }
+                            </select>
+                            <p class="text-danger" id="jobAlert"></p><br />
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
                 <div class="col-md-6 col-md-offset-4" style="margin-bottom:20px">
                     <input type="submit" class="btn btn-success" value="Davam Et" id="sendInfo" />
                 </div>
                 <div class="clearfix" style="height: 200px;"></div>
 
-        }
-        <div class="clearfix" style="height: 200px;"></div>
-    </div>
+                }
+                <div class="clearfix" style="height: 200px;"></div>
+            </div>
+
+
 
 </div>
 
+<script>
+    function GetAdminUnit(elem) {
+        pId = $(elem).val();
+        $(elem).parent().nextAll().remove();
 
+        if (pId > 0) {
+            $.ajax({
+                url: '/GovernmentOrganisation/AdminUnit?pId=' + pId,
+                type: 'GET',
+                //data: { "pId": appId},
+                success: function (result) {
+                    $('#addressId').val(pId);
+                    $(elem).parent().parent().append(result);
+
+                    $('.select2').select2();
+                },
+                error: function () {
+
+                }
+            });
+        }
+    }
+</script>
 
 <script>
         if ($("#branchType").val() == "asc") {

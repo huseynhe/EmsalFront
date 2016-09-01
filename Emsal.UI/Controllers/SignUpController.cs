@@ -83,7 +83,14 @@ namespace Emsal.UI.Controllers
             BaseOutput userTypesOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
 
             modelUser.UserTypeList = modelUser.EnumValueArray.ToList();
-
+            if(type == 1)
+            {
+                modelUser.Pin = finvoen;
+            }
+            if(type == 2)
+            {
+                modelUser.Voen = finvoen;
+            }
             modelUser.finvoenType = type;
             modelUser.finvoen = finvoen;
             return View(modelUser);
@@ -413,7 +420,7 @@ namespace Emsal.UI.Controllers
                 modelUser.ManagerName = modelUser.FuturePerson == null ? null : modelUser.FuturePerson.Name;
                 modelUser.FatherName = modelUser.FuturePerson == null ? null : modelUser.FuturePerson.FatherName;
                 modelUser.Surname = modelUser.FuturePerson == null ? null : modelUser.FuturePerson.Surname;
-                modelUser.Name = modelUser.FuturePerson == null ? null : modelUser.ForeignOrganisation.name;
+                modelUser.Name = modelUser.ForeignOrganisation == null ? null : modelUser.ForeignOrganisation.name;
             }
 
             return View("AddOrganisationInfo", modelUser);

@@ -14,7 +14,7 @@ using System.Web.Security;
 namespace Emsal.UI.Controllers
 {
 
-     [EmsalAuthorization(AuthorizedAction = ActionName.potentialProduction)]
+     //[EmsalAuthorization(AuthorizedAction = ActionName.potentialProduction)]
     //[EmsalAuthorization(AuthorizedAction = ActionName.Ordinary)]
     public class PotentialClientController : Controller
     {
@@ -187,6 +187,8 @@ namespace Emsal.UI.Controllers
                     modelPotentialProduction.ForeignOrganization.name = model.legalLame;
                     modelPotentialProduction.ForeignOrganization.userId = modelPotentialProduction.User.Id;
                     modelPotentialProduction.ForeignOrganization.userIdSpecified = true;
+                    modelPotentialProduction.ForeignOrganization.manager_Id = modelPotentialProduction.Person.Id;
+                    modelPotentialProduction.ForeignOrganization.manager_IdSpecified = true;
 
                     BaseOutput afo = srv.WS_AddForeign_Organization(baseInput, modelPotentialProduction.ForeignOrganization, out modelPotentialProduction.ForeignOrganization);
                 }

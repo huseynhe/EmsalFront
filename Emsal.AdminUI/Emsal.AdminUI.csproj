@@ -521,8 +521,6 @@
     <Content Include="Views\GovernmentOrganisation\ASCUsers.cshtml" />
     <Content Include="Views\GovernmentOrganisation\PartialASCUsers.cshtml" />
     <Content Include="Views\GovernmentOrganisation\AddBRANCHUser.cshtml" />
-    <Content Include="Views\GovernmentOrganisation\AddBRANCHPersonInfo.cshtml" />
-    <Content Include="Views\GovernmentOrganisation\AddBRANCHAddressInfo.cshtml" />
     <Content Include="Views\GovernmentOrganisation\EditBRANCHUser.cshtml" />
     <Content Include="Views\GovernmentOrganisation\KTNUsers.cshtml" />
     <Content Include="Views\GovernmentOrganisation\BranchResponsibility.cshtml" />

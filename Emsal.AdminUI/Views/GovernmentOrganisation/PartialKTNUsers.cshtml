@@ -24,16 +24,34 @@
                                 @Html.DisplayNameFor(model => model.UserName)
                             </th>
                             <th>
+                                Adı
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Surname)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FatherName)
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.Email)
                             </th>
                         </tr>
 
 
-                        @foreach (var item in Model.Paging)
+                        @foreach (var item in Model.PagingIndividual)
                         {
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Username)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Surname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Fathername)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Email)
@@ -54,8 +72,8 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
-                    @Html.PagedListPager(Model.Paging, page => Url.Action("KTNUsers", new { page }))
+                    Səhifə @(Model.PagingIndividual.PageCount < Model.PagingIndividual.PageNumber ? 0 : Model.PagingIndividual.PageNumber) (cəmi @Model.PagingIndividual.PageCount)
+                    @Html.PagedListPager(Model.PagingIndividual, page => Url.Action("KTNUsers", new { page }))
                 </div>
             </div>
         </div>

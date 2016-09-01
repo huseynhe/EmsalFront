@@ -152,6 +152,11 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
             modelUser.MobilePhonePrefixList = modelUser.EnumValueArray.ToList();
 
+
+            BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelUser.EnumCategory);
+            BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
+            modelUser.WorkPhonePrefixList = modelUser.EnumValueArray.ToList();
+
             return View("AddChildOrganisation", modelUser);
         }
 
@@ -279,29 +284,13 @@ namespace Emsal.AdminUI.Controllers
 
                 }
 
-                if (form.ManagerHomePhone != null)
-                {
-                    modelUser.ComunicationInformations = new tblCommunication();
-                    BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "homePhone", out modelUser.EnumValue);
-                    modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
-                    modelUser.ComunicationInformations.comTypeSpecified = true;
-                    modelUser.ComunicationInformations.communication = form.ManagerHomePhone;
-                    modelUser.ComunicationInformations.description = form.ManagerHomePhone;
-                    modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
-                    modelUser.ComunicationInformations.PersonIdSpecified = true;
-                    modelUser.ComunicationInformations.priorty = 2;
-                    modelUser.ComunicationInformations.priortySpecified = true;
-                    BaseOutput comunicatioOUtt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
-
-                }
-
                 if (form.ManagerWorkPhone != null)
                 {
                     modelUser.ComunicationInformations = new tblCommunication();
                     BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelUser.EnumValue);
                     modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
                     modelUser.ComunicationInformations.comTypeSpecified = true;
-                    modelUser.ComunicationInformations.communication = form.ManagerWorkPhone;
+                    modelUser.ComunicationInformations.communication = form.WorkPhonePrefix + form.ManagerWorkPhone;
                     modelUser.ComunicationInformations.description = form.ManagerWorkPhone;
                     modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
                     modelUser.ComunicationInformations.PersonIdSpecified = true;
@@ -1270,10 +1259,31 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput ASCUsersOut = srv.WS_GetUsersByUserType(binput, modelUser.EnumValue.Id, true, out modelUser.UserArray);
 
             //getting all asc users
-            modelUser.UserList = modelUser.UserArray.ToList();
+            modelUser.IndividualList = new List<Individual>();
+            foreach (var item in modelUser.UserArray)
+            {
+                modelUser.Individual = new Individual();
+                modelUser.Individual.Username = item.Username;
+
+                BaseOutput personOut = srv.WS_GetPersonByUserId(binput, item.Id, true, out modelUser.Person);
+
+                //sehv
+                if (modelUser.Person != null)
+                {
+                    modelUser.Individual.Name = modelUser.Person.Name;
+                    modelUser.Individual.Surname = modelUser.Person.Surname;
+                    modelUser.Individual.Fathername = modelUser.Person.FatherName;
+                }
+                //
+                modelUser.Individual.Email = item.Email;
+                modelUser.Individual.Id = item.Id;
+
+                modelUser.IndividualList.Add(modelUser.Individual);
+            }
 
 
-            modelUser.Paging = modelUser.UserList.ToPagedList(pageNumber, pageSize);
+
+            modelUser.PagingIndividual = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
 
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("PartialASCUsers", modelUser)
@@ -1299,12 +1309,32 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput adminOut = srv.WS_GetUserById(binput, (long)AdminId, true, out modelUser.Admin);
             BaseOutput ascenumOUt = srv.WS_GetEnumValueByName(binput, "KTN", out modelUser.EnumValue);
             BaseOutput ASCUsersOut = srv.WS_GetUsersByUserType(binput, modelUser.EnumValue.Id, true, out modelUser.UserArray);
+            modelUser.IndividualList = new List<Individual>();
 
-            //getting all asc users
-            modelUser.UserList = modelUser.UserArray.ToList();
+            foreach (var item in modelUser.UserArray)
+            {
+                modelUser.Individual = new Individual();
+                modelUser.Individual.Username = item.Username;
+
+                BaseOutput personOut = srv.WS_GetPersonByUserId(binput, item.Id, true, out modelUser.Person);
+
+                //sehv
+                if (modelUser.Person != null)
+                {
+                    modelUser.Individual.Name = modelUser.Person.Name;
+                    modelUser.Individual.Surname = modelUser.Person.Surname;
+                    modelUser.Individual.Fathername = modelUser.Person.FatherName;
+                }
+                //
+                modelUser.Individual.Email = item.Email;
+                modelUser.Individual.Id = item.Id;
+
+                modelUser.IndividualList.Add(modelUser.Individual);
+            }
 
 
-            modelUser.Paging = modelUser.UserList.ToPagedList(pageNumber, pageSize);
+
+            modelUser.PagingIndividual = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
 
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("PartialKTNUsers", modelUser)
@@ -1312,52 +1342,7 @@ namespace Emsal.AdminUI.Controllers
         }
         public ActionResult AddBRANCHUser(long? UserId, string type)
         {
-                Organisation modelUser = new Organisation();
-
-                if (User != null && User.Identity.IsAuthenticated)
-                {
-                    FormsIdentity identity = (FormsIdentity)User.Identity;
-                    if (identity.Ticket.UserData.Length > 0)
-                    {
-                        UserId = Int32.Parse(identity.Ticket.UserData);
-                    }
-                }
-                BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
-
-                BaseOutput ascsOut = srv.WS_GetPRM_ASCBranches(binput, out modelUser.ASCBranchArray);
-                BaseOutput ktnOut = srv.WS_GetPRM_KTNBranches(binput, out modelUser.KTNBranchArray);
-
-                modelUser.userType = type;
-                
-                return View(modelUser);
-        }
-
-
-        [HttpPost]
-        public ActionResult AddBRANCHUser(Organisation form)
-        {
-            if (CheckExistence(form))
-            {
-                modelUser = new Organisation();
-
-                modelUser.UserName = form.UserName;
-                modelUser.Password = form.Password;
-                modelUser.Pin = form.Pin;
-                modelUser.Email = form.Email;
-                modelUser.ASCId = form.ASCId;
-                modelUser.KTNId = form.KTNId;
-                return AddBRANCHPersonInfo(null, modelUser);
-            }
-            else
-            {
-                TempData["CustomError"] = "Bu adda istifadəçi sistemdə mövcuddur.";
-                return RedirectToAction("AddBRANCHUser");
-            }
-            
-        }
-        public ActionResult AddBRANCHPersonInfo(long? UserId, Organisation ModelUserInfo)
-        {
-            ModelState.Clear();
+            Session["arrONum"] = null;
 
             Organisation modelUser = new Organisation();
 
@@ -1370,6 +1355,10 @@ namespace Emsal.AdminUI.Controllers
                 }
             }
             BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
+
+            BaseOutput ascsOut = srv.WS_GetPRM_ASCBranches(binput, out modelUser.ASCBranchArray);
+            BaseOutput ktnOut = srv.WS_GetPRM_KTNBranches(binput, out modelUser.KTNBranchArray);
+
 
             BaseOutput enumcatEd = srv.WS_GetEnumCategorysByName(binput, "Tehsil", out modelUser.EnumCategory);
             if (modelUser.EnumCategory == null)
@@ -1388,69 +1377,16 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput enumvalJob = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
             modelUser.JobList = modelUser.EnumValueArray.ToList();
 
-            modelUser.UserName = ModelUserInfo.UserName;
-            modelUser.Email = ModelUserInfo.Email;
-            modelUser.Password = ModelUserInfo.Password;
-            modelUser.Pin = ModelUserInfo.Pin;
-            modelUser.ASCId = ModelUserInfo.ASCId;
-            modelUser.KTNId = ModelUserInfo.KTNId;
-            return View("AddBRANCHPersonInfo", modelUser);
+
+
+            modelUser.userType = type;
+                
+            return View(modelUser);
         }
+
 
         [HttpPost]
-        public ActionResult AddBRANCHPersonInfo(Organisation form)
-        {
-            modelUser = new Organisation();
-            modelUser.UserName = form.UserName;
-            modelUser.Password = form.Password;
-            modelUser.Email = form.Email;
-            modelUser.Pin = form.Pin;
-            modelUser.Name = form.Name;
-            modelUser.Surname = form.Surname;
-            modelUser.Birthday = form.Birthday;
-            modelUser.FatherName = form.FatherName;
-            modelUser.ASCId = form.ASCId;
-            modelUser.KTNId = form.KTNId;
-            modelUser.Education = form.Education;
-            modelUser.Job = form.Job;
-            modelUser.Gender = form.Gender;
-            return AddBRANCHAddressInfo(null, modelUser);
-        }
-
-        public ActionResult AddBRANCHAddressInfo(long? UserId, Organisation ModelUserInfo)
-        {
-            Session["arrONum"] = null;
-
-            Organisation modelUser = new Organisation();
-
-            if (User != null && User.Identity.IsAuthenticated)
-            {
-                FormsIdentity identity = (FormsIdentity)User.Identity;
-                if (identity.Ticket.UserData.Length > 0)
-                {
-                    UserId = Int32.Parse(identity.Ticket.UserData);
-                }
-            }
-            BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
-
-            modelUser.UserName = ModelUserInfo.UserName;
-            modelUser.Email = ModelUserInfo.Email;
-            modelUser.Password = ModelUserInfo.Password;
-            modelUser.Pin = ModelUserInfo.Pin;
-            modelUser.Name = ModelUserInfo.Name;
-            modelUser.Surname = ModelUserInfo.Surname;
-            modelUser.Birthday = ModelUserInfo.Birthday;
-            modelUser.FatherName = ModelUserInfo.FatherName;
-            modelUser.ASCId = ModelUserInfo.ASCId;
-            modelUser.KTNId = ModelUserInfo.KTNId;
-            modelUser.Education = ModelUserInfo.Education;
-            modelUser.Job = ModelUserInfo.Job;
-            modelUser.Gender = ModelUserInfo.Gender;
-            return View("AddBRANCHAddressInfo", modelUser);
-        }
-
-        [HttpPost]
-        public ActionResult AddBRANCHAddressInfo(Organisation form)
+        public ActionResult AddBRANCHUser(Organisation form)
         {
             binput = new BaseInput();
             modelUser = new Organisation();
@@ -1469,7 +1405,7 @@ namespace Emsal.AdminUI.Controllers
             modelUser.FutureUser.Username = form.UserName;
 
             //get the ASC user type enum value id
-            if(modelUser.FutureUser.KTN_ID == 0)
+            if (modelUser.FutureUser.KTN_ID == 0)
             {
                 BaseOutput ascOut = srv.WS_GetEnumValueByName(binput, "ASC", out modelUser.EnumValue);
                 BaseOutput ascRoleOut = srv.WS_GetRoleByName(binput, "ascUser", out modelUser.Role);
@@ -1484,7 +1420,7 @@ namespace Emsal.AdminUI.Controllers
 
             BaseOutput addUser = srv.WS_AddUser(binput, modelUser.FutureUser, out modelUser.FutureUser);
             //add user role
-            modelUser.UserRole.RoleId = modelUser.Role == null ? 0: modelUser.Role.Id;
+            modelUser.UserRole.RoleId = modelUser.Role == null ? 0 : modelUser.Role.Id;
             modelUser.UserRole.RoleIdSpecified = true;
             modelUser.UserRole.UserId = modelUser.FutureUser == null ? 0 : modelUser.FutureUser.Id;
             modelUser.UserRole.UserIdSpecified = true;
@@ -1524,7 +1460,7 @@ namespace Emsal.AdminUI.Controllers
 
             BaseOutput addPerson = srv.WS_AddPerson(binput, modelUser.Person, out modelUser.Person);
 
-            
+
             if (IsASC((long)modelUser.FutureUser.userType_eV_ID))
             {
                 TempData["ascUser"] = "info";
@@ -1535,6 +1471,7 @@ namespace Emsal.AdminUI.Controllers
                 TempData["ktnUser"] = "info";
                 return RedirectToAction("KTNUsers");
             }
+
         }
 
         public ActionResult AdminUnit(long? adminUnitId, int pId = 0)
@@ -1685,6 +1622,15 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput jobbOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
             modelUser.JobList = modelUser.EnumValueArray.ToList();
 
+
+            BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelUser.EnumCategory);
+            BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
+            modelUser.MobilePhonePrefixList = modelUser.EnumValueArray.ToList();
+
+            BaseOutput workPhonerCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelUser.EnumCategory);
+            BaseOutput workPhonerEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
+            modelUser.WorkPhonePrefixList = modelUser.EnumValueArray.ToList();
+
             return View(modelUser);
         }
 
@@ -1764,7 +1710,55 @@ namespace Emsal.AdminUI.Controllers
 
             BaseOutput managerOut = srv.WS_AddPerson(binput, modelUser.Manager, out modelUser.Manager);
 
+            //add manager communication informations
+            if (form.ManagerEmail != null)
+            {
+                modelUser.ComunicationInformations = new tblCommunication();
+                BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "email", out modelUser.EnumValue);
+                modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
+                modelUser.ComunicationInformations.comTypeSpecified = true;
+                modelUser.ComunicationInformations.communication = form.ManagerEmail;
+                modelUser.ComunicationInformations.description = form.ManagerEmail;
+                modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
+                modelUser.ComunicationInformations.PersonIdSpecified = true;
+                modelUser.ComunicationInformations.priorty = 1;
+                modelUser.ComunicationInformations.priortySpecified = true;
 
+                BaseOutput comunicationOUtt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
+            }
+
+
+            if (form.ManagerMobilePhone != null)
+            {
+                modelUser.ComunicationInformations = new tblCommunication();
+                BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "mobilePhone", out modelUser.EnumValue);
+                modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
+                modelUser.ComunicationInformations.comTypeSpecified = true;
+                modelUser.ComunicationInformations.communication = form.mobilePhonePrefix + form.ManagerMobilePhone;
+                modelUser.ComunicationInformations.description = form.ManagerMobilePhone;
+                modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
+                modelUser.ComunicationInformations.PersonIdSpecified = true;
+                modelUser.ComunicationInformations.priorty = 2;
+                modelUser.ComunicationInformations.priortySpecified = true;
+                BaseOutput comunicationOUt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
+
+            }
+
+            if (form.ManagerWorkPhone != null)
+            {
+                modelUser.ComunicationInformations = new tblCommunication();
+                BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelUser.EnumValue);
+                modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
+                modelUser.ComunicationInformations.comTypeSpecified = true;
+                modelUser.ComunicationInformations.communication = form.WorkPhonePrefix + form.ManagerWorkPhone;
+                modelUser.ComunicationInformations.description = form.ManagerWorkPhone;
+                modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
+                modelUser.ComunicationInformations.PersonIdSpecified = true;
+                modelUser.ComunicationInformations.priorty = 1;
+                modelUser.ComunicationInformations.priortySpecified = true;
+                BaseOutput comunicationnOUtt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
+
+            }
 
             //add foreign organisation
             modelUser.ForeignOrganisation.name = form.Name;
