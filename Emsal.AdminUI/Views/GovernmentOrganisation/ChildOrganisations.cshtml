@@ -5,12 +5,8 @@
 }
 
 
-<link href="~/Content/css/OrganisationTreeView.css" rel="stylesheet">
-@*<script src="~/Content/js/jquery-1.12.3.js"></script>*@
-<script src="~/Content/js/OrganisationTreeView.js"></script>
-@*<link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/Content/css/bootstrap-theme.css" rel="stylesheet">*@
-@*<link rel="stylesheet" href="~/Content/css/AdminLTE.min.css">*@
+@*<link href="~/Content/css/OrganisationTreeView.css" rel="stylesheet">
+<script src="~/Content/js/OrganisationTreeView.js"></script>*@
     
 <div class="clearfix" style="height:20px;"></div>
 
@@ -31,10 +27,8 @@
                     {
                         <li id="@item.Id">
                             <a href="#" onclick="getOrganisation(@item.Id)">@item.name</a>
-
-
                             <a href='/GovernmentOrganisation/OrganisationInfo?redirect=@Model.ParentOrganisation.Id&Id=@item.Id' class='badge bg-red'><span class='glyphicon glyphicon-info-sign'></span></a>
-                            <a href='/GovernmentOrganisation/EditChildOrganisation?redirect=@Model.ParentOrganisation.Id&Id=@item.Id' class='badge bg-light-blue'><span class='glyphicon glyphicon-pencil'></span></a>
+                            <a href="/GovernmentOrganisation/Edit/@item.userId" class="badge bg-light-blue"><span class="glyphicon glyphicon-pencil"></span></a>
                             <a href="/GovernmentOrganisation/DeleteChildOrganisation?redirect=@Model.ParentOrganisation.Id&Id=@item.userId&parentId=@Model.ParentOrganisation.Id" class="badge bg-red"><span class="glyphicon glyphicon-remove"></span></a>
                             <a href="/GovernmentOrganisation/AddChildOrganisation?redirect=@Model.ParentOrganisation.Id&parentId=@item.Id" class="badge bg-light-blue"><span class="glyphicon glyphicon-plus-sign"></span></a>
                         </li>
@@ -67,7 +61,7 @@
                     resultt.map(function (itemmm) {
                         $("#1" + id).append("<li id =" + itemmm.Id + "><a href='#' onclick='getOrganisation(" + itemmm.Id + ")'>" + itemmm.name + "</a>&nbsp;" +
                                             "<a href='/GovernmentOrganisation/OrganisationInfo?redirect=@Model.ParentOrganisation.Id&Id=" + itemmm.Id + "' class='badge bg-red'><span class='glyphicon glyphicon-info-sign'></span></a>&nbsp;" +
-                                            "<a href='/GovernmentOrganisation/EditChildOrganisation?redirect=@Model.ParentOrganisation.Id&Id=" + itemmm.Id + "' class='badge bg-light-blue'><span class='glyphicon glyphicon-pencil'></span></a>&nbsp;" +
+                                            "<a href='/GovernmentOrganisation/Edit/" + itemmm.userId + "' class='badge bg-light-blue'><span class='glyphicon glyphicon-pencil'></span></a>&nbsp;" +
                                             "<a href='/GovernmentOrganisation/DeleteChildOrganisation?redirect=@Model.ParentOrganisation.Id&Id=" + itemmm.userId + "&parentId=" + id + "'class='badge bg-red'><span class='glyphicon glyphicon-remove'></span></a>&nbsp;" +
                                             "<a href='/GovernmentOrganisation/AddChildOrganisation?redirect=@Model.ParentOrganisation.Id&parentId=" + itemmm.Id + "'class='badge bg-light-blue'><span class='glyphicon glyphicon-plus-sign'></span></a></li>");
                     })
@@ -83,6 +77,6 @@
 
     }
 </script>
-<script>
+@*<script>
     $('#tree1').treed({ openedClass: 'glyphicon-chevron-right', closedClass: 'glyphicon-chevron-down' });
-</script>
+</script>*@

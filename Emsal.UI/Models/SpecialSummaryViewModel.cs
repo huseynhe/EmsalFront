@@ -281,10 +281,11 @@ namespace Emsal.UI.Models
         [Required(ErrorMessage = "Məsul Şəxsin iş telefonu daxil edilməmişdir")]
         [Display(Name = "Məsul Şəxsin iş telefonu")]
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefon nömrəsi 10 rəqəmdən ibarət olmalıdır")]
+        [RegularExpression(@"^([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefon nömrəsi 7 rəqəmdən ibarət olmalıdır")]
         public string ManagerWorkPhone { get; set; }
+
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefon nömrəsi 10 rəqəmdən ibarət olmalıdır")]
+        [RegularExpression(@"^([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefon nömrəsi 7 rəqəmdən ibarət olmalıdır")]
         [Display(Name = "Məsul Şəxsin mobil telefonu")]
         public string ManagerMobilePhone { get; set; }
 
@@ -309,6 +310,18 @@ namespace Emsal.UI.Models
         public GovernmentOrganisationDemand OrgDemand { get; set; }
         public GovernmentOrganisationDemand[] OrgDemandArray { get; set; }
         public List<GovernmentOrganisationDemand> OrgDemandList { get; set; }
+
+        public string mobilePhonePrefix { get; set; }
+
+        public string WorkPhonePrefix { get; set; }
+
+        public List<tblEnumValue> MobilePhonePrefixList { get; set; }
+
+        public List<tblEnumValue> WorkPhonePrefixList { get; set; }
+        public long AdminUnitId { get; set; }
+        public List<long> GivenAdminUnitIds { get; set; }
+        public IList<tblPRM_AdminUnit>[] PRMAdminUnitArrayPa { get; set; }
+        public string descAddress { get; set; }
 
     }
 }

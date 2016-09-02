@@ -74,49 +74,49 @@
         }
     }
 
-    function getAdminUnitsByparentId(parentId) {
-        $.ajax({
-            type: "GET",
-            url: "/AdminUnit/GetAdminUnitsByParentId?parentId=" + parentId,
-            success: function (result) {
-                result.map(function (item) {
-                    if (item.ParentID == 0) {
-                        $("#treeAdminUnit").append("<li id =ad" + item.Id + "><i class='indicator glyphicon glyphicon-chevron-down' id = adi" + item.Id + "></i><span id =ads" + item.Id + ">" + item.Name + "</span></li>");
-                        getAdminUnitsByparentId(item.Id);
-                    }
-                    else if (item.ParentID == parentId) {
-                        $("#ad" + parentId).append("<ul id=adp" + parentId + " style='display:none'></ul>");
-                        $("#adp" + parentId).append("<li id =ad" + item.Id + ">" + "<i class='indicator glyphicon glyphicon-chevron-down' id = adi" + item.Id + "></i><span id =ads" + item.Id + ">" + item.Name + "</span>" + "</li>");
-                        getAdminUnitsByparentId(item.Id);
-                    }
-                });
+    //function getAdminUnitsByparentId(parentId) {
+    //    $.ajax({
+    //        type: "GET",
+    //        url: "/AdminUnit/GetAdminUnitsByParentId?parentId=" + parentId,
+    //        success: function (result) {
+    //            result.map(function (item) {
+    //                if (item.ParentID == 0) {
+    //                    $("#treeAdminUnit").append("<li id =ad" + item.Id + "><i class='indicator glyphicon glyphicon-chevron-down' id = adi" + item.Id + "></i><span id =ads" + item.Id + ">" + item.Name + "</span></li>");
+    //                    getAdminUnitsByparentId(item.Id);
+    //                }
+    //                else if (item.ParentID == parentId) {
+    //                    $("#ad" + parentId).append("<ul id=adp" + parentId + " style='display:none'></ul>");
+    //                    $("#adp" + parentId).append("<li id =ad" + item.Id + ">" + "<i class='indicator glyphicon glyphicon-chevron-down' id = adi" + item.Id + "></i><span id =ads" + item.Id + ">" + item.Name + "</span>" + "</li>");
+    //                    getAdminUnitsByparentId(item.Id);
+    //                }
+    //            });
 
-                result.map(function (item) {
-                    $("#ads" + item.Id).click(function () {
-                        setAdminUnit("#ads" + item.Id, item.Id, item.ParentID, item.Name, item.Description);
-                    })
-                    $("#adi" + item.Id).click(function () {
-                        if ($("#adp" + item.Id).css("display") == "none") {
-                            $("#adi" + item.Id).removeClass("glyphicon glyphicon-chevron-down");
-                            $("#adi" + item.Id).addClass("glyphicon glyphicon-chevron-right");
-                            $("#adp" + item.Id).css("display", "block");
-                        }
-                        else {
-                            $("#adp" + item.Id).css("display", "none");
-                            $("#adi" + item.Id).removeClass("glyphicon glyphicon-chevron-right");
-                            $("#adi" + item.Id).addClass("glyphicon glyphicon-chevron-down");
-                        }
-                    })
-                })
-            },
-            error: function (e) {
-                console.log(e);
-            }
-        })
-    }
+    //            result.map(function (item) {
+    //                $("#ads" + item.Id).click(function () {
+    //                    setAdminUnit("#ads" + item.Id, item.Id, item.ParentID, item.Name, item.Description);
+    //                })
+    //                $("#adi" + item.Id).click(function () {
+    //                    if ($("#adp" + item.Id).css("display") == "none") {
+    //                        $("#adi" + item.Id).removeClass("glyphicon glyphicon-chevron-down");
+    //                        $("#adi" + item.Id).addClass("glyphicon glyphicon-chevron-right");
+    //                        $("#adp" + item.Id).css("display", "block");
+    //                    }
+    //                    else {
+    //                        $("#adp" + item.Id).css("display", "none");
+    //                        $("#adi" + item.Id).removeClass("glyphicon glyphicon-chevron-right");
+    //                        $("#adi" + item.Id).addClass("glyphicon glyphicon-chevron-down");
+    //                    }
+    //                })
+    //            })
+    //        },
+    //        error: function (e) {
+    //            console.log(e);
+    //        }
+    //    })
+    //}
 
     $("#first").click(function () {
         setAdminUnit("#first", 0, '', '', '')
     })
-    getAdminUnitsByparentId(0);
+    //getAdminUnitsByparentId(0);
 })

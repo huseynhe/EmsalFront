@@ -16,5 +16,7 @@ namespace Emsal.UI.Models
         public string Role { get; set; }
 
         public string UserType { get; set; }
+
+        public string FullAddress { get; set; }
     }
 }

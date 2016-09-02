@@ -333,14 +333,59 @@ namespace Emsal.UI.Controllers
 
         }
 
-        public ActionResult AdminUnit(int pId = 0)
+        public ActionResult AdminUnit(long? adminUnitId, int pId = 0)
         {
             binput = new BaseInput();
 
-            UserViewModel modelUser = new UserViewModel();
-
+            modelUser = new SpecialSummaryViewModel();
             BaseOutput bouput = srv.WS_GetPRM_AdminUnits(binput, out modelUser.PRMAdminUnitArray);
+
+
+
             modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.Where(x => x.ParentID == pId).ToList();
+
+            if (adminUnitId != null)
+            {
+
+                List<long> ids = new List<long>();
+
+
+                BaseOutput adminUnittOut = srv.WS_GetPRM_AdminUnitById(binput, (long)adminUnitId, true, out modelUser.PRMAdminUnit);
+                ids.Add(modelUser.PRMAdminUnit.Id);
+
+                while (modelUser.PRMAdminUnit.ParentID != 0)
+                {
+                    srv.WS_GetPRM_AdminUnitById(binput, (long)modelUser.PRMAdminUnit.ParentID, true, out modelUser.PRMAdminUnit);
+                    ids.Add(modelUser.PRMAdminUnit.Id);
+                }
+
+                modelUser.GivenAdminUnitIds = new List<long>();
+
+                modelUser.GivenAdminUnitIds.Add(0);
+
+                for (int i = ids.Count - 1; i >= 0; i--)
+                {
+                    modelUser.GivenAdminUnitIds.Add(ids[i]);
+                }
+
+                modelUser.PRMAdminUnitArrayPa = new IList<tblPRM_AdminUnit>[modelUser.GivenAdminUnitIds.Count() - 1];
+
+                int s = 0;
+                foreach (long itm in modelUser.GivenAdminUnitIds)
+                {
+                    BaseOutput gpc = srv.WS_GetAdminUnitsByParentId(binput, (int)itm, true, out modelUser.PRMAdminUnitArray);
+                    modelUser.PRMAdminUnitArrayPa[s] = modelUser.PRMAdminUnitArray.ToList();
+
+                    s = s + 1;
+                    if (s == modelUser.GivenAdminUnitIds.Count() - 1)
+                    {
+                        break;
+                    }
+                }
+
+            }
+
+
 
             //BaseOutput bouputs = srv.WS_GetAdminUnitsByParentId(baseInput, pId, true, out modelOfferProduction.PRMAdminUnitArray);
             //modelOfferProduction.PRMAdminUnitList = modelOfferProduction.PRMAdminUnitArray.ToList();

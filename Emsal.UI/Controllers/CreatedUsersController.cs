@@ -48,6 +48,7 @@ namespace Emsal.UI.Controllers
                 baseInput = new BaseInput();
                 
                 BaseOutput usertypeOut = srv.WS_GetEnumValueById(baseInput, (long)item.userType_eV_ID, true, out modelUser.EnumValue);
+
                 if(modelUser.EnumValue.name == "fizikişexs")
                 {
                     BaseOutput personOut = srv.WS_GetPersonByUserId(baseInput, item.Id, true, out modelUser.FuturePerson);
@@ -58,6 +59,20 @@ namespace Emsal.UI.Controllers
                         created.FatherName = modelUser.FuturePerson.FatherName;
                         created.UserType = "Fiziki Şəxs";
                     }
+
+                    //get the full address
+                    if(modelUser.FuturePerson.address_Id != null)
+                    {
+                        BaseOutput addressout = srv.WS_GetAddressById(baseInput, (long)modelUser.FuturePerson.address_Id, true, out modelUser.FutureAddress);
+                        BaseOutput fulladdressListOut = srv.WS_GetAdminUnitListForID(baseInput, (long)modelUser.FutureAddress.adminUnit_Id, true, out modelUser.PRMAdminUnitArray);
+
+                        foreach (var adminunit in modelUser.PRMAdminUnitArray)
+                        {
+                            created.FullAddress += adminunit.Name + ",";
+                        }
+                        created.FullAddress = created.FullAddress.Remove(created.FullAddress.Length - 1);
+                    }
+
                 }
                 if(modelUser.EnumValue.name == "legalPerson")
                 {
@@ -67,6 +82,20 @@ namespace Emsal.UI.Controllers
                         created.Name = modelUser.ForeignOrganisation.name;
                         created.UserType = "Hüquqi Şəxs";
                     }
+
+                    //get the full address
+                    if(modelUser.ForeignOrganisation.address_Id != null)
+                    {
+                        BaseOutput addressout = srv.WS_GetAddressById(baseInput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
+                        BaseOutput fulladdressListOut = srv.WS_GetAdminUnitListForID(baseInput, (long)modelUser.FutureAddress.adminUnit_Id, true, out modelUser.PRMAdminUnitArray);
+
+                        foreach (var adminunit in modelUser.PRMAdminUnitArray)
+                        {
+                            created.FullAddress += adminunit.Name + ",";
+                        }
+                        created.FullAddress = created.FullAddress.Remove(created.FullAddress.Length - 1);
+                    }
+                   
                 }
 
                 created.Id = item.Id;
@@ -92,6 +121,8 @@ namespace Emsal.UI.Controllers
                     }
                 }
                
+                
+
                 modelUser.CreatedUserList.Add(created);
 
             }

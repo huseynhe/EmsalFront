@@ -26,6 +26,12 @@
                                 @Html.DisplayNameFor(model => model.Name)
                             </th>
                             <th>
+                                Məsul Şəxsin Soyadı, adı, ata adı
+                            </th>
+                            <th>
+                                Region
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.UserName)
                             </th>
                             <th>
@@ -39,6 +45,12 @@
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.OrganisationName)
+                                </td>
+                                <td>
+                                    @item.ManagerSurname @item.ManagerName @item.ManagerFatherName
+                                </td>
+                                <td>
+                                    @item.FullAddress
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.UserName)

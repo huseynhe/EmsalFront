@@ -63,10 +63,10 @@
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                  
+
                 </div>
-               
-                
+
+
 
                 <div class="row">
                     <div class="col-md-3">
@@ -97,8 +97,8 @@
                             @Html.ValidationMessageFor(x => x.FatherName, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                 </div>
-                 <div class="row">
+                </div>
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group" style="padding:5px">
                             <label>Doğum Tarixi</label>
@@ -106,45 +106,45 @@
                             @Html.ValidationMessageFor(x => x.Birthday, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                     <div class="col-md-6">
-                         <div class="form-group" style="padding:5px">
-                             <label>Cinsi</label>
-                             <select class="form-control" id="Gender" name="Gender">
-                                 <option>Cinsi Seçin</option>
-                                 <option>Kişi</option>
-                                 <option>Qadın</option>
-                             </select>
-                         </div>
-                         <p class="text-danger" id="genderAlert"></p><br />
-                     </div>
-                   
+                    <div class="col-md-6">
+                        <div class="form-group" style="padding:5px">
+                            <label>Cinsi</label>
+                            <select class="form-control" id="Gender" name="Gender">
+                                <option>Cinsi Seçin</option>
+                                <option>Kişi</option>
+                                <option>Qadın</option>
+                            </select>
+                        </div>
+                        <p class="text-danger" id="genderAlert"></p><br />
+                    </div>
+
 
                 </div>
             </div>
 
-          
+
             <div class="well" style="margin:8px;font-size:11px">
                 <div class="row">
                     <h4 style="margin-left:10px">Ünvan Məlumatları</h4>
                     <div class="form-group" id="AdminUnit">
                         <script>
-                        $(document).ready(function () {
-                            $.ajax({
-                                url: '/GovernmentOrganisation/AdminUnit?pId=0',
-                                type: 'GET',
-                                success: function (result) {
-                                    $('#AdminUnit').html(result);
+                            $(document).ready(function () {
+                                $.ajax({
+                                    url: '/GovernmentOrganisation/AdminUnit?pId=0',
+                                    type: 'GET',
+                                    success: function (result) {
+                                        $('#AdminUnit').html(result);
 
-                                    $("select[name='adId[0]']").change();
-                                },
-                                error: function () {
+                                        $("select[name='adId[0]']").change();
+                                    },
+                                    error: function () {
 
-                                }
+                                    }
+                                });
                             });
-                        });
                         </script>
                     </div>
-                       
+
                 </div>
             </div>
             <div class="well" style="margin:8px;font-size:11px">
@@ -192,14 +192,27 @@
 
                 </div>
             </div>
-                <div class="col-md-6 col-md-offset-4" style="margin-bottom:20px">
-                    <input type="submit" class="btn btn-success" value="Davam Et" id="sendInfo" />
-                </div>
-                <div class="clearfix" style="height: 200px;"></div>
-
+            <div class="col-md-2 col-md-offset-4">
+                @{
+                    if (Model.userType == "asc")
+                    {
+                        <a class="btn btn-primary" href="/GovernmentOrganisation/ASCUsers">İmtina Et</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary" href="/GovernmentOrganisation/KTNUsers">İmtina Et</a>
+                    }
                 }
-                <div class="clearfix" style="height: 200px;"></div>
+
             </div>
+            <div class="col-md-6">
+                <input type="submit" class="btn btn-success" value="Davam Et" id="sendInfo" />
+            </div>
+            <div class="clearfix" style="height: 200px;"></div>
+
+                    }
+        <div class="clearfix" style="height: 200px;"></div>
+    </div>
 
 
 
@@ -230,19 +243,19 @@
 </script>
 
 <script>
-        if ($("#branchType").val() == "asc") {
-            $("#asc").css("display", "block");
-            $("#ktn").css("display", "none");
-        }
-        if ($("#branchType").val() == "ktn") {
-            $("#ktn").css("display", "block");
-            $("#asc").css("display", "none");
-        }
-        
+    if ($("#branchType").val() == "asc") {
+        $("#asc").css("display", "block");
+        $("#ktn").css("display", "none");
+    }
+    if ($("#branchType").val() == "ktn") {
+        $("#ktn").css("display", "block");
+        $("#asc").css("display", "none");
+    }
+
 
 
     $("#sendInfo").on("click", function (e) {
-        if ($("#userType").val() === "İstifadəçi növü"){
+        if ($("#userType").val() === "İstifadəçi növü") {
             e.preventDefault();
 
             $("form p").html("");
@@ -250,7 +263,7 @@
             if ($("#userType").val() === "İstifadəçi növü") {
                 $("#userTypeAlert").html("İstifadəçi növü seçilməmişdir");
             }
-               
+
         }
     })
 </script>

@@ -70,12 +70,12 @@
                 <script>
                 $(document).ready(function () {
                     $.ajax({
-                        url: '/Ordinary/AdminUnit?pId=0',
+                        url: '/Ordinary/AdminUnit?pId=0&adminUnitId=@Model.AdminUnitId',
                         type: 'GET',
                         success: function (result) {
                             $('#AdminUnit').html(result);
 
-                            $("select[name='adId[0]']").change();
+                            //$("select[name='adId[0]']").change();
                         },
                         error: function () {
 
@@ -130,31 +130,71 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="font-size:11px">
-            <div class="col-md-3">
-                <div class="form-group" style="padding:5px;" >
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group" style="padding:5px; font-size:10px">
                     @Html.LabelFor(x => x.ManagerEmail, new { @class = "control-label required" })
                     @Html.TextBoxFor(x => x.ManagerEmail, new { @class = "form-control", type = "email" })
                     @Html.ValidationMessageFor(x => x.ManagerEmail, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-group" style="padding:5px">
-                    @Html.LabelFor(x => x.ManagerHomePhone, new { @class = "control-label" })
-                    @Html.TextBoxFor(x => x.ManagerHomePhone, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group" style="padding:5px">
+        </div>
+        <div class="row" style="font-size:11px">
+
+            <div class="col-md-12">
+                <div class="form-group">
                     @Html.LabelFor(x => x.ManagerWorkPhone, new { @class = "control-label required" })
-                    @Html.TextBoxFor(x => x.ManagerWorkPhone, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(x => x.ManagerWorkPhone, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-md-4">
+                            <select class="form-control" name="workPhonePrefix">
+                                <option value="">Seçim edin</option>
+                                @foreach (var item in Model.WorkPhonePrefixList)
+                                {
+                                    if (item.name == Model.WorkPhonePrefix)
+                                    {
+                                        <option selected value="@item.name">@item.description (@item.name)</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.name">@item.description (@item.name)</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ManagerWorkPhone, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.ManagerWorkPhone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-group" style="padding:5px">
+
+            <div class="col-md-12">
+                <div class="form-group">
                     @Html.LabelFor(x => x.ManagerMobilePhone, new { @class = "control-label" })
-                    @Html.TextBoxFor(x => x.ManagerMobilePhone, new { @class = "form-control" })
+                    <div class="row">
+                        <div class="col-md-4">
+                            <select class="form-control" name="mobilePhonePrefix">
+                                <option value="">Seçim edin</option>
+                                @foreach (var item in Model.MobilePhonePrefixList)
+                                {
+                                    if (item.name == Model.mobilePhonePrefix)
+                                    {
+                                        <option selected value="@item.name">@item.description</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.name">@item.description</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ManagerMobilePhone, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.ManagerMobilePhone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -257,10 +297,10 @@
         </div>
     </div>
 
-    <div class="col-md-1 col-md-offset-5" style="margin-bottom:20px; padding:5px 0 5px 5px">
+    <div class="col-md-2 col-md-offset-4" style="margin-bottom:20px;">
         <a class="btn btn-primary" href="/GovernmentOrganisationSpecialSummary/Organisations">İmtina et</a>
     </div>
-    <div class="col-md-2" style="margin-bottom:20px; padding:5px 5px 5px 0">
+    <div class="col-md-2" style="margin-bottom:20px;">
         <input type="submit" class="btn btn-success" value="Davam Et" id="sendChildOrganisationInfo" />
     </div>
                             }

@@ -160,8 +160,9 @@ namespace Emsal.UI.Controllers
 
                 modelPotentialProduction.Person.UserId = modelPotentialProduction.User.Id;
                 modelPotentialProduction.Person.UserIdSpecified = true;
-                modelPotentialProduction.Person.address_Id = modelPotentialProduction.Address.Id;
-                modelPotentialProduction.Person.address_IdSpecified = true;
+                //ferid sildi buranı
+                //modelPotentialProduction.Person.address_Id = modelPotentialProduction.Address.Id;
+                //modelPotentialProduction.Person.address_IdSpecified = true;
 
                 if (fh == "legalPerson")
                 {
@@ -175,6 +176,10 @@ namespace Emsal.UI.Controllers
                     modelPotentialProduction.Person.Name = model.name;
                     modelPotentialProduction.Person.Surname = model.surname;
                     modelPotentialProduction.Person.FatherName = model.fathername;
+                    //ferid bunu elave etdi
+                    modelPotentialProduction.Person.address_Id = modelPotentialProduction.Address.Id;
+                    modelPotentialProduction.Person.address_IdSpecified = true;
+
                 }
 
                 BaseOutput aper = srv.WS_AddPerson(baseInput, modelPotentialProduction.Person, out modelPotentialProduction.Person);
@@ -189,7 +194,9 @@ namespace Emsal.UI.Controllers
                     modelPotentialProduction.ForeignOrganization.userIdSpecified = true;
                     modelPotentialProduction.ForeignOrganization.manager_Id = modelPotentialProduction.Person.Id;
                     modelPotentialProduction.ForeignOrganization.manager_IdSpecified = true;
-
+                    //ferid bunu elave etdi
+                    modelPotentialProduction.ForeignOrganization.address_Id = modelPotentialProduction.Address.Id;
+                    modelPotentialProduction.ForeignOrganization.address_IdSpecified = true;
                     BaseOutput afo = srv.WS_AddForeign_Organization(baseInput, modelPotentialProduction.ForeignOrganization, out modelPotentialProduction.ForeignOrganization);
                 }
             }

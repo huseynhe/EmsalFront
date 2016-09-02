@@ -23,16 +23,13 @@
                     <table class="table table-bordered">
                         <tr>
                             <th>
+                                Soyadı, Adı, Ata adı
+                            </th>
+                            <th>
+                                Region
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.UserName)
-                            </th>
-                            <th>
-                                Adı
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Surname)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.FatherName)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Email)
@@ -44,16 +41,13 @@
                         {
                             <tr>
                                 <td>
+                                    @item.Surname @item.Name @item.Fathername
+                                </td>
+                                <td>
+                                    @item.FullAddress
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.Username)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Surname)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Fathername)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Email)

@@ -12,5 +12,11 @@ namespace Emsal.AdminUI.Models
         public string Email { get; set; }
 
         public long Id { get; set; }
+
+        public string FullAddress { get; set; }
+
+        public string ManagerName { get; set; }
+        public string ManagerSurname { get; set; }
+        public string ManagerFatherName { get; set; }
     }
 }

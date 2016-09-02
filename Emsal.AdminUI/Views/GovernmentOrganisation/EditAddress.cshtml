@@ -19,8 +19,6 @@
                         type: 'GET',
                         success: function (result) {
                             $('#AdminUnit').html(result);
-
-                            //$("select[name='adId[0]']").change();
                         },
                         error: function () {
 
@@ -28,9 +26,12 @@
                     });
                 });
             </script>
-            @*@Html.Action("AdminUnit", "OfferProduction", new { pId = 0 })*@
         </div>
-        <div class="col-md-6 col-md-offset-4" style="margin-bottom:20px; padding:5px">
+        <div class="clearfix" style="height:100px;"></div>
+        <div class="col-md-2 col-md-offset-4" style="margin-bottom:20px;">
+            <a class="btn btn-primary" href="/GovernmentOrganisation/Index">İmtina Et</a>
+        </div>
+        <div class="col-md-6" style="margin-bottom:20px;">
             <input type="submit" class="btn btn-success" value="Düzəliş Et" id="sendInfo" />
         </div>
     }

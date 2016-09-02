@@ -13,6 +13,10 @@ namespace Emsal.AdminUI.Models
         public string Name { get; set; }
         public string Email { get; set; }
 
+        public string BranchName { get; set; }
+        
         public long Id { get; set; }
+
+        public string FullAddress { get; set; }
     }
 }

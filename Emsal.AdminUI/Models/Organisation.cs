@@ -216,6 +216,7 @@ namespace Emsal.AdminUI.Models
         public long KTNId { get; set; }
 
         public tblBranchResponsibility branchResponsibility;
+        public tblBranchResponsibility[] branchRespArray;
 
         [Required(ErrorMessage = "İstifadeçi növü seçilmemişdir")]
         [Display(Name = "İstifadeçi növü")]

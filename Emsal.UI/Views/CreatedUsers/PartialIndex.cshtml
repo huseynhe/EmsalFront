@@ -28,13 +28,10 @@
                                 @Html.DisplayNameFor(model => model.ID)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Name)
+                                Soyad, Ad, Ata Adı / Şirkət Adı
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Surname)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.FatherName)
+                                Region
                             </th>
                             <th>
                                 Şəxsin növü (fiziki/hüquqi)
@@ -52,13 +49,10 @@
                                     @Html.DisplayFor(modelItem => item.Id)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
+                                    @item.Surname  @item.Name   @item.FatherName
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Surname)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FatherName)
+                                    @item.FullAddress
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem=> item.UserType)

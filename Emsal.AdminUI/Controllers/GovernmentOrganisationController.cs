@@ -53,6 +53,21 @@ namespace Emsal.AdminUI.Controllers
                 modelUser.GovernmentOrganisation.OrganisationName = modelUser.ForeignOrganisation.name;
                 modelUser.GovernmentOrganisation.Email = item.Email;
                 modelUser.GovernmentOrganisation.Id = item.Id;
+                
+                if(modelUser.ForeignOrganisation.address_Id != null)
+                {
+                    BaseOutput addressout = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
+                    BaseOutput fulladdressListOut = srv.WS_GetAdminUnitListForID(binput, (long)modelUser.FutureAddress.adminUnit_Id, true, out modelUser.PRMAdminUnitArray);
+
+                    foreach (var adminunit in modelUser.PRMAdminUnitArray)
+                    {
+                        if(adminunit.Name != "Azərbaycan Respublikası")
+                        {
+                            modelUser.GovernmentOrganisation.FullAddress += adminunit.Name + ",";
+                        }
+                    }
+                    modelUser.GovernmentOrganisation.FullAddress = modelUser.GovernmentOrganisation.FullAddress == null ? null : modelUser.GovernmentOrganisation.FullAddress.Remove(modelUser.GovernmentOrganisation.FullAddress.Length - 1);
+                }
 
                 modelUser.GovernmentOrganisationList.Add(modelUser.GovernmentOrganisation);
             }
@@ -330,309 +345,309 @@ namespace Emsal.AdminUI.Controllers
 
         }
 
-        public ActionResult EditChildOrganisation(long? UserId, long? Id, long? redirect)
-        {
-            binput = new BaseInput();
-
-            Session["arrONum"] = null;
-            modelUser = new Organisation();
-
-            if (User != null && User.Identity.IsAuthenticated)
-            {
-                FormsIdentity identity = (FormsIdentity)User.Identity;
-                if (identity.Ticket.UserData.Length > 0)
-                {
-                    UserId = Int32.Parse(identity.Ticket.UserData);
-                }
-            }
-            BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.User);
-
-            modelUser.OrganisationId = (long)Id;
-            //get the orgaisation  that is going to be updated
-            BaseOutput organisationOut = srv.WS_GetForeign_OrganizationById(binput, (long)Id, true, out modelUser.ForeignOrganisation);
-            modelUser.Voen = modelUser.ForeignOrganisation.voen;
-            modelUser.Name = modelUser.ForeignOrganisation.name;
-
-            //get the user registered to the organisation
-            BaseOutput orgOut = srv.WS_GetUserById(binput, (long)modelUser.ForeignOrganisation.userId, true, out modelUser.User);
-            modelUser.UserName = modelUser.User.Username;
-            //modelUser.Password = modelUser.User.Password;
-            modelUser.Email = modelUser.User.Email;
-
-            //get the address of the organisation
-            //this is biased. we do not know if an organisation can have more than one address.***********************
-            BaseOutput addressOut = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
-            modelUser.FullAddress = modelUser.FutureAddress.fullAddress;
-            //*********************************************************
-
-
-            //get the address hierarchy this is also biased *************************
-            //BaseOutput adminUnitOut = srv.WS_GetPRM_AdminUnitById(binput, (long)modelUser.AddressArray.FirstOrDefault().adminUnit_Id, true, out modelUser.PRMAdminUnit);
-            //BaseOutput addressesOut = srv.WS_GETPRM_AdminUnitsByChildId(binput, modelUser.PRMAdminUnit, out modelUser.PRMAdminUnitArray);
-
-            BaseOutput edcationCatOut = srv.WS_GetEnumCategorysByName(binput, "Tehsil", out modelUser.EnumCategory);
-            BaseOutput eductationOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
-            modelUser.EducationList = modelUser.EnumValueArray.ToList();
-
-
-            BaseOutput jobCatOut = srv.WS_GetEnumCategorysByName(binput, "İş-Təşkilat", out modelUser.EnumCategory);
-            BaseOutput jobbOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
-            modelUser.JobList = modelUser.EnumValueArray.ToList();
-
-            //get manager infos
-            BaseOutput ManagerOut = srv.WS_GetPersonById(binput, (long)modelUser.ForeignOrganisation.manager_Id, true, out modelUser.Manager);
-            modelUser.ManagerName = modelUser.Manager.Name;
-            modelUser.Surname = modelUser.Manager.Surname;
-            modelUser.FatherName = modelUser.Manager.FatherName;
-            modelUser.Pin = modelUser.Manager.PinNumber;
-
-            //get communication informations of the manager
-            BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelUser.CommunicationInformationsArray);
-            modelUser.CommunicationInformationsList = modelUser.CommunicationInformationsArray.Where(x => x.PersonId == modelUser.Manager.Id).ToList();
-
-            //not entered communications
-            modelUser.NullCommunicationsList = new List<string>();
-
-            //get emailtype enum value
-            BaseOutput emailEnumOut = srv.WS_GetEnumValueByName(binput, "email", out modelUser.EnumValue);
-            modelUser.ManagerEmail = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).ToList().Count == 0 ? null : modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault().communication;
-            if(modelUser.ManagerEmail == null)
-            {
-                TempData["email"] = "info";
-            }
-
-            //get HomePhone type enum value
-            BaseOutput homePhoneOut = srv.WS_GetEnumValueByName(binput, "homePhone", out modelUser.EnumValue);
-            modelUser.ManagerHomePhone = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).ToList().Count == 0 ? null : modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault().communication;
-            if (modelUser.ManagerHomePhone == null)
-            {
-                TempData["homePhone"] = "info";
-            }
-            //get MobilePhone type enum value
-            BaseOutput mobilePhoneOut = srv.WS_GetEnumValueByName(binput, "mobilePhone", out modelUser.EnumValue);
-            if(modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).ToList().Count > 0)
-            {
-                string a = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault().communication;
-                modelUser.ManagerMobilePhone = a.Substring(3, 7);
-                modelUser.mobilePhonePrefix = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault().communication.Substring(0, 3);
-            }
-            if (modelUser.ManagerMobilePhone == null)
-            {
-                TempData["mobilePhone"] = "info";
-            }
-            //get WorkPhone type enum value
-            BaseOutput workPhoneOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelUser.EnumValue);
-            modelUser.ManagerWorkPhone = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).ToList().Count == 0 ? null : modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault().communication;
-            if (modelUser.ManagerWorkPhone == null)
-            {
-                TempData["workPhone"]= "info";
-            }
-
-            //get the gender
-            modelUser.Gender = modelUser.Manager.gender;
-            modelUser.ManagerEducation = (long)modelUser.Manager.educationLevel_eV_Id;
-            modelUser.ManagerJob = (long)modelUser.Manager.job_eV_Id;
+        //public ActionResult EditChildOrganisation(long? UserId, long? Id, long? redirect)
+        //{
+        //    binput = new BaseInput();
+
+        //    Session["arrONum"] = null;
+        //    modelUser = new Organisation();
+
+        //    if (User != null && User.Identity.IsAuthenticated)
+        //    {
+        //        FormsIdentity identity = (FormsIdentity)User.Identity;
+        //        if (identity.Ticket.UserData.Length > 0)
+        //        {
+        //            UserId = Int32.Parse(identity.Ticket.UserData);
+        //        }
+        //    }
+        //    BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.User);
+
+        //    modelUser.OrganisationId = (long)Id;
+        //    //get the orgaisation  that is going to be updated
+        //    BaseOutput organisationOut = srv.WS_GetForeign_OrganizationById(binput, (long)Id, true, out modelUser.ForeignOrganisation);
+        //    modelUser.Voen = modelUser.ForeignOrganisation.voen;
+        //    modelUser.Name = modelUser.ForeignOrganisation.name;
+
+        //    //get the user registered to the organisation
+        //    BaseOutput orgOut = srv.WS_GetUserById(binput, (long)modelUser.ForeignOrganisation.userId, true, out modelUser.User);
+        //    modelUser.UserName = modelUser.User.Username;
+        //    //modelUser.Password = modelUser.User.Password;
+        //    modelUser.Email = modelUser.User.Email;
+
+        //    //get the address of the organisation
+        //    //this is biased. we do not know if an organisation can have more than one address.***********************
+        //    BaseOutput addressOut = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
+        //    modelUser.FullAddress = modelUser.FutureAddress.fullAddress;
+        //    //*********************************************************
+
+
+        //    //get the address hierarchy this is also biased *************************
+        //    //BaseOutput adminUnitOut = srv.WS_GetPRM_AdminUnitById(binput, (long)modelUser.AddressArray.FirstOrDefault().adminUnit_Id, true, out modelUser.PRMAdminUnit);
+        //    //BaseOutput addressesOut = srv.WS_GETPRM_AdminUnitsByChildId(binput, modelUser.PRMAdminUnit, out modelUser.PRMAdminUnitArray);
+
+        //    BaseOutput edcationCatOut = srv.WS_GetEnumCategorysByName(binput, "Tehsil", out modelUser.EnumCategory);
+        //    BaseOutput eductationOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
+        //    modelUser.EducationList = modelUser.EnumValueArray.ToList();
+
+
+        //    BaseOutput jobCatOut = srv.WS_GetEnumCategorysByName(binput, "İş-Təşkilat", out modelUser.EnumCategory);
+        //    BaseOutput jobbOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
+        //    modelUser.JobList = modelUser.EnumValueArray.ToList();
+
+        //    //get manager infos
+        //    BaseOutput ManagerOut = srv.WS_GetPersonById(binput, (long)modelUser.ForeignOrganisation.manager_Id, true, out modelUser.Manager);
+        //    modelUser.ManagerName = modelUser.Manager.Name;
+        //    modelUser.Surname = modelUser.Manager.Surname;
+        //    modelUser.FatherName = modelUser.Manager.FatherName;
+        //    modelUser.Pin = modelUser.Manager.PinNumber;
+
+        //    //get communication informations of the manager
+        //    BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelUser.CommunicationInformationsArray);
+        //    modelUser.CommunicationInformationsList = modelUser.CommunicationInformationsArray.Where(x => x.PersonId == modelUser.Manager.Id).ToList();
+
+        //    //not entered communications
+        //    modelUser.NullCommunicationsList = new List<string>();
+
+        //    //get emailtype enum value
+        //    BaseOutput emailEnumOut = srv.WS_GetEnumValueByName(binput, "email", out modelUser.EnumValue);
+        //    modelUser.ManagerEmail = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).ToList().Count == 0 ? null : modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault().communication;
+        //    if(modelUser.ManagerEmail == null)
+        //    {
+        //        TempData["email"] = "info";
+        //    }
+
+        //    //get HomePhone type enum value
+        //    BaseOutput homePhoneOut = srv.WS_GetEnumValueByName(binput, "homePhone", out modelUser.EnumValue);
+        //    modelUser.ManagerHomePhone = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).ToList().Count == 0 ? null : modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault().communication;
+        //    if (modelUser.ManagerHomePhone == null)
+        //    {
+        //        TempData["homePhone"] = "info";
+        //    }
+        //    //get MobilePhone type enum value
+        //    BaseOutput mobilePhoneOut = srv.WS_GetEnumValueByName(binput, "mobilePhone", out modelUser.EnumValue);
+        //    if(modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).ToList().Count > 0)
+        //    {
+        //        string a = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault().communication;
+        //        modelUser.ManagerMobilePhone = a.Substring(3, 7);
+        //        modelUser.mobilePhonePrefix = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault().communication.Substring(0, 3);
+        //    }
+        //    if (modelUser.ManagerMobilePhone == null)
+        //    {
+        //        TempData["mobilePhone"] = "info";
+        //    }
+        //    //get WorkPhone type enum value
+        //    BaseOutput workPhoneOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelUser.EnumValue);
+        //    modelUser.ManagerWorkPhone = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).ToList().Count == 0 ? null : modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault().communication;
+        //    if (modelUser.ManagerWorkPhone == null)
+        //    {
+        //        TempData["workPhone"]= "info";
+        //    }
+
+        //    //get the gender
+        //    modelUser.Gender = modelUser.Manager.gender;
+        //    modelUser.ManagerEducation = (long)modelUser.Manager.educationLevel_eV_Id;
+        //    modelUser.ManagerJob = (long)modelUser.Manager.job_eV_Id;
 
-            //birthday not finished
-            //modelUser.Birthday = modelUser.Manager.birtday;
+        //    //birthday not finished
+        //    //modelUser.Birthday = modelUser.Manager.birtday;
 
-            BaseOutput adminnOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
+        //    BaseOutput adminnOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
 
-            modelUser.RedirectToParent = redirect == null ? 0 : (long)redirect;
+        //    modelUser.RedirectToParent = redirect == null ? 0 : (long)redirect;
 
 
-            BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelUser.EnumCategory);
-            BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
-            modelUser.MobilePhonePrefixList = modelUser.EnumValueArray.ToList();
+        //    BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelUser.EnumCategory);
+        //    BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
+        //    modelUser.MobilePhonePrefixList = modelUser.EnumValueArray.ToList();
 
 
-            return View("EditChildOrganisation", modelUser);
-        }
+        //    return View("EditChildOrganisation", modelUser);
+        //}
 
-        [HttpPost]
-        public ActionResult EditChildOrganisation(long? UserId, Organisation form, long OrganisationId)
-        {
-            TempData.Clear();
-            binput = new BaseInput();
-            modelUser = new Organisation();
+        //[HttpPost]
+        //public ActionResult EditChildOrganisation(long? UserId, Organisation form, long OrganisationId)
+        //{
+        //    TempData.Clear();
+        //    binput = new BaseInput();
+        //    modelUser = new Organisation();
 
-            modelUser.User = new tblUser();
-            modelUser.FutureAddress = new tblAddress();
-            modelUser.ForeignOrganisation = new tblForeign_Organization();
-
-            //update user
-
-            BaseOutput organisationOut = srv.WS_GetForeign_OrganizationById(binput, OrganisationId, true, out modelUser.ForeignOrganisation);
-            BaseOutput userOut = srv.WS_GetUserById(binput, (long)modelUser.ForeignOrganisation.userId, true, out modelUser.User);
-
-            modelUser.User.Username = form.UserName;
-            modelUser.User.Email = form.Email;
-            modelUser.User.Password = BCrypt.Net.BCrypt.HashPassword(form.Password, 5);
-
+        //    modelUser.User = new tblUser();
+        //    modelUser.FutureAddress = new tblAddress();
+        //    modelUser.ForeignOrganisation = new tblForeign_Organization();
+
+        //    //update user
+
+        //    BaseOutput organisationOut = srv.WS_GetForeign_OrganizationById(binput, OrganisationId, true, out modelUser.ForeignOrganisation);
+        //    BaseOutput userOut = srv.WS_GetUserById(binput, (long)modelUser.ForeignOrganisation.userId, true, out modelUser.User);
+
+        //    modelUser.User.Username = form.UserName;
+        //    modelUser.User.Email = form.Email;
+        //    modelUser.User.Password = BCrypt.Net.BCrypt.HashPassword(form.Password, 5);
+
 
-            if (User != null && User.Identity.IsAuthenticated)
-            {
-                FormsIdentity identity = (FormsIdentity)User.Identity;
-                if (identity.Ticket.UserData.Length > 0)
-                {
-                    UserId = Int32.Parse(identity.Ticket.UserData);
-                }
-            }
-            BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
-
-            binput.userName = modelUser.Admin.Username;
-            BaseOutput userUpdate = srv.WS_UpdateUser(binput, modelUser.User, out modelUser.User);
-
-            //update address
-            BaseOutput addressOUT = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
-            modelUser.FutureAddress.fullAddress = form.FullAddress;
-            modelUser.FutureAddress.adminUnit_Id = form.adId.LastOrDefault();
-            BaseOutput address = srv.WS_UpdateAddress(binput, modelUser.FutureAddress);
-
-
-            //update manager
-            BaseOutput managerOut = srv.WS_GetPersonById(binput, (long)modelUser.ForeignOrganisation.manager_Id, true, out modelUser.Manager);
-
-            modelUser.Manager.Name = form.ManagerName;
-            modelUser.Manager.PinNumber = form.Pin;
-            modelUser.Manager.FatherName = form.FatherName;
-            modelUser.Manager.Surname = form.Surname;
-            modelUser.Manager.birtday = ConvertStringYearMonthDayFormatToTimestamp(form);
-            modelUser.Manager.gender = form.Gender;
-
-            BaseOutput educationEnum = srv.WS_GetEnumValueByName(binput, form.Education, out modelUser.EnumValue);
-            modelUser.Manager.educationLevel_eV_Id = modelUser.EnumValue == null ? 0 : modelUser.EnumValue.Id;
-
-            BaseOutput jobEnum = srv.WS_GetEnumValueByName(binput, form.Job, out modelUser.EnumValue);
-            modelUser.Manager.job_eV_Id = modelUser.EnumValue == null ? 0 : modelUser.EnumValue.Id;
-
-
-            BaseOutput updatemanager = srv.WS_UpdatePerson(binput, modelUser.Manager, out modelUser.Manager);
-
-            //update manager communication informations
-
-            BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelUser.CommunicationInformationsArray);
-            modelUser.CommunicationInformationsList = modelUser.CommunicationInformationsArray.Where(x => x.PersonId == modelUser.Manager.Id).ToList();
-
-            foreach (var item in modelUser.CommunicationInformationsList)
-            {
-                BaseOutput emailEnumOut = srv.WS_GetEnumValueByName(binput, "email", out modelUser.EnumValue);
-                if (item.comType == modelUser.EnumValue.Id)
-                {
-                    item.communication = form.ManagerEmail;
-                    item.description = form.ManagerEmail;
-
-                    BaseOutput updateemail = srv.WS_UpdateCommunication(binput, item, out modelUser.ComunicationInformations);
-                }
-
-                BaseOutput homePhoneOut = srv.WS_GetEnumValueByName(binput, "homePhone", out modelUser.EnumValue);
-                if (item.comType == modelUser.EnumValue.Id)
-                {
-                    item.communication = form.ManagerHomePhone;
-                    item.description = form.ManagerHomePhone;
-                    BaseOutput updateemail = srv.WS_UpdateCommunication(binput, item, out modelUser.ComunicationInformations);
-                }
-
-                BaseOutput mobilePhoneOut = srv.WS_GetEnumValueByName(binput, "mobilePhone", out modelUser.EnumValue);
-                if (item.comType == modelUser.EnumValue.Id)
-                {
-                    item.communication = form.mobilePhonePrefix + form.ManagerMobilePhone;
-                    item.description = form.mobilePhonePrefix + form.ManagerMobilePhone;
-                    BaseOutput updateemail = srv.WS_UpdateCommunication(binput, item, out modelUser.ComunicationInformations);
-                }
-                BaseOutput workPhoneOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelUser.EnumValue);
-                if (item.comType == modelUser.EnumValue.Id)
-                {
-                    item.communication = form.ManagerWorkPhone;
-                    item.description = form.ManagerWorkPhone;
-
-                    BaseOutput updateemail = srv.WS_UpdateCommunication(binput, item, out modelUser.ComunicationInformations);
-                }
-            }
-
-            //add manager communication informations
-
-            if(TempData["email"] != null)
-            {
-                modelUser.ComunicationInformations = new tblCommunication();
-                BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "email", out modelUser.EnumValue);
-                modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
-                modelUser.ComunicationInformations.comTypeSpecified = true;
-                modelUser.ComunicationInformations.communication = form.ManagerEmail;
-                modelUser.ComunicationInformations.description = form.ManagerEmail;
-                modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
-                modelUser.ComunicationInformations.PersonIdSpecified = true;
-                modelUser.ComunicationInformations.priorty = 1;
-                modelUser.ComunicationInformations.priortySpecified = true;
-
-                BaseOutput comunicationOUtt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
-
-            }
-
-            if(TempData["homePhone"] != null)
-            {
-                modelUser.ComunicationInformations = new tblCommunication();
-                BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "homePhone", out modelUser.EnumValue);
-                modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
-                modelUser.ComunicationInformations.comTypeSpecified = true;
-                modelUser.ComunicationInformations.communication = form.ManagerHomePhone;
-                modelUser.ComunicationInformations.description = form.ManagerHomePhone;
-                modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
-                modelUser.ComunicationInformations.PersonIdSpecified = true;
-                modelUser.ComunicationInformations.priorty = 1;
-                modelUser.ComunicationInformations.priortySpecified = true;
-
-                BaseOutput comunicationOUtt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
-
-            }
-            if (TempData["mobilePhone"] != null)
-            {
-                modelUser.ComunicationInformations = new tblCommunication();
-                BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "mobilePhone", out modelUser.EnumValue);
-                modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
-                modelUser.ComunicationInformations.comTypeSpecified = true;
-                modelUser.ComunicationInformations.communication = form.mobilePhonePrefix + form.ManagerMobilePhone;
-                modelUser.ComunicationInformations.description = form.mobilePhonePrefix + form.ManagerMobilePhone;
-                modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
-                modelUser.ComunicationInformations.PersonIdSpecified = true;
-                modelUser.ComunicationInformations.priorty = 1;
-                modelUser.ComunicationInformations.priortySpecified = true;
-
-                BaseOutput comunicationOUtt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
-
-            }
-            if (TempData["workPhone"] != null)
-            {
-                modelUser.ComunicationInformations = new tblCommunication();
-                BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelUser.EnumValue);
-                modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
-                modelUser.ComunicationInformations.comTypeSpecified = true;
-                modelUser.ComunicationInformations.communication = form.ManagerWorkPhone;
-                modelUser.ComunicationInformations.description = form.ManagerWorkPhone;
-                modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
-                modelUser.ComunicationInformations.PersonIdSpecified = true;
-                modelUser.ComunicationInformations.priorty = 1;
-                modelUser.ComunicationInformations.priortySpecified = true;
-
-                BaseOutput comunicationOUtt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
-
-            }
-
-            //update address
-            BaseOutput addressOut = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
-            modelUser.FutureAddress.adminUnit_Id = form.adId.LastOrDefault();
-
-
-            //update foreign organisation
-            modelUser.ForeignOrganisation.name = form.Name;
-            modelUser.ForeignOrganisation.voen = form.Voen;
-
-            BaseOutput updateOrganisation = srv.WS_UpdateForeign_Organization(binput, modelUser.ForeignOrganisation, out modelUser.ForeignOrganisation);
-
-
-            return Redirect("/GovernmentOrganisation/ChildOrganisations?&orgId=" + form.RedirectToParent);
-
-        }
+        //    if (User != null && User.Identity.IsAuthenticated)
+        //    {
+        //        FormsIdentity identity = (FormsIdentity)User.Identity;
+        //        if (identity.Ticket.UserData.Length > 0)
+        //        {
+        //            UserId = Int32.Parse(identity.Ticket.UserData);
+        //        }
+        //    }
+        //    BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
+
+        //    binput.userName = modelUser.Admin.Username;
+        //    BaseOutput userUpdate = srv.WS_UpdateUser(binput, modelUser.User, out modelUser.User);
+
+        //    //update address
+        //    BaseOutput addressOUT = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
+        //    modelUser.FutureAddress.fullAddress = form.FullAddress;
+        //    modelUser.FutureAddress.adminUnit_Id = form.adId.LastOrDefault();
+        //    BaseOutput address = srv.WS_UpdateAddress(binput, modelUser.FutureAddress);
+
+
+        //    //update manager
+        //    BaseOutput managerOut = srv.WS_GetPersonById(binput, (long)modelUser.ForeignOrganisation.manager_Id, true, out modelUser.Manager);
+
+        //    modelUser.Manager.Name = form.ManagerName;
+        //    modelUser.Manager.PinNumber = form.Pin;
+        //    modelUser.Manager.FatherName = form.FatherName;
+        //    modelUser.Manager.Surname = form.Surname;
+        //    modelUser.Manager.birtday = ConvertStringYearMonthDayFormatToTimestamp(form);
+        //    modelUser.Manager.gender = form.Gender;
+
+        //    BaseOutput educationEnum = srv.WS_GetEnumValueByName(binput, form.Education, out modelUser.EnumValue);
+        //    modelUser.Manager.educationLevel_eV_Id = modelUser.EnumValue == null ? 0 : modelUser.EnumValue.Id;
+
+        //    BaseOutput jobEnum = srv.WS_GetEnumValueByName(binput, form.Job, out modelUser.EnumValue);
+        //    modelUser.Manager.job_eV_Id = modelUser.EnumValue == null ? 0 : modelUser.EnumValue.Id;
+
+
+        //    BaseOutput updatemanager = srv.WS_UpdatePerson(binput, modelUser.Manager, out modelUser.Manager);
+
+        //    //update manager communication informations
+
+        //    BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelUser.CommunicationInformationsArray);
+        //    modelUser.CommunicationInformationsList = modelUser.CommunicationInformationsArray.Where(x => x.PersonId == modelUser.Manager.Id).ToList();
+
+        //    foreach (var item in modelUser.CommunicationInformationsList)
+        //    {
+        //        BaseOutput emailEnumOut = srv.WS_GetEnumValueByName(binput, "email", out modelUser.EnumValue);
+        //        if (item.comType == modelUser.EnumValue.Id)
+        //        {
+        //            item.communication = form.ManagerEmail;
+        //            item.description = form.ManagerEmail;
+
+        //            BaseOutput updateemail = srv.WS_UpdateCommunication(binput, item, out modelUser.ComunicationInformations);
+        //        }
+
+        //        BaseOutput homePhoneOut = srv.WS_GetEnumValueByName(binput, "homePhone", out modelUser.EnumValue);
+        //        if (item.comType == modelUser.EnumValue.Id)
+        //        {
+        //            item.communication = form.ManagerHomePhone;
+        //            item.description = form.ManagerHomePhone;
+        //            BaseOutput updateemail = srv.WS_UpdateCommunication(binput, item, out modelUser.ComunicationInformations);
+        //        }
+
+        //        BaseOutput mobilePhoneOut = srv.WS_GetEnumValueByName(binput, "mobilePhone", out modelUser.EnumValue);
+        //        if (item.comType == modelUser.EnumValue.Id)
+        //        {
+        //            item.communication = form.mobilePhonePrefix + form.ManagerMobilePhone;
+        //            item.description = form.mobilePhonePrefix + form.ManagerMobilePhone;
+        //            BaseOutput updateemail = srv.WS_UpdateCommunication(binput, item, out modelUser.ComunicationInformations);
+        //        }
+        //        BaseOutput workPhoneOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelUser.EnumValue);
+        //        if (item.comType == modelUser.EnumValue.Id)
+        //        {
+        //            item.communication = form.ManagerWorkPhone;
+        //            item.description = form.ManagerWorkPhone;
+
+        //            BaseOutput updateemail = srv.WS_UpdateCommunication(binput, item, out modelUser.ComunicationInformations);
+        //        }
+        //    }
+
+        //    //add manager communication informations
+
+        //    if(TempData["email"] != null)
+        //    {
+        //        modelUser.ComunicationInformations = new tblCommunication();
+        //        BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "email", out modelUser.EnumValue);
+        //        modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
+        //        modelUser.ComunicationInformations.comTypeSpecified = true;
+        //        modelUser.ComunicationInformations.communication = form.ManagerEmail;
+        //        modelUser.ComunicationInformations.description = form.ManagerEmail;
+        //        modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
+        //        modelUser.ComunicationInformations.PersonIdSpecified = true;
+        //        modelUser.ComunicationInformations.priorty = 1;
+        //        modelUser.ComunicationInformations.priortySpecified = true;
+
+        //        BaseOutput comunicationOUtt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
+
+        //    }
+
+        //    if(TempData["homePhone"] != null)
+        //    {
+        //        modelUser.ComunicationInformations = new tblCommunication();
+        //        BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "homePhone", out modelUser.EnumValue);
+        //        modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
+        //        modelUser.ComunicationInformations.comTypeSpecified = true;
+        //        modelUser.ComunicationInformations.communication = form.ManagerHomePhone;
+        //        modelUser.ComunicationInformations.description = form.ManagerHomePhone;
+        //        modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
+        //        modelUser.ComunicationInformations.PersonIdSpecified = true;
+        //        modelUser.ComunicationInformations.priorty = 1;
+        //        modelUser.ComunicationInformations.priortySpecified = true;
+
+        //        BaseOutput comunicationOUtt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
+
+        //    }
+        //    if (TempData["mobilePhone"] != null)
+        //    {
+        //        modelUser.ComunicationInformations = new tblCommunication();
+        //        BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "mobilePhone", out modelUser.EnumValue);
+        //        modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
+        //        modelUser.ComunicationInformations.comTypeSpecified = true;
+        //        modelUser.ComunicationInformations.communication = form.mobilePhonePrefix + form.ManagerMobilePhone;
+        //        modelUser.ComunicationInformations.description = form.mobilePhonePrefix + form.ManagerMobilePhone;
+        //        modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
+        //        modelUser.ComunicationInformations.PersonIdSpecified = true;
+        //        modelUser.ComunicationInformations.priorty = 1;
+        //        modelUser.ComunicationInformations.priortySpecified = true;
+
+        //        BaseOutput comunicationOUtt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
+
+        //    }
+        //    if (TempData["workPhone"] != null)
+        //    {
+        //        modelUser.ComunicationInformations = new tblCommunication();
+        //        BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelUser.EnumValue);
+        //        modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
+        //        modelUser.ComunicationInformations.comTypeSpecified = true;
+        //        modelUser.ComunicationInformations.communication = form.ManagerWorkPhone;
+        //        modelUser.ComunicationInformations.description = form.ManagerWorkPhone;
+        //        modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
+        //        modelUser.ComunicationInformations.PersonIdSpecified = true;
+        //        modelUser.ComunicationInformations.priorty = 1;
+        //        modelUser.ComunicationInformations.priortySpecified = true;
+
+        //        BaseOutput comunicationOUtt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
+
+        //    }
+
+        //    //update address
+        //    BaseOutput addressOut = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
+        //    modelUser.FutureAddress.adminUnit_Id = form.adId.LastOrDefault();
+
+
+        //    //update foreign organisation
+        //    modelUser.ForeignOrganisation.name = form.Name;
+        //    modelUser.ForeignOrganisation.voen = form.Voen;
+
+        //    BaseOutput updateOrganisation = srv.WS_UpdateForeign_Organization(binput, modelUser.ForeignOrganisation, out modelUser.ForeignOrganisation);
+
+
+        //    return Redirect("/GovernmentOrganisation/ChildOrganisations?&orgId=" + form.RedirectToParent);
+
+        //}
 
         public ActionResult OrganisationInfo(long? UserId, long? Id, long? redirect)
         {
@@ -1169,14 +1184,29 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, item.Id, true, out modelUser.Person);
 
-                //sehv
                 if (modelUser.Person != null)
                 {
                     modelUser.Individual.Name = modelUser.Person.Name;
                     modelUser.Individual.Surname = modelUser.Person.Surname;
                     modelUser.Individual.Fathername = modelUser.Person.FatherName;
+
+                    if(modelUser.Person.address_Id != null)
+                    {
+                        BaseOutput addressout = srv.WS_GetAddressById(binput, (long)modelUser.Person.address_Id, true, out modelUser.FutureAddress);
+                        BaseOutput fulladdressListOut = srv.WS_GetAdminUnitListForID(binput, (long)modelUser.FutureAddress.adminUnit_Id, true, out modelUser.PRMAdminUnitArray);
+
+                        foreach (var adminunit in modelUser.PRMAdminUnitArray)
+                        {
+                            if (adminunit.Name != "Azərbaycan Respublikası")
+                            {
+                                modelUser.Individual.FullAddress += adminunit.Name + ",";
+                            }
+                        }
+                        modelUser.Individual.FullAddress = modelUser.Individual.FullAddress.Remove(modelUser.Individual.FullAddress.Length - 1);
+                    }
+                    
                 }
-                //
+               
                 modelUser.Individual.Email = item.Email;
                 modelUser.Individual.Id = item.Id;
 
@@ -1226,6 +1256,34 @@ namespace Emsal.AdminUI.Controllers
                 modelUser.GovernmentOrganisation.Email = item.Email;
                 modelUser.GovernmentOrganisation.Id = item.Id;
 
+
+                if (modelUser.ForeignOrganisation.address_Id != null)
+                {
+                    BaseOutput addressout = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
+                    BaseOutput fulladdressListOut = srv.WS_GetAdminUnitListForID(binput, (long)modelUser.FutureAddress.adminUnit_Id, true, out modelUser.PRMAdminUnitArray);
+
+                    foreach (var adminunit in modelUser.PRMAdminUnitArray)
+                    {
+                        if(adminunit.Name != "Azərbaycan Respublikası")
+                        {
+                          modelUser.GovernmentOrganisation.FullAddress += adminunit.Name + ",";
+                        }
+                    }
+                    modelUser.GovernmentOrganisation.FullAddress = modelUser.GovernmentOrganisation.FullAddress.Remove(modelUser.GovernmentOrganisation.FullAddress.Length - 1);
+                }
+
+
+
+                //get manager infos
+                if (modelUser.ForeignOrganisation.manager_Id != null)
+                {
+                    BaseOutput managerOut = srv.WS_GetPersonById(binput, (long)modelUser.ForeignOrganisation.manager_Id, true, out modelUser.Person);
+                    modelUser.GovernmentOrganisation.ManagerName = modelUser.Person.Name;
+                    modelUser.GovernmentOrganisation.ManagerFatherName = modelUser.Person.FatherName;
+                    modelUser.GovernmentOrganisation.ManagerSurname = modelUser.Person.Surname;
+                }
+               
+
                 modelUser.GovernmentOrganisationList.Add(modelUser.GovernmentOrganisation);
             }
 
@@ -1267,14 +1325,18 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, item.Id, true, out modelUser.Person);
 
-                //sehv
                 if (modelUser.Person != null)
                 {
                     modelUser.Individual.Name = modelUser.Person.Name;
                     modelUser.Individual.Surname = modelUser.Person.Surname;
                     modelUser.Individual.Fathername = modelUser.Person.FatherName;
                 }
-                //
+
+                //get the branch name
+                modelUser.branchResponsibility = new tblBranchResponsibility();
+                BaseOutput ascbranchOut = srv.WS_GetPRM_ASCBranchById(binput, (long)item.ASC_ID, true, out modelUser.ASCBranch);
+
+                modelUser.Individual.BranchName = modelUser.ASCBranch == null ? null : modelUser.ASCBranch.Name;
                 modelUser.Individual.Email = item.Email;
                 modelUser.Individual.Id = item.Id;
 
@@ -1318,14 +1380,17 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, item.Id, true, out modelUser.Person);
 
-                //sehv
                 if (modelUser.Person != null)
                 {
                     modelUser.Individual.Name = modelUser.Person.Name;
                     modelUser.Individual.Surname = modelUser.Person.Surname;
                     modelUser.Individual.Fathername = modelUser.Person.FatherName;
                 }
-                //
+
+                //get the branch name
+                BaseOutput ktnbranchOut = srv.WS_GetPRM_KTNBranchById(binput, (long)item.KTN_ID, true, out modelUser.KTNBranch);
+                modelUser.Individual.BranchName = modelUser.KTNBranch == null ? null : modelUser.KTNBranch.Name;
+
                 modelUser.Individual.Email = item.Email;
                 modelUser.Individual.Id = item.Id;
 
