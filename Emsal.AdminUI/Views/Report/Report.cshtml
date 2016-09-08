@@ -80,16 +80,7 @@
 <div id="report">
     <script>
         $(document).ready(function () {
-            $.ajax({
-                url: '/Report/DemandOffer',
-                type: 'GET',
-                success: function (result) {
-                    $('#report').html(result);
-                },
-                error: function () {
-
-                }
-            });
+            DemandOffer(1);
         });
     </script>
 </div>

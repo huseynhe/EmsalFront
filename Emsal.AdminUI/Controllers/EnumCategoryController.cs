@@ -22,6 +22,8 @@ namespace Emsal.AdminUI.Controllers
         private BaseInput baseInput;     
         public ActionResult Index(int? page)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             int pageSize =20;
@@ -52,13 +54,18 @@ namespace Emsal.AdminUI.Controllers
                 ? (ActionResult)PartialView("PartialIndex", modelEnumCategory)
                 : View(modelEnumCategory);
 
-            //return View(modelEnumCategory);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
 
         public ActionResult Create()
         {
-            //???????????????????
+            try { 
+
             baseInput = new BaseInput();
 
             modelEnumCategory = new EnumCategoryViewModel();
@@ -76,11 +83,19 @@ namespace Emsal.AdminUI.Controllers
             baseInput.userName = modelEnumCategory.Admin.Username;
 
             return View(modelEnumCategory);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         [HttpPost]
         public ActionResult Create(EnumCategoryViewModel model, FormCollection collection)
         {
+            try { 
+
             baseInput = new BaseInput();
 
 
@@ -114,11 +129,19 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput pout = srv.WS_AddEnumCategory(baseInput, modelEnumCategory.EnumCategory, out modelEnumCategory.EnumCategory);
 
             return RedirectToAction("Index");
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
 
         public ActionResult Delete(int id)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelEnumCategory = new EnumCategoryViewModel();
 
@@ -141,10 +164,18 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput dec = srv.WS_DeleteEnumCategory(baseInput, modelEnumCategory.EnumCategory);
 
             return RedirectToAction("Index");
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult Edit(int id)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             modelEnumCategory = new EnumCategoryViewModel();
@@ -175,11 +206,19 @@ namespace Emsal.AdminUI.Controllers
                 modelEnumCategory.isProductDescibe = false;
 
             return View(modelEnumCategory);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         [HttpPost]
         public ActionResult Edit(EnumCategoryViewModel model, FormCollection collection)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             long? UserId = null;
@@ -217,6 +256,12 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput ecout = srv.WS_UpdateEnumCategory(baseInput, modelEnumCategory.EnumCategory, out modelEnumCategory.EnumCategory);
 
             return RedirectToAction("Index");
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
 

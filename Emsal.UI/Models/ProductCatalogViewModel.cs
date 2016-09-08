@@ -27,7 +27,10 @@ namespace Emsal.UI.Models
         public tblAnnouncement[] AnnouncementArray;
 
         public UserInfo UserInfo;
+        public UserInfo UserInfoS;
         public IList<UserInfo> UserInfoList { get; set; }
+        public IList<UserInfo> UserInfoListS { get; set; }
+        public IList<UserInfo> UserInfoListP { get; set; }
         public UserInfo[] UserInfoArray;
 
         public tblProductCatalogControl ProductCatalogControl;
@@ -135,6 +138,9 @@ namespace Emsal.UI.Models
         public string sort { get; set; }
         public string name { get; set; }
         public string surname { get; set; }
+        public string address { get; set; }
         public string products { get; set; }
+
+        public long arrNum = 0;
     }
 }

@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "";
+    decimal tquantity = 0;
 }
 
 @using (Html.BeginForm("Approv", "OfferProduction", FormMethod.Post))
@@ -81,6 +82,52 @@
                                                 </td>
                                             }
                                         </tr>
+                                        if (item.productionCalendarList.Count() > 0)
+                                        {
+                                            <tr>
+                                                <td colspan="9" style="padding:0;">
+                                                    <table class="table" style="margin:0;">
+                                                        <tr>
+                                                            <th>tipi</th>
+                                                            <th>il</th>
+                                                            <th>rüb</th>
+                                                            <th>ay</th>
+                                                            <th>gün</th>
+                                                            <th>saat</th>
+                                                            <th>miqdar</th>
+                                                            <th>miqdar (cəmi)</th>
+                                                        </tr>
+                                                        @foreach (var itemc in item.productionCalendarList)
+                                                        {
+                                                            tquantity = (itemc.quantity * itemc.transportation_eV_Id);
+                                                            <tr>
+                                                                <td>
+                                                                    @if (itemc.TypeDescription != null)
+                                                                    {
+                                                                        <span>@itemc.TypeDescription</span>
+                                                                    }
+                                                                </td>
+                                                                <td> @itemc.year </td>
+                                                                <td> @itemc.partOfyear</td>
+                                                                <td> @itemc.MonthDescription</td>
+                                                                <td> @itemc.day</td>
+                                                                <td> @itemc.oclock</td>
+                                                                <td> @itemc.quantity</td>
+                                                                <td> @tquantity</td>
+                                                            </tr>
+                                                        }
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        }
+                                        if (item != Model.ProductionDetailList.LastOrDefault())
+                                        {
+                                            <tr>
+                                                <td colspan="9" style="padding:0;background:#f2f2f2;">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                        }
                                     }
                                 </tbody>
                             </table>

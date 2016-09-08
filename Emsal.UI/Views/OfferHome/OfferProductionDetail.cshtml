@@ -12,21 +12,36 @@
             <div class="thumbnail col-md-12" style="padding: 20px;">
                 <div class="row  wow fadeInUp">
                     <div class="col-xs-12 col-sm-5 col-md-4 gallery-holder text-center">
-                      <img src="~/Content/img/noimage.png" />
+                        @if (Model.ProductionDetail.productDocumentList != null)
+                        {
+                            if (Model.ProductionDetail.productDocumentList.Count() > 0)
+                            {
+                                <img class="img-responsive" src="@Model.ProductionDetail.productDocumentList.FirstOrDefault().documentUrl@Model.ProductionDetail.productDocumentList.FirstOrDefault().documentName" />
+                            }
+                            else
+                            {
+                                <img src="~/Content/img/noimage.png" />
+                            }
+                        }
+                        else
+                        {
+                            <img src="~/Content/img/noimage.png" />
+                        }
                     </div>
                     <div class="col-sm-6 col-md-7 product-info-block">
                         <div class="product-info">
-                            <h1 class="name">@Model.ProductionDetail.productName  - @Model.ProductionDetail.quantity @Model.ProductionDetail.enumValueName</h1>
+                            <h1 class="name">@Model.ProductionDetail.productName (@Model.ProductionDetail.productParentName)  - @Model.ProductionDetail.quantity @Model.ProductionDetail.enumValueName</h1>
                             <div class="stock-container info-container m-t-10">
                                 <div class="row">
                                 </div>
                             </div>
+                            <br />
                             <div class="price-container info-container m-t-20">
                                 <div class="row">
 
                                     <div class="col-sm-6">
                                         <div class="price-box">
-                                            <h4>@Model.ProductionDetail.unitPrice  AZN</h4>
+                                            <h4>@Model.ProductionDetail.unitPrice  ( @Model.ProductionDetail.enumValueName / man )</h4>
                                         </div>
                                     </div>
                                 </div>

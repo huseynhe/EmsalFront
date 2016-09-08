@@ -15,16 +15,17 @@
             if (item.pinNumber != "" || item.voen != "") { 
             <tr>
                 <td class="col-sm-3">@item.name</td>
-                <td class="col-sm-3">@item.surname</td>
-                @*<td class="col-sm-5">@item.products</td>*@
+                @*<td class="col-sm-2">@item.surname</td>*@
+                <td class="col-sm-3">@item.adminUnitName</td>
+                <td class="col-sm-5">@item.parentAdminUnitName</td>
                 <td class="col-sm-1 text-center">
                     @if (item.pinNumber != "")
                     {
-                        <a target="_blank" href="/Login?finvoen=@item.pinNumber&type=1"><span class="glyphicon glyphicon-user"></span></a>
+                        <a target="_blank" href="/Login?uid=@item.userID&type=1"><span class="glyphicon glyphicon-user"></span></a>
                     }
                     else if (item.voen != "")
                     {
-                        <a target="_blank" href="/Login?finvoen=@item.voen&type=2"><span class="fa fa-building"></span></a>
+                        <a target="_blank" href="/Login?uid=@item.userID&type=2"><span class="fa fa-building"></span></a>
                     }
                 
                 </td>

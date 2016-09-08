@@ -87,12 +87,27 @@ $(document).ready(function () {
 });
 
 
-
+var valu;
 
 function GetAdminUnit(elem) {
     $(elem).parent().nextAll().remove();
     pId = $(elem).val();
 
+    valu = 0;
+    if (pId == '') {
+        var name = $(elem).attr('name');
+        var i = name.substring(5, name.length - 1);
+        var val = 0;
+
+        for (var d = 0; d < i; d++) {
+            val = $('select[name="adId[' + d + ']"]').val();
+
+            if (val != undefined) {
+                valu = $('select[name="adId[' + d + ']"]').val();
+            }
+        }
+        pId = valu;
+    }
 
     if (pId == "") {
         GetUserInfoBy(0, elem);
@@ -107,10 +122,10 @@ function GetAdminUnit(elem) {
             success: function (result) {
                 //if (result == "")
                 //{
-                    GetUserInfoBy(pId, elem);
+                GetUserInfoBy(pId, elem);
                 //}
                
-                $(elem).parent().parent().append(result);
+                    $(elem).parent().parent().append(result);
 
                 $('.select2').select2();
             },
@@ -193,7 +208,12 @@ function GetUserInfoBy(addressId, elem) {
             type: 'GET',
             //data: { "pId": appId},
             success: function (result) {
-                $(elem).parent().parent().parent().find('#AjaxPaginationList').html(result);                
+                $(elem).parent().parent().parent().find('#AjaxPaginationList').html(result);
+
+                if (valu > 0) {
+                    $(elem).parent().remove();
+                }
+
             },
             error: function () {
 

@@ -29,10 +29,11 @@ namespace Emsal.UI.Controllers
 
         public ActionResult Index(int? page, string stateStatusEV = null, string productName = null, string userInfo = null)
         {
+            try {
 
-            if (stateStatusEV != null)
-                stateStatusEV = StripTag.strSqlBlocker(stateStatusEV.ToLower());
-            if (productName != null)
+                if (stateStatusEV != null)
+                    stateStatusEV = StripTag.strSqlBlocker(stateStatusEV.ToLower());
+                if (productName != null)
                 productName = StripTag.strSqlBlocker(productName.ToLower());
             if (userInfo != null)
                 userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
@@ -119,11 +120,18 @@ namespace Emsal.UI.Controllers
                ? (ActionResult)PartialView("PartialIndex", modelPotentialClientState)
                : View(modelPotentialClientState);
 
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         [HttpPost]
         public ActionResult Approv(int[] ids)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelPotentialClientState = new PotentialClientStateViewModel();
 
@@ -171,11 +179,19 @@ namespace Emsal.UI.Controllers
             }
 
             return RedirectToAction("Index", "PotentialClientState", new { stateStatusEV = modelPotentialClientState.EnumValueST.name });
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
 
         public ActionResult Edit(int id)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelPotentialClientState = new PotentialClientStateViewModel();
 
@@ -196,11 +212,19 @@ namespace Emsal.UI.Controllers
             modelPotentialClientState.Id = modelPotentialClientState.PotentialProduction.Id;
 
             return View(modelPotentialClientState);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         [HttpPost]
         public ActionResult Edit(PotentialClientStateViewModel model, FormCollection collection)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             long? UserId = null;
@@ -242,6 +266,12 @@ namespace Emsal.UI.Controllers
 
 
             return RedirectToAction("Index", "PotentialClientState", new { stateStatusEV = model.EnumValueST.name });
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
     }

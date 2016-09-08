@@ -21,6 +21,8 @@ namespace Emsal.AdminUI.Controllers
         private BaseInput baseInput;
         public ActionResult IndexBy(int enumCategoryId)
         {
+            try { 
+
             baseInput = new BaseInput();
             
             modelEnumValue = new EnumValueViewModel();
@@ -42,10 +44,18 @@ namespace Emsal.AdminUI.Controllers
             modelEnumValue.EnumValueList = modelEnumValue.EnumValueArray.ToList();
 
             return View(modelEnumValue);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
    
         public ActionResult Index(int? page)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             int pageSize = 20;
@@ -73,10 +83,18 @@ namespace Emsal.AdminUI.Controllers
             modelEnumValue.Paging = modelEnumValue.EnumValueList.ToPagedList(pageNumber, pageSize);
 
             return View(modelEnumValue);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult Create(int enumCategoryId)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelEnumValue = new EnumValueViewModel();
 
@@ -98,12 +116,20 @@ namespace Emsal.AdminUI.Controllers
              BaseOutput bouput = srv.WS_GetEnumCategoryById(baseInput, enumCategoryId, true, out modelEnumValue.EnumCategory);
 
             return View(modelEnumValue);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
 
         [HttpPost]
         public ActionResult Create(EnumValueViewModel model, FormCollection collection)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             long? UserId = null;
@@ -137,12 +163,18 @@ namespace Emsal.AdminUI.Controllers
 
             return RedirectToAction("Create", "EnumValue", new { enumCategoryId = model.enumCategoryId });
 
-            //return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
 
         public ActionResult Delete(int id)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelEnumValue = new EnumValueViewModel();
 
@@ -165,10 +197,18 @@ namespace Emsal.AdminUI.Controllers
              BaseOutput dpc = srv.WS_DeleteEnumValue(baseInput, modelEnumValue.EnumValue);
 
             return RedirectToAction("Create", "EnumValue", new { enumCategoryId = modelEnumValue.EnumValue.enumCategory_enumCategoryId });
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult Edit(int id)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             modelEnumValue = new EnumValueViewModel();
@@ -194,11 +234,19 @@ namespace Emsal.AdminUI.Controllers
             modelEnumValue.description = modelEnumValue.EnumValue.description;
 
             return View(modelEnumValue);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         [HttpPost]
         public ActionResult Edit(EnumValueViewModel model, FormCollection collection)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             long? UserId = null;
@@ -225,6 +273,12 @@ namespace Emsal.AdminUI.Controllers
 
             //return RedirectToAction("Index");
             return RedirectToAction("Create", "EnumValue", new { enumCategoryId = modelEnumValue.EnumValue.enumCategory_enumCategoryId });
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
 

@@ -27,10 +27,12 @@ namespace Emsal.AdminUI.Controllers
         {
             //srv.WS_createDb();
 
-            baseInput = new BaseInput();
-            modelProductCatalog = new ProductCatalogViewModel();
+            try { 
 
-            long? UserId=null;
+            baseInput = new BaseInput();
+                modelProductCatalog = new ProductCatalogViewModel();
+
+                long? UserId=null;
             if (User != null && User.Identity.IsAuthenticated)
             {
                 FormsIdentity identity = (FormsIdentity)User.Identity;
@@ -46,10 +48,18 @@ namespace Emsal.AdminUI.Controllers
             modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogArray.ToList();
 
             return View(modelProductCatalog);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult DeleteProdCat(int productCatalogId = 0)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             modelProductCatalog = new ProductCatalogViewModel();
@@ -71,9 +81,18 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput dpc = srv.WS_DeleteProductCatalog(baseInput, modelProductCatalog.ProductCatalog);
 
             return RedirectToAction("Index", "Home");
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
+
         public ActionResult ProdCatVal(int productCatalogId=0)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             modelProductCatalog = new ProductCatalogViewModel();
@@ -105,6 +124,12 @@ namespace Emsal.AdminUI.Controllers
             modelProductCatalog.ProductCatalogControlList = modelProductCatalog.ProductCatalogControlArray.Where(x=>x.Status==1).ToList();
 
             return View(modelProductCatalog);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public long AddProductCatalog(
@@ -116,6 +141,8 @@ namespace Emsal.AdminUI.Controllers
             int canBeOrder = 0
             )
         {
+            try { 
+
             int pid=0;
             int p = 1;
             int enumCategory=0;
@@ -202,6 +229,12 @@ namespace Emsal.AdminUI.Controllers
             }
 
             return modelProductCatalog.ProductCatalog.Id;
+
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
         }
 
 
@@ -209,6 +242,8 @@ namespace Emsal.AdminUI.Controllers
         [HttpPost]
         public void File(IList<HttpPostedFileBase> file, long prodId)
         {
+            try { 
+
             if (file != null)
             {
                 baseInput = new BaseInput();
@@ -294,17 +329,33 @@ namespace Emsal.AdminUI.Controllers
                     }
                 }
 
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message + ex.Source + ex.StackTrace;
             }
         }
 
 
         public ActionResult MainPage()
         {
+            try { 
+
             return View();
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult UserProfile()
         {
+            try { 
+
             baseInput = new BaseInput();
             modelProductCatalog = new ProductCatalogViewModel();
 
@@ -321,10 +372,18 @@ namespace Emsal.AdminUI.Controllers
             baseInput.userName = modelProductCatalog.Admin.Username;
 
             return View(modelProductCatalog);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult UserAppeal()
         {
+            try { 
+
             baseInput = new BaseInput();
             modelProductCatalog = new ProductCatalogViewModel();
 
@@ -341,9 +400,17 @@ namespace Emsal.AdminUI.Controllers
             baseInput.userName = modelProductCatalog.Admin.Username;
 
             return View(modelProductCatalog);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
         public ActionResult UserAppealDetail()
         {
+            try { 
+
             baseInput = new BaseInput();
             modelProductCatalog = new ProductCatalogViewModel();
 
@@ -360,13 +427,29 @@ namespace Emsal.AdminUI.Controllers
             baseInput.userName = modelProductCatalog.Admin.Username;
 
             return View(modelProductCatalog);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
         public ActionResult Login()
         {
+            try { 
+
             return View();
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
         public ActionResult Report()
         {
+            try { 
+
             baseInput = new BaseInput();
             modelProductCatalog = new ProductCatalogViewModel();
 
@@ -383,19 +466,49 @@ namespace Emsal.AdminUI.Controllers
             baseInput.userName = modelProductCatalog.Admin.Username;
 
             return View(modelProductCatalog);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult Report2()
         {
+            try { 
+
             return View();
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
         public ActionResult Report3()
         {
+            try { 
+
             return View();
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
         public ActionResult Report4()
         {
+            try { 
+
             return View();
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
     }
 }

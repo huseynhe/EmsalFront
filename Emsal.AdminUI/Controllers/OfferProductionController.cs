@@ -28,9 +28,11 @@ namespace Emsal.AdminUI.Controllers
 
         public ActionResult Index(int? page, string statusEV = null, string productName = null, string userInfo = null)
         {
-            if (statusEV != null)
-                statusEV = StripTag.strSqlBlocker(statusEV.ToLower());
-            if (productName != null)
+            try {
+
+                if (statusEV != null)
+                    statusEV = StripTag.strSqlBlocker(statusEV.ToLower());
+                if (productName != null)
                 productName = StripTag.strSqlBlocker(productName.ToLower());
             if (userInfo != null)
                 userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
@@ -106,7 +108,7 @@ namespace Emsal.AdminUI.Controllers
 
             modelOfferProduction.Paging = modelOfferProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
 
-            if (sstatusEV == "Yayinda")
+            if (sstatusEV == "Yayinda" || sstatusEV == "yayinda")
                 modelOfferProduction.isMain = 0;
             else
                 modelOfferProduction.isMain = 1;
@@ -120,12 +122,20 @@ namespace Emsal.AdminUI.Controllers
             return Request.IsAjaxRequest()
                ? (ActionResult)PartialView("PartialIndex", modelOfferProduction)
                : View(modelOfferProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
 
         [HttpPost]
         public ActionResult Approv(int[] ids)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelOfferProduction = new OfferProductionViewModel();
 
@@ -175,10 +185,18 @@ namespace Emsal.AdminUI.Controllers
             }
 
             return RedirectToAction("Index", "OfferProduction", new { statusEV = modelOfferProduction.EnumValueST.name });
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult Edit(int id)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelOfferProduction = new OfferProductionViewModel();
 
@@ -199,11 +217,19 @@ namespace Emsal.AdminUI.Controllers
             modelOfferProduction.Id = modelOfferProduction.OfferProduction.Id;
 
             return View(modelOfferProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         [HttpPost]
         public ActionResult Edit(OfferProductionViewModel model, FormCollection collection)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             model.ConfirmationMessage = new tblConfirmationMessage();
@@ -251,6 +277,12 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput acm = srv.WS_AddComMessage(baseInput, model.ComMessage, out model.ComMessage);
 
             return RedirectToAction("Index", "OfferProduction", new { statusEV = model.EnumValueST.name });
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
     }

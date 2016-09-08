@@ -24,10 +24,10 @@
                         <img src="~/Content/img/noimage.png" />
                     }
                     <div class="caption">
-                        <h4 class="text-bold">@item.announcement.product_name</h4>
-                        <h4 class="text-bold text-red">@item.announcement.quantity @item.announcement.quantity_type_Name</h4>
-                        <a href="/Home/AnnouncementDetail/@item.announcement.Id" class="btn btn-default text-bold f-left">BAX</a>
-                        <button type="button" class="btn btn-primary text-white text-bold f-right">@item.announcement.unit_price AZN</button>
+                        <h4 class="text-bold">@item.announcementDetail.announcement.product_name (@item.parentName)</h4>
+                        <h4 class="text-bold text-red">@item.announcementDetail.announcement.quantity @item.announcementDetail.announcement.quantity_type_Name</h4>
+                        <a href="/Home/AnnouncementDetail/@item.announcementDetail.announcement.Id" class="btn btn-default text-bold f-left">BAX</a>
+                        <button type="button" class="btn btn-primary text-white text-bold f-right">@item.announcementDetail.announcement.unit_price AZN</button>
                     </div>
                 </div>
             </div>

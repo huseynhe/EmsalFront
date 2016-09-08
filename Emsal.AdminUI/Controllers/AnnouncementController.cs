@@ -25,10 +25,12 @@ namespace Emsal.AdminUI.Controllers
 
         public ActionResult Index()
         {
-            baseInput = new BaseInput();
-            modelAnnouncement = new AnnouncementViewModel();
+            try { 
 
-            long? UserId = null;
+            baseInput = new BaseInput();
+                modelAnnouncement = new AnnouncementViewModel();
+
+                long? UserId = null;
             if (User != null && User.Identity.IsAuthenticated)
             {
                 FormsIdentity identity = (FormsIdentity)User.Identity;
@@ -44,7 +46,7 @@ namespace Emsal.AdminUI.Controllers
             modelAnnouncement.DemanProductionGroupList = new List<DemanProductionGroup>();
 
             modelAnnouncement.startDate = Convert.ToDateTime("01.01.2016");
-            modelAnnouncement.endDate = DateTime.Now.Date;
+            modelAnnouncement.endDate = DateTime.Now;
 
             DateTime edDate = (DateTime)modelAnnouncement.endDate;
 
@@ -52,15 +54,31 @@ namespace Emsal.AdminUI.Controllers
             long edRub = Int32.Parse(String.Format("{0}", (edDate.Month + 2) / 3));
 
 
-            BaseOutput envalyd = srv.WS_GetDemanProductionGroupList(baseInput, ((DateTime)modelAnnouncement.startDate).getInt64ShortDate(), true, ((DateTime)modelAnnouncement.endDate).getInt64ShortDate(), true, stYear, true, edRub, true, out modelAnnouncement.DemanProductionGroupArray);
-            modelAnnouncement.DemanProductionGroupList = modelAnnouncement.DemanProductionGroupArray.ToList();
+            BaseOutput envalyd = srv.WS_GetDemanProductionGroupList(baseInput, ((DateTime)modelAnnouncement.startDate).getInt64Date(), true, ((DateTime)modelAnnouncement.endDate).getInt64Date(), true, stYear, true, edRub, true, out modelAnnouncement.DemanProductionGroupArray);
+
+                if (modelAnnouncement.DemanProductionGroupArray != null)
+                {
+                    modelAnnouncement.DemanProductionGroupList = modelAnnouncement.DemanProductionGroupArray.ToList();
+                }
+                else
+                {
+                    modelAnnouncement.DemanProductionGroupList = new List<DemanProductionGroup>();
+                }
 
             return View(modelAnnouncement);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         [HttpPost]
         public ActionResult Index(AnnouncementViewModel model)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             long? UserId = null;
@@ -83,15 +101,15 @@ namespace Emsal.AdminUI.Controllers
             long edRub = Int32.Parse(String.Format("{0}", (edDate.Month + 2) / 3));
 
 
-            BaseOutput envalyd = srv.WS_GetDemanProductionGroupList(baseInput, ((DateTime)model.startDate).getInt64ShortDate(), true, ((DateTime)model.endDate).getInt64ShortDate(), true, stYear,true, edRub,true, out model.DemanProductionGroupArray);
+            BaseOutput envalyd = srv.WS_GetDemanProductionGroupList(baseInput, ((DateTime)model.startDate).getInt64Date(), true, ((DateTime)model.endDate).getInt64Date(), true, stYear,true, edRub,true, out model.DemanProductionGroupArray);
             model.DemanProductionGroupList = model.DemanProductionGroupArray.ToList();
 
             if (model.approv == 1)
             {
                 model.DemandProduction = new tblDemand_Production();
-                model.DemandProduction.startDate = ((DateTime)model.startDate).getInt64ShortDate();
+                model.DemandProduction.startDate = ((DateTime)model.startDate).getInt64Date();
                 model.DemandProduction.startDateSpecified = true;
-                model.DemandProduction.endDate = ((DateTime)model.endDate).getInt64ShortDate();
+                model.DemandProduction.endDate = ((DateTime)model.endDate).getInt64Date();
                 model.DemandProduction.endDateSpecified = true;
 
                 BaseOutput ap = srv.WS_UpdateDemand_ProductionForStartAndEndDate(baseInput, model.DemandProduction, out model.DemandProductionArray);
@@ -125,12 +143,19 @@ namespace Emsal.AdminUI.Controllers
             else
             {
                 return View(model);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
 
 
         public ActionResult Approv(int? page)
         {
+            try { 
             int pageSize = 20;
             int pageNumber = (page ?? 1);
 
@@ -156,11 +181,19 @@ namespace Emsal.AdminUI.Controllers
             modelAnnouncement.Paging = modelAnnouncement.AnnouncementArray.ToPagedList(pageNumber, pageSize);
 
             return View(modelAnnouncement);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
 
         public ActionResult Delete(int Id)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelAnnouncement = new AnnouncementViewModel();
 
@@ -181,6 +214,12 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput da = srv.WS_DeleteAnnouncement(baseInput, modelAnnouncement.Announcement);
 
             return RedirectToAction("Approv", "Announcement");
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
     }

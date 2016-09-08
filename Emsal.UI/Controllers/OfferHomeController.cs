@@ -18,7 +18,7 @@ namespace Emsal.UI.Controllers
 
     public class OfferHomeController : Controller
     {
-         private BaseInput baseInput;
+        private BaseInput baseInput;
 
         private static int saddressId;
         private static string ssort;
@@ -35,63 +35,77 @@ namespace Emsal.UI.Controllers
 
         public ActionResult Index(int pId = 0)
         {
-            //srv.WS_createDb();
-
-            //baseInput = new BaseInput();
-
-            modelProductCatalog = new ProductCatalogViewModel();
-
-            BaseOutput bouput = srv.WS_GetProductCatalogsByParentId(baseInput, pId, true, out modelProductCatalog.ProductCatalogArray);
-            modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogArray.ToList();
-
-            if (pId == 0)
+            try
             {
-                return View("PCDetail", modelProductCatalog);
-            }
-            else
-            {
-                return View(modelProductCatalog);
-            }
-        } 
-  
-        public ActionResult OfferProduction(int? page, int productId=0)
-        {
-            baseInput = new BaseInput();
 
-            int pageSize = 12;
-            int pageNumber = (page ?? 1);
+                baseInput = new BaseInput();
 
-            modelProductCatalog = new ProductCatalogViewModel();
-            modelProductCatalog.noPaged = 0;
+                modelProductCatalog = new ProductCatalogViewModel();
 
-            BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelProductCatalog.EnumValue);
+                BaseOutput bouput = srv.WS_GetProductCatalogsByParentId(baseInput, pId, true, out modelProductCatalog.ProductCatalogArray);
+                modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogArray.ToList();
 
-            BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId(baseInput, (long)modelProductCatalog.EnumValue.Id, true, out modelProductCatalog.ProductionDetailArray);
-
-            if (modelProductCatalog.ProductionDetailArray != null)
-            {
-                if (productId > 0)
+                if (pId == 0)
                 {
-                    modelProductCatalog.noPaged = 1;
-
-                    modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.Where(x => x.productId == productId).ToList();
+                    return View("PCDetail", modelProductCatalog);
                 }
                 else
                 {
-                    modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.ToList();
+                    return View(modelProductCatalog);
                 }
+
             }
-            else
+            catch (Exception ex)
             {
-                modelProductCatalog.ProductionDetailList = new List<ProductionDetail>();
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
-            modelProductCatalog.PagingProduction = modelProductCatalog.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+        }
 
-            return Request.IsAjaxRequest()
-                ? (ActionResult)PartialView("PartialOfferProduction", modelProductCatalog)
-                : View(modelProductCatalog);
+        public ActionResult OfferProduction(int? page, int productId = 0)
+        {
+            try
+            {
 
-            //return View(modelProductCatalog);
+                baseInput = new BaseInput();
+
+                int pageSize = 12;
+                int pageNumber = (page ?? 1);
+
+                modelProductCatalog = new ProductCatalogViewModel();
+                modelProductCatalog.noPaged = 0;
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelProductCatalog.EnumValue);
+
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId(baseInput, (long)modelProductCatalog.EnumValue.Id, true, out modelProductCatalog.ProductionDetailArray);
+
+                if (modelProductCatalog.ProductionDetailArray != null)
+                {
+                    if (productId > 0)
+                    {
+                        modelProductCatalog.noPaged = 1;
+
+                        modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.Where(x => x.productId == productId).ToList();
+                    }
+                    else
+                    {
+                        modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.ToList();
+                    }
+                }
+                else
+                {
+                    modelProductCatalog.ProductionDetailList = new List<ProductionDetail>();
+                }
+                modelProductCatalog.PagingProduction = modelProductCatalog.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+
+                return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("PartialOfferProduction", modelProductCatalog)
+                    : View(modelProductCatalog);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult ProductCatalog(int pId = 0)
@@ -102,7 +116,7 @@ namespace Emsal.UI.Controllers
 
             BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelProductCatalog.EnumValue);
 
-            BaseOutput bouput = srv.WS_GetProductCatalogsByParentId(baseInput,pId,true, out modelProductCatalog.ProductCatalogArray);
+            BaseOutput bouput = srv.WS_GetProductCatalogsByParentId(baseInput, pId, true, out modelProductCatalog.ProductCatalogArray);
             modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogArray.OrderBy(x => x.ProductName).ToList();
 
             modelProductCatalog.ProductionDetailList = new List<ProductionDetail>();
@@ -113,19 +127,20 @@ namespace Emsal.UI.Controllers
                 BaseOutput gpcbpid = srv.WS_GetProductCatalogsByParentId(baseInput, (int)itm.Id, true, out modelProductCatalog.ProductCatalogArrayPC);
 
                 BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId(baseInput, (long)modelProductCatalog.EnumValue.Id, true, out modelProductCatalog.ProductionDetailArray);
-                if (modelProductCatalog.ProductionDetailArray!=null) {
+                if (modelProductCatalog.ProductionDetailArray != null)
+                {
                     modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.Where(x => x.productId == itm.Id).ToList();
                 }
-            else
-            {
-                modelProductCatalog.ProductionDetailList = new List<ProductionDetail>();
-            }
-      
+                else
+                {
+                    modelProductCatalog.ProductionDetailList = new List<ProductionDetail>();
+                }
+
                 itm.ProductDescription = modelProductCatalog.ProductionDetailList.Count().ToString();
 
                 if (modelProductCatalog.ProductCatalogArrayPC.ToList().Count == 0)
                 {
-                    if (itm.canBeOrder == 1)
+                    if (itm.canBeOrder == 1 && Int32.Parse(itm.ProductDescription) > 0)
                     {
                         modelProductCatalog.ProductCatalogListPC.Add(itm);
                     }
@@ -138,58 +153,119 @@ namespace Emsal.UI.Controllers
             modelProductCatalog.ProductCatalogList = null;
             modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogListPC;
 
-            if (pId==0)
+            if (pId == 0)
             {
                 return View("PCDetail", modelProductCatalog);
             }
             else
             {
-            return View(modelProductCatalog);
+                return View(modelProductCatalog);
             }
         }
-       
-        public ActionResult OfferProductionDetail(int id)
+
+        public ActionResult OfferProductionDetail(long id)
         {
-            baseInput = new BaseInput();
+            try
+            {
 
-            modelProductCatalog = new ProductCatalogViewModel();
+                baseInput = new BaseInput();
 
-            BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelProductCatalog.EnumValue);
+                modelProductCatalog = new ProductCatalogViewModel();
 
-            BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId(baseInput, (long)modelProductCatalog.EnumValue.Id, true, out modelProductCatalog.ProductionDetailArray);
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelProductCatalog.EnumValue);
 
-            modelProductCatalog.ProductionDetail = modelProductCatalog.ProductionDetailArray.Where(x => x.productionID == id).FirstOrDefault();
+                BaseOutput gopbid = srv.WS_GetOfferProductionDetailById(baseInput, id, true, out modelProductCatalog.ProductionDetail);
 
-            return View(modelProductCatalog);
+                return View(modelProductCatalog);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult Signin()
         {
-            return View();
+            try
+            {
+
+                return View();
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
         public ActionResult Signout()
         {
-            return View();
+            try
+            {
+
+                return View();
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult PotentialUser()
         {
-            return View();
+            try
+            {
+
+                return View();
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult Region()
         {
-            return View();
+            try
+            {
+
+                return View();
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult District()
         {
-            return View();
+            try
+            {
+
+                return View();
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult Pages()
         {
-            return View();
+            try
+            {
+
+                return View();
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
     }
 }

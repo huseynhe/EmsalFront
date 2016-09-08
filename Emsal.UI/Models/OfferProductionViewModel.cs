@@ -41,6 +41,7 @@ namespace Emsal.UI.Models
         public IList<tblProductCatalog> ProductCatalogListPC { get; set; }
         public tblProductCatalog[] ProductCatalogArray;
         public tblProductCatalog[] ProductCatalogArrayPC;
+        public IList<tblProductCatalog>[] ProductCatalogListFEA { get; set; }
 
         public tblEnumCategory EnumCategory;
         public tblEnumCategory EnumCategorySS;
@@ -71,6 +72,10 @@ namespace Emsal.UI.Models
         public IList<tblProductionCalendar> LProductionCalendarList { get; set; }
         public tblProductionCalendar[] LProductionCalendarArray;
 
+        public ProductionCalendarDetail LProductionCalendarDetail;
+        public IList<ProductionCalendarDetail> LProductionCalendarDetailList { get; set; }
+        public ProductionCalendarDetail[] LProductionCalendarDetailArray;
+
         public tblProduction_Document ProductionDocument;
         public IList<tblProduction_Document> ProductionDocumentList { get; set; }
         public tblProduction_Document[] ProductionDocumentArray;
@@ -96,6 +101,7 @@ namespace Emsal.UI.Models
 
         public bool isPDF { get; set; }
         public long userId { get; set; }
+        public long ppId { get; set; }
 
         public long totalSize = 0;
 
@@ -124,7 +130,11 @@ namespace Emsal.UI.Models
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public string[] size { get; set; }
 
-        public int productId { get; set; }
+public string pprice { get; set; }
+public string psize { get; set; }
+
+public int productId { get; set; }
+        public long[] productIds { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public int[] enumCat { get; set; }
@@ -203,6 +213,8 @@ namespace Emsal.UI.Models
         public int[] month { get; set; }
         public int[] year { get; set; }
         public int[] howMany { get; set; }
+
+        public long[] productionControlEVIds { get; set; }
 
 
         public string ProductParentName { get; set; }

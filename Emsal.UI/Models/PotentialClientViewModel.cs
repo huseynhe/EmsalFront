@@ -209,7 +209,7 @@ namespace Emsal.UI.Models
         public string legalLame { get; set; }
 
 
-        [Display(Name = "Hüquqi şəxsin adı")]
+        [Display(Name = "Hüquqi şəxsin rəhbərinin adı")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         public string legalPName { get; set; }
 

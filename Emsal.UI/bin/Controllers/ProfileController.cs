@@ -25,6 +25,8 @@ namespace Emsal.UI.Controllers
 
         public ActionResult Index()
         {
+            try { 
+
             Session["arrPNum"] = null;
             Session["arrNum"] = null;
 
@@ -72,11 +74,19 @@ namespace Emsal.UI.Controllers
             Session["arrNum"] = null;
 
             return View(modelPotentialProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         [HttpPost]
         public ActionResult Index(PotentialProductionViewModel model, FormCollection collection)
-        { 
+        {
+            try { 
+
             baseInput = new BaseInput();
 
             long? userId = null;
@@ -237,11 +247,20 @@ namespace Emsal.UI.Controllers
             TempData["Success"] = modelPotentialProduction.messageSuccess;
 
             return RedirectToAction("Index", "Profile");
+
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
 
         public ActionResult Edit(long id)
         {
+            try { 
+
             string userIpAddress = this.Request.ServerVariables["REMOTE_ADDR"];
 
             baseInput = new BaseInput();
@@ -324,11 +343,19 @@ namespace Emsal.UI.Controllers
             Session["arrNum"] = null;
 
             return View(modelPotentialProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         [HttpPost]
         public ActionResult Edit(PotentialProductionViewModel model, FormCollection collection)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             long? userId = null;
@@ -475,10 +502,18 @@ namespace Emsal.UI.Controllers
             TempData["Success"] = modelPotentialProduction.messageSuccess;
 
             return RedirectToAction("Index", "Profile");
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult ProductCatalog(long pId = 0, long ppId=0)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             modelPotentialProduction = new PotentialProductionViewModel();
@@ -595,10 +630,18 @@ namespace Emsal.UI.Controllers
                     }
             
             return View(modelPotentialProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult AdminUnit(long pId = 0, long productAddressId = 0)
         {
+            try { 
+
             baseInput = new BaseInput();            
             modelPotentialProduction = new PotentialProductionViewModel();
 
@@ -660,10 +703,18 @@ namespace Emsal.UI.Controllers
             }
 
             return View(modelPotentialProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult SelectedProducts(bool pdf = false)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelPotentialProduction = new PotentialProductionViewModel();
 
@@ -697,11 +748,19 @@ namespace Emsal.UI.Controllers
             else
             {
                 return View(modelPotentialProduction);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
 
         public ActionResult ChooseFileTemplate(long pId)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelPotentialProduction = new PotentialProductionViewModel();
 
@@ -738,11 +797,19 @@ namespace Emsal.UI.Controllers
             BaseOutput tfs = srv.WS_GetDocumentSizebyGroupId(grup_Id, modelPotentialProduction.EnumValue.Id, true, out modelPotentialProduction.totalSize, out flag);
 
             return View(modelPotentialProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         [HttpPost]
         public void File(IList<HttpPostedFileBase> file, long documentType)
         {
+            try { 
+
             if (file != null)
             {
                 string documentGrupId = Session["documentGrupId"].ToString();
@@ -820,10 +887,19 @@ namespace Emsal.UI.Controllers
                 }
 
             }
+
+
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message + ex.Source + ex.StackTrace;
+            }
         }
 
         public ActionResult SelectedDocuments(long PId=0)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelPotentialProduction = new PotentialProductionViewModel();
 
@@ -853,10 +929,18 @@ namespace Emsal.UI.Controllers
             }
 
             return View(modelPotentialProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public void DeleteSelectedDocument(long id)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelPotentialProduction = new PotentialProductionViewModel();
 
@@ -875,10 +959,18 @@ namespace Emsal.UI.Controllers
             BaseOutput gpd = srv.WS_GetProductionDocumentById(baseInput, id, true, out modelPotentialProduction.ProductionDocument);
 
             BaseOutput dpd = srv.WS_DeleteProductionDocument(baseInput, modelPotentialProduction.ProductionDocument);
+
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message + ex.Source + ex.StackTrace;
+            }
         }
 
         public void DeleteSelectedPotentialProduct(long id)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelPotentialProduction = new PotentialProductionViewModel();
 
@@ -897,6 +989,12 @@ namespace Emsal.UI.Controllers
             BaseOutput gpd = srv.WS_GetPotential_ProductionById(baseInput, id, true, out modelPotentialProduction.PotentialProduction);
 
             BaseOutput dpd = srv.WS_DeletePotential_Production(baseInput, modelPotentialProduction.PotentialProduction);
+
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message + ex.Source + ex.StackTrace;
+            }
         }
     }
 }

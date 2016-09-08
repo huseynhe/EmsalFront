@@ -25,6 +25,8 @@ namespace Emsal.AdminUI.Controllers
 
         public ActionResult Index()
         {
+            try { 
+
             baseInput = new BaseInput();
             modelproductPrice = new ProductPriceViewModel();
 
@@ -53,12 +55,20 @@ namespace Emsal.AdminUI.Controllers
             modelproductPrice.EnumValueListRub = modelproductPrice.EnumValueArrayRub.ToList();
 
             return View(modelproductPrice);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
 
         [HttpPost]
         public ActionResult Index(ProductPriceViewModel model)
         {
+            try { 
+
             baseInput = new BaseInput();
             int pageSize = 100;
             int pageNumber = 1;
@@ -112,12 +122,20 @@ namespace Emsal.AdminUI.Controllers
             else
             {
                 return View(model);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
 
 
         public ActionResult Approv(int year = 0, int rub = 0, int page = 1)
         {
+            try { 
+
             //Bura tamamlanmadi
             int pageSize = 25;
             int pageNumber = page;
@@ -175,12 +193,20 @@ namespace Emsal.AdminUI.Controllers
 
 
             return View("Approv", modelproductPrice);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
 
 
         public ActionResult Delete(long id, int year, int rub)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             modelproductPrice = new ProductPriceViewModel();
@@ -204,6 +230,12 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput dpp = srv.WS_DeleteProductPrice(baseInput, modelproductPrice.ProductPrice);
 
             return RedirectToAction("Approv", "ProductPrice", new { year = year, rub = rub });
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
     }

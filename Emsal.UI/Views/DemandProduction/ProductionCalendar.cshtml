@@ -7,9 +7,8 @@
     decimal tquantity = 0;
 }
 
-@if (Model.LProductionCalendarList.Count() > 0)
+@if (Model.LProductionCalendarDetailList.Count() > 0)
 {
-
 
         <table class="table" style="margin:0;">
             <tbody>
@@ -22,29 +21,35 @@
                 <th>saat</th>
                 <th>miqdar</th>
                 <th>miqdar (cəmi)</th>
+@if (Model.isPDF == false)
+{
                 <th class="text-center">sil</th>
+}
             </tr>
             @{
-                foreach (var item in Model.LProductionCalendarList)
+                foreach (var item in Model.LProductionCalendarDetailList)
                 {
                     tquantity = ((decimal)item.quantity * (decimal)item.transportation_eV_Id);
                     <tr>
                         <td>
-                            @*@if (item.TypeDescription != null)
+                            @if (item.TypeDescription != null)
                                 {
                                     <span>@item.TypeDescription</span>
-                                }*@
+                                }
                         </td>
                         <td> @item.year </td>
                         <td> @item.partOfyear</td>
-                        <td> @*@item.MonthDescription*@</td>
+                        <td> @item.MonthDescription</td>
                         <td> @item.day</td>
                         <td> @item.oclock</td>
                         <td> @item.quantity</td>
                         <td> @tquantity</td>
+@if (Model.isPDF == false)
+{
                         <td class="text-center">
-                            <div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="deleteProductionCalendar(@item.Id, @item.demand_Id)"></div>
+                            <div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="deleteProductionCalendar(@item.ID, @item.demand_Id)"></div>
                         </td>
+}
                     </tr>
                 }
             }

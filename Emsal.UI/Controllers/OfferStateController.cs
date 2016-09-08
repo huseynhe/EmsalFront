@@ -29,9 +29,11 @@ namespace Emsal.UI.Controllers
 
         public ActionResult Index(int? page, string stateStatusEV = null, string productName = null, string userInfo = null)
         {
-            if (stateStatusEV != null)
-                stateStatusEV = StripTag.strSqlBlocker(stateStatusEV.ToLower());
-            if (productName != null)
+            try {
+
+                if (stateStatusEV != null)
+                    stateStatusEV = StripTag.strSqlBlocker(stateStatusEV.ToLower());
+                if (productName != null)
                 productName = StripTag.strSqlBlocker(productName.ToLower());
             if (userInfo != null)
                 userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
@@ -122,12 +124,20 @@ namespace Emsal.UI.Controllers
             return Request.IsAjaxRequest()
                ? (ActionResult)PartialView("PartialIndex", modelOfferState)
                : View(modelOfferState);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
 
         [HttpPost]
         public ActionResult Approv(int[] ids)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelOfferState = new OfferStateViewModel();
 
@@ -177,10 +187,18 @@ namespace Emsal.UI.Controllers
             }
 
             return RedirectToAction("Index", "OfferState", new { stateStatusEV = modelOfferState.EnumValueST.name });
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult Edit(int id)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelOfferState = new OfferStateViewModel();
 
@@ -201,11 +219,19 @@ namespace Emsal.UI.Controllers
             modelOfferState.Id = modelOfferState.OfferProduction.Id;
 
             return View(modelOfferState);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         [HttpPost]
         public ActionResult Edit(OfferStateViewModel model, FormCollection collection)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             model.ConfirmationMessage = new tblConfirmationMessage();
@@ -253,6 +279,12 @@ namespace Emsal.UI.Controllers
             BaseOutput acm = srv.WS_AddComMessage(baseInput, model.ComMessage, out model.ComMessage);
 
             return RedirectToAction("Index", "OfferState", new { stateStatusEV = model.EnumValueST.name });
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
     }

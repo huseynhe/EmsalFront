@@ -26,6 +26,8 @@ namespace Emsal.AdminUI.Controllers
 
         public ActionResult Report()
         {
+            try { 
+
             baseInput = new BaseInput();
             modelReport = new ReportViewModel();
 
@@ -43,10 +45,18 @@ namespace Emsal.AdminUI.Controllers
 
 
             return View(modelReport);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult DemandOffer(int auid = 1)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelReport = new ReportViewModel();
 
@@ -87,7 +97,7 @@ namespace Emsal.AdminUI.Controllers
             {
                 if (oldPr != item.productName)
                 {
-                    modelReport.products[i] = item.productName+item.productParentName;
+                    modelReport.products[i] = item.productName+ " (" + item.productParentName+")";
                     var ss = modelReport.DemandOfferDetailList.Where(x => x.productName == item.productName).ToList();
 
                     foreach (var itm in ss)
@@ -114,10 +124,18 @@ namespace Emsal.AdminUI.Controllers
             }
 
             return View(modelReport);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult AdminUnit(int pId = 0)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             modelReport = new ReportViewModel();
@@ -139,11 +157,19 @@ namespace Emsal.AdminUI.Controllers
             else
             {
                 return View(modelReport);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
 
         public ActionResult ForeignOrganization(int pId = 0)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             modelReport = new ReportViewModel();
@@ -165,11 +191,19 @@ namespace Emsal.AdminUI.Controllers
             else
             {
                 return View(modelReport);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
 
         public ActionResult DemandOfferProduct(int prodId = 0)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelReport = new ReportViewModel();
 
@@ -244,10 +278,18 @@ namespace Emsal.AdminUI.Controllers
             }
 
             return View(modelReport);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult DemandOfferProductM()
         {
+            try { 
+
             baseInput = new BaseInput();
             modelReport = new ReportViewModel();
 
@@ -265,10 +307,18 @@ namespace Emsal.AdminUI.Controllers
 
 
             return View(modelReport);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult ProductCatalog(int pId = 0)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             modelReport = new ReportViewModel();
@@ -284,6 +334,12 @@ namespace Emsal.AdminUI.Controllers
             else
             {
                 return View(modelReport);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
 
@@ -291,6 +347,8 @@ namespace Emsal.AdminUI.Controllers
 
         public ActionResult PotentialClient (int prodId = 0)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelReport = new ReportViewModel();
 
@@ -365,10 +423,18 @@ namespace Emsal.AdminUI.Controllers
             }
 
             return View(modelReport);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult PotentialClientM()
         {
+            try { 
+
             baseInput = new BaseInput();
             modelReport = new ReportViewModel();
 
@@ -386,11 +452,19 @@ namespace Emsal.AdminUI.Controllers
 
 
             return View(modelReport);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
 
         public ActionResult DemandOfferDonut()
         {
+            try { 
+
             baseInput = new BaseInput();
             modelReport = new ReportViewModel();
 
@@ -408,10 +482,18 @@ namespace Emsal.AdminUI.Controllers
 
 
             return View(modelReport);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult DemandOfferDonutM(int auid = 1)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelReport = new ReportViewModel();
 
@@ -444,7 +526,7 @@ namespace Emsal.AdminUI.Controllers
            foreach(var item in modelReport.DemandOfferDetailList)
             {
                 modelReport.ReportDonut = new ReportDonut();
-                modelReport.ReportDonut.label = item.productName+item.productParentName;
+                modelReport.ReportDonut.label = item.productName+" ("+item.productParentName+")";
                 modelReport.ReportDonut.value = item.count;
 
                 modelReport.ReportDonutList.Add(modelReport.ReportDonut);
@@ -453,11 +535,19 @@ namespace Emsal.AdminUI.Controllers
             modelReport.strOffer = JsonConvert.SerializeObject(modelReport.ReportDonutList).ToString() ;
 
             return View(modelReport);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
 
         public JsonResult OfferDonut(int auid = 1)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelReport = new ReportViewModel();
 
@@ -490,7 +580,7 @@ namespace Emsal.AdminUI.Controllers
             foreach (var item in modelReport.DemandOfferDetailList)
             {
                 modelReport.ReportDonut = new ReportDonut();
-                modelReport.ReportDonut.label = item.productName+item.productParentName;
+                modelReport.ReportDonut.label = item.productName+ " (" + item.productParentName+")";
                 modelReport.ReportDonut.value = item.count;
 
                 modelReport.ReportDonutList.Add(modelReport.ReportDonut);
@@ -505,10 +595,18 @@ namespace Emsal.AdminUI.Controllers
                 modelReport.ReportDonutList.Add(modelReport.ReportDonut);
             }
             return Json(modelReport.ReportDonutList, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(null);
+            }
         }
 
         public JsonResult DemandDonut(int auid = 1)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelReport = new ReportViewModel();
 
@@ -533,7 +631,7 @@ namespace Emsal.AdminUI.Controllers
             foreach (var item in modelReport.DemandOfferDetailList)
             {
                 modelReport.ReportDonut = new ReportDonut();
-                modelReport.ReportDonut.label = item.productName+item.productParentName;
+                modelReport.ReportDonut.label = item.productName+ " (" + item.productParentName+")";
                 modelReport.ReportDonut.value = item.count;
 
                 modelReport.ReportDonutList.Add(modelReport.ReportDonut);
@@ -549,10 +647,18 @@ namespace Emsal.AdminUI.Controllers
             }
 
             return Json(modelReport.ReportDonutList, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(null);
+            }
         }
 
         public ActionResult Report2()
         {
+            try { 
+
             baseInput = new BaseInput();
             modelReport = new ReportViewModel();
 
@@ -570,10 +676,18 @@ namespace Emsal.AdminUI.Controllers
 
 
             return View(modelReport);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult Report3()
         {
+            try { 
+
             baseInput = new BaseInput();
             modelReport = new ReportViewModel();
 
@@ -591,9 +705,17 @@ namespace Emsal.AdminUI.Controllers
 
 
             return View(modelReport);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
         public ActionResult Report4()
         {
+            try { 
+
             baseInput = new BaseInput();
             modelReport = new ReportViewModel();
 
@@ -611,6 +733,12 @@ namespace Emsal.AdminUI.Controllers
 
 
             return View(modelReport);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
     }
 }

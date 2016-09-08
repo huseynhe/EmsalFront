@@ -203,6 +203,7 @@ function deleteProductionCalendar(id, dId) {
         data: {},
         success: function (result) {
             getProductionCalendar(dId);
+            getSelectedProducts();
         },
         error: function () {
 
@@ -217,7 +218,7 @@ function getProductionCalendar(dId) {
         type: 'GET',
         data: {},
         success: function (result) {
-            $('#productionCalendar').html(result);
+            $('#productionCalendar_' + dId).html(result);
         },
         error: function () {
 
@@ -241,9 +242,9 @@ function deleteSelectedDemandProduct(id) {
 }
 
 function getSelectedProducts() {
-    $('#selectedProducts').html('');
+    //$('#selectedProducts').html('');
     $.ajax({
-        url: '/DemandProduction/SelectedProducts',
+        url: '/DemandProduction/SelectedProducts?noButton=false',
         type: 'GET',
         data: {},
         success: function (result) {

@@ -13,19 +13,19 @@
 <div class="row">
     <div class="col-md-12">
         @if (Model.isPDF == false)
-{
-    if (Model.noButton == false)
-    {
-        <a href="/DemandProduction/SelectedProducts?pdf=true&noButton=false" class="btn btn-lg btn-success active pull-left">
-            <i class="glyphicon glyphicon-save-file"></i>&nbsp;Yüklə
-        </a>
+        {
+            if (Model.noButton == false)
+            {
+                <a href="/DemandProduction/SelectedProducts?pdf=true&noButton=false" class="btn btn-lg btn-success active pull-left">
+                    <i class="glyphicon glyphicon-save-file"></i>&nbsp;Yüklə
+                </a>
 
-                        <button class="btn btn-primary btn-lg pull-right btnadd" type="submit">
+                <button class="btn btn-primary btn-lg pull-right btnadd" type="submit">
                     <i class="glyphicon glyphicon-plus"></i>&nbsp;Tələbinizi əlavə edin
                 </button>
                 <div class="clearfix"></div>
                 <br />
-    }
+            }
         }
         <table class="table table-bordered">
             <tr>
@@ -47,7 +47,7 @@
                 foreach (var item in Model.ProductionDetailList)
                 {
                     <tr>
-                        <td>@item.productName</td>
+                        <td>@item.productName (@item.productParentName)</td>
                         <td>@item.quantity</td>
                         <td>@item.enumValueName</td>
                         <td>@item.fullAddress (@item.addressDesc)</td>
@@ -66,17 +66,20 @@
                     {
                         <tr>
                             <td colspan="8" style="padding:0;">
-                                @Html.Action("ProductionCalendar", "DemandProduction", new { dId = item.productionID })
+                                <div id="productionCalendar_@item.productionID">
+                                    @Html.Action("ProductionCalendar", "DemandProduction", new { dId = item.productionID, pdf=Model.isPDF })
+                                </div>
                             </td>
                         </tr>
                     }
-                    if (item != Model.ProductionDetailList.LastOrDefault()) { 
-                    <tr>
-                        <td colspan="8" style="padding:0;background:#f2f2f2;">
-                            &nbsp;
-                        </td>
-                    </tr>
-            }
+                    if (item != Model.ProductionDetailList.LastOrDefault())
+                    {
+                        <tr>
+                            <td colspan="8" style="padding:0;background:#f2f2f2;">
+                                &nbsp;
+                            </td>
+                        </tr>
+                    }
                 }
             }
         </table>

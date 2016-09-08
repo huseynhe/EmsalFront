@@ -78,6 +78,7 @@ namespace Emsal.UI.Models
         public IList<tblProductAddress>[] ProductAddressListFEA { get; set; }
         public tblProductAddress[] ProductAddressArray;
 
+        public tblAddress UnitAddress;
 
         public tblProduction_Calendar ProductionCalendar;
         public IList<tblProduction_Calendar> ProductionCalendarList { get; set; }
@@ -101,6 +102,10 @@ namespace Emsal.UI.Models
         public tblProductionCalendar LProductionCalendar;
         public IList<tblProductionCalendar> LProductionCalendarList { get; set; }
         public tblProductionCalendar[] LProductionCalendarArray;
+        
+        public ProductionCalendarDetail LProductionCalendarDetail;
+        public IList<ProductionCalendarDetail> LProductionCalendarDetailList { get; set; }
+        public ProductionCalendarDetail[] LProductionCalendarDetailArray;
 
         public string[] selectedMonth { get; set; }
 

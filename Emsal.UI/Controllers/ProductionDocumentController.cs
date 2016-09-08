@@ -25,11 +25,20 @@ namespace Emsal.UI.Controllers
 
         public ActionResult Index()
         {
+            try { 
+
             return View();
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         public ActionResult GetFile(long Id)
-        {          
+        {
+            try { 
 
             baseInput = new BaseInput();
             modelProductionDocument = new ProductionDocumentViewModel();
@@ -85,6 +94,12 @@ namespace Emsal.UI.Controllers
             System.IO.File.Copy(sourceFile, destFile, true);
 
             return View(modelProductionDocument);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
 

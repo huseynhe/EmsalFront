@@ -1,8 +1,9 @@
 ﻿@model Emsal.UI.Models.OfferProductionViewModel
 
 @{
-    ViewBag.Title = "Offer";
+    ViewBag.Title = "ProductCatalog";
     Layout = "";
+    long itempid = 0;
 }
 
 @if (Model.PRMAdminUnitArrayFA != null)
@@ -21,7 +22,11 @@
         if (Model.PRMAdminUnitArrayFA[i].Count() > 0)
         {
             <div class="form-group col-md-3">
-                <select required name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+                <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+                    @if (Model.arrNum > 0)
+                    {
+                        <option value="">Seçim edin</option>
+                    }
                     @foreach (var itm in Model.PRMAdminUnitArrayFA[i])
                     {
                         if (itm.Id == Model.productAddressIds[i + 1])
@@ -48,12 +53,12 @@
             <input type="text" value="@Model.ProductAddress.addressDesc" name="descAddress" id="descAddress" placeholder="məs: Azadlıq prospekti 22, mənzil 33" class="form-control">
         </div>
     </div>
-                    }
-                    else
-                    {
+    }
+    else
+    {
 
-                        if (Model.PRMAdminUnitList.Count > 0)
-                        {
+        if (Model.PRMAdminUnitList.Count > 0)
+        {
             <div class="form-group col-md-3">
                 <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
                     @if (Model.arrNum > 0)
@@ -78,10 +83,8 @@
                     <span data-valmsg-replace="true" data-valmsg-for="addressId" class="field-validation-valid text-danger"></span>
                 }
             </div>
-                    }
-                    //else
-                    //{
-        <div class="clearfix"></div>
+    }
+    <div class="clearfix"></div>
 
         <div class="col-md-12">
             <div class="form-group">
@@ -89,6 +92,9 @@
                 <input type="text" name="descAddress" id="descAddress" placeholder="məs: Azadlıq prospekti 22, mənzil 33" class="form-control">
             </div>
         </div>
-        @*}*@
+
     }
+
+
+
 

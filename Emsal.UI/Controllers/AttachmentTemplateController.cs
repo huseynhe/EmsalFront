@@ -19,6 +19,7 @@ namespace Emsal.UI.Controllers
     {
         public ActionResult Index()
         {
+            try { 
             long? userId = null;
             if (User != null && User.Identity.IsAuthenticated)
             {
@@ -30,6 +31,12 @@ namespace Emsal.UI.Controllers
             }
           
             return View();
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
     }

@@ -4,11 +4,11 @@
     ViewBag.Title = "Region";
     Layout = "";
 }
-<br /><br />
+
 @if (Model.PRMAdminUnitList.Count > 0)
 {
     <div class="form-group col-md-12" style="padding:0;">
-        <select onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+        <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
             <option selected value="">Seçim edin</option>
             @foreach (var item in Model.PRMAdminUnitList)
             {

@@ -27,9 +27,11 @@ namespace Emsal.UI.Controllers
 
         public ActionResult Index(int? page, string monitoringStatusEV = null, string productName = null, string userInfo = null)
         {
-            if (monitoringStatusEV != null)
-                monitoringStatusEV = StripTag.strSqlBlocker(monitoringStatusEV.ToLower());
-            if (productName != null)
+            try {
+
+                if (monitoringStatusEV != null)
+                    monitoringStatusEV = StripTag.strSqlBlocker(monitoringStatusEV.ToLower());
+                if (productName != null)
                 productName = StripTag.strSqlBlocker(productName.ToLower());
             if (userInfo != null)
                 userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
@@ -117,11 +119,19 @@ namespace Emsal.UI.Controllers
                ? (ActionResult)PartialView("PartialIndex", modelPotentialClientMonitoring)
                : View(modelPotentialClientMonitoring);
 
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+
         }
 
 
         public ActionResult Approv(int[] ids)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelPotentialClientMonitoring = new PotentialClientMonitoringViewModel();
 
@@ -169,11 +179,19 @@ namespace Emsal.UI.Controllers
             }
 
             return RedirectToAction("Index", "PotentialClientMonitoring", new { monitoringStatusEV = modelPotentialClientMonitoring.EnumValueST.name });
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
 
         public ActionResult Edit(int id)
         {
+            try { 
+
             baseInput = new BaseInput();
             modelPotentialClientMonitoring = new PotentialClientMonitoringViewModel();
 
@@ -199,11 +217,19 @@ namespace Emsal.UI.Controllers
             modelPotentialClientMonitoring.EnumValueList = modelPotentialClientMonitoring.EnumValueArray.ToList();
 
             return View(modelPotentialClientMonitoring);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
 
         [HttpPost]
         public ActionResult Edit(PotentialClientMonitoringViewModel model, FormCollection collection)
         {
+            try { 
+
             baseInput = new BaseInput();
 
             long? UserId = null;
@@ -246,6 +272,12 @@ namespace Emsal.UI.Controllers
 
 
             return RedirectToAction("Index", "PotentialClientMonitoring", new { monitoringStatusEV = model.EnumValueST.name });
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
         }
     }
 }

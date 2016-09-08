@@ -180,16 +180,7 @@
         <div id="selectedProducts">
             <script>
                         $(document).ready(function () {
-                            $.ajax({
-                                url: '/DemandProduction/SelectedProducts?noButton=false',
-                                type: 'GET',
-                                success: function (result) {
-                                    $('#selectedProducts').html(result);
-                                },
-                                error: function () {
-
-                                }
-                            });
+                            getSelectedProducts();
                         });
             </script>
             @*@Html.Action("SelectedProducts", "DemandProduction")*@
