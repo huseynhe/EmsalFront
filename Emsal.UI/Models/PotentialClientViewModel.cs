@@ -68,7 +68,9 @@ namespace Emsal.UI.Models
         public tblPRM_AdminUnit PRMAdminUnit;
         public IList<tblPRM_AdminUnit> PRMAdminUnitList { get; set; }
         public IList<tblPRM_AdminUnit> PRMAdminUnitListFA { get; set; }
+        public IList<tblPRM_AdminUnit> PRMAdminUnitListFAFU { get; set; }
         public IList<tblPRM_AdminUnit>[] PRMAdminUnitArrayFA { get; set; }
+        public IList<tblPRM_AdminUnit>[] PRMAdminUnitArrayFAFU { get; set; }
         public tblPRM_AdminUnit[] PRMAdminUnitArray;
 
         public tblProductAddress ProductAddress;
@@ -108,6 +110,7 @@ namespace Emsal.UI.Models
         public long productionCalendarId { get; set; }
         public long productAddressId { get; set; }
         public long[] productAddressIds { get; set; }
+        public long[] productAddressIdsFU { get; set; }
 
         public long[] productionControlEVIds { get; set; }
 
@@ -220,5 +223,14 @@ namespace Emsal.UI.Models
         [Display(Name = "Ata adı")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         public string legalPFathername { get; set; }
+
+
+        public string fullAddressId = "";
+        public string fullAddressIdFU = "";
+
+
+        public string sFIN = "";
+        public string sVOEN = "";
+
     }
 }

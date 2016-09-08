@@ -18,6 +18,10 @@ namespace Emsal.UI.Controllers
     //[EmsalAuthorization(AuthorizedAction = ActionName.Ordinary)]
     public class PotentialClientController : Controller
     {
+        private static string fullAddressId = "";
+        private static string fullAddressIdFU = "";
+        private static string fin = "";
+        private static string voen = "";
         private BaseInput baseInput;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
@@ -58,6 +62,12 @@ namespace Emsal.UI.Controllers
                     Session["documentGrupId"] = dg;
                     this.Session.Timeout = 20;
                 }
+
+                modelPotentialProduction.fullAddressId = fullAddressId;
+                modelPotentialProduction.fullAddressIdFU = fullAddressIdFU;
+
+                modelPotentialProduction.sFIN = fin;
+                modelPotentialProduction.sVOEN = voen;
 
                 Session["arrPCNum"] = null;
                 Session["arrNum"] = null;
@@ -112,11 +122,15 @@ namespace Emsal.UI.Controllers
                 {
                     fh = "legalPerson";
                     BaseOutput gfo = srv.WS_GetForeign_OrganizationByVoen(baseInput, model.VOEN, out modelPotentialProduction.ForeignOrganization);
+                    voen = model.VOEN;
+                    fin = "";
                 }
                 else if (model.FIN != "" && model.FIN != null)
                 {
                     fh = "fizikişexs";
                     BaseOutput gp = srv.WS_GetPersonByPinNumber(baseInput, model.FIN, out modelPotentialProduction.Person);
+                    fin = model.FIN;
+                    voen = "";
                 }
 
 
@@ -157,10 +171,14 @@ namespace Emsal.UI.Controllers
                     modelPotentialProduction.Address.addressDesc = model.descAddress;
                     modelPotentialProduction.Address.user_Id = modelPotentialProduction.User.Id;
                     modelPotentialProduction.Address.user_IdSpecified = true;
+                   
 
                     BaseOutput galf = srv.WS_GetAdminUnitListForID(baseInput, model.addressIdFU, true, out modelPotentialProduction.PRMAdminUnitArray);
                     modelPotentialProduction.PRMAdminUnitList = modelPotentialProduction.PRMAdminUnitArray.ToList();
                     modelPotentialProduction.Address.fullAddress = string.Join(",", modelPotentialProduction.PRMAdminUnitList.Select(x => x.Name));
+
+                    fullAddressIdFU = string.Join(",", modelPotentialProduction.PRMAdminUnitList.Select(x => x.Id));
+                    
 
                     BaseOutput aa = srv.WS_AddAddress(baseInput, modelPotentialProduction.Address, out modelPotentialProduction.Address);
 
@@ -255,6 +273,9 @@ namespace Emsal.UI.Controllers
                 modelPotentialProduction.PRMAdminUnitList = modelPotentialProduction.PRMAdminUnitArray.ToList();
                 modelPotentialProduction.ProductAddress.fullAddressId = string.Join(",", modelPotentialProduction.PRMAdminUnitList.Select(x => x.Id));
                 modelPotentialProduction.ProductAddress.fullAddress = string.Join(",", modelPotentialProduction.PRMAdminUnitList.Select(x => x.Name));
+
+
+                fullAddressId = modelPotentialProduction.ProductAddress.fullAddressId;
 
                 modelPotentialProduction.ProductAddress.adminUnit_IdSpecified = true;
                 modelPotentialProduction.ProductAddress.addressDesc = model.descAddress;
@@ -787,14 +808,6 @@ namespace Emsal.UI.Controllers
                     BaseOutput gpa = srv.WS_GetProductAddressById(baseInput, productAddressId, true, out modelPotentialProduction.ProductAddress);
                     if (modelPotentialProduction.ProductAddress.fullAddressId != "")
                     {
-
-                        //modelPotentialProduction.productAddressIds = modelPotentialProduction.ProductAddress.fullAddressId.Split(',').Select(long.Parse).ToArray();
-                        //    modelPotentialProduction.PRMAdminUnitList = modelPotentialProduction.PRMAdminUnitArray.ToList();
-
-
-
-
-
                         modelPotentialProduction.ProductAddress.fullAddressId = "0," + modelPotentialProduction.ProductAddress.fullAddressId;
                         modelPotentialProduction.productAddressIds = modelPotentialProduction.ProductAddress.fullAddressId.Split(',').Select(long.Parse).ToArray();
 
@@ -815,6 +828,41 @@ namespace Emsal.UI.Controllers
                     }
                 }
 
+
+                if (fullAddressId != "" && fullAddressIdFU != ""  && pId == 0 && productAddressId == 0)
+                {
+                    if (status == null)
+                    {
+                        modelPotentialProduction.productAddressIds = ("0," + fullAddressId).Split(',').Select(long.Parse).ToArray();
+                    }
+                    else
+                    {
+                    modelPotentialProduction.productAddressIds = ("0," + fullAddressIdFU).Split(',').Select(long.Parse).ToArray();
+                    }
+
+                    modelPotentialProduction.PRMAdminUnitArrayFA = new IList<tblPRM_AdminUnit>[modelPotentialProduction.productAddressIds.Count()];
+                    int s = 0;
+                    foreach (long itm in modelPotentialProduction.productAddressIds)
+                    {
+                        BaseOutput gpc = srv.WS_GetAdminUnitsByParentId(baseInput, (int)itm, true, out modelPotentialProduction.PRMAdminUnitArray);
+                        modelPotentialProduction.PRMAdminUnitArrayFA[s] = modelPotentialProduction.PRMAdminUnitArray.ToList();
+                        s = s + 1;
+                    }
+
+                    if (modelPotentialProduction.PRMAdminUnitArrayFA[s - 1].Count() > 0)
+                    {
+                        if (status == null)
+                        {
+                            modelPotentialProduction.productAddressIds = ("0," + fullAddressId + ",0").Split(',').Select(long.Parse).ToArray();
+                        }
+                        else
+                        {
+                            modelPotentialProduction.productAddressIds = ("0," + fullAddressIdFU + ",0").Split(',').Select(long.Parse).ToArray();
+                        }
+                    }
+
+                    modelPotentialProduction.ProductAddress = new tblProductAddress();
+                }
 
                 if (status != null)
                 {
