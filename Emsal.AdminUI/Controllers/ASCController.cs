@@ -140,6 +140,27 @@ namespace Emsal.AdminUI.Controllers
 
             BaseOutput deleteAsc = srv.WS_DeletePRM_ASCBranch(binput, modelOrganisation.ASCBranch);
 
+
+            //delete branch responsibilities
+            BaseOutput respOut = srv.WS_GetBranchResponsibilities(binput, out modelOrganisation.branchRespArray);
+            modelOrganisation.branchRespArray = modelOrganisation.branchRespArray.Where(x => x.branchId == modelOrganisation.ASCBranch.Id && x.branchType_eVId == 51).ToArray();
+
+            foreach (var item in modelOrganisation.branchRespArray)
+            {
+                BaseOutput deleteResp = srv.WS_DeleteBranchResponsibility(binput, item);
+            }
+
+            //delete asc individuals
+            BaseOutput ascenumOUt = srv.WS_GetEnumValueByName(binput, "ASC", out modelOrganisation.EnumValue);
+            BaseOutput ASCUsersOut = srv.WS_GetUsersByUserType(binput, modelOrganisation.EnumValue.Id, true, out modelOrganisation.UserArray);
+            modelOrganisation.UserArray = modelOrganisation.UserArray.Where(x => x.ASC_ID == modelOrganisation.ASCBranch.Id).ToArray();
+            foreach (var ascUser in modelOrganisation.UserArray)
+            {
+                ascUser.ASC_ID = 0;
+
+                BaseOutput updateAsc = srv.WS_UpdateUser(binput, ascUser, out modelOrganisation.User);
+            }
+
             return RedirectToAction("Index", "ASC");
 
         }
@@ -164,6 +185,22 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput ASCout = srv.WS_GetPRM_ASCBranchById(binput, Id, true, out modelOrganisation.ASCBranch);
 
             modelOrganisation.Name = modelOrganisation.ASCBranch.Name;
+
+            modelOrganisation.branchResponsibility = new tblBranchResponsibility();
+
+            BaseOutput branchessOUt = srv.WS_GetBranchResponsibilities(binput, out modelOrganisation.branchRespArray);
+            modelOrganisation.branchRespArray = modelOrganisation.branchRespArray.Where(x => x.branchId == modelOrganisation.ASCBranch.Id & x.branchType_eVId==51).ToArray();
+
+            modelOrganisation.branchesIdArr = new long[modelOrganisation.branchRespArray.Length];
+
+            for (int i = 0; i < modelOrganisation.branchRespArray.Length; i++)
+            {
+                modelOrganisation.branchesIdArr[i] = modelOrganisation.branchRespArray[i].adminUnitId;
+            }
+            
+
+            BaseOutput adminUnitOut = srv.WS_GetAdminUnitsByParentId(binput, 1, true, out modelOrganisation.PRMAdminUnitArray);
+
             return View(modelOrganisation);
         }
 
@@ -183,6 +220,50 @@ namespace Emsal.AdminUI.Controllers
 
             BaseOutput updateAsc = srv.WS_UpdatePRM_ASCBranch(binput, modelOrganisation.ASCBranch);
 
+
+            //update branch responsibilities
+
+            BaseOutput branchessOUt = srv.WS_GetBranchResponsibilities(binput, out modelOrganisation.branchRespArray);
+            modelOrganisation.branchRespArray = modelOrganisation.branchRespArray.Where(x => x.branchId == modelOrganisation.ASCBranch.Id & x.branchType_eVId == 51).ToArray();
+
+            //delete deselected branches
+            foreach (var item in modelOrganisation.branchRespArray)
+            {
+                int a = Array.IndexOf(form.ascar, item.adminUnitId.ToString());
+                if (a < 0)
+                {
+                    BaseOutput deleteResponsibilty = srv.WS_DeleteBranchResponsibility(binput, item);
+                }
+            }
+
+            //add new selected branches
+            foreach (var item in form.ascar)
+            {
+                bool isselected = true;
+
+                foreach (var itemm in modelOrganisation.branchRespArray)
+                {
+                    if(itemm.adminUnitId == Convert.ToInt64(item))
+                    {
+                        isselected = false;
+                    }
+
+                }
+
+                if (isselected)
+                {
+                    modelOrganisation.branchResponsibility = new tblBranchResponsibility();
+                    BaseOutput AscEnumOut = srv.WS_GetEnumValueByName(binput, "ASC", out modelOrganisation.EnumValue);
+                    modelOrganisation.branchResponsibility.branchType_eVId = modelOrganisation.EnumValue.Id;
+                    modelOrganisation.branchResponsibility.branchType_eVIdSpecified = true;
+                    modelOrganisation.branchResponsibility.adminUnitId = Convert.ToInt64(item);
+                    modelOrganisation.branchResponsibility.adminUnitIdSpecified = true;
+                    modelOrganisation.branchResponsibility.branchId = modelOrganisation.ASCBranch.Id;
+                    modelOrganisation.branchResponsibility.branchIdSpecified = true;
+
+                    BaseOutput addResp = srv.WS_AddBranchResponsibility(binput, modelOrganisation.branchResponsibility);
+                }
+            }
             return RedirectToAction("Index", "ASC");
         }
 

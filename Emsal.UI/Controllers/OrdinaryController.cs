@@ -690,5 +690,118 @@ namespace Emsal.UI.Controllers
 
         //}
 
+        [HttpPost]
+        public ActionResult UpdatePhone(long? UserId, SpecialSummaryViewModel form)
+        {
+            SpecialSummaryViewModel modelSpecial = new SpecialSummaryViewModel();
+            binput = new BaseInput();
+            if (User != null && User.Identity.IsAuthenticated)
+            {
+                FormsIdentity identity = (FormsIdentity)User.Identity;
+                if (identity.Ticket.UserData.Length > 0)
+                {
+                    UserId = Int32.Parse(identity.Ticket.UserData);
+                }
+            }
+            BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.User);
+
+            BaseOutput personOUt = srv.WS_GetPersonByUserId(binput, (long)UserId, true, out modelSpecial.Person);
+            BaseOutput orgout = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserId, true, out modelSpecial.ForeignOrganisation);
+            //Get the communications of the user
+
+            if(modelSpecial.User.userType_eV_ID == 26)
+            {
+                BaseOutput comsOUt = srv.WS_GetCommunicationByPersonId(binput, modelSpecial.Person.Id, true, out modelSpecial.CommunicationInformationsArray);
+            }
+
+            if (modelSpecial.User.userType_eV_ID == 50)
+            {
+                BaseOutput comsOUt = srv.WS_GetCommunicationByPersonId(binput, (long)modelSpecial.ForeignOrganisation.manager_Id, true, out modelSpecial.CommunicationInformationsArray);
+            }
+
+            modelSpecial.ComunicationInformations = new tblCommunication();
+
+            bool mobilvar = false;
+            bool workvar = false;
+
+            foreach (var item in modelSpecial.CommunicationInformationsArray)
+            {
+                if (item.comType == 10120)
+                {
+                    mobilvar = true;
+                    item.communication = form.mobilePhonePrefix + form.MobilePhone;
+                    item.description = form.mobilePhonePrefix + form.MobilePhone;
+                    
+                    BaseOutput updateCom = srv.WS_UpdateCommunication(binput, item, out modelSpecial.ComunicationInformations);
+                }
+
+                if (item.comType == 10122)
+                {
+                    workvar = true;
+                    item.communication = form.WorkPhonePrefix + form.WorkPhone;
+                    item.description = form.WorkPhonePrefix + form.WorkPhone;
+
+                    BaseOutput updateCom = srv.WS_UpdateCommunication(binput, item, out modelSpecial.ComunicationInformations);
+                }
+            }
+           
+
+           
+            if (!workvar)
+            {
+                if (form.WorkPhone != null)
+                {
+                    modelSpecial.ComunicationInformations = new tblCommunication();
+                    BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelSpecial.EnumValue);
+                    modelSpecial.ComunicationInformations.comType = (int)modelSpecial.EnumValue.Id;
+                    modelSpecial.ComunicationInformations.comTypeSpecified = true;
+                    modelSpecial.ComunicationInformations.communication = form.WorkPhonePrefix + form.WorkPhone;
+                    modelSpecial.ComunicationInformations.description = form.WorkPhonePrefix + form.WorkPhone;
+                    if(modelSpecial.User.userType_eV_ID == 26)
+                    {
+                        modelSpecial.ComunicationInformations.PersonId = modelSpecial.Person.Id;
+                    }
+
+                    if (modelSpecial.User.userType_eV_ID == 50)
+                    {
+                        modelSpecial.ComunicationInformations.PersonId = modelSpecial.ForeignOrganisation.manager_Id;
+                    }
+
+                    modelSpecial.ComunicationInformations.PersonIdSpecified = true;
+                    modelSpecial.ComunicationInformations.priorty = 1;
+                    modelSpecial.ComunicationInformations.priortySpecified = true;
+                    BaseOutput comunicationnOUtt = srv.WS_AddCommunication(binput, modelSpecial.ComunicationInformations, out modelSpecial.ComunicationInformations);
+
+                }
+            }
+            if (!mobilvar)
+            {
+                if (form.MobilePhone != null)
+                {
+                    modelSpecial.ComunicationInformations = new tblCommunication();
+                    BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "mobilePhone", out modelSpecial.EnumValue);
+                    modelSpecial.ComunicationInformations.comType = (int)modelSpecial.EnumValue.Id;
+                    modelSpecial.ComunicationInformations.comTypeSpecified = true;
+                    modelSpecial.ComunicationInformations.communication = form.mobilePhonePrefix + form.MobilePhone;
+                    modelSpecial.ComunicationInformations.description = form.mobilePhonePrefix + form.MobilePhone;
+                    if (modelSpecial.User.userType_eV_ID == 26)
+                    {
+                        modelSpecial.ComunicationInformations.PersonId = modelSpecial.Person.Id;
+                    }
+
+                    if (modelSpecial.User.userType_eV_ID == 50)
+                    {
+                        modelSpecial.ComunicationInformations.PersonId = modelSpecial.ForeignOrganisation.manager_Id;
+                    }
+                    modelSpecial.ComunicationInformations.PersonIdSpecified = true;
+                    modelSpecial.ComunicationInformations.priorty = 2;
+                    modelSpecial.ComunicationInformations.priortySpecified = true;
+                    BaseOutput comunicationOUt = srv.WS_AddCommunication(binput, modelSpecial.ComunicationInformations, out modelSpecial.ComunicationInformations);
+
+                }
+            }
+            return RedirectToAction("Index","SpecialSummary");
+        }
+
     }
 }

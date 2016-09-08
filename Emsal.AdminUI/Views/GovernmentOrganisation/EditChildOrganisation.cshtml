@@ -1,4 +1,4 @@
-﻿@*@model Emsal.AdminUI.Models.Organisation
+﻿@model Emsal.AdminUI.Models.Organisation
 @{
     ViewBag.Title = "EditChildOrganisation";
     Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
@@ -16,7 +16,7 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.OrganisationId)
             @Html.HiddenFor(model => model.RedirectToParent)
-
+            @Html.HiddenFor(model => model.NotChild)
             <div class="well">
                 <div class="row">
                     <div class="col-md-3">
@@ -66,12 +66,12 @@
                         <script>
                 $(document).ready(function () {
                     $.ajax({
-                        url: '/GovernmentOrganisation/AdminUnit?pId=0',
+                        url: '/GovernmentOrganisation/AdminUnit?pId=0&adminUnitId=@Model.AdminUnitId',
                         type: 'GET',
                         success: function (result) {
                             $('#AdminUnit').html(result);
 
-                            $("select[name='adId[0]']").change();
+                            //$("select[name='adId[0]']").change();
                         },
                         error: function () {
 
@@ -87,30 +87,23 @@
 
 
             <h3>Məsul Şəxsin Məlumatları</h3><br />
-            <div class="well" style="font-size:11px">
+            <div class="well">
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group" style="padding:5px;">
-                            <label class="labelEdit required">Məsul Şəxsin Fini</label>
-                            @Html.TextBoxFor(x => x.Pin, new { @class = "form-control", id = "pin" })
-                            @Html.ValidationMessageFor(x => x.Pin, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group" style="padding:5px">
                             <label class="labelEdit required">Adı</label>
                             @Html.TextBoxFor(x => x.ManagerName, new { @class = "form-control", id = "name" })
                             @Html.ValidationMessageFor(x => x.ManagerName, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group" style="padding:5px">
                             <label class="labelEdit required">Soyadı</label>
                             @Html.TextBoxFor(x => x.Surname, new { @class = "form-control", id = "surname" })
                             @Html.ValidationMessageFor(x => x.Surname, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group" style="padding:5px;">
                             <label class="labelEdit required">Ata adı</label>
                             @Html.TextBoxFor(x => x.FatherName, new { @class = "form-control", id = "fatherName" })
@@ -118,39 +111,64 @@
                         </div>
                     </div>
                 </div>
-              
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group" style="padding:5px">
+                    <div class="col-md-12">
+                        <div class="form-group" style="padding:5px;">
+                            <label class="labelEdit required">Məsul Şəxsin Fini</label>
+                            @Html.TextBoxFor(x => x.Pin, new { @class = "form-control", id = "pin" })
+                            @Html.ValidationMessageFor(x => x.Pin, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" style="padding:5px; font-size:10px">
                             @Html.LabelFor(x => x.ManagerEmail, new { @class = "control-label required" })
                             @Html.TextBoxFor(x => x.ManagerEmail, new { @class = "form-control", type = "email" })
                             @Html.ValidationMessageFor(x => x.ManagerEmail, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group" style="padding:5px">
-                            @Html.LabelFor(x => x.ManagerHomePhone, new { @class = "control-label" })
-                            @Html.TextBoxFor(x => x.ManagerHomePhone, new { @class = "form-control" })
-                        </div>
-                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group" style="padding:5px">
+                <div class="row" style="font-size:11px">
+
+                    <div class="col-md-12">
+                        <div class="form-group">
                             @Html.LabelFor(x => x.ManagerWorkPhone, new { @class = "control-label required" })
-                            @Html.TextBoxFor(x => x.ManagerWorkPhone, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(x => x.ManagerWorkPhone, "", new { @class = "text-danger" })
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <select class="form-control" name="workPhonePrefix">
+                                        <option value="">Seçim edin</option>
+                                        @foreach (var item in Model.WorkPhonePrefixList)
+                                        {
+                                            if (item.name == Model.WorkPhonePrefix)
+                                            {
+                                                <option selected value="@item.name">@item.description (@item.name)</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.name">@item.description (@item.name)</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ManagerWorkPhone, new { @class = "form-control numbersOnly" })
+                                    @Html.ValidationMessageFor(x => x.ManagerWorkPhone, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+
+                    <div class="col-md-12">
                         <div class="form-group">
                             @Html.LabelFor(x => x.ManagerMobilePhone, new { @class = "control-label" })
                             <div class="row">
                                 <div class="col-md-4">
                                     <select class="form-control" name="mobilePhonePrefix">
+                                        <option value="">Seçim edin</option>
                                         @foreach (var item in Model.MobilePhonePrefixList)
                                         {
-                                            if (Model.mobilePhonePrefix == item.name)
+                                            if (item.name == Model.mobilePhonePrefix)
                                             {
                                                 <option selected value="@item.name">@item.description</option>
                                             }
@@ -162,14 +180,15 @@
                                     </select>
                                 </div>
                                 <div class="col-md-8">
-                                    @Html.TextBoxFor(x => x.ManagerMobilePhone, new { @class = "form-control" })
+                                    @Html.TextBoxFor(x => x.ManagerMobilePhone, new { @class = "form-control numbersOnly" })
+                                    @Html.ValidationMessageFor(x => x.ManagerMobilePhone, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            
+
                         </div>
-                     </div>
                     </div>
-                <div class="row">
+                </div>
+                <div class="row" style="font-size:11px">
                     <div class="col-md-3">
                         <div class="form-group" style="padding:5px">
                             <label class="labelEdit required">Doğum Tarixi</label>
@@ -315,4 +334,4 @@
 
 <script>
 
-</script>*@
+</script>

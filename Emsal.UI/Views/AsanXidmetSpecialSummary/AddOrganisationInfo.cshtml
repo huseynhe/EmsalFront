@@ -19,7 +19,10 @@
         @Html.HiddenFor(model => model.FutureUserRole)
         @Html.HiddenFor(model => model.AddressId)
         @Html.HiddenFor(model => model.FullAddress)
-
+        @Html.HiddenFor(x => x.MobilePhone)
+        @Html.HiddenFor(x => x.mobilePhonePrefix)
+        @Html.HiddenFor(x => x.WorkPhone)
+        @Html.HiddenFor(x => x.workPhonePrefix)
 
         <div class="form-group" style="padding:5px;">
             <label>Şirkət Adı</label>

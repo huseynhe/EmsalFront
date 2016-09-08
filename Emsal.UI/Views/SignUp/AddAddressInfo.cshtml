@@ -18,13 +18,16 @@
         @Html.HiddenFor(model => model.Password)
         @Html.HiddenFor(model => model.Email)
         @Html.HiddenFor(model => model.FutureUserRole)
-
+        @Html.HiddenFor(model => model.WorkPhone)
+        @Html.HiddenFor(model => model.MobilePhone)
+        @Html.HiddenFor(model => model.workPhonePrefix)
+        @Html.HiddenFor(model => model.mobilePhonePrefix)
 
             <div class="form-group" id="signUpAdminUnit">
                 <script>
                         $(document).ready(function () {
                             $.ajax({
-                                url: '/SignUp/AdminUnit?pId=0',
+                                url: '/SignUp/AdminUnit?pId=0&adminUnitId=@Model.AdminUnitId',
                                 type: 'GET',
                                 success: function (result) {
                                     $('#signUpAdminUnit').html(result);

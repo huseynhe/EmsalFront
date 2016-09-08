@@ -28,7 +28,7 @@
                         <li id="@item.Id">
                             <a href="#" onclick="getOrganisation(@item.Id)">@item.name</a>
                             <a href='/GovernmentOrganisation/OrganisationInfo?redirect=@Model.ParentOrganisation.Id&Id=@item.Id' class='badge bg-red'><span class='glyphicon glyphicon-info-sign'></span></a>
-                            <a href="/GovernmentOrganisation/Edit/@item.userId" class="badge bg-light-blue"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a href='/GovernmentOrganisation/EditChildOrganisation?redirect=@Model.ParentOrganisation.Id&Id=@item.Id' class='badge bg-light-blue'><span class='glyphicon glyphicon-pencil'></span></a>
                             <a href="/GovernmentOrganisation/DeleteChildOrganisation?redirect=@Model.ParentOrganisation.Id&Id=@item.userId&parentId=@Model.ParentOrganisation.Id" class="badge bg-red"><span class="glyphicon glyphicon-remove"></span></a>
                             <a href="/GovernmentOrganisation/AddChildOrganisation?redirect=@Model.ParentOrganisation.Id&parentId=@item.Id" class="badge bg-light-blue"><span class="glyphicon glyphicon-plus-sign"></span></a>
                         </li>
@@ -59,9 +59,8 @@
                     $("#" + id).prepend("<i class='indicator glyphicon glyphicon-chevron-right'></i>");
                     $("#" + id).append("<ul id=1" + id + "></ul>");
                     resultt.map(function (itemmm) {
-                        $("#1" + id).append("<li id =" + itemmm.Id + "><a href='#' onclick='getOrganisation(" + itemmm.Id + ")'>" + itemmm.name + "</a>&nbsp;" +
-                                            "<a href='/GovernmentOrganisation/OrganisationInfo?redirect=@Model.ParentOrganisation.Id&Id=" + itemmm.Id + "' class='badge bg-red'><span class='glyphicon glyphicon-info-sign'></span></a>&nbsp;" +
-                                            "<a href='/GovernmentOrganisation/Edit/" + itemmm.userId + "' class='badge bg-light-blue'><span class='glyphicon glyphicon-pencil'></span></a>&nbsp;" +
+                        $("#1" + id).append("<a href='/GovernmentOrganisation/OrganisationInfo?redirect=@Model.ParentOrganisation.Id&Id=" + itemmm.Id + "' class='badge bg-red'><span class='glyphicon glyphicon-info-sign'></span></a>&nbsp;" +
+                                            "<a href='/GovernmentOrganisation/EditChildOrganisation?redirect=@Model.ParentOrganisation.Id&Id=" + itemmm.Id + "' class='badge bg-light-blue'><span class='glyphicon glyphicon-pencil'></span></a>&nbsp;" +
                                             "<a href='/GovernmentOrganisation/DeleteChildOrganisation?redirect=@Model.ParentOrganisation.Id&Id=" + itemmm.userId + "&parentId=" + id + "'class='badge bg-red'><span class='glyphicon glyphicon-remove'></span></a>&nbsp;" +
                                             "<a href='/GovernmentOrganisation/AddChildOrganisation?redirect=@Model.ParentOrganisation.Id&parentId=" + itemmm.Id + "'class='badge bg-light-blue'><span class='glyphicon glyphicon-plus-sign'></span></a></li>");
                     })

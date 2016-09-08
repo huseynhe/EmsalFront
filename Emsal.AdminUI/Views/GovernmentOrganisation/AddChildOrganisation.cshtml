@@ -150,7 +150,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-8">
-                                    @Html.TextBoxFor(x => x.ManagerWorkPhone, new { @class = "form-control" })
+                                    @Html.TextBoxFor(x => x.ManagerWorkPhone, new { @class = "form-control numbersOnly" })
                                     @Html.ValidationMessageFor(x => x.ManagerWorkPhone, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -170,7 +170,8 @@
                                     </select>
                                 </div>
                                 <div class="col-md-8">
-                                    @Html.TextBoxFor(x => x.ManagerMobilePhone, new { @class = "form-control" })
+                                    @Html.TextBoxFor(x => x.ManagerMobilePhone, new { @class = "form-control numbersOnly" })
+                                    @Html.ValidationMessageFor(x => x.ManagerMobilePhone, "", new { @class = "text-danger numbersOnly" })
                                 </div>
                             </div>
 

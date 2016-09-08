@@ -183,6 +183,7 @@
     <Compile Include="Models\CreatedUser.cs" />
     <Compile Include="Models\DemandProductionViewModel.cs" />
     <Compile Include="Models\GovernmentOrganisationDemand.cs" />
+    <Compile Include="Models\LoggedInUserInfos.cs" />
     <Compile Include="Models\MonthsModel.cs" />
     <Compile Include="Models\OfferMonitoringViewModel.cs" />
     <Compile Include="Models\OfferProductionViewModel.cs" />
@@ -623,6 +624,7 @@
     <Content Include="Content\img\number_ok.png" />
     <Content Include="Content\img\number_oky.png" />
     <Content Include="Content\img\ozet.png" />
+    <Content Include="Content\img\pasportfin.png" />
     <Content Include="Content\img\pear.png" />
     <Content Include="Content\img\pendir.jpg" />
     <Content Include="Content\img\phone.png" />
@@ -1054,6 +1056,8 @@
     <Content Include="Views\DemandProduction\ProductionCalendar.cshtml" />
     <Content Include="Views\OfferProduction\Getmonth.cshtml" />
     <Content Include="Views\OfferProduction\Unitofmeasurement.cshtml" />
+    <Content Include="Views\Login\ForgetPassword.cshtml" />
+    <Content Include="Views\Login\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

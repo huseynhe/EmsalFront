@@ -3,6 +3,8 @@ using Emsal.WebInt.EmsalSrv;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -197,14 +199,135 @@ namespace Emsal.UI.Controllers
                 }
             }
         }
-        
-        
+
+        public ActionResult ForgetPassword()
+        {
+            User modelUser = new User();
+            BaseInput binput = new BaseInput();
+            BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelUser.EnumCategory);
+            BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
+            modelUser.MobilePhonePrefixList = modelUser.EnumValueArray.ToList();
+
+
+            BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelUser.EnumCategory);
+            BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
+            modelUser.WorkPhonePrefixList = modelUser.EnumValueArray.ToList();
+            
+            return View(modelUser);
+        }
+
+        [HttpPost]
+        public ActionResult ForgetPassword(User form)
+        {
+            User modelUser = new User();
+
+            BaseInput binput = new BaseInput();
+
+            //Get the user
+
+            BaseOutput userOUt = srv.WS_GetUserByUserName(binput, form.UserName, out modelUser.FutureUser);
+
+            if (modelUser.FutureUser != null)
+            {
+                SendUserPassword(modelUser.FutureUser.Username, modelUser.FutureUser.Password, form.Email);
+                TempData["sendUserInfo"]= "info";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ResetPassword(string username)
+        {
+            if (TempData["oneTime"] != null)
+            {
+               
+                User modelUser = new User();
+                modelUser.UserName = username;
+                return View(modelUser);
+            }
+            else
+            {
+                return HttpNotFound();
+
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult ResetPassword(User form)
+        {
+            User modelUser = new User();
+            BaseInput binput = new BaseInput();
+
+            BaseOutput userOut = srv.WS_GetUserByUserName(binput, form.UserName, out modelUser.FutureUser);
+            modelUser.FutureUser.Password = BCrypt.Net.BCrypt.HashPassword(form.Password, 5);
+
+            BaseOutput updateUser = srv.WS_UpdateUser(binput, modelUser.FutureUser, out modelUser.FutureUser);
+
+            TempData.Clear();
+            TempData["passwordChanged"] = "info";
+            return Redirect("/Login");
+        }
+
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
             TempData.Clear();
             Session["musername"] = null;
             return RedirectToAction("Index");
+        }
+
+        public void SendUserPassword(string userName, string password, string email)
+        {
+            if (CheckForInternetConnection())
+            {
+                MailMessage msg = new MailMessage();
+                msg.From = new MailAddress("ferid.heziyev@gmail.com", "emsal.az");
+                if (String.IsNullOrWhiteSpace(email) || !email.Contains("@") || !email.Contains(".com"))
+                {
+                    email = "ferid.heziyev@gmail.com";
+                }
+                msg.To.Add(email);
+                string fromPassword = "e1701895";
+                msg.Subject = "Giriş Məlumatlarınız";
+
+                msg.Body = "<p>İstifadəçi adınız:" + userName + "</p>" +
+                           "<p>Şifrənizi aşağıdakı linkdən dəyişdirin</p>" +
+                           "<p>http://localhost:56557/Login/ResetPassword/?username=" + userName + "</p>";
+
+                msg.IsBodyHtml = true;
+
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Credentials = new NetworkCredential(msg.From.Address, fromPassword);
+                smtp.Timeout = 20000;
+
+                TempData["onetime"] = "info";
+
+                smtp.Send(msg);
+            }
+
+        }
+
+        public static bool CheckForInternetConnection()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    using (var stream = client.OpenRead("http://www.google.com"))
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

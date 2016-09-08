@@ -10,36 +10,17 @@
     <br /><br /><br />
     @using (Html.BeginForm("AddPersonInfo", "AsanXidmetSpecialSummary", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        <div class="form-group" style="display:none">
-            @Html.LabelFor(x => x.UserName)
-            @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", id = "username" })
-        </div>
+        @Html.HiddenFor(x => x.Email)
+        @Html.HiddenFor(x => x.FutureUserRole)
+        @Html.HiddenFor(x => x.MobilePhone)
+        @Html.HiddenFor(x => x.mobilePhonePrefix)
+        @Html.HiddenFor(x => x.WorkPhone)
+        @Html.HiddenFor(x => x.workPhonePrefix)
+        @Html.HiddenFor(x => x.UserName)
+        @Html.HiddenFor(x => x.AddressId)
+        @Html.HiddenFor(x => x.Password)
+        @Html.HiddenFor(x => x.FullAddress)
 
-        <div class="form-group" style="display:none">
-            @Html.LabelFor(x => x.AddressId)
-            @Html.TextBoxFor(model => model.AddressId, new { @class = "form-control", id = "addressId" })
-        </div>
-
-            <div class="form-group" style="display:none">
-                @Html.LabelFor(x => x.Password)
-                @Html.TextBoxFor(x => x.Password, new { @class = "form-control", id = "password", autocomplete = "off" })
-            </div>
-            <div class="form-group" style="display:none">
-                @Html.LabelFor(x => x.Email)
-                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", id = "email", autocomplete = "off" })
-            </div>
-            <div class="form-group" style="display:none">
-                @Html.LabelFor(x => x.FutureUserRole)
-                @Html.TextBoxFor(x => x.FutureUserRole, new { @class = "form-control", id = "futureUserRole", autocomplete = "off" })
-            </div>
-            <div class="form-group" style="padding:5px; display:none">
-                <input type="text" name="AddressId" value="@Model.AddressId" />
-            </div>
-
-            <div class="form-group" style="padding:5px; display:none">
-                @Html.LabelFor(x => x.FullAddress)
-                <input type="text" name="FullAddress" id="fullAddress" value="@Model.FullAddress" class="form-control" />
-            </div>
             <div class="form-group" style="padding:5px">
                 @Html.LabelFor(x => x.Name)
                 @Html.TextBoxFor(x => x.Name, new { @class = "form-control", id = "name" })

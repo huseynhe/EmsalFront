@@ -141,6 +141,8 @@ namespace Emsal.UI.Models
 
         public tblUser LoggedInUser;
 
+        public LoggedInUserInfos LoggedInUserInfos { get; set; }
+
 
         public tblDemand_Production DemandProduction;
         public IList<tblDemand_Production> DemandProductionList { get; set; }
@@ -322,6 +324,26 @@ namespace Emsal.UI.Models
         public List<long> GivenAdminUnitIds { get; set; }
         public IList<tblPRM_AdminUnit>[] PRMAdminUnitArrayPa { get; set; }
         public string descAddress { get; set; }
+        public List<tblEnumValue> UserTypeList { get; set; }
+
+        public string finvoen { get; set; }
+        public int? finvoenType { get; set; }
+
+        [Required(ErrorMessage = "İş telefonu daxil edilməmişdir")]
+        [Display(Name = "İş telefonu")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefon nömrəsi 7 rəqəmdən ibarət olmalıdır")]
+        public string WorkPhone { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefon nömrəsi 7 rəqəmdən ibarət olmalıdır")]
+        [Display(Name = "Mobil telefonu")]
+        public string MobilePhone { get; set; }
+
+        public string FutureUserRole { get; set; }
+        public tblForeign_Organization ForeignOrganisation;
+        public tblForeign_Organization[] ForeignOrganisationArray;
+        public List<tblForeign_Organization> ForeignOrganisationList { get; set; }
 
     }
 }

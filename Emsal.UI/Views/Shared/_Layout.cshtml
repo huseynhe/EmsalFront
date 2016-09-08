@@ -28,7 +28,7 @@
 
     <script src="~/Content/UI/js/custom.js"></script>
     <script src="~/Content/UI/js/addPotentialUser.js"></script>
-    <script src="~/Content/UI/js/specialSummary.js"></script>
+    @*<script src="~/Content/UI/js/specialSummary.js"></script>*@
 
 
     <script src="~/Content/UI/js/emsal.js"></script>
@@ -213,6 +213,15 @@
                 $("#pinDiv").css("display", "block");
             }
         })
+    </script>
+    <script>
+    $(".numbersOnly").on("keyup", function () {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+
+        if (this.value.length > 7) {
+            this.value = this.value.slice(0, 7);
+        }
+    })
     </script>
 </body>
 </html>

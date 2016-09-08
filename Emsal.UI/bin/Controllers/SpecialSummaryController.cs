@@ -36,6 +36,8 @@ namespace Emsal.UI.Controllers
 
             modelSpecial = new SpecialSummaryViewModel();
 
+            modelSpecial.LoggedInUserInfos = new LoggedInUserInfos();
+
             //get the informations of logged in user
             if (User != null && User.Identity.IsAuthenticated)
             {
@@ -48,7 +50,36 @@ namespace Emsal.UI.Controllers
             BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.LoggedInUser);
 
             BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
+            BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserId, true, out modelSpecial.ForeignOrganisation);
             modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.LoggedInUser.Username : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
+
+            //get communications
+            BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelSpecial.CommunicationInformationsArray);
+
+            if (modelSpecial.LoggedInUser.userType_eV_ID == 26)
+            {
+                modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.Person.Id).ToList();
+            }
+
+            if (modelSpecial.LoggedInUser.userType_eV_ID == 50)
+            {
+                modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.ForeignOrganisation.manager_Id).ToList();
+            }
+
+            foreach (var item in modelSpecial.CommunicationInformationsList)
+            {
+                if(item.comType == 10120)
+                {
+                    modelSpecial.LoggedInUserInfos.MobilePhone = item.description;
+                }
+                if(item.comType == 10122)
+                {
+                    modelSpecial.LoggedInUserInfos.WorkPhone = item.description;
+                }
+
+            }
+
+
 
             ///toget confirmed on air offers
             //firts get the type tesdiwlenen (approved offers) from table
@@ -120,6 +151,15 @@ namespace Emsal.UI.Controllers
             modelSpecial.ComMessageList = modelSpecial.NotReadComMessageArray == null ? null : modelSpecial.NotReadComMessageArray.ToList();
             modelSpecial.MessageCount = modelSpecial.ComMessageList == null ? 0 : modelSpecial.ComMessageList.Count();
 
+            BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelSpecial.EnumCategory);
+            BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+            modelSpecial.MobilePhonePrefixList = modelSpecial.EnumValueArray.ToList();
+
+
+            BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelSpecial.EnumCategory);
+            BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+            modelSpecial.WorkPhonePrefixList = modelSpecial.EnumValueArray.ToList();
+
             return Request.IsAjaxRequest()
             ? (ActionResult)PartialView("PartialIndex", modelSpecial)
             : View(modelSpecial);
@@ -129,6 +169,8 @@ namespace Emsal.UI.Controllers
         {
             modelSpecial = new SpecialSummaryViewModel();
             binput = new BaseInput();
+            modelSpecial.LoggedInUserInfos = new LoggedInUserInfos();
+
             int pageSize = 2;
             int pageNumber = (page ?? 1);
             try
@@ -151,6 +193,7 @@ namespace Emsal.UI.Controllers
                 
                 BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
+                BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
 
                 modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.LoggedInUser.Username : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
                 ///////////////////////////////////////////
@@ -221,6 +264,43 @@ namespace Emsal.UI.Controllers
                 modelSpecial.ComMessageList = modelSpecial.NotReadComMessageArray == null ? null : modelSpecial.NotReadComMessageArray.ToList();
                 modelSpecial.MessageCount = modelSpecial.ComMessageList == null ? 0 : modelSpecial.ComMessageList.Count();
 
+
+                //get communications
+                BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelSpecial.CommunicationInformationsArray);
+
+                if (modelSpecial.LoggedInUser.userType_eV_ID == 26)
+                {
+                    modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.Person.Id).ToList();
+                }
+
+                if (modelSpecial.LoggedInUser.userType_eV_ID == 50)
+                {
+                    modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.ForeignOrganisation.manager_Id).ToList();
+                }
+
+                foreach (var item in modelSpecial.CommunicationInformationsList)
+                {
+                    if (item.comType == 10120)
+                    {
+                        modelSpecial.LoggedInUserInfos.MobilePhone = item.description;
+                    }
+                    if (item.comType == 10122)
+                    {
+                        modelSpecial.LoggedInUserInfos.WorkPhone = item.description;
+                    }
+
+                }
+
+                BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelSpecial.EnumCategory);
+                BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+                modelSpecial.MobilePhonePrefixList = modelSpecial.EnumValueArray.ToList();
+
+
+                BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelSpecial.EnumCategory);
+                BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+                modelSpecial.WorkPhonePrefixList = modelSpecial.EnumValueArray.ToList();
+
+
                 return PartialView(modelSpecial);
             }
             catch (Exception err)
@@ -234,6 +314,8 @@ namespace Emsal.UI.Controllers
         {
             modelSpecial = new SpecialSummaryViewModel();
             binput = new BaseInput();
+            modelSpecial.LoggedInUserInfos = new LoggedInUserInfos();
+
             int pageSize = 2;
             int pageNumber = (page ?? 1);
 
@@ -255,6 +337,8 @@ namespace Emsal.UI.Controllers
                 }
                 BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
+                BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
+
                 modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.LoggedInUser.Username : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
                 ///////////////////////////////
 
@@ -327,6 +411,42 @@ namespace Emsal.UI.Controllers
                 modelSpecial.ComMessageList = modelSpecial.ComMessageArray == null ? null : modelSpecial.ComMessageArray.ToList();
                 modelSpecial.MessageCount = modelSpecial.ComMessageList == null ? 0 : modelSpecial.ComMessageList.Count();
 
+
+                //get communications
+                BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelSpecial.CommunicationInformationsArray);
+
+                if (modelSpecial.LoggedInUser.userType_eV_ID == 26)
+                {
+                    modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.Person.Id).ToList();
+                }
+
+                if (modelSpecial.LoggedInUser.userType_eV_ID == 50)
+                {
+                    modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.ForeignOrganisation.manager_Id).ToList();
+                }
+
+                foreach (var item in modelSpecial.CommunicationInformationsList)
+                {
+                    if (item.comType == 10120)
+                    {
+                        modelSpecial.LoggedInUserInfos.MobilePhone = item.description;
+                    }
+                    if (item.comType == 10122)
+                    {
+                        modelSpecial.LoggedInUserInfos.WorkPhone = item.description;
+                    }
+
+                }
+
+                BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelSpecial.EnumCategory);
+                BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+                modelSpecial.MobilePhonePrefixList = modelSpecial.EnumValueArray.ToList();
+
+
+                BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelSpecial.EnumCategory);
+                BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+                modelSpecial.WorkPhonePrefixList = modelSpecial.EnumValueArray.ToList();
+
                 return PartialView(modelSpecial);
             }
             catch (Exception err)
@@ -338,6 +458,8 @@ namespace Emsal.UI.Controllers
         {
             modelSpecial = new SpecialSummaryViewModel();
             binput = new BaseInput();
+            modelSpecial.LoggedInUserInfos = new LoggedInUserInfos();
+
             int pageSize = 2;
             int pageNumber = (page ?? 1);
             try
@@ -357,6 +479,8 @@ namespace Emsal.UI.Controllers
                 }
                 BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
+                BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
+
                 modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.LoggedInUser.Username : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
                 ////////////////////////////////
 
@@ -427,6 +551,41 @@ namespace Emsal.UI.Controllers
                 modelSpecial.ComMessageList = modelSpecial.NotReadComMessageArray == null ? null : modelSpecial.NotReadComMessageArray.ToList();
                 modelSpecial.MessageCount = modelSpecial.ComMessageList == null ? 0 : modelSpecial.ComMessageList.Count();
 
+                //get communications
+                BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelSpecial.CommunicationInformationsArray);
+
+                if (modelSpecial.LoggedInUser.userType_eV_ID == 26)
+                {
+                    modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.Person.Id).ToList();
+                }
+
+                if (modelSpecial.LoggedInUser.userType_eV_ID == 50)
+                {
+                    modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.ForeignOrganisation.manager_Id).ToList();
+                }
+
+                foreach (var item in modelSpecial.CommunicationInformationsList)
+                {
+                    if (item.comType == 10120)
+                    {
+                        modelSpecial.LoggedInUserInfos.MobilePhone = item.description;
+                    }
+                    if (item.comType == 10122)
+                    {
+                        modelSpecial.LoggedInUserInfos.WorkPhone = item.description;
+                    }
+
+                }
+
+                BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelSpecial.EnumCategory);
+                BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+                modelSpecial.MobilePhonePrefixList = modelSpecial.EnumValueArray.ToList();
+
+
+                BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelSpecial.EnumCategory);
+                BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+                modelSpecial.WorkPhonePrefixList = modelSpecial.EnumValueArray.ToList();
+
                 return PartialView(modelSpecial);
             }
             catch (Exception err)
@@ -440,11 +599,11 @@ namespace Emsal.UI.Controllers
         {
             modelSpecial = new SpecialSummaryViewModel();
             binput = new BaseInput();
+            modelSpecial.LoggedInUserInfos = new LoggedInUserInfos();
+
             int pageSize = 2;
             int pageNumber = (page ?? 1);
 
-            try
-            {
                 BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "Tesdiqlenen", out modelSpecial.EnumValue);
                 modelSpecial.PotentialProduction = new tblPotential_Production();
                 modelSpecial.ProductCatalogList = new List<tblProductCatalog>();
@@ -461,6 +620,8 @@ namespace Emsal.UI.Controllers
                 }
                 BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
+                BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
+
                 modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.LoggedInUser.Username : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
                 ////////////////////////////////////
 
@@ -528,12 +689,43 @@ namespace Emsal.UI.Controllers
                 modelSpecial.ComMessageList = modelSpecial.NotReadComMessageArray == null ? null : modelSpecial.NotReadComMessageArray.ToList();
                 modelSpecial.MessageCount = modelSpecial.ComMessageList == null ? 0 : modelSpecial.ComMessageList.Count();
 
+                //get communications
+                BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelSpecial.CommunicationInformationsArray);
+
+                if (modelSpecial.LoggedInUser.userType_eV_ID == 26)
+                {
+                    modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.Person.Id).ToList();
+                }
+
+                if (modelSpecial.LoggedInUser.userType_eV_ID == 50)
+                {
+                    modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.ForeignOrganisation.manager_Id).ToList();
+                }
+
+                foreach (var item in modelSpecial.CommunicationInformationsList)
+                {
+                    if (item.comType == 10120)
+                    {
+                        modelSpecial.LoggedInUserInfos.MobilePhone = item.description;
+                    }
+                    if (item.comType == 10122)
+                    {
+                        modelSpecial.LoggedInUserInfos.WorkPhone = item.description;
+                    }
+
+                }
+
+                BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelSpecial.EnumCategory);
+                BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+                modelSpecial.MobilePhonePrefixList = modelSpecial.EnumValueArray.ToList();
+
+
+                BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelSpecial.EnumCategory);
+                BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+                modelSpecial.WorkPhonePrefixList = modelSpecial.EnumValueArray.ToList();
+
                 return PartialView(modelSpecial);
-            }
-            catch (Exception err)
-            {
-                return PartialView(err.Message);
-            }
+         
 
         }
 
@@ -541,6 +733,8 @@ namespace Emsal.UI.Controllers
         {
             modelSpecial = new SpecialSummaryViewModel();
             binput = new BaseInput();
+            modelSpecial.LoggedInUserInfos = new LoggedInUserInfos();
+
             try
             {
                 BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "Tesdiqlenmeyen", out modelSpecial.EnumValue);
@@ -558,6 +752,7 @@ namespace Emsal.UI.Controllers
                 }
                 BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
+                BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
 
                 modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.LoggedInUser.Username : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
 
@@ -606,6 +801,42 @@ namespace Emsal.UI.Controllers
                 modelSpecial.ComMessageList = modelSpecial.NotReadComMessageArray == null ? null : modelSpecial.NotReadComMessageArray.ToList();
                 modelSpecial.MessageCount = modelSpecial.ComMessageList == null ? 0 : modelSpecial.ComMessageList.Count();
 
+
+                //get communications
+                BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelSpecial.CommunicationInformationsArray);
+
+                if (modelSpecial.LoggedInUser.userType_eV_ID == 26)
+                {
+                    modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.Person.Id).ToList();
+                }
+
+                if (modelSpecial.LoggedInUser.userType_eV_ID == 50)
+                {
+                    modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.ForeignOrganisation.manager_Id).ToList();
+                }
+
+                foreach (var item in modelSpecial.CommunicationInformationsList)
+                {
+                    if (item.comType == 10120)
+                    {
+                        modelSpecial.LoggedInUserInfos.MobilePhone = item.description;
+                    }
+                    if (item.comType == 10122)
+                    {
+                        modelSpecial.LoggedInUserInfos.WorkPhone = item.description;
+                    }
+
+                }
+
+                BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelSpecial.EnumCategory);
+                BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+                modelSpecial.MobilePhonePrefixList = modelSpecial.EnumValueArray.ToList();
+
+
+                BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelSpecial.EnumCategory);
+                BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+                modelSpecial.WorkPhonePrefixList = modelSpecial.EnumValueArray.ToList();
+
                 return PartialView(modelSpecial);
             }
             catch (Exception err)
@@ -621,6 +852,7 @@ namespace Emsal.UI.Controllers
             modelSpecial = new SpecialSummaryViewModel();
 
             modelSpecial.OfferProduction = new tblOffer_Production();
+            modelSpecial.LoggedInUserInfos = new LoggedInUserInfos();
 
             try
             {
@@ -671,6 +903,7 @@ namespace Emsal.UI.Controllers
             ProductsViewModel modelSpecial = new ProductsViewModel();
 
             modelSpecial.PotentialProduction = new tblPotential_Production();
+
             try
             {
                 binput = new BaseInput();
@@ -1475,14 +1708,6 @@ namespace Emsal.UI.Controllers
             }
             return Json(modelUser, JsonRequestBehavior.AllowGet);
         }
-
-
-
-
-
-
-
-
 
 
     }

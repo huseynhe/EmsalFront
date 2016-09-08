@@ -135,6 +135,26 @@ namespace Emsal.AdminUI.Controllers
 
             BaseOutput deleteKTN = srv.WS_DeletePRM_KTNBranch(binput, modelOrganisation.KTNBranch);
 
+            //delete branch responsibilities
+            BaseOutput respOut = srv.WS_GetBranchResponsibilities(binput, out modelOrganisation.branchRespArray);
+            modelOrganisation.branchRespArray = modelOrganisation.branchRespArray.Where(x => x.branchId == modelOrganisation.KTNBranch.Id && x.branchType_eVId == 52).ToArray();
+
+            foreach (var item in modelOrganisation.branchRespArray)
+            {
+                BaseOutput deleteResp = srv.WS_DeleteBranchResponsibility(binput, item);
+            }
+
+            //delete ktn individuals
+            BaseOutput ktnenumOUt = srv.WS_GetEnumValueByName(binput, "KTN", out modelOrganisation.EnumValue);
+            BaseOutput KTnsersOut = srv.WS_GetUsersByUserType(binput, modelOrganisation.EnumValue.Id, true, out modelOrganisation.UserArray);
+            modelOrganisation.UserArray = modelOrganisation.UserArray.Where(x => x.KTN_ID == modelOrganisation.KTNBranch.Id).ToArray();
+            foreach (var ktnUser in modelOrganisation.UserArray)
+            {
+                ktnUser.KTN_ID = 0;
+
+                BaseOutput updateKTN = srv.WS_UpdateUser(binput, ktnUser, out modelOrganisation.User);
+            }
+
             return RedirectToAction("Index", "KTN");
 
         }
@@ -159,6 +179,21 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput KTNout = srv.WS_GetPRM_KTNBranchById(binput, Id, true, out modelOrganisation.KTNBranch);
 
             modelOrganisation.Name = modelOrganisation.KTNBranch.Name;
+            modelOrganisation.branchResponsibility = new tblBranchResponsibility();
+
+            BaseOutput branchessOUt = srv.WS_GetBranchResponsibilities(binput, out modelOrganisation.branchRespArray);
+            modelOrganisation.branchRespArray = modelOrganisation.branchRespArray.Where(x => x.branchId == modelOrganisation.KTNBranch.Id & x.branchType_eVId == 52).ToArray();
+
+            modelOrganisation.branchesIdArr = new long[modelOrganisation.branchRespArray.Length];
+
+            for (int i = 0; i < modelOrganisation.branchRespArray.Length; i++)
+            {
+                modelOrganisation.branchesIdArr[i] = modelOrganisation.branchRespArray[i].adminUnitId;
+            }
+
+
+            BaseOutput adminUnitOut = srv.WS_GetAdminUnitsByParentId(binput, 1, true, out modelOrganisation.PRMAdminUnitArray);
+
             return View(modelOrganisation);
         }
 
@@ -178,6 +213,50 @@ namespace Emsal.AdminUI.Controllers
 
             BaseOutput updateKTN = srv.WS_UpdatePRM_KTNBranch(binput, modelOrganisation.KTNBranch);
 
+
+            //update branch responsibilities
+
+            BaseOutput branchessOUt = srv.WS_GetBranchResponsibilities(binput, out modelOrganisation.branchRespArray);
+            modelOrganisation.branchRespArray = modelOrganisation.branchRespArray.Where(x => x.branchId == modelOrganisation.KTNBranch.Id & x.branchType_eVId == 52).ToArray();
+
+            //delete deselected branches
+            foreach (var item in modelOrganisation.branchRespArray)
+            {
+                int a = Array.IndexOf(form.ktnar, item.adminUnitId.ToString());
+                if (a < 0)
+                {
+                    BaseOutput deleteResponsibilty = srv.WS_DeleteBranchResponsibility(binput, item);
+                }
+            }
+
+            //add new selected branches
+            foreach (var item in form.ktnar)
+            {
+                bool isselected = true;
+
+                foreach (var itemm in modelOrganisation.branchRespArray)
+                {
+                    if (itemm.adminUnitId == Convert.ToInt64(item))
+                    {
+                        isselected = false;
+                    }
+
+                }
+
+                if (isselected)
+                {
+                    modelOrganisation.branchResponsibility = new tblBranchResponsibility();
+                    BaseOutput AscEnumOut = srv.WS_GetEnumValueByName(binput, "KTN", out modelOrganisation.EnumValue);
+                    modelOrganisation.branchResponsibility.branchType_eVId = modelOrganisation.EnumValue.Id;
+                    modelOrganisation.branchResponsibility.branchType_eVIdSpecified = true;
+                    modelOrganisation.branchResponsibility.adminUnitId = Convert.ToInt64(item);
+                    modelOrganisation.branchResponsibility.adminUnitIdSpecified = true;
+                    modelOrganisation.branchResponsibility.branchId = modelOrganisation.KTNBranch.Id;
+                    modelOrganisation.branchResponsibility.branchIdSpecified = true;
+
+                    BaseOutput addResp = srv.WS_AddBranchResponsibility(binput, modelOrganisation.branchResponsibility);
+                }
+            }
             return RedirectToAction("Index", "KTN");
         }
 

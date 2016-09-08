@@ -185,5 +185,28 @@ namespace Emsal.UI.Models
         public tblForeign_Organization[] ForeignOrganisationArray;
         public List<tblForeign_Organization> ForeignOrganisationList { get; set; }
 
+        public long AdminUnitId { get; set; }
+
+        [Required(ErrorMessage = "İş telefonu daxil edilməmişdir")]
+        [Display(Name = "İş telefonu")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefon nömrəsi 7 rəqəmdən ibarət olmalıdır")]
+        public string WorkPhone { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefon nömrəsi 7 rəqəmdən ibarət olmalıdır")]
+        [Display(Name = "Mobil telefonu")]
+        public string MobilePhone { get; set; }
+
+        public List<tblEnumValue> MobilePhonePrefixList { get; set; }
+
+        public List<tblEnumValue> WorkPhonePrefixList { get; set; }
+        public string mobilePhonePrefix { get; set; }
+        public string workPhonePrefix { get; set; }
+
+        public tblCommunication ComunicationInformations;
+        public tblCommunication[] CommunicationInformationsArray;
+        public List<tblCommunication> CommunicationInformationsList { get; set; }
+
     }
 }

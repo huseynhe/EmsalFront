@@ -172,6 +172,7 @@
                                     <ul class="list-group">
                                         <li class="list-group-item"><a data-toggle="collapse" href="" id="personalInfoButton">Şəxsi məlumatlar</a></li>
                                         <li class="list-group-item"><a data-toggle="collapse" href="" id="personalEmail">E-mail</a></li>
+                                        <li class="list-group-item"><a data-toggle="collapse" href="" id="personalPhone">Telefon</a></li>
                                         <li class="list-group-item"><a data-toggle="collapse" href="" id="currentPassword">Şifrəni dəyişdir</a></li>
                                         <li class="list-group-item"><a data-toggle="collapse" href="">Qeydiyyatdan imtina</a></li>
                                     </ul>
@@ -216,7 +217,7 @@
                                             </tr>
                                         }
                                     }
-                            
+
                                 </table>
                             </div>
 
@@ -233,62 +234,62 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="form-group">
-                                                    <label>İstifadəçi adı</label>
-                                                    <input type="text" id="upUserName" class="form-control" /><br />
+                                                <label>İstifadəçi adı</label>
+                                                <input type="text" id="upUserName" class="form-control" /><br />
                                             </div>
                                             <div class="form-group">
-                                                    <label>Ad</label>
-                                                    <input type="text" id="upName" class="form-control" readonly /><br />
+                                                <label>Ad</label>
+                                                <input type="text" id="upName" class="form-control" readonly /><br />
                                             </div>
                                             <div class="form-group">
-                                                    <label>Soyad</label>
-                                                    <input type="text" id="upSurname" class="form-control" readonly /><br />
+                                                <label>Soyad</label>
+                                                <input type="text" id="upSurname" class="form-control" readonly /><br />
                                             </div>
                                             <div class="form-group">
-                                                    <label>Doğum Tarixi</label>
-                                                    <input id="upBirthDate" type="text" class="form-control" readonly /><br />
+                                                <label>Doğum Tarixi</label>
+                                                <input id="upBirthDate" type="text" class="form-control" readonly /><br />
                                             </div>
                                             <div class="form-group">
-                                                    <label>Cinsi</label>
-                                                    <input type="text" id="upGender" class="form-control" readonly /><br />
+                                                <label>Cinsi</label>
+                                                <input type="text" id="upGender" class="form-control" readonly /><br />
                                             </div>
                                             <div class="form-group">
-                                                    <label>Təhsil</label>
-                                                    <select id="upEducation" style="width:100%;" class="form-control">
-                                                        <script>
-                                                            $.ajax({
-                                                                url: "/SpecialSummary/GetEducation",
-                                                                type: "Get",
-                                                                success: function (data) {
-                                                                    data.map(function (item) {
-                                                                        $("#upEducation").append('<option value =' + item.Id +'>' + item.name + '</option>');
-                                                                    })
-                                                                },
-                                                                error: function (e) {
-                                                                    console.log(e);
-                                                                }
-                                                            })
-                                                        </script>
-                                                    </select>
-                                                </div>
+                                                <label>Təhsil</label>
+                                                <select id="upEducation" style="width:100%;" class="form-control">
+                                                    <script>
+                                                        $.ajax({
+                                                            url: "/SpecialSummary/GetEducation",
+                                                            type: "Get",
+                                                            success: function (data) {
+                                                                data.map(function (item) {
+                                                                    $("#upEducation").append('<option value =' + item.Id + '>' + item.name + '</option>');
+                                                                })
+                                                            },
+                                                            error: function (e) {
+                                                                console.log(e);
+                                                            }
+                                                        })
+                                                    </script>
+                                                </select>
+                                            </div>
                                             <div class="form-group">
-                                                    <label>İş</label>
-                                                    <select id="upJobb" style="width:100%;" class="form-control">
-                                                        <script>
-                                                            $.ajax({
-                                                                url: "/SpecialSummary/GetJob",
-                                                                type: "Get",
-                                                                success: function (data) {
-                                                                    data.map(function (item) {
-                                                                        $("#upJobb").append('<option value =' + item.Id + '>' + item.name + '</option>');
-                                                                    })
-                                                                },
-                                                                error: function (e) {
-                                                                    console.log(e);
-                                                                }
-                                                            })
-                                                        </script>
-                                                    </select><br />
+                                                <label>İş</label>
+                                                <select id="upJobb" style="width:100%;" class="form-control">
+                                                    <script>
+                                                        $.ajax({
+                                                            url: "/SpecialSummary/GetJob",
+                                                            type: "Get",
+                                                            success: function (data) {
+                                                                data.map(function (item) {
+                                                                    $("#upJobb").append('<option value =' + item.Id + '>' + item.name + '</option>');
+                                                                })
+                                                            },
+                                                            error: function (e) {
+                                                                console.log(e);
+                                                            }
+                                                        })
+                                                    </script>
+                                                </select><br />
                                             </div><br />
                                             <div class="form-group">
                                                 <button id="changeDetails" class="btn btn-danger">Təsdiqlə</button>
@@ -342,6 +343,80 @@
                             </div>
                         </div>
 
+
+                        <div class="person_settings" id="personalPhoneMain" style="display:none">
+                            <h4 class="text-bold">E-mail</h4>
+                            <div class="white_fon">
+                                <p>Mövcud mobil telefon nömrəniz: <b><span>@Model.LoggedInUserInfos.MobilePhone</span></b></p><br />
+                                <p>Mövcud iş telefon nömrəniz: <b><span>@Model.LoggedInUserInfos.WorkPhone</span></b></p><br />
+
+                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#PhoneModal">Dəyişdir</button>
+
+                                <!-- Modal -->
+                                <div id="PhoneModal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Emaili Deyişdir</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                @using (Html.BeginForm("UpdatePhone", "Ordinary", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                                {
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(x => x.WorkPhone, new { @class = "control-label required" })
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <select class="form-control" name="workPhonePrefix">
+                                                                        <option value="">Seçim edin</option>
+                                                                        @foreach (var item in Model.WorkPhonePrefixList)
+                                                                        {
+                                                                            <option value="@item.name">@item.description (@item.name)</option>
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    @Html.TextBoxFor(x => x.WorkPhone, new { @class = "form-control numbersOnly" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(x => x.MobilePhone, new { @class = "control-label" })
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <select class="form-control" name="mobilePhonePrefix">
+                                                                        <option value="">Seçim edin</option>
+                                                                        @foreach (var item in Model.MobilePhonePrefixList)
+                                                                        {
+                                                                            <option value="@item.name">@item.description</option>
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    @Html.TextBoxFor(x => x.MobilePhone, new { @class = "form-control numbersOnly" })
+                                                                    @Html.ValidationMessageFor(x => x.MobilePhone, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                        <input type = "submit" class="btn btn-success" value="Davam Et" id="sendChildOrganisationInfo" />
+                                                }
+                                           
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                         <div class="person_settings" id="currentPasswordBody" style="display:none">
                             <h4 class="text-bold">E-mail</h4>
                             <div class="form-group">
@@ -386,8 +461,10 @@
 
 
 
-                        </div>
-</section>
+        </div>
+    </section>
+
+
 
     <footer>
         <div class="container">

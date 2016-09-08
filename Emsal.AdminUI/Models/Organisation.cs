@@ -294,5 +294,11 @@ namespace Emsal.AdminUI.Models
 
         public string WorkPhonePrefix { get; set; }
         public List<string> NullCommunicationsList { get; set;}
+
+
+        public bool NotChild { get; set; }
+
+
+        public long[] branchesIdArr { get; set; }
     }
 }

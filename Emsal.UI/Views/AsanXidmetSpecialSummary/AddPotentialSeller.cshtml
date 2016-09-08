@@ -103,7 +103,48 @@
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
             <p class="text-danger" id="emailAlert"></p><br />
-
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.WorkPhone, htmlAttributes: new { @class = "control-label required" })
+                        <div class="row">
+                            <div class="col-md-5">
+                                <select class="form-control" name="workPhonePrefix">
+                                    <option value="">Seçim edin</option>
+                                    @foreach (var item in Model.WorkPhonePrefixList)
+                                    {
+                                        <option value="@item.name">@item.description (@item.name)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-7">
+                                @Html.TextBoxFor(model => model.WorkPhone, new { @class = "form-control numbersOnly", required = "required" })
+                                @Html.ValidationMessageFor(model => model.WorkPhone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.MobilePhone, new { @class = "control-label" })
+                        <div class="row">
+                            <div class="col-md-5">
+                                <select class="form-control" name="mobilePhonePrefix">
+                                    <option value="">Seçim edin</option>
+                                    @foreach (var item in Model.MobilePhonePrefixList)
+                                    {
+                                        <option value="@item.name">@item.description (@item.name)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-7">
+                                @Html.TextBoxFor(model => model.MobilePhone, new { @class = "form-control numbersOnly" })
+                                @Html.ValidationMessageFor(model => model.MobilePhone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div>
                 <input type="submit" class="btn btn-success" value="Davam et" id="sendInfo" />
             </div>

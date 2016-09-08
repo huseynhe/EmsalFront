@@ -17,16 +17,16 @@
     <br /><br /><br />
     @using (Html.BeginForm("Index", "SignUp", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.finvoen)
         @Html.HiddenFor(model => model.finvoenType)
-        @Html.ValidationSummary(true)
+
         <div class="form-group" style="padding:5px">
-            @*@Html.LabelFor(x => x.UserName)*@
             <label>İstifadəçi adı</label>
             @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", id = "username" })
             @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "text-danger" })
         </div>
-            <p class="text-danger" id="usernameAlert"></p><br />
             <div class="form-group">
                 <label>Şəxsin növü</label>
                 <select class="form-control" id="userType" name="UserType">
@@ -56,30 +56,105 @@
                     }
                 </select>
             </div>
+
             <div class="form-group" id="pinDiv" style="padding:5px;">
-                @Html.LabelFor(model => model.Pin)
+                @Html.LabelFor(model => model.Pin)  <a data-toggle="modal" data-target="#pinModal"><span class="glyphicon glyphicon-question-sign"></span></a> 
                 @Html.TextBoxFor(model => model.Pin, new { @class = "form-control", id = "pin" })
-                @Html.ValidationMessageFor(x => x.Pin, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Pin, "", new { @class = "text-danger" })
             </div>
             <div class="form-group" id="voenDiv" style="padding:5px; display:none;">
                 @Html.LabelFor(model => model.Voen)
                 @Html.TextBoxFor(model => model.Voen, new { @class = "form-control", id = "voen" })
             </div>
             <div class="form-group" style="padding:5px">
-                @Html.LabelFor(x => x.Password)
-                @Html.PasswordFor(x => x.Password, new { @class = "form-control", id = "password", autocomplete = "off" })
-                @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label required" })
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control", required = "required", id = "password", autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group" style="padding:5px">
-                @Html.LabelFor(x => x.Email)
-                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", id = "email", type = "email" })
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label required" })
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", required = "required", id = "email", type = "email" })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.WorkPhone, htmlAttributes: new { @class = "control-label required" })
+                        <div class="row">
+                            <div class="col-md-5">
+                                <select class="form-control" name="workPhonePrefix">
+                                    <option value="">Seçim edin</option>
+                                    @foreach (var item in Model.WorkPhonePrefixList)
+                                    {
+                                        <option value="@item.name">@item.description (@item.name)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-7">
+                                @Html.TextBoxFor(model => model.WorkPhone, new { @class = "form-control numbersOnly",  required = "required" })
+                                @Html.ValidationMessageFor(model => model.WorkPhone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.MobilePhone, new { @class = "control-label" })
+                        <div class="row">
+                            <div class="col-md-5">
+                                <select class="form-control" name="mobilePhonePrefix">
+                                    <option value="">Seçim edin</option>
+                                    @foreach (var item in Model.MobilePhonePrefixList)
+                                    {
+                                        <option value="@item.name">@item.description (@item.name)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-7">
+                                @Html.TextBoxFor(model => model.MobilePhone, new { @class = "form-control numbersOnly" })
+                                @Html.ValidationMessageFor(model => model.MobilePhone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <div class="col-md-6 col-md-offset-4" style="margin-bottom:20px">
-                <input type="submit" class="btn btn-success" value="Davam Et" id="sendInfo" />
+                <input type="submit" class="btn btn-success" value="Davam Et" />
             </div>
                         }
     <div class="clearfix" style="height: 20px;"></div>
+</div>
+
+<script>
+    $(".numbersOnly").on("keyup", function () {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+
+        if (this.value.length > 7) {
+            this.value = this.value.slice(0, 7);
+        }
+    })
+</script>
+
+
+
+
+
+
+<div id="pinModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Fin nömrə</h4>
+            </div>
+            <div class="modal-body">
+                <img src="~/Content/img/pasportfin.png" style="max-width:550px" />
+            </div>
+        </div>
+    </div>
 </div>

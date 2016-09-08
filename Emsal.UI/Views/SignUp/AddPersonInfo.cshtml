@@ -19,8 +19,11 @@
         @Html.HiddenFor(model => model.FutureUserRole)
         @Html.HiddenFor(model => model.FullAddress)
         @Html.HiddenFor(model => model.Pin)
-
-
+        @Html.HiddenFor(model => model.Email)
+        @Html.HiddenFor(model => model.MobilePhone)
+        @Html.HiddenFor(model => model.WorkPhone)
+        @Html.HiddenFor(model => model.workPhonePrefix)
+        @Html.HiddenFor(model => model.mobilePhonePrefix)
 
         <div class="form-group" style="padding:5px">
             @Html.LabelFor(model => model.Name)

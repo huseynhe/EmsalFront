@@ -16,11 +16,22 @@
         $("#personalInfos").css("display", "none");
         $("#personalEmail2").css("display", "block");
         $("#currentPasswordBody").css("display", "none");
+        $("#personalPhoneMain").css("display", "none");
+
     })
+    $("#personalPhone").click(function () {
+        $("#personalInfos").css("display", "none");
+        $("#personalEmail2").css("display", "none");
+        $("#currentPasswordBody").css("display", "none");
+        $("#personalPhoneMain").css("display", "block");
+    })
+    
     $("#personalInfoButton").click(function () {
         $("#personalInfos").css("display", "block");
         $("#personalEmail2").css("display", "none");
         $("#currentPasswordBody").css("display", "none");
+        $("#personalPhoneMain").css("display", "none");
+
     })
 
     $("#currentPassword").click(function () {

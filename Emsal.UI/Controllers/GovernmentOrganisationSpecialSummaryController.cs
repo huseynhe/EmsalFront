@@ -1266,7 +1266,7 @@ namespace Emsal.UI.Controllers
                     modelSpecial.ComunicationInformations.comType = (int)modelSpecial.EnumValue.Id;
                     modelSpecial.ComunicationInformations.comTypeSpecified = true;
                     modelSpecial.ComunicationInformations.communication = form.mobilePhonePrefix + form.ManagerMobilePhone;
-                    modelSpecial.ComunicationInformations.description = form.ManagerMobilePhone;
+                    modelSpecial.ComunicationInformations.description = form.mobilePhonePrefix + form.ManagerMobilePhone;
                     modelSpecial.ComunicationInformations.PersonId = modelSpecial.Manager.Id;
                     modelSpecial.ComunicationInformations.PersonIdSpecified = true;
                     modelSpecial.ComunicationInformations.priorty = 2;
@@ -1282,7 +1282,7 @@ namespace Emsal.UI.Controllers
                     modelSpecial.ComunicationInformations.comType = (int)modelSpecial.EnumValue.Id;
                     modelSpecial.ComunicationInformations.comTypeSpecified = true;
                     modelSpecial.ComunicationInformations.communication = form.WorkPhonePrefix + form.ManagerWorkPhone;
-                    modelSpecial.ComunicationInformations.description = form.ManagerWorkPhone;
+                    modelSpecial.ComunicationInformations.description = form.WorkPhonePrefix + form.ManagerWorkPhone;
                     modelSpecial.ComunicationInformations.PersonId = modelSpecial.Manager.Id;
                     modelSpecial.ComunicationInformations.PersonIdSpecified = true;
                     modelSpecial.ComunicationInformations.priorty = 1;
