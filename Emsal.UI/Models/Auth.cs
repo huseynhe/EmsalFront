@@ -14,7 +14,7 @@ namespace Emsal.UI.Models
         public string Password { get; set; }
 
         
-        public string finvoen { get; set; }
+        public string uid { get; set; }
         public string type { get; set; }
     }
 }

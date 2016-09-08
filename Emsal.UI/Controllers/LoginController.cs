@@ -49,13 +49,13 @@ namespace Emsal.UI.Controllers
            
         }
 
-        public ActionResult Index(string finvoen = null, string type = null)
+        public ActionResult Index(string uid = null, string type = null)
         {
                       binput = new BaseInput();
 
                       AuthLogin authLogin = new AuthLogin();
 
-                authLogin.finvoen = finvoen;
+                authLogin.uid = uid;
                 authLogin.type = type;
 
                 return View(authLogin);
