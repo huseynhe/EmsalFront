@@ -49,7 +49,7 @@
                     <tr>
                         <td>@item.productName (@item.productParentName)</td>
                         <td>
-                            @if ((int)Math.Round(item.quantity, 0) > (int)item.quantity)
+                            @if ((decimal)Math.Round(item.quantity, 2) > (int)item.quantity)
                             {
                                 @item.quantity
                             }

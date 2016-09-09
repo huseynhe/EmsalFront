@@ -43,7 +43,7 @@
                         <td> @item.day</td>
                         <td> @item.oclock:00</td>
                         <td> 
-                            @if ((int)Math.Round(item.quantity, 0) > (int)item.quantity)
+                            @if ((decimal)Math.Round(item.quantity, 2) > (int)item.quantity)
                             {
                                 @item.quantity
                             }
@@ -55,7 +55,7 @@
 
                          </td>
                         <td> 
-                            @if ((int)Math.Round(tquantity, 0) > (int)tquantity)
+                            @if ((decimal)Math.Round(tquantity, 2) > (int)tquantity)
                             {
                                 @tquantity
                             }

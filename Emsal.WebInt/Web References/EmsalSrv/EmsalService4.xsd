@@ -712,12 +712,10 @@
       <xs:element minOccurs="0" name="LastUpdatedStatus" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="Status" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="address_Id" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="announcement" nillable="true" type="tns:tblAnnouncement" />
       <xs:element minOccurs="0" name="createdDate" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="createdUser" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="endDate" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="parentName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="product_id" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="product_name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="quantity" nillable="true" type="xs:decimal" />
@@ -867,8 +865,10 @@
       <xs:element minOccurs="0" name="createdDate" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="createdUser" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="demand_production_id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="forgId" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="fullAddress" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="fullAddressId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fullForeignOrganization" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="offer_production_id" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="potensial_production_id" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="production_type_ev_Id" nillable="true" type="xs:long" />

@@ -508,7 +508,7 @@ namespace Emsal.UI.Controllers
                 {
                     BaseOutput gpa = srv.WS_GetProductAddressById(baseInput, productAddressId, true, out modelDemandProduction.ProductAddress);
 
-                    BaseOutput gfol = srv.WS_GetForeign_OrganizationsListForID(baseInput, (long)modelDemandProduction.ProductAddress.demand_production_id, true, out modelDemandProduction.ForeignOrganizationArray);
+                    BaseOutput gfol = srv.WS_GetForeign_OrganizationsListForID(baseInput, (long)modelDemandProduction.ProductAddress.forgId, true, out modelDemandProduction.ForeignOrganizationArray);
 
                     modelDemandProduction.ForeignOrganizationList = modelDemandProduction.ForeignOrganizationArray.ToList();
 

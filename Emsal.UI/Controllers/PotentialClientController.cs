@@ -157,13 +157,13 @@ namespace Emsal.UI.Controllers
 
                     BaseOutput apu = srv.WS_AddUser(baseInput, modelPotentialProduction.User, out modelPotentialProduction.User);
 
-                    //modelPotentialProduction.tblUserRole = new tblUserRole();
-                    //modelPotentialProduction.tblUserRole.UserId = modelPotentialProduction.User.Id;
-                    //modelPotentialProduction.tblUserRole.UserIdSpecified = true;
-                    //modelPotentialProduction.tblUserRole.RoleId = 15;
-                    //modelPotentialProduction.tblUserRole.RoleIdSpecified = true;
+                    modelPotentialProduction.tblUserRole = new tblUserRole();
+                    modelPotentialProduction.tblUserRole.UserId = modelPotentialProduction.User.Id;
+                    modelPotentialProduction.tblUserRole.UserIdSpecified = true;
+                    modelPotentialProduction.tblUserRole.RoleId = 15;
+                    modelPotentialProduction.tblUserRole.RoleIdSpecified = true;
 
-                    //BaseOutput aur = srv.WS_AddUserRole(baseInput, modelPotentialProduction.tblUserRole, out modelPotentialProduction.tblUserRole);
+                    BaseOutput aur = srv.WS_AddUserRole(baseInput, modelPotentialProduction.tblUserRole, out modelPotentialProduction.tblUserRole);
 
                     modelPotentialProduction.Address = new tblAddress();
                     modelPotentialProduction.Address.adminUnit_Id = model.addressIdFU;

@@ -411,7 +411,7 @@ namespace Emsal.UI.Controllers
                 {
                     BaseOutput gpa = srv.WS_GetProductAddressById(baseInput, productAddressId, true, out modelDemandProduction.ProductAddress);
 
-                    BaseOutput gfol = srv.WS_GetForeign_OrganizationsListForID(baseInput, (long)modelDemandProduction.ProductAddress.demand_production_id, true, out modelDemandProduction.ForeignOrganizationArray);
+                    BaseOutput gfol = srv.WS_GetForeign_OrganizationsListForID(baseInput, (long)modelDemandProduction.ProductAddress.forgId, true, out modelDemandProduction.ForeignOrganizationArray);
 
                     modelDemandProduction.ForeignOrganizationList = modelDemandProduction.ForeignOrganizationArray.ToList();
 
@@ -489,16 +489,26 @@ namespace Emsal.UI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelDemandProduction.User);
                 baseInput.userName = modelDemandProduction.User.Username;
 
-                BaseOutput folbid = srv.WS_GetForeign_OrganisationsByParentId(baseInput, pId, true, out modelDemandProduction.ForeignOrganizationArray);
+                //BaseOutput folbidp = srv.WS_GetForeign_OrganisationsByParentId(baseInput, pId, true, out modelDemandProduction.ForeignOrganizationArray);
 
-                modelDemandProduction.ForeignOrganizationList = modelDemandProduction.ForeignOrganizationArray.ToList();
+                BaseOutput folbid = srv.WS_GetForeignOrganizationListByUserId(baseInput, (long)userId, true, out modelDemandProduction.ForeignOrganizationArray);
+
+                if(modelDemandProduction.ForeignOrganizationArray==null)
+                {
+                    modelDemandProduction.ForeignOrganizationList =new List<tblForeign_Organization>();
+                    modelDemandProduction.ForeignOrganizationArray = modelDemandProduction.ForeignOrganizationList.ToArray();
+                }
+
+                modelDemandProduction.ForeignOrganizationList = modelDemandProduction.ForeignOrganizationArray.Where(x=>x.parent_Id==pId).ToList();
+               
+                
 
                 modelDemandProduction.productAddressIds = null;
                 if (productAddressId > 0)
                 {
                     BaseOutput gpa = srv.WS_GetProductAddressById(baseInput, productAddressId, true, out modelDemandProduction.ProductAddress);
 
-                    BaseOutput gfol = srv.WS_GetForeign_OrganizationsListForID(baseInput, (long)modelDemandProduction.ProductAddress.demand_production_id, true, out modelDemandProduction.ForeignOrganizationArray);
+                    BaseOutput gfol = srv.WS_GetForeign_OrganizationsListForID(baseInput, (long)modelDemandProduction.ProductAddress.forgId, true, out modelDemandProduction.ForeignOrganizationArray);
 
                     modelDemandProduction.ForeignOrganizationList = modelDemandProduction.ForeignOrganizationArray.ToList();
 
@@ -511,7 +521,10 @@ namespace Emsal.UI.Controllers
                         int s = 0;
                         foreach (long itm in modelDemandProduction.productAddressIds)
                         {
-                            BaseOutput gfolbid = srv.WS_GetForeign_OrganisationsByParentId(baseInput, (int)itm, true, out modelDemandProduction.ForeignOrganizationArray);
+                            //BaseOutput gfolbid = srv.WS_GetForeign_OrganisationsByParentId(baseInput, (int)itm, true, out modelDemandProduction.ForeignOrganizationArray);
+                            BaseOutput gfolbid = srv.WS_GetForeignOrganizationListByUserId(baseInput, (long)userId, true, out modelDemandProduction.ForeignOrganizationArray);
+
+                            modelDemandProduction.ForeignOrganizationArray = modelDemandProduction.ForeignOrganizationArray.Where(x => x.parent_Id == itm).ToArray();
 
                             modelDemandProduction.ForeignOrganizationArrayFA[s] = modelDemandProduction.ForeignOrganizationArray.ToList();
                             s = s + 1;
@@ -761,11 +774,10 @@ namespace Emsal.UI.Controllers
                     BaseOutput gfol = srv.WS_GetForeign_OrganizationsListForID(baseInput, model.addressId, true, out modelDemandProduction.ForeignOrganizationArray);
                     modelDemandProduction.ForeignOrganizationList = modelDemandProduction.ForeignOrganizationArray.ToList();
 
-                    modelDemandProduction.ProductAddress.demand_production_id = model.addressId;
-                    modelDemandProduction.ProductAddress.demand_production_idSpecified = true;
-
+                    modelDemandProduction.ProductAddress.forgId = model.addressId;
+                    modelDemandProduction.ProductAddress.forgIdSpecified = true;
                     //modelDemandProduction.ProductAddress.fullAddressId = string.Join(",", modelDemandProduction.ForeignOrganizationList.Select(x => x.Id));
-                    //modelDemandProduction.ProductAddress.fullAddress = string.Join(",", modelDemandProduction.ForeignOrganizationList.Select(x => x.name));
+                    modelDemandProduction.ProductAddress.fullForeignOrganization = string.Join(",", modelDemandProduction.ForeignOrganizationList.Select(x => x.name));
 
                     BaseOutput apa = srv.WS_AddProductAddress(baseInput, modelDemandProduction.ProductAddress, out modelDemandProduction.ProductAddress);
 
@@ -1061,8 +1073,8 @@ namespace Emsal.UI.Controllers
                 BaseOutput gfol = srv.WS_GetForeign_OrganizationsListForID(baseInput, model.addressId, true, out modelDemandProduction.ForeignOrganizationArray);
                 modelDemandProduction.ForeignOrganizationList = modelDemandProduction.ForeignOrganizationArray.ToList();
 
-                modelDemandProduction.ProductAddress.demand_production_id = model.addressId;
-                modelDemandProduction.ProductAddress.demand_production_idSpecified = true;
+                modelDemandProduction.ProductAddress.forgId = model.addressId;
+                modelDemandProduction.ProductAddress.forgIdSpecified = true;
 
                 //modelDemandProduction.ProductAddress.fullAddressId = string.Join(",", modelDemandProduction.ForeignOrganizationList.Select(x => x.Id));
                 //modelDemandProduction.ProductAddress.fullAddress = string.Join(",", modelDemandProduction.ForeignOrganizationList.Select(x => x.name));
