@@ -29,7 +29,7 @@ namespace Emsal.UI.Controllers
         {
             binput = new BaseInput();
             modelSpecial = new SpecialSummaryViewModel();
-            int pageSize = 2;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "Tesdiqlenen", out modelSpecial.EnumValue);
             modelSpecial.DemandProduction = new tblDemand_Production();
@@ -108,16 +108,25 @@ namespace Emsal.UI.Controllers
                 BaseOutput enval = srv.WS_GetEnumValueByName(binput, "Demand", out modelSpecial.EnumValue);
                 long envalId = modelSpecial.EnumValue.Id;
 
-                BaseOutput calendar = srv.WS_GetProductionCalendarByProductionId(binput, (long)item.Id, true, envalId, true, out modelSpecial.ProductionCalendar);
-                string[] months = modelSpecial.ProductionCalendar.Months.Split(',');
-                List<string> monthString = new List<string>();
-                foreach (var month in months)
-                {
-                    BaseOutput monthEnum = srv.WS_GetEnumValueById(binput, Convert.ToInt32(month), true, out modelSpecial.EnumValue);
-                    monthString.Add(modelSpecial.EnumValue.name);
-                }
+                BaseOutput calendar = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
 
-                modelSpecial.OrgDemand.ShipmentPeriod = string.Join(",", monthString);
+                modelSpecial.OrgDemand.DemandCalendarList = new List<DemandCalendar>();
+
+                foreach (var demanditem in modelSpecial.ProductionCalendarArray)
+                {
+                    modelSpecial.OrgDemand.DemandCalendar = new DemandCalendar();
+                    modelSpecial.OrgDemand.DemandCalendar.day = demanditem.day != null ? demanditem.day.ToString() : null;
+                    modelSpecial.OrgDemand.DemandCalendar.ocklock = demanditem.oclock.ToString();
+
+                    BaseOutput shipmenttypeOUt = srv.WS_GetEnumValueById(binput, (long)demanditem.type_eV_Id, true, out modelSpecial.EnumValue);
+                    modelSpecial.OrgDemand.DemandCalendar.shipmetType = modelSpecial.EnumValue.name;
+
+                    BaseOutput monthOUt = srv.WS_GetEnumValueById(binput, (long)demanditem.months_eV_Id, true, out modelSpecial.EnumValue);
+
+                    modelSpecial.OrgDemand.DemandCalendar.month = modelSpecial.EnumValue.description;
+
+                    modelSpecial.OrgDemand.DemandCalendarList.Add(modelSpecial.OrgDemand.DemandCalendar);
+                }
                 ////////////////////////////////////////////////////////////////////////////////////////////
 
                 //get the shipment place
@@ -141,7 +150,7 @@ namespace Emsal.UI.Controllers
             modelSpecial = new SpecialSummaryViewModel();
             binput = new BaseInput();
             int pageNumber = (page ?? 1);
-            int pageSize = 2;
+            int pageSize = 5;
             BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "Yayinda", out modelSpecial.EnumValue);
             modelSpecial.DemandProduction = new tblDemand_Production();
             modelSpecial.ProductionControlList = new List<tblProductionControl>();
@@ -223,16 +232,43 @@ namespace Emsal.UI.Controllers
                 BaseOutput envall = srv.WS_GetEnumValueByName(binput, "Demand", out modelSpecial.EnumValue);
                 long envalIdl = modelSpecial.EnumValue.Id;
 
-                BaseOutput calendar = srv.WS_GetProductionCalendarByProductionId(binput, (long)item.Id, true, envalIdl, true, out modelSpecial.ProductionCalendar);
-                string[] months = modelSpecial.ProductionCalendar.Months.Split(',');
-                List<string> monthString = new List<string>();
-                foreach (var month in months)
+                //BaseOutput calendar = srv.WS_GetProductionCalendarByProductionId(binput, (long)item.Id, true, envalIdl, true, out modelSpecial.ProductionCalendar);
+                BaseOutput calendar = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
+
+                modelSpecial.OrgDemand.DemandCalendarList = new List<DemandCalendar>();
+
+                foreach (var demanditem in modelSpecial.ProductionCalendarArray)
                 {
-                    BaseOutput monthEnum = srv.WS_GetEnumValueById(binput, Convert.ToInt32(month), true, out modelSpecial.EnumValue);
-                    monthString.Add(modelSpecial.EnumValue.name);
+                    modelSpecial.OrgDemand.DemandCalendar = new DemandCalendar();
+                    modelSpecial.OrgDemand.DemandCalendar.day = demanditem.day != null ? demanditem.day.ToString() : null;
+                    modelSpecial.OrgDemand.DemandCalendar.ocklock = demanditem.oclock.ToString();
+
+                    BaseOutput shipmenttypeOUt = srv.WS_GetEnumValueById(binput, (long)demanditem.type_eV_Id, true, out modelSpecial.EnumValue);
+                    modelSpecial.OrgDemand.DemandCalendar.shipmetType = modelSpecial.EnumValue.name;
+
+                    BaseOutput monthOUt = srv.WS_GetEnumValueById(binput, (long)demanditem.months_eV_Id, true, out modelSpecial.EnumValue);
+
+                    modelSpecial.OrgDemand.DemandCalendar.month = modelSpecial.EnumValue.description;
+                    modelSpecial.OrgDemand.DemandCalendar.quantity = demanditem.quantity.ToString();
+                    modelSpecial.OrgDemand.DemandCalendar.price = demanditem.price.ToString();
+
+                    modelSpecial.OrgDemand.DemandCalendarList.Add(modelSpecial.OrgDemand.DemandCalendar);
                 }
 
-                modelSpecial.OrgDemand.ShipmentPeriod = string.Join(",", monthString);
+                //string[] months = modelSpecial.ProductionCalendar != null ? modelSpecial.ProductionCalendar.Months.Split(',') : null;
+
+                //List<string> monthString = new List<string>();
+                //if(months != null)
+                //{
+                //    foreach (var month in months)
+                //    {
+                //        BaseOutput monthEnum = srv.WS_GetEnumValueById(binput, Convert.ToInt32(month), true, out modelSpecial.EnumValue);
+                //        monthString.Add(modelSpecial.EnumValue.name);
+                //    }
+                //    modelSpecial.OrgDemand.ShipmentPeriod = string.Join(",", monthString);
+
+                //}
+
                 ////////////////////////////////////////////////////////////////////////////////////////////
 
                 //get the shipment place
@@ -258,7 +294,7 @@ namespace Emsal.UI.Controllers
             modelSpecial = new SpecialSummaryViewModel();
             binput = new BaseInput();
             int pageNumber = (page ?? 1);
-            int pageSize = 2;
+            int pageSize = 5;
             BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "YayindaDeyil", out modelSpecial.EnumValue);
             modelSpecial.DemandProduction = new tblDemand_Production();
             modelSpecial.ProductionControlList = new List<tblProductionControl>();
@@ -335,16 +371,25 @@ namespace Emsal.UI.Controllers
                 BaseOutput envall = srv.WS_GetEnumValueByName(binput, "Demand", out modelSpecial.EnumValue);
                 long envalIdl = modelSpecial.EnumValue.Id;
 
-                BaseOutput calendar = srv.WS_GetProductionCalendarByProductionId(binput, (long)item.Id, true, envalIdl, true, out modelSpecial.ProductionCalendar);
-                string[] months = modelSpecial.ProductionCalendar == null ? new string[0] : modelSpecial.ProductionCalendar.Months.Split(',');
-                List<string> monthString = new List<string>();
-                foreach (var month in months)
-                {
-                    BaseOutput monthEnum = srv.WS_GetEnumValueById(binput, Convert.ToInt32(month), true, out modelSpecial.EnumValue);
-                    monthString.Add(modelSpecial.EnumValue.name);
-                }
+                BaseOutput calendar = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
 
-                modelSpecial.OrgDemand.ShipmentPeriod = string.Join(",", monthString);
+                modelSpecial.OrgDemand.DemandCalendarList = new List<DemandCalendar>();
+
+                foreach (var demanditem in modelSpecial.ProductionCalendarArray)
+                {
+                    modelSpecial.OrgDemand.DemandCalendar = new DemandCalendar();
+                    modelSpecial.OrgDemand.DemandCalendar.day = demanditem.day != null ? demanditem.day.ToString() : null;
+                    modelSpecial.OrgDemand.DemandCalendar.ocklock = demanditem.oclock.ToString();
+
+                    BaseOutput shipmenttypeOUt = srv.WS_GetEnumValueById(binput, (long)demanditem.type_eV_Id, true, out modelSpecial.EnumValue);
+                    modelSpecial.OrgDemand.DemandCalendar.shipmetType = modelSpecial.EnumValue.name;
+
+                    BaseOutput monthOUt = srv.WS_GetEnumValueById(binput, (long)demanditem.months_eV_Id, true, out modelSpecial.EnumValue);
+
+                    modelSpecial.OrgDemand.DemandCalendar.month = modelSpecial.EnumValue.name;
+
+                    modelSpecial.OrgDemand.DemandCalendarList.Add(modelSpecial.OrgDemand.DemandCalendar);
+                }
                 ////////////////////////////////////////////////////////////////////////////////////////////
 
                 //get the shipment place
@@ -370,7 +415,7 @@ namespace Emsal.UI.Controllers
         {
             modelSpecial = new SpecialSummaryViewModel();
             binput = new BaseInput();
-            int pageSize = 2;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "reject", out modelSpecial.EnumValue);
             modelSpecial.DemandProduction = new tblDemand_Production();
@@ -451,16 +496,25 @@ namespace Emsal.UI.Controllers
                 BaseOutput enval = srv.WS_GetEnumValueByName(binput, "Demand", out modelSpecial.EnumValue);
                 long envalId = modelSpecial.EnumValue.Id;
 
-                BaseOutput calendar = srv.WS_GetProductionCalendarByProductionId(binput, (long)item.Id, true, envalId, true, out modelSpecial.ProductionCalendar);
-                string[] months = modelSpecial.ProductionCalendar.Months.Split(',');
-                List<string> monthString = new List<string>();
-                foreach (var month in months)
-                {
-                    BaseOutput monthEnum = srv.WS_GetEnumValueById(binput, Convert.ToInt32(month), true, out modelSpecial.EnumValue);
-                    monthString.Add(modelSpecial.EnumValue.name);
-                }
+                BaseOutput calendar = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
 
-                modelSpecial.OrgDemand.ShipmentPeriod = string.Join(",", monthString);
+                modelSpecial.OrgDemand.DemandCalendarList = new List<DemandCalendar>();
+
+                foreach (var demanditem in modelSpecial.ProductionCalendarArray)
+                {
+                    modelSpecial.OrgDemand.DemandCalendar = new DemandCalendar();
+                    modelSpecial.OrgDemand.DemandCalendar.day = demanditem.day != null ? demanditem.day.ToString() : null;
+                    modelSpecial.OrgDemand.DemandCalendar.ocklock = demanditem.oclock.ToString();
+
+                    BaseOutput shipmenttypeOUt = srv.WS_GetEnumValueById(binput, (long)demanditem.type_eV_Id, true, out modelSpecial.EnumValue);
+                    modelSpecial.OrgDemand.DemandCalendar.shipmetType = modelSpecial.EnumValue.name;
+
+                    BaseOutput monthOUt = srv.WS_GetEnumValueById(binput, (long)demanditem.months_eV_Id, true, out modelSpecial.EnumValue);
+
+                    modelSpecial.OrgDemand.DemandCalendar.month = modelSpecial.EnumValue.name;
+
+                    modelSpecial.OrgDemand.DemandCalendarList.Add(modelSpecial.OrgDemand.DemandCalendar);
+                }
                 ////////////////////////////////////////////////////////////////////////////////////////////
 
                 //get the shipment place
@@ -815,23 +869,23 @@ namespace Emsal.UI.Controllers
             }
             BaseOutput enval = srv.WS_GetEnumValueByName(binput, "Demand", out modelSpecial.EnumValue);
             long envalId = modelSpecial.EnumValue.Id;
-            modelSpecial.modelMonthsList = new List<MonthsModel>();
-            foreach (var production in modelSpecial.DemandProductionList)
-            {
-                BaseOutput calendar = srv.WS_GetProductionCalendarByProductionId(binput, (long)production.Id, true, envalId, true, out modelSpecial.ProductionCalendar);
-                string[] months = modelSpecial.ProductionCalendar.Months.Split(',');
+            //modelSpecial.modelMonthsList = new List<MonthsModel>();
+            //foreach (var production in modelSpecial.DemandProductionList)
+            //{
+            //    BaseOutput calendar = srv.WS_GetProductionCalendarByProductionId(binput, (long)production.Id, true, envalId, true, out modelSpecial.ProductionCalendar);
+            //    //string[] months = modelSpecial.ProductionCalendar.Months.Split(',');
 
 
-                foreach (var month in months)
-                {
-                    modelSpecial.modelMonths = new MonthsModel();
+            //    foreach (var month in months)
+            //    {
+            //        modelSpecial.modelMonths = new MonthsModel();
 
-                    BaseOutput monthEnum = srv.WS_GetEnumValueById(binput, Convert.ToInt32(month), true, out modelSpecial.EnumValue);
-                    modelSpecial.modelMonths.monthName = modelSpecial.EnumValue.name;
-                    modelSpecial.modelMonths.productionId = (int)production.Id;
-                    modelSpecial.modelMonthsList.Add(modelSpecial.modelMonths);
-                }
-            }
+            //        BaseOutput monthEnum = srv.WS_GetEnumValueById(binput, Convert.ToInt32(month), true, out modelSpecial.EnumValue);
+            //        modelSpecial.modelMonths.monthName = modelSpecial.EnumValue.name;
+            //        modelSpecial.modelMonths.productionId = (int)production.Id;
+            //        modelSpecial.modelMonthsList.Add(modelSpecial.modelMonths);
+            //    }
+            //}
             modelSpecial.ProductAddressList = new List<tblProductAddress>();
             foreach (var prod in modelSpecial.DemandProductionList)
             {

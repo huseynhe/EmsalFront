@@ -60,7 +60,7 @@ namespace Emsal.UI.Controllers
             //    return true;
             //}
 
-            if (modelUser.FutureUser != null || UserFromEmail.Count != 0 )
+            if (modelUser.FutureUser != null || UserFromEmail.Count != 0)
             {
                 return false;
             }
@@ -71,7 +71,7 @@ namespace Emsal.UI.Controllers
 
         }
 
-        public ActionResult Index(string finvoen, int? type)
+        public ActionResult Index(string uid, int? type)
         {
             //ModelState.Clear();
 
@@ -83,16 +83,9 @@ namespace Emsal.UI.Controllers
             BaseOutput userTypesOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
 
             modelUser.UserTypeList = modelUser.EnumValueArray.ToList();
-            if(type == 1)
-            {
-                modelUser.Pin = finvoen;
-            }
-            if(type == 2)
-            {
-                modelUser.Voen = finvoen;
-            }
+
             modelUser.finvoenType = type;
-            modelUser.finvoen = finvoen;
+            modelUser.uid = uid;
 
 
             BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelUser.EnumCategory);
@@ -126,23 +119,42 @@ namespace Emsal.UI.Controllers
                 modelUser.FutureUser.Username = form.UserName;
                 modelUser.FutureUser.Email = form.Email;
                 modelUser.FutureUser.Password = BCrypt.Net.BCrypt.HashPassword(form.Password, 5);
-                
+
                 modelUser.Password = form.Password;
 
                 BaseOutput adminunits = srv.WS_GetPRM_AdminUnits(binput, out modelUser.PRMAdminUnitArray);
                 modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.Where(x => x.ParentID == 0).ToList();
-                modelUser.Pin = form.Pin;
+                if (form.Pin != null && form.uid != null)
+                {
+                    BaseOutput personOut = srv.WS_GetPersonByUserId(binput, Convert.ToInt64(form.uid), true, out modelUser.FuturePerson);
+                    if (form.Pin != modelUser.FuturePerson.PinNumber)
+                    {
+                        TempData["pinIncorrect"] = "info";
+                        return Redirect("http://localhost:56557/SignUp?uid=" + form.uid + "&type=1");
+
+                    }
+                }
+                if (form.Voen != null && form.uid != null)
+                {
+                    BaseOutput personOut = srv.WS_GetForeign_OrganizationByUserId(binput, Convert.ToInt64(form.uid), true, out modelUser.ForeignOrganisation);
+                    if (form.Voen != modelUser.ForeignOrganisation.voen)
+                    {
+                        TempData["voenIncorrect"] = "info";
+                        return Redirect("http://localhost:56557/SignUp?uid=" + form.uid + "&type=2");
+                    }
+                }
                 modelUser.Voen = form.Voen;
+                modelUser.Pin = form.Pin;
                 modelUser.finvoenType = form.finvoenType;
-                modelUser.finvoen = form.finvoen;
+                modelUser.uid = form.uid;
 
                 modelUser.MobilePhone = form.MobilePhone;
                 modelUser.mobilePhonePrefix = form.mobilePhonePrefix;
-                modelUser.WorkPhone =  form.WorkPhone;
+                modelUser.WorkPhone = form.WorkPhone;
                 modelUser.workPhonePrefix = form.workPhonePrefix;
 
 
-                if (modelUser.finvoen != null)
+                if (modelUser.uid != null)
                 {
                     return AddAddressInfo(modelUser.FutureUser, "producerPerson", modelUser);
                 }
@@ -150,13 +162,13 @@ namespace Emsal.UI.Controllers
                 return AddAddressInfo(modelUser.FutureUser, "sellerPerson", modelUser);
 
 
-        }
+            }
             else
             {
                 TempData["UserSignUpError"] = "info";
                 return RedirectToAction("Index");
-    }
-}
+            }
+        }
 
         public ActionResult AddAddressInfo(tblUser FutureUser, string userTpe, User UserInfo)
         {
@@ -179,18 +191,18 @@ namespace Emsal.UI.Controllers
 
             modelUser.Pin = UserInfo.Pin;
             modelUser.Voen = UserInfo.Voen;
-            modelUser.finvoen = UserInfo.finvoen;
+            modelUser.uid = UserInfo.uid;
             modelUser.finvoenType = UserInfo.finvoenType;
 
-            if(modelUser.finvoen != null)
+            if (modelUser.uid != null)
             {
-                if(modelUser.finvoen == modelUser.Pin)
+                if (modelUser.finvoenType == 1)
                 {
-                    BaseOutput personOUt = srv.WS_GetPersonByPinNumber(binput, modelUser.Pin, out modelUser.FuturePerson);
+                    BaseOutput personOUt = srv.WS_GetPersonByUserId(binput, Convert.ToInt64(modelUser.uid), true, out modelUser.FuturePerson);
                     BaseOutput addressOut = srv.WS_GetAddressById(binput, (long)modelUser.FuturePerson.address_Id, true, out modelUser.FutureAddress);
                     modelUser.AdminUnitId = (long)modelUser.FutureAddress.adminUnit_Id;
                 }
-                if(modelUser.finvoen == modelUser.Voen)
+                if (modelUser.finvoenType == 2)
                 {
                     BaseOutput orgOut = srv.WS_GetForeign_OrganizationByVoen(binput, modelUser.Voen, out modelUser.ForeignOrganisation);
                     BaseOutput addressOut = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
@@ -223,7 +235,7 @@ namespace Emsal.UI.Controllers
             modelUser.Password = form.Password;
             modelUser.FutureUserRole = form.FutureUserRole;
             modelUser.finvoenType = form.finvoenType;
-            modelUser.finvoen = form.finvoen;
+            modelUser.uid = form.uid;
             modelUser.MobilePhone = form.MobilePhone;
             modelUser.WorkPhone = form.WorkPhone;
             modelUser.workPhonePrefix = form.workPhonePrefix;
@@ -231,7 +243,7 @@ namespace Emsal.UI.Controllers
 
             if (form.Voen == null)
             {
-                return AddPersonInfo(modelUser.UserName,modelUser);
+                return AddPersonInfo(modelUser.UserName, modelUser);
             }
             else
             {
@@ -240,7 +252,7 @@ namespace Emsal.UI.Controllers
         }
 
 
-        public ActionResult AddPersonInfo(string userName,User UserInfo)
+        public ActionResult AddPersonInfo(string userName, User UserInfo)
         {
             ModelState.Clear();
 
@@ -263,22 +275,22 @@ namespace Emsal.UI.Controllers
             BaseOutput enumvalJob = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
             modelUser.JobList = modelUser.EnumValueArray.ToList();
 
-            if (UserInfo.finvoen != null)
+            if (UserInfo.uid != null)
             {
-                BaseOutput finvoenPersonOUt = srv.WS_GetPersonByPinNumber(binput, UserInfo.finvoen, out modelUser.FuturePerson);
+                BaseOutput finvoenPersonOUt = srv.WS_GetPersonByUserId(binput, Convert.ToInt64(UserInfo.uid), true, out modelUser.FuturePerson);
                 BaseOutput finvoenUserOut = srv.WS_GetUserById(binput, (long)modelUser.FuturePerson.UserId, true, out modelUser.FutureUser);
                 modelUser.Name = modelUser.FuturePerson == null ? null : modelUser.FuturePerson.Name;
                 modelUser.FatherName = modelUser.FuturePerson == null ? null : modelUser.FuturePerson.FatherName;
                 modelUser.Surname = modelUser.FuturePerson == null ? null : modelUser.FuturePerson.Surname;
             }
 
-           
+
             modelUser.AddressId = UserInfo.AddressId;
             modelUser.UserName = userName;
             modelUser.Password = UserInfo.Password;
             modelUser.Pin = UserInfo.Pin;
             modelUser.finvoenType = UserInfo.finvoenType;
-            modelUser.finvoen = UserInfo.finvoen;
+            modelUser.uid = UserInfo.uid;
             modelUser.FullAddress = UserInfo.FullAddress;
             modelUser.Email = UserInfo.Email;
             modelUser.MobilePhone = UserInfo.MobilePhone;
@@ -297,9 +309,9 @@ namespace Emsal.UI.Controllers
             string userRoles;
             modelUser.UserRole = new tblUserRole();
             modelUser.ThroughfarePrm = new tblPRM_Thoroughfare();
-            if (form.finvoen != null)
+            if (form.uid != null)
             {
-                BaseOutput personWithFinOut = srv.WS_GetPersonByPinNumber(binput, form.finvoen, out modelUser.FuturePerson);
+                BaseOutput personWithFinOut = srv.WS_GetPersonByUserId(binput, Convert.ToInt64(form.uid), true, out modelUser.FuturePerson);
                 BaseOutput userWithFinVoenOut = srv.WS_GetUserById(binput, (long)modelUser.FuturePerson.UserId, true, out modelUser.FutureUser);
 
                 modelUser.FutureUser.Username = form.UserName;
@@ -335,7 +347,7 @@ namespace Emsal.UI.Controllers
             {
                 BaseOutput usertypeProducerOut = srv.WS_GetRoleByName(binput, item, out modelUser.Role);
 
-                modelUser.UserRole.RoleId = modelUser.Role == null ? 0 :  modelUser.Role.Id;
+                modelUser.UserRole.RoleId = modelUser.Role == null ? 0 : modelUser.Role.Id;
                 modelUser.UserRole.RoleIdSpecified = true;
                 modelUser.UserRole.UserId = modelUser.FutureUser == null ? 0 : modelUser.FutureUser.Id;
                 modelUser.UserRole.UserIdSpecified = true;
@@ -345,12 +357,12 @@ namespace Emsal.UI.Controllers
 
             }
 
-           
+
             //BaseOutput address = srv.WS_AddAddress(binput, modelUser.FutureAddress, out modelUser.FutureAddress);
 
-            if (form.finvoen != null)
+            if (form.uid != null)
             {
-                BaseOutput personWitFinOut = srv.WS_GetPersonByPinNumber(binput, form.finvoen, out modelUser.FuturePerson);
+                BaseOutput personWitFinOut = srv.WS_GetPersonByUserId(binput, Convert.ToInt64(form.uid), true, out modelUser.FuturePerson);
 
                 //update address
                 BaseOutput addressout = srv.WS_GetAddressById(binput, (long)modelUser.FuturePerson.address_Id, true, out modelUser.FutureAddress);
@@ -376,18 +388,18 @@ namespace Emsal.UI.Controllers
                 modelUser.FuturePerson.address_IdSpecified = true;
                 modelUser.FuturePerson.birtdaySpecified = true;
 
-                if(form.Education != "Təhsil Seçin")
+                if (form.Education != "Təhsil Seçin")
                 {
                     BaseOutput educationWithFinEnum = srv.WS_GetEnumValueByName(binput, form.Education, out modelUser.EnumValue);
                     modelUser.FuturePerson.educationLevel_eV_Id = modelUser.EnumValue == null ? 0 : modelUser.EnumValue.Id;
                     modelUser.FuturePerson.educationLevel_eV_IdSpecified = true;
 
                 }
-                
-                if(form.Job != "İş seçin")
+
+                if (form.Job != "İş seçin")
                 {
                     BaseOutput jobWithFinEnum = srv.WS_GetEnumValueByName(binput, form.Job, out modelUser.EnumValue);
-                    modelUser.FuturePerson.job_eV_Id = modelUser.EnumValue == null ? 0:  modelUser.EnumValue.Id;
+                    modelUser.FuturePerson.job_eV_Id = modelUser.EnumValue == null ? 0 : modelUser.EnumValue.Id;
                     modelUser.FuturePerson.job_eV_IdSpecified = true;
 
                 }
@@ -436,20 +448,20 @@ namespace Emsal.UI.Controllers
                     modelUser.FuturePerson.educationLevel_eV_IdSpecified = true;
                 }
 
-                if(form.Job != "İş seçin")
+                if (form.Job != "İş seçin")
                 {
                     BaseOutput jobEnum = srv.WS_GetEnumValueByName(binput, form.Job, out modelUser.EnumValue);
                     modelUser.FuturePerson.job_eV_Id = modelUser.EnumValue == null ? 0 : modelUser.EnumValue.Id;
                     modelUser.FuturePerson.job_eV_IdSpecified = true;
                 }
-                
+
 
                 BaseOutput personOut = srv.WS_AddPerson(binput, modelUser.FuturePerson, out modelUser.FuturePerson);
 
             }
 
             //add communications
-            if(form.WorkPhone != "")
+            if (form.WorkPhone != "")
             {
                 modelUser.ComunicationInformations = new tblCommunication();
                 BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelUser.EnumValue);
@@ -494,7 +506,7 @@ namespace Emsal.UI.Controllers
             modelUser.UserName = UserInfo.UserName;
             modelUser.Password = UserInfo.Password;
             modelUser.Pin = UserInfo.Pin;
-            modelUser.finvoen = UserInfo.finvoen;
+            modelUser.uid = UserInfo.uid;
             modelUser.finvoenType = UserInfo.finvoenType;
             modelUser.FullAddress = UserInfo.FullAddress;
             modelUser.Email = UserInfo.Email;
@@ -524,9 +536,9 @@ namespace Emsal.UI.Controllers
             BaseOutput enumvalJob = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
             modelUser.JobList = modelUser.EnumValueArray.ToList();
 
-            if(UserInfo.finvoen != null)
+            if (UserInfo.uid != null)
             {
-                BaseOutput finvoenOrgOUt = srv.WS_GetForeign_OrganizationByVoen(binput, UserInfo.finvoen, out modelUser.ForeignOrganisation);
+                BaseOutput finvoenOrgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, Convert.ToInt64(UserInfo.uid), true, out modelUser.ForeignOrganisation);
                 BaseOutput finvoenUserOut = srv.WS_GetUserById(binput, (long)modelUser.ForeignOrganisation.userId, true, out modelUser.FutureUser);
                 var managerId = modelUser.ForeignOrganisation.manager_Id == null ? 0 : modelUser.ForeignOrganisation.manager_Id;
                 BaseOutput finvoenManagerOut = srv.WS_GetPersonById(binput, (long)managerId, true, out modelUser.FuturePerson);
@@ -548,9 +560,9 @@ namespace Emsal.UI.Controllers
             modelUser.FutureAddress = new tblAddress();
 
             string orgRoles;
-            if (form.finvoen != null)
+            if (form.uid != null)
             {
-                BaseOutput orgOut = srv.WS_GetForeign_OrganizationByVoen(binput, form.finvoen, out modelUser.ForeignOrganisation);
+                BaseOutput orgOut = srv.WS_GetForeign_OrganizationByUserId(binput, Convert.ToInt64(form.uid), true, out modelUser.ForeignOrganisation);
                 BaseOutput userWithFinOut = srv.WS_GetUserById(binput, (long)modelUser.ForeignOrganisation.userId, true, out modelUser.FutureUser);
                 modelUser.FutureUser.Username = form.UserName;
                 modelUser.FutureUser.Email = form.Email;
@@ -610,12 +622,11 @@ namespace Emsal.UI.Controllers
             BaseOutput address = srv.WS_AddAddress(binput, modelUser.FutureAddress, out modelUser.FutureAddress);
 
             //add manager
-            if (form.finvoen != null)
+            if (form.uid != null)
             {
-                BaseOutput orgOut = srv.WS_GetForeign_OrganizationByVoen(binput, form.finvoen, out modelUser.ForeignOrganisation);
+                BaseOutput orgOut = srv.WS_GetForeign_OrganizationByUserId(binput, Convert.ToInt64(form.uid), true, out modelUser.ForeignOrganisation);
                 var managerId = modelUser.ForeignOrganisation.manager_Id == null ? 0 : modelUser.ForeignOrganisation.manager_Id;
                 BaseOutput personOrgOut = srv.WS_GetPersonById(binput, (long)managerId, true, out modelUser.Manager);
-                modelUser.Manager = new tblPerson();
                 modelUser.Manager.UserId = modelUser.FutureUser.Id;
                 modelUser.Manager.UserIdSpecified = true;
                 BaseOutput updateManager = srv.WS_UpdatePerson(binput, modelUser.Manager, out modelUser.Manager);
@@ -631,7 +642,7 @@ namespace Emsal.UI.Controllers
                 modelUser.Manager.birtday = ConvertStringYearMonthDayFormatToTimestamp(form);
                 modelUser.Manager.birtdaySpecified = true;
                 modelUser.Manager.gender = form.Gender;
-                
+
                 BaseOutput educationEnum = srv.WS_GetEnumValueByName(binput, form.Education, out modelUser.EnumValue);
                 modelUser.Manager.educationLevel_eV_Id = modelUser.EnumValue == null ? 0 : modelUser.EnumValue.Id;
                 modelUser.Manager.educationLevel_eV_IdSpecified = true;
@@ -648,9 +659,12 @@ namespace Emsal.UI.Controllers
 
             //add foreign organisation
 
-            if (form.finvoen != null)
+            if (form.uid != null)
             {
-                BaseOutput orgOut = srv.WS_GetForeign_OrganizationByVoen(binput, form.finvoen, out modelUser.ForeignOrganisation);
+                BaseOutput orgOut = srv.WS_GetForeign_OrganizationByUserId(binput, Convert.ToInt64(form.uid), true, out modelUser.ForeignOrganisation);
+                modelUser.ForeignOrganisation.name = form.Name;
+                modelUser.ForeignOrganisation.address_Id = modelUser.FutureAddress == null ? 0 : modelUser.FutureAddress.Id;
+
                 BaseOutput updateFOrOrg = srv.WS_UpdateForeign_Organization(binput, modelUser.ForeignOrganisation, out modelUser.ForeignOrganisation);
             }
             else
@@ -736,13 +750,13 @@ namespace Emsal.UI.Controllers
                 smtp.Timeout = 20000;
                 smtp.Send(msg);
 
-                return RedirectToAction("Index","Login");
+                return RedirectToAction("Index", "Login");
             }
             catch (Exception err)
             {
                 return RedirectToAction("Index", "Login");
             }
-           
+
         }
 
         public ActionResult GeneratePDF(string Username, string password)
@@ -758,7 +772,7 @@ namespace Emsal.UI.Controllers
 
             srv.WS_GetUserRolesByUserId(binput, modelUser.FutureUser.Id, true, out modelUser.UserRolesArray);
 
-            if(modelUser.UserRolesArray.Length > 1)
+            if (modelUser.UserRolesArray.Length > 1)
             {
                 foreach (var item in modelUser.UserRolesArray)
                 {

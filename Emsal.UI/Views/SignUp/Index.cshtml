@@ -2,9 +2,61 @@
 @{
     Layout = "~/Views/Shared/_SignUpLayout.cshtml";
 }
+@*@if (TempData["pinIncorrect"] != null)
+{
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $("#pinModal").modal('show');
+            });
+    </script>
+        <div id="pinModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Məlumat</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p id="successMessage">Fin mömrə düzgün daxil edilməmişdir</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+}
+
+
+@if (TempData["voenIncorrect"] != null)
+{
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $("#voenModal").modal('show');
+            });
+    </script>
+        <div id="voenModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Məlumat</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p id="successMessage">Vöen düzgün daxil edilməmişdir</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+}*@
 <div class="container col-md-6 col-md-offset-3" style="border-radius: 5px; margin-top: 30px; margin-bottom:30px; box-shadow:1px 1px 2px 3px #ddd">
     <br />
+  
     @{
         if (TempData["UserSignUpError"] != null)
         {
@@ -19,7 +71,7 @@
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.finvoen)
+        @Html.HiddenFor(model => model.uid)
         @Html.HiddenFor(model => model.finvoenType)
 
         <div class="form-group" style="padding:5px">
@@ -31,9 +83,9 @@
                 <label>Şəxsin növü</label>
                 <select class="form-control" id="userType" name="UserType">
                     @{
-                        if (Model.finvoen != null && Model.finvoen != "")
+                        if (Model.uid != null && Model.uid != "")
                         {
-                            if (Model.finvoen != "")
+                            if (Model.uid != "")
                             {
                                 if (Model.finvoenType == 1)
                                 {
@@ -158,3 +210,6 @@
         </div>
     </div>
 </div>
+
+
+

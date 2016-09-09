@@ -10,7 +10,7 @@
     <br /><br /><br />
     @using (Html.BeginForm("AddPersonInfo", "SignUp", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        @Html.HiddenFor(model => model.finvoen)
+        @Html.HiddenFor(model => model.uid)
         @Html.HiddenFor(model => model.finvoenType)
         @Html.HiddenFor(model => model.UserName)
         @Html.HiddenFor(model => model.AddressId)

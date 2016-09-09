@@ -17,33 +17,41 @@
         foreach (var item in Model.PagingOffAirDemand)
         {
             <div class="white_fon">
-                <table class="responcive">
-                    <tr>
-                        <td style="padding-left:5px; color:red">@item.ProductName : @item.ParentName</td>
-                    </tr>
-                    <tr>
+                <div class="row" style="color:red; font-size:15px">
+                    <div class="col-md-8">
+                        @item.ProductName - @item.ParentName
+                    </div>
+                    <div class="col-md-4">
+                        Məhsulun miqdarı : @item.ProductQuantity  @item.QuantityType
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-md-4">
                         @{
                             if (item.ProductProfilePicture != null)
                             {
-                                <td width="10%"><a href="/GovernmentOrganisationSpecialSummary/DemandProductInfo?Id=@item.ProductId"><img src=@item.ProductProfilePicture style='max-width:100px;max-height:77px'></a></td>
+                                <a href="/GovernmentOrganisationSpecialSummary/DemandProductInfo?Id=@item.ProductId"><img src=@item.ProductProfilePicture style='max-width:200px;max-height:230px'></a>
                             }
                             else
                             {
-                                <td width="10%"><a href="/GovernmentOrganisationSpecialSummary/DemandProductInfo?Id=@item.ProductId"><img src='http://emsal.az/staticFiles/notFound.png' style='max-width:100px;max-height:77px' /></a></td>
+                                <a href="/GovernmentOrganisationSpecialSummary/DemandProductInfo?Id=@item.ProductId"><img src='http://emsal.az/staticFiles/notFound.png' style='max-width:200px;max-height:230px' /></a>
                             }
                         }
-                        <td width="70%">
-                            <p>
-                                Tədarük olunacaq dövr :<span style="color:green">@item.ShipmentPeriod</span>
-                            </p>
-                            <p>Təqdim olunacaq yer : <span style="color:green">@item.ShipmentPlace</span></p>
+                    </div>
+                    <div class="col-md-7">
+                        @foreach (var itemmm in item.DemandCalendarList)
+                        {
+                            <div class="well">
+                                <span>Tarix: @itemmm.day @itemmm.month  saat @itemmm.ocklock</span><br /><br />
+                                <span>Miqdar: @itemmm.quantity @item.QuantityType</span><br /><br />
+                                <span>Daşınma qrafiki: @itemmm.shipmetType</span>
+                            </div>
 
-                        </td>
-                        <td><p style="color:red">Məhsulun miqdarı : @item.ProductQuantity  @item.QuantityType</p></td>
-                    </tr>
-                </table>
+                        }
+                    </div>
+                </div>
             </div>
-     }
+                            }
 
             <div class="box-footer clearfix">
                 Səhifə @(Model.PagingOffAirDemand.PageCount < Model.PagingOffAirDemand.PageNumber ? 0 : Model.PagingOffAirDemand.PageNumber) (cəmi @Model.PagingOffAirDemand.PageCount)

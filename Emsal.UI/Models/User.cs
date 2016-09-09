@@ -154,7 +154,7 @@ namespace Emsal.UI.Models
 
         public tblPRM_Thoroughfare ThroughfarePrm;
 
-        public string finvoen { get; set; }
+        public string uid { get; set; }
         public int? finvoenType { get; set; }
 
         public tblUser CreatedUser;

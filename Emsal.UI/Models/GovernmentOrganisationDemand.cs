@@ -17,5 +17,7 @@ namespace Emsal.UI.Models
         public double ProductTotalPrice { get; set; }
         public string ProductProfilePicture { get; set; }
 
+        public DemandCalendar DemandCalendar { get; set; }
+        public List<DemandCalendar> DemandCalendarList { get; set; }
     }
 }

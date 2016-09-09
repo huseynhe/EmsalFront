@@ -162,9 +162,9 @@ namespace Emsal.UI.Models
         public tblProductAddress[] ProductAddressArray;
 
 
-        public tblProduction_Calendar ProductionCalendar;
-        public IList<tblProduction_Calendar> ProductionCalendarList { get; set; }
-        public tblProduction_Calendar[] ProductionCalendarArray;
+        public tblProductionCalendar ProductionCalendar;
+        public IList<tblProductionCalendar> ProductionCalendarList { get; set; }
+        public tblProductionCalendar[] ProductionCalendarArray;
 
 
         public tblRole Role;
