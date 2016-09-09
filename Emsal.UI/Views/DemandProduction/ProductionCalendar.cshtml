@@ -41,9 +41,31 @@
                         <td> @item.partOfyear</td>
                         <td> @item.MonthDescription</td>
                         <td> @item.day</td>
-                        <td> @item.oclock</td>
-                        <td> @item.quantity</td>
-                        <td> @tquantity</td>
+                        <td> @item.oclock:00</td>
+                        <td> 
+                            @if ((int)Math.Round(item.quantity, 0) > (int)item.quantity)
+                            {
+                                @item.quantity
+                            }
+                            else
+                            {
+                                long qi = (int)Math.Round(item.quantity, 0);
+                                <span>@qi</span>
+                            }
+
+                         </td>
+                        <td> 
+                            @if ((int)Math.Round(tquantity, 0) > (int)tquantity)
+                            {
+                                @tquantity
+                            }
+                            else
+                            {
+                                long qi = (int)Math.Round(tquantity, 0);
+                                <span>@qi</span>
+                            }
+                        
+                        </td>
 @if (Model.isPDF == false)
 {
                         <td class="text-center">

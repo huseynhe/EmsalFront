@@ -22,6 +22,10 @@ namespace Emsal.AdminUI.Models
         public tblAnnouncement[] AnnouncementArray;
         public List<tblAnnouncement> AnnouncementList { get; set; }
 
+        public AnnouncementDetail AnnouncementDetail;
+        public AnnouncementDetail[] AnnouncementDetailArray;
+        public List<AnnouncementDetail> AnnouncementDetailList { get; set; }
+
         public tblEnumValue EnumValue;
         public IList<tblEnumValue> EnumValueList { get; set; }
         public tblEnumValue[] EnumValueArray;
@@ -34,7 +38,7 @@ namespace Emsal.AdminUI.Models
         public DemanProductionGroup[] DemanProductionGroupArray;
 
 
-        public PagedList.IPagedList<tblAnnouncement> Paging { get; set; }
+        public PagedList.IPagedList<AnnouncementDetail> Paging { get; set; }
 
         [Display(Name = "Məhsulun adı")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]

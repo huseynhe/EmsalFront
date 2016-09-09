@@ -43,19 +43,19 @@
                                         <input onchange="getCheckedList()" name="ids" value="@item.productionID" class="ch" type="checkbox">
                                     </td>*@
                                 <td>
-                                    @item.product_name (-)
+                                    @item.announcement.product_name (@item.parentName)
                                 </td>
                                 <td>
-                                    @item.quantity @item.quantity_type_Name
+                                    @item.announcement.quantity @item.announcement.quantity_type_Name
                                 </td>
                                 <td>
-                                    @item.unit_price AZN
+                                    @item.announcement.unit_price AZN
                                 </td>
                                 <td>
-                                    @item.description
+                                    @item.announcement.description
                                 </td>
                                 <td class="shsingle">
-                                        <a href="/Announcement/Delete/@item.Id" class="badge bg-light-blue">
+                                        <a href="/Announcement/Delete/@item.announcement.Id" class="badge bg-light-blue">
                                             <span class="glyphicon glyphicon-remove"></span>
                                         </a>
                                     </td>

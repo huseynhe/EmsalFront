@@ -34,7 +34,7 @@
                 <th>Ölçü vahidi</th>
                 @*<th>Qrafik</th>
                     <th>Aylar</th>*@
-                <th>Ünvan</th>
+                <th>Çardırılma ünvanı</th>
                 <th>Qeyd</th>
                 @if (Model.isPDF == false)
                 {
@@ -48,7 +48,17 @@
                 {
                     <tr>
                         <td>@item.productName (@item.productParentName)</td>
-                        <td>@item.quantity</td>
+                        <td>
+                            @if ((int)Math.Round(item.quantity, 0) > (int)item.quantity)
+                            {
+                                @item.quantity
+                            }
+                            else
+                            {
+                                long qi = (int)Math.Round(item.quantity, 0);
+                                <span>@qi</span>
+                            }
+                        </td>
                         <td>@item.enumValueName</td>
                         <td>@item.fullAddress (@item.addressDesc)</td>
                         <td>@item.description</td>

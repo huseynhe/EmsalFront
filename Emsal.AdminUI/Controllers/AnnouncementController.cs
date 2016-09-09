@@ -174,11 +174,11 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelAnnouncement.Admin);
             baseInput.userName = modelAnnouncement.Admin.Username;
 
+                //sehv Dilare
+                BaseOutput gpp = srv.WS_GetAnnouncements(baseInput, out modelAnnouncement.AnnouncementDetailArray);
+                modelAnnouncement.AnnouncementDetailList = modelAnnouncement.AnnouncementDetailArray.ToList();
 
-            BaseOutput gpp = srv.WS_GetAnnouncements(baseInput, out modelAnnouncement.AnnouncementArray);
-            modelAnnouncement.AnnouncementList = modelAnnouncement.AnnouncementArray.ToList();
-
-            modelAnnouncement.Paging = modelAnnouncement.AnnouncementArray.ToPagedList(pageNumber, pageSize);
+                modelAnnouncement.Paging = modelAnnouncement.AnnouncementDetailArray.ToPagedList(pageNumber, pageSize);
 
             return View(modelAnnouncement);
 
