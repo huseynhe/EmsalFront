@@ -14,8 +14,7 @@ using System.Web.Security;
 namespace Emsal.UI.Controllers
 {
 
-    [EmsalAuthorization(AuthorizedAction = ActionName.potentialProduction)]
-    //[EmsalAuthorization(AuthorizedAction = ActionName.Ordinary)]
+    [EmsalAuthorization(AuthorizedAction = ActionName.Ordinary)]
     public class PotentialClientController : Controller
     {
         private static string fullAddressId = "";

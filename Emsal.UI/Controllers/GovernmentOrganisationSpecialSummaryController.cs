@@ -197,7 +197,7 @@ namespace Emsal.UI.Controllers
                 BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
 
                 //get the quanity of the demanded product
-                modelSpecial.OrgDemand.ProductQuantity = (double)item.quantity;
+                modelSpecial.OrgDemand.ProductQuantity = item.quantity != null ? (double)item.quantity :0;
 
                 //get the id of the demanded product
                 modelSpecial.OrgDemand.ProductId = item.Id;

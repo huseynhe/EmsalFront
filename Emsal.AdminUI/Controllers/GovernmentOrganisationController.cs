@@ -1920,7 +1920,7 @@ namespace Emsal.AdminUI.Controllers
             modelUser.FutureAddress.user_Id = modelUser.FutureUser.Id;
             modelUser.FutureAddress.user_IdSpecified = true;
             modelUser.FutureAddress.user_type_eV_IdSpecified = true;
-            modelUser.FutureAddress.adminUnit_Id = form.AddressId;
+            modelUser.FutureAddress.adminUnit_Id = form.adId.LastOrDefault();
 
             modelUser.FutureAddress.adminUnit_IdSpecified = true;
             BaseOutput address = srv.WS_AddAddress(binput, modelUser.FutureAddress, out modelUser.FutureAddress);

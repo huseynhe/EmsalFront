@@ -493,15 +493,15 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput folbid = srv.WS_GetForeignOrganizationListByUserId(baseInput, (long)userId, true, out modelDemandProduction.ForeignOrganizationArray);
 
-                if(modelDemandProduction.ForeignOrganizationArray==null)
+                if (modelDemandProduction.ForeignOrganizationArray == null)
                 {
-                    modelDemandProduction.ForeignOrganizationList =new List<tblForeign_Organization>();
+                    modelDemandProduction.ForeignOrganizationList = new List<tblForeign_Organization>();
                     modelDemandProduction.ForeignOrganizationArray = modelDemandProduction.ForeignOrganizationList.ToArray();
                 }
 
-                modelDemandProduction.ForeignOrganizationList = modelDemandProduction.ForeignOrganizationArray.Where(x=>x.parent_Id==pId).ToList();
-               
-                
+                modelDemandProduction.ForeignOrganizationList = modelDemandProduction.ForeignOrganizationArray.Where(x => x.parent_Id == pId).ToList();
+
+
 
                 modelDemandProduction.productAddressIds = null;
                 if (productAddressId > 0)
@@ -933,10 +933,10 @@ namespace Emsal.UI.Controllers
                     return RedirectToAction("Index", "DemandProduction");
                 }
 
-                if (modelDemandProduction.DemandProduction.grup_Id != null)
-                {
-                    return RedirectToAction("Index", "DemandProduction");
-                }
+                //if (modelDemandProduction.DemandProduction.grup_Id != null)
+                //{
+                //    return RedirectToAction("Index", "DemandProduction");
+                //}
 
                 modelDemandProduction.Id = modelDemandProduction.DemandProduction.Id;
                 modelDemandProduction.productId = (int)modelDemandProduction.DemandProduction.product_Id;

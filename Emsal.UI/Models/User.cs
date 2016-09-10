@@ -193,6 +193,7 @@ namespace Emsal.UI.Models
         [RegularExpression(@"^([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefon nömrəsi 7 rəqəmdən ibarət olmalıdır")]
         public string WorkPhone { get; set; }
 
+        [Required(ErrorMessage = "Mobil telefonu daxil edilməmişdir")]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefon nömrəsi 7 rəqəmdən ibarət olmalıdır")]
         [Display(Name = "Mobil telefonu")]

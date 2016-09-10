@@ -23,6 +23,13 @@
                     </div>
                     <div class="col-md-4">
                         Məhsulun miqdarı : @item.ProductQuantity  @item.QuantityType
+                        <div class='btn-group'>
+                            <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Əməliyyatlar <span class='caret'></span></button>
+                            <ul class='dropdown-menu'>
+                                <li><a href='/DemandProduction/Edit?Id=@item.ProductId'>Düzəliş et</a></li>
+                                <li role='separator' class='divider'></li>
+                            </ul>
+                        </div><br /><br />
                     </div>
                 </div><br />
                 <div class="row">

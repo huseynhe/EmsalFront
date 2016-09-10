@@ -208,11 +208,6 @@ namespace Emsal.UI.Controllers
             BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
             modelUser.MobilePhonePrefixList = modelUser.EnumValueArray.ToList();
 
-
-            BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelUser.EnumCategory);
-            BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
-            modelUser.WorkPhonePrefixList = modelUser.EnumValueArray.ToList();
-            
             return View(modelUser);
         }
 

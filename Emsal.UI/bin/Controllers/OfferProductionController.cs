@@ -599,11 +599,11 @@ namespace Emsal.UI.Controllers
                         modelOfferProduction.LProductionCalendar.transportation_eV_Id = model.howMany[i];
                         modelOfferProduction.LProductionCalendar.transportation_eV_IdSpecified = true;
 
-                        modelOfferProduction.LProductionCalendar.price = Convert.ToDecimal(model.price[i].Replace('.', ','));
-                        modelOfferProduction.LProductionCalendar.priceSpecified = true;
-
                         modelOfferProduction.LProductionCalendar.quantity = Convert.ToDecimal(model.size[i].Replace('.', ','));
                         modelOfferProduction.LProductionCalendar.quantitySpecified = true;
+
+                        modelOfferProduction.LProductionCalendar.price = Convert.ToDecimal(model.price[i].Replace('.', ','));
+                        modelOfferProduction.LProductionCalendar.priceSpecified = true;
 
                         modelOfferProduction.LProductionCalendar.offer_Id = modelOfferProduction.OfferProduction.Id;
                         modelOfferProduction.LProductionCalendar.offer_IdSpecified = true;
@@ -639,11 +639,14 @@ namespace Emsal.UI.Controllers
                     }
 
                     qt = qt + ((decimal)item.quantity * (long)item.transportation_eV_Id);
-                    tp = tp + ((decimal)item.price * (long)item.transportation_eV_Id);
+                    tp = tp + ((decimal)item.price * (long)item.transportation_eV_Id * item.quantity);
                 }
 
                 modelOfferProduction.OfferProduction.total_price = tp;
                 modelOfferProduction.OfferProduction.total_priceSpecified = true;
+
+                modelOfferProduction.OfferProduction.unit_price = tp;
+                modelOfferProduction.OfferProduction.unit_priceSpecified = true;
 
                 modelOfferProduction.OfferProduction.quantity = qt;
                 modelOfferProduction.OfferProduction.quantitySpecified = true;

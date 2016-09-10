@@ -3,64 +3,68 @@
     Layout = "~/Views/Shared/_SignUpLayout.cshtml";
 }
 @*@if (TempData["pinIncorrect"] != null)
-{
-    <script type="text/javascript">
-            $(document).ready(function () {
-                $("#pinModal").modal('show');
-            });
-    </script>
-        <div id="pinModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Məlumat</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p id="successMessage">Fin mömrə düzgün daxil edilməmişdir</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-}
-
-
-@if (TempData["voenIncorrect"] != null)
-{
-    <script type="text/javascript">
-            $(document).ready(function () {
-                $("#voenModal").modal('show');
-            });
-    </script>
-        <div id="voenModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Məlumat</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p id="successMessage">Vöen düzgün daxil edilməmişdir</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+    {
+        <script type="text/javascript">
+                $(document).ready(function () {
+                    $("#pinModal").modal('show');
+                });
+        </script>
+            <div id="pinModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Məlumat</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p id="successMessage">Fin mömrə düzgün daxil edilməmişdir</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-}*@
+    }
+
+
+    @if (TempData["voenIncorrect"] != null)
+    {
+        <script type="text/javascript">
+                $(document).ready(function () {
+                    $("#voenModal").modal('show');
+                });
+        </script>
+            <div id="voenModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Məlumat</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p id="successMessage">Vöen düzgün daxil edilməmişdir</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    }*@
 <div class="container col-md-6 col-md-offset-3" style="border-radius: 5px; margin-top: 30px; margin-bottom:30px; box-shadow:1px 1px 2px 3px #ddd">
     <br />
-  
+
     @{
-        if (TempData["UserSignUpError"] != null)
+        if (TempData["UserNameExists"] != null)
         {
-            <h4 style="color:red">Bu istifadəçi sistemdə mövcuddur.</h4>
+            <h4 style="color:red">Bu  istifadəçi adı ilə qeydiyyatdan keçilib. Xahiş olunur başqa ad seçəsiniz.</h4>
+        }
+        else if (TempData["YouaresignedUp"] != null)
+        {
+            <h4 style="color:red">Siz artıq qeydiyyatdan keçmisiniz.</h4>
         }
     }<br /><br />
 
@@ -79,38 +83,38 @@
             @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", id = "username" })
             @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "text-danger" })
         </div>
-            <div class="form-group">
-                <label>Şəxsin növü</label>
-                <select class="form-control" id="userType" name="UserType">
-                    @{
-                        if (Model.uid != null && Model.uid != "")
+        <div class="form-group">
+            <label>Şəxsin növü</label>
+            <select class="form-control" id="userType" name="UserType">
+                @{
+                    if (Model.uid != null && Model.uid != "")
+                    {
+                        if (Model.uid != "")
                         {
-                            if (Model.uid != "")
+                            if (Model.finvoenType == 1)
                             {
-                                if (Model.finvoenType == 1)
-                                {
-                                    <option selected value="fizikişexs">Fiziki Şexs</option>
+                                <option selected value="fizikişexs">Fiziki Şexs</option>
                                     <option value="legalPerson">Hüquqi Şexs</option>
-                                }
-                                if (Model.finvoenType == 2)
-                                {
-                                    <option value="fizikişexs">Fiziki Şexs</option>
-                                    <option selected value="legalPerson">Hüquqi Şexs</option>
-                                }
                             }
+                            if (Model.finvoenType == 2)
+                            {
+                                <option value="fizikişexs">Fiziki Şexs</option>
+                                    <option selected value="legalPerson">Hüquqi Şexs</option>
+                            }
+                        }
 
-                        }
-                        else
-                        {
-                            <option value="fizikişexs">Fiziki Şexs</option>
-                            <option value="legalPerson">Hüquqi Şexs</option>
-                        }
                     }
-                </select>
-            </div>
+                    else
+                    {
+                        <option value="fizikişexs">Fiziki Şexs</option>
+                            <option value="legalPerson">Hüquqi Şexs</option>
+                    }
+                }
+            </select>
+        </div>
 
             <div class="form-group" id="pinDiv" style="padding:5px;">
-                @Html.LabelFor(model => model.Pin)  <a data-toggle="modal" data-target="#pinModal"><span class="glyphicon glyphicon-question-sign"></span></a> 
+                @Html.LabelFor(model => model.Pin)  <a data-toggle="modal" data-target="#pinModal"><span class="glyphicon glyphicon-question-sign"></span></a>
                 @Html.TextBoxFor(model => model.Pin, new { @class = "form-control", id = "pin" })
                 @Html.ValidationMessageFor(model => model.Pin, "", new { @class = "text-danger" })
             </div>
@@ -130,26 +134,6 @@
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
             <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        @Html.LabelFor(x => x.WorkPhone, htmlAttributes: new { @class = "control-label required" })
-                        <div class="row">
-                            <div class="col-md-5">
-                                <select class="form-control" name="workPhonePrefix">
-                                    <option value="">Seçim edin</option>
-                                    @foreach (var item in Model.WorkPhonePrefixList)
-                                    {
-                                        <option value="@item.name">@item.description (@item.name)</option>
-                                    }
-                                </select>
-                            </div>
-                            <div class="col-md-7">
-                                @Html.TextBoxFor(model => model.WorkPhone, new { @class = "form-control numbersOnly",  required = "required" })
-                                @Html.ValidationMessageFor(model => model.WorkPhone, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         @Html.LabelFor(x => x.MobilePhone, new { @class = "control-label" })
@@ -176,7 +160,7 @@
             <div class="col-md-6 col-md-offset-4" style="margin-bottom:20px">
                 <input type="submit" class="btn btn-success" value="Davam Et" />
             </div>
-                        }
+                    }
     <div class="clearfix" style="height: 20px;"></div>
 </div>
 

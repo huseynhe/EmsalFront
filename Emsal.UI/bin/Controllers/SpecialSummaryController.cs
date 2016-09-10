@@ -117,10 +117,11 @@ namespace Emsal.UI.Controllers
                 modelSpecial.SpOffer.ProductEndDate = (long)item.endDate;
 
                 //get the quantity of the offered product
-                modelSpecial.SpOffer.ProductQuantity = (long)item.quantity;
+                modelSpecial.SpOffer.ProductQuantity = item.quantity != null ? (long)item.quantity : 0;
+
 
                 //get the total price of the offered product
-                modelSpecial.SpOffer.ProductTotalPrice = (double)item.unit_price * (double)item.quantity;
+                modelSpecial.SpOffer.ProductTotalPrice = item.total_price != null ? (double)item.total_price : 0;
 
                 BaseOutput producttionDocumentsOut = srv.WS_GetProductDocumentsByProductCatalogId(binput, modelSpecial.ProductCatalog.Id, true, out modelSpecial.ProductDocumentArray);
 
@@ -142,8 +143,42 @@ namespace Emsal.UI.Controllers
                         modelSpecial.SpOffer.QuantityType = modelSpecial.EnumValue.name;
                     }
                 }
+
+
+                //get the informations in the product calendar
+                modelSpecial.SpOffer.DemandCalendarList = new List<DemandCalendar>();
+
+                BaseOutput prodcuctCalendarOut = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
+                modelSpecial.ProductionCalendarArray = modelSpecial.ProductionCalendarArray.Where(x => x.Production_type_eV_Id == 3).ToArray();
+                foreach (var itemm in modelSpecial.ProductionCalendarArray)
+                {
+                    modelSpecial.SpOffer.DemandCalendar = new DemandCalendar();
+
+                    BaseOutput monthOut = srv.WS_GetEnumValueById(binput, (long)itemm.months_eV_Id, true, out modelSpecial.EnumValue);
+
+                    modelSpecial.SpOffer.DemandCalendar.month = modelSpecial.EnumValue.name;
+                    modelSpecial.SpOffer.DemandCalendar.day = itemm.day != null ? itemm.day.ToString() : null;
+                    modelSpecial.SpOffer.DemandCalendar.ocklock = itemm.oclock.ToString();
+
+                    BaseOutput shipmenttypeOUt = srv.WS_GetEnumValueById(binput, (long)itemm.type_eV_Id, true, out modelSpecial.EnumValue);
+                    modelSpecial.SpOffer.DemandCalendar.shipmetType = modelSpecial.EnumValue.name;
+
+                    BaseOutput monthOUt = srv.WS_GetEnumValueById(binput, (long)itemm.months_eV_Id, true, out modelSpecial.EnumValue);
+
+                    modelSpecial.SpOffer.DemandCalendar.month = modelSpecial.EnumValue.description;
+                    modelSpecial.SpOffer.DemandCalendar.quantity = itemm.quantity != null ? itemm.quantity.ToString() : null;
+                    modelSpecial.SpOffer.DemandCalendar.price = itemm.price.ToString();
+
+
+                    modelSpecial.SpOffer.DemandCalendarList.Add(modelSpecial.SpOffer.DemandCalendar);
+                }
+
                 modelSpecial.SpOfferList.Add(modelSpecial.SpOffer);
             }
+
+
+
+
             modelSpecial.PagingConfirmedOffer = modelSpecial.SpOfferList.ToPagedList(pageNumber, pageSize);
 
             //get the inbox messages
@@ -227,10 +262,10 @@ namespace Emsal.UI.Controllers
                 modelSpecial.SpOffer.ProductEndDate = (long)item.endDate;
 
                 //get the quantity of the offered product
-                //modelSpecial.SpOffer.ProductQuantity = (long)item.quantity;
+                modelSpecial.SpOffer.ProductQuantity = item.quantity != null ? (long)item.quantity : 0;
 
                 //get the total price of the offered product
-                //modelSpecial.SpOffer.ProductTotalPrice = (double)item.unit_price * (double)item.quantity;
+                modelSpecial.SpOffer.ProductTotalPrice = item.total_price != null ? (double)item.total_price : 0;
 
                 BaseOutput producttionDocumentsOut = srv.WS_GetProductDocumentsByProductCatalogId(binput, modelSpecial.ProductCatalog.Id, true, out modelSpecial.ProductDocumentArray);
 
@@ -252,6 +287,37 @@ namespace Emsal.UI.Controllers
                         modelSpecial.SpOffer.QuantityType = modelSpecial.EnumValue.name;
                     }
                 }
+
+
+                //get the informations in the product calendar
+                modelSpecial.SpOffer.DemandCalendarList = new List<DemandCalendar>();
+
+                BaseOutput prodcuctCalendarOut = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
+                modelSpecial.ProductionCalendarArray = modelSpecial.ProductionCalendarArray.Where(x => x.Production_type_eV_Id == 3).ToArray(); 
+                foreach (var itemm in modelSpecial.ProductionCalendarArray)
+                {
+                    modelSpecial.SpOffer.DemandCalendar = new DemandCalendar();
+
+                    BaseOutput monthOut = srv.WS_GetEnumValueById(binput, (long)itemm.months_eV_Id, true, out modelSpecial.EnumValue);
+
+                    modelSpecial.SpOffer.DemandCalendar.month = modelSpecial.EnumValue.name;
+                    modelSpecial.SpOffer.DemandCalendar.day = itemm.day != null ? itemm.day.ToString() : null;
+                    modelSpecial.SpOffer.DemandCalendar.ocklock = itemm.oclock.ToString();
+
+                    BaseOutput shipmenttypeOUt = srv.WS_GetEnumValueById(binput, (long)itemm.type_eV_Id, true, out modelSpecial.EnumValue);
+                    modelSpecial.SpOffer.DemandCalendar.shipmetType = modelSpecial.EnumValue.name;
+
+                    BaseOutput monthOUt = srv.WS_GetEnumValueById(binput, (long)itemm.months_eV_Id, true, out modelSpecial.EnumValue);
+
+                    modelSpecial.SpOffer.DemandCalendar.month = modelSpecial.EnumValue.description;
+                    modelSpecial.SpOffer.DemandCalendar.quantity = itemm.quantity != null ? itemm.quantity.ToString() : null;
+                    modelSpecial.SpOffer.DemandCalendar.price = itemm.price.ToString();
+
+
+                    modelSpecial.SpOffer.DemandCalendarList.Add(modelSpecial.SpOffer.DemandCalendar);
+                }
+
+
 
                 modelSpecial.SpOfferList.Add(modelSpecial.SpOffer);
             }
@@ -368,10 +434,10 @@ namespace Emsal.UI.Controllers
                     modelSpecial.SpOffer.ProductEndDate = (long)item.endDate;
 
                     //get the quantity of the offered product
-                    modelSpecial.SpOffer.ProductQuantity = (long)item.quantity;
+                    modelSpecial.SpOffer.ProductQuantity = item.quantity != null ? (long)item.quantity : 0;
 
                     //get the total price of the offered product
-                    modelSpecial.SpOffer.ProductTotalPrice = (double)item.unit_price * (double)item.quantity;
+                    modelSpecial.SpOffer.ProductTotalPrice = item.total_price != null ? (double)item.total_price : 0;
 
                     BaseOutput producttionDocumentsOut = srv.WS_GetProductDocumentsByProductCatalogId(binput, modelSpecial.ProductCatalog.Id, true, out modelSpecial.ProductDocumentArray);
 
@@ -393,6 +459,38 @@ namespace Emsal.UI.Controllers
                             modelSpecial.SpOffer.QuantityType = modelSpecial.EnumValue.name;
                         }
                     }
+
+                    //get the informations in the product calendar
+                    modelSpecial.SpOffer.DemandCalendarList = new List<DemandCalendar>();
+
+                    BaseOutput prodcuctCalendarOut = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
+                    modelSpecial.ProductionCalendarArray = modelSpecial.ProductionCalendarArray.Where(x => x.Production_type_eV_Id == 3).ToArray();
+
+                    foreach (var itemm in modelSpecial.ProductionCalendarArray)
+                    {
+                        modelSpecial.SpOffer.DemandCalendar = new DemandCalendar();
+
+                        BaseOutput monthOut = srv.WS_GetEnumValueById(binput, (long)itemm.months_eV_Id, true, out modelSpecial.EnumValue);
+
+                        modelSpecial.SpOffer.DemandCalendar.month = modelSpecial.EnumValue.name;
+                        modelSpecial.SpOffer.DemandCalendar.day = itemm.day != null ? itemm.day.ToString() : null;
+                        modelSpecial.SpOffer.DemandCalendar.ocklock = itemm.oclock.ToString();
+
+                        BaseOutput shipmenttypeOUt = srv.WS_GetEnumValueById(binput, (long)itemm.type_eV_Id, true, out modelSpecial.EnumValue);
+                        modelSpecial.SpOffer.DemandCalendar.shipmetType = modelSpecial.EnumValue.name;
+
+                        BaseOutput monthOUt = srv.WS_GetEnumValueById(binput, (long)itemm.months_eV_Id, true, out modelSpecial.EnumValue);
+
+                        modelSpecial.SpOffer.DemandCalendar.month = modelSpecial.EnumValue.description;
+                        modelSpecial.SpOffer.DemandCalendar.quantity = itemm.quantity != null ? itemm.quantity.ToString() : null;
+                        modelSpecial.SpOffer.DemandCalendar.price = itemm.price.ToString();
+
+
+                        modelSpecial.SpOffer.DemandCalendarList.Add(modelSpecial.SpOffer.DemandCalendar);
+                    }
+
+
+
 
                     modelSpecial.SpOfferList.Add(modelSpecial.SpOffer);
                 }
@@ -509,10 +607,10 @@ namespace Emsal.UI.Controllers
                     modelSpecial.SpOffer.ProductEndDate = (long)item.endDate;
 
                     //get the quantity of the offered product
-                    modelSpecial.SpOffer.ProductQuantity = item.quantity == null ? 0 : (long)item.quantity;
+                    modelSpecial.SpOffer.ProductQuantity = item.quantity != null ? (long)item.quantity : 0;
 
                     //get the total price of the offered product
-                    modelSpecial.SpOffer.ProductTotalPrice = (item.unit_price == null ||item.quantity == null) ? 0: (double)item.unit_price * (double)item.quantity;
+                    modelSpecial.SpOffer.ProductTotalPrice = item.total_price != null ? (double)item.total_price : 0;
 
                     BaseOutput producttionDocumentsOut = srv.WS_GetProductDocumentsByProductCatalogId(binput, modelSpecial.ProductCatalog.Id, true, out modelSpecial.ProductDocumentArray);
 
@@ -533,6 +631,35 @@ namespace Emsal.UI.Controllers
                             BaseOutput quantityOut = srv.WS_GetEnumValueById(binput, (long)itemm.EnumValueId, true, out modelSpecial.EnumValue);
                             modelSpecial.SpOffer.QuantityType = modelSpecial.EnumValue.name;
                         }
+                    }
+
+
+                    //get the informations in the product calendar
+                    modelSpecial.SpOffer.DemandCalendarList = new List<DemandCalendar>();
+
+                    BaseOutput prodcuctCalendarOut = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
+                    modelSpecial.ProductionCalendarArray = modelSpecial.ProductionCalendarArray.Where(x => x.Production_type_eV_Id == 3).ToArray();
+
+                    foreach (var itemm in modelSpecial.ProductionCalendarArray)
+                    {
+                        modelSpecial.SpOffer.DemandCalendar = new DemandCalendar();
+
+                        BaseOutput monthOut = srv.WS_GetEnumValueById(binput, (long)itemm.months_eV_Id, true, out modelSpecial.EnumValue);
+
+                        modelSpecial.SpOffer.DemandCalendar.month = modelSpecial.EnumValue.name;
+                        modelSpecial.SpOffer.DemandCalendar.day = itemm.day != null ? itemm.day.ToString() : null;
+                        modelSpecial.SpOffer.DemandCalendar.ocklock = itemm.oclock.ToString();
+
+                        BaseOutput shipmenttypeOUt = srv.WS_GetEnumValueById(binput, (long)itemm.type_eV_Id, true, out modelSpecial.EnumValue);
+                        modelSpecial.SpOffer.DemandCalendar.shipmetType = modelSpecial.EnumValue.name;
+
+                        BaseOutput monthOUt = srv.WS_GetEnumValueById(binput, (long)itemm.months_eV_Id, true, out modelSpecial.EnumValue);
+
+                        modelSpecial.SpOffer.DemandCalendar.month = modelSpecial.EnumValue.description;
+                        modelSpecial.SpOffer.DemandCalendar.quantity = itemm.quantity != null ? itemm.quantity.ToString() : null;
+
+                        modelSpecial.SpOffer.DemandCalendar.price = itemm.price.ToString();
+                        modelSpecial.SpOffer.DemandCalendarList.Add(modelSpecial.SpOffer.DemandCalendar);
                     }
 
                     modelSpecial.SpOfferList.Add(modelSpecial.SpOffer);

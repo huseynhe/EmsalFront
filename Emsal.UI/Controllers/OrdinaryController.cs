@@ -81,6 +81,42 @@ namespace Emsal.UI.Controllers
           
 
             BaseOutput LoggedInnUserOut = srv.WS_GetUserById(binput, (long)userId, true, out modelUser.User);
+            BaseOutput personnOut = srv.WS_GetPersonByUserId(binput, modelUser.User.Id, true, out modelUser.Person);
+            modelUser.LoggedInUserInfos = new LoggedInUserInfos();
+
+            BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelUser.CommunicationInformationsArray);
+
+            if (modelUser.User.userType_eV_ID == 26)
+            {
+                modelUser.CommunicationInformationsList = modelUser.CommunicationInformationsArray.Where(x => x.PersonId == modelUser.Person.Id).ToList();
+            }
+
+            if (modelUser.User.userType_eV_ID == 50)
+            {
+                modelUser.CommunicationInformationsList = modelUser.CommunicationInformationsArray.Where(x => x.PersonId == modelUser.ForeignOrganisation.manager_Id).ToList();
+            }
+            foreach (var item in modelUser.CommunicationInformationsList)
+            {
+                if (item.comType == 10120)
+                {
+                    modelUser.LoggedInUserInfos.MobilePhone = item.description;
+                }
+                if (item.comType == 10122)
+                {
+                    modelUser.LoggedInUserInfos.WorkPhone = item.description;
+                }
+
+            }
+
+            BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelUser.EnumCategory);
+            BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
+            modelUser.MobilePhonePrefixList = modelUser.EnumValueArray.ToList();
+
+
+            BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelUser.EnumCategory);
+            BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
+            modelUser.WorkPhonePrefixList = modelUser.EnumValueArray.ToList();
+
 
             BaseOutput userRole = srv.WS_GetUserRolesByUserId(binput, modelUser.LoggedInUser.Id, true, out modelUser.UserRoleArray);
             if (type == "gov")
@@ -162,6 +198,44 @@ namespace Emsal.UI.Controllers
           
 
             BaseOutput LoggedInnUserOut = srv.WS_GetUserById(binput, (long)userId, true, out modelUser.User);
+
+            BaseOutput personnOut = srv.WS_GetPersonByUserId(binput, modelUser.User.Id, true, out modelUser.Person);
+            modelUser.LoggedInUserInfos = new LoggedInUserInfos();
+
+            BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelUser.CommunicationInformationsArray);
+
+            if (modelUser.User.userType_eV_ID == 26)
+            {
+                modelUser.CommunicationInformationsList = modelUser.CommunicationInformationsArray.Where(x => x.PersonId == modelUser.Person.Id).ToList();
+            }
+
+            if (modelUser.User.userType_eV_ID == 50)
+            {
+                modelUser.CommunicationInformationsList = modelUser.CommunicationInformationsArray.Where(x => x.PersonId == modelUser.ForeignOrganisation.manager_Id).ToList();
+            }
+            foreach (var item in modelUser.CommunicationInformationsList)
+            {
+                if (item.comType == 10120)
+                {
+                    modelUser.LoggedInUserInfos.MobilePhone = item.description;
+                }
+                if (item.comType == 10122)
+                {
+                    modelUser.LoggedInUserInfos.WorkPhone = item.description;
+                }
+
+            }
+
+            BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelUser.EnumCategory);
+            BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
+            modelUser.MobilePhonePrefixList = modelUser.EnumValueArray.ToList();
+
+
+            BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelUser.EnumCategory);
+            BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
+            modelUser.WorkPhonePrefixList = modelUser.EnumValueArray.ToList();
+
+
 
             BaseOutput userRole = srv.WS_GetUserRolesByUserId(binput, modelUser.LoggedInUser.Id, true, out modelUser.UserRoleArray);
             if (type == "gov")

@@ -12,7 +12,7 @@ using Emsal.Utility.CustomObjects;
 
 namespace Emsal.UI.Controllers
 {
-        [EmsalAuthorization(AuthorizedAction = ActionName.OfferState)]
+    [EmsalAuthorization(AuthorizedAction = ActionName.OfferState)]
 
     public class OfferStateController : Controller
     {
@@ -29,101 +29,102 @@ namespace Emsal.UI.Controllers
 
         public ActionResult Index(int? page, string stateStatusEV = null, string productName = null, string userInfo = null)
         {
-            try {
+            try
+            {
 
                 if (stateStatusEV != null)
                     stateStatusEV = StripTag.strSqlBlocker(stateStatusEV.ToLower());
                 if (productName != null)
-                productName = StripTag.strSqlBlocker(productName.ToLower());
-            if (userInfo != null)
-                userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
+                    productName = StripTag.strSqlBlocker(productName.ToLower());
+                if (userInfo != null)
+                    userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
 
 
-            int pageSize = 20;
-            int pageNumber = (page ?? 1);
+                int pageSize = 20;
+                int pageNumber = (page ?? 1);
 
-            if (productName == null && userInfo == null)
-            {
-                sproductName = null;
-                suserInfo = null;
-            }
-
-            if (productName != null)
-                sproductName = productName;
-            if (userInfo != null)
-                suserInfo = userInfo;
-            if (stateStatusEV != null)
-                sstateStatusEV = stateStatusEV;
-
-            baseInput = new BaseInput();
-            modelOfferState = new OfferStateViewModel();
-
-
-            long? UserId = null;
-            if (User != null && User.Identity.IsAuthenticated)
-            {
-                FormsIdentity identity = (FormsIdentity)User.Identity;
-                if (identity.Ticket.UserData.Length > 0)
+                if (productName == null && userInfo == null)
                 {
-                    UserId = Int32.Parse(identity.Ticket.UserData);
-                }
-            }
-            BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferState.User);
-            baseInput.userName = modelOfferState.User.Username;
-
-
-            BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelOfferState.EnumCategory);
-
-            BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstateStatusEV, out modelOfferState.EnumValue);
-
-            BaseOutput gpp = srv.WS_GetOfferProductionDetailistForStateEVId(baseInput, (long)UserId, true, modelOfferState.EnumValue.Id, true, out modelOfferState.ProductionDetailArray);
-
-            modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailArray.ToList();
-
-            if (sproductName != null)
-            {
-                modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.productName.ToLowerInvariant().Contains(sproductName)).ToList();
-            }
-
-            if (suserInfo != null)
-            {
-                if (modelOfferState.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
-                {
-                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList();
+                    sproductName = null;
+                    suserInfo = null;
                 }
 
-                if (modelOfferState.ProductionDetailList.Where(x => x.person.Surname.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
+                if (productName != null)
+                    sproductName = productName;
+                if (userInfo != null)
+                    suserInfo = userInfo;
+                if (stateStatusEV != null)
+                    sstateStatusEV = stateStatusEV;
+
+                baseInput = new BaseInput();
+                modelOfferState = new OfferStateViewModel();
+
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
                 {
-                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.person.Surname.ToLowerInvariant().Contains(suserInfo)).ToList();
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferState.User);
+                baseInput.userName = modelOfferState.User.Username;
+
+
+                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelOfferState.EnumCategory);
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstateStatusEV, out modelOfferState.EnumValue);
+
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForStateEVId(baseInput, (long)UserId, true, modelOfferState.EnumValue.Id, true, out modelOfferState.ProductionDetailArray);
+
+                modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailArray.ToList();
+
+                if (sproductName != null)
+                {
+                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.productName.ToLowerInvariant().Contains(sproductName)).ToList();
                 }
 
-                if (modelOfferState.ProductionDetailList.Where(x => x.person.FatherName.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
+                if (suserInfo != null)
                 {
-                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.person.FatherName.ToLowerInvariant().Contains(suserInfo)).ToList();
+                    if (modelOfferState.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
+                    {
+                        modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList();
+                    }
+
+                    if (modelOfferState.ProductionDetailList.Where(x => x.person.Surname.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
+                    {
+                        modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.person.Surname.ToLowerInvariant().Contains(suserInfo)).ToList();
+                    }
+
+                    if (modelOfferState.ProductionDetailList.Where(x => x.person.FatherName.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
+                    {
+                        modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.person.FatherName.ToLowerInvariant().Contains(suserInfo)).ToList();
+                    }
+                    else
+                    {
+                        modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList();
+                    }
                 }
+
+
+                modelOfferState.Paging = modelOfferState.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+
+                if (sstateStatusEV == "Yayinda" || sstateStatusEV == "yayinda")
+                    modelOfferState.isMain = 0;
                 else
-                {
-                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList();
-                }
-            }
+                    modelOfferState.isMain = 1;
 
 
-            modelOfferState.Paging = modelOfferState.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+                modelOfferState.stateStatusEV = sstateStatusEV;
+                modelOfferState.productName = sproductName;
+                modelOfferState.userInfo = suserInfo;
+                //return View(modelDemandProduction);
 
-            if (sstateStatusEV == "Yayinda")
-                modelOfferState.isMain = 0;
-            else
-                modelOfferState.isMain = 1;
-
-
-            modelOfferState.stateStatusEV = sstateStatusEV;
-            modelOfferState.productName = sproductName;
-            modelOfferState.userInfo = suserInfo;
-            //return View(modelDemandProduction);
-
-            return Request.IsAjaxRequest()
-               ? (ActionResult)PartialView("PartialIndex", modelOfferState)
-               : View(modelOfferState);
+                return Request.IsAjaxRequest()
+                   ? (ActionResult)PartialView("PartialIndex", modelOfferState)
+                   : View(modelOfferState);
 
             }
             catch (Exception ex)
@@ -136,57 +137,58 @@ namespace Emsal.UI.Controllers
         [HttpPost]
         public ActionResult Approv(int[] ids)
         {
-            try { 
-
-            baseInput = new BaseInput();
-            modelOfferState = new OfferStateViewModel();
-
-            long? UserId = null;
-            if (User != null && User.Identity.IsAuthenticated)
+            try
             {
-                FormsIdentity identity = (FormsIdentity)User.Identity;
-                if (identity.Ticket.UserData.Length > 0)
+
+                baseInput = new BaseInput();
+                modelOfferState = new OfferStateViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
                 {
-                    UserId = Int32.Parse(identity.Ticket.UserData);
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
                 }
-            }
-            BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferState.User);
-            baseInput.userName = modelOfferState.User.Username;
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferState.User);
+                baseInput.userName = modelOfferState.User.Username;
 
-            //Array arrid = ids.Split(',');
-            //long id = 0;
-            if (ids != null)
-            {
-                for (int i = 0; i < ids.Length; i++)
+                //Array arrid = ids.Split(',');
+                //long id = 0;
+                if (ids != null)
                 {
-                    modelOfferState.OfferProduction = new tblOffer_Production();
+                    for (int i = 0; i < ids.Length; i++)
+                    {
+                        modelOfferState.OfferProduction = new tblOffer_Production();
 
-                    BaseOutput bouput = srv.WS_GetOffer_ProductionById(baseInput, ids[i], true, out modelOfferState.OfferProduction);
+                        BaseOutput bouput = srv.WS_GetOffer_ProductionById(baseInput, ids[i], true, out modelOfferState.OfferProduction);
 
-                    BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferState.EnumValueST);
+                        BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferState.EnumValueST);
 
-                    modelOfferState.OfferProduction.state_eV_Id = modelOfferState.EnumValueST.Id;
-                    modelOfferState.OfferProduction.state_eV_IdSpecified = true;
+                        modelOfferState.OfferProduction.state_eV_Id = modelOfferState.EnumValueST.Id;
+                        modelOfferState.OfferProduction.state_eV_IdSpecified = true;
 
-                    BaseOutput ecout = srv.WS_UpdateOffer_Production(baseInput, modelOfferState.OfferProduction, out modelOfferState.OfferProduction);
+                        BaseOutput ecout = srv.WS_UpdateOffer_Production(baseInput, modelOfferState.OfferProduction, out modelOfferState.OfferProduction);
 
-                    modelOfferState.ComMessage = new tblComMessage();
-                    modelOfferState.ComMessage.message = "Təsdiqləndi";
-                    modelOfferState.ComMessage.fromUserID = (long)UserId;
-                    modelOfferState.ComMessage.fromUserIDSpecified = true;
-                    modelOfferState.ComMessage.toUserID = modelOfferState.OfferProduction.user_Id;
-                    modelOfferState.ComMessage.toUserIDSpecified = true;
-                    modelOfferState.ComMessage.Production_Id = modelOfferState.OfferProduction.Id;
-                    modelOfferState.ComMessage.Production_IdSpecified = true;
-                    BaseOutput enumval = srv.WS_GetEnumValueByName(baseInput, "offer", out modelOfferState.EnumValue);
-                    modelOfferState.ComMessage.Production_type_eV_Id = modelOfferState.EnumValue.Id;
-                    modelOfferState.ComMessage.Production_type_eV_IdSpecified = true;
+                        modelOfferState.ComMessage = new tblComMessage();
+                        modelOfferState.ComMessage.message = "Təsdiqləndi";
+                        modelOfferState.ComMessage.fromUserID = (long)UserId;
+                        modelOfferState.ComMessage.fromUserIDSpecified = true;
+                        modelOfferState.ComMessage.toUserID = modelOfferState.OfferProduction.user_Id;
+                        modelOfferState.ComMessage.toUserIDSpecified = true;
+                        modelOfferState.ComMessage.Production_Id = modelOfferState.OfferProduction.Id;
+                        modelOfferState.ComMessage.Production_IdSpecified = true;
+                        BaseOutput enumval = srv.WS_GetEnumValueByName(baseInput, "offer", out modelOfferState.EnumValue);
+                        modelOfferState.ComMessage.Production_type_eV_Id = modelOfferState.EnumValue.Id;
+                        modelOfferState.ComMessage.Production_type_eV_IdSpecified = true;
 
-                    BaseOutput acm = srv.WS_AddComMessage(baseInput, modelOfferState.ComMessage, out modelOfferState.ComMessage);
+                        BaseOutput acm = srv.WS_AddComMessage(baseInput, modelOfferState.ComMessage, out modelOfferState.ComMessage);
+                    }
                 }
-            }
 
-            return RedirectToAction("Index", "OfferState", new { stateStatusEV = modelOfferState.EnumValueST.name });
+                return RedirectToAction("Index", "OfferState", new { stateStatusEV = modelOfferState.EnumValueST.name });
 
             }
             catch (Exception ex)
@@ -197,28 +199,29 @@ namespace Emsal.UI.Controllers
 
         public ActionResult Edit(int id)
         {
-            try { 
-
-            baseInput = new BaseInput();
-            modelOfferState = new OfferStateViewModel();
-
-            long? UserId = null;
-            if (User != null && User.Identity.IsAuthenticated)
+            try
             {
-                FormsIdentity identity = (FormsIdentity)User.Identity;
-                if (identity.Ticket.UserData.Length > 0)
+
+                baseInput = new BaseInput();
+                modelOfferState = new OfferStateViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
                 {
-                    UserId = Int32.Parse(identity.Ticket.UserData);
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
                 }
-            }
-            BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferState.User);
-            baseInput.userName = modelOfferState.User.Username;
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferState.User);
+                baseInput.userName = modelOfferState.User.Username;
 
-            BaseOutput bouput = srv.WS_GetOffer_ProductionById(baseInput, id, true, out modelOfferState.OfferProduction);
+                BaseOutput bouput = srv.WS_GetOffer_ProductionById(baseInput, id, true, out modelOfferState.OfferProduction);
 
-            modelOfferState.Id = modelOfferState.OfferProduction.Id;
+                modelOfferState.Id = modelOfferState.OfferProduction.Id;
 
-            return View(modelOfferState);
+                return View(modelOfferState);
 
             }
             catch (Exception ex)
@@ -230,55 +233,56 @@ namespace Emsal.UI.Controllers
         [HttpPost]
         public ActionResult Edit(OfferStateViewModel model, FormCollection collection)
         {
-            try { 
-
-            baseInput = new BaseInput();
-
-            model.ConfirmationMessage = new tblConfirmationMessage();
-
-            long? UserId = null;
-            if (User != null && User.Identity.IsAuthenticated)
+            try
             {
-                FormsIdentity identity = (FormsIdentity)User.Identity;
-                if (identity.Ticket.UserData.Length > 0)
+
+                baseInput = new BaseInput();
+
+                model.ConfirmationMessage = new tblConfirmationMessage();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
                 {
-                    UserId = Int32.Parse(identity.Ticket.UserData);
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
                 }
-            }
-            BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out model.User);
-            baseInput.userName = model.User.Username;
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out model.User);
+                baseInput.userName = model.User.Username;
 
-            model.ConfirmationMessage.Message = model.message;
+                model.ConfirmationMessage.Message = model.message;
 
-            BaseOutput pout = srv.WS_SendConfirmationMessage(baseInput, model.ConfirmationMessage);
+                BaseOutput pout = srv.WS_SendConfirmationMessage(baseInput, model.ConfirmationMessage);
 
 
-            model.OfferProduction = new tblOffer_Production();
+                model.OfferProduction = new tblOffer_Production();
 
-            BaseOutput bouput = srv.WS_GetOffer_ProductionById(baseInput, model.Id, true, out model.OfferProduction);
+                BaseOutput bouput = srv.WS_GetOffer_ProductionById(baseInput, model.Id, true, out model.OfferProduction);
 
-            BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "reject", out model.EnumValueST);
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "reject", out model.EnumValueST);
 
-            model.OfferProduction.state_eV_Id = model.EnumValueST.Id;
-            model.OfferProduction.state_eV_IdSpecified = true;
+                model.OfferProduction.state_eV_Id = model.EnumValueST.Id;
+                model.OfferProduction.state_eV_IdSpecified = true;
 
-            BaseOutput ecout = srv.WS_UpdateOffer_Production(baseInput, model.OfferProduction, out model.OfferProduction);
+                BaseOutput ecout = srv.WS_UpdateOffer_Production(baseInput, model.OfferProduction, out model.OfferProduction);
 
-            model.ComMessage = new tblComMessage();
-            model.ComMessage.message = model.message;
-            model.ComMessage.fromUserID = (long)UserId;
-            model.ComMessage.fromUserIDSpecified = true;
-            model.ComMessage.toUserID = model.OfferProduction.user_Id;
-            model.ComMessage.toUserIDSpecified = true;
-            model.ComMessage.Production_Id = model.OfferProduction.Id;
-            model.ComMessage.Production_IdSpecified = true;
-            BaseOutput enumval = srv.WS_GetEnumValueByName(baseInput, "offer", out model.EnumValue);
-            model.ComMessage.Production_type_eV_Id = model.EnumValue.Id;
-            model.ComMessage.Production_type_eV_IdSpecified = true;
+                model.ComMessage = new tblComMessage();
+                model.ComMessage.message = model.message;
+                model.ComMessage.fromUserID = (long)UserId;
+                model.ComMessage.fromUserIDSpecified = true;
+                model.ComMessage.toUserID = model.OfferProduction.user_Id;
+                model.ComMessage.toUserIDSpecified = true;
+                model.ComMessage.Production_Id = model.OfferProduction.Id;
+                model.ComMessage.Production_IdSpecified = true;
+                BaseOutput enumval = srv.WS_GetEnumValueByName(baseInput, "offer", out model.EnumValue);
+                model.ComMessage.Production_type_eV_Id = model.EnumValue.Id;
+                model.ComMessage.Production_type_eV_IdSpecified = true;
 
-            BaseOutput acm = srv.WS_AddComMessage(baseInput, model.ComMessage, out model.ComMessage);
+                BaseOutput acm = srv.WS_AddComMessage(baseInput, model.ComMessage, out model.ComMessage);
 
-            return RedirectToAction("Index", "OfferState", new { stateStatusEV = model.EnumValueST.name });
+                return RedirectToAction("Index", "OfferState", new { stateStatusEV = model.EnumValueST.name });
 
             }
             catch (Exception ex)

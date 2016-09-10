@@ -34,6 +34,51 @@ namespace Emsal.UI.Controllers
             return birthday;
         }
 
+        public bool CheckUsername(User form)
+        {
+            binput = new BaseInput();
+            User modelUser = new User();
+
+            BaseOutput checkExistenseOut = srv.WS_GetUserByUserName(binput, form.UserName, out modelUser.FutureUser);
+
+            if(modelUser.FutureUser != null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool CheckPin(User form)
+        {
+            binput = new BaseInput();
+            User modelUser = new User();
+
+            BaseOutput personsOut = srv.WS_GetPersons(binput, out modelUser.PersonArray);
+            List<tblPerson> PersonFromPin = form.Pin == null ? new List<tblPerson>() : modelUser.PersonArray.Where(x => x.PinNumber == form.Pin).ToList();
+
+            if(PersonFromPin.Count != 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool CheckVoen(User form)
+        {
+            binput = new BaseInput();
+            User modelUser = new User();
+
+
+            BaseOutput orgOut = srv.WS_GetForeign_Organizations(binput, out modelUser.ForeignOrganisationArray);
+            List<tblForeign_Organization> OrgFromVoen = form.Voen == null ? new List<tblForeign_Organization>() : modelUser.ForeignOrganisationArray.Where(x => x.voen == form.Voen).ToList();
+
+            if(OrgFromVoen.Count != 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public bool CheckExistence(User form)
         {
             binput = new BaseInput();
@@ -74,7 +119,7 @@ namespace Emsal.UI.Controllers
         public ActionResult Index(string uid, int? type)
         {
             //ModelState.Clear();
-
+            TempData.Clear();
             Session["arrNum"] = null;
 
             User modelUser = new User();
@@ -92,11 +137,6 @@ namespace Emsal.UI.Controllers
             BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
             modelUser.MobilePhonePrefixList = modelUser.EnumValueArray.ToList();
 
-
-            BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelUser.EnumCategory);
-            BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
-            modelUser.WorkPhonePrefixList = modelUser.EnumValueArray.ToList();
-
             return View(modelUser);
         }
 
@@ -105,7 +145,6 @@ namespace Emsal.UI.Controllers
         {
             if (CheckExistence(form))
             {
-
                 binput = new BaseInput();
 
                 User modelUser = new User();
@@ -150,8 +189,6 @@ namespace Emsal.UI.Controllers
 
                 modelUser.MobilePhone = form.MobilePhone;
                 modelUser.mobilePhonePrefix = form.mobilePhonePrefix;
-                modelUser.WorkPhone = form.WorkPhone;
-                modelUser.workPhonePrefix = form.workPhonePrefix;
 
 
                 if (modelUser.uid != null)
@@ -165,7 +202,19 @@ namespace Emsal.UI.Controllers
             }
             else
             {
-                TempData["UserSignUpError"] = "info";
+                if (!CheckUsername(form))
+                {
+                    TempData["UserNameExists"] = "info";
+                }
+                //else if (!CheckPin(form))
+                //{
+                //    TempData["YouaresignedUp"] = "info";
+                //}
+                //else if (!CheckVoen(form))
+                //{
+                //    TempData["YouaresignedUp"] = "info";
+                //}
+              
                 return RedirectToAction("Index");
             }
         }
@@ -183,9 +232,7 @@ namespace Emsal.UI.Controllers
             modelUser.Email = FutureUser.Email;
 
             modelUser.MobilePhone = UserInfo.MobilePhone;
-            modelUser.WorkPhone = UserInfo.WorkPhone;
             modelUser.mobilePhonePrefix = UserInfo.mobilePhonePrefix;
-            modelUser.workPhonePrefix = UserInfo.workPhonePrefix;
 
             modelUser.FutureUserRole = userTpe;
 
@@ -237,8 +284,6 @@ namespace Emsal.UI.Controllers
             modelUser.finvoenType = form.finvoenType;
             modelUser.uid = form.uid;
             modelUser.MobilePhone = form.MobilePhone;
-            modelUser.WorkPhone = form.WorkPhone;
-            modelUser.workPhonePrefix = form.workPhonePrefix;
             modelUser.mobilePhonePrefix = form.mobilePhonePrefix;
 
             if (form.Voen == null)
@@ -294,9 +339,7 @@ namespace Emsal.UI.Controllers
             modelUser.FullAddress = UserInfo.FullAddress;
             modelUser.Email = UserInfo.Email;
             modelUser.MobilePhone = UserInfo.MobilePhone;
-            modelUser.WorkPhone = UserInfo.WorkPhone;
             modelUser.mobilePhonePrefix = UserInfo.mobilePhonePrefix;
-            modelUser.workPhonePrefix = UserInfo.workPhonePrefix;
 
             return View("AddPersonInfo", modelUser);
         }
@@ -353,8 +396,10 @@ namespace Emsal.UI.Controllers
                 modelUser.UserRole.UserIdSpecified = true;
                 modelUser.UserRole.Status = 1;
                 modelUser.UserRole.StatusSpecified = true;
-                BaseOutput addUserRole = srv.WS_AddUserRole(binput, modelUser.UserRole, out modelUser.UserRole);
-
+                if(form.uid == null)
+                {
+                    BaseOutput addUserRole = srv.WS_AddUserRole(binput, modelUser.UserRole, out modelUser.UserRole);
+                }
             }
 
 
@@ -460,22 +505,6 @@ namespace Emsal.UI.Controllers
 
             }
 
-            //add communications
-            if (form.WorkPhone != "")
-            {
-                modelUser.ComunicationInformations = new tblCommunication();
-                BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelUser.EnumValue);
-                modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
-                modelUser.ComunicationInformations.comTypeSpecified = true;
-                modelUser.ComunicationInformations.communication = form.workPhonePrefix + form.WorkPhone;
-                modelUser.ComunicationInformations.description = form.workPhonePrefix + form.WorkPhone;
-                modelUser.ComunicationInformations.PersonId = modelUser.FuturePerson.Id;
-                modelUser.ComunicationInformations.PersonIdSpecified = true;
-                modelUser.ComunicationInformations.priorty = 1;
-                modelUser.ComunicationInformations.priortySpecified = true;
-                BaseOutput comunicationnOUtt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
-
-            }
 
             if (form.MobilePhone != "")
             {
@@ -511,9 +540,7 @@ namespace Emsal.UI.Controllers
             modelUser.FullAddress = UserInfo.FullAddress;
             modelUser.Email = UserInfo.Email;
             modelUser.MobilePhone = UserInfo.MobilePhone;
-            modelUser.WorkPhone = UserInfo.WorkPhone;
             modelUser.mobilePhonePrefix = UserInfo.mobilePhonePrefix;
-            modelUser.workPhonePrefix = UserInfo.workPhonePrefix;
 
             BaseOutput adminunits = srv.WS_GetPRM_AdminUnits(binput, out modelUser.PRMAdminUnitArray);
             modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.Where(x => x.ParentID == 0).ToList();
@@ -686,22 +713,6 @@ namespace Emsal.UI.Controllers
                 BaseOutput foreignOrganisationOut = srv.WS_AddForeign_Organization(binput, modelUser.ForeignOrganisation, out modelUser.ForeignOrganisation);
             }
 
-            //add communications
-            if (form.WorkPhone != null)
-            {
-                modelUser.ComunicationInformations = new tblCommunication();
-                BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelUser.EnumValue);
-                modelUser.ComunicationInformations.comType = (int)modelUser.EnumValue.Id;
-                modelUser.ComunicationInformations.comTypeSpecified = true;
-                modelUser.ComunicationInformations.communication = form.workPhonePrefix + form.WorkPhone;
-                modelUser.ComunicationInformations.description = form.workPhonePrefix + form.WorkPhone;
-                modelUser.ComunicationInformations.PersonId = modelUser.Manager.Id;
-                modelUser.ComunicationInformations.PersonIdSpecified = true;
-                modelUser.ComunicationInformations.priorty = 1;
-                modelUser.ComunicationInformations.priortySpecified = true;
-                BaseOutput comunicationnOUtt = srv.WS_AddCommunication(binput, modelUser.ComunicationInformations, out modelUser.ComunicationInformations);
-
-            }
 
             if (form.MobilePhone != null)
             {
