@@ -80,3 +80,10 @@ H:\projects\Emsal_09.09.2016_Ferid\EmsalFront\Emsal.Utility\bin\Debug\NLog.xml
 H:\projects\Emsal_09.09.2016_Ferid\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.csprojResolveAssemblyReference.cache
 H:\projects\Emsal_09.09.2016_Ferid\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.dll
 H:\projects\Emsal_09.09.2016_Ferid\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.pdb
+H:\projects\Emsal_14.09.2016\EmsalFront\Emsal.Utility\bin\Debug\Emsal.Utility.dll
+H:\projects\Emsal_14.09.2016\EmsalFront\Emsal.Utility\bin\Debug\Emsal.Utility.pdb
+H:\projects\Emsal_14.09.2016\EmsalFront\Emsal.Utility\bin\Debug\NLog.dll
+H:\projects\Emsal_14.09.2016\EmsalFront\Emsal.Utility\bin\Debug\NLog.xml
+H:\projects\Emsal_14.09.2016\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.csprojResolveAssemblyReference.cache
+H:\projects\Emsal_14.09.2016\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.dll
+H:\projects\Emsal_14.09.2016\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.pdb

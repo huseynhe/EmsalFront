@@ -1078,6 +1078,8 @@
     <Content Include="Views\OfferProduction\Unitofmeasurement.cshtml" />
     <Content Include="Views\Login\ForgetPassword.cshtml" />
     <Content Include="Views\Login\ResetPassword.cshtml" />
+    <Content Include="Views\OfferProduction\Edit.cshtml" />
+    <Content Include="Views\OfferProduction\ProductionCalendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

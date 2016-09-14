@@ -47,7 +47,9 @@
                     <br />
 			 @Html.LabelFor(model => model.size, htmlAttributes: new { @class = "control-label" })
                     @*@Html.TextBoxFor(model => model.size, new { @class = "form-control",type="number", Value = "" })*@
-              <input onchange="getSizeValue(this)" onkeyup="getSizeValue(this)" type="number" step="0.01" min="0.001" required name="size[5555]" id="size[5555]" placeholder="3 və ya 1.5" class="form-control size">
+              <input inpsize onchange="getSizeValue(this)" onkeyup="getSizeValue(this)" type="number" step="0.01" min="0.001" required name="size[5555]" id="size[5555]" placeholder="3 və ya 1.5" class="form-control size">
+
+                    <input hidden hinpsize class="hsize" />
                     <span data-valmsg-replace="true" data-valmsg-for="size[5555]" class="field-validation-valid text-danger"></span>
 		</div>
 

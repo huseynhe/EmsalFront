@@ -4,6 +4,12 @@
     ViewBag.Title = "ProductCatalog";
     Layout = "";
     long enumVal = 0;
+    string dis = "";
+
+    if(Model.opId==0)
+    {
+        dis = "disabled";
+    }
 }
 
 @if (Model.ProductCatalogListFEA != null)
@@ -17,7 +23,7 @@
         if (Model.ProductCatalogListFEA[i].Count() > 0)
         {
             <div class="form-group col-md-3">
-                <select disabled name="prodId[@{ @Model.arrPNum }]" required onchange="GetProductCatalog(this)" size="8" class="form-control unicase-form-control select">
+                <select @dis name="prodId[@{ @Model.arrPNum }]" required onchange="GetProductCatalog(this)" size="8" class="form-control unicase-form-control select">
                     @foreach (var item in Model.ProductCatalogListFEA[i])
                     {
                         if (item.Id == Model.productIds[i + 1])
@@ -47,7 +53,7 @@
                     <div class="form-group">
                         <label class="control-label" for="size">@item.description</label>
                         <input hidden name="enumCat[@{ @e }]" value="@item.Id" />
-                        <select required disabled class="form-control select2">
+                        <select required @dis class="form-control select2">
                             <option value="">Seçim edin</option>
                             @foreach (var item2 in Model.EnumValueList)
                             {
@@ -79,10 +85,13 @@
 
 
 
-
     <div class="col-md-4">
+        @if (dis != "")
+        {
+            <input hidden id="osize" value="@Model.psize" />
         <label for="size" class="control-label">&nbsp;</label>
         <h4 class="text-danger">@Html.LabelFor(model => model.size, htmlAttributes: new { @class = "control-label" }) : @Model.psize</h4>
+        }
     </div>
         }
     }

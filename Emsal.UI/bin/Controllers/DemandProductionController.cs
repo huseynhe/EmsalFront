@@ -933,10 +933,15 @@ namespace Emsal.UI.Controllers
                     return RedirectToAction("Index", "DemandProduction");
                 }
 
-                //if (modelDemandProduction.DemandProduction.grup_Id != null)
-                //{
-                //    return RedirectToAction("Index", "DemandProduction");
-                //}
+                if (modelDemandProduction.DemandProduction.grup_Id != null)
+                {
+                    BaseOutput rev = srv.WS_GetEnumValueByName(baseInput, "reject", out modelDemandProduction.EnumValue);
+
+                    if(modelDemandProduction.DemandProduction.state_eV_Id != modelDemandProduction.EnumValue.Id && modelDemandProduction.DemandProduction.monitoring_eV_Id != modelDemandProduction.EnumValue.Id)
+                    {
+                        return RedirectToAction("Index", "DemandProduction");
+                    }
+                }
 
                 modelDemandProduction.Id = modelDemandProduction.DemandProduction.Id;
                 modelDemandProduction.productId = (int)modelDemandProduction.DemandProduction.product_Id;

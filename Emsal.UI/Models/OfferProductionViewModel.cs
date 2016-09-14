@@ -106,6 +106,7 @@ namespace Emsal.UI.Models
         public long totalSize = 0;
 
         public long Id { get; set; }
+        public long opId { get; set; }
         public long productionCalendarId { get; set; }
         public long productAddressId { get; set; }
         public long[] productAddressIds { get; set; }
@@ -142,6 +143,9 @@ public int productId { get; set; }
         public int[] enumVal { get; set; }
         public int[] hour { get; set; }
         public int[] day { get; set; }
+
+
+        public long[] pcId { get; set; }
 
         [Display(Name = "Ünvan")]
         //[Required(ErrorMessage = "{0} xanası məcburidir.")]

@@ -181,6 +181,36 @@ function deleteSelectedDocument(id) {
     });
 }
 
+function deleteProductionCalendar(id, dId) {
+    $.ajax({
+        url: '/OfferProduction/DeleteProductionCalendar?&id=' + id,
+        type: 'GET',
+        data: {},
+        success: function (result) {
+            getProductionCalendar(dId);
+            getSelectedProducts();
+        },
+        error: function () {
+
+        }
+    });
+}
+
+
+function getProductionCalendar(dId) {
+    $.ajax({
+        url: '/OfferProduction/ProductionCalendar?dId=' + dId,
+        type: 'GET',
+        data: {},
+        success: function (result) {
+            $('#productionCalendar_' + dId).html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
+
 function deleteSelectedOfferProduct(id) {
     $.ajax({
         url: '/OfferProduction/DeleteSelectedOfferProduct?&id=' + id,

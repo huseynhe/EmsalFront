@@ -204,6 +204,7 @@ function getWeekdayInMonth(month, year, elem) {
     }
 
     $(elem).parent().parent().find(".howMany").val(cweekdays);
+    $(elem).parent().parent().find(".size").val($(elem).parent().parent().find(".hsize").val() / cweekdays);
 
     var ths;
     ths = $(elem).parent().parent().find(".size");
@@ -228,6 +229,7 @@ function getAllCheckedMonth() {
     var selectedMonth = new Array();
     var selectedMonthName = new Array();
     var selectedMonthNameUI = new Array();
+    var osize = 0;
 
     //if ($('#startDate').val() == "")
     //{
@@ -249,6 +251,11 @@ function getAllCheckedMonth() {
     //alert(sDate);
     //alert(eDate);
     $("#totalSize").html("");
+
+    if ($("#osize").val() != undefined)
+    {
+    osize = $("#osize").val();
+    }
 
     var n = jQuery(".ch:checked").length;
     var nc = 0;
@@ -315,6 +322,14 @@ function getAllCheckedMonth() {
             month = '<input hidden name="month[' + nc + ']" value="' + $(this).parent().find('.ch').val() + '">';
             year = '<input hidden name="year[' + nc + ']" value="' + yearCalendar + '">';
             howManySelect = '<input hidden name="howMany[' + nc + ']" class="howMany" value="' + howMany + '">';
+
+            var ts;
+            if (n > 0 && osize > 0) {
+                ts = Math.round(((osize / n) / howMany)*1000)/1000;
+            }
+
+            Unitofmeasurementresultn = Unitofmeasurementresultn.replace('inpsize', 'value="' + ts + '"');
+            Unitofmeasurementresultn = Unitofmeasurementresultn.replace('hinpsize', 'value="' + ts + '"');
 
                 selectedMonth.push($(this));
                 selectedMonthName.push($(this).parent().find('.chn').html());
