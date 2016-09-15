@@ -163,7 +163,7 @@ function getSizeValue(elem)
             ts = ts + (parseFloat(tv) * hm);
         })
 
-        ts = (Math.round(ts * 1000) / 1000);
+        ts = (Math.round(ts * 100) / 100);
 
         $("#totalSize").html("Toplam miqdarı (həcmi): "+ts);
     }
@@ -325,7 +325,7 @@ function getAllCheckedMonth() {
 
             var ts;
             if (n > 0 && osize > 0) {
-                ts = Math.round(((osize / n) / howMany)*1000)/1000;
+                ts = Math.round(((osize / n) / howMany)*100)/100;
             }
 
             Unitofmeasurementresultn = Unitofmeasurementresultn.replace('inpsize', 'value="' + ts + '"');
