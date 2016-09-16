@@ -1,185 +1,193 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="keywords" content="MediaCenter, Template, eCommerce">
-    <meta name="robots" content="all">
+    <title>EMSAL</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
 
-    <title>emsal</title>
-    
-    <link href="~/Content/UI/css/bootstrap.css" rel="stylesheet">
-    <link href="~/Content/UI/css/bootstrap-theme.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="~/Content/UI/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/UI/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/UI/css/templatemo_misc.css">
+    <link href="~/Content/UI/css/templatemo_style.css" rel="stylesheet">
     <link href="~/Content/UI/css/style.css" rel="stylesheet">
-    <link href="~/Content/UI/css/owl.carousel.css" rel="stylesheet">
-    <link href="~/Content/UI/css/owl.theme.css" rel="stylesheet">
-    <link href="~/Content/UI/css/ihover.css" rel="stylesheet">
-    <link href="~/Content/UI/css/bootstrap-select.css" rel="stylesheet">
-    <link href="~/Content/UI/css/font-awesome.css" rel="stylesheet" />
 
-    <script src="~/Content/UI/js/jquery-1.11.3.min.js"></script>
-    <script src="~/Content/UI/js/bootstrap.js"></script>
-    <script src="~/Content/UI/js/owl.carousel.js"></script>
-    <script src="~/Content/UI/js/slide_elan.js"></script>
-    <script src="~/Content/UI/js/bootstrap-select.js"></script>
+    <script src="~/Content/UI/js/jquery-2.1.4.min.js"></script>
+
+    <script src="~/Content/UI/js/jquery.lightbox.js"></script>
+
+    <script src="~/Content/UI/js/bootstrap.min.js"></script>
+    <script src="~/Content/UI/js/templatemo_custom.js"></script>
 
     <script src="~/Content/UI/js/custom.js"></script>
     <script src="~/Content/UI/js/addPotentialUser.js"></script>
-    @*<script src="~/Content/UI/js/specialSummary.js"></script>*@
-
-
     <script src="~/Content/UI/js/emsal.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    @*<script src="//code.jquery.com/jquery-1.10.2.js"></script>*@
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <link rel="stylesheet" href="/resources/demos/style.css">
+
+    <script>
+        function showhide() {
+            var div = document.getElementById("newpost");
+            if (div.style.display !== "none") {
+                div.style.display = "none";
+            }
+            else {
+                div.style.display = "block";
+            }
+        }
+    </script>
 
 </head>
 <body>
+    <div class="site-header">
+        <div class="main-navigation">
+            <div class="responsive_menu">
+                <ul>
+                    <li><a class="show-1 templatemo_home" href="/">Baş səhifə</a></li>
+                    <li><a class="show-2 templatemo_page2" href="/Home/Announcement">Elanlar</a></li>
+                    <li><a class="show-3 templatemo_page3" href="/Home/PotentialUser">Potensial istehsalçılar</a></li>
+                    <li><a class="show-4 templatemo_page4" href="/OfferHome">Təkliflər</a></li>
+                    <li><a class="show-5 templatemo_page5" href="/Home/Services">Xidmətlər</a></li>
+                    <li><a class="show-6 templatemo_page6" href="/">Qanunvericilik</a></li>
+                    <li><a class="show-7 templatemo_page7" href="/Home/Contact">Əlaqə</a></li>
 
+                    @if (Session["musername"] == null)
+                    {
+                    <li><a class="show-8 templatemo_page8" href="/Login">Daxil ol</a></li>
+                    <li><a class="show-9 templatemo_page9" href="/SignUp">Qeydiyyat</a></li>
+                    }
+                    else
+                    {
+                        <li><a class="show-8 templatemo_page8" href="/">@Session["musername"]</a></li>
+                        <li><a class="show-9 templatemo_page9" href="/Login/Logout">Çıxış</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="container">
+                <div class="row templatemo_gallerygap">
+                    <div class="col-md-12 responsive-menu">
+                        <a href="#" class="menu-toggle-btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div> <!-- /.col-md-12 -->
 
-    <header>
+                    <div class="col-md-12 main_menu">
+                        <ul>
+                            <li>
+                                <a href="/"><span class="fa fa-home fa-2x"></span>BAŞ SƏHİFƏ</a>
+                            </li>
+
+                            <li>
+                                <a @*class="active"*@ href="/Home/Announcement"><span class="fa fa-bars"></span>ELANLAR</a>
+                            </li>
+                            <li>
+                                <a href="/Home/PotentialUser"><span class="fa fa-users"></span>POTENSİAL İSTEHSALÇILAR</a>
+                            </li>
+                            <li>
+                                <a href="/OfferHome"><span class="fa fa-list"></span>TƏKLİFLƏR</a>
+                            </li>
+                            <li>
+                                <a href="/Home/Services"><span class="fa fa-cogs"></span>XİDMƏTLƏR</a>
+                            </li>
+                            <li>
+                                <a href="/"><span class="fa fa-book"></span>QANUNVERİCİLİK</a>
+                            </li>
+                            <li>
+                                <a href="/Home/Contact"><span class="fa fa-envelope"></span>ƏLAQƏ</a>
+                            </li>
+                            @if (Session["musername"] == null)
+                            {
+                                <li>
+                                    <a href="/Login"><span class="fa fa-lock"></span>DAXİL OL</a>
+                                </li>
+                                <li>
+                                    <a href="/SignUp"><span class="fa fa-user"></span>QEYDİYYAT</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="/"><span class="fa fa-user"></span>@Session["musername"]</a>
+                                </li>
+                                <li>
+                                    <a href="/Login/Logout"><span class="fa fa-sign-out"></span>ÇIXIŞ</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row search_btn">
+                    <div class="col-md-3 col-sm-12">
+                        <a href="/"><img src="~/Content/UI/images/logo1.png" alt="" style="height:100px;"></a>
+                    </div>
+                    <div class="col-md-9 col-sm-12" style="margin-top:25px;">
+                        <div class="input-group">
+                            <input autocomplete="off" onkeyup="searchAnnouncement(this)" type="text" class="form-control input-lg" id="formGroupInputLarge" placeholder="Elanlar üzrə axtarış ...">
+                            <div style="position: absolute; width: 100%; float: left; z-index: 1000;" id="searchAnnouncementResult"></div>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span class="fa fa-search mb-0"></span></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- /.container -->
+        </div> <!-- /.main-navigation -->
+    </div>
+
+    <div>
+        @RenderBody()
+    </div>
+    <!-- gallery end -->
+    <!-- footer start -->
+    <div class="templatemo_footer">
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 col-md-2 text-center">
-                    <a href="/">
-                        <img class="logo" src="/Content/UI/img/logo.png">
-                        <h5 class="text-white">Satınalan təşkilatların ərzaq məhsullarına tələbatı portalı</h5>
+                <div class="col-md-9 col-sm-12">
+                    <span>Copyright &copy; 2016, INTEGRATION</span>
+                </div>
+                <div class="col-md-3 col-sm-12 templatemo_rfooter">
+                    <a href="#">
+                        <div class="hex_footer">
+                            <span class="fa fa-facebook"></span>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="hex_footer">
+                            <span class="fa fa-twitter"></span>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="hex_footer">
+                            <span class="fa fa-linkedin"></span>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="hex_footer">
+                            <span class="fa fa-rss"></span>
+                        </div>
                     </a>
                 </div>
-                <div class="col-sm-12 col-md-10">
-                    <div class="row"><br />
-                        <h4 hidden class="text-white text-bold text-center" style="padding-bottom:20px;">Dövlət müəssisə və təşkilatları (idarələri) tərəfindən ərzaq məhsullarının mərkəzləşdirilmiş qaydada dövlət büdcəsinin vəsaitləri hesabına satın alınması Portalı</h4>
-                        <div class="col-sm-12 col-md-9">
-
-                            <div class="row">
-                                <div class="col-sm-12 col-md-9">
-                                    <form class="form-inline">
-                                        <div class="form-group col-md-12">
-                                            <input autocomplete="off" onkeyup="searchAnnouncement(this)" style="width:100%;" type="text" class="form-control" id="formGroupInputLarge" placeholder="Elanlar üzrə axtarış ...">
-                                            <div style="position: absolute; width: calc(100% - 30px); float: left; z-index: 1000;" id="searchAnnouncementResult"></div>
-                                        </div>
-                                        @*<button type="button" class="btn bg_colorG text-white text-bold col-md-4">AXTAR</button>*@
-                                    </form>
-                                </div>
-                                <div class="col-sm-12 col-md-3">
-                                    <img class="chagri" src="/Content/UI/img/cagri.png">
-                                </div>
-
-                            </div>
-
-
-                        </div>
-
-                        <div class="col-sm-12 col-md-3">
-                            <div class="reg">
-                                @if (Session["musername"] == null)
-                                {
-                                    <a href="/Login" type="button" class="btn enter text-white text-bold bg_colorG box-shadow">GİRİŞ</a>
-                                        <a href="/SignUp" type="button" class="btn text-white text-bold bg_colorG box-shadow">QEYDİYYAT</a>
-                                }
-                                else
-                                {
-                                    <div class="btn text-white text-bold bg_colorG box-shadow">@Session["musername"]</div>
-                                    <a href="/Login/Logout" type="button" class="btn text-white text-bold bg_colorG box-shadow"><span class="glyphicon glyphicon-log-out"></span><span>&nbsp;ÇIXIŞ</span> </a>
-                                }
-                            </div>
-                            <div class="clear-both"></div>
-                        </div>
-                    </div>
-
-                    <div class="row" style="margin-top:20px;">
-
-                        <div class="col-sm-12 col-md-8">
-                            <nav class="navbar navbar-default">
-                                <div class="container">
-                                    <!-- Brand and toggle get grouped for better mobile display -->
-                                    <div class="navbar-header">
-                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                            <span class="sr-only">Toggle navigation</span>
-                                            <span class="icon-bar"></span>
-                                            <span class="icon-bar"></span>
-                                            <span class="icon-bar"></span>
-                                        </button>
-
-                                    </div>
-
-                                    <!-- Collect the nav links, forms, and other content for toggling -->
-                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                        <ul class="nav navbar-nav">
-                                            <li class="dropdown">
-                                                <a href="/" id="menu">ELANLAR</a>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a href="/Home/PotentialUser" id="menu">POTENSİAL İSTEHSALÇILAR</a>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a href="/OfferHome" id="menu">TƏKLİFLƏR</a>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a href="/" id="menu">QANUNVERİCİLİK</a>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a href="/" id="menu">HAQQIMIZDA</a>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a href="/Home/Contact" id="menu">ƏLAQƏ</a>
-                                            </li>
-                                        </ul>
-                                    </div><!-- /.navbar-collapse -->
-                                </div><!-- /.container-fluid -->
-                            </nav>
-                        </div>
-
-                        <div class="col-sm-12 col-md-4">
-                            <div class="insert_elan box-shadow">
-                                <a href="/OfferProduction">
-                                    <img src="/Content/UI/img/insert_elan.png">
-                                    <h3>Təklif yerləşdirmək</h3>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
             </div>
-
         </div>
-
-    </header>
-
-
-        <div>
-            @RenderBody()
-        </div>
-
-    <footer>
-        <div class="container">
-            <div class="footer_below">
-                <div class="f-left">
-                    <span>© Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi, 2016</span>
-                </div>
-                <div class="f-right">
-                    <a href="/"><img src="~/Content/UI/img/face.png"></a>
-                    <a href="/"><img src="~/Content/UI/img/twit.png"></a>
-                    <a href="/"><img src="~/Content/UI/img/instag.png"></a>
-                    <a href="/Home/Pages"><img src="~/Content/UI/img/google.png"></a>
-
-                </div>
-
-            </div>
-            <div class="clear-both"></div>
-
-        </div>
-    </footer>
+    </div>
+    <!-- footer end -->
+    <script>
+        $('.gallery_more').click(function () {
+            var $this = $(this);
+            $this.toggleClass('gallery_more');
+            if ($this.hasClass('gallery_more')) {
+                $this.text('Load More');
+            } else {
+                $this.text('Load Less');
+            }
+        });
+    </script>
 
 
-
-    <script src="~/Content/js/jquery.validate.js"></script>
-    <script src="~/Content/js/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Content/UI/js/jquery.validate.js"></script>
+    <script src="~/Content/UI/js/jquery.validate.unobtrusive.js"></script>
 
     <link href="~/Content/UI/css/select2.min.css" rel="stylesheet" />
     <script src="~/Content/UI/js/select2.min.js"></script>
@@ -196,12 +204,12 @@
                 });
             });
         });
-    </script> 
+    </script>
 
 
     <script>
         $(function () {
-            $("#datepicker").datepicker();
+            //$("#datepicker").datepicker();
         });
         $("#userType").on("change", function () {
             if ($("#userType").val() == "legalPerson") {
@@ -215,13 +223,14 @@
         })
     </script>
     <script>
-    $(".numbersOnly").on("keyup", function () {
-        this.value = this.value.replace(/[^0-9\.]/g, '');
+        $(".numbersOnly").on("keyup", function () {
+            this.value = this.value.replace(/[^0-9\.]/g, '');
 
-        if (this.value.length > 7) {
-            this.value = this.value.slice(0, 7);
-        }
-    })
+            if (this.value.length > 7) {
+                this.value = this.value.slice(0, 7);
+            }
+        })
     </script>
+
 </body>
 </html>

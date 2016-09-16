@@ -9,58 +9,71 @@
     int i = 0;
 }
 
+<div id="menu-container">
+    <!-- gallery start -->
+    <div class="content homepage" id="menu-1">
+        <div class="container">
+            <div class="right_below" id="center" style="padding-top:0px;">
 
+                <div class="elanlar">
+                    <h2 class="text-bold mt-50">TƏKLİFLƏR</h2>
+                    <ul class="thumbnails list-unstyled list-inline">
 
-<ul class="thumbnails list-unstyled list-inline">
-    @foreach (var item in Model.PagingProduction)
-    {
-                i = i + 1;
-        <li class="col-md-3">
-            <div class="thumbnail text-center">
-                @if (item.productDocumentList.Count() > 0)
+                        @foreach (var item in Model.PagingProduction)
+                        {
+                            i = i + 1;
+                            <li class="col-md-2">
+                                <div class="thumbnail text-center" style="width:100%;">
+                                    @if (item.productDocumentList.Count() > 0)
                 {
-    <img class="img-responsive" src="@item.productDocumentList.FirstOrDefault().documentUrl@item.productDocumentList.FirstOrDefault().documentName" />
-                }
-                else
-                {
-                    <img src="~/Content/img/noimage.png" />
-                }
+                                        <img class="img-responsive" src="@item.productDocumentList.FirstOrDefault().documentUrl@item.productDocumentList.FirstOrDefault().documentName" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/UI/images/noimage.png" />
+                                    }
+                                    <div class="caption">
+                                        <h4 class="text-bold">@item.productName (@item.productParentName)</h4>
+                                        <h4 class="text-bold text-red">@item.quantity @item.enumValueName</h4>
+                                        <a href="/OfferHome/OfferProductionDetail/@item.productionID" class="btn btn-default text-bold f-left">BAX</a>
+                                        <button type="button" class="btn btn-primary text-white text-bold f-right">@item.unitPrice AZN</button>
+                                    </div>
+                                </div>
+                            </li>
+                            if (i == 6)
+                            {
+                                <div class="clearfix"></div>
+                                i = 0;
+                            }
+                        }
 
-                <div class="caption">
-                    <h4 class="text-bold">@item.productName (@item.productParentName)</h4>
-                    <h4 class="text-bold text-red">@item.quantity @item.enumValueName</h4>
-                    <a href="/OfferHome/OfferProductionDetail/@item.productionID" class="btn btn-default text-bold f-left">BAX</a>
-                    <button type="button" class="btn btn-primary text-white text-bold f-right">@item.unitPrice AZN</button>
+                        @if (Model.PagingProduction.Count() == 0)
+                        {
+                            <h5 class="text-center">Qeyd tapılmadı</h5>
+                        }
+
+                    </ul>
+                </div>
+                <div class="navig">
+                    <div class="clearfix"></div>
+
+                    @if (Model.noPaged == 0)
+                    {
+                        <div class="box-footer clearfix" style="color:#fff;">
+                            Səhifə @(Model.PagingProduction.PageCount < Model.PagingProduction.PageNumber ? 0 : Model.PagingProduction.PageNumber) (cəmi @Model.PagingProduction.PageCount)
+                            @Html.PagedListPager(Model.PagingProduction, page => Url.Action("OfferProduction", new { page }))
+                        </div>
+                    }
                 </div>
             </div>
-        </li>
-        if(i==4)
-        {
-<div class="clearfix"></div>
-            i = 0;
-        }
-    }
-</ul>
 
-        @if (Model.PagingProduction.Count() == 0)
-        {
-            <h5 class="text-center">Qeyd tapılmadı</h5>
-        }
-
-
-<div class="navig">
-
-<div class="clearfix"></div>
-
-@if (Model.noPaged==0)
-{
-   <div class="box-footer clearfix">
-    Səhifə @(Model.PagingProduction.PageCount < Model.PagingProduction.PageNumber ? 0 : Model.PagingProduction.PageNumber) (cəmi @Model.PagingProduction.PageCount)
-    @Html.PagedListPager(Model.PagingProduction, page => Url.Action("OfferProduction", new { page }))
-</div> 
-}
-
+        </div>
     </div>
+
+    <div class="clear"></div>
+
+</div>
+
 
 
 

@@ -1,0 +1,474 @@
+﻿@model Emsal.UI.Models.ProductCatalogViewModel
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<div id="menu-container">
+    <!-- gallery start -->
+    <div class="content homepage" id="menu-1">
+        <div class="container">
+            <div class="row templatemo_servicerow" style="margin-top:285px;">
+                <div class="templatemo_hexservices none-block1 col-sm-6">
+                    <div class="blok text-center">
+                        <div class="hexagon-a" style="display:none;">
+                            <a class="hlinktop" href="/Home/PotentialUser">
+                                <div class="hexa-a">
+                                    <div class="hcontainer-a">
+                                        <div class="vertical-align-a">
+                                            <span class="texts-a"><i class="fa fa-users"></i><br>Potensial istehsalçılar</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hexagonservices" style="display:none;">
+                            <a class="hlinkbott" href="#">
+                                <div class="hexa">
+                                    <div class="hcontainer">
+                                        <div class="vertical-align">
+                                            <span class="texts"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="templatemo_servicetext">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="templatemo_hexservices col-sm-6 col-xs-6">
+                    <div class="blok text-center">
+                        <div class="hexagon-a">
+                            <a class="hlinktop" href="/">
+                                <div class="hexa-a">
+                                    <div class="hcontainer-a">
+                                        <div class="vertical-align-a">
+                                            <span class="texts-a"><i class="fa fa-home"></i><br>Baş səhifə</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hexagonservices">
+                            <a class="hlinkbott" href="#">
+                                <div class="hexa">
+                                    <div class="hcontainer">
+                                        <div class="vertical-align">
+                                            <span class="texts"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="templatemo_servicetext">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="templatemo_hexservices none-block1 col-sm-6" style="width:10%;">
+                    <div class="blok text-center">
+                        <div class="hexagon-a" style="display:none;">
+                            <a class="hlinktop" href="/OfferHome">
+                                <div class="hexa-a">
+                                    <div class="hcontainer-a">
+                                        <div class="vertical-align-a">
+                                            <span class="texts-a"><i class="fa fa-list"></i><br>Təkliflər</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hexagonservices" style="display:none;">
+                            <a class="hlinkbott" href="#">
+                                <div class="hexa">
+                                    <div class="hcontainer">
+                                        <div class="vertical-align">
+                                            <span class="texts"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="templatemo_servicetext">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="templatemo_hexservices col-sm-6">
+                    <div class="blok text-center">
+                        <div class="hexagon-a">
+                            <a class="hlinktop" href="/Home/Announcement">
+                                <div class="hexa-a">
+                                    <div class="hcontainer-a">
+                                        <div class="vertical-align-a">
+                                            <span class="texts-a"><i class="fa fa-bars"></i><br>Elanlar</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hexagonservices">
+                            <a class="hlinkbott" href="#">
+                                <div class="hexa">
+                                    <div class="hcontainer">
+                                        <div class="vertical-align">
+                                            <span class="texts"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="templatemo_servicetext">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="templatemo_hexservices none-block1 col-sm-6">
+                    <div class="blok text-center">
+                        <div class="hexagon-a" style="display:none;">
+                            <a class="hlinktop" href="/">
+                                <div class="hexa-a">
+                                    <div class="hcontainer-a">
+                                        <div class="vertical-align-a">
+                                            <span class="texts-a"><i class="fa fa-book"></i><br>Qanunvericilik</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hexagonservices" style="display:none;">
+                            <a class="hlinkbott" href="#">
+                                <div class="hexa">
+                                    <div class="hcontainer">
+                                        <div class="vertical-align">
+                                            <span class="texts"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="templatemo_servicetext">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row templatemo_servicerow">
+                <div class="templatemo_hexservices col-sm-6">
+                    <div class="blok text-center">
+                        <div class="hexagon-a">
+                            <a class="hlinktop" href="/OfferHome">
+                                <div class="hexa-a">
+                                    <div class="hcontainer-a">
+                                        <div class="vertical-align-a">
+                                            <span class="texts-a"><i class="fa fa-list"></i><br>Təkliflər</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hexagonservices">
+                            <a class="hlinkbott" href="#">
+                                <div class="hexa">
+                                    <div class="hcontainer">
+                                        <div class="vertical-align">
+                                            <span class="texts"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="templatemo_servicetext">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="templatemo_hexservices none-block1 col-sm-6">
+                    <div class="blok text-center">
+                        <div class="hexagon-a" style="display:none;">
+                            <a class="hlinktop" href="/Home/Announcement">
+                                <div class="hexa-a">
+                                    <div class="hcontainer-a">
+                                        <div class="vertical-align-a">
+                                            <span class="texts-a"><i class="fa fa-bars"></i><br>Elanlar</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hexagonservices" style="display:none;">
+                            <a class="hlinkbott" href="#">
+                                <div class="hexa">
+                                    <div class="hcontainer">
+                                        <div class="vertical-align">
+                                            <span class="texts"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="templatemo_servicetext">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="templatemo_hexservices none-block col-sm-6">
+                    <div class="blok text-center">
+                        <div class="hexagon-a" style="display:none;">
+                            <a class="hlinktop" href="/OfferHome">
+                                <div class="hexa-a">
+                                    <div class="hcontainer-a">
+                                        <div class="vertical-align-a">
+                                            <span class="texts-a"><i class="fa fa-list"></i><br>Təkliflər</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hexagonservices" style="display:none;">
+                            <a class="hlinkbott" href="#">
+                                <div class="hexa">
+                                    <div class="hcontainer">
+                                        <div class="vertical-align">
+                                            <span class="texts"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="templatemo_servicetext">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="templatemo_hexservices none-block col-sm-6" style="width:10%;">
+                    <div class="blok text-center">
+                        <div class="hexagon-a" style="display:none;">
+                            <a class="hlinktop" href="/Home/Services">
+                                <div class="hexa-a">
+                                    <div class="hcontainer-a">
+                                        <div class="vertical-align-a">
+                                            <span class="texts-a"><i class="fa fa-cogs"></i><br>Xidmətlər</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hexagonservices" style="display:none;">
+                            <a class="hlinkbott" href="#">
+                                <div class="hexa">
+                                    <div class="hcontainer">
+                                        <div class="vertical-align">
+                                            <span class="texts"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="templatemo_servicetext">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="templatemo_hexservices col-sm-6">
+                    <div class="blok text-center">
+                        <div class="hexagon-a">
+                            <a class="hlinktop" href="/Home/PotentialUser">
+                                <div class="hexa-a">
+                                    <div class="hcontainer-a">
+                                        <div class="vertical-align-a">
+                                            <span class="texts-a"><i class="fa fa-users"></i><br>Potensial istehsalçılar</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hexagonservices">
+                            <a class="hlinkbott" href="#">
+                                <div class="hexa">
+                                    <div class="hcontainer">
+                                        <div class="vertical-align">
+                                            <span class="texts"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="templatemo_servicetext">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row templatemo_servicerow">
+                <div class="templatemo_hexservices none-block1 col-sm-6">
+                    <div class="blok text-center">
+                        <div class="hexagon-a" style="display:none;">
+                            <a class="hlinktop" href="/Home/PotentialUser">
+                                <div class="hexa-a">
+                                    <div class="hcontainer-a">
+                                        <div class="vertical-align-a">
+                                            <span class="texts-a"><i class="fa fa-users"></i><br>Potensial istehsalçılar</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hexagonservices" style="display:none;">
+                            <a class="hlinkbott" href="#">
+                                <div class="hexa">
+                                    <div class="hcontainer">
+                                        <div class="vertical-align">
+                                            <span class="texts"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="templatemo_servicetext">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="templatemo_hexservices col-sm-6">
+                    <div class="blok text-center">
+                        <div class="hexagon-a">
+                            <a class="hlinktop" href="/Home/Services">
+                                <div class="hexa-a">
+                                    <div class="hcontainer-a">
+                                        <div class="vertical-align-a">
+                                            <span class="texts-a"><i class="fa fa-cogs"></i><br>Xidmətlər</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hexagonservices">
+                            <a class="hlinkbott" href="#">
+                                <div class="hexa">
+                                    <div class="hcontainer">
+                                        <div class="vertical-align">
+                                            <span class="texts"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="templatemo_servicetext">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="templatemo_hexservices none-block1 col-sm-6" style="width:10%;">
+                    <div class="blok text-center">
+                        <div class="hexagon-a" style="display:none;">
+                            <a class="hlinktop" href="/OfferHome">
+                                <div class="hexa-a">
+                                    <div class="hcontainer-a">
+                                        <div class="vertical-align-a">
+                                            <span class="texts-a"><i class="fa fa-list"></i><br>Təkliflər</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hexagonservices" style="display:none;">
+                            <a class="hlinkbott" href="#">
+                                <div class="hexa">
+                                    <div class="hcontainer">
+                                        <div class="vertical-align">
+                                            <span class="texts"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="templatemo_servicetext">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="templatemo_hexservices col-sm-6">
+                    <div class="blok text-center">
+                        <div class="hexagon-a">
+                            <a class="hlinktop" href="/">
+                                <div class="hexa-a">
+                                    <div class="hcontainer-a">
+                                        <div class="vertical-align-a">
+                                            <span class="texts-a"><i class="fa fa-book"></i><br>Qanunvericilik</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hexagonservices">
+                            <a class="hlinkbott" href="#">
+                                <div class="hexa">
+                                    <div class="hcontainer">
+                                        <div class="vertical-align">
+                                            <span class="texts"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="templatemo_servicetext">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="templatemo_hexservices none-block1 col-sm-6">
+                    <div class="blok text-center">
+                        <div class="hexagon-a" style="display:none;">
+                            <a class="hlinktop" href="/">
+                                <div class="hexa-a">
+                                    <div class="hcontainer-a">
+                                        <div class="vertical-align-a">
+                                            <span class="texts-a"><i class="fa fa-book"></i><br>Qanunvericilik</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hexagonservices" style="display:none;">
+                            <a class="hlinkbott" href="#">
+                                <div class="hexa">
+                                    <div class="hcontainer">
+                                        <div class="vertical-align">
+                                            <span class="texts"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="templatemo_servicetext">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -96,7 +96,7 @@ namespace Emsal.UI.Controllers
 
                 if (pId == 0)
                 {
-                    return View("PCDetail", modelProductCatalog);
+                    return View("Main", modelProductCatalog);
                 }
                 else
                 {
@@ -428,7 +428,7 @@ namespace Emsal.UI.Controllers
 
                 if (pId == 0)
                 {
-                    return View("PCDetail", modelProductCatalog);
+                    return View("Main", modelProductCatalog);
                 }
                 else
                 {
@@ -487,6 +487,22 @@ namespace Emsal.UI.Controllers
                 smtp.Send(msg);
 
                 return RedirectToAction("Index", "Contact");
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+        public ActionResult Services()
+        {
+            try
+            {
+
+                baseInput = new BaseInput();
+
+                return View();
 
             }
             catch (Exception ex)

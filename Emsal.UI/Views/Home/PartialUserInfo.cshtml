@@ -14,18 +14,18 @@
         {
             if (item.pinNumber != "" || item.voen != "") { 
             <tr>
-                <td class="col-sm-3">@item.name</td>
+                <td class="col-sm-3 text-black">@item.name</td>
                 @*<td class="col-sm-2">@item.surname</td>*@
-                <td class="col-sm-3">@item.adminUnitName</td>
-                <td class="col-sm-5">@item.parentAdminUnitName</td>
+                <td class="col-sm-3 text-black">@item.adminUnitName</td>
+                <td class="col-sm-5 text-black">@item.parentAdminUnitName</td>
                 <td class="col-sm-1 text-center">
                     @if (item.pinNumber != "")
                     {
-                        <a target="_blank" href="/Login?uid=@item.userID&type=1"><span class="glyphicon glyphicon-user"></span></a>
+                        <a target="_blank" href="/Login?uid=@item.userID&type=1"><span class="glyphicon glyphicon-user text-black"></span></a>
                     }
                     else if (item.voen != "")
                     {
-                        <a target="_blank" href="/Login?uid=@item.userID&type=2"><span class="fa fa-building"></span></a>
+                        <a target="_blank" href="/Login?uid=@item.userID&type=2"><span class="fa fa-building text-black"></span></a>
                     }
                 
                 </td>
@@ -60,7 +60,7 @@
 </table>
 
 <div class="clearfix"></div>
-<div class="box-footer clearfix">
+<div class="box-footer clearfix text-black">
     Səhifə @(Model.PagingUserInfo.PageCount < Model.PagingUserInfo.PageNumber ? 0 : Model.PagingUserInfo.PageNumber) (cəmi @Model.PagingUserInfo.PageCount)
     @Html.PagedListPager(Model.PagingUserInfo, page => Url.Action("UserInfo", new { page, addressId=Model.addressId, sort = Model.sort, name=Model.name, surname=Model.surname, products = Model.products }))
 </div>
