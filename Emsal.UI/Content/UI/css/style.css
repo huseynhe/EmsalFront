@@ -3,6 +3,12 @@ html, body, h1, h2, h3, h4, h5, h6, p, hr, ul, ol, li {
 	padding:0px;
 }
 
+a{
+
+}
+.list-group-item{
+    text-align:left;
+}
 #menu-container
 {
     min-height:900px !important;
@@ -275,6 +281,7 @@ html, body, h1, h2, h3, h4, h5, h6, p, hr, ul, ol, li {
 	/*text-align:center;*/
 	margin-top: 250px;
 }
+
 
 #center .elanlar h2 {
 	margin-bottom:20px;
@@ -756,8 +763,8 @@ html, body, h1, h2, h3, h4, h5, h6, p, hr, ul, ol, li {
 /************************* modal *********************************/
 
 .main_menu ul li:nth-child(7) a {
-	background:transparent;
-	color:transparent;
+	/*background:transparent;
+	color:transparent;*/
 }
 
 .modal-dialog {

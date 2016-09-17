@@ -107,6 +107,7 @@ function GetAdminUnit(elem) {
             }
         }
         pId = valu;
+
     }
 
     if (pId == "") {
@@ -151,6 +152,17 @@ function GetDefaultSortIcon()
 
 $( document ).ready(function() {
     GetDefaultSortIcon();
+
+    var href;
+    var curpathname = window.location.pathname;
+
+    jQuery('.main_menu').find('a').each(function () {
+        href = $(this).attr('href');
+        if (href == curpathname)
+        {
+            $(this).addClass('active');
+        }
+    });
 });
 
 function GetUserInfo(elem, sort) {

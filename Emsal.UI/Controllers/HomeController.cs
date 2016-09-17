@@ -172,7 +172,7 @@ namespace Emsal.UI.Controllers
                 {
                     BaseOutput gap = srv.WS_GetAnnouncementDetails(baseInput, out modelProductCatalog.AnnouncementDetailArray);
 
-                    modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailArray.Where(x => x.announcementDetail.announcement.product_name.ToLowerInvariant().Contains(value)).ToList();
+                    modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailArray.Where(x => x.announcementDetail.announcement.product_name.ToLowerInvariant().Contains(value) || x.parentName.ToLowerInvariant().Contains(value)).ToList();
                 }
 
                 return View(modelProductCatalog);
@@ -208,7 +208,7 @@ namespace Emsal.UI.Controllers
             {
                 baseInput = new BaseInput();
 
-                int pageSize = 12;
+                int pageSize = 50;
                 int pageNumber = (page ?? 1);
 
                 modelProductCatalog = new ProductCatalogViewModel();

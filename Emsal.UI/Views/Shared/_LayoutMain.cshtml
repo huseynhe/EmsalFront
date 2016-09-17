@@ -25,17 +25,15 @@
     <script src="~/Content/UI/js/custom.js"></script>
 
     <script>
-    function showhide()
-    {
-    	var div = document.getElementById("newpost");
-		if (div.style.display !== "none")
-		{
-			div.style.display = "none";
-		}
-		else {
-			div.style.display = "block";
-		}
-    }
+        function showhide() {
+            var div = document.getElementById("newpost");
+            if (div.style.display !== "none") {
+                div.style.display = "none";
+            }
+            else {
+                div.style.display = "block";
+            }
+        }
     </script>
 
 </head>
@@ -44,22 +42,23 @@
         <div class="main-navigation">
             <div class="responsive_menu">
                 <ul>
-                    <li><a class="show-1 templatemo_home" href="/">Baş səhifə</a></li>
-                    <li><a class="show-2 templatemo_page2" href="/Home/Announcement">Elanlar</a></li>
-                    <li><a class="show-3 templatemo_page3" href="/Home/PotentialUser">Potensial istehsalçılar</a></li>
-                    <li><a class="show-4 templatemo_page4" href="/OfferHome">Təkliflər</a></li>
-                    <li><a class="show-5 templatemo_page5" href="/Home/Services">Xidmətlər</a></li>
-                    <li><a class="show-6 templatemo_page6" href="/">Qanunvericilik</a></li>
-                    <li><a class="show-7 templatemo_page7" href="/Home/Contact">Əlaqə</a></li>
+                    <li><a href="/"><div class="show-1 templatemo_home">Baş səhifə</div></a></li>
+                    <li><a href="/Home/Announcement"><div class="show-2 templatemo_page2">Elanlar</div></a></li>
+                    <li><a href="/Home/PotentialUser"><div class="show-3 templatemo_page3">Potensial istehsalçılar</div></a></li>
+                    <li><a href="/OfferHome"><div class="show-4 templatemo_page4">Təkliflər</div></a></li>
+                    <li><a href="/Home/Services"><div class="show-5 templatemo_page5">Keçidlər</div></a></li>
+                    <li><a href="/"><div class="show-6 templatemo_page6">Qanunvericilik</div></a></li>
+                    <li><a href="/Home/Contact"><div class="show-7 templatemo_page7">Əlaqə</div></a></li>
+
                     @if (Session["musername"] == null)
                     {
-                    <li><a class="show-8 templatemo_page8" href="/Login">Daxil ol</a></li>
-                    <li><a class="show-9 templatemo_page9" href="/SignUp">Qeydiyyat</a></li>
+                        <li><a href="/Login"><div class="show-8 templatemo_page8">Daxil ol</div></a></li>
+                        <li><a href="/SignUp"><div class="show-9 templatemo_page9">Qeydiyyat</div></a></li>
                     }
                     else
                     {
-                        <li><a class="show-8 templatemo_page8" href="/">@Session["musername"]</a></li>
-                        <li><a class="show-9 templatemo_page9" href="/Login/Logout">Çıxış</a></li>
+                        <li><a href="/"><div class="show-8 templatemo_page8">@Session["musername"]</div></a></li>
+                        <li><a href="/Login/Logout"><div class="show-9 templatemo_page9">Çıxış</div></a></li>
                     }
                 </ul>
             </div>
@@ -86,24 +85,24 @@
 
                     <div class="col-md-3 main_menu">
                         <ul>
-@if (Session["musername"] == null)
-{
-                            <li>
-                                <a class="show-8 templatemo_page8" style="height:100px;" href="/Login"><span class="fa fa-lock"></span>DAXİL OL</a>
-                            </li>
-                            <li>
-                                <a class="show-9 templatemo_page9" style="height:100px;" href="/SignUp"><span class="fa fa-user"></span>QEYDİYYAT</a>
-                            </li>
-}
-else
-{
-    <li>
-        <a class="show-8 templatemo_page8" style="height:100px;" href="/"><span class="fa fa-user"></span>@Session["musername"]</a>
-    </li>
-                            <li>
-                                <a class="show-9 templatemo_page9" style="height:100px;" href="/Login/Logout"><span class="fa fa-sign-out"></span>ÇIXIŞ</a>
-                            </li>
-}
+                            @if (Session["musername"] == null)
+                            {
+                                <li>
+                                    <a href="/Login"><div class="show-8 templatemo_page8" style="height:80px;"><span class="fa fa-lock"></span>DAXİL OL</div></a>
+                                </li>
+                                <li>
+                                    <a href="/SignUp"><div class="show-9 templatemo_page9" style="height:80px;"><span class="fa fa-user"></span>QEYDİYYAT</div></a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="/"><div class="show-8 templatemo_page8" style="height:80px;"><span class="fa fa-user"></span>@Session["musername"]</div></a>
+                                </li>
+                                <li>
+                                    <a href="/Login/Logout"><div class="show-9 templatemo_page9" style="height:80px;"><span class="fa fa-sign-out"></span>ÇIXIŞ</div></a>
+                                </li>
+                            }
                         </ul>
                     </div>
 
@@ -151,15 +150,15 @@ else
     </div>
     <!-- footer end -->
     <script>
-	$('.gallery_more').click(function(){
-		var $this = $(this);
-		$this.toggleClass('gallery_more');
-		if($this.hasClass('gallery_more')){
-			$this.text('Load More');
-		} else {
-			$this.text('Load Less');
-		}
-	});
+        $('.gallery_more').click(function () {
+            var $this = $(this);
+            $this.toggleClass('gallery_more');
+            if ($this.hasClass('gallery_more')) {
+                $this.text('Load More');
+            } else {
+                $this.text('Load Less');
+            }
+        });
     </script>
 
 </body>
