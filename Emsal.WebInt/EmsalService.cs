@@ -28,5 +28,27 @@ namespace Emsal.WebInt
                 return _emsalService;
             }
         }
+
+        private static Emsal.WebInt.IAMAS.Service1 _iamasService;
+
+
+        public static Emsal.WebInt.IAMAS.Service1 iamasService
+        {
+            get
+            {
+                if (_iamasService == null)
+                {
+                    _iamasService = new Emsal.WebInt.IAMAS.Service1();
+                    // _emsalService.SWSessionInfo = new SWSessionInfo();
+
+                    if (ConfigurationManager.AppSettings["Emsal_WebInt_IAMAS_Service1"] != null)
+                        _iamasService.Url = ConfigurationManager.AppSettings["Emsal_WebInt_IAMAS_Service1"];
+
+                }
+                return _iamasService;
+            }
+        }
+
+
     }
 }

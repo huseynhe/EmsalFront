@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s1="http://voen9900037691.az.x-rd.net/producer" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://voen9900037691.az.x-rd.net/producer" />
+      <s:element name="getPersonalInfoByPinNew">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="requestPin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="isPhoto" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getPersonalInfoByPinNewResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getPersonalInfoByPinNewResult" type="s1:getPersonalInfoByPinNewResponseResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://voen9900037691.az.x-rd.net/producer">
+      <s:complexType name="getPersonalInfoByPinNewResponseResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="faultCode" nillable="true" type="s1:faultCode" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="series" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Seria" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Surname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Patronymic" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="BirthPlace" type="s1:BirthAdress1" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="birthDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Adress" type="s1:adressNew" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="citizenship" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="issueDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="regionID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="region" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="pin" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="gender" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="photo" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="expdate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="bloodtype" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="eyecolor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="policedept" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="height" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="sosialStatus" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="faultCode">
+        <s:restriction base="s:string">
+          <s:enumeration value="0" />
+          <s:enumeration value="1" />
+          <s:enumeration value="2" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="BirthAdress1">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="country" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="district" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="city" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="place" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="countryId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="districtId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="cityId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="placeId" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="adressNew">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="district" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="city" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="apartment" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="street" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="place" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="block" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="building" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="districtId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="cityId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="apartmentId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="streetId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="blockId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="buildingId" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="getPersonalInfoByPinNewSoapIn">
+    <wsdl:part name="parameters" element="tns:getPersonalInfoByPinNew" />
+  </wsdl:message>
+  <wsdl:message name="getPersonalInfoByPinNewSoapOut">
+    <wsdl:part name="parameters" element="tns:getPersonalInfoByPinNewResponse" />
+  </wsdl:message>
+  <wsdl:portType name="Service1Soap">
+    <wsdl:operation name="getPersonalInfoByPinNew">
+      <wsdl:input message="tns:getPersonalInfoByPinNewSoapIn" />
+      <wsdl:output message="tns:getPersonalInfoByPinNewSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Service1Soap" type="tns:Service1Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getPersonalInfoByPinNew">
+      <soap:operation soapAction="http://tempuri.org/getPersonalInfoByPinNew" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Service1Soap12" type="tns:Service1Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getPersonalInfoByPinNew">
+      <soap12:operation soapAction="http://tempuri.org/getPersonalInfoByPinNew" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="Service1Soap" binding="tns:Service1Soap">
+      <soap:address location="http://10.10.10.223/integratedservices/integratedservices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Service1Soap12" binding="tns:Service1Soap12">
+      <soap12:address location="http://10.10.10.223/integratedservices/integratedservices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -23,6 +23,7 @@ namespace Emsal.UI.Controllers
         private static string smonitoringStatusEV;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
+        Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
 
         private OfferMonitoringViewModel modelOfferMonitoring;
 

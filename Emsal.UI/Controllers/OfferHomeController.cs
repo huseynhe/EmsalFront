@@ -28,6 +28,7 @@ namespace Emsal.UI.Controllers
 
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
+        Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
 
         private ProductCatalogViewModel modelProductCatalog;
         private ContactViewModel modelContact;
