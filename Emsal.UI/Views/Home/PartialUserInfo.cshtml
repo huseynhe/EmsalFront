@@ -14,18 +14,18 @@
         {
             if (item.pinNumber != "" || item.voen != "") { 
             <tr>
-                <td class="col-sm-3 text-black">@item.name</td>
+                <td class="col-sm-4 text-black">@item.name</td>
                 @*<td class="col-sm-2">@item.surname</td>*@
-                <td class="col-sm-3 text-black">@item.adminUnitName</td>
+                <td class="col-sm-2 text-black">@item.adminUnitName</td>
                 <td class="col-sm-5 text-black">@item.parentAdminUnitName</td>
                 <td class="col-sm-1 text-center">
                     @if (item.pinNumber != "")
                     {
-                        <a target="_blank" href="/Login?uid=@item.userID&type=1"><span class="glyphicon glyphicon-user text-black"></span></a>
+                        <a target="_blank" href="/Login?uid=@item.userID&type=1"><span class="glyphicon glyphicon-user"></span></a>
                     }
                     else if (item.voen != "")
                     {
-                        <a target="_blank" href="/Login?uid=@item.userID&type=2"><span class="fa fa-building text-black"></span></a>
+                        <a target="_blank" href="/Login?uid=@item.userID&type=2"><span class="fa fa-building"></span></a>
                     }
                 
                 </td>

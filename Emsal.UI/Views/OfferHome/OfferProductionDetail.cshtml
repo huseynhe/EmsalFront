@@ -12,19 +12,17 @@
         <div class="container">
             <div class="right_below" id="center" style="padding-top:0px;">
                 <div class="elanlar">
-                    <div class="row single-product outer-bottom-sm">
                         <div class="thumbnail col-md-12" style="padding: 20px;">
-                            <div class="row  wow fadeInUp">
-                                <div class="col-xs-12 col-sm-5 col-md-4 gallery-holder text-center">
+                                <div class="col-xs-12 col-sm-4 col-md-4">
                                     @if (Model.ProductionDetail.productDocumentList != null)
                                     {
                                         if (Model.ProductionDetail.productDocumentList.Count() > 0)
                                         {
-                                            <img class="img-responsive" src="@Model.ProductionDetail.productDocumentList.FirstOrDefault().documentUrl@Model.ProductionDetail.productDocumentList.FirstOrDefault().documentName" />
+                                            <img class="img-responsive thumbnail" src="@Model.ProductionDetail.productDocumentList.FirstOrDefault().documentUrl@Model.ProductionDetail.productDocumentList.FirstOrDefault().documentName" />
                                         }
                                         else
                                         {
-                                            <img src="~/Content/UI/images/noimage.png" />
+                                            <img class="img-responsive thumbnail" src="~/Content/UI/images/noimage.png" />
                                         }
                                     }
                                     else
@@ -32,7 +30,7 @@
                                         <img src="~/Content/UI/images/noimage.png" />
                                     }
                                 </div>
-                                <div class="col-sm-6 col-md-7 product-info-block">
+                                <div class="col-xs-12 col-sm-8 col-md-8">
                                     <div class="product-info">
                                         <h1 class="name text-black nobackground">@Model.ProductionDetail.productName (@Model.ProductionDetail.productParentName)  - @Model.ProductionDetail.quantity @Model.ProductionDetail.enumValueName</h1>
                                         <div class="clearfix"> </div>
@@ -51,9 +49,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         <div class="clearfix"></div>
-                    </div>
                 </div>
             </div>
         </div>

@@ -11,7 +11,7 @@
         <div class="container">
             <div class="right_below" id="center" style="padding-top:0px;">
                 <div class="elanlar">
-                    <div class="col-md-3" id="puserMenu" style="background: #fafafa; padding-bottom: 10px;border: 3px solid #f2f2f2; border-radius: 0 0 5px 5px; padding-top: 15px;">
+                    <div class="thumbnail col-md-3" id="puserMenu">
                         @*@Html.Action("AdminUnit", "Home", new { pId = 0 })*@
                         <script>
                             $(document).ready(function () {
@@ -31,7 +31,7 @@
                         </script>
                     </div>
 
-                    <div class="col-md-9" style="background:#fff;">
+                    <div class="thumbnail col-md-9">
 
                         <h2 style="color: #000; margin-top: 30px; text-align:center;" class="text-bold mt-50">POTENSİAL İSTEHSALÇILAR</h2>
 
@@ -39,18 +39,18 @@
                         <table class="table table-bordered" style="margin:0;">
                             <thead>
                                 <tr>
-                                    <th class="col-sm-3 text-black"><div style="float:left;width:90%;">Soyad, ad (hüquqi şəxsin adı)</div><div style="cursor:pointer;float:right;" onclick="GetUserInfo(this,'name')" class="sortingpu"></div></th>
+                                    <th class="col-sm-4 text-black"><div style="float:left;width:90%;">Soyad, ad (hüquqi şəxsin adı)</div><div style="cursor:pointer;float:right;" onclick="GetUserInfo(this,'name')" class="sortingpu"></div></th>
                                     @*<th class="col-sm-2"><div style="float:left;">Soyad </div><div style="cursor:pointer;float:right;" onclick="GetUserInfo(this,'surname')" class="sortingpu"></div></th>*@
-                                    <th class="col-sm-3 text-black"><div style="float:left;">Ünvan</div><div style="cursor:pointer;float:right;" onclick="GetUserInfo(this,'address')" class="sortingpu"></div></th>
+                                    <th class="col-sm-2 text-black"><div style="float:left;">Ünvan</div><div style="cursor:pointer;float:right;" onclick="GetUserInfo(this,'address')" class="sortingpu"></div></th>
                                     <th class="col-sm-5 text-black"><div style="float:left;">İstehsal etdiyi məhsullar</div>@*<div style="cursor:pointer;float:right;" onclick="GetUserInfo(this, 'products')" class="sortingpu"></div>*@</th>
                                     <th class="col-sm-1 text-center text-black">Keçid</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="col-sm-3"><input onkeyup="UserInfoSearch(this, 'name')" class="form-control" placeholder="axtar" /></td>
+                                    <td class="col-sm-4"><input onkeyup="UserInfoSearch(this, 'name')" class="form-control" placeholder="axtar" /></td>
                                     @*<td class="col-sm-2"><input onkeyup="UserInfoSearch(this, 'surname')" class="form-control" placeholder="axtar" /></td>*@
-                                    <td class="col-sm-3"><input onkeyup="UserInfoSearch(this, 'address')" class="form-control" placeholder="axtar" /></td>
+                                    <td class="col-sm-2"><input onkeyup="UserInfoSearch(this, 'address')" class="form-control" placeholder="axtar" /></td>
                                     <td class="col-sm-5"><input onkeyup="UserInfoSearch(this, 'products')" class="form-control" placeholder="axtar" /></td>
                                     <td class="col-sm-1"></td>
                                 </tr>

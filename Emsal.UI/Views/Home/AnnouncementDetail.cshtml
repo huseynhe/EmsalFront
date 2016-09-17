@@ -12,20 +12,18 @@
         <div class="container">
             <div class="right_below" id="center" style="padding-top:0px;">
                 <div class="elanlar">
-                    <div class='row single-product outer-bottom-sm '>
-                        <div class='thumbnail col-md-12' style="padding: 20px;">
-                            <div class="row  wow fadeInUp">
-                                <div class="col-xs-12 col-sm-5 col-md-4 gallery-holder text-center">
+                        <div class='thumbnail col-sm-12 col-md-12' style="padding: 20px;">
+                                <div class="col-xs-12 col-sm-4 col-md-4">
                                     @if (Model.AnnouncementDetail.productCatalogDocumentList.Count() > 0)
                                     {
-                                        <img class="img-responsive" src="@Model.AnnouncementDetail.productCatalogDocumentList.FirstOrDefault().documentUrl@Model.AnnouncementDetail.productCatalogDocumentList.FirstOrDefault().documentName" />
+                                        <img class="img-responsive thumbnail" src="@Model.AnnouncementDetail.productCatalogDocumentList.FirstOrDefault().documentUrl@Model.AnnouncementDetail.productCatalogDocumentList.FirstOrDefault().documentName" />
                                     }
                                     else
                                     {
-                                        <img src="~/Content/UI/images/noimage.png" />
+                                        <img class="img-responsive thumbnail" src="~/Content/UI/images/noimage.png" />
                                     }
                                 </div>
-                                <div class='col-sm-6 col-md-7 product-info-block'>
+                                <div class='col-xs-12 col-sm-8 col-md-8'>
                                     <div class="product-info">
                                         <h1 class="name text-black nobackground" >@Model.AnnouncementDetail.announcement.product_name (@Model.AnnouncementDetail.parentName)  - @Model.AnnouncementDetail.announcement.quantity @Model.AnnouncementDetail.announcement.quantity_type_Name</h1>
                                         <div class="clearfix"></div>
@@ -49,10 +47,8 @@
 
                                     </div>
                                 </div>
-                            </div>
                         </div>
                         <div class="clearfix"></div>
-                    </div>
                 </div>
             </div>
     </div>

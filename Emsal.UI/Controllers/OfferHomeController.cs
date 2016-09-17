@@ -68,7 +68,7 @@ namespace Emsal.UI.Controllers
 
                 baseInput = new BaseInput();
 
-                int pageSize = 12;
+                int pageSize = 24;
                 int pageNumber = (page ?? 1);
 
                 modelProductCatalog = new ProductCatalogViewModel();
