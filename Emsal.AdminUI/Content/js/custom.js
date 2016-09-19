@@ -485,6 +485,20 @@ function PotentialProductionSearch(elem, value) {
 }
 
 
+function SearchWP(contaction, elem, value) {
+    $.ajax({
+        url: contaction+'?' + value + '=' + $(elem).val(),
+        type: 'GET',
+        success: function (result) {
+            $('#AjaxPaginationList').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
+
+
 
 
 function GetProductCatalog(elem) {

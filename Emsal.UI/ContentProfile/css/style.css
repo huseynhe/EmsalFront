@@ -3,6 +3,9 @@ html, body, h1, h2, h3, h4, h5, h6, p, hr, ul, ol, li {
 	padding:0px;
 }
 
+td{
+    vertical-align:middle !important;
+}
 .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"], .radio input[type="radio"], .radio-inline input[type="radio"]
 {
     margin-top:0 !important;

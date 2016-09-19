@@ -18,7 +18,7 @@ namespace Emsal.UI.Controllers
         public static string transactionID;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
-        Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
+        //Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
         private BaseInput binput;
         UserViewModel modelUser;
         //burda ticket yaradırıq

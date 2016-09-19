@@ -19,6 +19,10 @@ namespace Emsal.AdminUI.Controllers
     {
         private BaseInput baseInput;
 
+        private static int syear;
+        private static int srub;
+        private static string spname;
+
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
 
         private ProductPriceViewModel modelproductPrice;
@@ -132,13 +136,28 @@ namespace Emsal.AdminUI.Controllers
         }
 
 
-        public ActionResult Approv(int year = 0, int rub = 0, int page = 1)
+        public ActionResult Approv(int year = 0, int rub = 0, int page = 1, string pname=null)
         {
-            try { 
+            try {
 
-            //Bura tamamlanmadi
-            int pageSize = 25;
+
+                int pageSize = 25;
             int pageNumber = page;
+
+                if (pname != null)
+                    pname = StripTag.strSqlBlocker(pname.ToLower());
+
+                if (pname==null)
+                {
+                    spname = null;
+                }
+
+                if (year >0)
+                    syear = year;
+                if (rub >0)
+                    srub = rub;
+                if (pname !=null)
+                    spname = pname;
 
             baseInput = new BaseInput();
             modelproductPrice = new ProductPriceViewModel();
@@ -158,17 +177,25 @@ namespace Emsal.AdminUI.Controllers
 
             modelproductPrice.NPCount = 0;
 
-            if (year > 0 && rub > 0)
+            if (syear > 0 && srub > 0)
             {
 
-                BaseOutput evy = srv.WS_GetEnumValueById(baseInput, year, true, out modelproductPrice.EnumValueYear);
-                BaseOutput evr = srv.WS_GetEnumValueById(baseInput, rub, true, out modelproductPrice.EnumValueRub);
+                BaseOutput evy = srv.WS_GetEnumValueById(baseInput, syear, true, out modelproductPrice.EnumValueYear);
+                BaseOutput evr = srv.WS_GetEnumValueById(baseInput, srub, true, out modelproductPrice.EnumValueRub);
 
-                BaseOutput gpp = srv.WS_GetProductPriceList(baseInput, Convert.ToInt64(modelproductPrice.EnumValueYear.name), true, Convert.ToInt64(modelproductPrice.EnumValueRub.name), true, out modelproductPrice.ProductPriceDetailArray);
+                BaseOutput gpp = srv.WS_GetProductPriceList(baseInput, Convert.ToInt64(modelproductPrice.EnumValueYear.name), true, Convert.ToInt64(modelproductPrice.EnumValueRub.name), true, out modelproductPrice.ProductPriceDetailArray); 
+                             
+                        modelproductPrice.ProductPriceDetailList = modelproductPrice.ProductPriceDetailArray.ToList();     
 
-                modelproductPrice.ProductPriceDetailList = modelproductPrice.ProductPriceDetailArray.ToList();
+                    if(spname!=null)
+                    {
 
-                modelproductPrice.Paging = modelproductPrice.ProductPriceDetailArray.ToPagedList(pageNumber, pageSize);
+                        modelproductPrice.Paging = modelproductPrice.ProductPriceDetailArray.Where(x=> x.productName.ToLowerInvariant().Contains(spname) || x.productParentName.ToLowerInvariant().Contains(spname)).ToPagedList(pageNumber, pageSize);
+                    }
+                    else
+                    {
+                        modelproductPrice.Paging = modelproductPrice.ProductPriceDetailArray.ToPagedList(pageNumber, pageSize);
+                    }
 
                 modelproductPrice.year = modelproductPrice.EnumValueYear.Id;
                 modelproductPrice.rub = modelproductPrice.EnumValueRub.Id;
@@ -192,7 +219,11 @@ namespace Emsal.AdminUI.Controllers
 
 
 
-            return View("Approv", modelproductPrice);
+                return Request.IsAjaxRequest()
+         ? (ActionResult)PartialView("PartialApprov", modelproductPrice)
+         : View(modelproductPrice);
+
+                //return View("Approv", modelproductPrice);
 
             }
             catch (Exception ex)

@@ -20,53 +20,25 @@
                     <table class="table table-bordered">
                         <tr>
                             @*<th>#</th>*@
-                            <th>
-                                Məhsulun adı
+                            <th class="col-md-8">
+                                Məhsulun adı<br />
+<input onkeyup="SearchWP('/Announcement/Approv', this, 'pname')" class="form-control" placeholder="axtar" />
                             </th>
-                            <th>
+                            <th class="col-md-1">
                                 Miqdarı (vahidi)
                             </th>
-                            <th>
+                            <th class="col-md-1">
                                 Qiyməti (bir ölçü vahidinə düşən) (AZN-lə) 
                             </th>
-                            <th>
+                            <th class="col-md-1">
                                 Qeyd
                             </th>
-                            <th style="width: 60px" class="shsingle">sil</th>
+                            <th class="col-md-1 shsingle">sil</th>
                         </tr>
-
-
-                        @foreach (var item in Model.Paging)
-                        {
-                            <tr>
-                                @*<td>
-                                        <input onchange="getCheckedList()" name="ids" value="@item.productionID" class="ch" type="checkbox">
-                                    </td>*@
-                                <td>
-                                    @item.announcement.product_name (@item.parentName)
-                                </td>
-                                <td>
-                                    @item.announcement.quantity @item.announcement.quantity_type_Name
-                                </td>
-                                <td>
-                                    @item.announcement.unit_price AZN
-                                </td>
-                                <td>
-                                    @item.announcement.description
-                                </td>
-                                <td class="shsingle">
-                                        <a href="/Announcement/Delete/@item.announcement.Id" class="badge bg-light-blue">
-                                            <span class="glyphicon glyphicon-remove"></span>
-                                        </a>
-                                    </td>
-                            </tr>
-                        }
                     </table>
-                </div>
-
-                <div class="box-footer clearfix">
-                    Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
-                    @Html.PagedListPager(Model.Paging, page => Url.Action("Approv", new { page }))
+                    <div id="AjaxPaginationList">
+                        @Html.Partial("PartialApprov")
+                    </div>
                 </div>
             </div>
         </div>

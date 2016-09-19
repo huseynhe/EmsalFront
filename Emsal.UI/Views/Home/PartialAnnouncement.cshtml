@@ -14,68 +14,66 @@
     <div class="content homepage" id="menu-1">
         <div class="container">
             <div class="right_below" id="center" style="padding-top:0px;">
+
                 <div class="elanlar">
-                    <div class="thumbnail col-md-12" style="padding: 20px;opacity:0.8;">
-                        <h2 style="color: #000; margin-top: 10px; text-align:center;" class="text-bold mt-50">ELANLAR</h2>
-                        <table class="table table-bordered ">
-                            <thead>
-                                <tr>
-                                    <th class="col-sm-1" style="text-align:center;">Şəkil</th>
-                                    <th>Məhsulun dı</th>
-                                    <th>Çəkisi (ölçü vahidi)</th>
-                                    <th>Qiyməti</th>
-                                    <th style="text-align:center;width:60px;">Keçid</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.Paging)
-                                {
-                                    <tr>
-                                        <td>
-                                            @if (item.productCatalogDocumentList.Count() > 0)
+                    <h2 class="text-bold mt-50" style="text-align:center;">ELANLAR</h2>
+                    <ul class="thumbnails list-unstyled list-inline">
+
+                        @foreach (var item in Model.Paging)
+                        {
+                            i = i + 1;
+                            <li class="col-md-2">
+                                <div class="thumbnail text-center" style="width:100%;">
+                                    @if (item.productCatalogDocumentList.Count() > 0)
                 {
-                                                <img style="margin:0;" class="img-responsive thumbnail" src="@item.productCatalogDocumentList.FirstOrDefault().documentUrl@item.productCatalogDocumentList.FirstOrDefault().documentName" />
-                                            }
-                                            else
-                                            {
-                                                <img style="margin:0;" class="img-responsive thumbnail" src="~/Content/UI/images/noimage.png" />
-                                            }
-                                        </td>
-                                        <td style="vertical-align:middle;">@item.announcementDetail.announcement.product_name (@item.announcementDetail.parentName@item.parentName)</td>
-                                        <td style="vertical-align:middle;">@item.announcementDetail.announcement.quantity @item.announcementDetail.announcement.quantity_type_Name</td>
-                                        <td style="vertical-align:middle;">@item.announcementDetail.announcement.unit_price AZN</td>
-                                        <td onclick="location.href = '/Home/AnnouncementDetail/@item.announcementDetail.announcement.Id'" style="cursor:pointer; vertical-align:middle;text-align:center;color:#428bca;">
-                                            <i class="fa fa-info-circle fa-lg"></i>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                                        <img class="img-responsive" src="@item.productCatalogDocumentList.FirstOrDefault().documentUrl@item.productCatalogDocumentList.FirstOrDefault().documentName" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/UI/images/noimage.png" />
+                                    }
+                                    <div class="caption">
+                                        <h4 class="text-bold">@item.announcementDetail.announcement.product_name (@item.announcementDetail.parentName@item.parentName)</h4>
+                                        <h4 class="text-bold text-red">@item.announcementDetail.announcement.quantity @item.announcementDetail.announcement.quantity_type_Name</h4>
+                                        <a href="/Home/AnnouncementDetail/@item.announcementDetail.announcement.Id" class="btn btn-default text-bold f-left">BAX</a>
+                                        <button type="button" class="btn btn-primary text-white text-bold f-right">@item.announcementDetail.announcement.unit_price AZN</button>
+                                    </div>
+                                </div>
+                            </li>
+                            if (i == 6)
+                            {
+                                <div class="clearfix"></div>
+                                i = 0;
+                            }
+                        }
+
                         @if (Model.Paging.Count() == 0)
                         {
                             <h5 class="text-center">Qeyd tapılmadı</h5>
                         }
 
-                        <div class="navig">
-                            <div class="clearfix"></div>
-
-                            @if (Model.noPaged == 0)
-                            {
-                                <div class="box-footer clearfix">
-                                    Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
-                                    @Html.PagedListPager(Model.Paging, page => Url.Action("Announcement", new { page }))
-                                </div>
-                            }
-                        </div>
-                    </div>
+                    </ul>
                 </div>
+                <div class="navig">
+                    <div class="clearfix"></div>
 
+                    @if (Model.noPaged == 0)
+                    {
+                        <div class="box-footer clearfix" style="color:#fff;">
+                            Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
+                            @Html.PagedListPager(Model.Paging, page => Url.Action("Announcement", new { page }))
+                        </div>
+                    }
+                </div>
             </div>
-        </div>
 
-        <div class="clear"></div>
+        </div>
     </div>
-    </div>
+
+    <div class="clear"></div>
+
+</div>
+
 
 
 

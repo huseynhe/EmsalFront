@@ -20884,7 +20884,13 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private tblForeign_Organization foreignOrganizationField;
         
+        private System.Nullable<long> forgIdField;
+        
+        private bool forgIdFieldSpecified;
+        
         private string fullAddressField;
+        
+        private string fullForeignOrganizationField;
         
         private string groupIdField;
         
@@ -21025,12 +21031,45 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> forgId {
+            get {
+                return this.forgIdField;
+            }
+            set {
+                this.forgIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool forgIdSpecified {
+            get {
+                return this.forgIdFieldSpecified;
+            }
+            set {
+                this.forgIdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public string fullAddress {
             get {
                 return this.fullAddressField;
             }
             set {
                 this.fullAddressField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string fullForeignOrganization {
+            get {
+                return this.fullForeignOrganizationField;
+            }
+            set {
+                this.fullForeignOrganizationField = value;
             }
         }
         

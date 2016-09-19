@@ -204,7 +204,12 @@ function getWeekdayInMonth(month, year, elem) {
     }
 
     $(elem).parent().parent().find(".howMany").val(cweekdays);
-    $(elem).parent().parent().find(".size").val($(elem).parent().parent().find(".hsize").val() / cweekdays);
+
+    var hsize = $(elem).parent().parent().find(".hsize").val();
+
+    if (hsize != undefined) {
+        $(elem).parent().parent().find(".size").val(hsize / cweekdays);
+    }
 
     var ths;
     ths = $(elem).parent().parent().find(".size");

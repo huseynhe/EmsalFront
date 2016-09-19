@@ -51,6 +51,7 @@ namespace Emsal.UI.Controllers
         //
         // GET: /Home/
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
+       // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
 
         private ProductCatalogViewModel modelProductCatalog;
         private ContactViewModel modelContact;
@@ -208,7 +209,7 @@ namespace Emsal.UI.Controllers
             {
                 baseInput = new BaseInput();
 
-                int pageSize = 50;
+                int pageSize = 24;
                 int pageNumber = (page ?? 1);
 
                 modelProductCatalog = new ProductCatalogViewModel();

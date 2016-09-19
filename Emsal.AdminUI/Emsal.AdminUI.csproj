@@ -544,6 +544,8 @@
     <Content Include="Views\GovernmentOrganisation\EditChildOrganisation.cshtml" />
     <Content Include="Views\GovernmentOrganisation\OrganisationInfo.cshtml" />
     <Content Include="Views\Report\ForeignOrganization.cshtml" />
+    <Content Include="Views\ProductPrice\PartialApprov.cshtml" />
+    <Content Include="Views\Announcement\PartialApprov.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

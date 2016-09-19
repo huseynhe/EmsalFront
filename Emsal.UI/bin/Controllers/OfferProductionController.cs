@@ -22,6 +22,7 @@ namespace Emsal.UI.Controllers
         private BaseInput baseInput;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
+       // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
 
         private OfferProductionViewModel modelOfferProduction;
 

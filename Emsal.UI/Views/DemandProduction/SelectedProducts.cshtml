@@ -46,8 +46,14 @@
             @{
                 foreach (var item in Model.ProductionDetailList)
                 {
+                    @*<tr>
+            <td colspan="8" class="text-center">
+                @item.fullForeignOrganization
+                        </td>
+                    </tr>*@
                     <tr>
-                        <td>@item.productName (@item.productParentName)</td>
+                        <td>@item.productName (@item.productParentName) 
+                        </td>
                         <td>
                             @if ((decimal)Math.Round(item.quantity, 2) > (int)item.quantity)
                             {
@@ -60,7 +66,10 @@
                             }
                         </td>
                         <td>@item.enumValueName</td>
-                        <td>@item.fullAddress (@item.addressDesc)</td>
+                        <td>
+                        - @item.fullForeignOrganization
+                            <br />
+                        - @item.fullAddress</td>
                         <td>@item.description</td>
                         @if (Model.isPDF == false)
                         {

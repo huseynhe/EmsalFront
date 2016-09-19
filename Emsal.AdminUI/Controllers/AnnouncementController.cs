@@ -19,6 +19,8 @@ namespace Emsal.AdminUI.Controllers
     {
         private BaseInput baseInput;
 
+        private static string spname;
+
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
 
         private AnnouncementViewModel modelAnnouncement;
@@ -153,13 +155,24 @@ namespace Emsal.AdminUI.Controllers
         }
 
 
-        public ActionResult Approv(int? page)
+        public ActionResult Approv(int? page, string pname = null)
         {
             try { 
             int pageSize = 20;
             int pageNumber = (page ?? 1);
 
-            baseInput = new BaseInput();
+                if (pname != null)
+                    pname = StripTag.strSqlBlocker(pname.ToLower());
+
+                if (pname == null)
+                {
+                    spname = null;
+                }
+                
+                if (pname != null)
+                    spname = pname;
+
+                baseInput = new BaseInput();
             modelAnnouncement = new AnnouncementViewModel();
 
             long? UserId = null;
@@ -178,9 +191,19 @@ namespace Emsal.AdminUI.Controllers
                 BaseOutput gpp = srv.WS_GetAnnouncements(baseInput, out modelAnnouncement.AnnouncementDetailArray);
                 modelAnnouncement.AnnouncementDetailList = modelAnnouncement.AnnouncementDetailArray.ToList();
 
-                modelAnnouncement.Paging = modelAnnouncement.AnnouncementDetailArray.ToPagedList(pageNumber, pageSize);
+                if (spname != null)
+                {
+                    modelAnnouncement.Paging = modelAnnouncement.AnnouncementDetailArray.Where(x => x.announcement.product_name.ToLowerInvariant().Contains(spname) || x.parentName.ToLowerInvariant().Contains(spname)).ToPagedList(pageNumber, pageSize);
+                }
+                else
+                {
+                    modelAnnouncement.Paging = modelAnnouncement.AnnouncementDetailArray.ToPagedList(pageNumber, pageSize);
+                }
 
-            return View(modelAnnouncement);
+
+                return Request.IsAjaxRequest()
+  ? (ActionResult)PartialView("PartialApprov", modelAnnouncement)
+  : View(modelAnnouncement);                
 
             }
             catch (Exception ex)

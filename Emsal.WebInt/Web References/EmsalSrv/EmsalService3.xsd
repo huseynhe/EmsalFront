@@ -142,7 +142,9 @@
       <xs:element minOccurs="0" name="enumValueId" type="xs:long" />
       <xs:element minOccurs="0" name="enumValueName" nillable="true" type="xs:string" />
       <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="foreignOrganization" nillable="true" type="q5:tblForeign_Organization" />
+      <xs:element minOccurs="0" name="forgId" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="fullAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fullForeignOrganization" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="groupId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="grup_id" nillable="true" type="xs:string" />
       <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="months" nillable="true" type="q6:ArrayOfstring" />

@@ -1,5 +1,5 @@
 ﻿@model Emsal.AdminUI.Models.ProductPriceViewModel
-@using PagedList.Mvc;
+@*@using PagedList.Mvc;*@
 
 @{
     ViewBag.Title = "Index";
@@ -117,53 +117,30 @@
                             <div class="box-body table-responsive">
                                 <table class="table table-bordered">
                                     <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.product)
+                                        <th class="col-md-8">
+                                            @Html.DisplayNameFor(model => model.product)<br />
+                                            <input onkeyup="SearchWP('/ProductPrice/Approv', this, 'pname')" class="form-control" placeholder="axtar" />
                                         </th>
-                                        <th>
+                                        <th class="col-md-1">
                                             @Html.DisplayNameFor(model => model.unitPrice)
                                         </th>
 
-                                        <th>
+                                        <th class="col-md-1">
                                             @Html.DisplayNameFor(model => model.year)
                                         </th>
 
-                                        <th>
+                                        <th class="col-md-1">
                                             @Html.DisplayNameFor(model => model.rub)
                                         </th>
-                                        <th style="width: 60px">sil</th>
+                                        <th class="col-md-1">sil</th>
                                     </tr>
-
-
-                                    @foreach (var item in Model.Paging)
-                      {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.productName) (@Html.DisplayFor(modelItem => item.productParentName))
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.unit_price)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.year)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.partOfYear)
-                                        </td>
-                                        <td>
-                                            <a href="/ProductPrice/Delete/?id=@item.priceID&year=@Model.year&rub=@Model.rub" class="badge bg-red">
-                                                <span class="glyphicon glyphicon-remove"></span>
-                                            </a>
-                                        </td>
-                                    </tr>
-                        }
                                 </table>
+
+                                <div id="AjaxPaginationList">
+                                    @Html.Partial("PartialApprov")
+                                </div>
+
                             </div>
-                            <div class="box-footer clearfix">
-                                Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
-                                @Html.PagedListPager(Model.Paging, page => Url.Action("Approv", new { page, year = Model.year, rub = Model.rub }))
-                            </div>
-                            <div class="clearfix"></div>
                             <br />
                         }
                         else
@@ -178,3 +155,7 @@
         </div>
     </div>
 </section>
+
+
+
+<script src="~/Content/js/pagedList.js"></script>
