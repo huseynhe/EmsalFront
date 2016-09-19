@@ -23,7 +23,7 @@
                         {
                             i = i + 1;
                             <li class="col-md-2">
-                                <div class="thumbnail text-center" style="width:100%;">
+                                <div class="thumbnail text-center" style="width:100%;height:260px;">
                                     @if (item.productCatalogDocumentList.Count() > 0)
                 {
                                         <img class="img-responsive" src="@item.productCatalogDocumentList.FirstOrDefault().documentUrl@item.productCatalogDocumentList.FirstOrDefault().documentName" />
@@ -35,8 +35,11 @@
                                     <div class="caption">
                                         <h4 class="text-bold">@item.announcementDetail.announcement.product_name (@item.announcementDetail.parentName@item.parentName)</h4>
                                         <h4 class="text-bold text-red">@item.announcementDetail.announcement.quantity @item.announcementDetail.announcement.quantity_type_Name</h4>
-                                        <a href="/Home/AnnouncementDetail/@item.announcementDetail.announcement.Id" class="btn btn-default text-bold f-left">BAX</a>
-                                        <button type="button" class="btn btn-primary text-white text-bold f-right">@item.announcementDetail.announcement.unit_price AZN</button>
+
+                                        <div style="position: absolute; bottom: 30px; float: left; width: calc(100% - 30px);">
+                                            <a href="/Home/AnnouncementDetail/@item.announcementDetail.announcement.Id" class="btn btn-default text-bold f-left">BAX</a>
+                                            <button type="button" class="btn btn-primary text-white text-bold f-right">@item.announcementDetail.announcement.unit_price AZN</button>
+                                        </div>
                                     </div>
                                 </div>
                             </li>
