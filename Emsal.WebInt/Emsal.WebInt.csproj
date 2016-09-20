@@ -49,11 +49,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="EmsalService.cs" />
-    <Compile Include="Web References\EmsalSrv2\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
     <Compile Include="Web References\EmsalSrv\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -78,167 +73,6 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\EmsalSrv2\AnnouncementDetail1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\BaseOutput1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\DemandOfferDetail1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\DemanProductionGroup1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\PotentialClientDetail1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\ProductCatalogDetail1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\ProductionDetail1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\ProductPriceDetail1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblAddress1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblAnnouncement1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblAuthenticatedPart1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblBranchResponsibility1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblComMessage1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblCommunication1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblConfirmationMessage1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblDemand_Production1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblEmployee1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblEnumCategory1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblEnumValue1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblExpertise1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblForeign_Organization1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblOffer_Production1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblOrganization1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblParty1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblPerson1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblPotential_Production1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblPrivilegedRole1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblPRM_AdminUnit1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblPRM_ASCBranch1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblPRM_KTNBranch1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblPRM_Thoroughfare1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblProductAddress1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblProductCatalog1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblProductCatalogControl1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblProductionCalendar1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblProductionControl1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblProduction_Calendar1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblProduction_Document1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblProductPrice1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblProductProfileImage1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblProduct_Document1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblRole1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblTitle1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblUser1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\tblUserRole1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\UserInfo1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\EmsalSrv2\EmsalService.wsdl" />
-    <None Include="Web References\EmsalSrv2\EmsalService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\EmsalSrv2\EmsalService0.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\EmsalSrv2\EmsalService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\EmsalSrv2\EmsalService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\EmsalSrv2\EmsalService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\EmsalSrv2\EmsalService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\EmsalSrv2\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\EmsalSrv\AnnouncementDetail.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -436,20 +270,6 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Emsal_WebInt_EmsalSrv_EmsalService</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://service.emsal.az/EmsalService.svc">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\EmsalSrv2\</RelPath>
-      <UpdateFromURL>http://service.emsal.az/EmsalService.svc</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>Emsal_WebInt_EmsalSrv_EmsalService</CachedSettingsPropName>
-    </WebReferenceUrl>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Web References\EmsalSrv2\EmsalService.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\EmsalSrv\EmsalService.disco" />

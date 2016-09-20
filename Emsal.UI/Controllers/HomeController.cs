@@ -12,6 +12,8 @@ using System.Net.Mail;
 using System.Net;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using Emsal.Utility.UtilityObjects;
+using Emsal.WebInt.IAMAS;
 
 namespace Emsal.UI.Controllers
 {
@@ -63,6 +65,11 @@ namespace Emsal.UI.Controllers
             {
                 //srv.WS_createDb();
 
+                SingleServiceControl srvcontrol = new SingleServiceControl();
+                tblPerson person ;
+                getPersonalInfoByPinNewResponseResponse imasPerson;
+
+               int control=    srvcontrol.getPersonInfoByPin("4JH0ENM" ,out person,out imasPerson);
                 baseInput = new BaseInput();
 
                 modelProductCatalog = new ProductCatalogViewModel();

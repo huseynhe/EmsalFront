@@ -54,12 +54,19 @@
     <Compile Include="UtilityObjects\ExceptionHandlingNlogLayoutsOpr.cs" />
     <Compile Include="UtilityObjects\ExceptionHandlingOperation.cs" />
     <Compile Include="UtilityObjects\IOUtil.cs" />
+    <Compile Include="UtilityObjects\SingleServiceControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NLog.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Emsal.WebInt\Emsal.WebInt.csproj">
+      <Project>{3c0106b1-bf1d-414d-bdf1-f4801d0f6ca3}</Project>
+      <Name>Emsal.WebInt</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
