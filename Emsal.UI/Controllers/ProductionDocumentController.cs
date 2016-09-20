@@ -21,6 +21,9 @@ namespace Emsal.UI.Controllers
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
 
+        Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
+        
+
         private ProductionDocumentViewModel modelProductionDocument;
 
         public ActionResult Index()
@@ -39,7 +42,7 @@ namespace Emsal.UI.Controllers
         public ActionResult GetFile(long Id)
         {
             try { 
-
+                
             baseInput = new BaseInput();
             modelProductionDocument = new ProductionDocumentViewModel();
 
