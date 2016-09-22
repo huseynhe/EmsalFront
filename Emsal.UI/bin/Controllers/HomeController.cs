@@ -69,7 +69,7 @@ namespace Emsal.UI.Controllers
                 tblPerson person ;
                 getPersonalInfoByPinNewResponseResponse imasPerson;
 
-               int control=    srvcontrol.getPersonInfoByPin("4JH0ENM" ,out person,out imasPerson);
+               int control= srvcontrol.getPersonInfoByPin("4JH0ENM" ,out person,out imasPerson);
                 baseInput = new BaseInput();
 
                 modelProductCatalog = new ProductCatalogViewModel();

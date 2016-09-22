@@ -11,8 +11,7 @@ namespace Emsal.Utility.UtilityObjects
     {
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
-        Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
-
+        //Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
 
         public int getPersonInfoByPin(string pin, out tblPerson person, out getPersonalInfoByPinNewResponseResponse imasPerson)
         {
@@ -28,7 +27,7 @@ namespace Emsal.Utility.UtilityObjects
 
             else if (person == null)
             {
-                imasPerson = iamasSrv.getPersonalInfoByPinNew(pin, "1");
+                //imasPerson = iamasSrv.getPersonalInfoByPinNew(pin, "1");
                 return 2;
             }
             else
