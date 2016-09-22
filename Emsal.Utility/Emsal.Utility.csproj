@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomObjects\Mail.cs" />
     <Compile Include="CustomObjects\DataReaderExtensions.cs" />
     <Compile Include="CustomObjects\DatetimeExtension.cs" />
     <Compile Include="CustomObjects\Int64Extension.cs" />

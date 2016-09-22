@@ -8,6 +8,7 @@ using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using Emsal.Utility.CustomObjects;
 
 namespace Emsal.UI.Controllers
 {
@@ -743,7 +744,7 @@ namespace Emsal.UI.Controllers
                     email = "ferid.heziyev@gmail.com";
                 }
                 msg.To.Add(email);
-                string fromPassword = "e1701895";
+                //string fromPassword = "e1701895";
                 msg.Subject = "Üzvlüyü tesdiqle";
 
                 msg.Body = "<p>İstifadəçi adınız:" + userName + "</p>" +
@@ -752,14 +753,7 @@ namespace Emsal.UI.Controllers
 
                 msg.IsBodyHtml = true;
 
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.Credentials = new NetworkCredential(msg.From.Address, fromPassword);
-                smtp.Timeout = 20000;
-                smtp.Send(msg);
+                Mail.SendMail(msg);                   
 
                 return RedirectToAction("Index", "Login");
             }

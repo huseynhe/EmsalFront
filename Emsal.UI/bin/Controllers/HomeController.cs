@@ -475,7 +475,7 @@ namespace Emsal.UI.Controllers
                 msg.From = new MailAddress("ferid.heziyev@gmail.com", "emsal.az");
 
                 msg.To.Add("qorxmazz@gmail.com");
-                string fromPassword = "e1701895";
+                //string fromPassword = "e1701895";
                 msg.Subject = "Müraciət göndər";
 
                 msg.Body = "<p>Ad, soyad, ata adı: " + model.nameSurnameFathername + "</p>" +
@@ -485,14 +485,7 @@ namespace Emsal.UI.Controllers
 
                 msg.IsBodyHtml = true;
 
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.Credentials = new NetworkCredential(msg.From.Address, fromPassword);
-                smtp.Timeout = 20000;
-                smtp.Send(msg);
+                Mail.SendMail(msg);
 
                 return RedirectToAction("Index", "Contact");
 
