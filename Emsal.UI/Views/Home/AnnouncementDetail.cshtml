@@ -16,7 +16,7 @@
                                 <div class="col-xs-12 col-sm-4 col-md-4">
                                     @if (Model.AnnouncementDetail.productCatalogDocumentList.Count() > 0)
                                     {
-                                        <img class="img-responsive thumbnail" src="@Model.AnnouncementDetail.productCatalogDocumentList.FirstOrDefault().documentUrl@Model.AnnouncementDetail.productCatalogDocumentList.FirstOrDefault().documentName" />
+                                        <img style="padding:0;" class="img-responsive thumbnail" src="@Model.AnnouncementDetail.productCatalogDocumentList.FirstOrDefault().documentUrl@Model.AnnouncementDetail.productCatalogDocumentList.FirstOrDefault().documentName" />
                                     }
                                     else
                                     {

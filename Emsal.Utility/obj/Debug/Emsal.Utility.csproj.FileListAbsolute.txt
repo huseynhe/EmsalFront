@@ -102,3 +102,12 @@ D:\KTN Porjects\Emsal Yeni\Code\EmsalFront\Emsal.Utility\bin\Debug\NLog.xml
 D:\KTN Porjects\Emsal Yeni\Code\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.csprojResolveAssemblyReference.cache
 D:\KTN Porjects\Emsal Yeni\Code\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.dll
 D:\KTN Porjects\Emsal Yeni\Code\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.pdb
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.Utility\bin\Debug\Emsal.Utility.dll
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.Utility\bin\Debug\Emsal.Utility.pdb
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.Utility\bin\Debug\Emsal.WebInt.dll
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.Utility\bin\Debug\NLog.dll
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.Utility\bin\Debug\Emsal.WebInt.pdb
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.Utility\bin\Debug\NLog.xml
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.csprojResolveAssemblyReference.cache
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.dll
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.pdb

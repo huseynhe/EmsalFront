@@ -271,3 +271,15 @@ D:\KTN Porjects\Emsal Yeni\Code\EmsalFront\Emsal.AdminUI\bin\NLog.xml
 D:\KTN Porjects\Emsal Yeni\Code\EmsalFront\Emsal.AdminUI\obj\Debug\Emsal.AdminUI.csprojResolveAssemblyReference.cache
 D:\KTN Porjects\Emsal Yeni\Code\EmsalFront\Emsal.AdminUI\obj\Debug\Emsal.AdminUI.dll
 D:\KTN Porjects\Emsal Yeni\Code\EmsalFront\Emsal.AdminUI\obj\Debug\Emsal.AdminUI.pdb
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.AdminUI\bin\Emsal.AdminUI.dll.config
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.AdminUI\bin\Emsal.AdminUI.dll
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.AdminUI\bin\Emsal.AdminUI.pdb
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.AdminUI\bin\Emsal.Utility.dll
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.AdminUI\bin\Emsal.WebInt.dll
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.AdminUI\bin\NLog.dll
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.AdminUI\bin\Emsal.Utility.pdb
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.AdminUI\bin\Emsal.WebInt.pdb
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.AdminUI\bin\NLog.xml
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.AdminUI\obj\Debug\Emsal.AdminUI.csprojResolveAssemblyReference.cache
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.AdminUI\obj\Debug\Emsal.AdminUI.dll
+H:\projects\Emsal_22.09.2016\EmsalFront\Emsal.AdminUI\obj\Debug\Emsal.AdminUI.pdb

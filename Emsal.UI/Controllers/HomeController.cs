@@ -288,7 +288,7 @@ namespace Emsal.UI.Controllers
 
                 baseInput = new BaseInput();
 
-                int pageSize = 25;
+                int pageSize = 30;
                 int pageNumber = (page ?? 1);
 
                 modelProductCatalog = new ProductCatalogViewModel();
@@ -375,7 +375,7 @@ namespace Emsal.UI.Controllers
                 {
                     modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoList.Where(x => x.parentAdminUnitName.ToLowerInvariant().Contains(sproducts)).ToList();
                 }
-        
+
 
                 modelProductCatalog.addressId = saddressId;
                 modelProductCatalog.sort = ssort;

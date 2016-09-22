@@ -69,7 +69,7 @@ namespace Emsal.UI.Controllers
                 tblPerson person ;
                 getPersonalInfoByPinNewResponseResponse imasPerson;
 
-            int control=    srvcontrol.getPersonInfoByPin("4JH0ENM" ,out person,out imasPerson);
+               int control=    srvcontrol.getPersonInfoByPin("4JH0ENM" ,out person,out imasPerson);
                 baseInput = new BaseInput();
 
                 modelProductCatalog = new ProductCatalogViewModel();
@@ -288,7 +288,7 @@ namespace Emsal.UI.Controllers
 
                 baseInput = new BaseInput();
 
-                int pageSize = 25;
+                int pageSize = 30;
                 int pageNumber = (page ?? 1);
 
                 modelProductCatalog = new ProductCatalogViewModel();
@@ -375,7 +375,7 @@ namespace Emsal.UI.Controllers
                 {
                     modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoList.Where(x => x.parentAdminUnitName.ToLowerInvariant().Contains(sproducts)).ToList();
                 }
-        
+
 
                 modelProductCatalog.addressId = saddressId;
                 modelProductCatalog.sort = ssort;
