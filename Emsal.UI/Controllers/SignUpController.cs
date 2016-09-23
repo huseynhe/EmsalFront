@@ -271,8 +271,12 @@ namespace Emsal.UI.Controllers
 
             BaseOutput userrOut = srv.WS_GetUserByUserName(binput, form.UserName, out modelUser.FutureUser);
 
-            modelUser.FutureAddress.fullAddress = form.FullAddress;
-            modelUser.FutureAddress.adminUnit_Id = form.adId.LastOrDefault();
+
+            //BaseOutput galf = srv.WS_GetAdminUnitListForID(binput, form.lastAdminUnitId, true, out modelUser.PRMAdminUnitArray);
+            //modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.ToList();
+            //modelUser.FutureAddress.fullAddress = string.Join(",", modelUser.PRMAdminUnitList.Select(x => x.Name));
+
+            modelUser.FutureAddress.adminUnit_Id = form.lastAdminUnitId;
 
 
             modelUser.UserName = form.UserName;
@@ -284,6 +288,8 @@ namespace Emsal.UI.Controllers
             modelUser.FutureUserRole = form.FutureUserRole;
             modelUser.finvoenType = form.finvoenType;
             modelUser.uid = form.uid;
+            if (modelUser.uid == null)
+                modelUser.uid = "0";
             modelUser.MobilePhone = form.MobilePhone;
             modelUser.mobilePhonePrefix = form.mobilePhonePrefix;
 
@@ -331,7 +337,7 @@ namespace Emsal.UI.Controllers
             }
 
 
-            modelUser.AddressId = UserInfo.AddressId;
+            modelUser.AddressId = (long)UserInfo.FutureAddress.adminUnit_Id;
             modelUser.UserName = userName;
             modelUser.Password = UserInfo.Password;
             modelUser.Pin = UserInfo.Pin;
@@ -415,14 +421,23 @@ namespace Emsal.UI.Controllers
 
                 modelUser.FutureAddress.thoroughfare_Id = modelUser.ThroughfarePrm == null ? 0 : modelUser.ThroughfarePrm.Id;
                 modelUser.FutureAddress.thoroughfare_IdSpecified = true;
-                modelUser.FutureAddress.fullAddress = form.FullAddress;
+
+                //modelUser.FutureAddress.fullAddress = form.FullAddress;
+                //modelUser.FutureAddress.adminUnit_Id = form.AddressId;
+
+
+                BaseOutput galf = srv.WS_GetAdminUnitListForID(binput, form.AddressId, true, out modelUser.PRMAdminUnitArray);
+                modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.ToList();
+                modelUser.FutureAddress.fullAddress = string.Join(",", modelUser.PRMAdminUnitList.Select(x => x.Name));
+
+                modelUser.FutureAddress.adminUnit_Id = form.AddressId;
+
                 modelUser.FutureAddress.Status = 1;
                 modelUser.FutureAddress.StatusSpecified = true;
                 modelUser.FutureAddress.user_Id = modelUser.FutureUser == null ? 0 : modelUser.FutureUser.Id;
                 modelUser.FutureAddress.user_IdSpecified = true;
                 modelUser.FutureAddress.user_type_eV_IdSpecified = true;
 
-                modelUser.FutureAddress.adminUnit_Id = form.AddressId;
                 modelUser.FutureAddress.adminUnit_IdSpecified = true;
 
                 BaseOutput updateAddress = srv.WS_UpdateAddress(binput, modelUser.FutureAddress);
@@ -821,8 +836,7 @@ namespace Emsal.UI.Controllers
 
             BaseOutput bouput = srv.WS_GetPRM_AdminUnits(binput, out modelUser.PRMAdminUnitArray);
 
-
-
+     
             modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.Where(x => x.ParentID == pId).ToList();
 
             if (adminUnitId != null && adminUnitId != 0)
@@ -867,9 +881,35 @@ namespace Emsal.UI.Controllers
             }
 
 
+            if (adminUnitId > 0)
+            {
+                BaseOutput gpa = srv.WS_GetAddressById(binput, (long)adminUnitId, true, out modelUser.Address);
+                modelUser.Address = new tblAddress();
 
-            //BaseOutput bouputs = srv.WS_GetAdminUnitsByParentId(baseInput, pId, true, out modelOfferProduction.PRMAdminUnitArray);
-            //modelOfferProduction.PRMAdminUnitList = modelOfferProduction.PRMAdminUnitArray.ToList();
+                     BaseOutput galf = srv.WS_GetAdminUnitListForID(binput, (long)adminUnitId, true, out modelUser.PRMAdminUnitArray);
+                    modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.ToList();
+                    modelUser.Address.fullAddress = string.Join(",", modelUser.PRMAdminUnitList.Select(x => x.Id));
+
+
+                    modelUser.Address.fullAddress = "0," + modelUser.Address.fullAddress;
+                    modelUser.addressIds = modelUser.Address.fullAddress.Split(',').Select(long.Parse).ToArray();
+
+                    modelUser.PRMAdminUnitArrayPa = new IList<tblPRM_AdminUnit>[modelUser.addressIds.Count()];
+                    int s = 0;
+                    foreach (long itm in modelUser.addressIds)
+                    {
+                        BaseOutput gpc = srv.WS_GetAdminUnitsByParentId(binput, (int)itm, true, out modelUser.PRMAdminUnitArray);
+                        modelUser.PRMAdminUnitArrayPa[s] = modelUser.PRMAdminUnitArray.ToList();
+                        s = s + 1;
+                    }
+
+                    if (modelUser.PRMAdminUnitArrayPa[s - 1].Count() > 0)
+                    {
+                        modelUser.Address.fullAddress = modelUser.Address.fullAddress + ",0";
+                        modelUser.addressIds = modelUser.Address.fullAddress.Split(',').Select(long.Parse).ToArray();
+                    }
+            }
+
             if (Session["arrONum"] == null)
             {
                 Session["arrONum"] = modelUser.arrNum;

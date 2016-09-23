@@ -197,6 +197,7 @@
             pId = $(elem).val();
             $(elem).parent().nextAll().remove();
 
+            $('#lastAdminUnitId').val(pId);
             if (pId > 0) {
                 $.ajax({
                     url: '/SignUp/AdminUnit?pId=' + pId,

@@ -151,6 +151,7 @@ namespace Emsal.UI.Models
         public string UserType { get; set; }
 
         public int[] adId { get; set; }
+        public int lastAdminUnitId { get; set; }
 
         public tblPRM_Thoroughfare ThroughfarePrm;
 

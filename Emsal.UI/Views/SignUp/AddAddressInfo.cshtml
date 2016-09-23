@@ -20,7 +20,9 @@
         @Html.HiddenFor(model => model.FutureUserRole)
         @Html.HiddenFor(model => model.MobilePhone)
         @Html.HiddenFor(model => model.mobilePhonePrefix)
+        @Html.HiddenFor(model => model.lastAdminUnitId)
 
+        @*<input name="lastAdminUnitId" id="lastAdminUnitId" />*@
             <div class="form-group" id="signUpAdminUnit">
                 <script>
                         $(document).ready(function () {
@@ -30,7 +32,9 @@
                                 success: function (result) {
                                     $('#signUpAdminUnit').html(result);
 
-                                    $("select[name='adId[0]']").change();
+                                    if($('#uid').val()==0){
+                                        $("select[name='adId[0]']").change();
+                                    }
                                 },
                                 error: function () {
 
