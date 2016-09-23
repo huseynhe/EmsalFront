@@ -380,7 +380,7 @@ namespace Emsal.UI.Controllers
                 modelUser.Surname = modelUser.FuturePerson == null ? null : modelUser.FuturePerson.Surname;
             }
 
-            modelUser.AddressId = (long)UserInfo.FutureAddress.adminUnit_Id; ;
+            modelUser.AddressId = UserInfo.lastAdminUnitId; ;
             modelUser.UserName = userName;
             modelUser.Password = UserInfo.Password;
             modelUser.Pin = UserInfo.Pin;
