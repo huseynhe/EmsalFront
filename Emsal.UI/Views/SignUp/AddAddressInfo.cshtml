@@ -20,9 +20,11 @@
         @Html.HiddenFor(model => model.FutureUserRole)
         @Html.HiddenFor(model => model.MobilePhone)
         @Html.HiddenFor(model => model.mobilePhonePrefix)
+        @Html.HiddenFor(model => model.lastAdminUnitId)
 
-            <div class="form-group" id="signUpAdminUnit">
-                <script>
+        @*<input name="lastAdminUnitId" id="lastAdminUnitId" />*@
+        <div class="form-group" id="signUpAdminUnit">
+            <script>
                         $(document).ready(function () {
                             $.ajax({
                                 url: '/SignUp/AdminUnit?pId=0&adminUnitId=@Model.AdminUnitId',
@@ -30,26 +32,28 @@
                                 success: function (result) {
                                     $('#signUpAdminUnit').html(result);
 
-                                    $("select[name='adId[0]']").change();
+                                    if($('#uid').val()==0){
+                                        $("select[name='adId[0]']").change();
+                                    }
                                 },
                                 error: function () {
 
                                 }
                             });
                         });
-                </script>
-                @*@Html.Action("AdminUnit", "OfferProduction", new { pId = 0 })*@
-            </div>
+            </script>
+            @*@Html.Action("AdminUnit", "OfferProduction", new { pId = 0 })*@
+        </div>
             <div class="clearfix"></div><div class="clearfix"></div>
 
             <div class="col-md-6 col-md-offset-4" style="margin-bottom:20px; padding:5px">
                 <input type="submit" class="btn btn-success" value="Davam Et" id="sendInfo" />
             </div>
-                    }
+    }
     <div class="clearfix" style="height: 20px;"></div>
 
 </div>
 <script>
-   
+
 
 </script>
