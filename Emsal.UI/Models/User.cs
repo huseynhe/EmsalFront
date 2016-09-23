@@ -47,7 +47,7 @@ namespace Emsal.UI.Models
         [Display(Name = "Vöen")]
         public string Voen { get; set; }
 
-      
+
 
         public string UserRoleType { get; set; }
 
