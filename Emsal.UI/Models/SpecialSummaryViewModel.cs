@@ -345,8 +345,6 @@ namespace Emsal.UI.Models
         public tblForeign_Organization[] ForeignOrganisationArray;
         public List<tblForeign_Organization> ForeignOrganisationList { get; set; }
 
-
-
         public long[] addressIds { get; set; }
 
     }

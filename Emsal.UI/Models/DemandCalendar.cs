@@ -9,6 +9,7 @@ namespace Emsal.UI.Models
     {
         public string day { get; set; }
         public string month { get; set; }
+        public string year { get; set; }
         public string ocklock { get; set; }
         public string quantity { get; set; }
 

@@ -1,5 +1,4 @@
 ﻿using Emsal.UI.Models;
-using Emsal.Utility.CustomObjects;
 using Emsal.WebInt.EmsalSrv;
 using System;
 using System.Collections.Generic;
@@ -293,11 +292,17 @@ namespace Emsal.UI.Controllers
 
                 msg.IsBodyHtml = true;
 
-                Mail.SendMail(msg);
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Credentials = new NetworkCredential(msg.From.Address, fromPassword);
+                smtp.Timeout = 20000;
 
                 TempData["onetime"] = "info";
 
-                //smtp.Send(msg);
+                smtp.Send(msg);
             }
 
         }

@@ -38,7 +38,7 @@
                         @foreach (var itemmm in item.DemandCalendarList)
                         {
                             <div>
-                                <span>Tarix: @itemmm.day @itemmm.month  saat @itemmm.ocklock   <span class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#@itemmm.month" style="color:#265A88"></span></span><br /><br />
+                                <span>Tarix: @itemmm.day @itemmm.month @itemmm.year saat @itemmm.ocklock   <span class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#@itemmm.month" style="color:#265A88"></span></span><br /><br />
                                 <div id="@itemmm.month" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
 
@@ -76,7 +76,7 @@
                                 <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Əməliyyatlar <span class='caret'></span></button>
                                 <ul class='dropdown-menu'>
                                     <li><a href='/SpecialSummary/DeleteOfferProduction?Id=@item.ProductId'>Sil</a></li>
-                                    <li><a href='/OfferProduction?ppId=@item.ProductId'>Düzəliş et</a></li>
+                                    <li><a href='/OfferProduction/edit/@item.ProductId'>Düzəliş et</a></li>
                                     <li role='separator' class='divider'></li>
                                     <li><a href=''>Qeyd</a></li>
                                 </ul>

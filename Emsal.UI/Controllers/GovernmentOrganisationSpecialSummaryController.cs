@@ -115,6 +115,7 @@ namespace Emsal.UI.Controllers
                 foreach (var demanditem in modelSpecial.ProductionCalendarArray)
                 {
                     modelSpecial.OrgDemand.DemandCalendar = new DemandCalendar();
+                    modelSpecial.OrgDemand.DemandCalendar.year = demanditem.year.ToString();
                     modelSpecial.OrgDemand.DemandCalendar.day = demanditem.day != null ? demanditem.day.ToString() : null;
                     modelSpecial.OrgDemand.DemandCalendar.ocklock = demanditem.oclock.ToString();
 
@@ -240,6 +241,7 @@ namespace Emsal.UI.Controllers
                 foreach (var demanditem in modelSpecial.ProductionCalendarArray)
                 {
                     modelSpecial.OrgDemand.DemandCalendar = new DemandCalendar();
+                    modelSpecial.OrgDemand.DemandCalendar.year = demanditem.year.ToString();
                     modelSpecial.OrgDemand.DemandCalendar.day = demanditem.day != null ? demanditem.day.ToString() : null;
                     modelSpecial.OrgDemand.DemandCalendar.ocklock = demanditem.oclock.ToString();
 
@@ -378,6 +380,7 @@ namespace Emsal.UI.Controllers
                 foreach (var demanditem in modelSpecial.ProductionCalendarArray)
                 {
                     modelSpecial.OrgDemand.DemandCalendar = new DemandCalendar();
+                    modelSpecial.OrgDemand.DemandCalendar.year = demanditem.year.ToString();
                     modelSpecial.OrgDemand.DemandCalendar.day = demanditem.day != null ? demanditem.day.ToString() : null;
                     modelSpecial.OrgDemand.DemandCalendar.ocklock = demanditem.oclock.ToString();
 
@@ -503,6 +506,7 @@ namespace Emsal.UI.Controllers
                 foreach (var demanditem in modelSpecial.ProductionCalendarArray)
                 {
                     modelSpecial.OrgDemand.DemandCalendar = new DemandCalendar();
+                    modelSpecial.OrgDemand.DemandCalendar.year = demanditem.year.ToString();
                     modelSpecial.OrgDemand.DemandCalendar.day = demanditem.day != null ? demanditem.day.ToString() : null;
                     modelSpecial.OrgDemand.DemandCalendar.ocklock = demanditem.oclock.ToString();
 

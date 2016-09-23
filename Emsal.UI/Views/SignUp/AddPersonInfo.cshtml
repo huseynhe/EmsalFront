@@ -46,6 +46,28 @@
             </div>
             <p class="text-danger" id="fatherNameAlert"></p><br />
 
+            <div class="form-group" style="padding:5px" id="signUpAdminUnit">
+                <script>
+                        $(document).ready(function () {
+                            $.ajax({
+                                url: '/SignUp/AdminUnit?pId=0&adminUnitId=@Model.AdminUnitId',
+                                type: 'GET',
+                                success: function (result) {
+                                    $('#signUpAdminUnit').html(result);
+
+                                    if($('#uid').val()==0){
+                                        $("select[name='adId[0]']").change();
+                                    }
+                                },
+                                error: function () {
+
+                                }
+                            });
+                        });
+                </script>
+                @*@Html.Action("AdminUnit", "OfferProduction", new { pId = 0 })*@
+            </div>
+
             <div class="form-group" style="padding:5px">
                 <label>Doğum Tarixi</label>
                 <input name="Birthday" type="text" class="form-control datepicker" />

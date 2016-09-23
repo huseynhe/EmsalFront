@@ -56,8 +56,12 @@ namespace Emsal.AdminUI.Controllers
                 
                 if(modelUser.ForeignOrganisation.address_Id != null)
                 {
+                    if (modelUser.ForeignOrganisation.parent_Id != 0)
+                        break;
+
                     BaseOutput addressout = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
                     BaseOutput fulladdressListOut = srv.WS_GetAdminUnitListForID(binput, (long)modelUser.FutureAddress.adminUnit_Id, true, out modelUser.PRMAdminUnitArray);
+
 
                     foreach (var adminunit in modelUser.PRMAdminUnitArray)
                     {
@@ -136,6 +140,7 @@ namespace Emsal.AdminUI.Controllers
             long organisationId = (long)orgId;
 
             BaseOutput organisationByParentId = srv.WS_GetForeign_OrganisationsByParentId(binput, (long)organisationId, true, out modelUser.ForeignOrganisationArray);
+
             return Json(modelUser.ForeignOrganisationArray, JsonRequestBehavior.AllowGet);
         }
 

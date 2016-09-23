@@ -300,6 +300,7 @@ namespace Emsal.UI.Controllers
 
                     BaseOutput monthOut = srv.WS_GetEnumValueById(binput, (long)itemm.months_eV_Id, true, out modelSpecial.EnumValue);
 
+                    modelSpecial.SpOffer.DemandCalendar.year = itemm.year.ToString();
                     modelSpecial.SpOffer.DemandCalendar.month = modelSpecial.EnumValue.name;
                     modelSpecial.SpOffer.DemandCalendar.day = itemm.day != null ? itemm.day.ToString() : null;
                     modelSpecial.SpOffer.DemandCalendar.ocklock = itemm.oclock.ToString();
@@ -473,6 +474,7 @@ namespace Emsal.UI.Controllers
                         BaseOutput monthOut = srv.WS_GetEnumValueById(binput, (long)itemm.months_eV_Id, true, out modelSpecial.EnumValue);
 
                         modelSpecial.SpOffer.DemandCalendar.month = modelSpecial.EnumValue.name;
+                        modelSpecial.SpOffer.DemandCalendar.year = itemm.year.ToString();
                         modelSpecial.SpOffer.DemandCalendar.day = itemm.day != null ? itemm.day.ToString() : null;
                         modelSpecial.SpOffer.DemandCalendar.ocklock = itemm.oclock.ToString();
 
@@ -646,6 +648,7 @@ namespace Emsal.UI.Controllers
 
                         BaseOutput monthOut = srv.WS_GetEnumValueById(binput, (long)itemm.months_eV_Id, true, out modelSpecial.EnumValue);
 
+                        modelSpecial.SpOffer.DemandCalendar.year = itemm.year.ToString();
                         modelSpecial.SpOffer.DemandCalendar.month = modelSpecial.EnumValue.name;
                         modelSpecial.SpOffer.DemandCalendar.day = itemm.day != null ? itemm.day.ToString() : null;
                         modelSpecial.SpOffer.DemandCalendar.ocklock = itemm.oclock.ToString();
