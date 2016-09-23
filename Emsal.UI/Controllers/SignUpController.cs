@@ -1,5 +1,4 @@
 ﻿using Emsal.UI.Models;
-using Emsal.Utility.CustomObjects;
 using Emsal.WebInt.EmsalSrv;
 using System;
 using System.Collections.Generic;
@@ -9,6 +8,7 @@ using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using Emsal.Utility.CustomObjects;
 
 namespace Emsal.UI.Controllers
 {
@@ -42,7 +42,7 @@ namespace Emsal.UI.Controllers
 
             BaseOutput checkExistenseOut = srv.WS_GetUserByUserName(binput, form.UserName, out modelUser.FutureUser);
 
-            if(modelUser.FutureUser != null)
+            if (modelUser.FutureUser != null)
             {
                 return false;
             }
@@ -57,7 +57,7 @@ namespace Emsal.UI.Controllers
             BaseOutput personsOut = srv.WS_GetPersons(binput, out modelUser.PersonArray);
             List<tblPerson> PersonFromPin = form.Pin == null ? new List<tblPerson>() : modelUser.PersonArray.Where(x => x.PinNumber == form.Pin).ToList();
 
-            if(PersonFromPin.Count != 0)
+            if (PersonFromPin.Count != 0)
             {
                 return false;
             }
@@ -73,7 +73,7 @@ namespace Emsal.UI.Controllers
             BaseOutput orgOut = srv.WS_GetForeign_Organizations(binput, out modelUser.ForeignOrganisationArray);
             List<tblForeign_Organization> OrgFromVoen = form.Voen == null ? new List<tblForeign_Organization>() : modelUser.ForeignOrganisationArray.Where(x => x.voen == form.Voen).ToList();
 
-            if(OrgFromVoen.Count != 0)
+            if (OrgFromVoen.Count != 0)
             {
                 return false;
             }
@@ -187,21 +187,17 @@ namespace Emsal.UI.Controllers
                 modelUser.Pin = form.Pin;
                 modelUser.finvoenType = form.finvoenType;
                 modelUser.uid = form.uid;
-                modelUser.Email = form.Email;
-                modelUser.UserName = form.UserName;
 
                 modelUser.MobilePhone = form.MobilePhone;
                 modelUser.mobilePhonePrefix = form.mobilePhonePrefix;
 
-                
 
                 if (modelUser.uid != null)
                 {
-                    AddAddressInfoNew(modelUser.FutureUser, "producerPerson", modelUser);
-                    return AddPersonInfo(modelUser.UserName, modelUser);
+                    return AddAddressInfo(modelUser.FutureUser, "producerPerson", modelUser);
                 }
-                AddAddressInfoNew(modelUser.FutureUser, "producerPerson", modelUser);
-                return AddPersonInfo(modelUser.UserName, modelUser);
+
+                return AddAddressInfo(modelUser.FutureUser, "sellerPerson", modelUser);
 
 
             }
@@ -219,47 +215,8 @@ namespace Emsal.UI.Controllers
                 //{
                 //    TempData["YouaresignedUp"] = "info";
                 //}
-              
+
                 return RedirectToAction("Index");
-            }
-        }
-
-        public void AddAddressInfoNew(tblUser FutureUser, string userTpe, User UserInfo)
-        {
-            Session["arrONum"] = null;
-
-            User modelUser = new User();
-
-            modelUser.Password = FutureUser.Password;
-
-            modelUser.UserName = FutureUser.Username;
-
-            modelUser.Email = FutureUser.Email;
-
-            modelUser.MobilePhone = UserInfo.MobilePhone;
-            modelUser.mobilePhonePrefix = UserInfo.mobilePhonePrefix;
-
-            modelUser.FutureUserRole = userTpe;
-
-            modelUser.Pin = UserInfo.Pin;
-            modelUser.Voen = UserInfo.Voen;
-            modelUser.uid = UserInfo.uid;
-            modelUser.finvoenType = UserInfo.finvoenType;
-
-            if (modelUser.uid != null)
-            {
-                if (modelUser.finvoenType == 1)
-                {
-                    BaseOutput personOUt = srv.WS_GetPersonByUserId(binput, Convert.ToInt64(modelUser.uid), true, out modelUser.FuturePerson);
-                    BaseOutput addressOut = srv.WS_GetAddressById(binput, (long)modelUser.FuturePerson.address_Id, true, out modelUser.FutureAddress);
-                    modelUser.AdminUnitId = (long)modelUser.FutureAddress.adminUnit_Id;
-                }
-                if (modelUser.finvoenType == 2)
-                {
-                    BaseOutput orgOut = srv.WS_GetForeign_OrganizationByVoen(binput, modelUser.Voen, out modelUser.ForeignOrganisation);
-                    BaseOutput addressOut = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
-                    modelUser.AdminUnitId = (long)modelUser.FutureAddress.adminUnit_Id;
-                }
             }
         }
 
@@ -304,7 +261,6 @@ namespace Emsal.UI.Controllers
             return View("AddAddressInfo", modelUser);
         }
 
-
         [HttpPost]
         public ActionResult AddAddressInfo(User form)
         {
@@ -315,13 +271,13 @@ namespace Emsal.UI.Controllers
 
             BaseOutput userrOut = srv.WS_GetUserByUserName(binput, form.UserName, out modelUser.FutureUser);
 
-            //modelUser.FutureAddress.fullAddress = form.FullAddress;
-            //modelUser.FutureAddress.adminUnit_Id = form.adId.LastOrDefault();
 
-            //BaseOutput galf = srv.WS_GetAdminUnitListForID(binput, form.lastAdminUnitId, true, out modelUser.PRMAdminUnitArray);		            modelUser.FutureAddress.adminUnit_Id = form.adId.LastOrDefault();
-            //modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.ToList();		
-            //modelUser.FutureAddress.fullAddress = string.Join(",", modelUser.PRMAdminUnitList.Select(x => x.Name));		
+            //BaseOutput galf = srv.WS_GetAdminUnitListForID(binput, form.lastAdminUnitId, true, out modelUser.PRMAdminUnitArray);
+            //modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.ToList();
+            //modelUser.FutureAddress.fullAddress = string.Join(",", modelUser.PRMAdminUnitList.Select(x => x.Name));
+
             modelUser.FutureAddress.adminUnit_Id = form.lastAdminUnitId;
+
 
             modelUser.UserName = form.UserName;
             modelUser.AddressId = (long)modelUser.FutureAddress.adminUnit_Id;
@@ -371,7 +327,7 @@ namespace Emsal.UI.Controllers
             BaseOutput enumvalJob = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
             modelUser.JobList = modelUser.EnumValueArray.ToList();
 
-            if (UserInfo.uid != null)
+            if (UserInfo.uid != "0")
             {
                 BaseOutput finvoenPersonOUt = srv.WS_GetPersonByUserId(binput, Convert.ToInt64(UserInfo.uid), true, out modelUser.FuturePerson);
                 BaseOutput finvoenUserOut = srv.WS_GetUserById(binput, (long)modelUser.FuturePerson.UserId, true, out modelUser.FutureUser);
@@ -380,7 +336,8 @@ namespace Emsal.UI.Controllers
                 modelUser.Surname = modelUser.FuturePerson == null ? null : modelUser.FuturePerson.Surname;
             }
 
-            modelUser.AddressId = UserInfo.lastAdminUnitId; ;
+
+            modelUser.AddressId = (long)UserInfo.FutureAddress.adminUnit_Id;
             modelUser.UserName = userName;
             modelUser.Password = UserInfo.Password;
             modelUser.Pin = UserInfo.Pin;
@@ -402,7 +359,7 @@ namespace Emsal.UI.Controllers
             string userRoles;
             modelUser.UserRole = new tblUserRole();
             modelUser.ThroughfarePrm = new tblPRM_Thoroughfare();
-            if (form.uid != null)
+            if (form.uid != "0")
             {
                 BaseOutput personWithFinOut = srv.WS_GetPersonByUserId(binput, Convert.ToInt64(form.uid), true, out modelUser.FuturePerson);
                 BaseOutput userWithFinVoenOut = srv.WS_GetUserById(binput, (long)modelUser.FuturePerson.UserId, true, out modelUser.FutureUser);
@@ -446,7 +403,7 @@ namespace Emsal.UI.Controllers
                 modelUser.UserRole.UserIdSpecified = true;
                 modelUser.UserRole.Status = 1;
                 modelUser.UserRole.StatusSpecified = true;
-                if(form.uid == null)
+                if (form.uid == null)
                 {
                     BaseOutput addUserRole = srv.WS_AddUserRole(binput, modelUser.UserRole, out modelUser.UserRole);
                 }
@@ -455,7 +412,7 @@ namespace Emsal.UI.Controllers
 
             //BaseOutput address = srv.WS_AddAddress(binput, modelUser.FutureAddress, out modelUser.FutureAddress);
 
-            if (form.uid != null)
+            if (form.uid != "0")
             {
                 BaseOutput personWitFinOut = srv.WS_GetPersonByUserId(binput, Convert.ToInt64(form.uid), true, out modelUser.FuturePerson);
 
@@ -464,11 +421,15 @@ namespace Emsal.UI.Controllers
 
                 modelUser.FutureAddress.thoroughfare_Id = modelUser.ThroughfarePrm == null ? 0 : modelUser.ThroughfarePrm.Id;
                 modelUser.FutureAddress.thoroughfare_IdSpecified = true;
-                //modelUser.FutureAddress.fullAddress = form.FullAddress;		
-                //modelUser.FutureAddress.adminUnit_Id = form.AddressId;		
+
+                //modelUser.FutureAddress.fullAddress = form.FullAddress;
+                //modelUser.FutureAddress.adminUnit_Id = form.AddressId;
+
+
                 BaseOutput galf = srv.WS_GetAdminUnitListForID(binput, form.AddressId, true, out modelUser.PRMAdminUnitArray);
                 modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.ToList();
                 modelUser.FutureAddress.fullAddress = string.Join(",", modelUser.PRMAdminUnitList.Select(x => x.Name));
+
                 modelUser.FutureAddress.adminUnit_Id = form.AddressId;
 
                 modelUser.FutureAddress.Status = 1;
@@ -477,7 +438,6 @@ namespace Emsal.UI.Controllers
                 modelUser.FutureAddress.user_IdSpecified = true;
                 modelUser.FutureAddress.user_type_eV_IdSpecified = true;
 
-                modelUser.FutureAddress.adminUnit_Id = form.AddressId;
                 modelUser.FutureAddress.adminUnit_IdSpecified = true;
 
                 BaseOutput updateAddress = srv.WS_UpdateAddress(binput, modelUser.FutureAddress);
@@ -799,12 +759,12 @@ namespace Emsal.UI.Controllers
                     email = "ferid.heziyev@gmail.com";
                 }
                 msg.To.Add(email);
-                string fromPassword = "e1701895";
+                //string fromPassword = "e1701895";
                 msg.Subject = "Üzvlüyü tesdiqle";
 
                 msg.Body = "<p>İstifadəçi adınız:" + userName + "</p>" +
                            "<p>Şifrəniz:" + password + "</p>" +
-                           "<p>/Login</p>";
+                           "<p>http://localhost:56557/Login</p>";
 
                 msg.IsBodyHtml = true;
 
@@ -877,7 +837,6 @@ namespace Emsal.UI.Controllers
             BaseOutput bouput = srv.WS_GetPRM_AdminUnits(binput, out modelUser.PRMAdminUnitArray);
 
 
-
             modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.Where(x => x.ParentID == pId).ToList();
 
             if (adminUnitId != null && adminUnitId != 0)
@@ -922,19 +881,19 @@ namespace Emsal.UI.Controllers
             }
 
 
-
-            //BaseOutput bouputs = srv.WS_GetAdminUnitsByParentId(baseInput, pId, true, out modelOfferProduction.PRMAdminUnitArray);
-            //modelOfferProduction.PRMAdminUnitList = modelOfferProduction.PRMAdminUnitArray.ToList();
-
             if (adminUnitId > 0)
             {
                 BaseOutput gpa = srv.WS_GetAddressById(binput, (long)adminUnitId, true, out modelUser.Address);
                 modelUser.Address = new tblAddress();
-                BaseOutput galf = srv.WS_GetAdminUnitListForID(binput, (long)adminUnitId, true, out modelUser.PRMAdminUnitArray);                   //BaseOutput bouputs = srv.WS_GetAdminUnitsByParentId(baseInput, pId, true, out modelOfferProduction.PRMAdminUnitArray);
-                modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.ToList();                  //modelOfferProduction.PRMAdminUnitList = modelOfferProduction.PRMAdminUnitArray.ToList();
+
+                BaseOutput galf = srv.WS_GetAdminUnitListForID(binput, (long)adminUnitId, true, out modelUser.PRMAdminUnitArray);
+                modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.ToList();
                 modelUser.Address.fullAddress = string.Join(",", modelUser.PRMAdminUnitList.Select(x => x.Id));
+
+
                 modelUser.Address.fullAddress = "0," + modelUser.Address.fullAddress;
                 modelUser.addressIds = modelUser.Address.fullAddress.Split(',').Select(long.Parse).ToArray();
+
                 modelUser.PRMAdminUnitArrayPa = new IList<tblPRM_AdminUnit>[modelUser.addressIds.Count()];
                 int s = 0;
                 foreach (long itm in modelUser.addressIds)
@@ -943,13 +902,13 @@ namespace Emsal.UI.Controllers
                     modelUser.PRMAdminUnitArrayPa[s] = modelUser.PRMAdminUnitArray.ToList();
                     s = s + 1;
                 }
+
                 if (modelUser.PRMAdminUnitArrayPa[s - 1].Count() > 0)
                 {
                     modelUser.Address.fullAddress = modelUser.Address.fullAddress + ",0";
                     modelUser.addressIds = modelUser.Address.fullAddress.Split(',').Select(long.Parse).ToArray();
                 }
             }
-
 
             if (Session["arrONum"] == null)
             {
