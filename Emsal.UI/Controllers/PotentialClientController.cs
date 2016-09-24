@@ -371,7 +371,6 @@ namespace Emsal.UI.Controllers
                 }
 
                 return Json(modelPotentialProduction.Personr, JsonRequestBehavior.AllowGet);
-
             }
             catch (Exception ex)
             {
