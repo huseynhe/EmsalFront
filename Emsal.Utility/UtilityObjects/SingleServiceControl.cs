@@ -11,15 +11,15 @@ namespace Emsal.Utility.UtilityObjects
     {
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
-        //Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
+        Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
 
-        public int getPersonInfoByPin(string pin, out tblPerson person, out getPersonalInfoByPinNewResponseResponse imasPerson)
+        public int getPersonInfoByPin(string pin, out tblPerson person, out getPersonalInfoByPinNewResponseResponse iamasPerson)
         {
 
             BaseInput input = new BaseInput();
             person = null;
-            imasPerson = null;
-            BaseOutput output = srv.WS_GetPersonByPinNumber(input, pin + "1", out person);
+            iamasPerson = null;
+            BaseOutput output = srv.WS_GetPersonByPinNumber(input, pin, out person);
             if (person != null)
             {
                 return 1;
@@ -27,7 +27,7 @@ namespace Emsal.Utility.UtilityObjects
 
             else if (person == null)
             {
-                //imasPerson = iamasSrv.getPersonalInfoByPinNew(pin, "1");
+                iamasPerson = iamasSrv.getPersonalInfoByPinNew(pin, "true");
                 return 2;
             }
             else

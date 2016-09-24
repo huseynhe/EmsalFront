@@ -67,9 +67,9 @@ namespace Emsal.UI.Controllers
 
                 SingleServiceControl srvcontrol = new SingleServiceControl();
                 tblPerson person ;
-                getPersonalInfoByPinNewResponseResponse imasPerson;
+                getPersonalInfoByPinNewResponseResponse iamasPerson;
 
-               int control= srvcontrol.getPersonInfoByPin("4JH0ENM" ,out person,out imasPerson);
+                int control = srvcontrol.getPersonInfoByPin("4JH0ENM", out person, out iamasPerson);
                 baseInput = new BaseInput();
 
                 modelProductCatalog = new ProductCatalogViewModel();

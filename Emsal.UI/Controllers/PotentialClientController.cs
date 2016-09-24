@@ -1,7 +1,9 @@
 ﻿using Emsal.UI.Infrastructure;
 using Emsal.UI.Models;
 using Emsal.Utility.CustomObjects;
+using Emsal.Utility.UtilityObjects;
 using Emsal.WebInt.EmsalSrv;
+using Emsal.WebInt.IAMAS;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -347,9 +349,12 @@ namespace Emsal.UI.Controllers
 
                 modelPotentialProduction.PotentialProduction = new tblPotential_Production();
 
-                //BaseOutput gfo = srv.WS_GetForeign_OrganizationByVoen(baseInput, voen, out modelPotentialProduction.ForeignOrganization);
-
                 BaseOutput gp = srv.WS_GetPersonByPinNumber(baseInput, fin, out modelPotentialProduction.Person);
+
+                SingleServiceControl srvcontrol = new SingleServiceControl();
+                getPersonalInfoByPinNewResponseResponse iamasPerson;
+
+                int control = srvcontrol.getPersonInfoByPin("4JH0ENM", out modelPotentialProduction.Person, out iamasPerson);
 
                 modelPotentialProduction.Personr = new tblPerson();
                 if (modelPotentialProduction.Person != null)
@@ -357,6 +362,12 @@ namespace Emsal.UI.Controllers
                     modelPotentialProduction.Personr.Name = modelPotentialProduction.Person.Name;
                     modelPotentialProduction.Personr.Surname = modelPotentialProduction.Person.Surname;
                     modelPotentialProduction.Personr.FatherName = modelPotentialProduction.Person.FatherName;
+                }
+                else if (iamasPerson!=null)
+                {
+                    modelPotentialProduction.Personr.Name = iamasPerson.Name;
+                    modelPotentialProduction.Personr.Surname = iamasPerson.Surname;
+                    modelPotentialProduction.Personr.FatherName = iamasPerson.Patronymic;
                 }
 
                 return Json(modelPotentialProduction.Personr, JsonRequestBehavior.AllowGet);
