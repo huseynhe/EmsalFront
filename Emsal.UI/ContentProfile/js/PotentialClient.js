@@ -222,9 +222,10 @@ function getSelectedProducts() {
         }
     });
 }
+var finvoen='';
+var voen='';
 
 function finvoennull(v) {
-    $('#' + v).val('');
 
     if (v == "FIN") {
         elem = $('#name');
@@ -238,6 +239,14 @@ function finvoennull(v) {
         elem = $('#fathername');
         $(elem).attr('disabled', false);
         $(elem).val('');
+
+        $('#picture').hide();
+        fin = $('#FIN').val();
+
+        if (voen != '') {
+            $('#VOEN').val(voen);
+            getLegalPerson()
+        }       
     }
 
 
@@ -257,7 +266,17 @@ function finvoennull(v) {
         elem = $('#legalLame');
         $(elem).attr('disabled', false);
         $(elem).val('');
+
+        voen = $('#VOEN').val();
+
+        if (fin != '') {
+        $('#FIN').val(fin);
+        getPhysicalPerson();
+        }
     }
+
+
+    $('#' + v).val('');
 }
 
 
@@ -315,6 +334,11 @@ function getPhysicalPerson() {
             elem = $('#gender');
             $(elem).val(result.gender);
             if (result.gender != null) {
+            }
+
+            elem = $('#birtday');
+            $(elem).val(result.birtday);
+            if (result.birtday != null) {
             }
 
         },

@@ -4,9 +4,12 @@
     Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
 }
 
+@Html.Hidden("parentId", @Model.ParentOrganisation.Id);
 
 @*<link href="~/Content/css/OrganisationTreeView.css" rel="stylesheet">
 <script src="~/Content/js/OrganisationTreeView.js"></script>*@
+
+
 
 <script src="~/Content/js/getOrganization.js"></script>
 

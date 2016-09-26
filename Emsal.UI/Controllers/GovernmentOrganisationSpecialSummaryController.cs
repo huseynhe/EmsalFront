@@ -112,12 +112,16 @@ namespace Emsal.UI.Controllers
 
                 modelSpecial.OrgDemand.DemandCalendarList = new List<DemandCalendar>();
 
-                foreach (var demanditem in modelSpecial.ProductionCalendarArray)
+                var modelSpecials = modelSpecial.ProductionCalendarArray.OrderBy(x => x.year).ThenBy(x => x.months_eV_Id).ThenBy(x => x.day);
+                foreach (var demanditem in modelSpecials)
                 {
                     modelSpecial.OrgDemand.DemandCalendar = new DemandCalendar();
                     modelSpecial.OrgDemand.DemandCalendar.year = demanditem.year.ToString();
                     modelSpecial.OrgDemand.DemandCalendar.day = demanditem.day != null ? demanditem.day.ToString() : null;
                     modelSpecial.OrgDemand.DemandCalendar.ocklock = demanditem.oclock.ToString();
+                    modelSpecial.OrgDemand.DemandCalendar.quantity = demanditem.quantity.ToString();
+
+                    modelSpecial.OrgDemand.DemandCalendar.id = demanditem.Id.ToString();
 
                     BaseOutput shipmenttypeOUt = srv.WS_GetEnumValueById(binput, (long)demanditem.type_eV_Id, true, out modelSpecial.EnumValue);
                     modelSpecial.OrgDemand.DemandCalendar.shipmetType = modelSpecial.EnumValue.name;
@@ -237,13 +241,17 @@ namespace Emsal.UI.Controllers
                 BaseOutput calendar = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
 
                 modelSpecial.OrgDemand.DemandCalendarList = new List<DemandCalendar>();
+                var modelSpecials = modelSpecial.ProductionCalendarArray.OrderBy(x => x.year).ThenBy(x => x.months_eV_Id).ThenBy(x => x.day);
 
-                foreach (var demanditem in modelSpecial.ProductionCalendarArray)
+                foreach (var demanditem in modelSpecials)
                 {
                     modelSpecial.OrgDemand.DemandCalendar = new DemandCalendar();
                     modelSpecial.OrgDemand.DemandCalendar.year = demanditem.year.ToString();
                     modelSpecial.OrgDemand.DemandCalendar.day = demanditem.day != null ? demanditem.day.ToString() : null;
                     modelSpecial.OrgDemand.DemandCalendar.ocklock = demanditem.oclock.ToString();
+                    modelSpecial.OrgDemand.DemandCalendar.quantity = demanditem.quantity.ToString();
+
+                    modelSpecial.OrgDemand.DemandCalendar.id = demanditem.Id.ToString();
 
                     BaseOutput shipmenttypeOUt = srv.WS_GetEnumValueById(binput, (long)demanditem.type_eV_Id, true, out modelSpecial.EnumValue);
                     modelSpecial.OrgDemand.DemandCalendar.shipmetType = modelSpecial.EnumValue.name;
@@ -376,13 +384,17 @@ namespace Emsal.UI.Controllers
                 BaseOutput calendar = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
 
                 modelSpecial.OrgDemand.DemandCalendarList = new List<DemandCalendar>();
+                var modelSpecials = modelSpecial.ProductionCalendarArray.OrderBy(x => x.year).ThenBy(x => x.months_eV_Id).ThenBy(x => x.day);
 
-                foreach (var demanditem in modelSpecial.ProductionCalendarArray)
+                foreach (var demanditem in modelSpecials)
                 {
                     modelSpecial.OrgDemand.DemandCalendar = new DemandCalendar();
                     modelSpecial.OrgDemand.DemandCalendar.year = demanditem.year.ToString();
                     modelSpecial.OrgDemand.DemandCalendar.day = demanditem.day != null ? demanditem.day.ToString() : null;
                     modelSpecial.OrgDemand.DemandCalendar.ocklock = demanditem.oclock.ToString();
+                    modelSpecial.OrgDemand.DemandCalendar.quantity = demanditem.quantity.ToString();
+
+                    modelSpecial.OrgDemand.DemandCalendar.id = demanditem.Id.ToString();
 
                     BaseOutput shipmenttypeOUt = srv.WS_GetEnumValueById(binput, (long)demanditem.type_eV_Id, true, out modelSpecial.EnumValue);
                     modelSpecial.OrgDemand.DemandCalendar.shipmetType = modelSpecial.EnumValue.name;
@@ -502,13 +514,17 @@ namespace Emsal.UI.Controllers
                 BaseOutput calendar = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
 
                 modelSpecial.OrgDemand.DemandCalendarList = new List<DemandCalendar>();
+                var modelSpecials = modelSpecial.ProductionCalendarArray.OrderBy(x => x.year).ThenBy(x => x.months_eV_Id).ThenBy(x => x.day);
 
-                foreach (var demanditem in modelSpecial.ProductionCalendarArray)
+                foreach (var demanditem in modelSpecials)
                 {
                     modelSpecial.OrgDemand.DemandCalendar = new DemandCalendar();
                     modelSpecial.OrgDemand.DemandCalendar.year = demanditem.year.ToString();
                     modelSpecial.OrgDemand.DemandCalendar.day = demanditem.day != null ? demanditem.day.ToString() : null;
                     modelSpecial.OrgDemand.DemandCalendar.ocklock = demanditem.oclock.ToString();
+                    modelSpecial.OrgDemand.DemandCalendar.quantity = demanditem.quantity.ToString();
+
+                    modelSpecial.OrgDemand.DemandCalendar.id = demanditem.Id.ToString();
 
                     BaseOutput shipmenttypeOUt = srv.WS_GetEnumValueById(binput, (long)demanditem.type_eV_Id, true, out modelSpecial.EnumValue);
                     modelSpecial.OrgDemand.DemandCalendar.shipmetType = modelSpecial.EnumValue.name;

@@ -323,6 +323,7 @@
     <Content Include="Content\css\flat\yellow.png" />
     <Content Include="Content\css\flat\_all.css" />
     <Content Include="Content\js\flotJS.js" />
+    <Content Include="Content\js\getOrganization.js" />
     <Content Include="Content\js\icheck.min.js" />
     <Content Include="Content\js\icheckJS.js" />
     <Content Include="Content\js\inlineJS.js" />

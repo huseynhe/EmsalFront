@@ -66,17 +66,20 @@ namespace Emsal.UI.Controllers
                 modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.ForeignOrganisation.manager_Id).ToList();
             }
 
-            foreach (var item in modelSpecial.CommunicationInformationsList)
+            if (modelSpecial.CommunicationInformationsList != null)
             {
-                if(item.comType == 10120)
+                foreach (var item in modelSpecial.CommunicationInformationsList)
                 {
-                    modelSpecial.LoggedInUserInfos.MobilePhone = item.description;
-                }
-                if(item.comType == 10122)
-                {
-                    modelSpecial.LoggedInUserInfos.WorkPhone = item.description;
-                }
+                    if (item.comType == 10120)
+                    {
+                        modelSpecial.LoggedInUserInfos.MobilePhone = item.description;
+                    }
+                    if (item.comType == 10122)
+                    {
+                        modelSpecial.LoggedInUserInfos.WorkPhone = item.description;
+                    }
 
+                }
             }
 
 

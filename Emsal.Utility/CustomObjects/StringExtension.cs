@@ -14,5 +14,20 @@ namespace Emsal.Utility.CustomObjects
         {
             return str.Split(new char[] { ' ', '.', '?' }, StringSplitOptions.RemoveEmptyEntries).Length;
         }
+
+
+        public static Byte[] StringToByteArray(String str)
+        {
+            string[] bp = str.Split(',').ToArray();
+            byte[] bt = new byte[bp.Length];
+
+            for (int i = 0; i < bp.Length; i++)
+            {
+                bt[i] = Convert.ToByte(bp[i]);
+            }
+
+            return bt;
+        }
+
     }
 }

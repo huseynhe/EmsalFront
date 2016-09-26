@@ -7,6 +7,7 @@ namespace Emsal.UI.Models
 {
     public class DemandCalendar
     {
+        public string id { get; set; }
         public string day { get; set; }
         public string month { get; set; }
         public string year { get; set; }
@@ -17,4 +18,5 @@ namespace Emsal.UI.Models
 
         public string shipmetType { get; set; }
     }
+
 }

@@ -7,6 +7,7 @@ using Emsal.WebInt.IAMAS;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -206,6 +207,8 @@ namespace Emsal.UI.Controllers
                         modelPotentialProduction.Person.Surname = model.surname;
                         modelPotentialProduction.Person.FatherName = model.fathername;
                         modelPotentialProduction.Person.gender = model.gender;
+                        modelPotentialProduction.Person.birtday = model.birtday;
+                        modelPotentialProduction.Person.birtdaySpecified = true;
                         modelPotentialProduction.Person.profilePicture = model.profilePicture;
                     }
 
@@ -367,11 +370,8 @@ namespace Emsal.UI.Controllers
                     modelPotentialProduction.Personr.Surname = modelPotentialProduction.Person.Surname;
                     modelPotentialProduction.Personr.FatherName = modelPotentialProduction.Person.FatherName;
                     modelPotentialProduction.Personr.createdUser = modelPotentialProduction.Person.profilePicture;
-                    string[] bp = modelPotentialProduction.Person.profilePicture.Split(',').ToArray();
 
-                    byte[] bytes = Encoding.ASCII.GetBytes(modelPotentialProduction.Person.profilePicture);
-
-                    modelPotentialProduction.Personr.profilePicture = Convert.ToBase64String(bytes);
+                    modelPotentialProduction.Personr.profilePicture = Convert.ToBase64String(StringExtension.StringToByteArray(modelPotentialProduction.Person.profilePicture));
                 }
                 else if (iamasPerson.Name!=null)
                 {
@@ -380,7 +380,7 @@ namespace Emsal.UI.Controllers
                     string[] pa = iamasPerson.Patronymic.Split(' ').ToArray();
                     modelPotentialProduction.Personr.FatherName = pa[0];
                     modelPotentialProduction.Personr.gender = iamasPerson.gender;
-                    //modelPotentialProduction.Personr.birtday = iamasPerson.birthDate;
+                    modelPotentialProduction.Personr.birtday = (DateTime.Parse(iamasPerson.birthDate)).getInt64ShortDate();
                     modelPotentialProduction.Personr.createdUser = string.Join(",", iamasPerson.photo);
                     modelPotentialProduction.Personr.profilePicture = Convert.ToBase64String(iamasPerson.photo);
                 }
@@ -395,7 +395,8 @@ namespace Emsal.UI.Controllers
         }
 
 
-        public JsonResult GetLegalPerson(string voen)
+
+    public JsonResult GetLegalPerson(string voen)
         {
             try
             {
