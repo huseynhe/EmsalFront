@@ -120,12 +120,3 @@ H:\projects\Emsal_24.09.2016\EmsalFront\Emsal.Utility\bin\Debug\NLog.xml
 H:\projects\Emsal_24.09.2016\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.csprojResolveAssemblyReference.cache
 H:\projects\Emsal_24.09.2016\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.dll
 H:\projects\Emsal_24.09.2016\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.pdb
-C:\EmsalFront\Emsal.Utility\bin\Debug\Emsal.Utility.dll
-C:\EmsalFront\Emsal.Utility\bin\Debug\Emsal.Utility.pdb
-C:\EmsalFront\Emsal.Utility\bin\Debug\Emsal.WebInt.dll
-C:\EmsalFront\Emsal.Utility\bin\Debug\NLog.dll
-C:\EmsalFront\Emsal.Utility\bin\Debug\Emsal.WebInt.pdb
-C:\EmsalFront\Emsal.Utility\bin\Debug\NLog.xml
-C:\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.csprojResolveAssemblyReference.cache
-C:\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.dll
-C:\EmsalFront\Emsal.Utility\obj\Debug\Emsal.Utility.pdb

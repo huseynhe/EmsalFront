@@ -41,6 +41,9 @@
                 <div class="tab-content "><br />
                     <div class="tab-pane active" id="physical">
 
+                        @Html.HiddenFor(model => model.gender)
+                        @Html.HiddenFor(model => model.birtday)
+                        @Html.HiddenFor(model => model.profilePicture)
                         <div class="col-md-3">
                             <div class="col-sm-8" style="padding:0;">
                                 <div class="form-group">
@@ -54,32 +57,37 @@
                                 <div onclick="getPhysicalPerson()" class="btn btn-primary">yoxla</div>
                             </div>
                             </div>
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.name, new { @class = "form-control", required = "required" })
-                                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                        <div class="col-md-1">
                             </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.surname, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.surname, new { @class = "form-control", required = "required" })
-                                @Html.ValidationMessageFor(model => model.surname, "", new { @class = "text-danger" })
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.name, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-3">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.surname, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.surname, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(model => model.surname, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.fathername, htmlAttributes: new { @class = "control-label" })
                                     @Html.EditorFor(model => model.fathername, new { @class = "form-control", required = "required" })
                                     @Html.ValidationMessageFor(model => model.fathername, "", new { @class = "text-danger" })
                                 </div>
-                        </div>
+                            </div>
 
-                    </div>
+                            <div class="col-md-2">
+                                <img class="img-responsive thumbnail" id="picture" src="" />
+                            </div>
+
+                        </div>
                     <div class="tab-pane" id="legal">
                         <div class="col-md-3">
                             <div class="col-sm-8" style="padding:0;">

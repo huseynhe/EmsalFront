@@ -23,7 +23,7 @@ function GetAdminUnit(elem) {
     pId = $(elem).val();
     $(elem).parent().nextAll().remove();
 
-        var valu = 0;
+    var valu = 0;
     if (pId == '') {
         var name = $(elem).attr('name');
         var i = name.substring(5, name.length - 1);
@@ -67,7 +67,7 @@ function GetAdminUnitFU(elem) {
     pId = $(elem).val();
     $(elem).parent().nextAll().remove();
 
-        var valu = 0;
+    var valu = 0;
     if (pId == '') {
         var name = $(elem).attr('name');
         var i = name.substring(7, name.length - 1);
@@ -87,7 +87,7 @@ function GetAdminUnitFU(elem) {
 
     if (pId > 0) {
         $.ajax({
-            url: '/PotentialClient/AdminUnit?pId=' + pId+'&status=1',
+            url: '/PotentialClient/AdminUnit?pId=' + pId + '&status=1',
             type: 'GET',
             //data: { "pId": appId},
             success: function (result) {
@@ -174,7 +174,7 @@ function getChooseFileTemplate(pId) {
             $('#btnUploadFile').addClass('disabled');
         },
         error: function () {
-           
+
         }
     });
 }
@@ -226,8 +226,7 @@ function getSelectedProducts() {
 function finvoennull(v) {
     $('#' + v).val('');
 
-    if(v=="FIN")
-    {
+    if (v == "FIN") {
         elem = $('#name');
         $(elem).attr('disabled', false);
         $(elem).val('');
@@ -242,8 +241,7 @@ function finvoennull(v) {
     }
 
 
-    if(v=="VOEN")
-    {
+    if (v == "VOEN") {
         elem = $('#legalPName');
         $(elem).attr('disabled', false);
         $(elem).val('');
@@ -263,9 +261,14 @@ function finvoennull(v) {
 }
 
 
+$(document).ready(function () {
+    $('#picture').hide();
+});
+
 
 function getPhysicalPerson() {
     fin = $('#FIN').val();
+    $('#picture').hide();
 
     if ($.trim(fin).length < 3) {
         alert('FİN daxil edilməyib');
@@ -281,26 +284,38 @@ function getPhysicalPerson() {
         success: function (result) {
             elem = $('#name');
             $(elem).val(result.Name);
-            if (result.Name != null)
-                $(elem).attr('disabled', true);
-            else {
-                $(elem).attr('disabled', false);
-                alert("Qeyd mövcud deyil");
-            }
+            //if (result.Name != null)
+            //    $(elem).attr('disabled', true);
+            //else {
+            //    $(elem).attr('disabled', false);
+            //    alert("Qeyd mövcud deyil");
+            //}
 
             elem = $('#surname');
             $(elem).val(result.Surname);
-            if (result.Surname != null)
-                $(elem).attr('disabled', true);
-            else
-                $(elem).attr('disabled', false);
+            //if (result.Surname != null)
+            //    $(elem).attr('disabled', true);
+            //else
+            //    $(elem).attr('disabled', false);
 
             elem = $('#fathername');
             $(elem).val(result.FatherName);
-            if (result.FatherName != null)
-                $(elem).attr('disabled', true);
-            else
-                $(elem).attr('disabled', false);
+            //if (result.FatherName != null)
+            //    $(elem).attr('disabled', true);
+            //else
+            //    $(elem).attr('disabled', false);
+
+            elem = $('#profilePicture');
+            $(elem).val(result.createdUser);
+            if (result.profilePicture != null) {
+                document.getElementById("picture").src = "data:image/png;base64," + result.profilePicture;
+                $('#picture').show();
+            }
+
+            elem = $('#gender');
+            $(elem).val(result.gender);
+            if (result.gender != null) {
+            }
 
         },
         error: function () {

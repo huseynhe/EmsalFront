@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -204,6 +205,8 @@ namespace Emsal.UI.Controllers
                         modelPotentialProduction.Person.Name = model.name;
                         modelPotentialProduction.Person.Surname = model.surname;
                         modelPotentialProduction.Person.FatherName = model.fathername;
+                        modelPotentialProduction.Person.gender = model.gender;
+                        modelPotentialProduction.Person.profilePicture = model.profilePicture;
                     }
 
                     BaseOutput aper = srv.WS_AddPerson(baseInput, modelPotentialProduction.Person, out modelPotentialProduction.Person);
@@ -353,8 +356,9 @@ namespace Emsal.UI.Controllers
 
                 SingleServiceControl srvcontrol = new SingleServiceControl();
                 getPersonalInfoByPinNewResponseResponse iamasPerson;
+                tblPerson person;
 
-                int control = srvcontrol.getPersonInfoByPin("4JH0ENM", out modelPotentialProduction.Person, out iamasPerson);
+                int control = srvcontrol.getPersonInfoByPin(fin, out person, out iamasPerson);
 
                 modelPotentialProduction.Personr = new tblPerson();
                 if (modelPotentialProduction.Person != null)
@@ -362,13 +366,25 @@ namespace Emsal.UI.Controllers
                     modelPotentialProduction.Personr.Name = modelPotentialProduction.Person.Name;
                     modelPotentialProduction.Personr.Surname = modelPotentialProduction.Person.Surname;
                     modelPotentialProduction.Personr.FatherName = modelPotentialProduction.Person.FatherName;
+                    modelPotentialProduction.Personr.createdUser = modelPotentialProduction.Person.profilePicture;
+                    string[] bp = modelPotentialProduction.Person.profilePicture.Split(',').ToArray();
+
+                    byte[] bytes = Encoding.ASCII.GetBytes(modelPotentialProduction.Person.profilePicture);
+
+                    modelPotentialProduction.Personr.profilePicture = Convert.ToBase64String(bytes);
                 }
-                else if (iamasPerson!=null)
+                else if (iamasPerson.Name!=null)
                 {
                     modelPotentialProduction.Personr.Name = iamasPerson.Name;
                     modelPotentialProduction.Personr.Surname = iamasPerson.Surname;
-                    modelPotentialProduction.Personr.FatherName = iamasPerson.Patronymic;
+                    string[] pa = iamasPerson.Patronymic.Split(' ').ToArray();
+                    modelPotentialProduction.Personr.FatherName = pa[0];
+                    modelPotentialProduction.Personr.gender = iamasPerson.gender;
+                    //modelPotentialProduction.Personr.birtday = iamasPerson.birthDate;
+                    modelPotentialProduction.Personr.createdUser = string.Join(",", iamasPerson.photo);
+                    modelPotentialProduction.Personr.profilePicture = Convert.ToBase64String(iamasPerson.photo);
                 }
+
 
                 return Json(modelPotentialProduction.Personr, JsonRequestBehavior.AllowGet);
             }

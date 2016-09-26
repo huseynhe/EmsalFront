@@ -197,6 +197,9 @@ namespace Emsal.UI.Models
         [Display(Name = "Ata adı")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         public string fathername { get; set; }
+        public string gender { get; set; }
+        public string birtday { get; set; }
+        public string profilePicture { get; set; }
 
 
 

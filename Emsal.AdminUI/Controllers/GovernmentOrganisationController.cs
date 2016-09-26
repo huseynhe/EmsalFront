@@ -475,12 +475,8 @@ namespace Emsal.AdminUI.Controllers
                 {
                     tblCommunication comd = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault();
                     string a = comd == null ? null : comd.communication;
-                    if (a.Length>7)
-                    {
-                        modelUser.mobilePhonePrefix = a.Remove(a.Length - 7);
-                        modelUser.ManagerMobilePhone = a.Substring(modelUser.mobilePhonePrefix.Length, 7);
-                    }
-                    
+                    modelUser.mobilePhonePrefix = a.Remove(a.Length - 7);
+                    modelUser.ManagerMobilePhone = a.Substring(modelUser.mobilePhonePrefix.Length, 7);
                 }
                 if (modelUser.ManagerMobilePhone == null)
                 {

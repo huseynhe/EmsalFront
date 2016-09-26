@@ -307,15 +307,3 @@ H:\projects\Emsal_24.09.2016\EmsalFront\Emsal.AdminUI\bin\NLog.xml
 H:\projects\Emsal_24.09.2016\EmsalFront\Emsal.AdminUI\obj\Debug\Emsal.AdminUI.csprojResolveAssemblyReference.cache
 H:\projects\Emsal_24.09.2016\EmsalFront\Emsal.AdminUI\obj\Debug\Emsal.AdminUI.dll
 H:\projects\Emsal_24.09.2016\EmsalFront\Emsal.AdminUI\obj\Debug\Emsal.AdminUI.pdb
-C:\EmsalFront\Emsal.AdminUI\bin\Emsal.AdminUI.dll.config
-C:\EmsalFront\Emsal.AdminUI\bin\Emsal.AdminUI.dll
-C:\EmsalFront\Emsal.AdminUI\bin\Emsal.AdminUI.pdb
-C:\EmsalFront\Emsal.AdminUI\bin\Emsal.Utility.dll
-C:\EmsalFront\Emsal.AdminUI\bin\Emsal.WebInt.dll
-C:\EmsalFront\Emsal.AdminUI\bin\NLog.dll
-C:\EmsalFront\Emsal.AdminUI\bin\Emsal.Utility.pdb
-C:\EmsalFront\Emsal.AdminUI\bin\Emsal.WebInt.pdb
-C:\EmsalFront\Emsal.AdminUI\bin\NLog.xml
-C:\EmsalFront\Emsal.AdminUI\obj\Debug\Emsal.AdminUI.csprojResolveAssemblyReference.cache
-C:\EmsalFront\Emsal.AdminUI\obj\Debug\Emsal.AdminUI.dll
-C:\EmsalFront\Emsal.AdminUI\obj\Debug\Emsal.AdminUI.pdb
