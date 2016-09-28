@@ -489,9 +489,15 @@ namespace Emsal.UI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelDemandProduction.User);
                 baseInput.userName = modelDemandProduction.User.Username;
 
-                //BaseOutput folbidp = srv.WS_GetForeign_OrganisationsByParentId(baseInput, pId, true, out modelDemandProduction.ForeignOrganizationArray);
+                if (pId == 0)
+                {
+                    BaseOutput folbid = srv.WS_GetForeignOrganizationListByUserId(baseInput, (long)userId, true, out modelDemandProduction.ForeignOrganizationArray);
+                }
+                else if (pId > 0)
+                {
+                    BaseOutput folbidp = srv.WS_GetForeign_OrganisationsByParentId(baseInput, pId, true, out modelDemandProduction.ForeignOrganizationArray);
+                }
 
-                BaseOutput folbid = srv.WS_GetForeignOrganizationListByUserId(baseInput, (long)userId, true, out modelDemandProduction.ForeignOrganizationArray);
 
                 if (modelDemandProduction.ForeignOrganizationArray == null)
                 {

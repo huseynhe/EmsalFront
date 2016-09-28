@@ -17,6 +17,10 @@ namespace Emsal.UI.Models
         public tblRole Role;
         public tblUserRole UserRole;
 
+        public tblAddress Address;
+        public IList<tblAddress> AddressList { get; set; }
+        public tblAddress[] AddressArray;
+
         public tblPRM_AdminUnit PRMAdminUnit;
         public IList<tblPRM_AdminUnit> PRMAdminUnitList { get; set; }
         public tblPRM_AdminUnit[] PRMAdminUnitArray;
@@ -83,6 +87,35 @@ namespace Emsal.UI.Models
         public string NameSurname { get; set; }
 
         public tblUser LoggedInUser;
-        
+
+        [Display(Name = "Ad")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public string Name { get; set; }
+
+        [Display(Name = "Soyad")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public string Surname { get; set; }
+
+        [Display(Name = "Ata adı")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public string FatherName { get; set; }
+
+        [Display(Name = "Başlama tarixi")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public string profilePicture { get; set; }
+
+        [Display(Name = "Cinsi")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public string gender { get; set; }
+
+        [Display(Name = "Doğum tarixi")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
+        public string birtday { get; set; }
+
+
+
+        public string createdUser { get; set; }
+
     }
 }

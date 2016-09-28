@@ -65,11 +65,12 @@ namespace Emsal.UI.Controllers
             {
                 //srv.WS_createDb();
 
-                SingleServiceControl srvcontrol = new SingleServiceControl();
-                tblPerson person ;
-                getPersonalInfoByPinNewResponseResponse iamasPerson;
+                //SingleServiceControl srvcontrol = new SingleServiceControl();
+                //tblPerson person ;
+                //getPersonalInfoByPinNewResponseResponse iamasPerson;
 
-                int control = srvcontrol.getPersonInfoByPin("4JH0ENM", out person, out iamasPerson);
+                //int control = srvcontrol.getPersonInfoByPin("4JH0ENM", out person, out iamasPerson);
+
                 baseInput = new BaseInput();
 
                 modelProductCatalog = new ProductCatalogViewModel();

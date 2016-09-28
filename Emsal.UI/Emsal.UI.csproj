@@ -168,6 +168,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Controllers\SignUpController.cs" />
+    <Compile Include="Controllers\SignUpOPController.cs" />
     <Compile Include="Controllers\SpecialSummaryController.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -1082,6 +1083,7 @@
     <Content Include="Views\Home\PCDetail - Copy.cshtml" />
     <Content Include="Views\Shared\_LayoutMain.cshtml" />
     <Content Include="Views\Home\Services.cshtml" />
+    <Content Include="Views\SignUpOP\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -310,6 +310,10 @@ function getPhysicalPerson() {
             //    alert("Qeyd mövcud deyil");
             //}
 
+            if (result.Name = null){
+                alert("Qeyd mövcud deyil");
+            }
+
             elem = $('#surname');
             $(elem).val(result.Surname);
             //if (result.Surname != null)
