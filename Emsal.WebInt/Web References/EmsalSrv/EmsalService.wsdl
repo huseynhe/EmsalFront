@@ -10,6 +10,12 @@
       <xsd:import schemaLocation="http://localhost:56875/EmsalService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarOclock_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarOclock" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarOclock_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarOclockResponse" />
+  </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetProductionCalendartransportationeVId2_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetProductionCalendartransportationeVId2" />
   </wsdl:message>
@@ -51,6 +57,12 @@
   </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetProducListByUserID_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetProducListByUserIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetDemanProductionGroupList_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetDemanProductionGroupList" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetDemanProductionGroupList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetDemanProductionGroupListResponse" />
   </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetPotensialUserList_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetPotensialUserList" />
@@ -424,11 +436,11 @@
   <wsdl:message name="IEmsalService_WS_GetProductionCalendarDay_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarDayResponse" />
   </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetProductionCalendarOclock_InputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarOclock" />
+  <wsdl:message name="IEmsalService_WS_GetProductionDocumentsByGroupId_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionDocumentsByGroupId" />
   </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetProductionCalendarOclock_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarOclockResponse" />
+  <wsdl:message name="IEmsalService_WS_GetProductionDocumentsByGroupId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionDocumentsByGroupIdResponse" />
   </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetProductionDocumentsByGroupIdAndPotential_Production_Id_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetProductionDocumentsByGroupIdAndPotential_Production_Id" />
@@ -808,11 +820,11 @@
   <wsdl:message name="IEmsalService_WS_GetUserRolesByUserId_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetUserRolesByUserIdResponse" />
   </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetDemanProductionGroupList_InputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetDemanProductionGroupList" />
+  <wsdl:message name="IEmsalService_WS_GetUserByUserName_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetUserByUserName" />
   </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetDemanProductionGroupList_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetDemanProductionGroupListResponse" />
+  <wsdl:message name="IEmsalService_WS_GetUserByUserName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetUserByUserNameResponse" />
   </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetGovernmentOrganisations_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetGovernmentOrganisations" />
@@ -1192,11 +1204,11 @@
   <wsdl:message name="IEmsalService_WS_UpdateProductionDocumentForGroupID_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_UpdateProductionDocumentForGroupIDResponse" />
   </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetProductionDocumentsByGroupId_InputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetProductionDocumentsByGroupId" />
+  <wsdl:message name="IEmsalService_WS_DeleteCommunication_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_DeleteCommunication" />
   </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetProductionDocumentsByGroupId_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetProductionDocumentsByGroupIdResponse" />
+  <wsdl:message name="IEmsalService_WS_DeleteCommunication_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_DeleteCommunicationResponse" />
   </wsdl:message>
   <wsdl:message name="IEmsalService_WS_UpdateCommunication_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_UpdateCommunication" />
@@ -1576,12 +1588,6 @@
   <wsdl:message name="IEmsalService_WS_GetUsers_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetUsersResponse" />
   </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetUserByUserName_InputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetUserByUserName" />
-  </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetUserByUserName_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetUserByUserNameResponse" />
-  </wsdl:message>
   <wsdl:message name="IEmsalService_WS_createDb_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_createDb" />
   </wsdl:message>
@@ -1725,6 +1731,12 @@
   </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GETPRM_AdminUnitsByChildId_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_GETPRM_AdminUnitsByChildIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetPRM_AdminUnitByIamasId_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetPRM_AdminUnitByIamasId" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetPRM_AdminUnitByIamasId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetPRM_AdminUnitByIamasIdResponse" />
   </wsdl:message>
   <wsdl:message name="IEmsalService_WS_AddPerson_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_AddPerson" />
@@ -1960,13 +1972,11 @@
   <wsdl:message name="IEmsalService_WS_AddCommunication_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_AddCommunicationResponse" />
   </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_DeleteCommunication_InputMessage">
-    <wsdl:part name="parameters" element="tns:WS_DeleteCommunication" />
-  </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_DeleteCommunication_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WS_DeleteCommunicationResponse" />
-  </wsdl:message>
   <wsdl:portType name="IEmsalService">
+    <wsdl:operation name="WS_GetProductionCalendarOclock">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarOclock" message="tns:IEmsalService_WS_GetProductionCalendarOclock_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarOclockResponse" message="tns:IEmsalService_WS_GetProductionCalendarOclock_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="WS_GetProductionCalendartransportationeVId2">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendartransportationeVId2" message="tns:IEmsalService_WS_GetProductionCalendartransportationeVId2_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendartransportationeVId2Response" message="tns:IEmsalService_WS_GetProductionCalendartransportationeVId2_OutputMessage" />
@@ -1994,6 +2004,10 @@
     <wsdl:operation name="WS_GetProducListByUserID">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProducListByUserID" message="tns:IEmsalService_WS_GetProducListByUserID_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProducListByUserIDResponse" message="tns:IEmsalService_WS_GetProducListByUserID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetDemanProductionGroupList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetDemanProductionGroupList" message="tns:IEmsalService_WS_GetDemanProductionGroupList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetDemanProductionGroupListResponse" message="tns:IEmsalService_WS_GetDemanProductionGroupList_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="WS_GetPotensialUserList">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetPotensialUserList" message="tns:IEmsalService_WS_GetPotensialUserList_InputMessage" />
@@ -2243,9 +2257,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarDay" message="tns:IEmsalService_WS_GetProductionCalendarDay_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarDayResponse" message="tns:IEmsalService_WS_GetProductionCalendarDay_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="WS_GetProductionCalendarOclock">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarOclock" message="tns:IEmsalService_WS_GetProductionCalendarOclock_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarOclockResponse" message="tns:IEmsalService_WS_GetProductionCalendarOclock_OutputMessage" />
+    <wsdl:operation name="WS_GetProductionDocumentsByGroupId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionDocumentsByGroupId" message="tns:IEmsalService_WS_GetProductionDocumentsByGroupId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionDocumentsByGroupIdResponse" message="tns:IEmsalService_WS_GetProductionDocumentsByGroupId_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="WS_GetProductionDocumentsByGroupIdAndPotential_Production_Id">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionDocumentsByGroupIdAndPotential_Production_Id" message="tns:IEmsalService_WS_GetProductionDocumentsByGroupIdAndPotential_Production_Id_InputMessage" />
@@ -2499,9 +2513,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRolesByUserId" message="tns:IEmsalService_WS_GetUserRolesByUserId_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRolesByUserIdResponse" message="tns:IEmsalService_WS_GetUserRolesByUserId_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="WS_GetDemanProductionGroupList">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetDemanProductionGroupList" message="tns:IEmsalService_WS_GetDemanProductionGroupList_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetDemanProductionGroupListResponse" message="tns:IEmsalService_WS_GetDemanProductionGroupList_OutputMessage" />
+    <wsdl:operation name="WS_GetUserByUserName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserByUserName" message="tns:IEmsalService_WS_GetUserByUserName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserByUserNameResponse" message="tns:IEmsalService_WS_GetUserByUserName_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="WS_GetGovernmentOrganisations">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetGovernmentOrganisations" message="tns:IEmsalService_WS_GetGovernmentOrganisations_InputMessage" />
@@ -2755,9 +2769,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_UpdateProductionDocumentForGroupID" message="tns:IEmsalService_WS_UpdateProductionDocumentForGroupID_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_UpdateProductionDocumentForGroupIDResponse" message="tns:IEmsalService_WS_UpdateProductionDocumentForGroupID_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="WS_GetProductionDocumentsByGroupId">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionDocumentsByGroupId" message="tns:IEmsalService_WS_GetProductionDocumentsByGroupId_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionDocumentsByGroupIdResponse" message="tns:IEmsalService_WS_GetProductionDocumentsByGroupId_OutputMessage" />
+    <wsdl:operation name="WS_DeleteCommunication">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_DeleteCommunication" message="tns:IEmsalService_WS_DeleteCommunication_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_DeleteCommunicationResponse" message="tns:IEmsalService_WS_DeleteCommunication_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="WS_UpdateCommunication">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_UpdateCommunication" message="tns:IEmsalService_WS_UpdateCommunication_InputMessage" />
@@ -3011,10 +3025,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUsers" message="tns:IEmsalService_WS_GetUsers_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUsersResponse" message="tns:IEmsalService_WS_GetUsers_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="WS_GetUserByUserName">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserByUserName" message="tns:IEmsalService_WS_GetUserByUserName_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserByUserNameResponse" message="tns:IEmsalService_WS_GetUserByUserName_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="WS_createDb">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_createDb" message="tns:IEmsalService_WS_createDb_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_createDbResponse" message="tns:IEmsalService_WS_createDb_OutputMessage" />
@@ -3110,6 +3120,10 @@
     <wsdl:operation name="WS_GETPRM_AdminUnitsByChildId">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GETPRM_AdminUnitsByChildId" message="tns:IEmsalService_WS_GETPRM_AdminUnitsByChildId_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GETPRM_AdminUnitsByChildIdResponse" message="tns:IEmsalService_WS_GETPRM_AdminUnitsByChildId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetPRM_AdminUnitByIamasId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetPRM_AdminUnitByIamasId" message="tns:IEmsalService_WS_GetPRM_AdminUnitByIamasId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetPRM_AdminUnitByIamasIdResponse" message="tns:IEmsalService_WS_GetPRM_AdminUnitByIamasId_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="WS_AddPerson">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_AddPerson" message="tns:IEmsalService_WS_AddPerson_InputMessage" />
@@ -3267,13 +3281,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_AddCommunication" message="tns:IEmsalService_WS_AddCommunication_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_AddCommunicationResponse" message="tns:IEmsalService_WS_AddCommunication_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="WS_DeleteCommunication">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_DeleteCommunication" message="tns:IEmsalService_WS_DeleteCommunication_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_DeleteCommunicationResponse" message="tns:IEmsalService_WS_DeleteCommunication_OutputMessage" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IEmsalService" type="tns:IEmsalService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="WS_GetProductionCalendarOclock">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendarOclock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="WS_GetProductionCalendartransportationeVId2">
       <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendartransportationeVId2" style="document" />
       <wsdl:input>
@@ -3330,6 +3349,15 @@
     </wsdl:operation>
     <wsdl:operation name="WS_GetProducListByUserID">
       <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProducListByUserID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetDemanProductionGroupList">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetDemanProductionGroupList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3895,8 +3923,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="WS_GetProductionCalendarOclock">
-      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendarOclock" style="document" />
+    <wsdl:operation name="WS_GetProductionDocumentsByGroupId">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionDocumentsByGroupId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4471,8 +4499,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="WS_GetDemanProductionGroupList">
-      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetDemanProductionGroupList" style="document" />
+    <wsdl:operation name="WS_GetUserByUserName">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetUserByUserName" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5047,8 +5075,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="WS_GetProductionDocumentsByGroupId">
-      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionDocumentsByGroupId" style="document" />
+    <wsdl:operation name="WS_DeleteCommunication">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_DeleteCommunication" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5623,15 +5651,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="WS_GetUserByUserName">
-      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetUserByUserName" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="WS_createDb">
       <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_createDb" style="document" />
       <wsdl:input>
@@ -5841,6 +5860,15 @@
     </wsdl:operation>
     <wsdl:operation name="WS_GETPRM_AdminUnitsByChildId">
       <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GETPRM_AdminUnitsByChildId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetPRM_AdminUnitByIamasId">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetPRM_AdminUnitByIamasId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6192,15 +6220,6 @@
     </wsdl:operation>
     <wsdl:operation name="WS_AddCommunication">
       <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_AddCommunication" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="WS_DeleteCommunication">
-      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_DeleteCommunication" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -209,6 +209,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOftblBranchResponsibility" nillable="true" type="tns:ArrayOftblBranchResponsibility" />
+  <xs:complexType name="ArrayOftblProduction_Document">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblProduction_Document" nillable="true" type="tns:tblProduction_Document" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblProduction_Document" nillable="true" type="tns:ArrayOftblProduction_Document" />
   <xs:complexType name="tblProduction_Document">
     <xs:sequence>
       <xs:element minOccurs="0" name="Demand_Production_Id" nillable="true" type="xs:long" />
@@ -233,12 +239,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="tblProduction_Document" nillable="true" type="tns:tblProduction_Document" />
-  <xs:complexType name="ArrayOftblProduction_Document">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblProduction_Document" nillable="true" type="tns:tblProduction_Document" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOftblProduction_Document" nillable="true" type="tns:ArrayOftblProduction_Document" />
   <xs:complexType name="tblProductionControl">
     <xs:sequence>
       <xs:element minOccurs="0" name="Demand_Production_Id" nillable="true" type="xs:long" />
@@ -377,6 +377,8 @@
       <xs:element minOccurs="0" name="Status" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="createdDate" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="createdUser" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="iamasId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="isCity" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="updatedDate" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="updatedUser" nillable="true" type="xs:string" />
     </xs:sequence>
@@ -414,12 +416,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOftblUserRole" nillable="true" type="tns:ArrayOftblUserRole" />
-  <xs:complexType name="ArrayOftblUser">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblUser" nillable="true" type="tns:tblUser" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOftblUser" nillable="true" type="tns:ArrayOftblUser" />
   <xs:complexType name="tblUser">
     <xs:sequence>
       <xs:element minOccurs="0" name="ASC_ID" nillable="true" type="xs:long" />
@@ -441,6 +437,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="tblUser" nillable="true" type="tns:tblUser" />
+  <xs:complexType name="ArrayOftblUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblUser" nillable="true" type="tns:tblUser" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblUser" nillable="true" type="tns:ArrayOftblUser" />
   <xs:complexType name="tblRole">
     <xs:sequence>
       <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />

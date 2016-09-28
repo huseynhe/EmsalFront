@@ -16,6 +16,26 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProductCatalogDetail" nillable="true" type="tns:ProductCatalogDetail" />
+  <xs:complexType name="ArrayOfDemanProductionGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DemanProductionGroup" nillable="true" type="tns:DemanProductionGroup" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDemanProductionGroup" nillable="true" type="tns:ArrayOfDemanProductionGroup" />
+  <xs:complexType name="DemanProductionGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="endDate" type="xs:long" />
+      <xs:element minOccurs="0" name="enumValuId" type="xs:long" />
+      <xs:element minOccurs="0" name="enumValueName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="productId" type="xs:long" />
+      <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="productParentName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="startDate" type="xs:long" />
+      <xs:element minOccurs="0" name="totalQuantity" type="xs:decimal" />
+      <xs:element minOccurs="0" name="unitPrice" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DemanProductionGroup" nillable="true" type="tns:DemanProductionGroup" />
   <xs:complexType name="ArrayOfUserInfo">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="UserInfo" nillable="true" type="tns:UserInfo" />
@@ -163,26 +183,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProductionDetail" nillable="true" type="tns:ProductionDetail" />
-  <xs:complexType name="ArrayOfDemanProductionGroup">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="DemanProductionGroup" nillable="true" type="tns:DemanProductionGroup" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfDemanProductionGroup" nillable="true" type="tns:ArrayOfDemanProductionGroup" />
-  <xs:complexType name="DemanProductionGroup">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="endDate" type="xs:long" />
-      <xs:element minOccurs="0" name="enumValuId" type="xs:long" />
-      <xs:element minOccurs="0" name="enumValueName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="productId" type="xs:long" />
-      <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="productParentName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="startDate" type="xs:long" />
-      <xs:element minOccurs="0" name="totalQuantity" type="xs:decimal" />
-      <xs:element minOccurs="0" name="unitPrice" type="xs:decimal" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="DemanProductionGroup" nillable="true" type="tns:DemanProductionGroup" />
   <xs:complexType name="ArrayOfAnnouncementDetail">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="AnnouncementDetail" nillable="true" type="tns:AnnouncementDetail" />

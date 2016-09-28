@@ -7,6 +7,8 @@ using Emsal.WebInt.IAMAS;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -23,6 +25,7 @@ namespace Emsal.UI.Controllers
     {
         private static string fullAddressId = "";
         private static string fullAddressIdFU = "";
+        private static string addressDesc = "";
         private static string fin = "";
         private static string voen = "";
         private BaseInput baseInput;
@@ -58,7 +61,6 @@ namespace Emsal.UI.Controllers
                 }
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelPotentialProduction.User);
                 baseInput.userName = modelPotentialProduction.User.Username;
-
 
                 if (Session["documentGrupId"] == null)
                 {
@@ -172,7 +174,7 @@ namespace Emsal.UI.Controllers
                     modelPotentialProduction.Address = new tblAddress();
                     modelPotentialProduction.Address.adminUnit_Id = model.addressIdFU;
                     modelPotentialProduction.Address.adminUnit_IdSpecified = true;
-                    modelPotentialProduction.Address.addressDesc = model.descAddress;
+                    modelPotentialProduction.Address.addressDesc = model.descAddressFU;
                     modelPotentialProduction.Address.user_Id = modelPotentialProduction.User.Id;
                     modelPotentialProduction.Address.user_IdSpecified = true;
                    
@@ -210,6 +212,15 @@ namespace Emsal.UI.Controllers
                         modelPotentialProduction.Person.birtday = model.birtday;
                         modelPotentialProduction.Person.birtdaySpecified = true;
                         modelPotentialProduction.Person.profilePicture = model.profilePicture;
+
+                        //Shekili saxlamaq ucun
+                        //Image image;
+                        //using (MemoryStream ms = new MemoryStream(StringExtension.StringToByteArray(model.profilePicture)))
+                        //{
+                        //    image = Image.FromStream(ms);
+
+                        //    image.Save(Server.MapPath("~/Content/profileImage/") + "myImage.Jpeg", ImageFormat.Jpeg);
+                        //}
                     }
 
                     BaseOutput aper = srv.WS_AddPerson(baseInput, modelPotentialProduction.Person, out modelPotentialProduction.Person);
@@ -337,7 +348,6 @@ namespace Emsal.UI.Controllers
         {
             try
             {
-
                 baseInput = new BaseInput();
                 modelPotentialProduction = new PotentialClientViewModel();
 
@@ -363,7 +373,11 @@ namespace Emsal.UI.Controllers
 
                 int control = srvcontrol.getPersonInfoByPin(fin, out person, out iamasPerson);
 
+                long auid = 0;
+
+
                 modelPotentialProduction.Personr = new tblPerson();
+
                 if (modelPotentialProduction.Person != null)
                 {
                     modelPotentialProduction.Personr.Name = modelPotentialProduction.Person.Name;
@@ -372,9 +386,55 @@ namespace Emsal.UI.Controllers
                     modelPotentialProduction.Personr.createdUser = modelPotentialProduction.Person.profilePicture;
 
                     modelPotentialProduction.Personr.profilePicture = Convert.ToBase64String(StringExtension.StringToByteArray(modelPotentialProduction.Person.profilePicture));
+
+                    BaseOutput gabui = srv.WS_GetAddressesByUserId(baseInput, (long)modelPotentialProduction.Person.UserId, true, out modelPotentialProduction.AddressArray);
+
+                    modelPotentialProduction.Address = modelPotentialProduction.AddressArray.ToList().FirstOrDefault();
+                    auid = (long)modelPotentialProduction.Address.adminUnit_Id;
+                    addressDesc = modelPotentialProduction.Address.addressDesc;
+
+
                 }
                 else if (iamasPerson.Name!=null)
-                {
+                {         
+                    if (iamasPerson.Adress.cityId != null)
+                    {
+                        if (iamasPerson.Adress.cityId != "0")
+                        {
+                            BaseOutput gaufci = srv.WS_GetPRM_AdminUnitByIamasId(baseInput, Int64.Parse(iamasPerson.Adress.cityId), true,true,true, out modelPotentialProduction.PRMAdminUnit);
+                        }
+                    }
+
+                    if (iamasPerson.Adress.districtId != null)
+                    {
+                        if (iamasPerson.Adress.districtId != "0")
+                        {
+                            BaseOutput gaufci = srv.WS_GetPRM_AdminUnitByIamasId(baseInput, Int64.Parse(iamasPerson.Adress.districtId), true, false, true, out modelPotentialProduction.PRMAdminUnit);
+                        }
+                    }
+
+                    auid = modelPotentialProduction.PRMAdminUnit.Id;
+
+
+                    addressDesc = "";
+
+                    if (!String.IsNullOrEmpty(iamasPerson.Adress.place))
+                        addressDesc += iamasPerson.Adress.place;
+
+                    if (!String.IsNullOrEmpty(iamasPerson.Adress.street))
+                        addressDesc += ", " + iamasPerson.Adress.street;
+
+                    if (!String.IsNullOrEmpty(iamasPerson.Adress.building))
+                        addressDesc += ", " + iamasPerson.Adress.building;
+
+                    if (!String.IsNullOrEmpty(iamasPerson.Adress.block))
+                        addressDesc += ", " + iamasPerson.Adress.block;
+
+                    if (!String.IsNullOrEmpty(iamasPerson.Adress.apartment))
+                        addressDesc += ", " + iamasPerson.Adress.apartment;
+
+                    //addressDesc = iamasPerson.Adress.place + ", " + iamasPerson.Adress.street + ", " + iamasPerson.Adress.apartment + ", " + iamasPerson.Adress.block + ", " + iamasPerson.Adress.building;
+
                     modelPotentialProduction.Personr.Name = iamasPerson.Name;
                     modelPotentialProduction.Personr.Surname = iamasPerson.Surname;
                     string[] pa = iamasPerson.Patronymic.Split(' ').ToArray();
@@ -386,6 +446,13 @@ namespace Emsal.UI.Controllers
                 }
 
 
+                BaseOutput gal = srv.WS_GetAdminUnitListForID(baseInput, auid, true, out modelPotentialProduction.PRMAdminUnitArray);
+                modelPotentialProduction.PRMAdminUnitList = modelPotentialProduction.PRMAdminUnitArray.ToList();
+
+                fullAddressIdFU = string.Join(",", modelPotentialProduction.PRMAdminUnitList.Select(x => x.Id));
+               
+                fullAddressId = "1";
+
                 return Json(modelPotentialProduction.Personr, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -396,57 +463,57 @@ namespace Emsal.UI.Controllers
 
 
 
-    public JsonResult GetLegalPerson(string voen)
-        {
-            try
+        public JsonResult GetLegalPerson(string voen)
             {
-
-                baseInput = new BaseInput();
-                modelPotentialProduction = new PotentialClientViewModel();
-
-                long? userId = null;
-                if (User != null && User.Identity.IsAuthenticated)
+                try
                 {
-                    FormsIdentity identity = (FormsIdentity)User.Identity;
-                    if (identity.Ticket.UserData.Length > 0)
+
+                    baseInput = new BaseInput();
+                    modelPotentialProduction = new PotentialClientViewModel();
+
+                    long? userId = null;
+                    if (User != null && User.Identity.IsAuthenticated)
                     {
-                        userId = Int32.Parse(identity.Ticket.UserData);
+                        FormsIdentity identity = (FormsIdentity)User.Identity;
+                        if (identity.Ticket.UserData.Length > 0)
+                        {
+                            userId = Int32.Parse(identity.Ticket.UserData);
+                        }
                     }
+                    BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelPotentialProduction.User);
+                    baseInput.userName = modelPotentialProduction.User.Username;
+
+
+                    modelPotentialProduction.PotentialProduction = new tblPotential_Production();
+
+                    BaseOutput gfo = srv.WS_GetForeign_OrganizationByVoen(baseInput, voen, out modelPotentialProduction.ForeignOrganization);
+
+                    if (modelPotentialProduction.ForeignOrganization != null)
+                    {
+                        //BaseOutput gubv = srv.WS_GetUserById(baseInput, (long)modelPotentialProduction.ForeignOrganization.userId, true, out modelPotentialProduction.User);
+
+                        BaseOutput gp = srv.WS_GetPersonByUserId(baseInput, (long)modelPotentialProduction.ForeignOrganization.userId, true, out modelPotentialProduction.Person);
+                    }
+
+
+                    modelPotentialProduction.Personr = new tblPerson();
+                    if (modelPotentialProduction.Person != null)
+                    {
+                        modelPotentialProduction.Personr.Name = modelPotentialProduction.Person.Name;
+                        modelPotentialProduction.Personr.Surname = modelPotentialProduction.Person.Surname;
+                        modelPotentialProduction.Personr.FatherName = modelPotentialProduction.Person.FatherName;
+
+                        modelPotentialProduction.Personr.PinNumber = modelPotentialProduction.ForeignOrganization.name;
+                    }
+
+                    return Json(modelPotentialProduction.Personr, JsonRequestBehavior.AllowGet);
+
                 }
-                BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelPotentialProduction.User);
-                baseInput.userName = modelPotentialProduction.User.Username;
-
-
-                modelPotentialProduction.PotentialProduction = new tblPotential_Production();
-
-                BaseOutput gfo = srv.WS_GetForeign_OrganizationByVoen(baseInput, voen, out modelPotentialProduction.ForeignOrganization);
-
-                if (modelPotentialProduction.ForeignOrganization != null)
+                catch (Exception ex)
                 {
-                    //BaseOutput gubv = srv.WS_GetUserById(baseInput, (long)modelPotentialProduction.ForeignOrganization.userId, true, out modelPotentialProduction.User);
-
-                    BaseOutput gp = srv.WS_GetPersonByUserId(baseInput, (long)modelPotentialProduction.ForeignOrganization.userId, true, out modelPotentialProduction.Person);
+                    return Json(null);
                 }
-
-
-                modelPotentialProduction.Personr = new tblPerson();
-                if (modelPotentialProduction.Person != null)
-                {
-                    modelPotentialProduction.Personr.Name = modelPotentialProduction.Person.Name;
-                    modelPotentialProduction.Personr.Surname = modelPotentialProduction.Person.Surname;
-                    modelPotentialProduction.Personr.FatherName = modelPotentialProduction.Person.FatherName;
-
-                    modelPotentialProduction.Personr.PinNumber = modelPotentialProduction.ForeignOrganization.name;
-                }
-
-                return Json(modelPotentialProduction.Personr, JsonRequestBehavior.AllowGet);
-
             }
-            catch (Exception ex)
-            {
-                return Json(null);
-            }
-        }
 
         public ActionResult Edit(long id)
         {
@@ -805,7 +872,6 @@ namespace Emsal.UI.Controllers
         {
             try
             {
-
                 baseInput = new BaseInput();
 
                 modelPotentialProduction = new PotentialClientViewModel();
@@ -833,6 +899,8 @@ namespace Emsal.UI.Controllers
                 if (productAddressId > 0)
                 {
                     BaseOutput gpa = srv.WS_GetProductAddressById(baseInput, productAddressId, true, out modelPotentialProduction.ProductAddress);
+
+
                     if (modelPotentialProduction.ProductAddress.fullAddressId != "")
                     {
                         modelPotentialProduction.ProductAddress.fullAddressId = "0," + modelPotentialProduction.ProductAddress.fullAddressId;
@@ -888,11 +956,24 @@ namespace Emsal.UI.Controllers
                         }
                     }
 
-                    modelPotentialProduction.ProductAddress = new tblProductAddress();
+                    modelPotentialProduction.ProductAddress = new tblProductAddress();  
+
+                    if(fullAddressId=="1")
+                    {
+                        fullAddressIdFU = "";
+                    }
                 }
+
+
+                modelPotentialProduction.ProductAddress = new tblProductAddress();
 
                 if (status != null)
                 {
+                    if (addressDesc != "")
+                    {
+                        modelPotentialProduction.ProductAddress.addressDesc = addressDesc;
+                    }
+
                     if (Session["arrNumFU"] == null)
                     {
                         Session["arrNumFU"] = modelPotentialProduction.arrNumFU;

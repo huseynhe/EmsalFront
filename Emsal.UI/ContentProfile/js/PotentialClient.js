@@ -341,6 +341,7 @@ function getPhysicalPerson() {
             if (result.birtday != null) {
             }
 
+            GetAdminUnitFUV();
         },
         error: function () {
 

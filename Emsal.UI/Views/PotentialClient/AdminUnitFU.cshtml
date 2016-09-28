@@ -51,7 +51,7 @@
     <div class="col-md-12">
         <div class="form-group">
             @Html.LabelFor(model => model.descAddress, htmlAttributes: new { @class = "control-label" })
-            <input type="text" value="@Model.ProductAddress.addressDesc" name="descAddressFU" id="descAddress" placeholder="məs: Azadlıq prospekti 22, mənzil 33" class="form-control">
+            <input type="text" value="@Model.ProductAddress.addressDesc" name="descAddressFU" id="addressIdFU" placeholder="məs: Azadlıq prospekti 22, mənzil 33" class="form-control">
         </div>
     </div>
                     }
@@ -90,7 +90,7 @@ if (Model.PRMAdminUnitList.Count > 0)
         <div class="col-md-12">
             <div class="form-group">
                 @Html.LabelFor(model => model.descAddressFU, htmlAttributes: new { @class = "control-label" })
-                <input type="text" name="descAddressFU" id="descAddressFU" placeholder="məs: Azadlıq prospekti 22, mənzil 33" class="form-control">
+                <input type="text" value="@Model.ProductAddress.addressDesc" name="descAddressFU" id="descAddressFU" placeholder="məs: Azadlıq prospekti 22, mənzil 33" class="form-control">
             </div>
         </div>
             }
