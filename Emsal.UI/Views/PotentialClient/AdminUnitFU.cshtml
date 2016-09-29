@@ -57,8 +57,12 @@
                     }
                     else
                     {
-if (Model.PRMAdminUnitList.Count > 0)
-{
+                        if (Model.PRMAdminUnitList.Count > 0)
+                        {
+                            if (Model.arrNumFU == 0)
+                            {
+                            <input hidden name="addressIdFU" id="addressIdFU" />
+                            }
     <div class="form-group col-md-3">
         <select name="adfuId[@{ @Model.arrNumFU }]" onchange="GetAdminUnitFU(this)" class="form-control unicase-form-control select select2">
             @if (Model.arrNumFU > 0)

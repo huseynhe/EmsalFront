@@ -347,8 +347,8 @@ function getPhysicalPerson() {
 
             GetAdminUnitFUV();
         },
-        error: function () {
-
+        error: function (resut) {
+            alert("Səhv baş verdi");
         }
     });
 
@@ -398,9 +398,12 @@ function getLegalPerson() {
                 $(elem).attr('disabled', true);
             else
                 $(elem).attr('disabled', false);
-        },
-        error: function () {
 
+
+            GetAdminUnitFUV();
+        },
+        error: function (resut) {
+            alert("Səhv baş verdi");
         }
     });
 
