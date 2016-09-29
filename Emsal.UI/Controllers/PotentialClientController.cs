@@ -218,8 +218,8 @@ namespace Emsal.UI.Controllers
                         }
                     }
 
-                    BaseOutput aper = srv.WS_AddPerson(baseInput, modelPotentialProduction.Person, out modelPotentialProduction.Person);
 
+                    BaseOutput aper = srv.WS_AddPerson(baseInput, modelPotentialProduction.Person, out modelPotentialProduction.Person);
 
                     if (fh == "legalPerson")
                     {

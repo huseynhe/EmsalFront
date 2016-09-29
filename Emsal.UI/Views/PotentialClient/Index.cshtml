@@ -152,8 +152,9 @@
                             type: 'GET',
                             success: function (result) {
                                 $('#profileAdminUnitFU').html(result);
+
                                 if (@fifu==0){
-                                    $("select[name='adfuId[@fifu]']").change();
+                                    $("select[name='adfuId[0]']").change();
                                 }
                             },
                             error: function () {

@@ -350,6 +350,12 @@ function getPhysicalPerson() {
         error: function (resut) {
             alert("Səhv baş verdi");
         }
+    //    error: function (xhr, ajaxOptions, thrownError) {
+    //    alert(xhr.status);
+    //    alert(xhr.responseText);
+    //    alert(ajaxOptions);
+    //    alert(thrownError);
+    //}
     });
 
 }
