@@ -450,8 +450,11 @@ namespace Emsal.UI.Controllers
                 modelPotentialProduction.PRMAdminUnitList = modelPotentialProduction.PRMAdminUnitArray.ToList();
 
                 fullAddressIdFU = string.Join(",", modelPotentialProduction.PRMAdminUnitList.Select(x => x.Id));
-               
-                fullAddressId = "1";
+
+                if (fullAddressId == "")
+                {
+                        fullAddressId = "1";                  
+                }
 
                 return Json(modelPotentialProduction.Personr, JsonRequestBehavior.AllowGet);
             }
