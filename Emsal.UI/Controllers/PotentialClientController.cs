@@ -214,7 +214,7 @@ namespace Emsal.UI.Controllers
                         {
                             image = Image.FromStream(ms);
 
-                            image.Save(Server.MapPath("~/Content/profileImage/") + model.FIN+".Jpeg", ImageFormat.Jpeg);
+                            image.Save(Server.MapPath("~/ContentProfile/personImage/") + model.FIN+".Jpeg", ImageFormat.Jpeg);
                         }
                     }
 

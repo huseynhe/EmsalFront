@@ -1088,6 +1088,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ContentProfile\personImage\" />
     <Folder Include="Content\UI\images\gallery\" />
     <Folder Include="Content\UI\images\team\" />
   </ItemGroup>
