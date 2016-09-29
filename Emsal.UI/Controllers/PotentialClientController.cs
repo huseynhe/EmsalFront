@@ -241,7 +241,26 @@ namespace Emsal.UI.Controllers
                         BaseOutput afo = srv.WS_AddForeign_Organization(baseInput, modelPotentialProduction.ForeignOrganization, out modelPotentialProduction.ForeignOrganization);
                     }
                 }
+                else
+                {
+                    BaseOutput ga = srv.WS_GetAddressesByUserId(baseInput, modelPotentialProduction.User.Id, true, out modelPotentialProduction.AddressArray);
+                    modelPotentialProduction.Address = modelPotentialProduction.AddressArray.ToList().FirstOrDefault();
+                    modelPotentialProduction.Address.adminUnit_Id = model.addressIdFU;
+                    modelPotentialProduction.Address.adminUnit_IdSpecified = true;
+                    modelPotentialProduction.Address.addressDesc = model.descAddressFU;
+                    modelPotentialProduction.Address.user_Id = modelPotentialProduction.User.Id;
+                    modelPotentialProduction.Address.user_IdSpecified = true;
 
+
+                    BaseOutput galf = srv.WS_GetAdminUnitListForID(baseInput, model.addressIdFU, true, out modelPotentialProduction.PRMAdminUnitArray);
+                    modelPotentialProduction.PRMAdminUnitList = modelPotentialProduction.PRMAdminUnitArray.ToList();
+                    modelPotentialProduction.Address.fullAddress = string.Join(",", modelPotentialProduction.PRMAdminUnitList.Select(x => x.Name));
+
+                    fullAddressIdFU = string.Join(",", modelPotentialProduction.PRMAdminUnitList.Select(x => x.Id));
+
+
+                    BaseOutput ua = srv.WS_UpdateAddress(baseInput, modelPotentialProduction.Address);
+                }
 
                 Guid grupId = Guid.NewGuid();
                 modelPotentialProduction.PotentialProduction.grup_Id = grupId.ToString();
@@ -363,10 +382,6 @@ namespace Emsal.UI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelPotentialProduction.User);
                 baseInput.userName = modelPotentialProduction.User.Username;
 
-                modelPotentialProduction.PotentialProduction = new tblPotential_Production();
-
-                BaseOutput gp = srv.WS_GetPersonByPinNumber(baseInput, fin, out modelPotentialProduction.Person);
-
                 SingleServiceControl srvcontrol = new SingleServiceControl();
                 getPersonalInfoByPinNewResponseResponse iamasPerson;
                 tblPerson person;
@@ -375,25 +390,22 @@ namespace Emsal.UI.Controllers
 
                 long auid = 0;
 
+                modelPotentialProduction.Person = new tblPerson();
 
-                modelPotentialProduction.Personr = new tblPerson();
-
-                if (modelPotentialProduction.Person != null)
+                if (person != null)
                 {
-                    modelPotentialProduction.Personr.Name = modelPotentialProduction.Person.Name;
-                    modelPotentialProduction.Personr.Surname = modelPotentialProduction.Person.Surname;
-                    modelPotentialProduction.Personr.FatherName = modelPotentialProduction.Person.FatherName;
-                    modelPotentialProduction.Personr.createdUser = modelPotentialProduction.Person.profilePicture;
+                    modelPotentialProduction.Person.Name = person.Name;
+                    modelPotentialProduction.Person.Surname = person.Surname;
+                    modelPotentialProduction.Person.FatherName = person.FatherName;
+                    modelPotentialProduction.Person.createdUser = person.profilePicture;
 
-                    modelPotentialProduction.Personr.profilePicture = Convert.ToBase64String(StringExtension.StringToByteArray(modelPotentialProduction.Person.profilePicture));
+                    modelPotentialProduction.Person.profilePicture = Convert.ToBase64String(StringExtension.StringToByteArray(person.profilePicture));
 
-                    BaseOutput gabui = srv.WS_GetAddressesByUserId(baseInput, (long)modelPotentialProduction.Person.UserId, true, out modelPotentialProduction.AddressArray);
+                    BaseOutput gabui = srv.WS_GetAddressesByUserId(baseInput, (long)person.UserId, true, out modelPotentialProduction.AddressArray);
 
                     modelPotentialProduction.Address = modelPotentialProduction.AddressArray.ToList().FirstOrDefault();
                     auid = (long)modelPotentialProduction.Address.adminUnit_Id;
                     addressDesc = modelPotentialProduction.Address.addressDesc;
-
-
                 }
                 else if (iamasPerson.Name!=null)
                 {         
@@ -415,7 +427,6 @@ namespace Emsal.UI.Controllers
 
                     auid = modelPotentialProduction.PRMAdminUnit.Id;
 
-
                     addressDesc = "";
 
                     if (!String.IsNullOrEmpty(iamasPerson.Adress.place))
@@ -435,14 +446,14 @@ namespace Emsal.UI.Controllers
 
                     //addressDesc = iamasPerson.Adress.place + ", " + iamasPerson.Adress.street + ", " + iamasPerson.Adress.apartment + ", " + iamasPerson.Adress.block + ", " + iamasPerson.Adress.building;
 
-                    modelPotentialProduction.Personr.Name = iamasPerson.Name;
-                    modelPotentialProduction.Personr.Surname = iamasPerson.Surname;
+                    modelPotentialProduction.Person.Name = iamasPerson.Name;
+                    modelPotentialProduction.Person.Surname = iamasPerson.Surname;
                     string[] pa = iamasPerson.Patronymic.Split(' ').ToArray();
-                    modelPotentialProduction.Personr.FatherName = pa[0];
-                    modelPotentialProduction.Personr.gender = iamasPerson.gender;
-                    modelPotentialProduction.Personr.birtday = (DateTime.Parse(iamasPerson.birthDate)).getInt64ShortDate();
-                    modelPotentialProduction.Personr.createdUser = string.Join(",", iamasPerson.photo);
-                    modelPotentialProduction.Personr.profilePicture = Convert.ToBase64String(iamasPerson.photo);
+                    modelPotentialProduction.Person.FatherName = pa[0];
+                    modelPotentialProduction.Person.gender = iamasPerson.gender;
+                    modelPotentialProduction.Person.birtday = (DateTime.Parse(iamasPerson.birthDate)).getInt64ShortDate();
+                    modelPotentialProduction.Person.createdUser = string.Join(",", iamasPerson.photo);
+                    modelPotentialProduction.Person.profilePicture = Convert.ToBase64String(iamasPerson.photo);
                 }
 
 
@@ -456,7 +467,7 @@ namespace Emsal.UI.Controllers
                         fullAddressId = "1";                  
                 }
 
-                return Json(modelPotentialProduction.Personr, JsonRequestBehavior.AllowGet);
+                return Json(modelPotentialProduction.Person, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

@@ -248,6 +248,7 @@
     <Content Include="ContentProfile\img\kartof.jpg" />
     <Content Include="ContentProfile\img\linkedin.png" />
     <Content Include="ContentProfile\img\linkedin_blue.png" />
+    <Content Include="ContentProfile\img\loading.gif" />
     <Content Include="ContentProfile\img\mobile_phone.png" />
     <Content Include="ContentProfile\img\number_1.png" />
     <Content Include="ContentProfile\img\number_1y.png" />

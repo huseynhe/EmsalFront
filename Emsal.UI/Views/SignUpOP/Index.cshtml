@@ -1,0 +1,78 @@
+﻿@model Emsal.UI.Models.UserViewModel
+    
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+    var k = "";
+    var q = "";
+    if (Model.Person.gender == "Kişi")
+    {
+        k = "selected";
+    }
+    else if (Model.Person.gender == "Qadın")
+    {
+        q = "selected";
+    }
+}
+
+<h2>&nbsp;</h2><br />
+
+
+@using (Html.BeginForm("Index", "SignUpOP", FormMethod.Post,
+                                                                                         new { enctype = "multipart/form-data" }))
+{
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Person.Name, new { @class = "form-control", required = "required" })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Person.Surname, new { @class = "form-control", required = "required" })
+                @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.FatherName, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Person.FatherName, new { @class = "form-control", required = "required" })
+                @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label" })
+                <select required name="Person.gender" id="Person_gender" class="form-control select2">
+                    <option value="">Seçim edin</option>
+                        <option @k value="Kişi"> Kişi </option >
+                    <option @q value="Qadın"> Qadın </option>
+                </select>
+                 @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.birtday, htmlAttributes: new { @class = "control-label" })
+                <input class="text-box single-line" id="Person_birtday" name="Person.birtday" value="@Model.birtday" readonly="readonly" type="datetime">
+                @Html.ValidationMessageFor(model => model.birtday, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+    </div>
+
+
+        }
