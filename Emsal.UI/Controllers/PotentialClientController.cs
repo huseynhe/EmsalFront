@@ -476,7 +476,6 @@ namespace Emsal.UI.Controllers
         }
 
 
-
         public JsonResult GetLegalPerson(string voen)
             {
                 try
