@@ -303,12 +303,14 @@ function getPhysicalPerson() {
         success: function (result) {
             elem = $('#name');
             $(elem).val(result.Name);
-            //if (result.Name != null)
-            //    $(elem).attr('disabled', true);
-            //else {
-            //    $(elem).attr('disabled', false);
-            //    alert("Qeyd mövcud deyil");
-            //}
+            if (result.Name != null) {
+                //$(elem).attr('disabled', true);
+                GetAdminUnitFUV();
+            }
+            else {
+                //$(elem).attr('disabled', false);
+                alert("Qeyd mövcud deyil");
+            }
 
             if (result.Name = null){
                 alert("Qeyd mövcud deyil");
@@ -343,9 +345,7 @@ function getPhysicalPerson() {
             elem = $('#birtday');
             $(elem).val(result.birtday);
             if (result.birtday != null) {
-            }
-
-            GetAdminUnitFUV();
+            }            
         },
         error: function (resut) {
             alert("Səhv baş verdi");
@@ -377,8 +377,10 @@ function getLegalPerson() {
         success: function (result) {
             elem = $('#legalPName');
             $(elem).val(result.Name);
-            if (result.Name != null)
+            if (result.Name != null) {
                 $(elem).attr('disabled', true);
+                GetAdminUnitFUV();
+            }
             else {
                 $(elem).attr('disabled', false);
                 alert("Qeyd mövcud deyil");
@@ -404,9 +406,7 @@ function getLegalPerson() {
                 $(elem).attr('disabled', true);
             else
                 $(elem).attr('disabled', false);
-
-
-            GetAdminUnitFUV();
+            
         },
         error: function (resut) {
             alert("Səhv baş verdi");

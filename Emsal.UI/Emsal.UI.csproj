@@ -164,9 +164,6 @@
     <Compile Include="Controllers\PotentialClientMonitoringController.cs" />
     <Compile Include="Controllers\PotentialClientStateController .cs" />
     <Compile Include="Controllers\ProductionDocumentController.cs" />
-    <Compile Include="Controllers\ProfileController.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Controllers\SignUpOPController.cs" />
     <Compile Include="Controllers\SpecialSummaryController.cs">
@@ -927,15 +924,6 @@
     <Content Include="Views\PotentialClient\Index.cshtml" />
     <Content Include="Views\PotentialClient\ProductCatalog.cshtml" />
     <Content Include="Views\PotentialClient\SelectedProducts.cshtml" />
-    <Content Include="Views\Profile\AdminUnit.cshtml" />
-    <Content Include="Views\Profile\ChooseFileTemplate.cshtml" />
-    <Content Include="Views\Profile\Edit.cshtml" />
-    <Content Include="Views\Profile\Hello.cshtml" />
-    <Content Include="Views\Profile\Index - Copy.cshtml" />
-    <Content Include="Views\Profile\Index.cshtml" />
-    <Content Include="Views\Profile\ProductCatalog.cshtml" />
-    <Content Include="Views\Profile\SelectedDocuments.cshtml" />
-    <Content Include="Views\Profile\SelectedProducts.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LayoutProfile.cshtml" />
@@ -1081,7 +1069,6 @@
     <Content Include="Views\Login\ResetPassword.cshtml" />
     <Content Include="Views\OfferProduction\Edit.cshtml" />
     <Content Include="Views\OfferProduction\ProductionCalendar.cshtml" />
-    <Content Include="Views\Home\PCDetail - Copy.cshtml" />
     <Content Include="Views\Shared\_LayoutMain.cshtml" />
     <Content Include="Views\Home\Services.cshtml" />
     <Content Include="Views\SignUpOP\Index.cshtml" />
