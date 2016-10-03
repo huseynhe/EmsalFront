@@ -53,11 +53,11 @@
                     @if (Session["musername"] == null)
                     {
                         <li><a href="/Login"><div class="show-8 templatemo_page8">Daxil ol</div></a></li>
-                        <li><a href="/SignUp"><div class="show-9 templatemo_page9">Qeydiyyat</div></a></li>
+                        <li><a href="/SignUpOP"><div class="show-9 templatemo_page9">Qeydiyyat</div></a></li>
                     }
                     else
                     {
-                        <li><a href="/"><div class="show-8 templatemo_page8">@Session["musername"]</div></a></li>
+                        <li><a href="/Login/Redirect"><div class="show-8 templatemo_page8">@Session["musername"]</div></a></li>
                         <li><a href="/Login/Logout"><div class="show-9 templatemo_page9">Çıxış</div></a></li>
                     }
                 </ul>
@@ -91,13 +91,13 @@
                                     <a href="/Login"><div class="show-8 templatemo_page8" style="height:80px;"><span class="fa fa-lock"></span>DAXİL OL</div></a>
                                 </li>
                                 <li>
-                                    <a href="/SignUp"><div class="show-9 templatemo_page9" style="height:80px;"><span class="fa fa-user"></span>QEYDİYYAT</div></a>
+                                    <a href="/SignUpOP"><div class="show-9 templatemo_page9" style="height:80px;"><span class="fa fa-user"></span>QEYDİYYAT</div></a>
                                 </li>
                             }
                             else
                             {
                                 <li>
-                                    <a href="/"><div class="show-8 templatemo_page8" style="height:80px;"><span class="fa fa-user"></span>@Session["musername"]</div></a>
+                                    <a href="/Login/Redirect"><div class="show-8 templatemo_page8" style="height:80px;"><span class="fa fa-user"></span>@Session["musername"]</div></a>
                                 </li>
                                 <li>
                                     <a href="/Login/Logout"><div class="show-9 templatemo_page9" style="height:80px;"><span class="fa fa-sign-out"></span>ÇIXIŞ</div></a>

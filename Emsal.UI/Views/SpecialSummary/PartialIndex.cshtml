@@ -39,8 +39,8 @@
                         @foreach (var itemmm in item.DemandCalendarList)
                         {
                             <div>
-                                <span>Tarix: @itemmm.day @itemmm.month @itemmm.year saat @itemmm.ocklock   <span class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#@itemmm.month" style="color:#265A88"></span></span><br /><br />
-                                <div id="@itemmm.month" class="modal fade" role="dialog">
+                                <span>Tarix: @itemmm.day @itemmm.month @itemmm.year saat @itemmm.ocklock   <span class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#@itemmm.id" style="color:#265A88"></span></span><br /><br />
+                                <div id="@itemmm.id" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
 
                                         <!-- Modal content-->

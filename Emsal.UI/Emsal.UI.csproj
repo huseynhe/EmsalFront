@@ -164,7 +164,6 @@
     <Compile Include="Controllers\PotentialClientMonitoringController.cs" />
     <Compile Include="Controllers\PotentialClientStateController .cs" />
     <Compile Include="Controllers\ProductionDocumentController.cs" />
-    <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Controllers\SignUpOPController.cs" />
     <Compile Include="Controllers\SpecialSummaryController.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -931,12 +930,6 @@
     <Content Include="Views\Shared\_LayoutSpecialSummary.cshtml" />
     <Content Include="Views\Shared\_SignUpLayout.cshtml" />
     <Content Include="Views\Shared\_SpecialSummaryLayout.cshtml" />
-    <Content Include="Views\SignUp\AddAddressInfo.cshtml" />
-    <Content Include="Views\SignUp\AddOrganisationInfo.cshtml" />
-    <Content Include="Views\SignUp\AddPersonInfo.cshtml" />
-    <Content Include="Views\SignUp\AdminUnit.cshtml" />
-    <Content Include="Views\SignUp\Contract.cshtml" />
-    <Content Include="Views\SignUp\Index.cshtml" />
     <Content Include="Views\SpecialSummary\ConfirmedPotential.cshtml" />
     <Content Include="Views\SpecialSummary\Index.cshtml" />
     <Content Include="Views\SpecialSummary\Login.cshtml" />

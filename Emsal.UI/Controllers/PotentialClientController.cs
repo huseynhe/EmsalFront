@@ -509,7 +509,25 @@ namespace Emsal.UI.Controllers
                         modelPotentialProduction.Personr.FatherName = modelPotentialProduction.Person.FatherName;
 
                         modelPotentialProduction.Personr.PinNumber = modelPotentialProduction.ForeignOrganization.name;
+
+                    long auid = 0;
+
+                    BaseOutput gabui = srv.WS_GetAddressesByUserId(baseInput, (long)modelPotentialProduction.Person.UserId, true, out modelPotentialProduction.AddressArray);
+
+                    modelPotentialProduction.Address = modelPotentialProduction.AddressArray.ToList().FirstOrDefault();
+                    auid = (long)modelPotentialProduction.Address.adminUnit_Id;
+                    addressDesc = modelPotentialProduction.Address.addressDesc;
+
+                    BaseOutput gal = srv.WS_GetAdminUnitListForID(baseInput, auid, true, out modelPotentialProduction.PRMAdminUnitArray);
+                    modelPotentialProduction.PRMAdminUnitList = modelPotentialProduction.PRMAdminUnitArray.ToList();
+
+                    fullAddressIdFU = string.Join(",", modelPotentialProduction.PRMAdminUnitList.Select(x => x.Id));
+
+                    if (fullAddressId == "")
+                    {
+                        fullAddressId = "1";
                     }
+                }
 
 
                 if (modelPotentialProduction.ForeignOrganization != null)

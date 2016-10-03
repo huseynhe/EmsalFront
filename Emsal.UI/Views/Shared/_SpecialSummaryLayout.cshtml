@@ -112,10 +112,14 @@
                     <li role="presentation" class="active"><a href="#admin" aria-controls="home" role="tab" data-toggle="tab"><h5 class="text-bold">Məhsullar</h5></a></li>
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"><h5 class="text-bold"><span class="adSoyad" id="godadd">@Model.NameSurname</span><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></h5></a></li>
 
+
                     <li>
+                        @if (Model.roleStatus == 1)
+                        {
                         <a href="/OfferProduction" class="btn btn-info active pull-right">
                             <i class="glyphicon glyphicon-link" style="color:red"></i>&nbsp;Təklif yerləşdir*
                         </a>
+                        }
                     </li>
                 </ul>
             </div>
@@ -132,7 +136,7 @@
                                         <a data-toggle="collapse" href="#collapse1">Məhsullarım<span class="glyphicon glyphicon-menu-down f-right text-gray" aria-hidden="true"></span></a>
                                     </h4>
                                 </div>
-                                <div id="collapse1" class="panel-collapse collapse">
+                                <div id="collapse1" class="panel-collapse collapse in">
                                     <ul class="list-group list-unstyled">
                                         <li class="list-group-item"><a href="/SpecialSummary/OffAirOffers">Yayımdan çıxan təkliflər</a></li>
                                         <li class="list-group-item"><a href="/SpecialSummary/Index">Təsdiqlənən Təkliflər</a></li>

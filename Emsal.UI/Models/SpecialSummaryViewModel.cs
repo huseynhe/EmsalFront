@@ -131,6 +131,7 @@ namespace Emsal.UI.Models
 
         public int arrNum = 0;
         public int arrPNum = 0;
+        public int roleStatus = 0;
 
         public string NameSurname { get; set; }
 

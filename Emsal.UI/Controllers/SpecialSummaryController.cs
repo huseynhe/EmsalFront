@@ -198,6 +198,16 @@ namespace Emsal.UI.Controllers
             BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
             modelSpecial.WorkPhonePrefixList = modelSpecial.EnumValueArray.ToList();
 
+            if (UserId > 0)
+            {
+                BaseOutput userRolId = srv.WS_GetUserRolesByUserId(binput, (long)UserId, true, out modelSpecial.UserRoleArray);
+
+                modelSpecial.UserRole = modelSpecial.UserRoleArray.ToList().Where(x => x.RoleId == 11).FirstOrDefault();
+
+                if (modelSpecial.UserRole != null)
+                    modelSpecial.roleStatus = 1;
+            }
+
             return Request.IsAjaxRequest()
             ? (ActionResult)PartialView("PartialIndex", modelSpecial)
             : View(modelSpecial);
@@ -227,7 +237,7 @@ namespace Emsal.UI.Controllers
                     UserID = Int32.Parse(identity.Ticket.UserData);
                 }
             }
-                
+
             BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
             BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
             BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
@@ -296,7 +306,7 @@ namespace Emsal.UI.Controllers
                 modelSpecial.SpOffer.DemandCalendarList = new List<DemandCalendar>();
 
                 BaseOutput prodcuctCalendarOut = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
-                modelSpecial.ProductionCalendarArray = modelSpecial.ProductionCalendarArray.Where(x => x.Production_type_eV_Id == 3).ToArray(); 
+                modelSpecial.ProductionCalendarArray = modelSpecial.ProductionCalendarArray.Where(x => x.Production_type_eV_Id == 3).ToArray();
                 foreach (var itemm in modelSpecial.ProductionCalendarArray)
                 {
                     modelSpecial.SpOffer.DemandCalendar = new DemandCalendar();
@@ -422,7 +432,7 @@ namespace Emsal.UI.Controllers
 
                 modelSpecial.OfferProductionList = modelSpecial.OfferProductionArray.ToList();
                 modelSpecial.SpOfferList = new List<SpecialSummaryPotentialAndOffer>();
-                
+
                 foreach (var item in modelSpecial.OfferProductionList)
                 {
                     BaseOutput productCatalogOut = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
@@ -731,128 +741,128 @@ namespace Emsal.UI.Controllers
             int pageSize = 5;
             int pageNumber = (page ?? 1);
 
-                BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "Tesdiqlenen", out modelSpecial.EnumValue);
-                modelSpecial.PotentialProduction = new tblPotential_Production();
-                modelSpecial.ProductCatalogList = new List<tblProductCatalog>();
-                modelSpecial.ProductionControlList = new List<tblProductionControl>();
+            BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "Tesdiqlenen", out modelSpecial.EnumValue);
+            modelSpecial.PotentialProduction = new tblPotential_Production();
+            modelSpecial.ProductCatalogList = new List<tblProductCatalog>();
+            modelSpecial.ProductionControlList = new List<tblProductionControl>();
 
-                //get the informations of logged in user
-                if (User != null && User.Identity.IsAuthenticated)
+            //get the informations of logged in user
+            if (User != null && User.Identity.IsAuthenticated)
+            {
+                FormsIdentity identity = (FormsIdentity)User.Identity;
+                if (identity.Ticket.UserData.Length > 0)
                 {
-                    FormsIdentity identity = (FormsIdentity)User.Identity;
-                    if (identity.Ticket.UserData.Length > 0)
+                    UserID = Int32.Parse(identity.Ticket.UserData);
+                }
+            }
+            BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
+            BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
+            BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
+
+            modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.LoggedInUser.Username : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
+            ////////////////////////////////////
+
+            //get the confirmed potential productions of the logged in user                
+            modelSpecial.PotentialProduction.user_Id = UserID;
+            modelSpecial.PotentialProduction.state_eV_Id = modelSpecial.EnumValue.Id;
+
+            modelSpecial.PotentialProduction.user_IdSpecified = true;
+            modelSpecial.PotentialProduction.state_eV_IdSpecified = true;
+
+            BaseOutput offer = srv.WS_GetConfirmedPotential_ProductionsByStateAndUserId(binput, modelSpecial.PotentialProduction, out modelSpecial.PotentialProductionArray);
+
+            modelSpecial.PotentialProductionList = modelSpecial.PotentialProductionArray.ToList();
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+
+            modelSpecial.SpOfferList = new List<SpecialSummaryPotentialAndOffer>();
+            foreach (var item in modelSpecial.PotentialProductionList)
+            {
+                BaseOutput productCatalogOut = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
+
+                modelSpecial.SpOffer = new SpecialSummaryPotentialAndOffer();
+                //get the id of the offered product
+                modelSpecial.SpOffer.ProductId = item.Id;
+
+                //get the name of the offered product
+                modelSpecial.SpOffer.ProductName = modelSpecial.ProductCatalog.ProductName;
+
+                //get the endddate of the offered product
+                modelSpecial.SpOffer.ProductEndDate = item.endDate == null ? 0 : (long)item.endDate;
+
+                //get the quantity of the offered product
+                modelSpecial.SpOffer.ProductQuantity = item.quantity == null ? 0 : (long)item.quantity;
+
+                //get the total price of the offered product
+                modelSpecial.SpOffer.ProductTotalPrice = (item.unit_price == null || item.quantity == null) ? 0 : (double)item.unit_price * (double)item.quantity;
+
+                BaseOutput producttionDocumentsOut = srv.WS_GetProductDocumentsByProductCatalogId(binput, modelSpecial.ProductCatalog.Id, true, out modelSpecial.ProductDocumentArray);
+
+                //get the profile picture of the offered product
+                modelSpecial.SpOffer.ProductProfilePicture = modelSpecial.ProductDocumentArray.Length == 0 ? null : modelSpecial.ProductDocumentArray.LastOrDefault().documentUrl + modelSpecial.ProductDocumentArray.LastOrDefault().documentName;
+
+                BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+
+                //get the parent name of the product
+                modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
+
+                //get the offered product quantity unit
+                BaseOutput productControlOut = srv.WS_GetProductionControlsByPotentialProductionId(binput, item.Id, true, out modelSpecial.ProductionControlArray);
+                foreach (var itemm in modelSpecial.ProductionControlArray)
+                {
+                    if (itemm.EnumCategoryId == 5)
                     {
-                        UserID = Int32.Parse(identity.Ticket.UserData);
+                        BaseOutput quantityOut = srv.WS_GetEnumValueById(binput, (long)itemm.EnumValueId, true, out modelSpecial.EnumValue);
+                        modelSpecial.SpOffer.QuantityType = modelSpecial.EnumValue.name;
                     }
                 }
-                BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
-                BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
-                BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
 
-                modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.LoggedInUser.Username : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
-                ////////////////////////////////////
+                modelSpecial.SpOfferList.Add(modelSpecial.SpOffer);
+            }
 
-                //get the confirmed potential productions of the logged in user                
-                modelSpecial.PotentialProduction.user_Id = UserID;
-                modelSpecial.PotentialProduction.state_eV_Id = modelSpecial.EnumValue.Id;
+            modelSpecial.PagingConfirmedPotential = modelSpecial.SpOfferList.ToPagedList(pageNumber, pageSize);
 
-                modelSpecial.PotentialProduction.user_IdSpecified = true;
-                modelSpecial.PotentialProduction.state_eV_IdSpecified = true;
+            //get the inbox messages
+            BaseOutput mesOut = srv.WS_GetNotReadComMessagesByToUserId(binput, (long)UserID, true, out modelSpecial.NotReadComMessageArray);
+            modelSpecial.ComMessageList = modelSpecial.NotReadComMessageArray == null ? null : modelSpecial.NotReadComMessageArray.ToList();
+            modelSpecial.MessageCount = modelSpecial.ComMessageList == null ? 0 : modelSpecial.ComMessageList.Count();
 
-                BaseOutput offer = srv.WS_GetConfirmedPotential_ProductionsByStateAndUserId(binput, modelSpecial.PotentialProduction, out modelSpecial.PotentialProductionArray);
+            //get communications
+            BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelSpecial.CommunicationInformationsArray);
 
-                modelSpecial.PotentialProductionList = modelSpecial.PotentialProductionArray.ToList();
-                ///////////////////////////////////////////////////////////////////////////////////////////////
+            if (modelSpecial.LoggedInUser.userType_eV_ID == 26)
+            {
+                modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.Person.Id).ToList();
+            }
 
-                modelSpecial.SpOfferList = new List<SpecialSummaryPotentialAndOffer>();
-                foreach (var item in modelSpecial.PotentialProductionList)
+            if (modelSpecial.LoggedInUser.userType_eV_ID == 50)
+            {
+                modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.ForeignOrganisation.manager_Id).ToList();
+            }
+
+            foreach (var item in modelSpecial.CommunicationInformationsList)
+            {
+                if (item.comType == 10120)
                 {
-                    BaseOutput productCatalogOut = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
-
-                    modelSpecial.SpOffer = new SpecialSummaryPotentialAndOffer();
-                    //get the id of the offered product
-                    modelSpecial.SpOffer.ProductId = item.Id;
-
-                    //get the name of the offered product
-                    modelSpecial.SpOffer.ProductName = modelSpecial.ProductCatalog.ProductName;
-
-                    //get the endddate of the offered product
-                    modelSpecial.SpOffer.ProductEndDate = item.endDate == null ? 0 : (long)item.endDate;
-
-                    //get the quantity of the offered product
-                    modelSpecial.SpOffer.ProductQuantity = item.quantity == null ? 0 : (long)item.quantity;
-
-                    //get the total price of the offered product
-                    modelSpecial.SpOffer.ProductTotalPrice = (item.unit_price == null || item.quantity == null) ? 0 : (double)item.unit_price * (double)item.quantity;
-
-                    BaseOutput producttionDocumentsOut = srv.WS_GetProductDocumentsByProductCatalogId(binput, modelSpecial.ProductCatalog.Id, true, out modelSpecial.ProductDocumentArray);
-
-                    //get the profile picture of the offered product
-                    modelSpecial.SpOffer.ProductProfilePicture = modelSpecial.ProductDocumentArray.Length == 0 ? null : modelSpecial.ProductDocumentArray.LastOrDefault().documentUrl + modelSpecial.ProductDocumentArray.LastOrDefault().documentName;
-
-                    BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
-
-                    //get the parent name of the product
-                    modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
-
-                    //get the offered product quantity unit
-                    BaseOutput productControlOut = srv.WS_GetProductionControlsByPotentialProductionId(binput, item.Id, true, out modelSpecial.ProductionControlArray);
-                    foreach (var itemm in modelSpecial.ProductionControlArray)
-                    {
-                        if (itemm.EnumCategoryId == 5)
-                        {
-                            BaseOutput quantityOut = srv.WS_GetEnumValueById(binput, (long)itemm.EnumValueId, true, out modelSpecial.EnumValue);
-                            modelSpecial.SpOffer.QuantityType = modelSpecial.EnumValue.name;
-                        }
-                    }
-
-                    modelSpecial.SpOfferList.Add(modelSpecial.SpOffer);
+                    modelSpecial.LoggedInUserInfos.MobilePhone = item.description;
+                }
+                if (item.comType == 10122)
+                {
+                    modelSpecial.LoggedInUserInfos.WorkPhone = item.description;
                 }
 
-                modelSpecial.PagingConfirmedPotential = modelSpecial.SpOfferList.ToPagedList(pageNumber, pageSize);
-             
-                //get the inbox messages
-                BaseOutput mesOut = srv.WS_GetNotReadComMessagesByToUserId(binput, (long)UserID, true, out modelSpecial.NotReadComMessageArray);
-                modelSpecial.ComMessageList = modelSpecial.NotReadComMessageArray == null ? null : modelSpecial.NotReadComMessageArray.ToList();
-                modelSpecial.MessageCount = modelSpecial.ComMessageList == null ? 0 : modelSpecial.ComMessageList.Count();
+            }
 
-                //get communications
-                BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelSpecial.CommunicationInformationsArray);
-
-                if (modelSpecial.LoggedInUser.userType_eV_ID == 26)
-                {
-                    modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.Person.Id).ToList();
-                }
-
-                if (modelSpecial.LoggedInUser.userType_eV_ID == 50)
-                {
-                    modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.ForeignOrganisation.manager_Id).ToList();
-                }
-
-                foreach (var item in modelSpecial.CommunicationInformationsList)
-                {
-                    if (item.comType == 10120)
-                    {
-                        modelSpecial.LoggedInUserInfos.MobilePhone = item.description;
-                    }
-                    if (item.comType == 10122)
-                    {
-                        modelSpecial.LoggedInUserInfos.WorkPhone = item.description;
-                    }
-
-                }
-
-                BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelSpecial.EnumCategory);
-                BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
-                modelSpecial.MobilePhonePrefixList = modelSpecial.EnumValueArray.ToList();
+            BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelSpecial.EnumCategory);
+            BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+            modelSpecial.MobilePhonePrefixList = modelSpecial.EnumValueArray.ToList();
 
 
-                BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelSpecial.EnumCategory);
-                BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
-                modelSpecial.WorkPhonePrefixList = modelSpecial.EnumValueArray.ToList();
+            BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelSpecial.EnumCategory);
+            BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+            modelSpecial.WorkPhonePrefixList = modelSpecial.EnumValueArray.ToList();
 
-                return PartialView(modelSpecial);
-         
+            return PartialView(modelSpecial);
+
 
         }
 
@@ -973,7 +983,7 @@ namespace Emsal.UI.Controllers
 
         }
 
-       
+
         public ActionResult DeleteOfferProduction(int Id)
         {
             modelSpecial = new SpecialSummaryViewModel();
@@ -1004,7 +1014,7 @@ namespace Emsal.UI.Controllers
                 {
                     return RedirectToAction("OnAirOffers");
                 }
-                else if(modelSpecial.OfferProduction.state_eV_Id == offair)
+                else if (modelSpecial.OfferProduction.state_eV_Id == offair)
                 {
                     return RedirectToAction("OffAirOffers");
                 }
@@ -1022,7 +1032,7 @@ namespace Emsal.UI.Controllers
             {
                 return RedirectToAction("Index");
             }
-           
+
         }
 
         public ActionResult DeletePotentialProduction(int Id)
@@ -1044,7 +1054,7 @@ namespace Emsal.UI.Controllers
             {
                 return View(err.Message);
             }
-           
+
         }
 
         public ActionResult PutToOfferProduction(int Id)
@@ -1131,9 +1141,9 @@ namespace Emsal.UI.Controllers
                     srv.WS_AddProductionControl(binput, modelProducts.ProductionControl, out modelProducts.ProductionControl);
                 }
 
-               
 
-            
+
+
 
 
 
@@ -1183,7 +1193,7 @@ namespace Emsal.UI.Controllers
             {
                 return RedirectToAction("Index");
             }
-       
+
         }
 
         public ActionResult PotensialClientInsert()
@@ -1205,7 +1215,7 @@ namespace Emsal.UI.Controllers
         {
             return View();
         }
- 
+
         //send message demo
         public bool SendConfirmationMessage(string phoneNumEntered)
         {
@@ -1218,7 +1228,7 @@ namespace Emsal.UI.Controllers
                 Random rnd = new Random();
                 int reqem = rnd.Next(100000, 1000000);
                 ConfirmationMessage.Message = reqem.ToString();
-              
+
                 BaseOutput pout = srv.WS_SendConfirmationMessage(baseinput, ConfirmationMessage);
                 SendMail(ConfirmationMessage.Message);
                 return true;
@@ -1236,7 +1246,7 @@ namespace Emsal.UI.Controllers
             msg.To.Add("qala2009@gmail.com");
             string fromPassword = "e1701895";
             msg.Subject = "Üzvlüyü tesdiqle";
-            if(kod == null)
+            if (kod == null)
             {
                 msg.Body = "<a href = 'http://localhost:56557/SpecialSummary/Index/'>Hesabınızı təsdiqləyin</a>";
             }
@@ -1259,7 +1269,7 @@ namespace Emsal.UI.Controllers
         {
             tblConfirmationMessage[] confirmationMessages;
             BaseInput baseinput = new BaseInput();
-            BaseOutput bouput = srv.WS_GetConfirmationMessages(baseinput,out confirmationMessages);
+            BaseOutput bouput = srv.WS_GetConfirmationMessages(baseinput, out confirmationMessages);
 
             bool stance = false;
 
@@ -1341,7 +1351,7 @@ namespace Emsal.UI.Controllers
 
             foreach (var item in modelSpecial.OfferProductionArray)
             {
-                if(item.endDate < DateTime.Now.Ticks)
+                if (item.endDate < DateTime.Now.Ticks)
                 {
                     PutToOffAirProduction((int)item.Id);
                 }
@@ -1367,7 +1377,7 @@ namespace Emsal.UI.Controllers
 
         }
 
-        public ActionResult EditToOffer(long? UserId,int?Id)
+        public ActionResult EditToOffer(long? UserId, int? Id)
         {
             Session["arrONum"] = null;
 
@@ -1408,7 +1418,7 @@ namespace Emsal.UI.Controllers
 
 
         [HttpPost]
-        public ActionResult EditToOffer(PotentialProductionViewModel form,long?Id)
+        public ActionResult EditToOffer(PotentialProductionViewModel form, long? Id)
         {
             PotentialProductionViewModel modelPotential = new PotentialProductionViewModel();
             binput = new BaseInput();
@@ -1438,7 +1448,7 @@ namespace Emsal.UI.Controllers
             var b = arr.Split(',');
             b[b.Length - 1] = modelPotential.PotentialProduction.product_Id.ToString();
 
-            var c = string.Join(",",b);
+            var c = string.Join(",", b);
 
 
             modelPotential.PotentialProduction.fullProductId = c;
@@ -1463,10 +1473,10 @@ namespace Emsal.UI.Controllers
             catch (Exception)
             {
 
-                
+
             }
 
-          
+
 
             modelPotential.PotentialProduction.title = form.Title;
 
@@ -1474,10 +1484,10 @@ namespace Emsal.UI.Controllers
             //update product potential product
 
             BaseOutput potUpdate = srv.WS_UpdatePotential_Production(binput, modelPotential.PotentialProduction, out modelPotential.PotentialProduction);
-            return RedirectToAction("PutToOfferProduction", new { Id= (int)Id });
+            return RedirectToAction("PutToOfferProduction", new { Id = (int)Id });
         }
 
-        public ActionResult OfferProductInfo(int?Id,long?UserId)
+        public ActionResult OfferProductInfo(int? Id, long? UserId)
         {
             binput = new BaseInput();
             OfferProductionViewModel modelProduction = new OfferProductionViewModel();
@@ -1601,7 +1611,7 @@ namespace Emsal.UI.Controllers
             return View(modelProduction);
         }
 
-        public ActionResult EditRejectedOffers(int?Id, long? UserId)
+        public ActionResult EditRejectedOffers(int? Id, long? UserId)
         {
             binput = new BaseInput();
             OfferProductionViewModel modelProduction = new OfferProductionViewModel();
@@ -1682,10 +1692,10 @@ namespace Emsal.UI.Controllers
             }
             catch (Exception ex)
             {
-                
-             
+
+
             }
-         
+
 
 
             modeloffer.OfferProduction.total_price = modeloffer.OfferProduction.quantity * modeloffer.OfferProduction.unit_price;
@@ -1702,7 +1712,7 @@ namespace Emsal.UI.Controllers
 
             BaseOutput potUpdate = srv.WS_UpdateOffer_Production(binput, modeloffer.OfferProduction, out modeloffer.OfferProduction);
 
-            
+
 
 
 
@@ -1827,7 +1837,7 @@ namespace Emsal.UI.Controllers
                 BaseOutput educOut = srv.WS_GetEnumValueById(binput, (long)modelUser.Person.educationLevel_eV_Id, true, out modelUser.EducationEnumValue);
                 modelUser.EducationLevel = modelUser.EducationEnumValue.name;
                 BaseOutput jobOut = srv.WS_GetEnumValueById(binput, (long)modelUser.Person.job_eV_Id, true, out modelUser.JobEnumValue);
-                modelUser.Job = modelUser.JobEnumValue.name;
+                modelUser.job = modelUser.JobEnumValue.name;
             }
             catch (Exception err)
             {

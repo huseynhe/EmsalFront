@@ -21,6 +21,9 @@ namespace Emsal.UI.Models
         public tblUser User;
         public tblPerson Person;
 
+        public tblUserRole UserRole;
+        public tblUserRole[] UserRoleArray;
+
         public tblOffer_Production OfferProduction;
         public IList<tblOffer_Production> OfferProductionList { get; set; }
         public tblOffer_Production[] OfferProductionArray;

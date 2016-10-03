@@ -200,6 +200,120 @@ namespace Emsal.UI.Controllers
             }
         }
 
+
+        public ActionResult Redirect()
+        {
+            binput = new BaseInput();
+
+            modelUser = new UserViewModel();
+
+            long? userId = null;
+            if (User != null && User.Identity.IsAuthenticated)
+            {
+                FormsIdentity identity = (FormsIdentity)User.Identity;
+                if (identity.Ticket.UserData.Length > 0)
+                {
+                    userId = Int32.Parse(identity.Ticket.UserData);
+                }
+            }
+            BaseOutput user = srv.WS_GetUserById(binput, (long)userId, true, out modelUser.User);
+            binput.userName = modelUser.User.Username;
+
+
+
+                            BaseOutput userTypeOut = srv.WS_GetEnumValueById(binput, (long)modelUser.User.userType_eV_ID, true, out modelUser.EnumValue);
+                            bool ifASC = false;
+                            //bool ifAdmin = false;
+                            bool ifAsan = false;
+                            bool ifKTN = false;
+
+                            BaseOutput roleOut = srv.WS_GetRoleByName(binput, "admin", out modelUser.Role);
+                            long adminRoleID = modelUser.Role.Id;
+
+                            BaseOutput asanRoleOut = srv.WS_GetRoleByName(binput, "asan", out modelUser.Role);
+                            long asanRoleID = modelUser.Role.Id;
+
+
+                            BaseOutput ascRoleOut = srv.WS_GetRoleByName(binput, "ascUser", out modelUser.Role);
+                            long ascRoleID = modelUser.Role.Id;
+
+                            BaseOutput ktnRoleOut = srv.WS_GetRoleByName(binput, "ktnUser", out modelUser.Role);
+                            long ktnRoleID = modelUser.Role.Id;
+
+                            BaseOutput authUserRolesOut = srv.WS_GetUserRolesByUserId(binput, modelUser.User.Id, true, out modelUser.UserRoleArray);
+
+                            foreach (var item in modelUser.UserRoleArray)
+                            {
+                                //if (item.RoleId == adminRoleID)
+                                //{
+                                //    ifAdmin = true;
+                                //}
+                                if (item.RoleId == asanRoleID)
+                                {
+                                    ifAsan = true;
+                                }
+                                else if (item.RoleId == ascRoleID)
+                                {
+                                    ifASC = true;
+                                }
+                                else if (item.RoleId == ktnRoleID)
+                                {
+                                    ifKTN = true;
+                                }
+                            }
+                            //if (ifAdmin)
+                            //{
+                            //    return CreateTicket(1, "Admin", modelUser.User, returnUrl);
+                            //}
+                            if (ifAsan)
+                            {
+                                return CreateTicket(1, "AsanXidmetSpecial", modelUser.User, "");
+                            }
+                            else
+                            {
+                                if (modelUser.EnumValue.name == "fizikişexs")
+                                {
+                                    return CreateTicket(1, "Special", modelUser.User, "");
+                                }
+                                else if (ifASC)
+                                {
+                                    return CreateTicket(1, "ASCSpecial", modelUser.User, "");
+                                }
+                                else if (ifKTN)
+                                {
+                                    return CreateTicket(1, "KTNSpecial", modelUser.User, "");
+                                }
+                                else if (modelUser.EnumValue.name == "legalPerson")
+                                {
+                                    BaseOutput govRoleOut = srv.WS_GetRoleByName(binput, "governmentOrganisation", out modelUser.Role);
+                                    BaseOutput userRolesOut = srv.WS_GetUserRolesByUserId(binput, modelUser.User.Id, true, out modelUser.UserRoleArray);
+
+                                    bool auth = false;
+
+                                    foreach (var item in modelUser.UserRoleArray)
+                                    {
+                                        if (item.RoleId == modelUser.Role.Id)
+                                        {
+                                            auth = true;
+                                        }
+                                    }
+
+                                    if (auth)
+                                    {
+                                        return CreateTicket(1, "GovernmentOrganisationSpecial", modelUser.User, "");
+                                    }
+                                    else
+                                    {
+                                        return CreateTicket(1, "Special", modelUser.User, "");
+                                    }
+
+                                }
+                                else
+                                {
+                                return RedirectToAction("Index", "Home");
+                            }
+                            }
+        }
         public ActionResult ForgetPassword()
         {
             User modelUser = new User();
