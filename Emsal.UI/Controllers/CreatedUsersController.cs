@@ -61,16 +61,28 @@ namespace Emsal.UI.Controllers
                     }
 
                     //get the full address
-                    if(modelUser.FuturePerson.address_Id != null)
+                    if (modelUser.FuturePerson != null)
                     {
-                        BaseOutput addressout = srv.WS_GetAddressById(baseInput, (long)modelUser.FuturePerson.address_Id, true, out modelUser.FutureAddress);
-                        BaseOutput fulladdressListOut = srv.WS_GetAdminUnitListForID(baseInput, (long)modelUser.FutureAddress.adminUnit_Id, true, out modelUser.PRMAdminUnitArray);
-
-                        foreach (var adminunit in modelUser.PRMAdminUnitArray)
+                        if (modelUser.FuturePerson.address_Id != null)
                         {
-                            created.FullAddress += adminunit.Name + ",";
+                            BaseOutput addressout = srv.WS_GetAddressById(baseInput, (long)modelUser.FuturePerson.address_Id, true, out modelUser.FutureAddress);
+                            BaseOutput fulladdressListOut = srv.WS_GetAdminUnitListForID(baseInput, (long)modelUser.FutureAddress.adminUnit_Id, true, out modelUser.PRMAdminUnitArray);
+
+                            foreach (var adminunit in modelUser.PRMAdminUnitArray)
+                            {
+                                created.FullAddress += adminunit.Name + ",";
+                            }
+
+                            if (created.FullAddress == null)
+                            {
+                                created.FullAddress = ",";
+                            }
+                            created.FullAddress = created.FullAddress.Remove(created.FullAddress.Length - 1);
                         }
-                        created.FullAddress = created.FullAddress.Remove(created.FullAddress.Length - 1);
+                    }
+                    else
+                    {
+                        modelUser.FuturePerson = new tblPerson();
                     }
 
                 }
@@ -93,6 +105,12 @@ namespace Emsal.UI.Controllers
                         {
                             created.FullAddress += adminunit.Name + ",";
                         }
+
+                        if (created.FullAddress == null)
+                        {
+                            created.FullAddress = ",";
+                        }
+
                         created.FullAddress = created.FullAddress.Remove(created.FullAddress.Length - 1);
                     }
                    

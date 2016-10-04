@@ -57,32 +57,41 @@ function check() {
             datatype: 'json',
             data: 'data',
             success: function (result) {
-                var regCombo;
-                $('#regionContainer').append(regCombo);
-                //if (result.data.length > 0) {
-                if (result.data.Person != null) {
-                    $("#Name").val(result.data.Person.Name);
-                    $("#Surname").val(result.data.Person.Surname);
-                    $("#FatherName").val(result.data.Person.FatherName);
-                    $('#gender').val(result.data.Person.gender);
-                    $("#descAddress").val(result.data.descAddress);
-                    $("#birtday").val(result.data.birtday);
-                    str = result.data.FullAddress;
-                    res = str.split(",");
-                    for (var i = 0; i < res.length; i++) {
-                        if (i == 0) {
-                            $("#mainRegion").val(res[i]).change();
+
+                if (result.data == null) {
+                    alert('FİN və ya VÖEN doğru deyil');
+                    window.setTimeout(function () {
+                        window.location.href = '/Login';
+                    }, 5000);
+                } else {
+
+                    var regCombo;
+                    $('#regionContainer').append(regCombo);
+                    //if (result.data.length > 0) {
+                    if (result.data.Person != null) {
+                        $("#Name").val(result.data.Person.Name);
+                        $("#Surname").val(result.data.Person.Surname);
+                        $("#FatherName").val(result.data.Person.FatherName);
+                        $('#gender').val(result.data.Person.gender);
+                        $("#descAddress").val(result.data.descAddress);
+                        $("#birtday").val(result.data.birtday);
+                        str = result.data.FullAddress;
+                        res = str.split(",");
+                        for (var i = 0; i < res.length; i++) {
+                            if (i == 0) {
+                                $("#mainRegion").val(res[i]).change();
+                            }
+
                         }
-
                     }
-                }
-                else {
-                    $("#birtday").val(result.data.birtday);
-                }
+                    else {
+                        $("#birtday").val(result.data.birtday);
+                    }
 
-                //}
+                    //}
 
-                $('#formBody').show();
+                    $('#formBody').show();
+                }
             },
             error: function () {
 
@@ -122,7 +131,6 @@ $(document).ready(function () {
     if ($('#pType').val() != "") {
         $('#personType').val($('#pType').val());
         $('#personType').change();
-        check();
     }
 });
 

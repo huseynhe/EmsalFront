@@ -209,13 +209,29 @@ namespace Emsal.UI.Controllers
                         modelPotentialProduction.Person.profilePicture = model.profilePicture;
 
                         //Shekili saxlamaq ucun
+                        string str = String.Format("{0:dd.MM.yyyy}", DateTime.ParseExact(model.birtday.ToString(), "yyyyMMdd", new CultureInfo("az-AZ")));
+                        string path = Server.MapPath("~/ContentProfile/personImage/") + "/" + str + "/";
+
+                        if (!Directory.Exists(path))
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+
                         Image image;
                         using (MemoryStream ms = new MemoryStream(StringExtension.StringToByteArray(model.profilePicture)))
                         {
                             image = Image.FromStream(ms);
 
-                            image.Save(Server.MapPath("~/ContentProfile/personImage/") + model.FIN+".Jpeg", ImageFormat.Jpeg);
+                            image.Save(path + model.FIN.ToUpper() + ".png", ImageFormat.Jpeg);
                         }
+
+                        //Image image;
+                        //using (MemoryStream ms = new MemoryStream(StringExtension.StringToByteArray(model.profilePicture)))
+                        //{
+                        //    image = Image.FromStream(ms);
+
+                        //    image.Save(Server.MapPath("~/ContentProfile/personImage/") + model.FIN+".Jpeg", ImageFormat.Jpeg);
+                        //}
                     }
 
 

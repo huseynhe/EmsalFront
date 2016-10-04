@@ -52,7 +52,10 @@ namespace Emsal.UI.Controllers
             BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
             BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserId, true, out modelSpecial.ForeignOrganisation);
             modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.LoggedInUser.Username : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
-
+            if(modelSpecial.ForeignOrganisation==null)
+            {
+                modelSpecial.ForeignOrganisation = new tblForeign_Organization();
+            }
             //get communications
             BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelSpecial.CommunicationInformationsArray);
 

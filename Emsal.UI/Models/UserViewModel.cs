@@ -17,6 +17,7 @@ namespace Emsal.UI.Models
         public tblEnumValue EnumValue;
         public tblRole Role;
         public tblUserRole UserRole;
+        public tblForeign_Organization ForeignOrganisation;
        
 
         public tblAddress Address;

@@ -40,12 +40,12 @@
                                 <div class="col-lg-3">
                                     <div id="fizikiShexs" style="display:none">
                                         @Html.LabelFor(model => model.fin, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.fin, new { @class = "form-control", required = "required", value = @Model.fin})
+                                        @Html.EditorFor(model => model.fin, new { @class = "form-control", required = "required"})
                                         @Html.ValidationMessageFor(model => model.fin, "", new { @class = "text-danger" })
                                     </div>
                                     <div id="huquqiShexs" style="display:none">
                                         @Html.LabelFor(model => model.voen, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.voen, new { @class = "form-control", required = "required", value = @Model.voen })
+                                        @Html.EditorFor(model => model.voen, new { @class = "form-control", required = "required" })
                                         @Html.ValidationMessageFor(model => model.voen, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -60,7 +60,6 @@
                             <br />
                             <div id="formBody">
                                 <div class="row">
-
                                    
 
                                     <div class="col-md-3" id="userNameDiv" style="display:none">

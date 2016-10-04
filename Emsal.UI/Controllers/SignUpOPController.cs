@@ -22,11 +22,14 @@ namespace Emsal.UI.Controllers
         private static string fullAddressId = "";
         private static string addressDesc = "";
         private static string fin = "";
-        private static string voen = "";
+        private static string sVoen = "";
         private static string orgRoles = "";
+        private static long sUid = 0;
+        private static string sType = null;
         private BaseInput baseInput;
         private UserViewModel modelUser;
         tblPRM_AdminUnit tblAdminUnit;
+
         
 
         public ActionResult Index(long uid = 0, string type = null)
@@ -39,6 +42,8 @@ namespace Emsal.UI.Controllers
                 modelUser = new UserViewModel();
 
                 long userId = 0;
+                sUid = uid;
+                sType = type;
 
                 if (User != null && User.Identity.IsAuthenticated)
                 {
@@ -82,7 +87,7 @@ namespace Emsal.UI.Controllers
                     i = (long)modelP.Person.UserId;
 
                     modelUser.Person =new tblPerson();
-                    modelUser.fin = modelP.Person.PinNumber;
+                    //modelUser.fin = modelP.Person.PinNumber;
                     modelUser.pType = type;
                 }
                 else if (type == "2")
@@ -92,7 +97,7 @@ namespace Emsal.UI.Controllers
 
                     i = (long)userModel.ForeignOrganisation.userId;
 
-                    modelUser.voen = userModel.ForeignOrganisation.voen;
+                    //modelUser.voen = userModel.ForeignOrganisation.voen;
                     modelUser.legalPersonName = userModel.ForeignOrganisation.name;
                     modelUser.pType = type;
                 }
@@ -173,8 +178,38 @@ namespace Emsal.UI.Controllers
                 mdl.warning = null;
 
                 if (CheckExistence(mdl))
-                {                    
-                    modelUser.User = new tblUser();
+                {
+                    BaseOutput uidBase = srv.WS_GetUserById(baseInput, sUid,true, out modelUser.User);
+                    if (modelUser.User != null)
+                    {
+                        BaseOutput gabui = srv.WS_GetAddressesByUserId(baseInput, modelUser.User.Id, true, out modelUser.AddressArray);
+                        modelUser.Address = modelUser.AddressArray.ToList().FirstOrDefault();
+                        BaseOutput gpbui = srv.WS_GetPersonByUserId(baseInput, modelUser.User.Id, true, out modelUser.Person);
+                    }
+
+                    if (modelUser.User == null)
+                    {
+                        modelUser.User = new tblUser();
+                        modelUser.Address = new tblAddress();
+                        modelUser.Person = new tblPerson();
+                        if (sVoen != "")
+                        {
+                            modelUser.ForeignOrganisation = new tblForeign_Organization();
+                        }
+                    }
+                    else
+                    {
+                        if (sVoen != "")
+                        {
+                            BaseOutput foreign = srv.WS_GetForeign_OrganizationByVoen(baseInput, sVoen, out modelUser.ForeignOrganisation);
+                            if (modelUser.ForeignOrganisation == null)
+                            {
+                                modelUser.ForeignOrganisation = new tblForeign_Organization();
+                            }
+                        }
+                    }
+
+
                     modelUser.User.Username = mdl.userName;
                     modelUser.User.Email = mdl.eMail;
                     modelUser.User.Password = BCrypt.Net.BCrypt.HashPassword(mdl.passWord, 5); ;
@@ -190,18 +225,20 @@ namespace Emsal.UI.Controllers
                     {
                         enumtype = "legalPerson";
                     }
-                        BaseOutput envalu = srv.WS_GetEnumValueByName(baseInput, enumtype, out modelUser.EnumValue); //TODO
+
+                    BaseOutput envalu = srv.WS_GetEnumValueByName(baseInput, enumtype, out modelUser.EnumValue); //TODO
 
                     modelUser.User.userType_eV_ID = modelUser.EnumValue.Id;
                     modelUser.User.userType_eV_IDSpecified = true;
 
-                    BaseOutput apu = srv.WS_AddUser(baseInput, modelUser.User, out modelUser.User);
 
-                    modelUser.Address = new tblAddress();
                     modelUser.Address.adminUnit_Id = mdl.addressId;
                     modelUser.Address.adminUnit_IdSpecified = true;
 
+
                     BaseOutput galf = srv.WS_GetAdminUnitListForID(baseInput, mdl.addressId, true, out modelUser.PRMAdminUnitArray);
+
+
                     modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.ToList();
                     modelUser.Address.fullAddress = string.Join(",", modelUser.PRMAdminUnitList.Select(x => x.Name));
 
@@ -209,9 +246,7 @@ namespace Emsal.UI.Controllers
                     modelUser.Address.user_Id = modelUser.User.Id;
                     modelUser.Address.user_IdSpecified = true;
 
-                    BaseOutput aa = srv.WS_AddAddress(baseInput, modelUser.Address, out modelUser.Address);
 
-                    modelUser.Person = new tblPerson();
                     modelUser.Person.Name = mdl.Name;
                     modelUser.Person.Surname = mdl.Surname;
                     modelUser.Person.FatherName = mdl.FatherName;
@@ -235,28 +270,49 @@ namespace Emsal.UI.Controllers
                         modelUser.Person.job_eV_IdSpecified = true;
                     }
 
-                    BaseOutput aper = srv.WS_AddPerson(baseInput, modelUser.Person, out modelUser.Person);
+                    if (modelUser.User.Id > 0)
+                    {
+                        BaseOutput apu = srv.WS_UpdateUser(baseInput, modelUser.User, out modelUser.User);
+                        BaseOutput aa = srv.WS_UpdateAddress(baseInput, modelUser.Address);
+                        BaseOutput aper = srv.WS_UpdatePerson(baseInput, modelUser.Person, out modelUser.Person);
+                    }
+                    else
+                    {
+                        BaseOutput apu = srv.WS_AddUser(baseInput, modelUser.User, out modelUser.User);
+                        BaseOutput aa = srv.WS_AddAddress(baseInput, modelUser.Address, out modelUser.Address);
+                        BaseOutput aper = srv.WS_AddPerson(baseInput, modelUser.Person, out modelUser.Person);
 
-                    User usr = new User();
-                    usr.ForeignOrganisation = new tblForeign_Organization();
-                    usr.ForeignOrganisation.name = mdl.legalPersonName;
-                    usr.ForeignOrganisation.voen = mdl.voen;
-                    usr.ForeignOrganisation.userId = modelUser.User.Id;
-                    usr.ForeignOrganisation.userIdSpecified = true;
 
-                    BaseOutput fO = srv.WS_AddForeign_Organization(baseInput, usr.ForeignOrganisation, out usr.ForeignOrganisation);
+                        modelUser.UserRole = new tblUserRole();
+                        BaseOutput role = srv.WS_GetRoleByName(baseInput, orgRoles, out modelUser.Role);
 
-                    modelUser.UserRole = new tblUserRole();
-                    BaseOutput role = srv.WS_GetRoleByName(baseInput, orgRoles, out modelUser.Role);
+                        modelUser.UserRole.RoleId = modelUser.Role.Id;
+                        modelUser.UserRole.RoleIdSpecified = true;
+                        modelUser.UserRole.Status = 1;
+                        modelUser.UserRole.StatusSpecified = true;
+                        modelUser.UserRole.UserId = modelUser.User.Id;
+                        modelUser.UserRole.UserIdSpecified = true;
 
-                    modelUser.UserRole.RoleId = modelUser.Role.Id;
-                    modelUser.UserRole.RoleIdSpecified = true;
-                    modelUser.UserRole.Status = 1;
-                    modelUser.UserRole.StatusSpecified = true;
-                    modelUser.UserRole.UserId = modelUser.User.Id;
-                    modelUser.UserRole.UserIdSpecified = true;
+                        BaseOutput addUserRole = srv.WS_AddUserRole(baseInput, modelUser.UserRole, out modelUser.UserRole);
+                    }
 
-                    BaseOutput addUserRole = srv.WS_AddUserRole(baseInput, modelUser.UserRole, out modelUser.UserRole);
+
+                    if (modelUser.ForeignOrganisation!=null)
+                    {
+                        modelUser.ForeignOrganisation.name = mdl.legalPersonName;
+                        modelUser.ForeignOrganisation.voen = mdl.voen;
+                        modelUser.ForeignOrganisation.userId = modelUser.User.Id;
+                        modelUser.ForeignOrganisation.userIdSpecified = true;
+
+                        if (modelUser.ForeignOrganisation.Id > 0)
+                        {
+                            BaseOutput fO = srv.WS_UpdateForeign_Organization(baseInput, modelUser.ForeignOrganisation, out modelUser.ForeignOrganisation);
+                        }
+                        else
+                        {
+                            BaseOutput fO = srv.WS_AddForeign_Organization(baseInput, modelUser.ForeignOrganisation, out modelUser.ForeignOrganisation);
+                        }
+                    }
 
                     return RedirectToAction("Index", "Login");
                 }
@@ -277,9 +333,11 @@ namespace Emsal.UI.Controllers
             }
         }
 
-
         public tblPerson GetPhysicalPerson(string fin, string type)
         {
+            sVoen = "";
+            sType = "";
+            
             modelUser = new UserViewModel();
             baseInput = new BaseInput();
             try
@@ -300,6 +358,7 @@ namespace Emsal.UI.Controllers
                   if (type == "2")
                 {
                     BaseOutput foreign = srv.WS_GetForeign_OrganizationByVoen(baseInput, fin, out foreignOrg);
+                    sVoen = fin;
                     BaseOutput personOut = srv.WS_GetPersonByUserId(baseInput, Int64.Parse(foreignOrg.userId.ToString()), true, out person);
                     //control = srvcontrol.getPersonInfoByPin(fin, out person, out iamasPerson);
                 }
@@ -314,6 +373,7 @@ namespace Emsal.UI.Controllers
                         //modelUser.Person.createdUser = person.profilePicture;
                         modelUser.Person.gender = person.gender;
                         modelUser.Person.birtday = person.birtday;
+                        modelUser.Person.UserId = person.UserId;
 
                         //modelUser.Person.profilePicture = Convert.ToBase64String(StringExtension.StringToByteArray(person.profilePicture));
 
@@ -446,19 +506,47 @@ namespace Emsal.UI.Controllers
 
                 modelUser.Person = new tblPerson();
                 modelUser.Address = new tblAddress();
+
                 modelUser.Person = GetPhysicalPerson(pId, type);
-                //modelUser.birtday = (modelUser.Person.birtday).toShortDate().ToString();
-                if (modelUser.Person != null)
+                if (sUid == 0)
                 {
-                    modelUser.birtday = String.Format("{0:d.M.yyyy}", (modelUser.Person.birtday).toShortDate());
-                    modelUser.FullAddress = fullAddressId;
-                    modelUser.descAddress = addressDesc;
+                    //modelUser.birtday = (modelUser.Person.birtday).toShortDate().ToString();
+                    if (modelUser.Person != null)
+                    {
+                        modelUser.birtday = String.Format("{0:d.M.yyyy}", (modelUser.Person.birtday).toShortDate());
+                        modelUser.FullAddress = fullAddressId;
+                        modelUser.descAddress = addressDesc;
+                    }
+                    else
+                    {
+                        modelUser.birtday = String.Format("{0:d.M.yyyy}", DateTime.Today);
+                    }
+
+                        return Json(new { data = modelUser });
                 }
                 else
                 {
-                    modelUser.birtday = String.Format("{0:d.M.yyyy}", DateTime.Today);
+                    if (modelUser.Person.UserId == sUid)
+                    {
+                        //modelUser.birtday = (modelUser.Person.birtday).toShortDate().ToString();
+                        if (modelUser.Person != null)
+                        {
+                            modelUser.birtday = String.Format("{0:d.M.yyyy}", (modelUser.Person.birtday).toShortDate());
+                            modelUser.FullAddress = fullAddressId;
+                            modelUser.descAddress = addressDesc;
+                        }
+                        else
+                        {
+                            modelUser.birtday = String.Format("{0:d.M.yyyy}", DateTime.Today);
+                        }
+
+                            return Json(new { data = modelUser });
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
-            return Json(new {data = modelUser});
             }
             catch (Exception ex) { return null; }
         }

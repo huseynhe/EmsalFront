@@ -292,6 +292,7 @@
     <Content Include="ContentProfile\js\PotentialClient.js" />
     <Content Include="ContentProfile\js\PotentialProduction.js" />
     <Content Include="ContentProfile\js\select2.min.js" />
+    <Content Include="ContentProfile\js\SignUpOP.js" />
     <Content Include="ContentProfile\js\State.js" />
     <Content Include="ContentProfile\js\ug-theme-tiles.js" />
     <Content Include="ContentProfile\js\ug-theme-video.js" />
