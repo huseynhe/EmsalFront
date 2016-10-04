@@ -288,8 +288,8 @@ namespace Emsal.UI.Controllers
 
                 modelPotentialProduction.PotentialProduction.product_IdSpecified = true;
 
-                //modelPotentialProduction.PotentialProduction.quantity = Convert.ToDecimal(model.size.Replace('.', ','));
-                modelPotentialProduction.PotentialProduction.quantity = Convert.ToDecimal(model.size);
+                modelPotentialProduction.PotentialProduction.quantity = Convert.ToDecimal(model.size.Replace('.', ','));
+                //modelPotentialProduction.PotentialProduction.quantity = Convert.ToDecimal(model.size);
                 modelPotentialProduction.PotentialProduction.quantitySpecified = true;
 
                 modelPotentialProduction.PotentialProduction.isSelected = true;
@@ -691,8 +691,8 @@ namespace Emsal.UI.Controllers
                 modelPotentialProduction.PotentialProduction.product_Id = model.productId;
                 modelPotentialProduction.PotentialProduction.description = model.description;
 
-                //modelPotentialProduction.PotentialProduction.quantity = Convert.ToDecimal(model.size.Replace('.', ','));
-                modelPotentialProduction.PotentialProduction.quantity = Convert.ToDecimal(model.size);
+                modelPotentialProduction.PotentialProduction.quantity = Convert.ToDecimal(model.size.Replace('.', ','));
+                //modelPotentialProduction.PotentialProduction.quantity = Convert.ToDecimal(model.size);
                 modelPotentialProduction.PotentialProduction.quantitySpecified = true;
 
                 DateTime startDate = (DateTime)model.startDate;
