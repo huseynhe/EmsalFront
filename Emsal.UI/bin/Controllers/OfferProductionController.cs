@@ -30,7 +30,7 @@ namespace Emsal.UI.Controllers
         {
             try
             {
-                TempData["Success"] = "";
+                TempData["Success"] = null;
                 //long unixDate = DateTime.Now.Ticks;
                 //DateTime start = new DateTime(636012864000000000);
                 //var rdd = start.Ticks;
@@ -879,6 +879,10 @@ namespace Emsal.UI.Controllers
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Yayinda", out modelOfferProduction.EnumValue);
                 modelOfferProduction.OfferProduction.state_eV_Id = modelOfferProduction.EnumValue.Id;
                 modelOfferProduction.OfferProduction.state_eV_IdSpecified = true;
+
+                BaseOutput envalydn = srv.WS_GetEnumValueByName(baseInput, "new", out modelOfferProduction.EnumValue);
+                modelOfferProduction.OfferProduction.monitoring_eV_Id = modelOfferProduction.EnumValue.Id;
+                modelOfferProduction.OfferProduction.monitoring_eV_IdSpecified = true;
 
                 //BaseOutput gcl = srv.WS_GetProductCatalogListForID(baseInput, model.productId, true, out modelOfferProduction.ProductCatalogArray);
                 //modelOfferProduction.ProductCatalogList = modelOfferProduction.ProductCatalogArray.ToList();

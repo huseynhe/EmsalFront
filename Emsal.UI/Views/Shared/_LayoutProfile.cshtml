@@ -315,7 +315,7 @@
 
 
 
-    @if (TempData["Success"] != null)
+    @if (TempData["Success"]!=null)
     {
         <script type="text/javascript">
             $(document).ready(function () {
@@ -340,6 +340,7 @@
         </div>
 
         TempData["Success"]= null;
+        TempData["Success"] = "";
     }
 
 

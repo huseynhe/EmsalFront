@@ -98,6 +98,11 @@ namespace Emsal.UI.Controllers
             modelSpecial.OfferProduction.user_IdSpecified = true;
             modelSpecial.OfferProduction.state_eV_IdSpecified = true;
 
+            BaseOutput enumValr = srv.WS_GetEnumValueByName(binput, "reedited", out modelSpecial.EnumValue);
+
+            modelSpecial.OfferProduction.monitoring_eV_Id = modelSpecial.EnumValue.Id;
+            modelSpecial.OfferProduction.monitoring_eV_IdSpecified = true;
+
             BaseOutput offer = srv.WS_GetOnAirOffer_ProductionsByUserID(binput, modelSpecial.OfferProduction, out modelSpecial.OfferProductionArray);
 
 
@@ -149,7 +154,6 @@ namespace Emsal.UI.Controllers
                         modelSpecial.SpOffer.QuantityType = modelSpecial.EnumValue.name;
                     }
                 }
-
 
                 //get the informations in the product calendar
                 modelSpecial.SpOffer.DemandCalendarList = new List<DemandCalendar>();
@@ -429,7 +433,15 @@ namespace Emsal.UI.Controllers
                 modelSpecial.OfferProduction.user_IdSpecified = true;
                 modelSpecial.OfferProduction.state_eV_IdSpecified = true;
 
+                BaseOutput enumValr = srv.WS_GetEnumValueByName(binput, "reedited", out modelSpecial.EnumValue);
+                modelSpecial.OfferProduction.monitoring_eV_Id = modelSpecial.EnumValue.Id;
+                modelSpecial.OfferProduction.monitoring_eV_IdSpecified = true;
+
+                modelSpecial.OfferProduction.Status =2;
+                modelSpecial.OfferProduction.StatusSpecified = true;
+
                 BaseOutput offer = srv.WS_GetOnAirOffer_ProductionsByUserID(binput, modelSpecial.OfferProduction, out modelSpecial.OfferProductionArray);
+
                 //////////////////////////////////////////////////
 
 
@@ -564,6 +576,7 @@ namespace Emsal.UI.Controllers
                 return RedirectToAction("Index");
             }
         }
+
         public ActionResult OffAirOffers(int? page, int? UserID)
         {
             modelSpecial = new SpecialSummaryViewModel();
@@ -985,7 +998,6 @@ namespace Emsal.UI.Controllers
             }
 
         }
-
 
         public ActionResult DeleteOfferProduction(int Id)
         {

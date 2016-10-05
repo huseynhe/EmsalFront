@@ -217,17 +217,20 @@ namespace Emsal.UI.Controllers
             {
                 modelUser.CommunicationInformationsList = modelUser.CommunicationInformationsArray.Where(x => x.PersonId == modelUser.ForeignOrganisation.manager_Id).ToList();
             }
-            foreach (var item in modelUser.CommunicationInformationsList)
+            if (modelUser.CommunicationInformationsList != null)
             {
-                if (item.comType == 10120)
+                foreach (var item in modelUser.CommunicationInformationsList)
                 {
-                    modelUser.LoggedInUserInfos.MobilePhone = item.description;
-                }
-                if (item.comType == 10122)
-                {
-                    modelUser.LoggedInUserInfos.WorkPhone = item.description;
-                }
+                    if (item.comType == 10120)
+                    {
+                        modelUser.LoggedInUserInfos.MobilePhone = item.description;
+                    }
+                    if (item.comType == 10122)
+                    {
+                        modelUser.LoggedInUserInfos.WorkPhone = item.description;
+                    }
 
+                }
             }
 
             BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelUser.EnumCategory);
