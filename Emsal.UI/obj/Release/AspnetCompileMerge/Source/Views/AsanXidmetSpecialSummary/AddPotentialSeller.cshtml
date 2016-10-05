@@ -49,7 +49,14 @@
 </head>
 <body>
     <div class="container col-md-6 col-md-offset-3" style="border-radius: 5px; margin-top: 30px; margin-bottom:30px; box-shadow:1px 1px 2px 3px #ddd">
-        <br /><br /><br />
+        <br />
+        @{
+            if (TempData["UserAsanSelSignUpError"] != null || TempData["UserAsanPotSignUpError"] != null)
+            {
+                <h4 style="color:red">Bu istifadəçi sistemdə mövcuddur.</h4>
+            }
+        }
+        <br /><br />
 
         <h2 style="text-align:center">İstifadəçi Əlavə et</h2>
         <br /><br /><br />
@@ -65,10 +72,8 @@
             <div class="form-group">
                 <label>Şəxsin növü</label>
                 <select class="form-control" id="userType" name="UserType">
-                    @foreach (var item in Model.UserTypeList)
-                    {
-                        <option>@item.name</option>
-                    }
+                    <option selected value="fizikişexs">Fiziki Şexs</option>
+                    <option value="legalPerson">Hüquqi Şexs</option>
                 </select>
             </div>
 
@@ -94,11 +99,52 @@
 
             <div class="form-group">
                 @Html.LabelFor(x => x.Email)
-                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", id = "email" })
+                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", id = "email", type = "email" })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
             <p class="text-danger" id="emailAlert"></p><br />
-
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.WorkPhone, htmlAttributes: new { @class = "control-label required" })
+                        <div class="row">
+                            <div class="col-md-5">
+                                <select class="form-control" name="workPhonePrefix">
+                                    <option value="">Seçim edin</option>
+                                    @foreach (var item in Model.WorkPhonePrefixList)
+                                    {
+                                        <option value="@item.name">@item.description (@item.name)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-7">
+                                @Html.TextBoxFor(model => model.WorkPhone, new { @class = "form-control numbersOnly", required = "required" })
+                                @Html.ValidationMessageFor(model => model.WorkPhone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.MobilePhone, new { @class = "control-label" })
+                        <div class="row">
+                            <div class="col-md-5">
+                                <select class="form-control" name="mobilePhonePrefix">
+                                    <option value="">Seçim edin</option>
+                                    @foreach (var item in Model.MobilePhonePrefixList)
+                                    {
+                                        <option value="@item.name">@item.description (@item.name)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-7">
+                                @Html.TextBoxFor(model => model.MobilePhone, new { @class = "form-control numbersOnly" })
+                                @Html.ValidationMessageFor(model => model.MobilePhone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div>
                 <input type="submit" class="btn btn-success" value="Davam et" id="sendInfo" />
             </div>
@@ -108,13 +154,15 @@
 
     <script>
         $("#userType").on("change", function () {
-            if ($("#userType").val() == "hüquqişexs") {
+            if ($("#userType").val() == "legalPerson") {
                 $("#voenDiv").css("display", "block");
                 $("#pinDiv").css("display", "none");
+                $("#pin").val("");
             }
             else {
                 $("#voenDiv").css("display", "none");
                 $("#pinDiv").css("display", "block");
+                $("#voen").val("");
             }
         })
     </script>

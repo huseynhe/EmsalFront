@@ -1,339 +1,199 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="keywords" content="MediaCenter, Template, eCommerce">
-    <meta name="robots" content="all">
+    <title>EMSAL</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
 
-    <title>emsal</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="~/Content/css/main.css">
-    <link rel="stylesheet" href="~/Content/css/green.css">
-    <link rel="stylesheet" href="~/Content/css/owl.carousel.css">
-    <link rel="stylesheet" href="~/Content/css/owl.transitions.css">
-    <link href="~/Content/css/lightbox.css" rel="stylesheet">
-    <link rel="stylesheet" href="~/Content/css/animate.min.css">
-    <link rel="stylesheet" href="~/Content/css/rateit.css">
-    <link rel="stylesheet" href="~/Content/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="~/Content/css/config.css">
+    <link href="~/Content/UI/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/UI/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/UI/css/templatemo_misc.css">
+    <link href="~/Content/UI/css/templatemo_style.css" rel="stylesheet">
+    <link href="~/Content/UI/css/style.css" rel="stylesheet">
 
-    <link href="~/Content/css/green.css" rel="alternate stylesheet" title="Green color">
-    <link href="~/Content/css/blue.css" rel="alternate stylesheet" title="Blue color">
-    <link href="~/Content/css/red.css" rel="alternate stylesheet" title="Red color">
-    <link href="~/Content/css/orange.css" rel="alternate stylesheet" title="Orange color">
-    <link href="~/Content/css/dark-green.css" rel="alternate stylesheet" title="Darkgreen color">
-   
-    <link rel="stylesheet" href="~/Content/css/font-awesome.min.css">
+    <script src="~/Content/UI/js/jquery-2.1.4.min.js"></script>
 
-    <script src="~/Content/js/jquery-1.11.1.min.js"></script>
+    <script src="~/Content/UI/js/jquery.lightbox.js"></script>
 
-    <script src="~/Content/js/custom.js"></script>
+    <script src="~/Content/UI/js/bootstrap.min.js"></script>
+    <script src="~/Content/UI/js/templatemo_custom.js"></script>
+
+    <script src="~/Content/UI/js/custom.js"></script>
+    <script src="~/Content/UI/js/addPotentialUser.js"></script>
+    <script src="~/Content/UI/js/emsal.js"></script>
+
+    <script>
+        function showhide() {
+            var div = document.getElementById("newpost");
+            if (div.style.display !== "none") {
+                div.style.display = "none";
+            }
+            else {
+                div.style.display = "block";
+            }
+        }
+    </script>
 
 </head>
 <body>
+    <div class="site-header">
+        <div class="main-navigation">
+            <div class="responsive_menu">
+                <ul>
+                    <li><a href="/"><div class="show-1 templatemo_home">Baş səhifə</div></a></li>
+                    <li><a href="/Home/Announcement"><div class="show-2 templatemo_page2">Elanlar</div></a></li>
+                    <li><a href="/Home/PotentialUser"><div class="show-3 templatemo_page3">Potensial istehsalçılar</div></a></li>
+                    <li><a href="/OfferHome"><div class="show-4 templatemo_page4">Təkliflər</div></a></li>
+                    <li><a href="/Home/Services"><div class="show-5 templatemo_page5">Keçidlər</div></a></li>
+                    <li><a href="/"><div class="show-6 templatemo_page6">Qanunvericilik</div></a></li>
+                    <li><a href="/Home/Contact"><div class="show-7 templatemo_page7">Əlaqə</div></a></li>
 
-    @*style="position:fixed;width:100%;z-index:1000;background:#fff;"*@
-    <header class="header-style-1 header-style-2" style="position:fixed;width:100%;z-index:1000;background:#fff;">
-        <div class=" main-header" style="padding: 0;">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-3 logo-holder" style="margin-top: 0;">
-                    <div class="logo">
-                        <a href="/" style="font-weight: bold; font-size: 45px;">
-                            EMSAL
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-6 top-search-holder top-cart-row" style="padding-top: 20px;">
-                    <div class="contact-row">
-                        <div class="phone inline">
-                            <i class="icon fa fa-phone"></i>(012) 444 4444
-                        </div>
-                        <div class="contact inline">
-                            <i class="icon fa fa-envelope"></i>info@emsal.az
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 animate-dropdown top-cart-row" style="padding-top: 8px;">
-                    <div class="top-bar animate-dropdown">
-                        <div class="container">
-                            <div class="header-top-inner">
-                                <div class="cnt-account">
-                                    <ul class="list-unstyled">
-                                        <!--<li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>-->
-                                        <li><a href="/SignUp"><i class="icon fa fa-key"></i>Qeydiyyat</a></li>
-                                        <li><a href="/Login"><i class="icon fa fa-sign-in"></i>Daxil ol</a></li>
-                                    </ul>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    @if (Session["musername"] == null)
+                    {
+                    <li><a href="/Login"><div class="show-8 templatemo_page8">Daxil ol</div></a></li>
+                    <li><a href="/SignUpOP"><div class="show-9 templatemo_page9">Qeydiyyat</div></a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/Login/Redirect"><div class="show-8 templatemo_page8">@Session["musername"]</div></a></li>
+                        <li><a href="/Login/Logout"><div class="show-9 templatemo_page9">Çıxış</div></a></li>
+                    }
+                </ul>
             </div>
-        </div>
-
-        </div>
-        <div class="header-nav animate-dropdown" style="background: #3c8dbc !important;">
             <div class="container">
-                <div class="yamm navbar navbar-default" role="navigation">
-                    <div class="navbar-header">
-                        <button data-target="#mc-horizontal-menu-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <div class="nav-bg-class">
-                        <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
-                            <div class="nav-outer">
-                                <ul class="nav navbar-nav">
-                                    <li class="active dropdown">
-                                        <a href="/">
-                                            <i class="fa fa-home"></i>
-                                        </a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="/Home">ƏSAS SƏHİFƏ</a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="/Home/ProductCatalog">KATEQORİYALAR</a>
-                                    </li>
+                <div class="row templatemo_gallerygap">
+                    <div class="col-md-12 responsive-menu">
+                        <a href="#" class="menu-toggle-btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div> <!-- /.col-md-12 -->
 
-                                    <li class="dropdown">
-                                        <a href="/Home">MƏTBUAT</a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="/Home">QANUNVERİCİLİK</a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="/Home/Contact">ƏLAQƏ</a>
-                                    </li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
+                    <div class="col-md-12 main_menu">
+                        <ul>
+                            <li>
+                                <a href="/"><span class="fa fa-home fa-2x"></span>BAŞ SƏHİFƏ</a>
+                            </li>
+
+                            <li>
+                                <a @*class="active"*@ href="/Home/Announcement"><span class="fa fa-bars"></span>ELANLAR</a>
+                            </li>
+                            <li>
+                                <a href="/Home/PotentialUser"><span class="fa fa-users"></span>POTENSİAL İSTEHSALÇILAR</a>
+                            </li>
+                            <li>
+                                <a href="/OfferHome"><span class="fa fa-list"></span>TƏKLİFLƏR</a>
+                            </li>
+                            <li>
+                                <a href="/Home/Services"><span class="fa fa-cogs"></span>KEÇİDLƏR</a>
+                            </li>
+                            <li>
+                                <a href="/"><span class="fa fa-book"></span>QANUNVERİCİLİK</a>
+                            </li>
+                            <li>
+                                <a href="/Home/Contact"><span class="fa fa-envelope"></span>ƏLAQƏ</a>
+                            </li>
+                            @if (Session["musername"] == null)
+                            {
+                                <li>
+                                    <a href="/Login"><span class="fa fa-lock"></span>DAXİL OL</a>
+                                </li>
+                                <li>
+                                    <a href="/SignUpOP"><span class="fa fa-user"></span>QEYDİYYAT</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="/Login/Redirect"><span class="fa fa-user"></span>@Session["musername"]</a>
+                                </li>
+                                <li>
+                                    <a href="/Login/Logout"><span class="fa fa-sign-out"></span>ÇIXIŞ</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row search_btn">
+                    <div class="col-md-3 col-sm-12">
+                        <a href="/"><img src="~/Content/UI/images/logo1.png" alt="" style="height:100px;"></a>
+                    </div>
+                    <div class="col-md-9 col-sm-12" style="margin-top:25px;">
+                        <div class="input-group">
+                            <input autocomplete="off" onkeyup="searchAnnouncement(this)" type="text" class="form-control input-lg" id="formGroupInputLarge" placeholder="Elanlar üzrə axtarış ...">
+                            <div style="position: absolute; width: 100%; float: left; z-index: 1000;" id="searchAnnouncementResult"></div>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span class="fa fa-search mb-0"></span></button>
+                            </span>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <script>
-            function chSearchPs(elem) {
-                var id = $(elem).val();
-
-                if (id == 1) {
-                    $("#mainfin").show();
-                    $("#mainSearch").attr("placeholder", "FİN nömrənizi daxil edin...").placeholder();
-                }
-                else {
-                    $("#mainfin").hide();
-                    $("#mainSearch").attr("placeholder", "Axtardığınız məlumatı daxil edin...").placeholder();
-                }
-            }
-        </script>
-
-        <div class="main-header row" style="background: #3498db; margin-top: 0; padding-bottom: 25px;">
-            <div class="col-xs-12 col-sm-12 col-md-6 top-search-holder col-md-offset-3">
-                <a style="color:#fff;font-size:16px;" data-toggle="tooltip" id="mainfin" href="#" title="FİN (Fərdi İdentifikasiya Nömrəsi) şəxsiyyət vəsiqəsinin aşağısında yerləşən nömrələrin son 8  simvolundan 7-sidir.">FİN nömrəsi nədir?</a>
-                <div class="search-area">
-                    <form style="background: #fff;">
-                        <div class="control-group">
-                            <div class="form-group" style="margin: 0px; padding: 0px; float: left; width: 170px;">
-                                <select onchange="chSearchPs(this)" class="form-control unicase-form-control select" style="padding:13px 3px; border:none;">
-                                    <option title="Potensial istehsalçılar" selected value="1">Potensial istehsalçılar</option>
-                                    <option value="2">Elanlar</option>
-                                    <option value="3">Digər</option>
-                                </select>
-                            </div>
-                            <input id="mainSearch" class="search-field" style="width:65%;" placeholder="FİN nömrənizi daxil edin..." />
-                            <a class="search-button" href="#"></a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-    </header>
-
-
-
-    <div class="clearfix" style="height: 250px;"></div>
-
-    <div class="body-content outer-top-xs" id="top-banner-and-menu">
-        <div class="container">
-            @RenderBody()
-        </div>
+            </div> <!-- /.container -->
+        </div> <!-- /.main-navigation -->
     </div>
 
-
-    <footer id="footer" class="footer color-bg">
-        <div class="links-social inner-top-sm">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-3">
-                        <div class="contact-info">
-                            <div class="footer-logo">
-                                <div class="logo">
-                                    <a style="font-weight: bold; font-size: 60px;" href="index.html">EMSAL
-                                    </a>
-                                </div>
-
-                            </div>
-
-                            <div class="module-body m-t-20">
-                                <p class="about-us">emsal.az portalı sahibkarlığın inkişafı məqsədilə yaradılmışdır</p>
-                                <div class="social-icons">
-                                    <a href="#" class='active'><i class="icon fa fa-facebook"></i></a>
-                                    <a href="#"><i class="icon fa fa-twitter"></i></a>
-                                    <a href="#"><i class="icon fa fa-linkedin"></i></a>
-                                    <a href="#"><i class="icon fa fa-rss"></i></a>
-                                    <a href="#"><i class="icon fa fa-pinterest"></i></a>
-                                </div>
-                            </div>
+    <div class="loader"></div>
+    <div>
+        @RenderBody()
+    </div>
+    <!-- gallery end -->
+    <!-- footer start -->
+    <div class="templatemo_footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-sm-12">
+                    <span>Copyright &copy; 2016, INTEGRATION</span>
+                </div>
+                <div class="col-md-3 col-sm-12 templatemo_rfooter">
+                    <a href="#">
+                        <div class="hex_footer">
+                            <span class="fa fa-facebook"></span>
                         </div>
-                    </div>
-
-                    <div class="col-xs-12 col-sm-6 col-md-3">
-                        <div class="contact-timing">
-                            <div class="module-heading">
-                                <h4 class="module-title">DİGƏR KEÇİDLƏR</h4>
-                            </div>
-
-                            <div class="module-body outer-top-xs">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td><a href="#">Xəbərlər - Press reliz</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="#">Foto - video qalereya</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                    </a>
+                    <a href="#">
+                        <div class="hex_footer">
+                            <span class="fa fa-twitter"></span>
                         </div>
-                    </div>
-
-                    <div class="col-xs-12 col-sm-6 col-md-3">
-                        <div class="latest-tweet">
-                            <div class="module-heading">
-                                <h4 class="module-title">Ünvan</h4>
-                            </div>
-
-                            <div class="module-body outer-top-xs">
-                                <ul style="" class="toggle-footer">
-                                    <li class="media">
-                                        <div class="pull-left">
-                                            <span class="icon fa-stack fa-lg">
-                                                <i class="fa fa-circle fa-stack-2x"></i>
-                                                <i class="fa fa-map-marker fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                        </div>
-                                        <div class="media-body">
-                                            <p>Bakı şəhəri, Azadlıq prospekri 1.</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                    </a>
+                    <a href="#">
+                        <div class="hex_footer">
+                            <span class="fa fa-linkedin"></span>
                         </div>
-                    </div>
-
-                    <div class="col-xs-12 col-sm-6 col-md-3">
-                        <div class="contact-information">
-                            <div class="module-heading">
-                                <h4 class="module-title">Əlaqə</h4>
-                            </div>
-
-                            <div class="module-body outer-top-xs">
-                                <ul class="toggle-footer" style="">
-                                    <li class="media">
-                                        <div class="pull-left">
-                                            <span class="icon fa-stack fa-lg">
-                                                <i class="fa fa-circle fa-stack-2x"></i>
-                                                <i class="fa fa-mobile fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                        </div>
-                                        <div class="media-body">
-                                            <p>
-                                                (012) 444 4444<br>
-                                                (012) 555 5555
-                                            </p>
-                                        </div>
-                                    </li>
-
-                                    <li class="media">
-                                        <div class="pull-left">
-                                            <span class="icon fa-stack fa-lg">
-                                                <i class="fa fa-circle fa-stack-2x"></i>
-                                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                        </div>
-                                        <div class="media-body">
-                                            <span><a href="#">info@emsal.az</a></span>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
+                    </a>
+                    <a href="#">
+                        <div class="hex_footer">
+                            <span class="fa fa-rss"></span>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
-
-        <div class="copyright-bar">
-            <div class="container">
-                <div class="col-xs-12 col-sm-6 no-padding">
-                    <div class="copyright">
-                        © 2016
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="~/Content/js/bootstrap.min.js"></script>
-    <script src="~/Content/js/bootstrap-hover-dropdown.min.js"></script>
-    <script src="~/Content/js/owl.carousel.min.js"></script>
-
-    <script src="~/Content/js/echo.min.js"></script>
-    <script src="~/Content/js/jquery.easing-1.3.min.js"></script>
-    <script src="~/Content/js/bootstrap-slider.min.js"></script>
-    <script src="~/Content/js/jquery.rateit.min.js"></script>
-    <script type="text/javascript" src="~/Content/js/lightbox.min.js"></script>
-    <script src="~/Content/js/bootstrap-select.min.js"></script>
-    <script src="~/Content/js/wow.min.js"></script>
-    <script src="~/Content/js/scripts.js"></script>
-    <script src="~/Content/js/emsal.js"></script>
-
-
-    <!-- For demo purposes – can be removed on production -->
-
-    <script src="~/Content/js/switchstylesheet.js"></script>
-
+    </div>
+    <!-- footer end -->
     <script>
-        $(document).ready(function () {
-            $(".changecolor").switchstylesheet({ seperator: "color" });
-            $('.show-theme-options').click(function () {
-                $(this).parent().toggleClass('open');
-                return false;
-            });
+        $('.gallery_more').click(function () {
+            var $this = $(this);
+            $this.toggleClass('gallery_more');
+            if ($this.hasClass('gallery_more')) {
+                $this.text('Load More');
+            } else {
+                $this.text('Load Less');
+            }
         });
+    </script>
 
-        $(window).bind("load", function () {
-            $('.show-theme-options').delay(2000).trigger('click');
-        });
+
+    <script src="~/Content/UI/js/jquery.validate.js"></script>
+    <script src="~/Content/UI/js/jquery.validate.unobtrusive.js"></script>
+
+    <link href="~/Content/UI/css/select2.min.css" rel="stylesheet" />
+    <script src="~/Content/UI/js/select2.min.js"></script>
+    <script type="text/javascript">
+        $('.select2').select2();
     </script>
 
 
@@ -345,6 +205,33 @@
                 });
             });
         });
-    </script> 
+    </script>
+
+
+    <script>
+        $(function () {
+            //$("#datepicker").datepicker();
+        });
+        $("#userType").on("change", function () {
+            if ($("#userType").val() == "legalPerson") {
+                $("#voenDiv").css("display", "block");
+                $("#pinDiv").css("display", "none");
+            }
+            else {
+                $("#voenDiv").css("display", "none");
+                $("#pinDiv").css("display", "block");
+            }
+        })
+    </script>
+    <script>
+        $(".numbersOnly").on("keyup", function () {
+            this.value = this.value.replace(/[^0-9\.]/g, '');
+
+            if (this.value.length > 7) {
+                this.value = this.value.slice(0, 7);
+            }
+        })
+    </script>
+
 </body>
 </html>

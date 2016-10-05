@@ -295,7 +295,7 @@ $.extend($.validator, {
 	messages: {
 	    required: "Xana məcburidir.",
 		remote: "Please fix this field.",
-		email: "Please enter a valid email address.",
+		email: "Xahiş olunur düzgün email adresi daxil edəsiniz..",
 		url: "Please enter a valid URL.",
 		date: "Please enter a valid date.",
 		dateISO: "Please enter a valid date (ISO).",

@@ -8,40 +8,61 @@
     Model.prodName = "";
 }
 
-    @foreach (var item in Model.PagingUserInfo)
-{
-    <a href="/Login" data-toggle="tooltip" class="col-md-3" style="margin-bottom: 15px;" title="Məhsul yerləşdirmək üçün cari linkə keçid edin">
-        <div style="background: #fafafa; border-radius: 3px; display: table; padding-top: 15px;">
-            <div class="col-md-12">
-                <div class="col-md-4" style="padding-left: 0px;">
-                    <img src="~/Content/images/user.png" alt="" style="width: 100%; border-radius: 10px; border: 1px solid; padding: 3px;">
-                </div>
-                <div class="col-md-8" style="color: #424242; padding: 0;">
-                    <div class="col-md-12" style="padding: 0;">
-                        <i class="fa fa-chevron-right"></i> @item.name @item.surname
+<table class="table table-bordered">
+    <tbody>
+        @foreach (var item in Model.PagingUserInfo)
+        {
+            if (item.pinNumber != "" || item.voen != "") { 
+            <tr>
+                <td class="col-sm-4 text-black">@item.name</td>
+                @*<td class="col-sm-2">@item.surname</td>*@
+                <td class="col-sm-2 text-black">@item.adminUnitName</td>
+                <td class="col-sm-5 text-black">@item.parentAdminUnitName</td>
+                <td class="col-sm-1 text-center">
+                    @if (item.pinNumber != "")
+                    {
+                        <a target="_blank" href="/Login?uid=@item.userID&type=1"><span class="glyphicon glyphicon-user"></span></a>
+                    }
+                    else if (item.voen != "")
+                    {
+                        <a target="_blank" href="/Login?uid=@item.userID&type=2"><span class="fa fa-building"></span></a>
+                    }
+                
+                </td>
+            </tr>
+        }
 
+            @*<a href="/Login" data-toggle="tooltip" class="col-md-3" style="margin-bottom: 15px;" title="Məhsul yerləşdirmək üçün cari linkə keçid edin">
+                <div style="background: #fafafa; border-radius: 3px; display: table; padding-top: 15px;">
+                    <div class="col-md-12">
+                        <div class="col-md-4" style="padding-left: 0px;">
+                            <img src="~/Content/images/user.png" alt="" style="width: 100%; border-radius: 10px; border: 1px solid; padding: 3px;">
+                        </div>
+                        <div class="col-md-8" style="color: #424242; padding: 0;">
+                            <div class="col-md-12" style="padding: 0;">
+                                <i class="fa fa-chevron-right"></i> @item.name @item.surname
+
+                            </div>
+                            <div class="col-md-12" style="padding: 0;">
+                                <i class="fa fa-chevron-right"></i> @item.email
+
+                            </div>
+                        </div>
+                        <div style="margin-top: 5px; float: left; width: 100%; margin-bottom: 5px;">
+                            <i class="fa fa-link" style="float: right;"></i>
+                        </div>
                     </div>
-                    @*<div class="col-md-12" style="padding: 0;">
-                        <i class="fa fa-chevron-right"></i> @item.fullAddress
-                    </div>*@
-                    <div class="col-md-12" style="padding: 0;">
-                        <i class="fa fa-chevron-right"></i> @item.email
-
-                    </div>
                 </div>
-                <div style="margin-top: 5px; float: left; width: 100%; margin-bottom: 5px;">
-                    <i class="fa fa-link" style="float: right;"></i>
-                </div>
-            </div>
-        </div>
-    </a>
-}
+            </a>*@
+        }
 
+    </tbody>
+</table>
 
 <div class="clearfix"></div>
-<div class="box-footer clearfix">
+<div class="box-footer clearfix text-black">
     Səhifə @(Model.PagingUserInfo.PageCount < Model.PagingUserInfo.PageNumber ? 0 : Model.PagingUserInfo.PageNumber) (cəmi @Model.PagingUserInfo.PageCount)
-    @Html.PagedListPager(Model.PagingUserInfo, page => Url.Action("UserInfo", new { page , ssss= "UserInfo" }))
+    @Html.PagedListPager(Model.PagingUserInfo, page => Url.Action("UserInfo", new { page, addressId=Model.addressId, sort = Model.sort, name=Model.name, address = Model.address, products = Model.products }))
 </div>
 
 

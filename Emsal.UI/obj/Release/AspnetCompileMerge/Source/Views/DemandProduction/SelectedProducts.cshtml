@@ -6,69 +6,104 @@
     {
         Layout = "~/Views/Shared/_LayoutProfilePW.cshtml";
     }
+    decimal tquantity = 0;
 }
 
 <h4>Tələb olunan məhsullar</h4>
 <div class="row">
     <div class="col-md-12">
-        @*	<div class="table-responsive">*@
+        @if (Model.isPDF == false)
+        {
+            if (Model.noButton == false)
+            {
+                <div class="bttns">
+                    <a href="/DemandProduction/SelectedProducts?pdf=true&noButton=false" class="btn btn-lg btn-success active pull-left">
+                        <i class="glyphicon glyphicon-save-file"></i>&nbsp;Yüklə
+                    </a>
+
+                    <button class="btn btn-primary btn-lg pull-right btnadd" type="submit">
+                        <i class="glyphicon glyphicon-plus"></i>&nbsp;Tələbinizi əlavə edin
+                    </button>
+                    <div class="clearfix"></div>
+                    <br />
+                </div>
+            }
+        }
         <table class="table table-bordered">
             <tr>
                 <th>Məhsulun adı</th>
-                <th>Qiyməti</th>
                 <th>Çəkisi</th>
                 <th>Ölçü vahidi</th>
                 @*<th>Qrafik</th>
-        <th>Aylar</th>*@
-                <th>Ünvan</th>
+                    <th>Aylar</th>*@
+                <th>Çardırılma ünvanı</th>
                 <th>Qeyd</th>
                 @if (Model.isPDF == false)
                 {
 
                     <th>Sil</th>
-                <th>Redaktə</th>
+                    <th>Redaktə</th>
                 }
             </tr>
-            @{                                        
+            @{
                 foreach (var item in Model.ProductionDetailList)
                 {
-
-                <tr>
-                    <td>@item.productName</td>
-                    <td>@item.unitPrice AZN</td>
-                    <td>@item.quantity</td>
-                    <td>@item.enumValueName</td>
-                    @*<td>--</td>
-        <td>@item.months</td>*@
-                    <td>@item.fullAddress (@item.addressDesc)</td>
-                    <td>@item.description</td>
-                    @if (Model.isPDF == false)
-                    {
-
+                    @*<tr>
+            <td colspan="8" class="text-center">
+                @item.fullForeignOrganization
+                        </td>
+                    </tr>*@
+                    <tr>
+                        <td>@item.productName (@item.productParentName) 
+                        </td>
                         <td>
-                            <div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="deleteSelectedDemandProduct(@item.productionID)"></div>
+                            @if ((decimal)Math.Round(item.quantity, 2) > (int)item.quantity)
+                            {
+                                @item.quantity
+                            }
+                            else
+                            {
+                                long qi = (int)Math.Round(item.quantity, 0);
+                                <span>@qi</span>
+                            }
                         </td>
-                        <td class="text-center">
-                            <a href="/DemandProduction/Edit/@item.productionID" style="text-decoration:none;" class="glyphicon glyphicon-pencil text-primary"></a>
-                        </td>
+                        <td>@item.enumValueName</td>
+                        <td>
+                        - @item.fullForeignOrganization
+                            <br />
+                        - @item.fullAddress</td>
+                        <td>@item.description</td>
+                        @if (Model.isPDF == false)
+                        {
+                            <td>
+                                <div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="deleteSelectedDemandProduct(@item.productionID)"></div>
+                            </td>
+                            <td class="text-center">
+                                <a href="/DemandProduction/Edit/@item.productionID" style="text-decoration:none;" class="glyphicon glyphicon-pencil text-primary"></a>
+                            </td>
+                        }
+                    </tr>
+                    if (item.productionCalendarList.Count() > 0)
+                    {
+                        <tr>
+                            <td colspan="8" style="padding:0;">
+                                <div id="productionCalendar_@item.productionID">
+                                    @Html.Action("ProductionCalendar", "DemandProduction", new { dId = item.productionID, pdf=Model.isPDF })
+                                </div>
+                            </td>
+                        </tr>
                     }
-                </tr>
-                } 
+                    if (item != Model.ProductionDetailList.LastOrDefault())
+                    {
+                        <tr>
+                            <td colspan="8" style="padding:0;background:#f2f2f2;">
+                                &nbsp;
+                            </td>
+                        </tr>
+                    }
+                }
             }
         </table>
-        @if (Model.isPDF == false)
-        {
-
-            <a href="/DemandProduction/SelectedProducts?&userId=@Model.userId&pdf=true" class="btn btn-success active pull-left">
-                <i class="glyphicon glyphicon-save-file"></i>&nbsp;Yüklə
-                  </a>
-
-                  
-                  <button class="btn btn-primary btn-lg pull-right btnadd" type="submit">
-            <i class="glyphicon glyphicon-plus"></i>&nbsp;Potensial tələbinizi əlavə edin
-        </button>
-        }
-                          
     </div>
 </div>
 @*	</div>*@

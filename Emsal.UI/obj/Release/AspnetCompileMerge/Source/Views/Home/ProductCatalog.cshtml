@@ -3,19 +3,25 @@
 @{
     Layout = "";
 }
+
 @if (Model.ProductCatalogList.Count() > 0)
 {
-    <div class="accordion-body collapse" style="display:table;">
-        <div class="accordion-inner" style="margin:0;">
-            <ul>
-                @foreach (var item in Model.ProductCatalogList)
-                {
-                    <li>
-                        <div><a style="cursor:pointer;" onclick="GetProductCatalog(this, @item.Id)">@item.ProductName</a>
-                        <div style="margin-left:10px;" class="resp"></div>
-            </div></li>
-                }
-                </ul>
-            </div>
-    </div>
+        <div class="panel-collapse collapse"  style="display:table;width:100%;">
+            <ul class="list-group">
+@foreach (var item in Model.ProductCatalogList)
+{
+                <li class="list-group-item">
+                    <span>
+                        <a style="cursor:pointer;" onclick="GetProductCatalog(this, @item.Id,0)">@item.ProductName 
+                        @if (Convert.ToInt64(item.ProductDescription) > 0 || item.canBeOrder==1)
+                        {
+                        <span class="badge" style="background:#28a4c9;">@item.ProductDescription</span>
+                        }
+                        </a>
+                        <span style="margin-left:10px;" class="resp"></span>
+                    </span>
+                </li>
+}
+            </ul>
+        </div>
 }

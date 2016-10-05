@@ -1,104 +1,66 @@
-﻿@{
-    ViewBag.Title = "PotentialUser";
+﻿
+@model Emsal.UI.Models.ProductCatalogViewModel
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    .list-group-item {
-        border: 1px solid #d9edf7 !important;
-    }
-</style>
-<script>
-    function callDistrict(elem) {
-        $.ajax({
-            url: '/Home/District',
-            type: 'GET',
-            success: function (result) {
-                //$(elem).parent().parent().html(result);
-                $('#puserMenu').html(result);
-            },
-            error: function () {
-            }
-        });
 
-    };
+<div id="menu-container">
+    <div class="content homepage" id="menu-1">
+        <div class="container">
+            <div class="right_below" id="center" style="padding-top:0px;">
+                <div class="elanlar">
+                    <div class="thumbnail col-md-3" id="puserMenu">
+                        @*@Html.Action("AdminUnit", "Home", new { pId = 0 })*@
+                        <script>
+                            $(document).ready(function () {
+                                $.ajax({
+                                    url: '/Home/AdminUnit?pId=0',
+                                    type: 'GET',
+                                    success: function (result) {
+                                        $('#puserMenu').html(result);
 
-    function callRegion(elem) {
-        $.ajax({
-            url: '/Home/Region',
-            type: 'GET',
-            success: function (result) {
-                $('#puserMenu').html('');
-                //$(elem).parent().parent().html(result);
-                $('#puserMenu').html(result);
-            },
-            error: function () {
-            }
-        });
+                                        $('.select2').select2();
+                                    },
+                                    error: function () {
 
-    };
-</script>
-
-<div id="puserBut" style="font-size: 20px; cursor: pointer; padding: 10px; margin-top: -30px;background:#f2f2f2; border: 1px solid #bce8f1;">
-    <i class="fa fa-search"></i> &nbsp;&nbsp;&nbsp; "POTENSİAL İSTİFADƏÇİLƏR" üzrə ətraflı axtarış
-</div>
-<div id="puserMenu" style="display:none;float: left; width: 100%; background: #fafafa; padding-bottom: 10px;border: 3px solid #f2f2f2; border-radius: 0 0 5px 5px;">
-    @Html.Action("Region", "Home", new { parentId = 0 })
-</div>
-
-<div class="clearfix"></div><br />
-
-<h3><i class="fa fa-list"></i> POTENSİAL İSTİFADƏÇİLƏR</h3>
-
-
-@for (int i = 1; i <= 16; i++)
-{
-    <a href="#" data-toggle="tooltip" class="col-md-3" style="margin-bottom: 15px;" title="Məhsul yerləşdirmək üçün cari linkə keçid edin">
-        <div style="background: #fafafa; border-radius: 3px; display: table; padding-top: 15px;">
-            <div class="col-md-12">
-                <div class="col-md-4" style="padding-left: 0px;">
-                    <img src="~/Content/images/user.png" alt="" style="width: 100%; border-radius: 10px; border: 1px solid; padding: 3px;">
-                </div>
-                <div class="col-md-8" style="color: #424242; padding: 0;">
-                    <div class="col-md-12" style="padding: 0;">
-                        <i class="fa fa-chevron-right"></i> MƏMMƏDOV MƏMMƏD ƏHMƏD
-
+                                    }
+                                });
+                            });
+                        </script>
                     </div>
-                    <div class="col-md-12" style="padding: 0;">
-                        <i class="fa fa-chevron-right"></i> Bakı ş. Nəsimi ray.
 
-                    </div>
-                    <div class="col-md-12" style="padding: 0;">
-                        <i class="fa fa-chevron-right"></i> memmed@gmail.com
+                    <div class="thumbnail col-md-9">
 
+                        <h2 style="color: #000; margin-top: 30px; text-align:center;" class="text-bold mt-50">POTENSİAL İSTEHSALÇILAR</h2>
+
+                        <div class="clearfix"></div>
+                        <table class="table table-bordered" style="margin:0;">
+                            <thead>
+                                <tr>
+                                    <th class="col-sm-4 text-black"><div style="float:left;width:90%;">Soyad, ad (hüquqi şəxsin adı)</div><div style="cursor:pointer;float:right;" onclick="GetUserInfo(this,'name')" class="sortingpu"></div></th>
+                                    @*<th class="col-sm-2"><div style="float:left;">Soyad </div><div style="cursor:pointer;float:right;" onclick="GetUserInfo(this,'surname')" class="sortingpu"></div></th>*@
+                                    <th class="col-sm-2 text-black"><div style="float:left;">Ünvan</div><div style="cursor:pointer;float:right;" onclick="GetUserInfo(this,'address')" class="sortingpu"></div></th>
+                                    <th class="col-sm-5 text-black"><div style="float:left;">İstehsal etdiyi məhsullar</div>@*<div style="cursor:pointer;float:right;" onclick="GetUserInfo(this, 'products')" class="sortingpu"></div>*@</th>
+                                    <th class="col-sm-1 text-center text-black">Keçid</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-sm-4"><input onkeyup="UserInfoSearch(this, 'name')" class="form-control" placeholder="axtar" /></td>
+                                    @*<td class="col-sm-2"><input onkeyup="UserInfoSearch(this, 'surname')" class="form-control" placeholder="axtar" /></td>*@
+                                    <td class="col-sm-2"><input onkeyup="UserInfoSearch(this, 'address')" class="form-control" placeholder="axtar" /></td>
+                                    <td class="col-sm-5"><input onkeyup="UserInfoSearch(this, 'products')" class="form-control" placeholder="axtar" /></td>
+                                    <td class="col-sm-1"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        @Html.Action("UserInfo", "Home")
                     </div>
-                </div>
-                <div style="margin-top: 5px; float: left; width: 100%; margin-bottom: 5px;">
-                    <i class="fa fa-link" style="float: right;"></i>
                 </div>
             </div>
         </div>
-    </a>
-}
-
-<nav style="float: right;" class="col-md-12">
-    <ul class="pagination pull-right">
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">əvvəlki</span>
-            </a>
-        </li>
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">4</a></li>
-        <li class="page-item"><a class="page-link" href="#">5</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">sonrakı</span>
-            </a>
-        </li>
-    </ul>
-</nav>
+    </div>
+</div>

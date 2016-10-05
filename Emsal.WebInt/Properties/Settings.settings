@@ -6,7 +6,7 @@
       <Value Profile="(Default)">http://10.10.10.223/integratedservices/integratedservices.asmx</Value>
     </Setting>
     <Setting Name="Emsal_WebInt_EmsalSrv_EmsalService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://localhost:56875/EmsalService.svc</Value>
+      <Value Profile="(Default)">http://10.10.10.141:56876/EmsalService.svc</Value>
     </Setting>
   </Settings>
 </SettingsFile>

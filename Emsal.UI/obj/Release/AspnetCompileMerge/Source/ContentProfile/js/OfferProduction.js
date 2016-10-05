@@ -12,7 +12,13 @@ function GetProductCatalog(elem) {
             $('#productId').val(pId);
             $(elem).parent().parent().append(result);
 
+            //if (result == "")
+            //{
+            //    $('#calendarMainDiv').show();
+            //    GetUnitofmeasurement(pId);
+            //}
             getChooseFileTemplate(pId);
+            $('.select2').select2();
         },
         error: function () {
 
@@ -20,9 +26,51 @@ function GetProductCatalog(elem) {
     });
 };
 
+
+var Unitofmeasurementresult;
+function GetUnitofmeasurement(pId) {
+    $.ajax({
+        url: '/OfferProduction/Unitofmeasurement?pId=' + pId,
+        type: 'GET',
+        success: function (result) {
+            Unitofmeasurementresult = result;
+
+            return result;
+        },
+        error: function () {
+
+        }
+    });
+};
+
+
 function GetAdminUnit(elem) {
     pId = $(elem).val();
     $(elem).parent().nextAll().remove();
+    //var dd = 0;
+    //while (dd < 4) {
+        
+    //    dd++;
+    //    alert(dd);
+    //}
+        var valu = 0;
+    if (pId == '') {
+        var name = $(elem).attr('name');
+        var i = name.substring(5, name.length - 1);
+        var val = 0;
+
+        for (var d = 0; d <i; d++)
+        {
+            val = $('select[name="adId[' + d + ']"]').val();
+
+            if (val != undefined) {
+                valu = $('select[name="adId[' + d + ']"]').val();
+            }
+        }
+
+        //$('#addressId').val(valu);
+        pId = valu;
+    }
 
     if (pId > 0) {
         $.ajax({
@@ -33,6 +81,10 @@ function GetAdminUnit(elem) {
                 $('#addressId').val(pId);
                 $(elem).parent().parent().append(result);
 
+                if (valu > 0) {
+                    $(elem).parent().remove();
+                }
+            
                 $('.select2').select2();
             },
             error: function () {
@@ -122,6 +174,36 @@ function deleteSelectedDocument(id) {
         success: function (result) {
             getSelectedDocuments();
             getChooseFileTemplate(pId);
+        },
+        error: function () {
+
+        }
+    });
+}
+
+function deleteProductionCalendar(id, dId) {
+    $.ajax({
+        url: '/OfferProduction/DeleteProductionCalendar?&id=' + id,
+        type: 'GET',
+        data: {},
+        success: function (result) {
+            getProductionCalendar(dId);
+            getSelectedProducts();
+        },
+        error: function () {
+
+        }
+    });
+}
+
+
+function getProductionCalendar(dId) {
+    $.ajax({
+        url: '/OfferProduction/ProductionCalendar?dId=' + dId,
+        type: 'GET',
+        data: {},
+        success: function (result) {
+            $('#productionCalendar_' + dId).html(result);
         },
         error: function () {
 

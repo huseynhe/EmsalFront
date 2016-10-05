@@ -20,31 +20,21 @@
     });
 
     $("#Inbox").click(function () {
-        $(".PotentialClientMain").css("display", "none");
-        $(".PotentialSellerMain").css("display", "none");
-        $("#ReceivedMessagesMain").css("display", "block");
-        $("#SentMessagesMain").css("display", "none");
-        $("#SentMessagesSelect").css("display", "none");
-        $("#InboxMessagesSelect").css("display", "block");
-        $(".mesajMain").css("display", "block");
-        $("#ReceivedMessagesSortedForDateAsc").css("display", "none");
-        $("#ReceivedMessagesSortedForDateDes").css("display", "none");
-        $("#SentMessagesSortedForDateAsc").css("display", "none");
-        $("#SentMessagesSortedForDateDes").css("display", "none");
+        $("#userInfoos").css("display", "none");
+        $("#persInfHead").css("display", "none");
+        $("#personalEmail2").css("display", "none");
+        $("#currentPasswordBody").css("display", "none");
+        $("#mesagessMain").css("display", "block");
+
     })
 
     $("#SentMessages").click(function () {
-        $("#SentMessagesMain").css("display", "block");
-        $("#ReceivedMessagesMain").css("display", "none");
-        $("#SentMessagesSelect").css("display", "block");
-        $("#InboxMessagesSelect").css("display", "none");
-        $(".mesajMain").css("display", "block");
-        $(".PotentialClientMain").css("display", "none");
-        $(".PotentialSellerMain").css("display", "none");
-        $("#ReceivedMessagesSortedForDateAsc").css("display", "none");
-        $("#ReceivedMessagesSortedForDateDes").css("display", "none");
-        $("#SentMessagesSortedForDateAsc").css("display", "none");
-        $("#SentMessagesSortedForDateDes").css("display", "none");
+        $("#userInfoos").css("display", "none");
+        $("#persInfHead").css("display", "none");
+        $("#personalEmail2").css("display", "none");
+        $("#currentPasswordBody").css("display", "none");
+        $("#mesagessMain").css("display", "block");
+       
     })
 
     $("#InboxMessagesSelect").on("change", function () {
@@ -60,6 +50,8 @@
             $("#ReceivedMessagesSortedForDateDes").css("display", "none");
             $("#SentMessagesSortedForDateAsc").css("display", "none");
             $("#SentMessagesSortedForDateDes").css("display", "none");
+            $("#createdUsers").css("display", "none");
+
         }
         if ($("#InboxMessagesSelect").val() == "2") {
             $(".PotentialClientMain").css("display", "none");
@@ -73,6 +65,8 @@
             $(".mesajMain").css("display", "block");
             $("#SentMessagesSortedForDateAsc").css("display", "none");
             $("#SentMessagesSortedForDateDes").css("display", "none");
+            $("#createdUsers").css("display", "none");
+
         }
 
     })
@@ -103,27 +97,43 @@
         }
     }
     );
+    $("#created").click(function () {
+        $("#createdUsers").css("display", "block");
+        $("#userInfoos").css("display", "none");
+        $("#persInfHead").css("display", "none");
+        $("#personalEmail2").css("display", "none");
+        $("#currentPasswordBody").css("display", "none");
 
+    })
     $("#personalEmail").click(function () {
         $("#personalInfos").css("display", "none");
         $("#personalEmail2").css("display", "block");
         $("#currentPasswordBody").css("display", "none");
+        $("#createdUsers").css("display", "none");
+
     })
     $("#personalInfoButton").click(function () {
         $("#personalInfos").css("display", "block");
         $("#personalEmail2").css("display", "none");
         $("#currentPasswordBody").css("display", "none");
+        $("#createdUsers").css("display", "none");
+        $("#userInfoos").css("display", "block");
+        $("#persInfHead").css("display", "block");
+        $("#createdUsers").css("display", "none");
+
     })
 
     $("#currentPassword").click(function () {
         $("#personalInfos").css("display", "none");
         $("#personalEmail2").css("display", "none");
         $("#currentPasswordBody").css("display", "block");
+        $("#createdUsers").css("display", "none");
+
     })
    
     $("#updateEmailAction").click(function () {
         $.ajax({
-            url: "/SpecialSummary/UpdateEmail",
+            url: "/Ordinary/UpdateEmail",
             type: "Get",
             data: { email: $("#updateEmail").val() },
             success: function (data) {
@@ -136,7 +146,7 @@
     })
     $("#changePassword").click(function () {
         $.ajax({
-            url: "/SpecialSummary/CheckPassword",
+            url: "/AsanXidmetSpecialSummary/CheckPassword",
             type: "Get",
             data: { password: $("#oldPassword").val() },
             success: function (result) {
@@ -144,7 +154,7 @@
                     if ($("#newPassword1").val() == $("#newPassword2").val()) {
                         if ($("#newPassword1").val().length >= 8) {
                             $.ajax({
-                                url: "/SpecialSummary/ChangePassword",
+                                url: "/AsanXidmetSpecialSummary/ChangePassword",
                                 type: "Get",
                                 data: { password: $("#newPassword1").val() },
                                 success: function (item) {

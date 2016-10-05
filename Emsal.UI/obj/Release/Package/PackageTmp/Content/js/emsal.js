@@ -1,73 +1,117 @@
 ﻿$(document).ready(function() {
 
-    $("#per_inf").click(function () {
-        $(".per_information").toggle();
-        return false;
-    });
+    //$("#per_inf").click(function () {
+    //    $(".per_information").toggle();
+    //    return false;
+    //});
 
-    $("#per_mes").click(function () {
-        $(".messages").toggle();
-        return false;
-    });
+    //$("#per_mes").click(function () {
+    //    $(".messages").toggle();
+    //    return false;
+    //});
 	
 
 
-    $("#personalEmail").click(function () {
-        $("#personalInfos").css("display", "none");
-        $("#personalEmail2").css("display", "block");
-        $("#currentPasswordBody").css("display", "none");
-    })
-    $("#personalInfoButton").click(function () {
-        $("#personalInfos").css("display", "block");
-        $("#personalEmail2").css("display", "none");
-        $("#currentPasswordBody").css("display", "none");
-    })
+    //$("#personalEmail").click(function () {
+    //    $("#personalInfos").css("display", "none");
+    //    $("#personalEmail2").css("display", "block");
+    //    $("#currentPasswordBody").css("display", "none");
+    //})
+    //$("#personalInfoButton").click(function () {
+    //    $("#personalInfos").css("display", "block");
+    //    $("#personalEmail2").css("display", "none");
+    //    $("#currentPasswordBody").css("display", "none");
+    //})
 
-    $("#currentPassword").click(function () {
-        $("#personalInfos").css("display", "none");
-        $("#personalEmail2").css("display", "none");
-        $("#currentPasswordBody").css("display", "block");
-    })
+    //$("#currentPassword").click(function () {
+    //    $("#personalInfos").css("display", "none");
+    //    $("#personalEmail2").css("display", "none");
+    //    $("#currentPasswordBody").css("display", "block");
+    //})
 
+    //$("#r_Offer").click(function () {
+    //    $(".yayinda_olan").css("display", "none");
+    //    $(".yayinda_olmayan").css("display", "none");
+    //    $(".yayimdan_cixan").css("display", "none");
+    //    $(".yayinda_tesdiq").css("display", "none");
+    //    $(".mesajMain").css("display", "none");
+    //    $(".tesdiqlenen").css("display", "none");
+    //    $(".rejected").css("display", "block");
+    //    $(".reEdited").css("display", "none");
+
+    //})
   
 
-	$("#y_tesdiq").click(function(){
-		$(".yayinda_olan").css("display", "none");
-		$(".yayinda_olmayan").css("display", "none");
-		$(".yayimdan_cixan").css("display", "none");
-		$(".yayinda_tesdiq").css("display", "block");
-		$(".mesajMain").css("display", "none");
-	});
-	
-	$("#y_olan").click(function(){
-		$(".yayinda_tesdiq").css("display", "none");
-		$(".yayinda_olmayan").css("display", "none");
-		$(".yayimdan_cixan").css("display", "none");
-		$(".yayinda_olan").css("display", "block");
-		$(".mesajMain").css("display", "none");
+	//$("#y_tesdiq").click(function(){
+	//	$(".yayinda_olan").css("display", "none");
+	//	$(".yayinda_olmayan").css("display", "none");
+	//	$(".yayimdan_cixan").css("display", "none");
+	//	$(".yayinda_tesdiq").css("display", "block");
+	//	$(".mesajMain").css("display", "none");
+	//	$(".tesdiqlenen").css("display", "none");
+	//	$(".rejected").css("display", "none");
+	//	$(".reEdited").css("display", "none");
 
-	});
-	
-	$("#y_olmayan").click(function(){
-		$(".yayinda_tesdiq").css("display", "none");
-		$(".yayinda_olan").css("display", "none");
-		$(".yayimdan_cixan").css("display", "none");
-		$(".yayinda_olmayan").css("display", "block");
-		$(".mesajMain").css("display", "none");
 
-	});
+	//});
 	
-	$("#y_cixan").click(function(){
-		$(".yayinda_tesdiq").css("display", "none");
-		$(".yayinda_olan").css("display", "none");
-		$(".yayinda_olmayan").css("display", "none");
-		$(".yayimdan_cixan").css("display", "block");
-		$(".mesajMain").css("display", "none");
+	//$("#y_olan").click(function(){
+	//	$(".yayinda_tesdiq").css("display", "none");
+	//	$(".yayinda_olmayan").css("display", "none");
+	//	$(".yayimdan_cixan").css("display", "none");
+	//	$(".yayinda_olan").css("display", "block");
+	//	$(".mesajMain").css("display", "none");
+	//	$(".tesdiqlenen").css("display", "none");
+	//	$(".rejected").css("display", "none");
+	//	$(".reEdited").css("display", "none");
 
-	});
+	//});
 	
+	//$("#y_olmayan").click(function(){
+	//	$(".yayinda_tesdiq").css("display", "none");
+	//	$(".yayinda_olan").css("display", "none");
+	//	$(".yayimdan_cixan").css("display", "none");
+	//	$(".yayinda_olmayan").css("display", "block");
+	//	$(".mesajMain").css("display", "none");
+	//	$(".tesdiqlenen").css("display", "none");
+	//	$(".rejected").css("display", "none");
+	//	$(".reEdited").css("display", "none");
+
+	//});
 	
+	//$("#y_cixan").click(function(){
+	//	$(".yayinda_tesdiq").css("display", "none");
+	//	$(".yayinda_olan").css("display", "none");
+	//	$(".yayinda_olmayan").css("display", "none");
+	//	$(".yayimdan_cixan").css("display", "block");
+	//	$(".mesajMain").css("display", "none");
+	//	$(".tesdiqlenen").css("display", "none");
+	//	$(".rejected").css("display", "none");
+	//	$(".reEdited").css("display", "none");
+
+	//});
 	
+	//$("#t_lenen").click(function () {
+	//    $(".yayinda_tesdiq").css("display", "none");
+	//    $(".yayinda_olan").css("display", "none");
+	//    $(".yayinda_olmayan").css("display", "none");
+	//    $(".yayimdan_cixan").css("display", "none");
+	//    $(".mesajMain").css("display", "none");
+	//    $(".tesdiqlenen").css("display", "block");
+	//    $(".rejected").css("display", "none");
+	//    $(".reEdited").css("display", "none");
+
+	//});
+	//$("#reEditedOffers").click(function () {
+	//    $(".yayinda_tesdiq").css("display", "none");
+	//    $(".yayinda_olan").css("display", "none");
+	//    $(".yayinda_olmayan").css("display", "none");
+	//    $(".yayimdan_cixan").css("display", "none");
+	//    $(".mesajMain").css("display", "none");
+	//    $(".tesdiqlenen").css("display", "none");
+	//    $(".rejected").css("display", "none");
+	//    $(".reEdited").css("display", "block");
+	//})
 	
 	$(function () {
 		$('[data-toggle="tooltip"]').tooltip()
@@ -168,39 +212,6 @@ $(document).ready(function () {
 
     /*******************************************************************/
 
-    /*liks to go from one page to another*/
-	$("#linkToSpecialSummary").on("click", function (event) {
-	    window.location.href = "/SpecialSummary/Login";
-	    return false;
-
-	})
-	$("#linkToOnizle").on("click", function () {
-	    window.location.href = "onizle";
-	})
-	$("#linkToPhoneRegister1").on("click", function () {
-	    window.location.href = "/SpecialSummary/PhoneRegister1";
-	})
-	$("#linkToPhoneRegister2").on("click", function () {
-	    window.location.href = "/SpecialSummary/PhoneRegister2";
-	})
-	$("#linkToPhoneRegisterLast").on("click", function () {
-	    window.location.href = "/SpecialSummary/PhoneRegisterLast";
-	})
-	$("#linkToElanElaveEt").on("click", function () {
-	    window.location.href = "/SpecialSummary/PotensialClientInsert";
-	})
-	$("#linkToElanDetallari").on("click", function () {
-	    window.location.href = "elan_detallari";
-	})
-
-	$("#linkToIndex").on("click", function () {
-	    window.location.href = "/SpecialSummary/Index";
-	})
-	$("#linkToSpecialSummary").on("click", function () {
-	    window.location.href = "/SpecialSummary/Login";
-	})
-	
-
     /******************/
 
     /*addreview height arranged*/
@@ -209,13 +220,6 @@ $(document).ready(function () {
 
     /*************/
 
-	$("#selectOperationType").on("change", function () {
-	    if ($("#selectOperationType").val() === "1") {
-            window.location.href = "/SpecialSummary/PhoneRegister1"
-	    };
-	})
-
-	
 	function GoToHomePage() {
 	    window.location = '/';
 	}
