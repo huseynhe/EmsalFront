@@ -1,0 +1,100 @@
+﻿@model Emsal.UI.Models.PotentialClientViewModel
+
+@{
+    ViewBag.Title = "ProductCatalog";
+    Layout = "";
+    long itempid = 0;
+}
+
+@if (Model.PRMAdminUnitArrayFA != null)
+{
+    if (Model.productAddressIds[Model.productAddressIds.Count() - 1] == 0)
+    {
+        <input hidden name="addressId" id="addressId" value="@Model.productAddressIds[Model.productAddressIds.Count() - 2]" />
+    }
+    else
+    {
+        <input hidden name="addressId" id="addressId" value="@Model.productAddressIds.LastOrDefault()" />
+    }
+
+    for (var i = 0; i < Model.PRMAdminUnitArrayFA.Count(); i++)
+    {
+        if (Model.PRMAdminUnitArrayFA[i].Count() > 0)
+        {
+            <div class="form-group col-md-3">
+                <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+                    @if (Model.arrNum > 0)
+                    {
+                        <option value="">Seçim edin</option>
+                    }
+                    @foreach (var itm in Model.PRMAdminUnitArrayFA[i])
+                    {
+                        if (itm.Id == Model.productAddressIds[i + 1])
+                        {
+                            <option selected value="@itm.Id">@itm.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@itm.Id">@itm.Name</option>
+                        }
+                    }
+                </select>
+                <span data-valmsg-replace="true" data-valmsg-for="adId[@{ @Model.arrNum }]" class="field-validation-valid text-danger"></span>
+            </div>
+            Model.arrNum = Model.arrNum + 1;
+        }
+    }
+
+    <div class="clearfix"></div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.descAddress, htmlAttributes: new { @class = "control-label" })
+                                <input type="text" value="@Model.ProductAddress.addressDesc" name="descAddress" id="descAddress" placeholder="məs: Azadlıq prospekti 22, mənzil 33" class="form-control">
+                            </div>
+                        </div>
+    }
+    else
+    {
+
+        if (Model.PRMAdminUnitList.Count > 0)
+        {
+            <div class="form-group col-md-3">
+                <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+                    @if (Model.arrNum > 0)
+                    {
+                        <option value="">Seçim edin</option>
+                    }
+                    @foreach (var item in Model.PRMAdminUnitList)
+                    {
+                        if (item.Name == "Azərbaycan Respublikası")
+                        {
+                            <option selected value="@item.Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    }
+                </select>
+                <span data-valmsg-replace="true" data-valmsg-for="adId[@{ @Model.arrNum }]" class="field-validation-valid text-danger"></span>
+                @if (Model.arrNum == 0)
+                {
+                    <span data-valmsg-replace="true" data-valmsg-for="addressId" class="field-validation-valid text-danger"></span>
+                }
+            </div>
+                    }
+        <div class="clearfix"></div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.descAddress, htmlAttributes: new { @class = "control-label" })
+                <input type="text" name="descAddress" id="descAddress" placeholder="məs: Azadlıq prospekti 22, mənzil 33" class="form-control">
+            </div>
+        </div>
+       
+    }
+
+
+
+

@@ -1,0 +1,23 @@
+﻿
+@model Emsal.UI.Models.ProductCatalogViewModel
+
+@{
+    Layout = "";
+}
+
+@if (Model.ProductCatalogList.Count() > 0)
+{
+    <div class="panel-collapse collapse" style="display:table;width:100%;">
+        <ul class="list-group">
+            @foreach (var item in Model.ProductCatalogList)
+            {
+                <li class="list-group-item">
+                    <span>
+                        <a style="cursor:pointer;" onclick="GetHomeOffer(this, @item.Id)">@item.ProductName</a>
+                        <span style="margin-left:10px;" class="resp"></span>
+                    </span>
+                </li>
+            }
+        </ul>
+    </div>
+}

@@ -1,0 +1,62 @@
+﻿@*@model IEnumerable<Emsal.AdminUI.Models.EnumCategoryViewModel>*@
+@model Emsal.AdminUI.Models.Organisation
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Pages";
+    Layout = "";
+}
+
+<p>
+
+</p>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3>Səhifələr</h3>
+                    @*<h3 class="box-title col-md-12">EnumCategory <a class="btn btn-primary pull-right" href="@Url.Action("Create","EnumCategory")"><span class="glyphicon glyphicon-plus"></span> Əlavə et</a></h3>*@
+                </div>
+                <div class="box-body table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>
+                                <label>Id</label>
+                            </th>
+                            <th>
+                                <label>Səhifə adı</label>
+                            </th>
+                            <th>
+                                <label>Rollar</label>
+                            </th>
+                        </tr>
+
+
+                        @foreach (var item in Model.PagingParts)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    <a href="/RoleManagement/SelectedPageRoles?Id=@item.ID" class="badge bg-light-blue"><span class="glyphicon glyphicon-pencil"></span> Düzəliş Et</a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    Səhifə @(Model.PagingParts.PageCount < Model.PagingParts.PageNumber ? 0 : Model.PagingParts.PageNumber) (cəmi @Model.PagingParts.PageCount)
+                    @Html.PagedListPager(Model.PagingParts, page => Url.Action("Pages", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

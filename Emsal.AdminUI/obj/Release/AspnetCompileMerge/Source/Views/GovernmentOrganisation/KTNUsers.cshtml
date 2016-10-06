@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
+}
+
+
+<div id="AjaxPaginationList">
+    @Html.Partial("PartialKTNUsers")
+</div>
+
+<script src="~/Content/js/pagedList.js"></script>
+@if (TempData["ktnUser"] != null)
+{
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $("#myModal").modal('show');
+            });
+    </script>
+    <div id="myModal" class="modal fade" style="z-index:3000">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Məlumat</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="successMessage">KTN Uğurlu bir şəkildə əlavə olundu</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@if (TempData["ktnDeleted"] != null)
+{
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $("#myModal6").modal('show');
+            });
+    </script>
+    <div id="myModal6" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Məlumat</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="successMessage">KTN istifadəçisi sistemdən silindi</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

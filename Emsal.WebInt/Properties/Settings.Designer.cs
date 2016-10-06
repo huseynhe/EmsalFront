@@ -36,7 +36,7 @@ namespace Emsal.WebInt.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://10.10.10.141:56876/EmsalService.svc")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:56876/EmsalService.svc")]
         public string Emsal_WebInt_EmsalSrv_EmsalService {
             get {
                 return ((string)(this["Emsal_WebInt_EmsalSrv_EmsalService"]));

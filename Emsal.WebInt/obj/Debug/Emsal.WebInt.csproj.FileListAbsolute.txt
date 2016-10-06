@@ -226,3 +226,8 @@ H:\projects\Emsal_05.10.2016\EmsalFront\Emsal.WebInt\bin\Debug\Emsal.WebInt.dll
 H:\projects\Emsal_05.10.2016\EmsalFront\Emsal.WebInt\bin\Debug\Emsal.WebInt.pdb
 H:\projects\Emsal_05.10.2016\EmsalFront\Emsal.WebInt\obj\Debug\Emsal.WebInt.dll
 H:\projects\Emsal_05.10.2016\EmsalFront\Emsal.WebInt\obj\Debug\Emsal.WebInt.pdb
+H:\projects\Emsal_06.10.2016\EmsalFront\Emsal.WebInt\bin\Debug\Emsal.WebInt.dll.config
+H:\projects\Emsal_06.10.2016\EmsalFront\Emsal.WebInt\bin\Debug\Emsal.WebInt.dll
+H:\projects\Emsal_06.10.2016\EmsalFront\Emsal.WebInt\bin\Debug\Emsal.WebInt.pdb
+H:\projects\Emsal_06.10.2016\EmsalFront\Emsal.WebInt\obj\Debug\Emsal.WebInt.dll
+H:\projects\Emsal_06.10.2016\EmsalFront\Emsal.WebInt\obj\Debug\Emsal.WebInt.pdb

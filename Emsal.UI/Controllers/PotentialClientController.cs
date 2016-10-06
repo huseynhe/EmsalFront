@@ -30,6 +30,17 @@ namespace Emsal.UI.Controllers
         private static string voen = "";
         private BaseInput baseInput;
 
+
+        public void ResetStaticVariables()
+        {
+            fullAddressId = "";
+            fullAddressIdFU = "";
+            addressDesc = "";
+            fin = "";
+            voen = "";
+            TempData["Success"] = null;
+        }
+
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
        // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
 
@@ -39,7 +50,6 @@ namespace Emsal.UI.Controllers
         {
             try
             {
-
                 Session["arrPCNum"] = null;
                 Session["arrNum"] = null;
                 Session["arrNumFU"] = null;
@@ -120,6 +130,7 @@ namespace Emsal.UI.Controllers
                 //Session.Contents.Remove("SelectedProduct");
 
                 string fh = "";
+                model.FIN = model.FIN.ToUpper();
                 if (model.VOEN != "" && model.VOEN != null)
                 {
                     fh = "legalPerson";
@@ -208,30 +219,6 @@ namespace Emsal.UI.Controllers
                         modelPotentialProduction.Person.birtdaySpecified = true;
                         modelPotentialProduction.Person.profilePicture = model.profilePicture;
 
-                        //Shekili saxlamaq ucun
-                        string str = String.Format("{0:dd.MM.yyyy}", DateTime.ParseExact(model.birtday.ToString(), "yyyyMMdd", new CultureInfo("az-AZ")));
-                        string path = Server.MapPath("~/ContentProfile/personImage/") + "/" + str + "/";
-
-                        if (!Directory.Exists(path))
-                        {
-                            Directory.CreateDirectory(path);
-                        }
-
-                        Image image;
-                        using (MemoryStream ms = new MemoryStream(StringExtension.StringToByteArray(model.profilePicture)))
-                        {
-                            image = Image.FromStream(ms);
-
-                            image.Save(path + model.FIN.ToUpper() + ".png", ImageFormat.Jpeg);
-                        }
-
-                        //Image image;
-                        //using (MemoryStream ms = new MemoryStream(StringExtension.StringToByteArray(model.profilePicture)))
-                        //{
-                        //    image = Image.FromStream(ms);
-
-                        //    image.Save(Server.MapPath("~/ContentProfile/personImage/") + model.FIN+".Jpeg", ImageFormat.Jpeg);
-                        //}
                     }
 
 
@@ -272,6 +259,24 @@ namespace Emsal.UI.Controllers
 
                     BaseOutput ua = srv.WS_UpdateAddress(baseInput, modelPotentialProduction.Address);
                 }
+
+                //Shekili saxlamaq ucun
+                string str = String.Format("{0:dd.MM.yyyy}", DateTime.ParseExact(model.birtday.ToString(), "yyyyMMdd", new CultureInfo("az-AZ")));
+                string path = Server.MapPath("~/ContentProfile/personImage/") + "/" + str + "/";
+
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                Image image;
+                using (MemoryStream ms = new MemoryStream(StringExtension.StringToByteArray(model.profilePicture)))
+                {
+                    image = Image.FromStream(ms);
+                    image.Save(path + model.FIN + ".png", ImageFormat.Jpeg);
+                }
+
+
 
                 Guid grupId = Guid.NewGuid();
                 modelPotentialProduction.PotentialProduction.grup_Id = grupId.ToString();
@@ -409,6 +414,7 @@ namespace Emsal.UI.Controllers
                     modelPotentialProduction.Person.Surname = person.Surname;
                     modelPotentialProduction.Person.FatherName = person.FatherName;
                     modelPotentialProduction.Person.createdUser = person.profilePicture;
+                    modelPotentialProduction.Person.birtday = person.birtday;
 
                     modelPotentialProduction.Person.profilePicture = Convert.ToBase64String(StringExtension.StringToByteArray(person.profilePicture));
 
@@ -579,7 +585,7 @@ namespace Emsal.UI.Controllers
         {
             try
             {
-
+                TempData["Success"] = null;
                 string userIpAddress = this.Request.ServerVariables["REMOTE_ADDR"];
 
                 baseInput = new BaseInput();

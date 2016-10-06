@@ -1,0 +1,66 @@
+﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+@{
+    ViewBag.Title = "OrganisationInfo";
+    Layout = "~/Views/Shared/_LayoutSpecialSummary.cshtml";
+}
+
+<div class="clearfix" style="height:50px"></div>
+
+<div class="container col-md-6 col-md-offset-3" style="box-shadow:1px 1px 2px 3px #ddd; padding-bottom:50px;padding-top:50px; ">
+    <h4 style="text-align:center;"><strong>Şirkət Məlumatları</strong></h4>
+    <div class="clearfix" style="height:20px"></div>
+    <dl class="dl-horizontal">
+        <dt>
+            <label>Şirkətin adı</label>
+        </dt>
+        <dd>
+            @Model.Name
+        </dd>
+        <dt>
+            @Html.LabelFor(x => x.ManagerName)
+        </dt>
+
+        <dd>
+            @Model.ManagerName
+        </dd>
+        <dt>
+            @Html.LabelFor(x => x.Surname)
+        </dt>
+        <dd>
+            @Model.Surname
+        </dd>
+        <dt>
+            @Html.LabelFor(x => x.ManagerEmail)
+        </dt>
+        <dd>
+            @Model.ManagerEmail
+        </dd>
+        <dt>
+            @Html.LabelFor(x => x.ManagerWorkPhone)
+        </dt>
+        <dd>
+            @Model.ManagerWorkPhone
+        </dd>
+        <dt>
+            @Html.LabelFor(x => x.ManagerMobilePhone)
+        </dt>
+        <dd>
+            @Model.ManagerMobilePhone
+        </dd>
+        <dt>
+            @Html.LabelFor(x => x.ManagerHomePhone)
+        </dt>
+        <dd>
+            @Model.ManagerHomePhone
+        </dd>
+      
+    </dl>
+
+    <div class="col-md-6 col-md-offset-5" style="margin-bottom:20px; padding:5px">
+        <a class="btn btn-success" href="/GovernmentOrganisationSpecialSummary/Organisations">Geri</a>
+    </div>
+</div>
+
+
+
+<div class="clearfix" style="height:550px"></div>

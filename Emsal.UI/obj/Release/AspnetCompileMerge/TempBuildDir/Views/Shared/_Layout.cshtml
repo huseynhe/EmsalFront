@@ -1,0 +1,237 @@
+﻿<html>
+<head>
+    <title>EMSAL</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="~/Content/UI/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/UI/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/UI/css/templatemo_misc.css">
+    <link href="~/Content/UI/css/templatemo_style.css" rel="stylesheet">
+    <link href="~/Content/UI/css/style.css" rel="stylesheet">
+
+    <script src="~/Content/UI/js/jquery-2.1.4.min.js"></script>
+
+    <script src="~/Content/UI/js/jquery.lightbox.js"></script>
+
+    <script src="~/Content/UI/js/bootstrap.min.js"></script>
+    <script src="~/Content/UI/js/templatemo_custom.js"></script>
+
+    <script src="~/Content/UI/js/custom.js"></script>
+    <script src="~/Content/UI/js/addPotentialUser.js"></script>
+    <script src="~/Content/UI/js/emsal.js"></script>
+
+    <script>
+        function showhide() {
+            var div = document.getElementById("newpost");
+            if (div.style.display !== "none") {
+                div.style.display = "none";
+            }
+            else {
+                div.style.display = "block";
+            }
+        }
+    </script>
+
+</head>
+<body>
+    <div class="site-header">
+        <div class="main-navigation">
+            <div class="responsive_menu">
+                <ul>
+                    <li><a href="/"><div class="show-1 templatemo_home">Baş səhifə</div></a></li>
+                    <li><a href="/Home/Announcement"><div class="show-2 templatemo_page2">Elanlar</div></a></li>
+                    <li><a href="/Home/PotentialUser"><div class="show-3 templatemo_page3">Potensial istehsalçılar</div></a></li>
+                    <li><a href="/OfferHome"><div class="show-4 templatemo_page4">Təkliflər</div></a></li>
+                    <li><a href="/Home/Services"><div class="show-5 templatemo_page5">Keçidlər</div></a></li>
+                    <li><a href="/"><div class="show-6 templatemo_page6">Qanunvericilik</div></a></li>
+                    <li><a href="/Home/Contact"><div class="show-7 templatemo_page7">Əlaqə</div></a></li>
+
+                    @if (Session["musername"] == null)
+                    {
+                    <li><a href="/Login"><div class="show-8 templatemo_page8">Daxil ol</div></a></li>
+                    <li><a href="/SignUpOP"><div class="show-9 templatemo_page9">Qeydiyyat</div></a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/Login/Redirect"><div class="show-8 templatemo_page8">@Session["musername"]</div></a></li>
+                        <li><a href="/Login/Logout"><div class="show-9 templatemo_page9">Çıxış</div></a></li>
+                    }
+                </ul>
+            </div>
+            <div class="container">
+                <div class="row templatemo_gallerygap">
+                    <div class="col-md-12 responsive-menu">
+                        <a href="#" class="menu-toggle-btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div> <!-- /.col-md-12 -->
+
+                    <div class="col-md-12 main_menu">
+                        <ul>
+                            <li>
+                                <a href="/"><span class="fa fa-home fa-2x"></span>BAŞ SƏHİFƏ</a>
+                            </li>
+
+                            <li>
+                                <a @*class="active"*@ href="/Home/Announcement"><span class="fa fa-bars"></span>ELANLAR</a>
+                            </li>
+                            <li>
+                                <a href="/Home/PotentialUser"><span class="fa fa-users"></span>POTENSİAL İSTEHSALÇILAR</a>
+                            </li>
+                            <li>
+                                <a href="/OfferHome"><span class="fa fa-list"></span>TƏKLİFLƏR</a>
+                            </li>
+                            <li>
+                                <a href="/Home/Services"><span class="fa fa-cogs"></span>KEÇİDLƏR</a>
+                            </li>
+                            <li>
+                                <a href="/"><span class="fa fa-book"></span>QANUNVERİCİLİK</a>
+                            </li>
+                            <li>
+                                <a href="/Home/Contact"><span class="fa fa-envelope"></span>ƏLAQƏ</a>
+                            </li>
+                            @if (Session["musername"] == null)
+                            {
+                                <li>
+                                    <a href="/Login"><span class="fa fa-lock"></span>DAXİL OL</a>
+                                </li>
+                                <li>
+                                    <a href="/SignUpOP"><span class="fa fa-user"></span>QEYDİYYAT</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="/Login/Redirect"><span class="fa fa-user"></span>@Session["musername"]</a>
+                                </li>
+                                <li>
+                                    <a href="/Login/Logout"><span class="fa fa-sign-out"></span>ÇIXIŞ</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row search_btn">
+                    <div class="col-md-3 col-sm-12">
+                        <a href="/"><img src="~/Content/UI/images/logo1.png" alt="" style="height:100px;"></a>
+                    </div>
+                    <div class="col-md-9 col-sm-12" style="margin-top:25px;">
+                        <div class="input-group">
+                            <input autocomplete="off" onkeyup="searchAnnouncement(this)" type="text" class="form-control input-lg" id="formGroupInputLarge" placeholder="Elanlar üzrə axtarış ...">
+                            <div style="position: absolute; width: 100%; float: left; z-index: 1000;" id="searchAnnouncementResult"></div>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span class="fa fa-search mb-0"></span></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- /.container -->
+        </div> <!-- /.main-navigation -->
+    </div>
+
+    <div class="loader"></div>
+    <div>
+        @RenderBody()
+    </div>
+    <!-- gallery end -->
+    <!-- footer start -->
+    <div class="templatemo_footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-sm-12">
+                    <span>Copyright &copy; 2016, INTEGRATION</span>
+                </div>
+                <div class="col-md-3 col-sm-12 templatemo_rfooter">
+                    <a href="#">
+                        <div class="hex_footer">
+                            <span class="fa fa-facebook"></span>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="hex_footer">
+                            <span class="fa fa-twitter"></span>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="hex_footer">
+                            <span class="fa fa-linkedin"></span>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="hex_footer">
+                            <span class="fa fa-rss"></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer end -->
+    <script>
+        $('.gallery_more').click(function () {
+            var $this = $(this);
+            $this.toggleClass('gallery_more');
+            if ($this.hasClass('gallery_more')) {
+                $this.text('Load More');
+            } else {
+                $this.text('Load Less');
+            }
+        });
+    </script>
+
+
+    <script src="~/Content/UI/js/jquery.validate.js"></script>
+    <script src="~/Content/UI/js/jquery.validate.unobtrusive.js"></script>
+
+    <link href="~/Content/UI/css/select2.min.css" rel="stylesheet" />
+    <script src="~/Content/UI/js/select2.min.js"></script>
+    <script type="text/javascript">
+        $('.select2').select2();
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#puserBut").click(function () {
+                $("#puserMenu").animate({
+                    height: 'toggle'
+                });
+            });
+        });
+    </script>
+
+
+    <script>
+        $(function () {
+            //$("#datepicker").datepicker();
+        });
+        $("#userType").on("change", function () {
+            if ($("#userType").val() == "legalPerson") {
+                $("#voenDiv").css("display", "block");
+                $("#pinDiv").css("display", "none");
+            }
+            else {
+                $("#voenDiv").css("display", "none");
+                $("#pinDiv").css("display", "block");
+            }
+        })
+    </script>
+    <script>
+        $(".numbersOnly").on("keyup", function () {
+            this.value = this.value.replace(/[^0-9\.]/g, '');
+
+            if (this.value.length > 7) {
+                this.value = this.value.slice(0, 7);
+            }
+        })
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+﻿@model Emsal.UI.Models.OfferProductionViewModel
+
+@{
+    ViewBag.Title = "OfferProduction";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+<script src="~/ContentProfile/js/OfferProduction.js"></script>
+
+@using (Html.BeginForm("Edit", "OfferProduction", FormMethod.Post,
+                                                     new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <a href="#" class="add-classified-help">Elan vermə qaydaları</a>
+    <div class="clear-both"></div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.productionCalendarId)
+
+    <div class="potensial_client">
+        <div id="mainf">
+
+            <h4>Məhsulun çatdırılacağı ünvan</h4>
+            <div class="row">
+                <div class="sign-in-page inner-bottom-sm" id="adminUnit">
+                    <script>
+                        $(document).ready(function () {
+                            $.ajax({
+                                url: '/OfferProduction/AdminUnit?pId=0&productAddressId='+@Model.productAddressId,
+                                type: 'GET',
+                                success: function (result) {
+                                    $('#adminUnit').html(result);
+                                },
+                                error: function () {
+
+                                }
+                            });
+                        });
+                    </script>
+                    @*@Html.Action("AdminUnit", "OfferProduction", new { pId = 0, productAddressId = Model.productAddressId })*@
+                </div>
+            </div>
+
+            <h4>Məhsulu seçin</h4>
+            <div class="row">
+
+                <div class="sign-in-page inner-bottom-sm" id="offerProductionProductCatalog">
+                    <script>
+                        $(document).ready(function () {
+                            $.ajax({
+                                url: '/OfferProduction/ProductCatalog?pId=@Model.Id&opId=@Model.Id',
+                                type: 'GET',
+                                success: function (result) {
+                                    $('#offerProductionProductCatalog').html(result);
+                                },
+                                error: function () {
+
+                                }
+                            });
+                        });
+                    </script>
+                    @*@Html.Action("ProductCatalog", "OfferProduction", new { pId = Model.Id, ppId = Model.Id })*@
+                </div>
+
+                <div class="clearfix"></div>
+                <hr /><br />
+                <div class="col-md-3" hidden>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.endDate, new { @class = "form-control", required = "required" })
+                        @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.startDateYear, htmlAttributes: new { @class = "control-label" })
+                    <select onchange="Getotherdate(this,'y','o')" required name="startDateYear" id="startDateYear" class="form-control select2">
+                        <option value="">Seçim edin</option>
+                        @for (var i = 0; i <= 1; i++)
+                        {
+                            if (Model.startDateYear == (DateTime.Now.Year + i))
+                            {
+                                <option selected value="@(DateTime.Now.Year+i)">@(DateTime.Now.Year + i)</option>
+                            }
+                            else
+                            {
+                                <option value="@(DateTime.Now.Year+i)">@(DateTime.Now.Year + i)</option>
+                            }
+
+                        }
+                    </select>
+                    <span data-valmsg-replace="true" data-valmsg-for="startDateYear" class="field-validation-valid text-danger"></span>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="startDate" class="control-label">&nbsp;</label>
+                    <select required name="startDateMonth" onchange="Getotherdate(this, 'm', 'o')" id="startDateMonth" class="form-control select2">
+                        <option value="">Seçim edin</option>
+                        @foreach (var item in Model.EnumValueMonthList)
+                        {
+                            if (Model.startDateMonth == item.name)
+                            {
+                                <option selected value="@item.Id">@item.description</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Id">@item.description</option>
+                            }
+                        }
+                    </select>
+                    <span data-valmsg-replace="true" data-valmsg-for="startDateMonth" class="field-validation-valid text-danger"></span>
+                </div>
+
+
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.endDateYear, htmlAttributes: new { @class = "control-label" })
+                    <select required name="endDateYear" id="endDateYear" onchange="Getotherdate(this, '', 'o')" class="form-control select2">
+                        <option value="">Seçim edin</option>
+                        @if (Model.startDateYear != Model.endDateYear)
+                        {
+                            <option value="@(Model.endDateYear - 1)">@(Model.endDateYear - 1)</option>
+                        }
+                        <option selected value="@(Model.endDateYear)">@(Model.endDateYear)</option>
+                        @if (Model.startDateYear == Model.endDateYear)
+                        {
+                        <option value="@(Model.endDateYear + 1)">@(Model.endDateYear + 1)</option>
+                        }
+                    </select>
+                    <span data-valmsg-replace="true" data-valmsg-for="endDateYear" class="field-validation-valid text-danger"></span>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="endDate" class="control-label">&nbsp;</label>
+                    <select required name="endDateMonth" id="endDateMonth" onchange="Getotherdate(this, '', 'o')" class="form-control select2">
+                        <option value="">Seçim edin</option>
+                        @foreach (var item in Model.EnumValueMonthList)
+                        {
+                            if (Model.endDateMonth == item.name)
+                            {
+                                <option selected value="@item.Id">@item.description</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Id">@item.description</option>
+                            }
+                        }
+                    </select>
+                    <span data-valmsg-replace="true" data-valmsg-for="endDateMonth" class="field-validation-valid text-danger"></span>
+                </div>
+
+            </div>
+        </div>
+        <div class="shdiv">
+            <div id="mainl">
+                <div class="clear-both"></div>
+       
+                <div>
+                    <h4>Təchizatın təqvim planı</h4>
+                    <div class="row">
+                        <div class="col-md-7" id="calendarMainDiv">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.shippingSchedule, htmlAttributes: new { @class = "control-label" })
+                                <div class="clearfix"></div>
+                                <div class="btn-group" data-toggle="buttons" id="">
+                                    @foreach (var item in Model.EnumValueShippingScheduleList)
+                                    {
+                                        <label class="btn btn-primary shippingSchedule">
+                                            <input type="text" class="hinp" hidden value="@item.name" />
+                                            <input type="radio" name="shippingSchedule" value="@item.Id" autocomplete="off">
+                                            @item.description
+                                        </label>
+                                    }
+
+                                </div>
+                                <div class="clearfix"></div>
+                                <span data-valmsg-replace="true" data-valmsg-for="shippingSchedule" class="field-validation-valid text-danger"></span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <br />
+                            <hr />
+                            <br />
+                            @*<h5>Seçilmiş aylar</h5>*@
+                            <div class="form-group chMonthName">
+                            </div>
+
+
+
+                        </div>
+                        <div id="getmonthresult"></div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-12">
+                            <div id="productionCalendar_@Model.Id">
+                                <script>
+                                    getProductionCalendar(@Model.Id);
+                                </script>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label" })
+                    @Html.TextAreaFor(model => model.description, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <br />
+        <br />
+
+        <div class="shdiv mdivbut">
+            <button class="btn btn-danger btn-lg pull-right btnmainsubmit" type="submit">
+                <i class="glyphicon glyphicon-ok"></i>&nbsp;Təsdiqlə
+            </button>
+            <br />
+            <br />
+        </div>
+
+
+
+    </div>
+
+}
+
+
+
+
+
+

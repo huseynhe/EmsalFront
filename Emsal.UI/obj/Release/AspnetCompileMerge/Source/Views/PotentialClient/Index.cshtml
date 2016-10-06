@@ -1,0 +1,310 @@
+﻿@model Emsal.UI.Models.PotentialClientViewModel
+
+@{
+    ViewBag.Title = "PotentialClient";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+
+    int fi = 0;
+    if (Model.fullAddressId != "")
+    {
+        Model.fullAddressId = "0," + Model.fullAddressId;
+        fi = Model.fullAddressId.Split(',').Select(long.Parse).ToArray().Count() - 2;
+    }
+
+    int fifu = 0;
+    if (Model.fullAddressIdFU != "")
+    {
+        Model.fullAddressIdFU = "0," + Model.fullAddressIdFU;
+        fifu = Model.fullAddressIdFU.Split(',').Select(long.Parse).ToArray().Count() - 2;
+    }
+    
+}
+<script src="~/ContentProfile/js/PotentialClient.js"></script>
+
+
+@using (Html.BeginForm("Index", "PotentialClient", FormMethod.Post,
+                             new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <a href="#" class="add-classified-help">Qaydalar</a>
+    <div class="clear-both"></div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    
+    <div class="potensial_client">
+        <div id="mainf">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li style="cursor:pointer;" onclick="finvoennull('VOEN')" class="active"><a data-target="#physical" data-toggle="tab">Fiziki şəxs</a></li>
+                    <li style="cursor:pointer;" onclick="finvoennull('FIN')"><a data-target="#legal" data-toggle="tab" id="voenli">Hüquqi şəxs</a></li>
+                </ul>
+
+                <div class="tab-content "><br />
+                    <div class="tab-pane active" id="physical">
+
+                        @Html.HiddenFor(model => model.gender)
+                        @Html.HiddenFor(model => model.birtday)
+                        @Html.HiddenFor(model => model.profilePicture)
+                        <div class="col-md-3">
+                            <div class="col-sm-8" style="padding:0;">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FIN, htmlAttributes: new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.FIN, new { @class = "form-control", required = "required", Value = Model.sFIN })
+                                    @Html.ValidationMessageFor(model => model.FIN, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">&nbsp;</label>
+                                <div onclick="getPhysicalPerson()" class="btn btn-primary">yoxla</div>
+                            </div>
+                            </div>
+                        <div class="col-md-1">
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.name, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.surname, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.surname, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(model => model.surname, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.fathername, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.fathername, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(model => model.fathername, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <img class="img-responsive thumbnail" id="picture" src="" />
+                            </div>
+
+                        </div>
+                    <div class="tab-pane" id="legal">
+                        <div class="col-md-3">
+                            <div class="col-sm-8" style="padding:0;">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.VOEN, htmlAttributes: new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.VOEN, new { @class = "form-control", required = "required", Value = Model.sVOEN })
+                                    @Html.ValidationMessageFor(model => model.VOEN, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                                <div class="col-sm-4">
+                                    <label class="control-label">&nbsp;</label>
+                                    <div onclick="getLegalPerson()" class="btn btn-primary">yoxla</div>
+                                </div>
+                            </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.legalLame, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.legalLame, new { @class = "form-control", required = "required" })
+                                @Html.ValidationMessageFor(model => model.legalLame, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <hr /><br />
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.legalPName, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.legalPName, new { @class = "form-control", required = "required" })
+                                @Html.ValidationMessageFor(model => model.legalPName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.legalPSurname, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.legalPSurname, new { @class = "form-control", required = "required" })
+                                @Html.ValidationMessageFor(model => model.legalPSurname, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.legalPFathername, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.legalPFathername, new { @class = "form-control", required = "required" })
+                                @Html.ValidationMessageFor(model => model.legalPFathername, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+        
+            <div class="clearfix"></div>
+            <hr /><br /> 
+            
+            <div class="col-md-12"><label class="control-label">Ünvanı</label></div>
+            <div class="sign-in-page inner-bottom-sm" id="profileAdminUnitFU">
+                <script>
+                    function GetAdminUnitFUV()
+                    {
+                        $.ajax({
+                            url: '/PotentialClient/AdminUnit?pId=0&status=1',
+                            type: 'GET',
+                            success: function (result) {
+                                $('#profileAdminUnitFU').html(result);
+
+                                if (@fifu==0){
+                                    $("select[name='adfuId[0]']").change();
+                                }
+                            },
+                            error: function () {
+
+                            }
+                        });
+                    }
+
+                    $(document).ready(function () {
+                        GetAdminUnitFUV();
+                    });
+                </script>
+            </div>
+
+                <div class="clearfix"></div>
+                <br /><br />
+
+                <h4>Məhsulu seçin</h4>
+
+                <input hidden name="productId" class="productId" id="productId" />
+
+                <div class="row">
+
+                    <div class="sign-in-page inner-bottom-sm" id="profileProductCatalog">
+                        <script>
+                            $(document).ready(function () {
+                                $.ajax({
+                                    url: '/PotentialClient/ProductCatalog?pId=0',
+                                    type: 'GET',
+                                    success: function (result) {
+                                        $('#profileProductCatalog').html(result);
+                                    },
+                                    error: function () {
+
+                                    }
+                                });
+                            });
+                        </script>
+                        @*@Html.Action("ProductCatalog", "PotentialClient", new { pId = 0 })*@
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <hr /><br />
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.startDate, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.startDate, new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.endDate, new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+            <input hidden name="addressId" id="addressId" />
+            <h4>Məhsulun yerləşdiyi yeri seçin</h4>
+            <div class="row">
+                <div class="sign-in-page inner-bottom-sm" id="profileAdminUnit">
+                    <script>
+                    $(document).ready(function () {
+                                $.ajax({
+                                    url: '/PotentialClient/AdminUnit?pId=0',
+                                    type: 'GET',
+                                    success: function (result) {
+                                        $('#profileAdminUnit').html(result);
+
+                                        $("select[name='adId[@fi]']").change();
+                                    },
+                                    error: function () {
+
+                                    }
+                                });
+                    });
+                    </script>
+
+                </div>
+            </div>
+                <div class="clearfix"></div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label" })
+                    @Html.TextAreaFor(model => model.description, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+        <div class="clearfix"></div>
+            <button class="btn btn-primary btn-lg pull-right" type="submit">
+                <i class="glyphicon glyphicon-ok"></i>&nbsp;Potensial intehsalçıları əlavə et
+            </button>
+            <br />
+            <br />
+    </div>
+
+}
+
+
+
+<br /><br />
+
+
+    <div id="selectedProducts">
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    url: '/PotentialClient/SelectedProducts',
+                    type: 'GET',
+                    success: function (result) {
+                        $('#selectedProducts').html(result);
+                    },
+                    error: function () {
+
+                    }
+                });
+
+
+
+                var fin = $('#FIN').val();
+                var voen = $('#VOEN').val();
+              
+                if(fin!="")
+                {
+                    getPhysicalPerson();
+                }
+
+                else if(voen!="")
+                {
+                    $('#voenli').trigger('click');
+                    getLegalPerson();
+                }
+            });
+
+        </script>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+

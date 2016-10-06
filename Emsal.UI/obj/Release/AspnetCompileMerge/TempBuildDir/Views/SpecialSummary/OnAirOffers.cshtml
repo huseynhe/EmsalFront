@@ -1,0 +1,17 @@
+﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_SpecialSummaryLayout.cshtml";
+}
+
+
+
+<div class="tesdiqlenen">
+    <div class="mesajlar">
+        <h4 class="text-bold">Təkliflər</h4><br />
+
+        <div id="specialSummaryMain">
+            @Html.Partial("PartialOnAirOffers")
+        </div>
+    </div>
+</div>

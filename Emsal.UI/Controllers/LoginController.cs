@@ -207,7 +207,7 @@ namespace Emsal.UI.Controllers
 
             modelUser = new UserViewModel();
 
-            long? userId = null;
+            long userId = 0;
             if (User != null && User.Identity.IsAuthenticated)
             {
                 FormsIdentity identity = (FormsIdentity)User.Identity;
@@ -217,6 +217,12 @@ namespace Emsal.UI.Controllers
                 }
             }
             BaseOutput user = srv.WS_GetUserById(binput, (long)userId, true, out modelUser.User);
+
+            if(modelUser.User==null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             binput.userName = modelUser.User.Username;
 
 

@@ -1,0 +1,26 @@
+﻿@model Emsal.AdminUI.Models.ReportViewModel
+
+@{
+    ViewBag.Title = "ProductCatalog";
+    Layout = "";
+    long itempid = 0;
+}
+
+
+        @if (Model.ForeignOrganizationList.Count > 0)
+        {
+            <div class="form-group col-md-3">
+                <select onchange="GetForeignOrganization(this)" class="form-control unicase-form-control select select2">
+                        <option value="">Seçim edin</option>                  
+                     @foreach (var item in Model.ForeignOrganizationList)
+                     {
+                         <option value="@item.Id">@item.name</option>
+                     }
+                </select>
+
+             </div>
+        }
+
+
+
+

@@ -456,6 +456,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Emsal.AdminUI.dll.config" />
+    <None Include="Properties\PublishProfiles\emsal.pubxml" />
     <None Include="Properties\PublishProfiles\Ferid.pubxml" />
     <Content Include="Views\OfferProduction\Index.cshtml" />
     <Content Include="Views\Announcement\Index.cshtml" />

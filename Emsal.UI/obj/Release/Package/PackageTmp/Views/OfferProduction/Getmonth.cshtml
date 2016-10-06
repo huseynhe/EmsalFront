@@ -1,0 +1,57 @@
+﻿@model Emsal.UI.Models.OfferProductionViewModel
+
+@{
+    ViewBag.Title = "ProductCatalog";
+    Layout = "";
+    int i = 0;
+    int rub = 1;
+}
+@*<script src="~/ContentProfile/js/jquery-1.12.3.js"></script>*@
+   <div class="col-md-5">
+    <h5>Aylar</h5>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                @*<div class="checkbox">
+                        <label>
+                            <input onclick="chcheckMonth(this)" type="checkbox" class="check" id="checkAll">
+                            Hamısını seç
+                        </label>
+                    </div>*@
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <input style="opacity: 0; position: absolute;" name="checkedMonth" required id="selectedMonth" />
+                    @foreach (var item in Model.EnumValueMonthList)
+                    {
+                        if (i == 3)
+                        {
+                            rub = rub + 1;
+                            i = 0;
+                        }                      
+                            <div class="col-sm-4" style="padding: 0;">
+                                <div class="checkbox">
+                                    <input value="@item.Status" hidden type="text" class="rub">
+                                    <input value="@item.name" type="text" hidden class="monthName">
+                                    <label>
+                                        <input value="@item.Id" type="checkbox" class="check ch rub@{@item.Status}  year@{@item.Status.ToString().Substring(1)}">
+                                        <span class="chn">@item.description</span>
+                                    </label>
+                                </div>
+                            </div>
+                        i = i + 1;
+                    }
+                </div>
+            </div>
+            <span data-valmsg-replace="true" data-valmsg-for="checkedMonth" class="field-validation-valid text-danger"></span>
+        </div>
+    </div>
+
+       <h4 id="totalSize" class="text-danger text-center">
+
+       </h4>
+</div>
+
+@*<script src="~/Content/js/jquery.validate.js"></script>
+<script src="~/Content/js/jquery.validate.unobtrusive.js"></script>*@
+<script src="~/ContentProfile/js/custom.js"></script>

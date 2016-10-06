@@ -1,0 +1,100 @@
+﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+@{
+    ViewBag.Title = "Offers";
+}
+@using PagedList.Mvc;
+
+@{
+    string productName = "";
+    if (Model.OfferProductionList.Count == 0)
+    {
+        <div class='white_fon'>
+            <p>Heç nə tapılmadı</p>
+        </div>
+
+    }
+    else
+    {
+        foreach (var item in Model.PagingRejectedOffer)
+        {
+            DateTime endDate = new DateTime((long)item.ProductEndDate);
+            <div class='well'>
+                <div class="row">
+                    <div class="col-md-4">
+                        <span style="color:red">Məhsulun adı : @item.ProductName - @item.ParentName</span>
+                        @{
+                            if (item.ProductProfilePicture != null)
+                            {
+                                <a href="/SpecialSummary/OfferProductInfo?Id=@item.ProductId"><img src=@item.ProductProfilePicture style='max-width:200px;max-height:230px'></a>
+                            }
+                            else
+                            {
+                                <a href="/SpecialSummary/OfferProductInfo?Id=@item.ProductId"><img src='http://emsal.az/staticFiles/notFound.png' style='max-width:200px;max-height:230px' /></a>
+                            }
+                        }
+                    </div>
+                    <div class="col-md-4 well">
+                        <h4>Çatdırılma tarixləri</h4><br />
+                        @foreach (var itemmm in item.DemandCalendarList)
+                        {
+                            <div>
+                                <span>Tarix: @itemmm.day @itemmm.month @itemmm.year saat @itemmm.ocklock   <span class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#@itemmm.id" style="color:#265A88"></span></span><br /><br />
+                                <div id="@itemmm.id" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Məlumatlar</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <span>Miqdar: @itemmm.quantity @item.QuantityType</span><br /><br />
+                                                <span>Qiymət: @itemmm.price AZN</span><br /><br />
+                                                <span>Daşınma qrafiki: @itemmm.shipmetType</span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Bağla</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        }
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="well">
+                            <span>Ümumi təklifin qiyməti: @item.ProductTotalPrice AZN</span><br /><br />
+                            <span>Təklifin bitmə tarixi: @endDate.Day/@endDate.Month/@endDate.Year</span><br /><br>
+                            <span>Ümumi təklifin miqdarı: @item.ProductQuantity @item.QuantityType</span><br />
+                            <hr /><br />
+                            <div class='btn-group'>
+                                <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Əməliyyatlar <span class='caret'></span></button>
+                                <ul class='dropdown-menu'>
+                                    <li><a href='/SpecialSummary/DeleteOfferProduction?Id=@item.ProductId'>Sil</a></li>
+                                    <li><a href='/OfferProduction/edit/@item.ProductId'>Düzəliş et</a></li>
+                                    <li role='separator' class='divider'></li>
+                                    <li><a href=''>Qeyd</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+
+            </div>
+                            }
+
+        <div class="box-footer clearfix">
+            Səhifə @(Model.PagingRejectedOffer.PageCount < Model.PagingRejectedOffer.PageNumber ? 0 : Model.PagingRejectedOffer.PageNumber) (cəmi @Model.PagingRejectedOffer.PageCount)
+            @Html.PagedListPager(Model.PagingRejectedOffer, page => Url.Action("RejectedOffers", "SpecialSummary", new { page }))
+        </div>
+
+    }
+}

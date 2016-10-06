@@ -1,0 +1,52 @@
+﻿@model Emsal.AdminUI.Models.Organisation
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
+}
+
+@Html.Hidden("parentId", @Model.ParentOrganisation.Id);
+
+@*<link href="~/Content/css/OrganisationTreeView.css" rel="stylesheet">
+<script src="~/Content/js/OrganisationTreeView.js"></script>*@
+
+
+
+<script src="~/Content/js/getOrganization.js"></script>
+
+    
+<div class="clearfix" style="height:20px;"></div>
+
+    <div class="row" style="padding-left:30px;">
+        <div class="col-xs-7" style="color:blue">
+            <h4>Alt təşkilatlar</h4>
+        </div>
+        <div class="col-xs-4">
+            <a class="btn btn-primary" href="/GovernmentOrganisation/AddChildOrganisation?redirect=@Model.ParentOrganisation.Id&parentId=@Model.ParentOrganisation.Id"><span class="glyphicon glyphicon-plus"></span> Əlavə et</a>
+        </div>
+    </div>
+    <div class="row" style="padding-left:30px;">
+        <div>
+            @{
+
+                <ul id="tree1">
+                    @foreach (var item in Model.ForeignOrganisationArray)
+                    {
+                        <li id="@item.Id">
+                            <a href="#" onclick="getOrganisation(@item.Id)">@item.name</a>
+                            <a href='/GovernmentOrganisation/OrganisationInfo?redirect=@Model.ParentOrganisation.Id&Id=@item.Id' class='badge bg-red'><span class='glyphicon glyphicon-info-sign'></span></a>
+                            <a href='/GovernmentOrganisation/EditChildOrganisation?redirect=@Model.ParentOrganisation.Id&Id=@item.Id' class='badge bg-light-blue'><span class='glyphicon glyphicon-pencil'></span></a>
+                            <a href="/GovernmentOrganisation/DeleteChildOrganisation?redirect=@Model.ParentOrganisation.Id&Id=@item.userId&parentId=@Model.ParentOrganisation.Id" class="badge bg-red"><span class="glyphicon glyphicon-remove"></span></a>
+                            <a href="/GovernmentOrganisation/AddChildOrganisation?redirect=@Model.ParentOrganisation.Id&parentId=@item.Id" class="badge bg-light-blue"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+
+<script>
+    
+</script>
+@*<script>
+    $('#tree1').treed({ openedClass: 'glyphicon-chevron-right', closedClass: 'glyphicon-chevron-down' });
+</script>*@

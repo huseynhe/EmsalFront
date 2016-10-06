@@ -1,0 +1,18 @@
+﻿@model Emsal.AdminUI.Models.ReportViewModel
+
+@{
+    ViewBag.Title = "ProductName";
+    Layout = "";
+}
+@if (Model.ProductCatalogList.Count > 0)
+{
+    <div class="form-group col-md-3">
+        <select name="adminUnit" onchange="GetProductCatalog(this)" class="form-control unicase-form-control select select2">
+            <option selected value="0">Seçim edin</option>
+            @foreach (var item in Model.ProductCatalogList)
+            {
+                <option value="@item.Id">@item.ProductName</option>
+            }
+            </select>
+        </div>
+}

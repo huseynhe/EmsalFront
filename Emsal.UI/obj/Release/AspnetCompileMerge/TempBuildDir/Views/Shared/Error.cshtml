@@ -1,0 +1,35 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+    Layout = "";
+}
+<style>
+    h5{
+        font-weight:normal !important;
+    }
+</style>
+<section id="center">
+    <div class="container" style="background:#fff;"><br />
+        <h1 style="text-align:center;color:#a94442;">Səhv baş verdi.</h1><br /><br />
+
+    @if (Model.Exception != null)
+    {
+        <h5><b>Message:</b> @Model.Exception.Message</h5>
+        <h5><b>Source:</b> @Model.Exception.Source</h5>
+        <h5><b>StackTrace:</b> @Model.Exception.StackTrace</h5>
+    }
+
+    <p>@TempData["Error"]</p>
+
+        <div style="text-align:center;" class="col-md-4 col-md-offset-4 text-center">
+            <img class="img-responsive center-block" src="~/Content/img/404.png" />
+        </div>
+
+        <div class="clearfix"></div>
+        <br />
+        <a style="float:right;" href="/" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-home"></span>&nbsp; əsas səhifəyə qayıt</a>
+    </div>
+    </section>
+
+

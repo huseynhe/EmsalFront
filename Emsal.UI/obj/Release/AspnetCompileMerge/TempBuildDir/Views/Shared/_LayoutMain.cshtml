@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>EMSAL</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="~/Content/UI/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/UI/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/UI/css/templatemo_misc.css">
+    <link href="~/Content/UI/css/templatemo_style.css" rel="stylesheet">
+    <link href="~/Content/UI/css/style.css" rel="stylesheet">
+
+    <script src="~/Content/UI/js/jquery-2.1.4.min.js"></script>
+
+    <script src="~/Content/UI/js/jquery.lightbox.js"></script>
+
+    <script src="~/Content/UI/js/bootstrap.min.js"></script>
+    <script src="~/Content/UI/js/templatemo_custom.js"></script>
+
+    <script src="~/Content/UI/js/custom.js"></script>
+
+    <script>
+        function showhide() {
+            var div = document.getElementById("newpost");
+            if (div.style.display !== "none") {
+                div.style.display = "none";
+            }
+            else {
+                div.style.display = "block";
+            }
+        }
+    </script>
+
+</head>
+<body>
+    <div class="site-header">
+        <div class="main-navigation">
+            <div class="responsive_menu">
+                <ul>
+                    <li><a href="/"><div class="show-1 templatemo_home">Baş səhifə</div></a></li>
+                    <li><a href="/Home/Announcement"><div class="show-2 templatemo_page2">Elanlar</div></a></li>
+                    <li><a href="/Home/PotentialUser"><div class="show-3 templatemo_page3">Potensial istehsalçılar</div></a></li>
+                    <li><a href="/OfferHome"><div class="show-4 templatemo_page4">Təkliflər</div></a></li>
+                    <li><a href="/Home/Services"><div class="show-5 templatemo_page5">Keçidlər</div></a></li>
+                    <li><a href="/"><div class="show-6 templatemo_page6">Qanunvericilik</div></a></li>
+                    <li><a href="/Home/Contact"><div class="show-7 templatemo_page7">Əlaqə</div></a></li>
+
+                    @if (Session["musername"] == null)
+                    {
+                        <li><a href="/Login"><div class="show-8 templatemo_page8">Daxil ol</div></a></li>
+                        <li><a href="/SignUpOP"><div class="show-9 templatemo_page9">Qeydiyyat</div></a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/Login/Redirect"><div class="show-8 templatemo_page8">@Session["musername"]</div></a></li>
+                        <li><a href="/Login/Logout"><div class="show-9 templatemo_page9">Çıxış</div></a></li>
+                    }
+                </ul>
+            </div>
+            <div class="container">
+                <div class="row templatemo_gallerygap">
+                    <div class="col-md-12 responsive-menu">
+                        <a href="#" class="menu-toggle-btn">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div> <!-- /.col-md-12 -->
+                    <div class="col-md-3 col-sm-12">
+                        <a href="/"><img src="~/Content/UI/images/logo1.png" alt=""></a>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 search_btn">
+                        <div class="input-group" style="margin-top:30px;">
+                            <input autocomplete="off" onkeyup="searchAnnouncement(this)" type="text" class="form-control input-lg" id="formGroupInputLarge" placeholder="Elanlar üzrə axtarış ...">
+                            <div style="position: absolute; width: 100%; float: left; z-index: 1000;" id="searchAnnouncementResult"></div>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span class="fa fa-search mb-0"></span></button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 main_menu">
+                        <ul>
+                            @if (Session["musername"] == null)
+                            {
+                                <li>
+                                    <a href="/Login"><div class="show-8 templatemo_page8" style="height:80px;"><span class="fa fa-lock"></span>DAXİL OL</div></a>
+                                </li>
+                                <li>
+                                    <a href="/SignUpOP"><div class="show-9 templatemo_page9" style="height:80px;"><span class="fa fa-user"></span>QEYDİYYAT</div></a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="/Login/Redirect"><div class="show-8 templatemo_page8" style="height:80px;"><span class="fa fa-user"></span>@Session["musername"]</div></a>
+                                </li>
+                                <li>
+                                    <a href="/Login/Logout"><div class="show-9 templatemo_page9" style="height:80px;"><span class="fa fa-sign-out"></span>ÇIXIŞ</div></a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+
+                </div> <!-- /.row -->
+            </div> <!-- /.container -->
+        </div> <!-- /.main-navigation -->
+    </div> <!-- /.site-header -->
+
+    <div>
+        @RenderBody()
+    </div>
+    <!-- gallery end -->
+    <!-- footer start -->
+    <div class="templatemo_footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-sm-12">
+                    <span>Copyright &copy; 2016, INTEGRATION</span>
+                </div>
+                <div class="col-md-3 col-sm-12 templatemo_rfooter">
+                    <a href="#">
+                        <div class="hex_footer">
+                            <span class="fa fa-facebook"></span>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="hex_footer">
+                            <span class="fa fa-twitter"></span>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="hex_footer">
+                            <span class="fa fa-linkedin"></span>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="hex_footer">
+                            <span class="fa fa-rss"></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer end -->
+    <script>
+        $('.gallery_more').click(function () {
+            var $this = $(this);
+            $this.toggleClass('gallery_more');
+            if ($this.hasClass('gallery_more')) {
+                $this.text('Load More');
+            } else {
+                $this.text('Load Less');
+            }
+        });
+    </script>
+
+</body>
+</html>

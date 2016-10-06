@@ -1,0 +1,54 @@
+﻿@model Emsal.AdminUI.Models.Organisation
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
+}
+
+<div class="container">
+    @{
+        if (TempData["KTNAddError"] != null)
+        {
+            <h4 style="color:red">Bu KTN sistemdə mövcuddur.</h4>
+        }
+    }
+</div>
+
+<div class="container col-md-6 col-md-offset-3" style="border-radius: 5px; margin-top: 30px; margin-bottom:30px; box-shadow:1px 1px 2px 3px #ddd; background-color:white">
+    <br /><br /><br />
+
+    <h2 style="text-align:center">KTN məlumatları</h2>
+    <br />
+    @using (Html.BeginForm("AddKTN", "KTN", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="form-group">
+            @Html.LabelFor(x => x.Name)
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control", id = "name" })
+        </div>
+        <hr />
+       
+        <h3>Məsul olduğu bölgələr</h3>
+        <div class="form-group">
+            <select id="ktnSelect" style="width:100%;" name="ktnar" multiple ="multiple">
+                @foreach (var item in Model.PRMAdminUnitArray)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+
+            </select>
+
+        </div>
+
+        <div class="col-md-4 col-md-offset-5" style="margin-bottom:20px; padding:5px">
+            <input type="submit" class="btn btn-success" value="Davam Et" id="sendInfo" />
+        </div>
+    }
+    <div class="clearfix" style="height: 20px;"></div>
+
+</div>
+
+<script>
+    $("#sendInfo").click(function () {
+        console.log($("#ktnSelect").val());
+    });
+</script>

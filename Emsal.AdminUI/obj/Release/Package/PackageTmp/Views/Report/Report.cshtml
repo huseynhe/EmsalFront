@@ -1,0 +1,86 @@
+﻿@model Emsal.AdminUI.Models.ReportViewModel
+    
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div id="puserMenu">
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: '/Report/AdminUnit?pId=0',
+                type: 'GET',
+                success: function (result) {
+                    $('#puserMenu').html(result);
+                    $('.select2').select2();
+                    $("select[name='adminUnit']").change();
+                },
+                error: function () {
+
+                }
+            });
+        });
+
+
+        function GetAdminUnit(elem) {
+            $(elem).parent().nextAll().remove();
+            pId = $(elem).val();
+
+
+            if (pId == "") {
+                GetUserInfoBy(0, elem);
+            }
+
+            if (pId == 0) {
+                location.reload();
+            }
+            if (pId > 0) {
+                //$('#puserMenu').html('');
+                $.ajax({
+                    url: '/Report/AdminUnit?pId=' + pId,
+                    type: 'GET',
+                    //data: { "pId": appId},
+                    success: function (result) {
+                        //$('#puserMenu').html(result);
+                        if (result == "") {
+                            DemandOffer(pId);
+                        }
+
+                        $(elem).parent().parent().append(result);
+
+                        $('.select2').select2();
+                    },
+                    error: function () {
+
+                    }
+                });
+            }
+        }
+
+
+        function DemandOffer(auid) {
+            $.ajax({
+                url: '/Report/DemandOffer?auid=' + auid,
+                type: 'GET',
+                success: function (result) {
+                    $('#report').html(result);
+                },
+                error: function () {
+
+                }
+            });
+        }
+
+
+    </script>
+</div>
+
+
+<div id="report">
+    <script>
+        $(document).ready(function () {
+            DemandOffer(1);
+        });
+    </script>
+</div>

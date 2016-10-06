@@ -1,0 +1,146 @@
+﻿@model Emsal.AdminUI.Models.AdminUnitViewModel
+
+@{
+    ViewBag.Title = "Indexm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    span, i {
+        cursor: pointer;
+    }
+</style>
+
+<div class="col-md-6 form-horizontal content">
+    <div class="box box-info" id="ProductCatalogTree">
+        <div class="box-header with-border">
+            <h3 class="box-title">Bölgələr</h3>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-4" style="width:63.33333333%;">
+                    <ul id="tree3">
+                        @*<li>
+                            <span onclick="setParId(this, 0, '', '',0)"> Əsas məhsul</span>
+                        </li>*@
+                        @foreach (var item in Model.AdminUnitList)
+                        {
+                            if (item.ParentID == 0)
+                            {
+                                <li>
+                                    <span onclick="setParId(this, @item.Id, '@item.Name', '@item.Description')"> @item.Name</span>
+                                    @foreach (var item2 in Model.AdminUnitList)
+                                    {
+                                        if (item2.ParentID == item.Id)
+                                        {
+                                            <ul>
+                                                <li>
+                                                    <span onclick="setParId(this, @item2.Id, '@item2.Name', '@item2.Description')"> @item2.Name</span>
+                                                    @foreach (var item3 in Model.AdminUnitList)
+                                                    {
+                                                        if (item3.ParentID == item2.Id)
+                                                        {
+                                                            <ul>
+                                                                <li>
+                                                                    <span onclick="setParId(this, @item3.Id, '@item3.Name', '@item3.Description')">@item3.Name</span>
+                                                                    @foreach (var item4 in Model.AdminUnitList)
+                                                                    {
+                                                                        if (item4.ParentID == item3.Id)
+                                                                        {
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <span onclick="setParId(this, @item4.Id, '@item4.Name', '@item4.Description')">@item4.Name</span>
+                                                                                    @foreach (var item5 in Model.AdminUnitList)
+                                                                                    {
+                                                                                        if (item5.ParentID == item4.Id)
+                                                                                        {
+                                                                                            <ul>
+                                                                                                <li>
+                                                                                                    <span onclick="setParId(this, @item5.Id, '@item5.Name', '@item5.Description')">@item5.Name</span>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        }
+                                                                                    }
+                                                                                </li>
+                                                                            </ul>
+                                                                        }
+                                                                    }
+                                                                </li>
+                                                            </ul>
+                                                        }
+                                                    }
+                                                </li>
+                                            </ul>
+                                        }
+                                    }
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="col-md-6 form-horizontal content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Bölgə əlavə et</h3>
+        </div>
+        <div class="box-body">
+            <div class="form-group" id="ProductHeaderGroup">
+                <label class="col-sm-4 control-label">Aid olduğu bölgə</label>
+                <div class="col-sm-8">
+                    <label id="ProductHeader" class="control-label text-primary">--</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Bölgə adı</label>
+                <div class="col-sm-8">
+                    <input type="text" id="productName" class="form-control text-box single-line">
+                    <span id="dproductName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Qeyd</label>
+                <div class="col-sm-8">
+                    <input type="text" id="productDescription" class="form-control text-box single-line">
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="box-footer">
+            <div class="btn btn-primary active pull-right" onclick="AddAdminUnit()">Təsdiqlə</div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+
+
+
+
+
+<div class="clearfix"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

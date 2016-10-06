@@ -11,7 +11,7 @@ namespace Emsal.UI.Models
     {
         public string messageSuccess = "Yadda saxlanıldı.";
         public int fileSize = 2097152;
-        public string fileDirectory = @"D:\fls";
+        public string fileDirectory = @"C:\inetpub\emsalfiles";
         public List<string> fileTypes = new List<string> { "image/jpeg", "image/png", "application/pdf" };
 
         public tblUser User;

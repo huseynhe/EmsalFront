@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "NotSentYetOffers";
+    Layout = "~/Views/Shared/_LayoutSpecialSummary.cshtml";
+}
+<style>
+    .bttns {
+        display: none;
+    }
+</style>
+<script src="~/ContentProfile/js/DemandProduction.js"></script>
+<div class="tesdiqlenen">
+    <div class="mesajlar">
+        <div id="selectedProducts">
+            <script>
+                        $(document).ready(function () {
+                            $.ajax({
+                                url: '/DemandProduction/SelectedProducts',
+                                type: 'GET',
+                                success: function (result) {
+                                    $('#selectedProducts').html(result);
+                                },
+                                error: function () {
+
+                                }
+                            });
+                        });
+            </script>
+        </div>
+    </div>
+</div>

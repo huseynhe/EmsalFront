@@ -1,0 +1,52 @@
+﻿@model Emsal.UI.Models.PotentialClientViewModel
+
+@{
+    ViewBag.Title = "SelectedProducts";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-bordered" style="background:#fff;">
+                <tr>
+                    <th>Məhsulun adı</th>
+                    <th>Çəkisi</th>
+                    <th>Ölçü vahidi</th>
+                    @*<th>Qrafik</th>
+                        <th>Aylar</th>*@
+                    <th>Ünvan</th>
+                    <th>Şəxsi məlumatlar</th>
+                    <th>Qeyd</th>
+                    <th class="text-center">Sil</th>
+                    <th class="text-center">Redaktə</th>
+                </tr>
+                @{
+                foreach (var item in Model.ProductionDetailList)
+                {
+                    <tr>
+                        <td>@item.productName (@item.productParentName)</td>
+                        <td>@item.quantity</td>
+                        <td>@item.enumValueName</td>
+                        @*<td>--</td>
+                            <td>@item.months</td>*@
+                        <td>@item.fullAddress (@item.addressDesc)</td>
+                        <td>
+                        @if (item.person != null)
+{
+    <span> @item.person.Name @item.person.Surname @item.person.FatherName (@item.person.PinNumber)</span>
+}
+                        </td>
+                        <td>@item.description</td>
+                        <td class="text-center">
+                            <div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="deleteSelectedPotentialProduct(@item.productionID)"></div>
+                        </td>
+                        <td class="text-center">
+                            <a href="/PotentialClient/Edit/@item.productionID" style="text-decoration:none;" class="glyphicon glyphicon-pencil text-primary"></a>
+                        </td>
+                    </tr>
+                }
+                }
+            </table>
+        </div>
+    </div>
+</div>
+

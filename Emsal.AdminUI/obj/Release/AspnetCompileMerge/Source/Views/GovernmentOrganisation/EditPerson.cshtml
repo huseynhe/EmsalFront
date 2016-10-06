@@ -1,0 +1,235 @@
+﻿@model Emsal.AdminUI.Models.Organisation
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
+}
+<div class="clearfix" style="height:50px;"></div>
+
+<div class="container" style="font-size:11px">
+    <div class="col-md-10 col-md-offset-1" style="box-shadow:1px 1px 2px 3px #ddd;">
+        <h3>Düzəliş Et</h3>
+        <div class="clearfix" style="height:20px;"></div>
+
+        @using (Html.BeginForm("EditPerson", "GovernmentOrganisation", new { userId = Model.User.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-12">
+                        @{
+                            if (Model.User.userType_eV_ID == 51)
+                            {
+                                <div class="form-group" id="asc" style="padding:5px;">
+                                    <label>ASC</label>
+                                    <select name="ASCId" class="form-control">
+                                        @{
+                                            if (Model.ASCBranchArray.Length != 0)
+                                            {
+                                                foreach (var item in Model.ASCBranchArray)
+                                                {
+                                                    if (item.Id == Model.User.ASC_ID)
+                                                    {
+                                                        <option selected value="@item.Id">@item.Name</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                            }
+                                            else if (Model.User.userType_eV_ID == 52)
+                                            {
+                                                <div class="form-group" id="ktn" style="padding:5px;">
+                                                    <label>KTN</label>
+                                                    <select name="KTNId" class="form-control">
+                                                        @{
+                                                            if (Model.KTNBranchArray.Length != 0)
+                                                            {
+                                                                foreach (var item in Model.KTNBranchArray)
+                                                                {
+                                                                    if (item.Id == Model.User.KTN_ID)
+                                                                    {
+                                                                        <option selected value="@item.Id">@item.Name</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@item.Id">@item.Name</option>
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    </select>
+                                                </div>
+                                                            }
+                        }
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Pin)
+                            @Html.TextBoxFor(model => model.Pin, new { @class = "form-control", id = "pin", autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.Pin, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UserName)
+                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", id = "pin", autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Password)
+                            @Html.TextBoxFor(model => model.Password, new { @class = "form-control", id = "pin", autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email)
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "pin", autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <h3>Şəxsin Yaşadığı Ünvan</h3><br />
+            <div class="well">
+                <div class="row">
+                    <div class="form-group" id="AdminUnit">
+                        <script>
+                            $(document).ready(function () {
+                                $.ajax({
+                                    url: '/GovernmentOrganisation/AdminUnit?pId=0&adminUnitId=@Model.AdminUnitId',
+                                    type: 'GET',
+                                    success: function (result) {
+                                        $('#AdminUnit').html(result);
+
+                                        //$("select[name='adId[0]']").change();
+                                    },
+                                    error: function () {
+
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <div class="well">
+                <h3>Şəxsi Məlumatlar</h3>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Ad</label>
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "username" })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Surname)
+                            @Html.TextBoxFor(model => model.Surname, new { @class = "form-control", id = "password", autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FatherName)
+                            @Html.TextBoxFor(model => model.FatherName, new { @class = "form-control", id = "fatherName", autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" style="padding:5px">
+                            <label>Cinsi</label>
+                            <select class="form-control" id="Gender" name="Gender">
+                                <option>Kişi</option>
+                                <option>Qadın</option>
+                            </select>
+                        </div>
+                    </div>
+                  </div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.ManagerWorkPhone, new { @class = "control-label required" })
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <select class="form-control" name="workPhonePrefix">
+                                            <option value="">Seçim edin</option>
+                                            @foreach (var item in Model.WorkPhonePrefixList)
+                                            {
+                                                if (item.name == Model.WorkPhonePrefix)
+                                                {
+                                                    <option selected value="@item.name">@item.description (@item.name)</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.name">@item.description (@item.name)</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ManagerWorkPhone, new { @class = "form-control numbersOnly" })
+                                        @Html.ValidationMessageFor(x => x.ManagerWorkPhone, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.ManagerMobilePhone, new { @class = "control-label" })
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <select class="form-control" name="mobilePhonePrefix">
+                                            <option value="">Seçim edin</option>
+                                            @foreach (var item in Model.MobilePhonePrefixList)
+                                            {
+                                                if (item.name == Model.mobilePhonePrefix)
+                                                {
+                                                    <option selected value="@item.name">@item.description</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.name">@item.description</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ManagerMobilePhone, new { @class = "form-control numbersOnly" })
+                                        @Html.ValidationMessageFor(x => x.ManagerMobilePhone, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                   
+
+
+                </div>
+
+                <div class="col-md-6 col-md-offset-4" style="margin-bottom:20px; padding:5px">
+                    <input type="submit" class="btn btn-success" value="Düzəliş Et" id="sendInfo" />
+                </div>
+                                                            }
+    </div>
+</div>

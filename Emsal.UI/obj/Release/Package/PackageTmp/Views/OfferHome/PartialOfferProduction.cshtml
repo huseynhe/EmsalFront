@@ -1,0 +1,82 @@
+﻿@model Emsal.UI.Models.ProductCatalogViewModel
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+    Model.prodAltName = "";
+    Model.prodName = "";
+    int i = 0;
+}
+
+<div id="menu-container">
+    <!-- gallery start -->
+    <div class="content homepage" id="menu-1">
+        <div class="container">
+            <div class="right_below" id="center" style="padding-top:0px;">
+                <div class="elanlar">
+                    <div class="thumbnail col-md-12" style="padding: 20px;opacity:0.8;">
+                        <h2 style="color: #000; margin-top: 10px; text-align:center;" class="text-bold mt-50">TƏKLİFLƏR</h2>
+                        <table class="table table-bordered ">
+                            <thead>
+                                <tr>
+                                    <th class="col-sm-1" style="text-align:center;">Şəkil</th>
+                                    <th>Məhsulun dı</th>
+                                    <th>Çəkisi (ölçü vahidi)</th>
+                                    <th>Qiyməti</th>
+                                    <th style="text-align:center;width:60px;">Keçid</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.PagingProduction)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (item.productDocumentList.Count() > 0)
+                {
+                                                <img style="margin:0;padding:0;" class="img-responsive thumbnail" src="@item.productDocumentList.FirstOrDefault().documentUrl@item.productDocumentList.FirstOrDefault().documentName" />
+                                            }
+                                            else
+                                            {
+                                                <img style="margin:0;" class="img-responsive thumbnail" src="~/Content/UI/images/noimage.png" />
+                                            }
+                                        </td>
+                                        <td style="vertical-align:middle;">@item.productName (@item.productParentName)</td>
+                                        <td style="vertical-align:middle;">@item.quantity @item.enumValueName</td>
+                                        <td style="vertical-align:middle;">@item.unitPrice AZN</td>
+                                        <td onclick="location.href = '/OfferHome/OfferProductionDetail/@item.productionID'" style="cursor:pointer; vertical-align:middle;text-align:center;color:#428bca;">
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @if (Model.PagingProduction.Count() == 0)
+                        {
+                            <h5 class="text-center">Qeyd tapılmadı</h5>
+                        }
+
+                        <div class="navig">
+                            <div class="clearfix"></div>
+
+                            @if (Model.noPaged == 0)
+                            {
+                                <div class="box-footer clearfix">
+                                    Səhifə @(Model.PagingProduction.PageCount < Model.PagingProduction.PageNumber ? 0 : Model.PagingProduction.PageNumber) (cəmi @Model.PagingProduction.PageCount)
+                                    @Html.PagedListPager(Model.PagingProduction, page => Url.Action("OfferProduction", new { page }))
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="clear"></div>
+    </div>
+</div>
+
+
+
+

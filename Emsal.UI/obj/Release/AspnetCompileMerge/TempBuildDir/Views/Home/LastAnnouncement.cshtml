@@ -1,0 +1,36 @@
+﻿@model Emsal.UI.Models.ProductCatalogViewModel
+    
+@{
+    ViewBag.Title = "LastAnnouncement";
+    Layout = "";
+}
+
+
+<div class="reklam">
+    <div class="categoria_left_header">
+        <h3 class="text-bold">SON ELANLAR</h3>
+    </div>
+    <div id="owl-demo" class="owl-carousel owl-theme">
+        @foreach (var item in Model.AnnouncementDetailList)
+        {
+            <div class="item">
+                <div class="thumbnail left text-center">
+                    @if (item.productCatalogDocumentList.Count() > 0)
+                {
+                        <img class="img-responsive" src="@item.productCatalogDocumentList.FirstOrDefault().documentUrl@item.productCatalogDocumentList.FirstOrDefault().documentName" />
+                    }
+                    else
+                    {
+                        <img src="~/Content/UI/images/noimage.png" />
+                    }
+                    <div class="caption">
+                        <h4 class="text-bold">@item.announcementDetail.announcement.product_name (@item.parentName)</h4>
+                        <h4 class="text-bold text-red">@item.announcementDetail.announcement.quantity @item.announcementDetail.announcement.quantity_type_Name</h4>
+                        <a href="/Home/AnnouncementDetail/@item.announcementDetail.announcement.Id" class="btn btn-default text-bold f-left">BAX</a>
+                        <button type="button" class="btn btn-primary text-white text-bold f-right">@item.announcementDetail.announcement.unit_price AZN</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

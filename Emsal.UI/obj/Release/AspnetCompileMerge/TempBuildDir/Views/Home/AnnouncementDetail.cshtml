@@ -1,0 +1,56 @@
+﻿@model Emsal.UI.Models.ProductCatalogViewModel
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="menu-container">
+    <!-- gallery start -->
+    <div class="content homepage" id="menu-1">
+        <div class="container">
+            <div class="right_below" id="center" style="padding-top:0px;">
+                <div class="elanlar">
+                        <div class='thumbnail col-sm-12 col-md-12' style="padding: 20px;">
+                                <div class="col-xs-12 col-sm-4 col-md-4">
+                                    @if (Model.AnnouncementDetail.productCatalogDocumentList.Count() > 0)
+                                    {
+                                        <img style="padding:0;" class="img-responsive thumbnail" src="@Model.AnnouncementDetail.productCatalogDocumentList.FirstOrDefault().documentUrl@Model.AnnouncementDetail.productCatalogDocumentList.FirstOrDefault().documentName" />
+                                    }
+                                    else
+                                    {
+                                        <img class="img-responsive thumbnail" src="~/Content/UI/images/noimage.png" />
+                                    }
+                                </div>
+                                <div class='col-xs-12 col-sm-8 col-md-8'>
+                                    <div class="product-info">
+                                        <h1 class="name text-black nobackground" >@Model.AnnouncementDetail.announcement.product_name (@Model.AnnouncementDetail.parentName)  - @Model.AnnouncementDetail.announcement.quantity @Model.AnnouncementDetail.announcement.quantity_type_Name</h1>
+                                        <div class="clearfix"></div>
+                                <br />
+                                        <h4 class="text-black nobackground">
+                                            @if (Model.startDate.ToShortDateString() != "01.01.0001" && Model.endDate.ToShortDateString() != "01.01.0001")
+                                            {
+                                                <span>Elan tarixi: @Model.startDate.ToShortDateString() - @Model.endDate.ToShortDateString()</span>
+                                            }
+                                        </h4><br />
+                                        <div class="price-container info-container m-t-20">
+                                            <div class="row">
+
+                                                <div class="col-sm-6">
+                                                    <div class="price-box">
+                                                        <h4 class="text-black nobackground">@Model.AnnouncementDetail.announcement.unit_price  ( @Model.AnnouncementDetail.announcement.quantity_type_Name / man )</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="clearfix"></div>
+                </div>
+            </div>
+    </div>
+</div>
+</div>

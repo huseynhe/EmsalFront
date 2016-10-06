@@ -1,0 +1,25 @@
+﻿@model Emsal.AdminUI.Models.ReportViewModel
+
+@{
+    ViewBag.Title = "Region";
+    Layout = "";
+}
+@if (Model.PRMAdminUnitList.Count > 0)
+{
+    <div class="form-group col-md-3">
+        <select name="adminUnit" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+            <option selected value="0">Seçim edin</option>
+            @foreach (var item in Model.PRMAdminUnitList)
+            {
+                if (item.Name == "Azərbaycan Respublikası")
+                        {
+                            <option selected value="@item.Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+            }
+            </select>
+        </div>
+}

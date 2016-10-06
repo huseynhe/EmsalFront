@@ -1,0 +1,77 @@
+﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+
+@{
+    ViewBag.Title = "Private Messages";
+}
+@using PagedList.Mvc;
+
+@{
+    if (Model.ComMessageList.Count == 0)
+    {
+        <div class="white_fon">
+            <p>Heç nə tapılmadı</p>
+        </div>
+    }
+    else
+    {
+        string fromUser = "";
+        <div class="clearfix" style="height:20px"></div>
+       
+        <div class="clearfix" style="height:50px"></div>
+        <div class="container">
+            <div class="col-md-9 col-md-offset-1">
+                <h3 style="text-align:center;"><span style="font-weight:bold">@Model.CommunicatedUser.Username</span> ilə olan yazışmalar&nbsp;&nbsp;&nbsp;<a href="/Ordinary/AnswerMessage/?comunicatedUserId=@Model.CommunicatedUser.Id" class="btn btn-info active pull-right"><i class="glyphicon glyphicon-envelope"></i>&nbsp;Mesaj Göndər</a></h3><br />
+
+                @{
+                    foreach (var message in Model.PagingPrivateMessages)
+                    {
+                        DateTime createdDate = DateTime.Now;
+                        if (message.createdDate != null)
+                        {
+                            createdDate = new DateTime((long)message.createdDate);
+                        }
+                        <div class='well'>
+                            <table class='responcive'>
+                                <tr>
+                                    <td>
+                                        <p>
+                                            <a href="/Ordinary/MessageDetail?Id=@message.Id">
+                                                @{
+                                                    if (message.message.Length > 20)
+                                                    {
+                                                        <span>@message.message.ToString().Substring(0, 20)...</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>@message.message</span>
+                                                    }
+                                                }
+                                            </a>
+                                        </p>
+                                        <p>
+                                            Mesajın tarixi: @createdDate.Day.ToString()/@createdDate.Month.ToString()/@(createdDate.Year + 1950)
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    }
+                }
+
+
+                <div class="row">
+                    <div class="box-footer clearfix col-md-7" style="margin-left:10px">
+                        Səhifə @(Model.PagingPrivateMessages.PageCount < Model.PagingPrivateMessages.PageNumber ? 0 : Model.PagingPrivateMessages.PageNumber) (cəmi @Model.PagingPrivateMessages.PageCount)
+                        @Html.PagedListPager(Model.PagingPrivateMessages, page => Url.Action("PrivateConversation", "Ordinary", new { page, otherUser = Model.CommunicatedUser.Id }))
+                    </div>
+                    <div class="box-footer clearfix col-md-4" align="right" style="margin-top:30px;">
+                        <a class="btn btn-success" href="/Ordinary/ReceivedMessages">Geri</a>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+
+                                        }
+}

@@ -1,0 +1,37 @@
+﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+@{
+    ViewBag.Title = "Sent Messages";
+    Layout = "~/Views/Shared/_LayoutAsanSpecial.cshtml";
+}
+<div class="container">
+    <div class="tab_panel_block">
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+
+            <li role="presentation" class="active">@*<a href="#Admin" aria-controls="home" role="tab" data-toggle="tab"><h5 class="text-bold">Potensial Satıcı və Müştərilər</h5></a>*@</li>
+            <li><a href="/AsanXidmetSpecialSummary/Index"><h5 class="text-bold"><span class="adSoyad">@Model.LoggedInUser.Username</span><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></h5></a></li>
+            <li>
+                <a href="/PotentialClient" class="btn btn-info active pull-right">
+                    <i class="glyphicon glyphicon-link"></i>&nbsp;Potensial İstehsalçı
+                </a>
+                <a href="/AsanXidmetSpecialSummary/AddPotentialSeller" class="btn btn-info active pull-right">
+                    <i class="glyphicon glyphicon-link"></i>&nbsp;Potensial Satıcı
+                </a>
+                @*<a href="/AsanXidmetSpecialSummary/AddPotentialClientAndSeller" class="btn btn-info active pull-right">
+                        <i class="glyphicon glyphicon-link"></i>&nbsp;Potensial Satıcı və İstehsalçı
+                    </a>*@
+            </li>
+        </ul>
+    </div>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab_panel_block_right">
+
+            <h4 class="text-bold">Gələn Məktublar</h4>
+            <div class="white_fon mesajlar">
+                @Html.Partial("PartialReceivedMessages")
+            </div>
+        </div>
+    </div>
+</div>

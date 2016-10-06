@@ -1,0 +1,150 @@
+﻿@model Emsal.UI.Models.AuthLogin
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="menu-container">
+    <div class="content homepage" id="menu-1">
+        <div class="container">
+            <div class="right_below" id="center" style="padding-top:0px;">
+                <div class="elanlar">
+
+
+                    <div class="row" style="background:#fff;padding:40px;">
+                        <div class="col-sm-4 col-md-4 col-lg-4" style="border: 2px solid #f2f2f2; padding: 20px;border-radius:10px;">
+                            <div class="user-login">
+                                @*<h3 class="text-bold">Giriş</h3>
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Elektron ünvan</label>
+                                            <input type="email" class="form-control" id="loginEmail" placeholder="Emailinizi daxil edin">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Şifrə</label>
+                                            <input type="password" class="form-control" id="loginPassword" placeholder="Şifrənizi daxil edin">
+                                        </div>
+                                        <a href="">Şifrəmi unutdum</a>
+                                    </form>
+                                    <form class="form-inline m-top">
+                                        <div class="checkbox">
+                                            <label class="font_size12 f-left">
+                                                <input type="checkbox"> Yadda saxla
+                                            </label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary f-right" id="loginToSpecialSummary">Daxil ol</button>
+                                    </form>*@
+
+                                <img class="img-responsive col-md-6 col-md-offset-3" src="~/Content/UI/images/user-512.png" />
+                                <div class="clearfix"></div>
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.Username)
+                                        @Html.TextBoxFor(x => x.Username, new { @class = "form-control", @style = "height: 40px;" })
+                                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.Password)
+                                        @Html.PasswordFor(x => x.Password, new { @class = "form-control", @style = "height: 40px;" })
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <input class="btn btn-info btn-block btn-lg" type="submit" value="Daxil ol" />
+
+                                    <a href="/Login/ForgetPassword">Şifrəmi unutdum</a>
+
+                                }
+
+                            </div>
+                            <div class="clear-both"></div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 col-md-offset-1">
+                            <div class="register-suggest-only">
+                                <h2 class="text-bold">Qeydiyyatdan keçməmisiniz?</h2><br />
+                                <h4>Xüsusi xidmətlərimizdən faydalana bilmək üçün qeydiyyatdan keçin</h4><br /><br />
+                                <a href="/SignUpOP?uid=@Model.uid&type=@Model.type" class="btn btn-default text-blue text-bold btn-lg">İndi qeydiyyatdan keç</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                @if (TempData["personSignUp"] != null)
+                {
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $("#myModal").modal('show');
+                        });
+                    </script>
+                    <div id="myModal" class="modal fade" style="z-index:3000">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Məlumat</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p id="successMessage">İstifadəçi Uğurlu bir şəkildə əlavə olundu</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (TempData["sendUserInfo"] != null)
+                {
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $("#myModa").modal('show');
+                        });
+                    </script>
+                    <div id="myModa" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Məlumat</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p id="successMessage">Şifrəniz sıfırlandı, elektron poçt ünvanınıza göndərilən linkdən yeni şifrənizi daxil edə bilərsiniz.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (TempData["passwordChanged"] != null)
+                {
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $("#myModall").modal('show');
+                        });
+                    </script>
+                    <div id="myModall" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Məlumat</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p id="successMessage">Şifrəniz müvəffəqiyyətlə dəyişdirildi.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+

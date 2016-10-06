@@ -1,0 +1,128 @@
+﻿@model Emsal.UI.Models.OfferProductionViewModel
+@{
+    ViewBag.Title = "EditRejectedOffer";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+
+}
+<div class="clearfix" style="height:50px;"></div>
+<h3>Düzəlişlər Et</h3>
+<div class="clearfix" style="height:20px;"></div>
+
+@using (Html.BeginForm("EditRejectedOffers", "SpecialSummary", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.Id)
+    <div class="editRejectedOferrMain">
+        <div id="mainf">
+            <div class="col-md-12"><label class="control-label">Məhsulun yerləşdiyi ünvan</label></div>
+
+            <div class="form-group" id="profileAdminUnit">
+                <script>
+                    $(document).ready(function () {
+                        $.ajax({
+                            url: '/Ordinary/AdminUnit?pId=0',
+                            type: 'GET',
+                            success: function (result) {
+                                $('#profileAdminUnit').html(result);
+
+                                $("select[name='adId[0]']").change();
+                            },
+                            error: function () {
+
+                            }
+                        });
+                    });
+                </script>
+            </div>
+
+            <div class="clearfix" style="height:200px;"></div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.startDate, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.startDate, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.endDate, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                </div>
+            </div><div class="clearfix" style="height:100px;"></div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Məhsul</label>
+                    @Html.TextBoxFor(model => model.ProductCatalog.ProductName, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Vahid Məhsulun qiyməti</label>
+                    <input  value="@Model.UnitPrice" type="text" class="form-control" name="UnitPrice"/>
+                    @Html.ValidationMessageFor(x => x.UnitPrice, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Quantity)
+                    @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control", type = "double" })
+                    @Html.ValidationMessageFor(x => x.Quantity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Ölçü Vahidi</label>
+                    <select class="form-control" name="quantityType">
+                        @foreach (var item in Model.EnumValueArray)
+                        {
+                            <option value="@item.Id">@item.name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="clearfix" style="height:100px"></div>
+
+         
+            <div class="col-md-4 col-md-offset-4" style="margin-bottom:20px; padding:5px">
+                <div class="col-md-4">
+                    <a class="btn btn-primary" href="/SpecialSummary/Index">İmtina Et</a>
+
+                </div>
+                <div class="col-md-6">
+                    <input type="submit" class="btn btn-success" value="Təsdiqlə" id="sendInfo" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script>
+    function GetAdminUnit(elem) {
+        pId = $(elem).val();
+        $(elem).parent().nextAll().remove();
+
+        if (pId > 0) {
+            $.ajax({
+                url: '/SignUp/AdminUnit?pId=' + pId,
+                type: 'GET',
+                //data: { "pId": appId},
+                success: function (result) {
+                    $('#addressId').val(pId);
+                    $(elem).parent().parent().append(result);
+
+                    $('.select2').select2();
+                },
+                error: function () {
+
+                }
+            });
+        }
+    }
+</script>

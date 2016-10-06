@@ -30,6 +30,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -982,6 +983,7 @@
     <Content Include="Content\fonts\pacifico\pacifico.ttf" />
     <Content Include="Content\fonts\pacifico\pacifico.woff" />
     <Content Include="Content\fonts\pacifico\pacifico.woff2" />
+    <None Include="Properties\PublishProfiles\emsal.pubxml" />
     <None Include="Properties\PublishProfiles\feridd.pubxml" />
     <Content Include="Views\Home\Pages.cshtml" />
     <Content Include="Views\OfferMonitoring\Edit.cshtml" />

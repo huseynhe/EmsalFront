@@ -1,0 +1,84 @@
+﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+@{
+    ViewBag.Title = "Offers";
+}
+
+@{
+    string productName = "";
+    string parentName = "";
+    long parentId = 0;
+    if (Model.PotentialProductionList.Count == 0)
+    {
+        <div class='white_fon'>
+            <p>Heç nə tapılmadı</p>
+        </div>
+
+    }
+    else
+    {
+        foreach (var item in Model.PotentialProductionList)
+        {
+            int quantity = (int)item.quantity;
+            double totalPrice = 0;
+            if (item.unit_price != null)
+            {
+                totalPrice = quantity * (double)item.unit_price;
+            }
+            else if (item.total_price != null)
+            {
+                totalPrice = (double)item.total_price;
+            }
+            else
+            {
+                totalPrice = 0;
+            }
+            string quantityUnit = "";
+            foreach (var enumV in Model.EnumValueList)
+            {
+                foreach (var itemmm in Model.ProductionControlList)
+                {
+                    if (itemmm.Potential_Production_Id == item.Id && itemmm.EnumValueId == enumV.Id)
+                    {
+                        quantityUnit = enumV.name;
+                    }
+                }
+
+            }
+            foreach (var catalog in Model.ProductCatalogList)
+            {
+                if (item.product_Id == catalog.Id)
+                {
+                    productName = catalog.ProductName;
+                }
+            }
+            <div class='white_fon'>
+                <table class='responcive'>
+                    <tr>
+                        <td colspan='3'><p class='text-right text-bold text-red'>@totalPrice AZN</p></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:5px; color:red">@productName</td>
+                    </tr>
+                    <tr>
+                        <td><a href="/SpecialSummary/PotentialProductInfo?Id=@item.Id"><img src='http://emsal.az/staticFiles/notFound.png' style='max-width:100px;max-height:77px' /></a></td>
+                        <td>
+                            <p>Potensiyal Məhsulun miqdarı: @quantity @quantityUnit </p>
+                        </td>
+                        <td class='text-right'>
+                            <button type='button' class='btn btn-default'>Təsdiqlənməyib</button>
+                            <div class='btn-group'>
+                                <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Əməliyyatlar <span class='caret'></span></button>
+                                <ul class='dropdown-menu'>
+                                    <li><a href='/SpecialSummary/DeletePotentialProduction?Id=@item.Id'>Sil</a></li>
+                                    <li role='separator' class='divider'></li>
+                                    <li><a href=''>Qeyd</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+
+    }
+}

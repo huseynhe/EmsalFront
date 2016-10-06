@@ -1,0 +1,61 @@
+﻿@model Emsal.UI.Models.OfferProductionViewModel
+
+@{
+    ViewBag.Title = "SelectedProducts";
+     if (Model.isPDF == true)
+     {
+    Layout = "~/Views/Shared/_LayoutProfilePW.cshtml";
+     }
+}
+
+					<h4>Seçilmiş məhsullar</h4>
+					<div class="row">
+						<div class="col-md-12">
+				@*			<div class="table-responsive">*@
+								<table class="table table-bordered">
+									<tr>
+										<th>Məhsulun adı</th>
+										<th>Qiyməti</th>
+										<th>Çəkisi</th>
+										<th>Ölçü vahidi</th>
+										<th>Qrafik</th>
+										<th>Aylar</th>
+										<th>Ünvan</th>
+                                        <th>Qeyd</th>
+                                        @if (Model.isPDF == false)
+                                        {
+										<th>Sil</th>
+                                        }
+									</tr>
+                                    @{                                        
+                                        foreach (var item in Model.SelectedProductList)
+                                      {
+									<tr>
+										<td>@item.productName</td>
+										<td>@item.price AZN</td>
+										<td>@item.size</td>
+										<td>@item.measurement</td>
+										<td>@item.qrafik</td>
+										<td>@item.month</td>
+                                        <td>@item.region</td>
+                                        <td>@item.note</td>
+                                        @if (Model.isPDF == false)
+                                        {
+										<td>
+                                              <div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="deleteSelectedOfferProduct(@item.Id)"></div>
+										</td>
+                                        }
+									</tr>
+                                      } 
+                                    }
+								</table>
+                        @if (Model.isPDF == false)
+                                        {
+                  <a href="/Offer/SelectedProducts?&userId=@Model.userId&pdf=true" class="btn btn-success active pull-right">
+            <i class="glyphicon glyphicon-save-file"></i>&nbsp;Yüklə
+                  </a>
+                        }
+							</div>
+						</div>
+					@*</div>*@
+

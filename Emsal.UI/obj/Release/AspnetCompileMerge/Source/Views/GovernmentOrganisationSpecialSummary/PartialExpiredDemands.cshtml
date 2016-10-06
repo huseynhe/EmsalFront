@@ -1,0 +1,62 @@
+﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+@{
+    ViewBag.Title = "Offers";
+}
+@using PagedList.Mvc;
+
+@{
+    if (Model.DemandProductionList.Count == 0)
+    {
+        <div class='white_fon'>
+            <p>Heç nə tapılmadı</p>
+        </div>
+
+    }
+    else
+    {
+        foreach (var item in Model.PagingOffAirDemand)
+        {
+            <div class="white_fon">
+                <div class="row" style="color:red; font-size:15px">
+                    <div class="col-md-8">
+                        @item.ProductName - @item.ParentName
+                    </div>
+                    <div class="col-md-4">
+                        Məhsulun miqdarı : @item.ProductQuantity  @item.QuantityType
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-md-4">
+                        @{
+                            if (item.ProductProfilePicture != null)
+                            {
+                                <a href="/GovernmentOrganisationSpecialSummary/DemandProductInfo?Id=@item.ProductId"><img src=@item.ProductProfilePicture style='max-width:200px;max-height:230px'></a>
+                            }
+                            else
+                            {
+                                <a href="/GovernmentOrganisationSpecialSummary/DemandProductInfo?Id=@item.ProductId"><img src='http://emsal.az/staticFiles/notFound.png' style='max-width:200px;max-height:230px' /></a>
+                            }
+                        }
+                    </div>
+                    <div class="col-md-7">
+                        @foreach (var itemmm in item.DemandCalendarList)
+                        {
+                            <div class="well">
+                                <span>Tarix: @itemmm.day @itemmm.month @itemmm.year saat @itemmm.ocklock</span><br /><br />
+                                <span>Miqdar: @itemmm.quantity @item.QuantityType</span><br /><br />
+                                <span>Daşınma qrafiki: @itemmm.shipmetType</span>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+                            }
+
+            <div class="box-footer clearfix">
+                Səhifə @(Model.PagingOffAirDemand.PageCount < Model.PagingOffAirDemand.PageNumber ? 0 : Model.PagingOffAirDemand.PageNumber) (cəmi @Model.PagingOffAirDemand.PageCount)
+                @Html.PagedListPager(Model.PagingOffAirDemand, page => Url.Action("ExpiredDemands", "GovernmentOrganisationSpecialSummary", new { page }))
+            </div>
+
+    }
+}

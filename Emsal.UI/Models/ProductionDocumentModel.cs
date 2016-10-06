@@ -10,7 +10,7 @@ namespace Emsal.UI.Models
     public class ProductionDocumentViewModel : UserRoles
     {
         public int fileSize = 2097152;
-        public string fileDirectory = @"D:\fls";
+        public string fileDirectory = @"C:\inetpub\emsalfiles";
         public string tempFileDirectoryFV = @"/Content/tempFile/";
         public string tempFileDirectory = HttpContext.Current.Server.MapPath("~/Content/tempFile/");
         //public string tempFileDirectory = @"D:\workspace\vs\PYAS\PYAS.UI\Content\tempFile";

@@ -1,0 +1,13 @@
+﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+@{
+    ViewBag.Title = "Sent Messages";
+    Layout = "~/Views/Shared/_SpecialSummaryLayout.cshtml";
+}
+
+
+
+    <div class="mesajlar">
+        <div id="sentMessages">
+            @Html.Partial("PartialSentMessages")
+        </div>
+</div>

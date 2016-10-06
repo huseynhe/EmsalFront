@@ -1,0 +1,39 @@
+﻿@model Emsal.UI.Models.ProductCatalogViewModel
+@using Emsal.Utility.CustomObjects;
+
+@{
+    ViewBag.Title = "LastAnnouncement";
+    Layout = "";
+}
+
+@if (Model.AnnouncementDetailList != null)
+{
+    <div style="background:#fafafa;border-radius: 0px 0px 5px 5px;overflow-y:scroll;max-height:400px;">
+        @if (Model.AnnouncementDetailList.Count() == 0)
+        {
+            <div class="col-md-12 text-center" style="margin-top: 5px;">qeyd tapılmadı</div>
+            <div class="clearfix"></div>
+        }
+        else
+        {
+            <div class="list-group" style="margin-bottom: 0px;">
+                @foreach (var item in Model.AnnouncementDetailList)
+                {
+                    <a href="/Home/AnnouncementDetail/@item.announcementDetail.announcement.Id" class="list-group-item">
+                        <div class="col-sm-7">@item.announcementDetail.announcement.product_name (@item.parentName)
+                        
+                        @if (DatetimeExtension.toShortDate(item.announcementDetail.announcement.startDate).ToShortDateString() != "01.01.0001" && DatetimeExtension.toShortDate(item.announcementDetail.announcement.endDate).ToShortDateString() != "01.01.0001")
+                        {
+                            <span> (@DatetimeExtension.toShortDate(item.announcementDetail.announcement.startDate).ToShortDateString() - @DatetimeExtension.toShortDate(item.announcementDetail.announcement.endDate).ToShortDateString())</span>
+                        }
+
+                        </div>
+                        <div class="col-sm-2" style="border-left:1px solid #dfdfdf;">@item.announcementDetail.announcement.quantity @item.announcementDetail.announcement.quantity_type_Name</div>
+                        <div class="col-sm-3" style="border-left:1px solid #dfdfdf;">@item.announcementDetail.announcement.unit_price AZN</div>
+                        <div class="clearfix"></div>
+                    </a>
+                }
+            </div>
+        }
+    </div>
+}

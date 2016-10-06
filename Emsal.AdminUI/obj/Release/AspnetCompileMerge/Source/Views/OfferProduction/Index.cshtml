@@ -1,0 +1,65 @@
+﻿@model Emsal.AdminUI.Models.OfferProductionViewModel
+@*@using PagedList.Mvc;*@
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Müraciətlər</h3>
+                    <!-- /.box-tools -->
+                </div>
+                <table class="table table-hover table-striped table-bordered">
+                    <tbody>
+                        <tr>
+                            @if (Model.isMain == 0)
+            {
+                                <th class="col-md-1">#</th>
+                            }
+                            <th class="col-md-2">
+                                Məhsulun adı<br />
+                                <input onkeyup="OfferProductionSearch(this, 'productName')" class="form-control" placeholder="axtar" />
+                            </th>
+                            <th class="col-md-1">
+                                Miqdarı (vahidi)
+                            </th>
+                            <th class="col-md-1">
+                                @Html.DisplayNameFor(model => model.price)
+                            </th>
+                            <th class="col-md-2">
+                                Qeyd
+                            </th>
+                            <th class="col-md-2">
+                                İnfo<br />
+                                <input onkeyup="OfferProductionSearch(this, 'userInfo')" class="form-control" placeholder="axtar" />
+                            </th>
+                            <th class="col-md-2">
+                                Sənədlər
+                            </th>
+                            @if (Model.isMain == 0)
+            {
+                                <th class="col-md-1 shsingle text-center">imtina</th>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="AjaxPaginationList">
+                    @Html.Partial("PartialIndex")
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/js/pagedList.js"></script>
+
+
+
+

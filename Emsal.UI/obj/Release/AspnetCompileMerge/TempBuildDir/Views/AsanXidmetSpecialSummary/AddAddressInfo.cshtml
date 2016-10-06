@@ -1,0 +1,49 @@
+﻿@model Emsal.UI.Models.User
+@{
+    Layout = "~/Views/Shared/_SignUpLayout.cshtml";
+}
+
+<div class="container col-md-6 col-md-offset-3" style="border-radius: 5px; margin-top: 30px; margin-bottom:30px; box-shadow:1px 1px 2px 3px #ddd">
+    <br /><br /><br />
+
+    <h2 style="text-align:center">Ünvan Məlumatları</h2>
+    <br /><br /><br />
+    @using (Html.BeginForm("AddAddressInfo", "AsanXidmetSpecialSummary", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(x=>x.UserName)
+        @Html.HiddenFor(x => x.Pin)
+        @Html.HiddenFor(x => x.Voen)
+        @Html.HiddenFor(x => x.Password)
+        @Html.HiddenFor(x => x.Email)
+        @Html.HiddenFor(x => x.FutureUserRole)
+        @Html.HiddenFor(x => x.MobilePhone)
+        @Html.HiddenFor(x => x.mobilePhonePrefix)
+        @Html.HiddenFor(x => x.WorkPhone)
+        @Html.HiddenFor(x => x.workPhonePrefix)
+
+        <div class="form-group" id="asanAdminUnit">
+            <script>
+                        $(document).ready(function () {
+                            $.ajax({
+                                url: '/Ordinary/AdminUnit?pId=0',
+                                type: 'GET',
+                                success: function (result) {
+                                    $('#asanAdminUnit').html(result);
+
+                                    $("select[name='adId[0]']").change();
+                                },
+                                error: function () {
+
+                                }
+                            });
+                        });
+            </script>
+            @*@Html.Action("AdminUnit", "OfferProduction", new { pId = 0 })*@
+        </div>
+            <div class="col-md-6 col-md-offset-4" style="margin-bottom:20px; padding:5px">
+                <input type="submit" class="btn btn-success" value="Davam Et" id="sendInfo" />
+            </div>
+                        }
+    <div class="clearfix" style="height: 20px;"></div>
+
+</div>

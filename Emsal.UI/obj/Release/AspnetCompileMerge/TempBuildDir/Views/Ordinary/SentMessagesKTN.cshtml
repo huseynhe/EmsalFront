@@ -1,0 +1,39 @@
+﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+@{
+    ViewBag.Title = "Sent Messages";
+    Layout = "~/Views/Shared/_KTNLayout.cshtml";
+
+}
+
+
+<div class="container">
+    <div class="tab_panel_block">
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">@*<a href="#Admin" aria-controls="home" role="tab" data-toggle="tab"><h5 class="text-bold">Potensial Satıcı və Müştərilər</h5></a>*@</li>
+            <li role="presentation"><a href="/KTNSpecialSummary/Index"><h5 class="text-bold"><span class="adSoyad">KTN-@Model.User.Username</span><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></h5></a></li>
+
+            <li>
+                <a href="/PotentialClient" class="btn btn-info active pull-right">
+                    <i class="glyphicon glyphicon-link"></i>&nbsp;Potensial İstehsalçı Yarat
+                </a>
+                <a href="/OfferState?stateStatusEV=Yayinda" class="btn btn-info active pull-right">
+                    <i class="glyphicon glyphicon-link"></i>&nbsp;Təkliflər
+                </a>
+                <a href="/PotentialClientState?stateStatusEV=Tesdiqlenen" class="btn btn-warning active pull-right">
+                    <i class="glyphicon glyphicon-link"></i>&nbsp;Potensial İstehsalçılar
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- Tab panes -->
+    <div class="tab_panel_block_right">
+        <h4 class="text-bold">Göndərilən Məktublar</h4>
+
+        <div class="white_fon mesajlar">
+            @Html.Partial("PartialSentMessages")
+        </div>
+    </div>
+
+</div>

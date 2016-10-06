@@ -1,0 +1,57 @@
+﻿@model Emsal.UI.Models.ProductCatalogViewModel
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="menu-container">
+    <!-- gallery start -->
+    <div class="content homepage" id="menu-1">
+        <div class="container">
+            <div class="right_below" id="center" style="padding-top:0px;">
+                <div class="elanlar">
+                        <div class="thumbnail col-md-12" style="padding: 20px;">
+                                <div class="col-xs-12 col-sm-4 col-md-4">
+                                    @if (Model.ProductionDetail.productDocumentList != null)
+                                    {
+                                        if (Model.ProductionDetail.productDocumentList.Count() > 0)
+                                        {
+                                            <img style="padding:0;" class="img-responsive thumbnail" src="@Model.ProductionDetail.productDocumentList.FirstOrDefault().documentUrl@Model.ProductionDetail.productDocumentList.FirstOrDefault().documentName" />
+                                        }
+                                        else
+                                        {
+                                            <img class="img-responsive thumbnail" src="~/Content/UI/images/noimage.png" />
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/UI/images/noimage.png" />
+                                    }
+                                </div>
+                                <div class="col-xs-12 col-sm-8 col-md-8">
+                                    <div class="product-info">
+                                        <h1 class="name text-black nobackground">@Model.ProductionDetail.productName (@Model.ProductionDetail.productParentName)  - @Model.ProductionDetail.quantity @Model.ProductionDetail.enumValueName</h1>
+                                        <div class="clearfix"> </div>
+                                        <br />
+                                        <div class="price-container info-container m-t-20">
+                                            <div class="row">
+
+                                                <div class="col-sm-6">
+                                                    <div class="price-box">
+                                                        <h4 class="text-black nobackground">@Model.ProductionDetail.unitPrice  ( @Model.ProductionDetail.enumValueName / man )</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

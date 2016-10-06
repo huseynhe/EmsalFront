@@ -1,0 +1,24 @@
+﻿@model Emsal.AdminUI.Models.ReportViewModel
+
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+
+<div id="report">
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: '/Report/PotentialClient',
+                type: 'GET',
+                success: function (result) {
+                    $('#report').html(result);
+                },
+                error: function () {
+
+                }
+            });
+        });
+    </script>
+</div>

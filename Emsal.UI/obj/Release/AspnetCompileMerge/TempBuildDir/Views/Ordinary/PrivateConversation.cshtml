@@ -1,0 +1,14 @@
+﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+@{
+    ViewBag.Title = "Private Conversation";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+
+}
+
+
+<div class="mesajlar">
+    <div id="ReceivedMessages">
+        @Html.Partial("PartialPrivateConversation")
+    </div>
+    
+</div>

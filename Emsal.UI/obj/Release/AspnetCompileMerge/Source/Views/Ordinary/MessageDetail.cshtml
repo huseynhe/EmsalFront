@@ -1,0 +1,19 @@
+﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+@{
+    ViewBag.Title = "MessageDetail";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+<div class="clearfix" style="height:50px"></div>
+<div class="container">
+    <div class="col-md-6 col-md-offset-3"s>
+        <div class="white_fon thumbnail" style="padding:5px;margin:5px">
+            <h4><b>@Model.CommunicatedUser.Username</b></h4><br />
+            <p>@Model.ComMessage.message</p>
+        </div>
+
+        <div class="col-md-6 col-md-offset-5" style="margin-bottom:20px; padding:5px">
+            <a class="btn btn-success" href="/Ordinary/SendTODestination?userId=@Model.User.Id&toUserId=@Model.ComMessage.toUserID">Geri</a>
+        </div>
+    </div>
+   
+</div>

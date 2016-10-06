@@ -1,0 +1,50 @@
+﻿@model Emsal.AdminUI.Models.Organisation
+@{
+    ViewBag.Title = "UserRoles";
+    Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3>İstifadəçi rolları</h3>
+                    @*<h3 class="box-title col-md-12">EnumCategory <a class="btn btn-primary pull-right" href="@Url.Action("Create","EnumCategory")"><span class="glyphicon glyphicon-plus"></span> Əlavə et</a></h3>*@
+                </div>
+                <div class="box-body table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>
+                                <label>İstifadəçi adı</label>
+                            </th>
+                            <th>
+                                <label>İstifadəçi rolları</label>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>@Model.User.Username</td>
+
+                            <td>
+                                @{
+                                    foreach (var item in Model.UserRoles)
+                                    {
+                                        <span class="badge bg-info">@item.Description&thinsp;</span><a href="/RoleManagement/Delete?userId=@Model.User.Id&roleId=@item.Id" class="badge bg-red" title="Rolu sil">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </a><br /><br />
+                                    }
+                                }
+                            </td>
+                             <td>
+                                 <a class="btn btn-primary pull-right" href="/RoleManagement/AddUserRole?userId=@Model.User.Id"><span class="glyphicon glyphicon-plus"></span>Rol əlavə et</a>
+                             </td>
+                        </tr>
+
+                       
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

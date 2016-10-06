@@ -1,0 +1,290 @@
+﻿@model Emsal.AdminUI.Models.Organisation
+@{
+    ViewBag.Title = "AddGovOrganisationInfo";
+    Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
+}
+<style>
+    .required:after {
+        content: " *";
+        color: #e32;
+        display: inline;
+    }
+</style>
+
+<div class="clearfix" style="height:50px;"></div>
+<div class="container">
+    <div class="col-md-10 col-md-offset-1" style="box-shadow:1px 1px 2px 3px #ddd;">
+        <h3>Qeydiyyatdan Keçin</h3>
+        @{
+            if (TempData["ChildOrganisationExists"] != null)
+            {
+                <h4 style="color:red">Bu istifadəçi sistemdə mövcuddur.</h4>
+            }
+        }
+        @using (Html.BeginForm("AddGovOrganisation", "GovernmentOrganisation", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ParentOrganisationId)
+
+            <div class="well" style="margin:8px; font-size:11px">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Voen, htmlAttributes: new { @class = "control-label required" })
+                            @Html.TextBoxFor(x => x.Voen, new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessageFor(x => x.Voen, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            @Html.LabelFor(x => x.UserName, htmlAttributes: new { @class = "control-label required" })
+                            @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Password, htmlAttributes: new { @class = "control-label required" })
+                            @Html.TextBoxFor(x => x.Password, new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Email, htmlAttributes: new { @class = "control-label required" })
+                            @Html.TextBoxFor(x => x.Email, new { @class = "form-control", required = "required", type = "email" })
+                            @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" style="padding:5px;">
+                            <label class="required">Təşkilatın Adı</label>
+                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <h3>Təşkilatın Yerləşdiyi Ünvan</h3>
+            <div class="well" style="margin:8px;font-size:11px">
+                <div class="row">
+                    <div class="form-group" id="AdminUnit">
+                        <script>
+                            $(document).ready(function () {
+                                $.ajax({
+                                    url: '/GovernmentOrganisation/AdminUnit?pId=0',
+                                    type: 'GET',
+                                    success: function (result) {
+                                        $('#AdminUnit').html(result);
+
+                                        $("select[name='adId[0]']").change();
+                                    },
+                                    error: function () {
+
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <h3>Məsul Şəxsin Məlumatları</h3>
+            <div class="well" style="margin:8px; font-size:11px">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" style="padding:5px;">
+                            <label class="labelEdit required">Məsul Şəxsin Fini</label>
+                            @Html.TextBoxFor(x => x.Pin, new { @class = "form-control", id = "pin" })
+                            @Html.ValidationMessageFor(x => x.Pin, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" style="padding:5px">
+                            <label class="labelEdit required">Adı</label>
+                            @Html.TextBoxFor(x => x.ManagerName, new { @class = "form-control", id = "name" })
+                            @Html.ValidationMessageFor(x => x.ManagerName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" style="padding:5px">
+                            <label class="labelEdit required">Soyadı</label>
+                            @Html.TextBoxFor(x => x.Surname, new { @class = "form-control", id = "surname" })
+                            @Html.ValidationMessageFor(x => x.Surname, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" style="padding:5px;">
+                            <label class="labelEdit required">Ata adı</label>
+                            @Html.TextBoxFor(x => x.FatherName, new { @class = "form-control", id = "fatherName" })
+                            @Html.ValidationMessageFor(x => x.FatherName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" style="padding:5px; font-size:10px">
+                            @Html.LabelFor(x => x.ManagerEmail, new { @class = "control-label required" })
+                            @Html.TextBoxFor(x => x.ManagerEmail, new { @class = "form-control", type = "email" })
+                            @Html.ValidationMessageFor(x => x.ManagerEmail, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                   
+                  
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.ManagerWorkPhone, new { @class = "control-label required" })
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <select class="form-control" name="workPhonePrefix">
+                                        <option value="">Seçim edin</option>
+                                        @foreach (var item in Model.WorkPhonePrefixList)
+                                        {
+                                            <option value="@item.name">@item.description (@item.name)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ManagerWorkPhone, new { @class = "form-control numbersOnly" })
+                                    @Html.ValidationMessageFor(x => x.ManagerWorkPhone, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.ManagerMobilePhone, new { @class = "control-label" })
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <select class="form-control" name="mobilePhonePrefix">
+                                        <option value="">Seçim edin</option>
+                                        @foreach (var item in Model.MobilePhonePrefixList)
+                                        {
+                                            <option value="@item.name">@item.description</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ManagerMobilePhone, new { @class = "form-control numbersOnly" })
+                                    @Html.ValidationMessageFor(x => x.ManagerMobilePhone, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" style="padding:5px">
+                            <label class="labelEdit required">Doğum Tarixi</label>
+                            @Html.TextBoxFor(x => x.Birthday, new { @class = "form-control datepicker" })
+                            @Html.ValidationMessageFor(x => x.Birthday, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" style="padding:5px">
+                            <label class="required">Cinsi</label>
+                            <select class="form-control" id="Gender" name="Gender">
+                                <option>Cinsi Seçin</option>
+                                <option>Kişi</option>
+                                <option>Qadın</option>
+                            </select>
+                            <span id="GenderAlert" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" style="padding:5px">
+                            <label>Təhsili</label>
+                            <select class="form-control" id="education" name="Education">
+                                <option>Təhsil Seçin</option>
+                                @{
+                                    if (Model != null)
+                                    {
+                                        foreach (var item in Model.EducationList)
+                                        {
+                                            <option>
+                                                @item.name
+                                            </option>
+                                        }
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" style="padding:5px">
+                            <label>Vəzifəsi</label>
+                            <select class="form-control" id="Job" name="Job">
+                                <option>Vəzifə seçin</option>
+                                @{
+                                    if (Model != null)
+                                    {
+                                        foreach (var item in Model.JobList)
+                                        {
+                                            <option>
+                                                @item.name
+                                            </option>
+                                        }
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-2 col-md-offset-4" style="margin-bottom:20px; padding:5px">
+                <a class="btn btn-primary" href="/GovernmentOrganisation/Index">İmtina Et</a>
+            </div>
+            <div class="col-md-2" style="margin-bottom:20px; padding:5px">
+                <input type="submit" class="btn btn-success" value="Davam Et" id="sendGovOrganisationInfo" />
+            </div>
+                                    }
+    </div>
+
+</div>
+
+<script>
+    function GetAdminUnit(elem) {
+        pId = $(elem).val();
+        $(elem).parent().nextAll().remove();
+
+        if (pId > 0) {
+            $.ajax({
+                url: '/GovernmentOrganisation/AdminUnit?pId=' + pId,
+                type: 'GET',
+                //data: { "pId": appId},
+                success: function (result) {
+                    $('#addressId').val(pId);
+                    $(elem).parent().parent().append(result);
+
+                    $('.select2').select2();
+                },
+                error: function () {
+
+                }
+            });
+        }
+    }
+</script>
+
+<script>
+    $("#sendGovOrganisationInfo").on("click", function (e) {
+        if ($("#Gender").val() === "Cinsi Seçin") {
+            $("#GenderAlert").html("Məsul Şəxsin cinsi seçilməmişdir")
+            e.preventDefault();
+        }
+    })
+</script>

@@ -1,3 +1,24 @@
+function resetStaticVariables() {
+    var str = window.location.pathname;
+    var res = str.split("/");
+
+    if (res[1] != 'PotentialClient') {
+        $.ajax({
+            url: '/PotentialClient/ResetStaticVariables',
+            type: 'GET',
+            success: function (result) {
+            },
+            error: function () {
+            }
+        });
+    }
+}
+
+$(document).ready(function () {
+    resetStaticVariables();
+});
+
+
 var allowfiletype = ["image/jpeg", "application/pdf"];
 var ftypes = ".pdf, .jpeg, .jpg";
 var tfilefieldtemplate;

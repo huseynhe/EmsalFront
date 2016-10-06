@@ -1,0 +1,159 @@
+﻿@model Emsal.AdminUI.Models.AnnouncementViewModel
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var i = 0;
+    int q = 0;
+}
+<p>
+
+</p>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    @if (Model.startDate != null) {
+                       @*<h3 class="box-title col-md-12">
+                          Tarix atalığı: ( @Html.DisplayFor(mi=>Model.startDate) - @Html.DisplayFor(mi => Model.endDate) )
+                       </h3>*@
+                        <h3 class="box-title col-md-12">
+                          Cari vaxt üçün elanlar
+                       </h3>
+                    }
+                </div>
+
+                <div class="box-body">
+                    @using (Html.BeginForm("Index", "Announcement", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        if (Model.startDate == null) { 
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.startDate, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.startDate, new { @class = "form-control", required = "required" })
+                                @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.endDate, new { @class = "form-control", required = "required"})
+                                @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="startDate" class="control-label">&nbsp;</label>
+                            <div class="clearfix"></div>
+                            <button class="btn btn-danger" type="submit">
+                                <i class="glyphicon glyphicon-search"></i>&nbsp;Axtar
+                            </button>
+                        </div>
+                        <br />
+                        }
+                        else
+                        {
+                            @Html.HiddenFor(model => model.startDate)
+                            @Html.HiddenFor(model => model.endDate)
+                        }
+                    <div class="clearfix"></div>
+
+                    if (Model.DemanProductionGroupList.Count()>0) { 
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.productName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.totalQuantity)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.quantityName)
+                                </th>
+                                <th>                                  
+                                    @Html.DisplayNameFor(model => model.unitPrice)
+                                </th>
+                                <th class="col-sm-2">                                   
+                                     @Html.DisplayNameFor(model => model.arrayStartDate)
+                                </th>
+                                <th class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.arrayEndDate)
+                                </th>
+                            </tr>
+
+
+                            @foreach (var item in Model.DemanProductionGroupList)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.productId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.productName) (@Html.DisplayFor(modelItem => item.productParentName))
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.totalQuantity)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.enumValueName)
+                                    </td>
+                                    <td>
+                                        @if (item.unitPrice > 0)
+                                        {
+                                            @Html.DisplayFor(modelItem => item.unitPrice)
+                                        }else
+                                        {
+                                            <span class="text-danger">qiymət təyin olumayıb</span>
+                                            q = 1;
+                                        }
+
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="datetime" value="" name="arrayStartDate[@i]" id="startDate" required data-val="true" class="text-box single-line" readonly="readonly">
+                                            <span data-valmsg-replace="true" data-valmsg-for="arrayStartDate[@i]" class="field-validation-error text-danger"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="datetime" value="" name="arrayEndDate[@i]" id="startDate" required data-val="true" class="text-box single-line" readonly="readonly">
+                                            <span data-valmsg-replace="true" data-valmsg-for="arrayEndDate[@i]" class="field-validation-error text-danger"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                i = i + 1;
+                            }
+                        </table>
+
+                    <input style="opacity:0;" name="approv" value="1">
+                    <div class="col-md-12">
+                            <label for="startDate" class="control-label">&nbsp;</label>
+                            <div class="clearfix"></div>
+                        @if (q == 0)
+                        {
+                            <button class="btn btn-success active pull-right" type="submit">
+                                <i class="glyphicon glyphicon-check"></i>&nbsp;Elan ver
+                            </button>
+                        }
+                        else
+                        {
+                            <span class="text-danger text-bold">Qeyd: Qiyməti təyin olunmayan məsullar olduğuna görə elan verə bilməyəcəksiniz. </span>
+                            <a style="" href="/ProductPrice">
+                                Məhsullara cari rüb üçün qiymət təyin et
+                            </a>
+                        }
+                        </div>
+                        <br />
+                        }
+                    }
+                </div>
+            </div>
+</div>
+</div>
+</section>

@@ -1,0 +1,127 @@
+﻿@model Emsal.UI.Models.User
+
+@{
+    ViewBag.Title = "Index";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Potensial Müşteri Elave Et</title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="~/Content/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="~/Content/css/jumbotron.css" rel="stylesheet">
+    <link href="~/Content/css/style.css" rel="stylesheet">
+
+    <link href="~/Content/css/owl.carousel.css" rel="stylesheet">
+    <link href="~/Content/css/owl.theme.css" rel="stylesheet">
+    <link href="~/Content/css/ihover.css" rel="stylesheet">
+    <link href="~/Content/css/js-image-slider.css" rel="stylesheet">
+    <link href="~/Content/css/ddmenu.css" rel="stylesheet">
+
+    <!-- Bootstrap core JS -->
+
+    <script src="~/Content/js/jquery-1.12.3.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="~/Content/js/ie-emulation-modes-warning.js"></script>
+
+    <script src="~/Content/js/owl.carousel.js"></script>
+    <script src="~/Content/js/ddmenu.js"></script>
+    <script src="~/Content/js/jssor.slider.mini.js"></script>
+    <script src="~/Content/js/js-image-slider.js"></script>
+
+    <script src="~/Content/js/emsal.js"></script>
+    <script src="~/Content/js/addPotentialUser.js"></script>
+
+
+</head>
+<body>
+    <div class="container col-md-6 col-md-offset-3" style="border-radius: 5px; margin-top: 30px; margin-bottom:30px; box-shadow:1px 1px 2px 3px #ddd">
+        <br /><br /><br />
+
+        <h2 style="text-align:center">İstifadəçi Əlavə et</h2>
+        <br /><br /><br />
+        @using (Html.BeginForm("AddPotentialClient", "AsanXidmetSpecialSummary", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="form-group">
+                @Html.LabelFor(x => x.UserName)
+                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", id = "username" })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+            <p class="text-danger" id="usernameAlert"></p><br />
+
+            <div class="form-group">
+                <label>Şəxsin növü</label>
+                <select class="form-control" id="userType" name="UserType">
+                    @foreach (var item in Model.UserTypeList)
+                    {
+                        <option>@item.name</option>
+                    }
+                </select>
+            </div>
+
+
+            <div class="form-group" id="pinDiv">
+                @Html.LabelFor(x => x.Pin)
+                @Html.TextBoxFor(x => x.Pin, new { @class = "form-control", id = "pin" })
+                @Html.ValidationMessageFor(model => model.Pin, "", new { @class = "text-danger" })
+            </div>
+            <p class="text-danger" id="pinAlert"></p><br />
+            <div class="form-group" style="display:none" id="voenDiv">
+                @Html.LabelFor(x => x.Voen)
+                @Html.TextBoxFor(x => x.Voen, new { @class = "form-control", id = "pin" })
+                @Html.ValidationMessageFor(model => model.Voen, "", new { @class = "text-danger" })
+            </div>
+            <p class="text-danger" id="voenAlert"></p><br />
+            <div class="form-group">
+                @Html.LabelFor(x => x.Password)
+                @Html.PasswordFor(x => x.Password, new { @class = "form-control", id = "password", autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+            <p class="text-danger" id="passwordAlert"></p><br />
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Email)
+                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", id = "email" })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+            <p class="text-danger" id="emailAlert"></p><br />
+
+            <div>
+                <input type="submit" class="btn btn-success" value="Davam et" id="sendInfo" />
+            </div>
+        }
+        <div class="clearfix" style="height: 200px;"></div>
+    </div>
+
+    <script>
+        $("#userType").on("change", function () {
+            if ($("#userType").val() == "legalPerson") {
+                $("#voenDiv").css("display", "block");
+                $("#pinDiv").css("display", "none");
+            }
+            else {
+                $("#voenDiv").css("display", "none");
+                $("#pinDiv").css("display", "block");
+            }
+        })
+    </script>
+
+
+</body>
+
+
+
+</html>

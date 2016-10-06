@@ -248,7 +248,7 @@ namespace Emsal.AdminUI.Controllers
 
             model.ConfirmationMessage.Message = model.message;
 
-            BaseOutput pout = srv.WS_SendConfirmationMessage(baseInput, model.ConfirmationMessage);
+            //BaseOutput pout = srv.WS_SendConfirmationMessage(baseInput, model.ConfirmationMessage);
 
 
             model.OfferProduction = new tblOffer_Production();

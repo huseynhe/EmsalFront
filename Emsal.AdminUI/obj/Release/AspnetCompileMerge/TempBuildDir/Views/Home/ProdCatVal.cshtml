@@ -1,0 +1,88 @@
+﻿@model Emsal.AdminUI.Models.ProductCatalogViewModel
+
+@{
+    ViewBag.Title = "Indexm";
+    Layout = "";
+}
+
+                <div class="checkbox">
+                    @{
+                        int p = 0;
+                        int l = 0;
+                    }
+                    @foreach (var item in Model.EnumCategoryList)
+                    {
+                    <div class="col-sm-4" style="background:#fafafa;border-radius:5px;border:2px solid #fff;">
+                        
+                        <label>
+                            @if (Model.ProductCatalogControlList.Select(x => x.EnumCategoryId).ToList().Contains(item.Id))
+                            {
+                            <input checked name="chmain@{ @p }" onclick="chcheck(this)" value="@item.Id" type="checkbox">
+                            }
+                            else
+                            {
+                            <input name="chmain@{ @p }" onclick="chcheck(this)" value="@item.Id" type="checkbox">
+                            }
+                            @item.description
+                        </label>
+                        
+                        <br />
+
+                        @foreach (var item2 in Model.EnumValueList)
+                        {     
+                       
+                            if (item2.enumCategory_enumCategoryId == item.Id)
+                            {
+                                <div class="col-sm-12">
+                                <label>
+                            @if (Model.ProductCatalogControlList.Select(x => x.EnumValueId).ToList().Contains(item2.Id))
+                            {                     
+                            <input checked  name="chchield@{ @p }[]" class="ch" value="@item2.Id" type="checkbox">
+                             }else
+                             {
+                                  <input  name="chchield@{ @p }[]" class="ch" value="@item2.Id" type="checkbox">
+                            }
+                                    
+                            @item2.name
+                        </label>
+                                    </div>
+                            }
+                        }
+                    </div>              
+                                          if(l==2)
+                                          {
+                                              <div class="clearfix"></div><br />
+                                              l = 0;
+                                          }
+                                          p = p + 1;
+                                          l = l + 1;
+                                      }
+                    <input hidden value="@p" id="chinput" />
+                </div>
+
+
+
+@if (Model.ProductDocument != null)
+{
+    <hr />
+    <div class="clearfix"></div><br />
+    <label class="col-sm-12">Profil şəkli</label>
+    <img class="img-responsive" src="@Model.ProductDocument.documentUrl@Model.ProductDocument.documentName" />
+    <hr />
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

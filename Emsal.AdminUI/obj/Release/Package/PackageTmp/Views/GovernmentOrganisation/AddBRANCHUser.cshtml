@@ -1,0 +1,269 @@
+﻿@model Emsal.AdminUI.Models.Organisation
+@{
+    ViewBag.Title = "AddASCUser";
+    Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
+}
+<div class="clearfix" style="height:50px;"></div>
+<div class="container">
+    <div class="col-md-10 col-md-offset-1" style="box-shadow:1px 1px 2px 3px #ddd;">
+
+        <h2 style="text-align:center">İstifadəçi əlavə et</h2>
+        <br />
+        @using (Html.BeginForm("AddBRANCHUser", "GovernmentOrganisation", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+            @Html.HiddenFor(x => x.userType)
+            <input type="hidden" value="@Model.userType" id="branchType" />
+
+            <div class="well" style="margin:8px; font-size:11px">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" id="asc" style="padding:5px;display:none">
+                            <label>ASC</label>
+                            <select name="ASCId" class="form-control">
+                                <option>Seçim edin</option>
+                                @foreach (var item in Model.ASCBranchArray)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group" id="ktn" style="padding:5px;display:none">
+                            <label>KTN</label>
+                            <select name="KTNId" class="form-control">
+                                <option>Seçim edin</option>
+                                @foreach (var item in Model.KTNBranchArray)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.UserName)
+                            @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", id = "username" })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Password)
+                            @Html.PasswordFor(x => x.Password, new { @class = "form-control", id = "password", autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Email)
+                            @Html.TextBoxFor(x => x.Email, new { @class = "form-control", id = "email", type = "email" })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" id="pinDiv">
+                            @Html.LabelFor(x => x.Pin)
+                            @Html.TextBoxFor(x => x.Pin, new { @class = "form-control", id = "pin" })
+                            @Html.ValidationMessageFor(x => x.Pin, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" style="padding:5px">
+                            <label>Adı</label>
+                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control", id = "name" })
+                            @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" style="padding:5px">
+                            @Html.LabelFor(x => x.Surname)
+                            @Html.TextBoxFor(x => x.Surname, new { @class = "form-control", id = "surname" })
+                            @Html.ValidationMessageFor(x => x.Surname, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" style="padding:5px">
+                            @Html.LabelFor(x => x.FatherName)
+                            @Html.TextBoxFor(x => x.FatherName, new { @class = "form-control", id = "fathername" })
+                            @Html.ValidationMessageFor(x => x.FatherName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" style="padding:5px">
+                            <label>Doğum Tarixi</label>
+                            @Html.TextBoxFor(x => x.Birthday, new { @class = "form-control datepicker" })
+                            @Html.ValidationMessageFor(x => x.Birthday, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group" style="padding:5px">
+                            <label>Cinsi</label>
+                            <select class="form-control" id="Gender" name="Gender">
+                                <option>Cinsi Seçin</option>
+                                <option>Kişi</option>
+                                <option>Qadın</option>
+                            </select>
+                        </div>
+                        <p class="text-danger" id="genderAlert"></p><br />
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <div class="well" style="margin:8px;font-size:11px">
+                <div class="row">
+                    <h4 style="margin-left:10px">Ünvan Məlumatları</h4>
+                    <div class="form-group" id="AdminUnit">
+                        <script>
+                            $(document).ready(function () {
+                                $.ajax({
+                                    url: '/GovernmentOrganisation/AdminUnit?pId=0',
+                                    type: 'GET',
+                                    success: function (result) {
+                                        $('#AdminUnit').html(result);
+
+                                        $("select[name='adId[0]']").change();
+                                    },
+                                    error: function () {
+
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+
+                </div>
+            </div>
+            <div class="well" style="margin:8px;font-size:11px">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" style="padding:5px">
+                            <label>Təhsil</label>
+                            <select class="form-control" id="education" name="Education">
+                                <option>Təhsil Seçin</option>
+                                @{
+                                    if (Model != null)
+                                    {
+                                        foreach (var item in Model.EducationList)
+                                        {
+                                            <option>@item.name</option>
+                                        }
+                                    }
+
+                                }
+                            </select>
+                            <p class="text-danger" id="educationAlert"></p><br />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group" style="padding:5px">
+                            <label>İş</label>
+                            <select class="form-control" id="Job" name="Job">
+                                <option>İş seçin</option>
+                                @{
+                                    if (Model != null)
+                                    {
+                                        foreach (var item in Model.JobList)
+                                        {
+                                            <option>@item.name</option>
+                                        }
+                                    }
+
+                                }
+                            </select>
+                            <p class="text-danger" id="jobAlert"></p><br />
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-2 col-md-offset-4">
+                @{
+                    if (Model.userType == "asc")
+                    {
+                        <a class="btn btn-primary" href="/GovernmentOrganisation/ASCUsers">İmtina Et</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary" href="/GovernmentOrganisation/KTNUsers">İmtina Et</a>
+                    }
+                }
+
+            </div>
+            <div class="col-md-6">
+                <input type="submit" class="btn btn-success" value="Davam Et" id="sendInfo" />
+            </div>
+            <div class="clearfix" style="height: 200px;"></div>
+
+                    }
+        <div class="clearfix" style="height: 200px;"></div>
+    </div>
+
+
+
+</div>
+
+<script>
+    function GetAdminUnit(elem) {
+        pId = $(elem).val();
+        $(elem).parent().nextAll().remove();
+
+        if (pId > 0) {
+            $.ajax({
+                url: '/GovernmentOrganisation/AdminUnit?pId=' + pId,
+                type: 'GET',
+                //data: { "pId": appId},
+                success: function (result) {
+                    $('#addressId').val(pId);
+                    $(elem).parent().parent().append(result);
+
+                    $('.select2').select2();
+                },
+                error: function () {
+
+                }
+            });
+        }
+    }
+</script>
+
+<script>
+    if ($("#branchType").val() == "asc") {
+        $("#asc").css("display", "block");
+        $("#ktn").css("display", "none");
+    }
+    if ($("#branchType").val() == "ktn") {
+        $("#ktn").css("display", "block");
+        $("#asc").css("display", "none");
+    }
+
+
+
+    $("#sendInfo").on("click", function (e) {
+        if ($("#userType").val() === "İstifadəçi növü") {
+            e.preventDefault();
+
+            $("form p").html("");
+
+            if ($("#userType").val() === "İstifadəçi növü") {
+                $("#userTypeAlert").html("İstifadəçi növü seçilməmişdir");
+            }
+
+        }
+    })
+</script>
