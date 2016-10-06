@@ -1954,17 +1954,17 @@
   <wsdl:message name="IEmsalService_WS_UpdateProductCatalog_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_UpdateProductCatalogResponse" />
   </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_SendConfirmationMessage_InputMessage">
-    <wsdl:part name="parameters" element="tns:WS_SendConfirmationMessage" />
-  </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_SendConfirmationMessage_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WS_SendConfirmationMessageResponse" />
-  </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetConfirmationMessages_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetConfirmationMessages" />
   </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetConfirmationMessages_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetConfirmationMessagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_SendConfirmationMessageNew_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_SendConfirmationMessageNew" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_SendConfirmationMessageNew_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_SendConfirmationMessageNewResponse" />
   </wsdl:message>
   <wsdl:message name="IEmsalService_WS_AddCommunication_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_AddCommunication" />
@@ -3269,13 +3269,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_UpdateProductCatalog" message="tns:IEmsalService_WS_UpdateProductCatalog_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_UpdateProductCatalogResponse" message="tns:IEmsalService_WS_UpdateProductCatalog_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="WS_SendConfirmationMessage">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_SendConfirmationMessage" message="tns:IEmsalService_WS_SendConfirmationMessage_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_SendConfirmationMessageResponse" message="tns:IEmsalService_WS_SendConfirmationMessage_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="WS_GetConfirmationMessages">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetConfirmationMessages" message="tns:IEmsalService_WS_GetConfirmationMessages_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetConfirmationMessagesResponse" message="tns:IEmsalService_WS_GetConfirmationMessages_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_SendConfirmationMessageNew">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_SendConfirmationMessageNew" message="tns:IEmsalService_WS_SendConfirmationMessageNew_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_SendConfirmationMessageNewResponse" message="tns:IEmsalService_WS_SendConfirmationMessageNew_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="WS_AddCommunication">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_AddCommunication" message="tns:IEmsalService_WS_AddCommunication_InputMessage" />
@@ -6200,8 +6200,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="WS_SendConfirmationMessage">
-      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_SendConfirmationMessage" style="document" />
+    <wsdl:operation name="WS_GetConfirmationMessages">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetConfirmationMessages" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6209,8 +6209,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="WS_GetConfirmationMessages">
-      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetConfirmationMessages" style="document" />
+    <wsdl:operation name="WS_SendConfirmationMessageNew">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_SendConfirmationMessageNew" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

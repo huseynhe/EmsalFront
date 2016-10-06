@@ -1244,7 +1244,7 @@ namespace Emsal.UI.Controllers
                 int reqem = rnd.Next(100000, 1000000);
                 ConfirmationMessage.Message = reqem.ToString();
 
-                //BaseOutput pout = srv.WS_SendConfirmationMessage(baseinput, ConfirmationMessage);
+                BaseOutput pout = srv.WS_SendConfirmationMessageNew(baseinput, ConfirmationMessage, out ConfirmationMessage);
                 SendMail(ConfirmationMessage.Message);
                 return true;
             }

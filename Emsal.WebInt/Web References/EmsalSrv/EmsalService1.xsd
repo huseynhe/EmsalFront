@@ -5105,49 +5105,50 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="WS_SendConfirmationMessage">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q1051="http://schemas.datacontract.org/2004/07/Emsal.DAL.CodeObjects" minOccurs="0" name="baseinput" nillable="true" type="q1051:BaseInput" />
-        <xs:element xmlns:q1052="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="message" nillable="true" type="q1052:tblConfirmationMessage" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="WS_SendConfirmationMessageResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q1053="http://schemas.datacontract.org/2004/07/Emsal.DAL.CodeObjects" minOccurs="0" name="WS_SendConfirmationMessageResult" nillable="true" type="q1053:BaseOutput" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="WS_GetConfirmationMessages">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1054="http://schemas.datacontract.org/2004/07/Emsal.DAL.CodeObjects" minOccurs="0" name="baseinput" nillable="true" type="q1054:BaseInput" />
+        <xs:element xmlns:q1051="http://schemas.datacontract.org/2004/07/Emsal.DAL.CodeObjects" minOccurs="0" name="baseinput" nillable="true" type="q1051:BaseInput" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="WS_GetConfirmationMessagesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1055="http://schemas.datacontract.org/2004/07/Emsal.DAL.CodeObjects" minOccurs="0" name="WS_GetConfirmationMessagesResult" nillable="true" type="q1055:BaseOutput" />
-        <xs:element xmlns:q1056="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="confirmationMessages" nillable="true" type="q1056:ArrayOftblConfirmationMessage" />
+        <xs:element xmlns:q1052="http://schemas.datacontract.org/2004/07/Emsal.DAL.CodeObjects" minOccurs="0" name="WS_GetConfirmationMessagesResult" nillable="true" type="q1052:BaseOutput" />
+        <xs:element xmlns:q1053="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="confirmationMessages" nillable="true" type="q1053:ArrayOftblConfirmationMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="WS_SendConfirmationMessageNew">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1054="http://schemas.datacontract.org/2004/07/Emsal.DAL.CodeObjects" minOccurs="0" name="baseinput" nillable="true" type="q1054:BaseInput" />
+        <xs:element xmlns:q1055="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="message" nillable="true" type="q1055:tblConfirmationMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="WS_SendConfirmationMessageNewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1056="http://schemas.datacontract.org/2004/07/Emsal.DAL.CodeObjects" minOccurs="0" name="WS_SendConfirmationMessageNewResult" nillable="true" type="q1056:BaseOutput" />
+        <xs:element xmlns:q1057="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="messagenOut" nillable="true" type="q1057:tblConfirmationMessage" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="WS_AddCommunication">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1057="http://schemas.datacontract.org/2004/07/Emsal.DAL.CodeObjects" minOccurs="0" name="baseinput" nillable="true" type="q1057:BaseInput" />
-        <xs:element xmlns:q1058="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="communication" nillable="true" type="q1058:tblCommunication" />
+        <xs:element xmlns:q1058="http://schemas.datacontract.org/2004/07/Emsal.DAL.CodeObjects" minOccurs="0" name="baseinput" nillable="true" type="q1058:BaseInput" />
+        <xs:element xmlns:q1059="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="communication" nillable="true" type="q1059:tblCommunication" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="WS_AddCommunicationResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1059="http://schemas.datacontract.org/2004/07/Emsal.DAL.CodeObjects" minOccurs="0" name="WS_AddCommunicationResult" nillable="true" type="q1059:BaseOutput" />
-        <xs:element xmlns:q1060="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="CommunicationOut" nillable="true" type="q1060:tblCommunication" />
+        <xs:element xmlns:q1060="http://schemas.datacontract.org/2004/07/Emsal.DAL.CodeObjects" minOccurs="0" name="WS_AddCommunicationResult" nillable="true" type="q1060:BaseOutput" />
+        <xs:element xmlns:q1061="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="CommunicationOut" nillable="true" type="q1061:tblCommunication" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

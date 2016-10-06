@@ -265,7 +265,7 @@ namespace Emsal.AdminUI.Controllers
                 model.ConfirmationMessage = new tblConfirmationMessage();
                 model.ConfirmationMessage.Message = model.message;
 
-                //BaseOutput pout = srv.WS_SendConfirmationMessage(baseInput, model.ConfirmationMessage);
+                BaseOutput pout = srv.WS_SendConfirmationMessageNew(baseInput, model.ConfirmationMessage, out model.ConfirmationMessage);
 
 
                 model.DemandProduction = new tblDemand_Production();

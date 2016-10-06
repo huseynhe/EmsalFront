@@ -677,9 +677,9 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private System.Threading.SendOrPostCallback WS_UpdateProductCatalogOperationCompleted;
         
-        private System.Threading.SendOrPostCallback WS_SendConfirmationMessageOperationCompleted;
-        
         private System.Threading.SendOrPostCallback WS_GetConfirmationMessagesOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_SendConfirmationMessageNewOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_AddCommunicationOperationCompleted;
         
@@ -1694,10 +1694,10 @@ namespace Emsal.WebInt.EmsalSrv {
         public event WS_UpdateProductCatalogCompletedEventHandler WS_UpdateProductCatalogCompleted;
         
         /// <remarks/>
-        public event WS_SendConfirmationMessageCompletedEventHandler WS_SendConfirmationMessageCompleted;
+        public event WS_GetConfirmationMessagesCompletedEventHandler WS_GetConfirmationMessagesCompleted;
         
         /// <remarks/>
-        public event WS_GetConfirmationMessagesCompletedEventHandler WS_GetConfirmationMessagesCompleted;
+        public event WS_SendConfirmationMessageNewCompletedEventHandler WS_SendConfirmationMessageNewCompleted;
         
         /// <remarks/>
         public event WS_AddCommunicationCompletedEventHandler WS_AddCommunicationCompleted;
@@ -12591,38 +12591,6 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_SendConfirmationMessage", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public BaseOutput WS_SendConfirmationMessage([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblConfirmationMessage message) {
-            object[] results = this.Invoke("WS_SendConfirmationMessage", new object[] {
-                        baseinput,
-                        message});
-            return ((BaseOutput)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void WS_SendConfirmationMessageAsync(BaseInput baseinput, tblConfirmationMessage message) {
-            this.WS_SendConfirmationMessageAsync(baseinput, message, null);
-        }
-        
-        /// <remarks/>
-        public void WS_SendConfirmationMessageAsync(BaseInput baseinput, tblConfirmationMessage message, object userState) {
-            if ((this.WS_SendConfirmationMessageOperationCompleted == null)) {
-                this.WS_SendConfirmationMessageOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_SendConfirmationMessageOperationCompleted);
-            }
-            this.InvokeAsync("WS_SendConfirmationMessage", new object[] {
-                        baseinput,
-                        message}, this.WS_SendConfirmationMessageOperationCompleted, userState);
-        }
-        
-        private void OnWS_SendConfirmationMessageOperationCompleted(object arg) {
-            if ((this.WS_SendConfirmationMessageCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.WS_SendConfirmationMessageCompleted(this, new WS_SendConfirmationMessageCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetConfirmationMessages", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public BaseOutput WS_GetConfirmationMessages([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblConfirmationMessage[] confirmationMessages) {
@@ -12650,6 +12618,39 @@ namespace Emsal.WebInt.EmsalSrv {
             if ((this.WS_GetConfirmationMessagesCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.WS_GetConfirmationMessagesCompleted(this, new WS_GetConfirmationMessagesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_SendConfirmationMessageNew", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_SendConfirmationMessageNew([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblConfirmationMessage message, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblConfirmationMessage messagenOut) {
+            object[] results = this.Invoke("WS_SendConfirmationMessageNew", new object[] {
+                        baseinput,
+                        message});
+            messagenOut = ((tblConfirmationMessage)(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_SendConfirmationMessageNewAsync(BaseInput baseinput, tblConfirmationMessage message) {
+            this.WS_SendConfirmationMessageNewAsync(baseinput, message, null);
+        }
+        
+        /// <remarks/>
+        public void WS_SendConfirmationMessageNewAsync(BaseInput baseinput, tblConfirmationMessage message, object userState) {
+            if ((this.WS_SendConfirmationMessageNewOperationCompleted == null)) {
+                this.WS_SendConfirmationMessageNewOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_SendConfirmationMessageNewOperationCompleted);
+            }
+            this.InvokeAsync("WS_SendConfirmationMessageNew", new object[] {
+                        baseinput,
+                        message}, this.WS_SendConfirmationMessageNewOperationCompleted, userState);
+        }
+        
+        private void OnWS_SendConfirmationMessageNewOperationCompleted(object arg) {
+            if ((this.WS_SendConfirmationMessageNewCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_SendConfirmationMessageNewCompleted(this, new WS_SendConfirmationMessageNewCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -36417,32 +36418,6 @@ namespace Emsal.WebInt.EmsalSrv {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    public delegate void WS_SendConfirmationMessageCompletedEventHandler(object sender, WS_SendConfirmationMessageCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class WS_SendConfirmationMessageCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal WS_SendConfirmationMessageCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public BaseOutput Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((BaseOutput)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
     public delegate void WS_GetConfirmationMessagesCompletedEventHandler(object sender, WS_GetConfirmationMessagesCompletedEventArgs e);
     
     /// <remarks/>
@@ -36471,6 +36446,40 @@ namespace Emsal.WebInt.EmsalSrv {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((tblConfirmationMessage[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_SendConfirmationMessageNewCompletedEventHandler(object sender, WS_SendConfirmationMessageNewCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_SendConfirmationMessageNewCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_SendConfirmationMessageNewCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblConfirmationMessage messagenOut {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblConfirmationMessage)(this.results[1]));
             }
         }
     }
