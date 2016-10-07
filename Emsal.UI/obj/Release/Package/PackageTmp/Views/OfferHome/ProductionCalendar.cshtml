@@ -1,0 +1,67 @@
+﻿
+@model Emsal.UI.Models.ProductCatalogViewModel
+
+@{
+    ViewBag.Title = "ProductionCalendar";
+    Layout = "";
+    decimal tquantity = 0;
+}
+
+@if (Model.LProductionCalendarDetailList.Count() > 0)
+{
+
+        <table class="table" style="margin:0;">
+            <tbody>
+            <tr>
+                <th>tipi</th>
+                <th>il</th>
+                <th>ay</th>
+                <th>miqdar</th>
+                <th>miqdar (cəmi)</th>
+                <th>qiymət</th>
+            </tr>
+            @{
+                foreach (var item in Model.LProductionCalendarDetailList)
+                {
+                    tquantity = ((decimal)item.quantity * (decimal)item.transportation_eV_Id);
+                    <tr>
+                        <td>
+                            @if (item.TypeDescription != null)
+                                {
+                                    <span>@item.TypeDescription</span>
+                                }
+                        </td>
+                        <td> @item.year </td>
+                        <td> @item.MonthDescription</td>
+                        <td> 
+                            @if ((decimal)Math.Round(item.quantity, 2) > (int)item.quantity)
+                            {
+                                @item.quantity
+                            }
+                            else
+                            {
+                                long qi = (int)Math.Round(item.quantity, 0);
+                                <span>@qi</span>
+                            }
+
+                         </td>
+                        <td> 
+                            @if ((decimal)Math.Round(tquantity, 2) > (int)tquantity)
+                            {
+                                @tquantity
+                            }
+                            else
+                            {
+                                long qi = (int)Math.Round(tquantity, 0);
+                                <span>@qi</span>
+                            }
+                        
+                        </td>
+                        <td> @item.price</td>
+                    </tr>
+                }
+            }
+                </tbody>
+        </table>
+
+                }
