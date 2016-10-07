@@ -733,7 +733,7 @@ namespace Emsal.UI.Controllers
                     BaseOutput Production = srv.WS_GetPotential_ProductionById(baseInput, model.ppId, true, out modelOfferProduction.PotentialProduction);
                     BaseOutput delet = srv.WS_DeletePotential_Production(baseInput, modelOfferProduction.PotentialProduction);
 
-                    return RedirectToAction("Index", "SpecialSummary");
+                    return RedirectToAction("Redirect", "Login");
                 }
                 else
                 {

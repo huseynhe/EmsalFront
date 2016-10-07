@@ -261,7 +261,7 @@ namespace Emsal.UI.Controllers
                 }
 
                 //Shekili saxlamaq ucun
-                string str = String.Format("{0:dd.MM.yyyy}", DateTime.ParseExact(model.birtday.ToString(), "yyyyMMdd", new CultureInfo("az-AZ")));
+                string str = String.Format("{0:dd.MM.yyyy}", DateTime.ParseExact(model.birtday.ToString(), "yyyyMMdd", new CultureInfo("az-Latn-AZ")));
                 string path = Server.MapPath("~/ContentProfile/personImage/") + "/" + str + "/";
 
                 if (!Directory.Exists(path))
@@ -1215,7 +1215,9 @@ namespace Emsal.UI.Controllers
                         //var decd = (decimal)731 / 1024;
                         //var fl = Math.Round(dec,2);
 
-                        if (attachfile != null && attachfile.ContentLength > 0 && attachfile.ContentLength <= modelPotentialProduction.fileSize && modelPotentialProduction.fileTypes.Contains(attachfile.ContentType))
+                        string fre = FileExtension.GetMimeType(attachfile.InputStream, attachfile.FileName);
+
+                        if (attachfile != null && attachfile.ContentLength > 0 && attachfile.ContentLength <= modelPotentialProduction.fileSize && modelPotentialProduction.fileTypes.Contains(fre))
                         {
                             var fileName = Path.GetFileName(attachfile.FileName);
                             var ofileName = fileName;

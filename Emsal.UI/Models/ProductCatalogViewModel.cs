@@ -22,6 +22,10 @@ namespace Emsal.UI.Models
         public tblProductCatalog[] ProductCatalogArray;
         public tblProductCatalog[] ProductCatalogArrayPC;
 
+        public ProductionCalendarDetail LProductionCalendarDetail;
+        public IList<ProductionCalendarDetail> LProductionCalendarDetailList { get; set; }
+        public ProductionCalendarDetail[] LProductionCalendarDetailArray;
+
         public tblAnnouncement Announcement;
         public IList<tblAnnouncement> AnnouncementList { get; set; }
         public tblAnnouncement[] AnnouncementArray;
@@ -140,6 +144,7 @@ namespace Emsal.UI.Models
         public string surname { get; set; }
         public string address { get; set; }
         public string products { get; set; }
+        public string pName { get; set; }
 
         public long arrNum = 0;
     }

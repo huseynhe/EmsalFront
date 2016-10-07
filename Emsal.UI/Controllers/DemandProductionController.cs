@@ -589,7 +589,7 @@ namespace Emsal.UI.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
-
+        
         [HttpPost]
         public ActionResult Index(DemandProductionViewModel model, FormCollection collection, IList<HttpPostedFileBase> attachfiles)
         {
@@ -667,8 +667,9 @@ namespace Emsal.UI.Controllers
 
                         foreach (var attachfile in attachfiles)
                         {
+                            string fre = FileExtension.GetMimeType(attachfile.InputStream, attachfile.FileName);
 
-                            if (attachfile != null && attachfile.ContentLength > 0 && attachfile.ContentLength <= modelDemandProduction.fileSize && modelDemandProduction.fileTypes.Contains(attachfile.ContentType))
+                            if (attachfile != null && attachfile.ContentLength > 0 && attachfile.ContentLength <= modelDemandProduction.fileSize && modelDemandProduction.fileTypes.Contains(fre))
                             {
                                 var fileName = Path.GetFileName(attachfile.FileName);
                                 var ofileName = fileName;
@@ -1513,8 +1514,8 @@ namespace Emsal.UI.Controllers
                         //var dec=(attachfile.ContentLength / 1024);
                         //var decd = (decimal)731 / 1024;
                         //var fl = Math.Round(dec,2);
-
-                        if (attachfile != null && attachfile.ContentLength > 0 && attachfile.ContentLength <= modelDemandProduction.fileSize && modelDemandProduction.fileTypes.Contains(attachfile.ContentType))
+                        string fre = FileExtension.GetMimeType(attachfile.InputStream, attachfile.FileName);
+                        if (attachfile != null && attachfile.ContentLength > 0 && attachfile.ContentLength <= modelDemandProduction.fileSize && modelDemandProduction.fileTypes.Contains(fre))
                         {
                             var fileName = Path.GetFileName(attachfile.FileName);
                             var ofileName = fileName;

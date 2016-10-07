@@ -25,22 +25,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/06/2016 15:18:53</publishTime>
     </File>
     <File Include="bin/Controllers/OfferProductionController.cs">
-      <publishTime>10/05/2016 12:08:21</publishTime>
+      <publishTime>10/07/2016 10:25:07</publishTime>
     </File>
     <File Include="bin/Controllers/SpecialSummaryController.cs">
-      <publishTime>10/06/2016 10:16:15</publishTime>
+      <publishTime>10/07/2016 15:58:32</publishTime>
     </File>
     <File Include="bin/Emsal.UI.dll">
-      <publishTime>10/06/2016 16:03:10</publishTime>
+      <publishTime>10/07/2016 16:07:18</publishTime>
     </File>
     <File Include="bin/Emsal.Utility.dll">
-      <publishTime>10/06/2016 12:09:12</publishTime>
+      <publishTime>10/06/2016 17:40:16</publishTime>
     </File>
     <File Include="bin/Emsal.WebInt.dll">
-      <publishTime>10/06/2016 12:09:11</publishTime>
+      <publishTime>10/06/2016 17:40:14</publishTime>
     </File>
     <File Include="bin/Emsal.WebInt.XmlSerializers.dll">
-      <publishTime>10/06/2016 12:09:12</publishTime>
+      <publishTime>10/06/2016 17:40:16</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>09/24/2016 14:34:14</publishTime>
@@ -1333,7 +1333,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/06/2016 15:42:26</publishTime>
     </File>
     <File Include="Content/js/ddmenu.js">
-      <publishTime>10/06/2016 16:02:48</publishTime>
+      <publishTime>10/06/2016 17:00:59</publishTime>
     </File>
     <File Include="Content/js/echo.min.js">
       <publishTime>09/24/2016 14:34:06</publishTime>
@@ -1873,7 +1873,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/24/2016 14:34:02</publishTime>
     </File>
     <File Include="Content/UI/js/custom.js">
-      <publishTime>10/06/2016 15:41:58</publishTime>
+      <publishTime>10/07/2016 10:55:22</publishTime>
     </File>
     <File Include="Content/UI/js/emsal.js">
       <publishTime>09/24/2016 14:34:02</publishTime>
@@ -2170,7 +2170,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/24/2016 14:34:09</publishTime>
     </File>
     <File Include="ContentProfile/js/SignUpOP.js">
-      <publishTime>10/03/2016 18:14:17</publishTime>
+      <publishTime>10/06/2016 17:28:12</publishTime>
     </File>
     <File Include="ContentProfile/js/State.js">
       <publishTime>09/24/2016 14:34:08</publishTime>
@@ -2221,7 +2221,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/24/2016 14:34:11</publishTime>
     </File>
     <File Include="Views/AsanXidmetSpecialSummary/Index.cshtml">
-      <publishTime>10/04/2016 15:24:45</publishTime>
+      <publishTime>10/06/2016 16:14:27</publishTime>
     </File>
     <File Include="Views/ASCSpecialSummary/Index.cshtml">
       <publishTime>10/04/2016 15:25:01</publishTime>
@@ -2284,7 +2284,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/24/2016 14:34:11</publishTime>
     </File>
     <File Include="Views/GovernmentOrganisationSpecialSummary/NewOrders.cshtml">
-      <publishTime>09/24/2016 14:34:11</publishTime>
+      <publishTime>10/07/2016 16:02:31</publishTime>
     </File>
     <File Include="Views/GovernmentOrganisationSpecialSummary/NotSentYetOrders.cshtml">
       <publishTime>09/24/2016 14:34:11</publishTime>
@@ -2299,22 +2299,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/24/2016 14:34:11</publishTime>
     </File>
     <File Include="Views/GovernmentOrganisationSpecialSummary/PartialExpiredDemands.cshtml">
-      <publishTime>09/24/2016 14:34:11</publishTime>
+      <publishTime>10/07/2016 16:02:31</publishTime>
     </File>
     <File Include="Views/GovernmentOrganisationSpecialSummary/PartialIndex.cshtml">
-      <publishTime>09/30/2016 13:00:21</publishTime>
+      <publishTime>10/07/2016 16:02:31</publishTime>
     </File>
     <File Include="Views/GovernmentOrganisationSpecialSummary/PartialOnAirDemands.cshtml">
-      <publishTime>09/26/2016 16:29:28</publishTime>
+      <publishTime>10/07/2016 16:02:31</publishTime>
     </File>
     <File Include="Views/GovernmentOrganisationSpecialSummary/PartialOrganisations.cshtml">
       <publishTime>09/24/2016 14:34:11</publishTime>
     </File>
     <File Include="Views/GovernmentOrganisationSpecialSummary/PartialRejectedDemands.cshtml">
-      <publishTime>09/30/2016 12:58:55</publishTime>
+      <publishTime>10/07/2016 16:02:30</publishTime>
     </File>
     <File Include="Views/GovernmentOrganisationSpecialSummary/ReEditedOrders.cshtml">
-      <publishTime>09/24/2016 14:34:11</publishTime>
+      <publishTime>10/07/2016 16:02:27</publishTime>
     </File>
     <File Include="Views/GovernmentOrganisationSpecialSummary/RejectedDemands.cshtml">
       <publishTime>09/24/2016 14:34:11</publishTime>
@@ -2389,19 +2389,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/24/2016 14:34:12</publishTime>
     </File>
     <File Include="Views/OfferHome/OfferProduction.cshtml">
-      <publishTime>09/24/2016 14:34:12</publishTime>
+      <publishTime>10/07/2016 11:23:34</publishTime>
     </File>
     <File Include="Views/OfferHome/OfferProductionDetail.cshtml">
-      <publishTime>09/24/2016 14:34:12</publishTime>
+      <publishTime>10/07/2016 10:23:13</publishTime>
     </File>
     <File Include="Views/OfferHome/PartialOfferProduction.cshtml">
-      <publishTime>09/24/2016 14:34:12</publishTime>
+      <publishTime>10/07/2016 10:55:31</publishTime>
     </File>
     <File Include="Views/OfferHome/PCDetail.cshtml">
       <publishTime>09/24/2016 14:34:12</publishTime>
     </File>
     <File Include="Views/OfferHome/ProductCatalog.cshtml">
       <publishTime>09/24/2016 14:34:12</publishTime>
+    </File>
+    <File Include="Views/OfferHome/ProductionCalendar.cshtml">
+      <publishTime>10/07/2016 10:26:14</publishTime>
     </File>
     <File Include="Views/OfferMonitoring/Edit.cshtml">
       <publishTime>09/24/2016 14:34:12</publishTime>
@@ -2578,7 +2581,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/04/2016 15:25:44</publishTime>
     </File>
     <File Include="Views/SignUpOP/Index.cshtml">
-      <publishTime>10/03/2016 18:11:15</publishTime>
+      <publishTime>10/07/2016 16:06:37</publishTime>
     </File>
     <File Include="Views/SpecialSummary/AnswerMessage.cshtml">
       <publishTime>09/24/2016 14:34:13</publishTime>
@@ -2599,7 +2602,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/24/2016 14:34:13</publishTime>
     </File>
     <File Include="Views/SpecialSummary/NotConfirmedPotential.cshtml">
-      <publishTime>09/24/2016 14:34:13</publishTime>
+      <publishTime>10/07/2016 16:02:27</publishTime>
     </File>
     <File Include="Views/SpecialSummary/OffAirOffers.cshtml">
       <publishTime>09/24/2016 14:34:13</publishTime>
@@ -2611,19 +2614,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/24/2016 14:34:13</publishTime>
     </File>
     <File Include="Views/SpecialSummary/PartialConfirmedPotential.cshtml">
-      <publishTime>09/24/2016 14:34:13</publishTime>
+      <publishTime>10/07/2016 16:02:27</publishTime>
     </File>
     <File Include="Views/SpecialSummary/PartialIndex.cshtml">
-      <publishTime>10/05/2016 11:31:20</publishTime>
+      <publishTime>10/07/2016 16:02:31</publishTime>
     </File>
     <File Include="Views/SpecialSummary/PartialOffAirOffers.cshtml">
-      <publishTime>09/30/2016 12:58:43</publishTime>
+      <publishTime>10/07/2016 16:02:31</publishTime>
     </File>
     <File Include="Views/SpecialSummary/PartialOnAirOffers.cshtml">
-      <publishTime>10/04/2016 17:24:29</publishTime>
+      <publishTime>10/07/2016 16:02:27</publishTime>
     </File>
     <File Include="Views/SpecialSummary/PartialRejectedOffers.cshtml">
-      <publishTime>09/30/2016 12:58:21</publishTime>
+      <publishTime>10/07/2016 16:02:27</publishTime>
     </File>
     <File Include="Views/SpecialSummary/PhoneRegister1.cshtml">
       <publishTime>09/24/2016 14:34:13</publishTime>
@@ -2641,7 +2644,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/24/2016 14:34:13</publishTime>
     </File>
     <File Include="Views/SpecialSummary/ReEditedOffers.cshtml">
-      <publishTime>09/24/2016 14:34:13</publishTime>
+      <publishTime>10/07/2016 16:02:27</publishTime>
     </File>
     <File Include="Views/SpecialSummary/RejectedOffers.cshtml">
       <publishTime>09/24/2016 14:34:13</publishTime>
@@ -2650,7 +2653,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/24/2016 14:34:14</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/06/2016 11:55:22</publishTime>
+      <publishTime>10/07/2016 11:12:09</publishTime>
     </File>
   </ItemGroup>
 </Project>

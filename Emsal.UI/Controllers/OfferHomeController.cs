@@ -24,7 +24,7 @@ namespace Emsal.UI.Controllers
         private static string ssort;
         private static string sname;
         private static string ssurname;
-        private static string sadminUnitName;
+        private static string sproductName;
 
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
@@ -62,10 +62,20 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult OfferProduction(int? page, int productId = 0)
+        public ActionResult OfferProduction(int? page, int productId = 0, string productName = null)
         {
             try
             {
+                if (productName != null)
+                    productName = StripTag.strSqlBlocker(productName.ToLower());
+
+                if (productName == null)
+                {
+                    sproductName = null;
+                }
+
+                if (productName != null)
+                    sproductName = productName;
 
                 baseInput = new BaseInput();
 
@@ -91,12 +101,20 @@ namespace Emsal.UI.Controllers
                     {
                         modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.ToList();
                     }
+
+                    if (sproductName != null)
+                    {
+                        modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailList.Where(x => x.productName.ToLowerInvariant().Contains(sproductName) || x.productParentName.ToLowerInvariant().Contains(sproductName)).ToList();
+                    }
+
                 }
                 else
                 {
                     modelProductCatalog.ProductionDetailList = new List<ProductionDetail>();
                 }
                 modelProductCatalog.PagingProduction = modelProductCatalog.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+
+                modelProductCatalog.pName = sproductName;
 
                 return Request.IsAjaxRequest()
                     ? (ActionResult)PartialView("PartialOfferProduction", modelProductCatalog)
@@ -268,5 +286,31 @@ namespace Emsal.UI.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
+
+        public ActionResult ProductionCalendar(long dId)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+                modelProductCatalog = new ProductCatalogViewModel();
+
+                BaseOutput gpca = srv.WS_GetProductionCalendarOfferId(baseInput, dId, true, out modelProductCatalog.LProductionCalendarDetailArray);
+
+                modelProductCatalog.LProductionCalendarDetailList = new List<ProductionCalendarDetail>();
+
+                if (modelProductCatalog.LProductionCalendarDetailArray != null)
+                {
+                    modelProductCatalog.LProductionCalendarDetailList = modelProductCatalog.LProductionCalendarDetailArray.ToList();
+                }
+
+                return View(modelProductCatalog);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
     }
 }

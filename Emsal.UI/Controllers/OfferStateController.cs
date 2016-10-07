@@ -84,7 +84,7 @@ namespace Emsal.UI.Controllers
 
                 if (sproductName != null)
                 {
-                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.productName.ToLowerInvariant().Contains(sproductName)).ToList();
+                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.productName.ToLowerInvariant().Contains(sproductName) || x.productParentName.ToLowerInvariant().Contains(sproductName)).ToList();
                 }
 
                 if (suserInfo != null)

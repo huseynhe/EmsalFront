@@ -1,5 +1,6 @@
 ﻿using Emsal.AdminUI.Infrastructure;
 using Emsal.AdminUI.Models;
+using Emsal.Utility.CustomObjects;
 using Emsal.WebInt.EmsalSrv;
 using System;
 using System.Collections.Generic;
@@ -289,11 +290,12 @@ namespace Emsal.AdminUI.Controllers
                 foreach (var attachfile in file)
                 {
 
-                    //var dec=(attachfile.ContentLength / 1024);
-                    //var decd = (decimal)731 / 1024;
-                    //var fl = Math.Round(dec,2);
+                        //var dec=(attachfile.ContentLength / 1024);
+                        //var decd = (decimal)731 / 1024;
+                        //var fl = Math.Round(dec,2);
+                        string fre = FileExtension.GetMimeType(attachfile.InputStream, attachfile.FileName);
 
-                    if (attachfile != null && attachfile.ContentLength > 0 && attachfile.ContentLength <= modelProductCatalog.fileSize && modelProductCatalog.fileTypes.Contains(attachfile.ContentType))
+                        if (attachfile != null && attachfile.ContentLength > 0 && attachfile.ContentLength <= modelProductCatalog.fileSize && modelProductCatalog.fileTypes.Contains(fre))
                     {
                         var fileName = Path.GetFileName(attachfile.FileName);
                         var ofileName = fileName;

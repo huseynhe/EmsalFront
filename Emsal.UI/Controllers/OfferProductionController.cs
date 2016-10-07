@@ -733,7 +733,7 @@ namespace Emsal.UI.Controllers
                     BaseOutput Production = srv.WS_GetPotential_ProductionById(baseInput, model.ppId, true, out modelOfferProduction.PotentialProduction);
                     BaseOutput delet = srv.WS_DeletePotential_Production(baseInput, modelOfferProduction.PotentialProduction);
 
-                    return RedirectToAction("Index", "SpecialSummary");
+                    return RedirectToAction("Redirect", "Login");
                 }
                 else
                 {
@@ -1162,7 +1162,9 @@ namespace Emsal.UI.Controllers
                         //var decd = (decimal)731 / 1024;
                         //var fl = Math.Round(dec,2);
 
-                        if (attachfile != null && attachfile.ContentLength > 0 && attachfile.ContentLength <= modelOfferProduction.fileSize && modelOfferProduction.fileTypes.Contains(attachfile.ContentType))
+                        string fre = FileExtension.GetMimeType(attachfile.InputStream, attachfile.FileName);
+
+                        if (attachfile != null && attachfile.ContentLength > 0 && attachfile.ContentLength <= modelOfferProduction.fileSize && modelOfferProduction.fileTypes.Contains(fre))
                         {
                             var fileName = Path.GetFileName(attachfile.FileName);
                             var ofileName = fileName;

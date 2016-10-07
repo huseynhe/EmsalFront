@@ -33,54 +33,44 @@
                     </div>
                 </div><br />
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         @{
                             if (item.ProductProfilePicture != null)
                             {
-                                <a href="/GovernmentOrganisationSpecialSummary/DemandProductInfo?Id=@item.ProductId"><img src=@item.ProductProfilePicture style='max-width:200px;max-height:230px'></a>
+                                <a href="/GovernmentOrganisationSpecialSummary/DemandProductInfo?Id=@item.ProductId"><img src=@item.ProductProfilePicture class="img-responsive thumbnail"></a>
                             }
                             else
                             {
-                                <a href="/GovernmentOrganisationSpecialSummary/DemandProductInfo?Id=@item.ProductId"><img src='http://emsal.az/staticFiles/notFound.png' style='max-width:200px;max-height:230px' /></a>
+                                <a href="/GovernmentOrganisationSpecialSummary/DemandProductInfo?Id=@item.ProductId"><img src='~/Content/UI/images/noimage.png' class="img-responsive thumbnail" /></a>
                             }
                         }
                     </div>
-                    <div class="col-md-7">
-                        @foreach (var itemmm in item.DemandCalendarList)
-                        {
-                            @*<div class="well">
-                                <span>Tarix: @itemmm.day @itemmm.month @itemmm.year saat @itemmm.ocklock</span><br /><br />
-                                <span>Miqdar: @itemmm.quantity @item.QuantityType</span><br /><br />
-                                <span>Daşınma qrafiki: @itemmm.shipmetType</span>
-                            </div>*@
-
-                            <div>
-                                <span>Tarix: @itemmm.day @itemmm.month @itemmm.year saat @itemmm.ocklock   <span class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#@itemmm.id" style="color:#265A88"></span></span><br /><br />
-                                <div id="@itemmm.id" class="modal fade" role="dialog">
-                                    <div class="modal-dialog">
-
-                                        <!-- Modal content-->
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Məlumatlar</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <span>Miqdar: @itemmm.quantity @item.QuantityType</span><br /><br />
-                                                <span>Daşınma qrafiki: @itemmm.shipmetType</span>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Bağla</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        }
-                    </div>
+                    @if (item.DemandCalendarList.Count > 0)
+                    {
+                        <div class="col-md-9">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="success">
+                                        <th class="col-md-3 text-center">Tarix</th>
+                                        <th class="col-md-2 text-center">Saat</th>
+                                        <th class="col-md-4 text-center">Miqdar</th>
+                                        <th class="col-md-3 text-center">Daşınma qrafiki</th>
+                                    </tr>
+                                </thead>
+                                @foreach (var itemmm in item.DemandCalendarList)
+                                {
+                                    <tbody>
+                                        <tr class="info text-center">
+                                            <td>@itemmm.day @itemmm.month @itemmm.year</td>
+                                            <td>@itemmm.ocklock</td>
+                                            <td>@itemmm.quantity @item.QuantityType</td>
+                                            <td>@itemmm.shipmetType</td>
+                                        </tr>
+                                    </tbody>
+                                }
+                            </table>
+                        </div>
+                    }
                 </div>
             </div>
                             }

@@ -1,13 +1,45 @@
 ﻿@*@model Emsal.UI.Models.ProductCatalogViewModel*@
-    
+
 @{
     ViewBag.Title = "OfferProduction";
     Layout = "";
 }
 
+<div id="menu-container">
+    <!-- gallery start -->
+    <div class="content homepage" id="menu-1">
+        <div class="container">
+            <div class="right_below" id="center" style="padding-top:0px;">
+                <div class="elanlar">
+                    <div class="thumbnail col-md-12" style="padding: 20px;opacity:0.8;">
+                        <h2 style="color: #000; margin-top: 10px; text-align:center;" class="text-bold mt-50">TƏKLİFLƏR</h2>
+                        <table class="table table-bordered" style="margin:0;">
+                            <tbody>
+                                <tr>
+                                    <th class="col-sm-1" style="text-align:center;">Şəkil</th>
+                                    <th class="col-sm-6">
+                                        Məhsulun dı
+                                        <input onkeyup="OfferHomeSearch(this, 'productName')" class="form-control" placeholder="axtar" />
+                                    </th>
+                                    <th class="col-sm-2">Çəkisi (ölçü vahidi)</th>
+                                    <th class="col-sm-2">Qiyməti</th>
+                                    <th class="col-sm-1" style="text-align:center;">Keçid</th>
+                                </tr>
+                            </tbody>
+                        </table>
 
-<div id="AjaxPaginationList">
-    @Html.Partial("PartialOfferProduction")
+                        <div id="AjaxPaginationList">
+                            @Html.Partial("PartialOfferProduction")
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="clear"></div>
+    </div>
 </div>
 
 <script src="~/Content/UI/js/pagedList.js"></script>

@@ -27,6 +27,20 @@ $(document).ready(function () {
 });
 
 
+
+function OfferHomeSearch(elem, value) {
+    $.ajax({
+        url: '/OfferHome/OfferProduction?' + value + '=' + $(elem).val(),
+        type: 'GET',
+        success: function (result) {
+            $('#AjaxPaginationList').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
+
 var allowfiletype = ["image/jpeg", "application/pdf"];
 var ftypes = ".pdf, .jpeg, .jpg";
 var tfilefieldtemplate;

@@ -40,7 +40,7 @@
                                 <div class="col-lg-3">
                                     <div id="fizikiShexs" style="display:none">
                                         @Html.LabelFor(model => model.fin, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.fin, new { @class = "form-control", required = "required"})
+                                        @Html.EditorFor(model => model.fin, new { @class = "form-control", required = "required" })
                                         @Html.ValidationMessageFor(model => model.fin, "", new { @class = "text-danger" })
                                     </div>
                                     <div id="huquqiShexs" style="display:none">
@@ -60,7 +60,7 @@
                             <br />
                             <div id="formBody">
                                 <div class="row">
-                                   
+
 
                                     <div class="col-md-3" id="userNameDiv" style="display:none">
                                         <div class="form-group">
@@ -71,10 +71,6 @@
                                             @if (Model.warning != null)
                                             {
                                                 @Html.LabelFor(model => model.warning, @Model.warning, new { @class = "control-label", Type = "show", @style = "color:red" })
-                                            }
-                                            else
-                                            {
-                                                //@Html.LabelFor(new { Value = Model.warning, Type = "hidden", @style = "color:red" })
                                             }
                                         </div>
                                     </div>
@@ -90,12 +86,12 @@
                                     <div class="col-md-3">
                                         <div class="form-group" id="emailDiv" style="display:none">
                                             @Html.LabelFor(model => model.eMail, htmlAttributes: new { @class = "control-label" })
-                                            @Html.TextBoxFor(model => model.eMail, new { @class = "form-control", required = "required", @type="email" })                                            
+                                            @Html.TextBoxFor(model => model.eMail, new { @class = "form-control", required = "required", @type = "email" })
 
                                             @Html.ValidationMessageFor(model => model.eMail, "", new { @class = "text-danger" })
                                         </div>
 
-                                        
+
                                     </div>
 
                                     <div class="col-md-3">
@@ -106,7 +102,7 @@
                                         </div>
                                     </div>
 
-                                    
+
                                 </div>
 
                                 <div class="row" id="mobilDiv">
@@ -116,14 +112,14 @@
                                         <select name="mPerefix" class="form-control unicase-form-control">
                                             <option selected value="">Seçin</option>
                                             @foreach (var item in Model.EnumValueMobilePhone)
-                {
+                                            {
                                                 <option value="@item.Id">@item.name</option>
                                             }
                                         </select>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="control-label">&nbsp;</label>
-                                        @Html.TextBoxFor(model => model.mNumber, new { @class = "form-control numbersOnly"})
+                                        @Html.TextBoxFor(model => model.mNumber, new { @class = "form-control numbersOnly" })
                                         @Html.ValidationMessageFor(model => model.mNumber, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -181,28 +177,25 @@
                                     <div class="col-md-12">
                                         @Html.LabelFor(model => model.descAddress, htmlAttributes: new { @class = "control-label" })
                                     </div>
-                                    @if (Model.PRMAdminUnitArray.Count() > 0)
-                {
-                                        <div class="col-md-3">
-                                            <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" id="mainRegion" class="form-control unicase-form-control select select2">
+                                    <div class="col-md-3">
+                                        <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" id="mainRegion" class="form-control unicase-form-control select select2">
 
-                                                <option selected value=""> Seçim edin</option>
+                                            <option selected value=""> Seçim edin</option>
 
-                                                @foreach (var item in Model.PRMAdminUnitArray)
-                    {
-                        if (item.Name == "Azərbaycan Respublikası")
-                        {
-                                                        <option value="@item.Id"> @item.Name </option>
-                                                    }
-                                                    else
-                                                    {
-                                                        <option value="@item.Id"> @item.Name </option>
-                                                    }
+                                            @foreach (var item in Model.PRMAdminUnitArray)
+                                            {
+                                                if (item.Name == "Azərbaycan Respublikası")
+                                                {
+                                                    <option value="@item.Id"> @item.Name </option>
                                                 }
-                                            </select>
-                                            <span data-valmsg-replace="true" class="field-validation-valid text-danger"></span>
-                                        </div>
-    }
+                                                else
+                                                {
+                                                    <option value="@item.Id"> @item.Name </option>
+                                                }
+                                            }
+                                        </select>
+                                        <span data-valmsg-replace="true" class="field-validation-valid text-danger"></span>
+                                    </div>
                                 </div>
 
                                 <div class="row">
@@ -213,14 +206,14 @@
                                     </div>
                                 </div>
 
-                                <div class="row" >
+                                <div class="row">
                                     <br />
                                     <div class="col-lg-3" id="educDiv" style="display:none">
                                         @Html.LabelFor(model => model.education, htmlAttributes: new { @class = "control-label" })
                                         <select name="education" class="form-control unicase-form-control">
                                             <option selected value="">Seçin</option>
                                             @foreach (var item in Model.EnumValueEducationList)
-                {
+                                            {
                                                 <option value="@item.Id">@item.name</option>
                                             }
                                         </select>
@@ -231,7 +224,7 @@
                                         <select name="job" class="form-control unicase-form-control">
                                             <option selected value="">Seçin</option>
                                             @foreach (var item in Model.EnumValueJobList)
-                {
+                                            {
                                                 <option value="@item.Id">@item.name</option>
                                             }
                                         </select>
@@ -259,5 +252,3 @@
         </div>
     </div>
 </div>
-
-

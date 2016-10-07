@@ -56,6 +56,7 @@ namespace Emsal.UI.Controllers
             BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)userId, true, out modelUser.LoggedInUser);
 
             BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelUser.LoggedInUser.Id, true, out modelUser.Person);
+            BaseOutput foreOut = srv.WS_GetForeign_OrganizationByUserId(binput, modelUser.LoggedInUser.Id, true, out modelUser.ForeignOrganisation);
 
             modelUser.NameSurname = modelUser.Person == null ? modelUser.LoggedInUser.Username : modelUser.Person.Name + ' ' + modelUser.Person.Surname;
 
@@ -179,6 +180,7 @@ namespace Emsal.UI.Controllers
             }
             BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)userId, true, out modelUser.LoggedInUser);
             BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelUser.LoggedInUser.Id, true, out modelUser.Person);
+            BaseOutput foreOut = srv.WS_GetForeign_OrganizationByUserId(binput, modelUser.LoggedInUser.Id, true, out modelUser.ForeignOrganisation);
 
             modelUser.NameSurname = modelUser.Person == null ? modelUser.LoggedInUser.Username : modelUser.Person.Name + ' ' + modelUser.Person.Surname;
 
@@ -215,6 +217,7 @@ namespace Emsal.UI.Controllers
 
             if (modelUser.User.userType_eV_ID == 50)
             {
+
                 modelUser.CommunicationInformationsList = modelUser.CommunicationInformationsArray.Where(x => x.PersonId == modelUser.ForeignOrganisation.manager_Id).ToList();
             }
             if (modelUser.CommunicationInformationsList != null)

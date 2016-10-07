@@ -1300,7 +1300,7 @@ namespace Emsal.UI.Controllers
             return stance;
         }
 
-        public void PutToOffAirProduction(int offerId)
+        public ActionResult PutToOffAirProduction(int offerId)
         {
             ProductsViewModel modelProducts = new ProductsViewModel();
 
@@ -1315,7 +1315,7 @@ namespace Emsal.UI.Controllers
             //Delete offer production u want to put to off air offer, from offer production table
 
 
-            BaseOutput delet = srv.WS_DeleteOffer_Production(binput, modelProducts.OfferProduction);
+            //BaseOutput delet = srv.WS_DeleteOffer_Production(binput, modelProducts.OfferProduction);
 
             ////////////////////////////////////////////////////
 
@@ -1332,11 +1332,11 @@ namespace Emsal.UI.Controllers
 
             modelProducts.OfferProduction.StatusSpecified = true;
             modelProducts.OfferProduction.state_eV_IdSpecified = true;
-            BaseOutput addProduct = srv.WS_AddOffer_Production(binput, modelProducts.OfferProduction, out modelProducts.OfferProduction);
+            BaseOutput addProduct = srv.WS_UpdateOffer_Production(binput, modelProducts.OfferProduction, out modelProducts.OfferProduction);
 
             ////////////////////////////////
 
-
+            return RedirectToAction("Index");
         }
 
         public void UpdateOnAirOffers(int UserID)

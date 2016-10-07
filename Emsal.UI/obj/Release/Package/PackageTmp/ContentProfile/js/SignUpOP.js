@@ -1,6 +1,10 @@
 ﻿function PersonType() {
     var id = document.getElementById("personType").value;
     if (id == 1) {
+        $("#fin").val(null);
+
+        $('#formBody').hide();
+
         document.getElementById("fizikiShexs").style.display = "block";
         document.getElementById("fizikiShexs").style.display = "block";
         document.getElementById("emailDiv").style.display = "block";
@@ -12,9 +16,15 @@
         document.getElementById("jobDiv").style.display = "block";
         document.getElementById("huquqiShexs").style.display = "none";
         document.getElementById("huquqiShexsName").style.display = "none";
+
+
     }
 
     else if (id == 2) {
+        $("#voen").val(null);
+
+        $('#formBody').hide();
+
         document.getElementById("fizikiShexs").style.display = "none";
         document.getElementById("emailDiv").style.display = "block";
         document.getElementById("userNameDiv").style.display = "block"; 
@@ -40,6 +50,7 @@ var ai=0;
 var res="";
 
 function check() {
+    $("addressId").val(null);
     ai=0;
     var id = $("#personType").val();
     var chekId;
