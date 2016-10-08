@@ -112,6 +112,8 @@ namespace Emsal.UI.Controllers
                 {
                     modelProductCatalog.ProductionDetailList = new List<ProductionDetail>();
                 }
+
+                modelProductCatalog.itemCount = modelProductCatalog.ProductionDetailList.Count();
                 modelProductCatalog.PagingProduction = modelProductCatalog.ProductionDetailList.ToPagedList(pageNumber, pageSize);
 
                 modelProductCatalog.pName = sproductName;

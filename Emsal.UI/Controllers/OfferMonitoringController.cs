@@ -27,7 +27,7 @@ namespace Emsal.UI.Controllers
 
         private OfferMonitoringViewModel modelOfferMonitoring;
 
-        public ActionResult Index(int? page, string monitoringStatusEV = null, string productName = null, string userInfo = null)
+        public ActionResult Index(int? page, string monitoringStatusEV = null, string productName = null, string userInfo = null, bool pdf = false)
         {
             try
             {
@@ -107,8 +107,16 @@ namespace Emsal.UI.Controllers
                     }
                 }
 
+                modelOfferMonitoring.isPDF = pdf;
 
-                modelOfferMonitoring.Paging = modelOfferMonitoring.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+                if (modelOfferMonitoring.isPDF == true)
+                {
+                    modelOfferMonitoring.Paging = modelOfferMonitoring.ProductionDetailList.ToPagedList(1, 5000);
+                }
+                else
+                {
+                    modelOfferMonitoring.Paging = modelOfferMonitoring.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+                }
 
                 if (smonitoringStatusEV == "new")
                     modelOfferMonitoring.isMain = 0;
@@ -121,11 +129,18 @@ namespace Emsal.UI.Controllers
                 modelOfferMonitoring.userInfo = suserInfo;
                 //return View(modelDemandProduction);
 
-                return Request.IsAjaxRequest()
-                   ? (ActionResult)PartialView("PartialIndex", modelOfferMonitoring)
-                   : View(modelOfferMonitoring);
+                var gd = Guid.NewGuid();
 
-
+                if (modelOfferMonitoring.isPDF == true)
+                {
+                    return new Rotativa.PartialViewAsPdf("PartialIndex", modelOfferMonitoring) { FileName = gd + ".pdf" };
+                }
+                else
+                {
+                    return Request.IsAjaxRequest()
+                       ? (ActionResult)PartialView("PartialIndex", modelOfferMonitoring)
+                       : View(modelOfferMonitoring);
+                }
             }
             catch (Exception ex)
             {

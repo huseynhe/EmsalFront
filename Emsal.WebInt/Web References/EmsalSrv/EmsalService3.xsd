@@ -157,19 +157,27 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="addressDesc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="adress_Id" type="xs:long" />
+      <xs:element minOccurs="0" name="birtday" type="xs:long" />
       <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="enumCategoryId" type="xs:long" />
       <xs:element minOccurs="0" name="enumValueId" type="xs:long" />
       <xs:element minOccurs="0" name="enumValueName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fatherName" nillable="true" type="xs:string" />
       <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="foreignOrganization" nillable="true" type="q5:tblForeign_Organization" />
       <xs:element minOccurs="0" name="forgId" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="fullAddress" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="fullForeignOrganization" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="gender" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="groupId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="grup_id" nillable="true" type="xs:string" />
       <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="months" nillable="true" type="q6:ArrayOfstring" />
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="organizationName" nillable="true" type="xs:string" />
       <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="person" nillable="true" type="q7:tblPerson" />
+      <xs:element minOccurs="0" name="pinNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="potentialProduct" nillable="true" type="xs:string" />
       <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="productDocumentList" nillable="true" type="q8:ArrayOftblProduct_Document" />
       <xs:element minOccurs="0" name="productId" type="xs:long" />
       <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
@@ -177,7 +185,9 @@
       <xs:element minOccurs="0" name="productionCalendarList" nillable="true" type="tns:ArrayOfProductionCalendarDetail" />
       <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="productionDocumentList" nillable="true" type="q9:ArrayOftblProduction_Document" />
       <xs:element minOccurs="0" name="productionID" type="xs:long" />
+      <xs:element minOccurs="0" name="profilPicture" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="quantity" type="xs:decimal" />
+      <xs:element minOccurs="0" name="surname" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="unitPrice" type="xs:decimal" />
       <xs:element minOccurs="0" name="userId" type="xs:long" />
     </xs:sequence>

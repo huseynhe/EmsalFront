@@ -37,24 +37,22 @@
 
                         <div class="clearfix"></div>
                         <table class="table table-bordered" style="margin:0;">
-                            <thead>
-                                <tr>
-                                    <th class="col-sm-4 text-black"><div style="float:left;width:90%;">Soyad, ad (hüquqi şəxsin adı)</div><div style="cursor:pointer;float:right;" onclick="GetUserInfo(this,'name')" class="sortingpu"></div></th>
-                                    @*<th class="col-sm-2"><div style="float:left;">Soyad </div><div style="cursor:pointer;float:right;" onclick="GetUserInfo(this,'surname')" class="sortingpu"></div></th>*@
-                                    <th class="col-sm-2 text-black"><div style="float:left;">Ünvan</div><div style="cursor:pointer;float:right;" onclick="GetUserInfo(this,'address')" class="sortingpu"></div></th>
-                                    <th class="col-sm-5 text-black"><div style="float:left;">İstehsal etdiyi məhsullar</div>@*<div style="cursor:pointer;float:right;" onclick="GetUserInfo(this, 'products')" class="sortingpu"></div>*@</th>
-                                    <th class="col-sm-1 text-center text-black">Keçid</th>
-                                </tr>
-                            </thead>
                             <tbody>
                                 <tr>
-                                    <td class="col-sm-4"><input onkeyup="UserInfoSearch(this, 'name')" class="form-control" placeholder="axtar" /></td>
-                                    @*<td class="col-sm-2"><input onkeyup="UserInfoSearch(this, 'surname')" class="form-control" placeholder="axtar" /></td>*@
-                                    <td class="col-sm-2"><input onkeyup="UserInfoSearch(this, 'address')" class="form-control" placeholder="axtar" /></td>
-                                    <td class="col-sm-5"><input onkeyup="UserInfoSearch(this, 'products')" class="form-control" placeholder="axtar" /></td>
-                                    <td class="col-sm-1"></td>
+                                    <td class="col-sm-4 text-black text-bold"><div style="float:left;width:90%;">Soyad, ad (hüquqi şəxsin adı)</div><div style="cursor:pointer;float:right;" onclick="GetUserInfo(this,'name')" class="sortingpu"></div>
+                                    <br />
+                                        <input onkeyup="UserInfoSearch(this, 'name')" class="form-control" placeholder="axtar" />
+                                    </td>
+                                    <td class="col-sm-2 text-black text-bold"><div style="float:left;">Ünvan</div><div style="cursor:pointer;float:right;" onclick="GetUserInfo(this,'address')" class="sortingpu"></div><br />
+                                        <input onkeyup="UserInfoSearch(this, 'address')" class="form-control" placeholder="axtar" />
+                                    </td>
+                                    <td class="col-sm-5 text-black text-bold"><div style="float:left;">İstehsal etdiyi məhsullar</div>
+                                    <br />
+                                        <input onkeyup="UserInfoSearch(this, 'products')" class="form-control" placeholder="axtar" />
+                                    </td>
+                                    <td class="col-sm-1 text-center text-black text-bold">Keçid</td>
                                 </tr>
-                            </tbody>
+                            </tbody>                  
                         </table>
 
                         @Html.Action("UserInfo", "Home")

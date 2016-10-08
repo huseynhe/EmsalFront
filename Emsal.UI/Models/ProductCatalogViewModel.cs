@@ -138,6 +138,7 @@ namespace Emsal.UI.Models
 
         public DateTime endDate { get; set; }
 
+        public int itemCount { get; set; }
         public int addressId { get; set; }
         public string sort { get; set; }
         public string name { get; set; }

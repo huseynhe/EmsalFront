@@ -184,6 +184,11 @@ namespace Emsal.UI.Controllers
                     modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailArray.Where(x => x.announcementDetail.announcement.product_name.ToLowerInvariant().Contains(value) || x.parentName.ToLowerInvariant().Contains(value)).ToList();
                 }
 
+                if (modelProductCatalog.AnnouncementDetailList != null)
+                {
+                    modelProductCatalog.itemCount = modelProductCatalog.AnnouncementDetailList.Count();
+                }
+
                 return View(modelProductCatalog);
 
             }
@@ -306,6 +311,7 @@ namespace Emsal.UI.Controllers
                 if (modelProductCatalog.UserInfoArray != null)
                 {
                     modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoArray.ToList();
+                    modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoList.Where(x => x.pinNumber != "" || x.voen != "").ToList();
                 }
                 else
                 {
@@ -384,6 +390,8 @@ namespace Emsal.UI.Controllers
                 modelProductCatalog.surname = ssurname;
                 modelProductCatalog.address = saddress;
                 modelProductCatalog.products = sproducts;
+
+                modelProductCatalog.itemCount = modelProductCatalog.UserInfoList.Count();
 
                 modelProductCatalog.PagingUserInfo = modelProductCatalog.UserInfoList.ToPagedList(pageNumber, pageSize);
 

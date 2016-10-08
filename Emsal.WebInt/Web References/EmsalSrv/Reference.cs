@@ -20782,7 +20782,17 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private string addressDescField;
         
+        private long adress_IdField;
+        
+        private bool adress_IdFieldSpecified;
+        
+        private long birtdayField;
+        
+        private bool birtdayFieldSpecified;
+        
         private string descriptionField;
+        
+        private string emailField;
         
         private long enumCategoryIdField;
         
@@ -20794,6 +20804,8 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private string enumValueNameField;
         
+        private string fatherNameField;
+        
         private tblForeign_Organization foreignOrganizationField;
         
         private System.Nullable<long> forgIdField;
@@ -20804,15 +20816,23 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private string fullForeignOrganizationField;
         
+        private string genderField;
+        
         private string groupIdField;
         
         private string grup_idField;
         
         private string[] monthsField;
         
+        private string nameField;
+        
         private string organizationNameField;
         
         private tblPerson personField;
+        
+        private string pinNumberField;
+        
+        private string potentialProductField;
         
         private tblProduct_Document[] productDocumentListField;
         
@@ -20832,9 +20852,13 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private bool productionIDFieldSpecified;
         
+        private string profilPictureField;
+        
         private decimal quantityField;
         
         private bool quantityFieldSpecified;
+        
+        private string surnameField;
         
         private decimal unitPriceField;
         
@@ -20867,6 +20891,48 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
+        public long adress_Id {
+            get {
+                return this.adress_IdField;
+            }
+            set {
+                this.adress_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool adress_IdSpecified {
+            get {
+                return this.adress_IdFieldSpecified;
+            }
+            set {
+                this.adress_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long birtday {
+            get {
+                return this.birtdayField;
+            }
+            set {
+                this.birtdayField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool birtdaySpecified {
+            get {
+                return this.birtdayFieldSpecified;
+            }
+            set {
+                this.birtdayFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public string description {
             get {
@@ -20874,6 +20940,17 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.descriptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string email {
+            get {
+                return this.emailField;
+            }
+            set {
+                this.emailField = value;
             }
         }
         
@@ -20927,6 +21004,17 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.enumValueNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string fatherName {
+            get {
+                return this.fatherNameField;
+            }
+            set {
+                this.fatherNameField = value;
             }
         }
         
@@ -20987,6 +21075,17 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string gender {
+            get {
+                return this.genderField;
+            }
+            set {
+                this.genderField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public string groupId {
             get {
                 return this.groupIdField;
@@ -21021,6 +21120,17 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public string organizationName {
             get {
                 return this.organizationNameField;
@@ -21038,6 +21148,28 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.personField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string pinNumber {
+            get {
+                return this.pinNumberField;
+            }
+            set {
+                this.pinNumberField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string potentialProduct {
+            get {
+                return this.potentialProductField;
+            }
+            set {
+                this.potentialProductField = value;
             }
         }
         
@@ -21141,6 +21273,17 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string profilPicture {
+            get {
+                return this.profilPictureField;
+            }
+            set {
+                this.profilPictureField = value;
+            }
+        }
+        
+        /// <remarks/>
         public decimal quantity {
             get {
                 return this.quantityField;
@@ -21158,6 +21301,17 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.quantityFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string surname {
+            get {
+                return this.surnameField;
+            }
+            set {
+                this.surnameField = value;
             }
         }
         
