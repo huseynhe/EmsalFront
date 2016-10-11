@@ -28,3 +28,13 @@ H:\projects\Emsal_07.10.2016\EmsalFront\Emsal.Utility\bin\Release\Emsal.WebInt.X
 H:\projects\Emsal_07.10.2016\EmsalFront\Emsal.Utility\obj\Release\Emsal.Utility.csprojResolveAssemblyReference.cache
 H:\projects\Emsal_07.10.2016\EmsalFront\Emsal.Utility\obj\Release\Emsal.Utility.dll
 H:\projects\Emsal_07.10.2016\EmsalFront\Emsal.Utility\obj\Release\Emsal.Utility.pdb
+H:\projects\Emsal_08.10.2016\EmsalFront\Emsal.Utility\bin\Release\Emsal.Utility.dll
+H:\projects\Emsal_08.10.2016\EmsalFront\Emsal.Utility\bin\Release\Emsal.Utility.pdb
+H:\projects\Emsal_08.10.2016\EmsalFront\Emsal.Utility\bin\Release\Emsal.WebInt.dll
+H:\projects\Emsal_08.10.2016\EmsalFront\Emsal.Utility\bin\Release\NLog.dll
+H:\projects\Emsal_08.10.2016\EmsalFront\Emsal.Utility\bin\Release\Emsal.WebInt.pdb
+H:\projects\Emsal_08.10.2016\EmsalFront\Emsal.Utility\bin\Release\NLog.xml
+H:\projects\Emsal_08.10.2016\EmsalFront\Emsal.Utility\bin\Release\Emsal.WebInt.XmlSerializers.dll
+H:\projects\Emsal_08.10.2016\EmsalFront\Emsal.Utility\obj\Release\Emsal.Utility.csprojResolveAssemblyReference.cache
+H:\projects\Emsal_08.10.2016\EmsalFront\Emsal.Utility\obj\Release\Emsal.Utility.dll
+H:\projects\Emsal_08.10.2016\EmsalFront\Emsal.Utility\obj\Release\Emsal.Utility.pdb

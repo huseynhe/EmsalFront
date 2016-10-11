@@ -14,6 +14,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using Emsal.Utility.UtilityObjects;
 using Emsal.WebInt.IAMAS;
+using System.Web.Hosting;
 
 namespace Emsal.UI.Controllers
 {
@@ -57,12 +58,16 @@ namespace Emsal.UI.Controllers
 
         private ProductCatalogViewModel modelProductCatalog;
         private ContactViewModel modelContact;
-
+        
 
         public ActionResult Index(int pId = 0)
         {
             try
             {
+                string hostAddress = Request.UserHostAddress;     
+                string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+
                 //srv.WS_createDb();
 
                 //SingleServiceControl srvcontrol = new SingleServiceControl();
@@ -72,6 +77,9 @@ namespace Emsal.UI.Controllers
                 //int control = srvcontrol.getPersonInfoByPin("", out person, out iamasPerson);
 
                 baseInput = new BaseInput();
+
+                baseInput.TransactionId = Int64.Parse(IOUtil.GetFunctionRequestID());
+                baseInput.ChannelId = ChannelEnum.Emsal.ToString();
 
                 modelProductCatalog = new ProductCatalogViewModel();
 
@@ -615,6 +623,20 @@ namespace Emsal.UI.Controllers
         }
 
         public ActionResult Pages()
+        {
+            try
+            {
+                return View();
+
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+        public ActionResult Style()
         {
             try
             {

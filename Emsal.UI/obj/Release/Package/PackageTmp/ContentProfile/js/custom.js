@@ -29,6 +29,22 @@ $(document).ready(function () {
 });
 
 
+$(document).ready(function () {
+    var href;
+
+    var pathname = window.location.pathname;
+    var search = window.location.search;
+
+    var curpathname = pathname + search;
+
+    jQuery('.btn-group').find('a').each(function () {
+        href = $(this).attr('href');
+        if (href == curpathname) {
+            $(this).addClass('active');
+        }
+    });
+});
+
 var allowfiletype = ["image/jpeg", "image/png", "application/pdf"];
 var ftypes = ".pdf, .jpeg, .jpg, .png";
 var tfilefieldtemplate;

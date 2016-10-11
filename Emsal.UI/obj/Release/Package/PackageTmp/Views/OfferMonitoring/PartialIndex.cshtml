@@ -3,142 +3,192 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "";
+    if (Model.isPDF == true)
+    {
+        Layout = "~/Views/Shared/_LayoutProfilePW.cshtml";
+    }
+    else
+    {
+        Layout = "";
+    }
     decimal tquantity = 0;
 }
+
 
 @using (Html.BeginForm("Approv", "OfferMonitoring", FormMethod.Post))
 {
 
-                    <!-- /.box-header -->
-                    <div class="box-body no-padding">
-                        @if (Model.isMain == 0)
-                        {
-                            <div class="checkbox btn-group">
-                                <label style="margin-left: 10px;">
-                                    <input id="allCheck" onclick="chcheckList(this)" type="checkbox"> Hamısını seç
-                                </label>
-                            </div>
+
+
+    <div class="box-body no-padding">
+
+        @if (Model.isPDF == false)
+        {
+            <a href="/OfferMonitoring?monitoringStatusEV = @Model.monitoringStatusEV&productName=@Model.productName&userInfo=@Model.userInfo&pdf=true" class="btn btn-warning active pull-right" style="margin-top:3px;">
+                <i class="glyphicon glyphicon-save-file"></i>
+                Yüklə
+            </a>
+
+            if (Model.isMain == 0)
+            {
+                <div class="checkbox btn-group">
+                    <label style="margin-left: 10px;">
+                        <input id="allCheck" onclick="chcheckList(this)" type="checkbox"> Hamısını seç
+                    </label>
+                </div>
                             <div class="btn-group" id="chall">
                                 <button type="submit" class="btn btn-primary btn-sm">
                                     <span class="glyphicon glyphicon-check"></span>&nbsp;təsdiqlə
                                 </button>
                             </div>
 
-                        }
-                        <input hidden id="checkedList" />
-                        <div class="table-responsive">
-                            <table class="table table-hover table-striped table-bordered">
-                                <tbody>
-                                    @foreach (var item in Model.Paging)
-                                    {
+            }
+            <input hidden id="checkedList" />
+                        <div class="clearfix"></div>
+        }
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-bordered">
+                <tbody>
+                    @if (Model.isPDF == true)
+                    {
+                        <tr>
+                            <th class="col-md-2">
+                                Məhsulun adı
+                            </th>
+                            <th class="col-md-1">
+                                Miqdarı (vahidi)
+                            </th>
+                            <th class="col-md-1">
+                                @Html.DisplayNameFor(model => model.price)
+                            </th>
+                            <th class="col-md-2">
+                                Qeyd
+                            </th>
+                            <th class="col-md-2">
+                                İnfo
+                            </th>
+                        </tr>
+                    }
+
+                    @foreach (var item in Model.Paging)
+                    {
+                        <tr>
+                            @if (Model.isPDF == false)
+                            {
+                                if (Model.isMain == 0)
+                                {
+                                    <td class="col-md-1">
+                                        <input onchange="getCheckedList()" name="ids" value="@item.productionID" class="ch" type="checkbox">
+                                    </td>
+                                }
+                            }
+                            <td class="col-md-2">
+                                @item.productName (@item.productParentName)
+                            </td>
+                            <td class="col-md-1">
+                                @item.quantity @item.enumValueName
+                            </td>
+                            <td class="col-md-1">
+                                @item.unitPrice AZN
+                            </td>
+                            <td class="col-md-2">
+                                @item.description
+                            </td>
+                            <td class="col-md-2">
+                                @if (item.person != null)
+                                {
+                                    <span>
+                                        @item.person.Name @item.person.Surname @item.person.FatherName (@item.person.gender)<br />
+                                        pin: @item.person.PinNumber
+                                    </span>
+                                }
+                            </td>
+                            @if (Model.isPDF == false)
+                            {
+                                <td class="col-md-2">
+                                    <table style="max-width:100%;">
+                                        @foreach (var itm in item.productionDocumentList)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @itm.documentRealName&nbsp;
+
+                                                    (@Math.Round(((decimal)itm.documentSize / 1024) / 1024, 2)  mb)&nbsp;&nbsp;
+
+                                                    <div class="glyphicon glyphicon-eye-open text-primary" onclick="getAttachmentFile(@itm.Id)" style="cursor:pointer;"></div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </td>
+                                if (Model.isMain == 0)
+                                {
+                                    <td class="col-md-1 shsingle text-center">
+                                        <a href="/OfferMonitoring/Edit/@item.productionID" class="badge bg-light-blue">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </a>
+                                    </td>
+                                }
+                            }
+                        </tr>
+                        if (item.productionCalendarList.Count() > 0)
+                        {
+                            <tr>
+                                <td colspan="8" style="padding:0;">
+                                    <table class="table" style="margin:0;">
                                         <tr>
-                                            @if (Model.isMain == 0)
-                                            {
-                                                <td class="col-md-1">
-                                                    <input onchange="getCheckedList()" name="ids" value="@item.productionID" class="ch" type="checkbox">
-                                                </td>
-                                            }
-                                            <td class="col-md-2">
-                                                @item.productName (@item.productParentName)
-                                            </td>
-                                            <td class="col-md-1">
-                                                @item.quantity @item.enumValueName
-                                            </td>
-                                            <td class="col-md-1">
-                                                @item.unitPrice AZN
-                                            </td>
-                                            <td class="col-md-2">
-                                                @item.description
-                                            </td>
-                                            <td class="col-md-2">
-@if (item.person != null) {
-                                                <span>@item.person.Name @item.person.Surname @item.person.FatherName (@item.person.gender)<br />
-                                                pin: @item.person.PinNumber</span>
-                                                }
-                                            </td>
-                                            <td class="col-md-2">
-                                                <table style="max-width:100%;">
-                                                    @foreach (var itm in item.productionDocumentList)
-                                                    {
-                                                        <tr>
-                                                            <td>
-                                                                @itm.documentRealName&nbsp;
-
-                                                                (@Math.Round(((decimal)itm.documentSize / 1024) / 1024, 2)  mb)&nbsp;&nbsp;
-
-                                                                <div class="glyphicon glyphicon-eye-open text-primary" onclick="getAttachmentFile(@itm.Id)" style="cursor:pointer;"></div>
-                                                            </td>
-                                                        </tr>
-                                                    }
-                                                </table>
-                                            </td>
-                                            @if (Model.isMain == 0)
-                                            {
-                                                <td class="col-md-1 shsingle text-center">
-                                                    <a href="/OfferMonitoring/Edit/@item.productionID" class="badge bg-light-blue">
-                                                        <span class="glyphicon glyphicon-remove"></span>
-                                                    </a>
-                                                </td>
-                                            }
+                                            <th>tipi</th>
+                                            <th>il</th>
+                                            <th>rüb</th>
+                                            <th>ay</th>
+                                            <th>gün</th>
+                                            <th>saat</th>
+                                            <th>miqdar</th>
+                                            <th>miqdar (cəmi)</th>
                                         </tr>
-                                        if (item.productionCalendarList.Count() > 0)
+                                        @foreach (var itemc in item.productionCalendarList)
                                         {
+                                            tquantity = (itemc.quantity * itemc.transportation_eV_Id);
                                             <tr>
-                                                <td colspan="8" style="padding:0;">
-                                                    <table class="table" style="margin:0;">
-                                                        <tr>
-                                                            <th>tipi</th>
-                                                            <th>il</th>
-                                                            <th>rüb</th>
-                                                            <th>ay</th>
-                                                            <th>gün</th>
-                                                            <th>saat</th>
-                                                            <th>miqdar</th>
-                                                            <th>miqdar (cəmi)</th>
-                                                        </tr>
-                                                        @foreach (var itemc in item.productionCalendarList)
-                                                        {
-                                                            tquantity = (itemc.quantity * itemc.transportation_eV_Id);
-                                                            <tr>
-                                                                <td>
-                                                                    @if (itemc.TypeDescription != null)
-                                                                    {
-                                                                        <span>@itemc.TypeDescription</span>
-                                                                    }
-                                                                </td>
-                                                                <td> @itemc.year</td>
-                                                                <td> @itemc.partOfyear</td>
-                                                                <td> @itemc.MonthDescription</td>
-                                                                <td> @itemc.day</td>
-                                                                <td> @itemc.oclock</td>
-                                                                <td> @itemc.quantity</td>
-                                                                <td> @tquantity</td>
-                                                            </tr>
-                                                        }
-                                                    </table>
+                                                <td>
+                                                    @if (itemc.TypeDescription != null)
+                                                    {
+                                                        <span>@itemc.TypeDescription</span>
+                                                    }
                                                 </td>
+                                                <td> @itemc.year</td>
+                                                <td> @itemc.partOfyear</td>
+                                                <td> @itemc.MonthDescription</td>
+                                                <td> @itemc.day</td>
+                                                <td> @itemc.oclock</td>
+                                                <td> @itemc.quantity</td>
+                                                <td> @tquantity</td>
                                             </tr>
                                         }
-                                        if (item != Model.ProductionDetailList.LastOrDefault())
-                                        {
-                                            <tr>
-                                                <td colspan="8" style="padding:0;background:#f2f2f2;">
-                                                    &nbsp;
-                                                </td>
-                                            </tr>
-                                        }
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="box-footer clearfix">
-                        Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
-                        @Html.PagedListPager(Model.Paging, page => Url.Action("Index", new { page, monitoringStatusEV = Model.monitoringStatusEV, productName=Model.productName, userInfo=Model.userInfo }))
-                    </div>
-
-
+                                    </table>
+                                </td>
+                            </tr>
+                        }
+                        if (item != Model.ProductionDetailList.LastOrDefault())
+                        {
+                            <tr>
+                                <td colspan="8" style="padding:0;background:#f2f2f2;">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    if (Model.isPDF == false)
+    {
+        <div class="box-footer clearfix">
+            Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
+            @Html.PagedListPager(Model.Paging, page => Url.Action("Index", new { page, monitoringStatusEV = Model.monitoringStatusEV, productName = Model.productName, userInfo = Model.userInfo }))
+        </div>
+    }
 }
 
 

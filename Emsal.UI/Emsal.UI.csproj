@@ -1069,6 +1069,7 @@
     <Content Include="Views\Home\Services.cshtml" />
     <Content Include="Views\SignUpOP\Index.cshtml" />
     <Content Include="Views\OfferHome\ProductionCalendar.cshtml" />
+    <Content Include="Views\Home\Style.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

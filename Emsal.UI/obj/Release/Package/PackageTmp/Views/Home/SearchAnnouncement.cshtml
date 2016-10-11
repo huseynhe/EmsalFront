@@ -8,6 +8,10 @@
 
 @if (Model.AnnouncementDetailList != null)
 {
+    <div class="col-sm-1 col-sm-offset-11" style="position: absolute;z-index:1000;">
+        <span class="badge " style="margin-top: -10px; float: right; margin-right: 12px;background:#D43F3A;">@Model.itemCount</span>
+    </div>
+
     <div style="background:#fafafa;border-radius: 0px 0px 5px 5px;overflow-y:scroll;max-height:400px;">
         @if (Model.AnnouncementDetailList.Count() == 0)
         {
