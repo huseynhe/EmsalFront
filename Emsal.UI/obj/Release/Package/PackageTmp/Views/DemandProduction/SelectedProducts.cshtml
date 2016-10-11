@@ -6,6 +6,10 @@
     {
         Layout = "~/Views/Shared/_LayoutProfilePW.cshtml";
     }
+    else
+    {
+        Layout = "";
+    }
     decimal tquantity = 0;
 }
 
@@ -108,3 +112,9 @@
 </div>
 @*	</div>*@
 
+
+
+@if (Model.isPDF == true)
+{
+    @Html.Action("Style", "Home", new { pId = 0 })
+}

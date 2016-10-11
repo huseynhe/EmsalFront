@@ -18,13 +18,11 @@
 @using (Html.BeginForm("Approv", "OfferMonitoring", FormMethod.Post))
 {
 
-
-
     <div class="box-body no-padding">
 
         @if (Model.isPDF == false)
         {
-            <a href="/OfferMonitoring?monitoringStatusEV = @Model.monitoringStatusEV&productName=@Model.productName&userInfo=@Model.userInfo&pdf=true" class="btn btn-warning active pull-right" style="margin-top:3px;">
+            <a href="/OfferMonitoring?monitoringStatusEV = @Model.monitoringStatusEV&productName=@Model.productName&userInfo=@Model.userInfo&pdf=true" class="btn btn-warning active pull-right" style="margin-top: 3px; margin-bottom: 3px;">
                 <i class="glyphicon glyphicon-save-file"></i>
                 Yüklə
             </a>
@@ -200,3 +198,9 @@
         $('#chall').hide();
     });
 </script>
+
+
+@if (Model.isPDF == true)
+{
+    @Html.Action("Style", "Home", new { pId = 0 })
+}
