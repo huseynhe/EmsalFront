@@ -80,5 +80,6 @@ namespace Emsal.AdminUI.Models
         public virtual DateTime[] arrayEndDate { get; set; }
 
         public int approv { get; set; }
+        public string pname { get; set; }
     }
 }

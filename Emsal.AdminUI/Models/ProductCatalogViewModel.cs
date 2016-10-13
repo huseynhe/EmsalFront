@@ -1,4 +1,5 @@
-﻿using Emsal.WebInt.EmsalSrv;
+﻿using Emsal.Utility.CustomObjects;
+using Emsal.WebInt.EmsalSrv;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,12 +10,17 @@ namespace Emsal.AdminUI.Models
 {
     public class ProductCatalogViewModel : UserInfoViewModel
     {
-        public string messageSuccess = "Yadda saxlanıldı.";
-        public int fileSize = 2097152;
-        public string fileDirectorySV = @"/Content/profileImage/";
-        public string fileDirectory = HttpContext.Current.Server.MapPath("~/Content/profileImage/");
-        public List<string> fileTypes = new List<string> { "image/jpeg", "image/png", "application/pdf" };
+        //public string messageSuccess = "Yadda saxlanıldı.";
+        //public int fileSize = 2097152;
+        //public string fileDirectorySV = @"/Content/profileImage/";
+        //public string fileDirectory = HttpContext.Current.Server.MapPath("~/Content/profileImage/");
+        //public List<string> fileTypes = new List<string> { "image/jpeg", "image/png", "application/pdf" };
 
+        public string messageSuccess = FileExtension.messageSuccess;
+        public int fileSize = FileExtension.fileSize;
+        public string fileDirectorySV = FileExtension.fileDirectorySV;
+        public string fileDirectory = HttpContext.Current.Server.MapPath(FileExtension.fileDirectoryProfileImage);
+        public List<string> fileTypes = FileExtension.fileMimeTypes;
 
         public tblUser User;
 

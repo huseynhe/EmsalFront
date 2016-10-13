@@ -68,5 +68,6 @@ namespace Emsal.AdminUI.Models
         public string unitPrice { get; set; }
 
         public int NPCount { get; set; }
+        public string pname { get; set; }
     }
 }

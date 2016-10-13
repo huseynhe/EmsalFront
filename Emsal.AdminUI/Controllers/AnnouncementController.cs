@@ -193,13 +193,14 @@ namespace Emsal.AdminUI.Controllers
 
                 if (spname != null)
                 {
-                    modelAnnouncement.Paging = modelAnnouncement.AnnouncementDetailArray.Where(x => x.announcement.product_name.ToLowerInvariant().Contains(spname) || x.parentName.ToLowerInvariant().Contains(spname)).ToPagedList(pageNumber, pageSize);
+                    modelAnnouncement.Paging = modelAnnouncement.AnnouncementDetailArray.Where(x => x.announcement.product_name.ToLower().Contains(spname) || x.parentName.ToLower().Contains(spname)).ToPagedList(pageNumber, pageSize);
                 }
                 else
                 {
                     modelAnnouncement.Paging = modelAnnouncement.AnnouncementDetailArray.ToPagedList(pageNumber, pageSize);
                 }
 
+                modelAnnouncement.pname = spname;
 
                 return Request.IsAjaxRequest()
   ? (ActionResult)PartialView("PartialApprov", modelAnnouncement)

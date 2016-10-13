@@ -189,7 +189,7 @@ namespace Emsal.UI.Controllers
                 {
                     BaseOutput gap = srv.WS_GetAnnouncementDetails(baseInput, out modelProductCatalog.AnnouncementDetailArray);
 
-                    modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailArray.Where(x => x.announcementDetail.announcement.product_name.ToLowerInvariant().Contains(value) || x.parentName.ToLowerInvariant().Contains(value)).ToList();
+                    modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailArray.Where(x => x.announcementDetail.announcement.product_name.ToLower().Contains(value) || x.parentName.ToLower().Contains(value)).ToList();
                 }
 
                 if (modelProductCatalog.AnnouncementDetailList != null)
@@ -376,19 +376,19 @@ namespace Emsal.UI.Controllers
 
                 if (sname != null)
                 {
-                    modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoList.Where(x => x.name.ToLowerInvariant().Contains(sname)).ToList();
+                    modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoList.Where(x => x.name.ToLower().Contains(sname)).ToList();
                 }
                 if (ssurname != null)
                 {
-                    modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoList.Where(x => x.surname.ToLowerInvariant().Contains(ssurname)).ToList();
+                    modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoList.Where(x => x.surname.ToLower().Contains(ssurname)).ToList();
                 }
                 if (saddress != null)
                 {
-                    modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoList.Where(x => x.adminUnitName.ToLowerInvariant().Contains(saddress)).ToList();
+                    modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoList.Where(x => x.adminUnitName.ToLower().Contains(saddress)).ToList();
                 }
                 if (sproducts != null)
                 {
-                    modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoList.Where(x => x.parentAdminUnitName.ToLowerInvariant().Contains(sproducts)).ToList();
+                    modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoList.Where(x => x.parentAdminUnitName.ToLower().Contains(sproducts)).ToList();
                 }
 
 

@@ -1,3 +1,14 @@
+$(document).ajaxStart(function () {
+    $(".loader").css("display", "block");
+});
+
+$(document).ajaxComplete(function () {
+    $(".loader").css("display", "none");
+});
+
+
+
+
 var allowfiletype = ["image/jpeg", "application/pdf", "image/png"];
 var ftypes = ".pdf, .jpeg, .jpg, .png ";
 var tfilefieldtemplate;

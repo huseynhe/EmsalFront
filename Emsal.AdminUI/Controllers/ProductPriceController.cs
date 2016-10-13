@@ -190,7 +190,7 @@ namespace Emsal.AdminUI.Controllers
                     if(spname!=null)
                     {
 
-                        modelproductPrice.Paging = modelproductPrice.ProductPriceDetailArray.Where(x=> x.productName.ToLowerInvariant().Contains(spname) || x.productParentName.ToLowerInvariant().Contains(spname)).ToPagedList(pageNumber, pageSize);
+                        modelproductPrice.Paging = modelproductPrice.ProductPriceDetailArray.Where(x=> x.productName.ToLower().Contains(spname) || x.productParentName.ToLower().Contains(spname)).ToPagedList(pageNumber, pageSize);
                     }
                     else
                     {
@@ -217,7 +217,7 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput evrf = srv.WS_GetEnumValuesByEnumCategoryId(baseInput, modelproductPrice.EnumCategoryRub.Id, true, out modelproductPrice.EnumValueArrayRub);
             modelproductPrice.EnumValueListRub = modelproductPrice.EnumValueArrayRub.ToList();
 
-
+                modelproductPrice.pname = spname;
 
                 return Request.IsAjaxRequest()
          ? (ActionResult)PartialView("PartialApprov", modelproductPrice)

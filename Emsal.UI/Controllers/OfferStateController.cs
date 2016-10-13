@@ -82,7 +82,7 @@ namespace Emsal.UI.Controllers
 
                 if (modelOfferState.ProductionDetailArray != null)
                 {
-                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailArray.ToList();
+                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailArray.Where(x=>x.person!=null).ToList();
                 }
                 else
                 {
@@ -91,29 +91,12 @@ namespace Emsal.UI.Controllers
 
                 if (sproductName != null)
                 {
-                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.productName.ToLowerInvariant().Contains(sproductName) || x.productParentName.ToLowerInvariant().Contains(sproductName)).ToList();
+                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
                 }
 
                 if (suserInfo != null)
                 {
-                    if (modelOfferState.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
-                    {
-                        modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList();
-                    }
-
-                    if (modelOfferState.ProductionDetailList.Where(x => x.person.Surname.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
-                    {
-                        modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.person.Surname.ToLowerInvariant().Contains(suserInfo)).ToList();
-                    }
-
-                    if (modelOfferState.ProductionDetailList.Where(x => x.person.FatherName.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
-                    {
-                        modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.person.FatherName.ToLowerInvariant().Contains(suserInfo)).ToList();
-                    }
-                    else
-                    {
-                        modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList();
-                    }
+                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
                 }
 
 

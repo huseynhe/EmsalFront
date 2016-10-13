@@ -25,9 +25,10 @@ namespace Emsal.AdminUI.Controllers
 
         public ActionResult Index()
         {
-            try { 
+            try
+            {
 
-            return View();
+                return View();
 
             }
             catch (Exception ex)
@@ -38,38 +39,50 @@ namespace Emsal.AdminUI.Controllers
 
         public ActionResult GetFile(long Id)
         {
-            try { 
-
-            baseInput = new BaseInput();
-            modelproductionDocument = new ProductionDocumentViewModel();
-
-            long? UserId = null;
-            if (User != null && User.Identity.IsAuthenticated)
+            try
             {
-                FormsIdentity identity = (FormsIdentity)User.Identity;
-                if (identity.Ticket.UserData.Length > 0)
+
+
+                baseInput = new BaseInput();
+                modelproductionDocument = new ProductionDocumentViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
                 {
-                    UserId = Int32.Parse(identity.Ticket.UserData);
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
                 }
-            }
-            BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelproductionDocument.Admin);
-            baseInput.userName = modelproductionDocument.Admin.Username;
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelproductionDocument.Admin);
+                baseInput.userName = modelproductionDocument.Admin.Username;
 
 
-            BaseOutput gpd = srv.WS_GetProductionDocumentById(baseInput,Id, true, out modelproductionDocument.ProductionDocument);
+                BaseOutput gpd = srv.WS_GetProductionDocumentById(baseInput, Id, true, out modelproductionDocument.ProductionDocument);
 
-            string fileName = modelproductionDocument.ProductionDocument.documentName;
-            string targetPath = modelproductionDocument.tempFileDirectory;
+                string fileName = modelproductionDocument.ProductionDocument.documentName;
+                string targetPath = modelproductionDocument.tempFileDirectory;
 
-            string sourceFile = System.IO.Path.Combine(modelproductionDocument.ProductionDocument.documentUrl, fileName);
-            string destFile = System.IO.Path.Combine(targetPath, fileName);
+                string sourceFile = System.IO.Path.Combine(modelproductionDocument.ProductionDocument.documentUrl, fileName);
+                string destFile = System.IO.Path.Combine(targetPath, fileName);
 
-            if (!System.IO.Directory.Exists(targetPath))
-            {
-                System.IO.Directory.CreateDirectory(targetPath);
-            }
 
-            //var extension = Path.Get(fileName);
+                string[] files = Directory.GetFiles(targetPath);
+
+                foreach (string file in files)
+                {
+                    FileInfo fi = new FileInfo(file);
+                    if (fi.LastAccessTime < DateTime.Now.AddHours(-1))
+                        fi.Delete();
+                }
+
+                if (!System.IO.Directory.Exists(targetPath))
+                {
+                    System.IO.Directory.CreateDirectory(targetPath);
+                }
+
+                //var extension = Path.Get(fileName);
 
 
                 var extension = Path.GetExtension(fileName);
@@ -86,14 +99,14 @@ namespace Emsal.AdminUI.Controllers
                     return null;
                 }
 
-            modelproductionDocument.FCType = registryKey.GetValue("Content Type") as string;
+                modelproductionDocument.FCType = registryKey.GetValue("Content Type") as string;
 
 
 
 
-            System.IO.File.Copy(sourceFile, destFile, true);
+                System.IO.File.Copy(sourceFile, destFile, true);
 
-            return View(modelproductionDocument);
+                return View(modelproductionDocument);
 
             }
             catch (Exception ex)

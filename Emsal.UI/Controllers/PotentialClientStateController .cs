@@ -77,33 +77,16 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput gpp = srv.WS_GetPotensialProductionDetailistForStateEVId(baseInput, (long)UserId, true, modelPotentialClientState.EnumValue.Id, true, out modelPotentialClientState.ProductionDetailArray);
 
-                modelPotentialClientState.ProductionDetailList = modelPotentialClientState.ProductionDetailArray.Where(x => x.enumCategoryId == modelPotentialClientState.EnumCategory.Id).ToList();
+                modelPotentialClientState.ProductionDetailList = modelPotentialClientState.ProductionDetailArray.Where(x => x.enumCategoryId == modelPotentialClientState.EnumCategory.Id && x.person!=null).ToList();
 
                 if (sproductName != null)
                 {
-                    modelPotentialClientState.ProductionDetailList = modelPotentialClientState.ProductionDetailList.Where(x => x.productName.ToLowerInvariant().Contains(sproductName)).ToList();
+                    modelPotentialClientState.ProductionDetailList = modelPotentialClientState.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName)).ToList();
                 }
 
                 if (suserInfo != null)
                 {
-                    if (modelPotentialClientState.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
-                    {
-                        modelPotentialClientState.ProductionDetailList = modelPotentialClientState.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList();
-                    }
-
-                    if (modelPotentialClientState.ProductionDetailList.Where(x => x.person.Surname.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
-                    {
-                        modelPotentialClientState.ProductionDetailList = modelPotentialClientState.ProductionDetailList.Where(x => x.person.Surname.ToLowerInvariant().Contains(suserInfo)).ToList();
-                    }
-
-                    if (modelPotentialClientState.ProductionDetailList.Where(x => x.person.FatherName.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
-                    {
-                        modelPotentialClientState.ProductionDetailList = modelPotentialClientState.ProductionDetailList.Where(x => x.person.FatherName.ToLowerInvariant().Contains(suserInfo)).ToList();
-                    }
-                    else
-                    {
-                        modelPotentialClientState.ProductionDetailList = modelPotentialClientState.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList();
-                    }
+                    modelPotentialClientState.ProductionDetailList = modelPotentialClientState.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
                 }
 
                 modelPotentialClientState.PagingDetail = modelPotentialClientState.ProductionDetailList.ToPagedList(pageNumber, pageSize);

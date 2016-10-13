@@ -83,38 +83,21 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.ProductionDetailArray);
 
-                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelDemandProduction.EnumCategory.Id).ToList();
+                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelDemandProduction.EnumCategory.Id && x.foreignOrganization!=null && x.person!=null).ToList();
 
                 if (sproductName != null)
                 {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.productName.ToLowerInvariant().Contains(sproductName)).ToList();
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
                 }
 
                 if (sadminUnit != null)
                 {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.foreignOrganization.name.ToLowerInvariant().Contains(sadminUnit)).ToList();
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.foreignOrganization.name.ToLower().Contains(sadminUnit)).ToList();
                 }
 
                 if (suserInfo != null)
                 {
-                    if (modelDemandProduction.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
-                    {
-                        modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList();
-                    }
-
-                    if (modelDemandProduction.ProductionDetailList.Where(x => x.person.Surname.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
-                    {
-                        modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.Surname.ToLowerInvariant().Contains(suserInfo)).ToList();
-                    }
-
-                    if (modelDemandProduction.ProductionDetailList.Where(x => x.person.FatherName.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
-                    {
-                        modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.FatherName.ToLowerInvariant().Contains(suserInfo)).ToList();
-                    }
-                    else
-                    {
-                        modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList();
-                    }
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
                 }
 
 

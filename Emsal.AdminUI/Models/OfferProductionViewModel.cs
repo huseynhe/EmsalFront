@@ -1,4 +1,5 @@
-﻿using Emsal.WebInt.EmsalSrv;
+﻿using Emsal.Utility.CustomObjects;
+using Emsal.WebInt.EmsalSrv;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,11 +10,16 @@ namespace Emsal.AdminUI.Models
 {
     public class OfferProductionViewModel : UserInfoViewModel
     {
-        public string messageSuccess = "Yadda saxlanıldı.";
-        public int fileSize = 2097152;
-        public string fileDirectory = @"C:\inetpub\emsalfiles";
-        public List<string> fileTypes = new List<string> { "image/jpeg", "image/png", "application/pdf" };
-        
+        //public string messageSuccess = "Yadda saxlanıldı.";
+        //public int fileSize = 2097152;
+        //public string fileDirectory = @"C:\inetpub\emsalfiles";
+        //public List<string> fileTypes = new List<string> { "image/jpeg", "image/png", "application/pdf" };
+
+        public string messageSuccess = FileExtension.messageSuccess;
+        public int fileSize = FileExtension.fileSize;
+        public string fileDirectory = FileExtension.fileDirectoryExternal;
+        public List<string> fileTypes = FileExtension.fileMimeTypes;
+
 
         public tblOffer_Production OfferProduction;
         public IList<tblOffer_Production> OfferProductionList { get; set; }

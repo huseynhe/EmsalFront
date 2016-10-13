@@ -4,15 +4,21 @@ using System.Linq;
 using System.Web;
 using Emsal.WebInt.EmsalSrv;
 using System.ComponentModel.DataAnnotations;
+using Emsal.Utility.CustomObjects;
 
 namespace Emsal.UI.Models
 {
     public class PotentialClientStateViewModel : UserRoles
     {
-        public string messageSuccess = "Yadda saxlanıldı.";
-        public int fileSize = 2097152;
-        public string fileDirectory = @"C:\inetpub\emsalfiles";
-        public List<string> fileTypes = new List<string> { "image/jpeg", "image/png", "application/pdf" };
+        //public string messageSuccess = "Yadda saxlanıldı.";
+        //public int fileSize = 2097152;
+        //public string fileDirectory = @"C:\inetpub\emsalfiles";
+        //public List<string> fileTypes = new List<string> { "image/jpeg", "image/png", "application/pdf" };
+
+        public string messageSuccess = FileExtension.messageSuccess;
+        public int fileSize = FileExtension.fileSize;
+        public string fileDirectory = FileExtension.fileDirectoryExternal;
+        public List<string> fileTypes = FileExtension.fileMimeTypes;
 
         public tblUser User;
 

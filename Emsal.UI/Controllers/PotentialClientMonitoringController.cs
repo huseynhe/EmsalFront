@@ -12,7 +12,7 @@ using Emsal.Utility.CustomObjects;
 
 namespace Emsal.UI.Controllers
 {
-        [EmsalAuthorization(AuthorizedAction = ActionName.PotentialClientMonitoring)]
+    [EmsalAuthorization(AuthorizedAction = ActionName.PotentialClientMonitoring)]
     public class PotentialClientMonitoringController : Controller
     {
         private BaseInput baseInput;
@@ -28,97 +28,81 @@ namespace Emsal.UI.Controllers
 
         public ActionResult Index(int? page, string monitoringStatusEV = null, string productName = null, string userInfo = null)
         {
-            try {
+            try
+            {
 
                 if (monitoringStatusEV != null)
                     monitoringStatusEV = StripTag.strSqlBlocker(monitoringStatusEV.ToLower());
                 if (productName != null)
-                productName = StripTag.strSqlBlocker(productName.ToLower());
-            if (userInfo != null)
-                userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
+                    productName = StripTag.strSqlBlocker(productName.ToLower());
+                if (userInfo != null)
+                    userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
 
 
-            int pageSize = 10;
-            int pageNumber = (page ?? 1);
+                int pageSize = 10;
+                int pageNumber = (page ?? 1);
 
-            if (productName == null && userInfo == null)
-            {
-                sproductName = null;
-                suserInfo = null;
-            }
-
-            if (productName != null)
-                sproductName = productName;
-            if (userInfo != null)
-                suserInfo = userInfo;
-            if (monitoringStatusEV != null)
-                smonitoringStatusEV = monitoringStatusEV;
-
-            baseInput = new BaseInput();
-            modelPotentialClientMonitoring = new PotentialClientMonitoringViewModel();
-
-            long? UserId = null;
-            if (User != null && User.Identity.IsAuthenticated)
-            {
-                FormsIdentity identity = (FormsIdentity)User.Identity;
-                if (identity.Ticket.UserData.Length > 0)
+                if (productName == null && userInfo == null)
                 {
-                    UserId = Int32.Parse(identity.Ticket.UserData);
-                }
-            }
-            BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelPotentialClientMonitoring.User);
-            baseInput.userName = modelPotentialClientMonitoring.User.Username;
-
-            BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelPotentialClientMonitoring.EnumCategory);
-
-            BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, smonitoringStatusEV, out modelPotentialClientMonitoring.EnumValue);
-
-            BaseOutput gpp = srv.WS_GetPotensialProductionDetailistForMonitoringEVId(baseInput, (long)UserId, true, modelPotentialClientMonitoring.EnumValue.Id, true, out modelPotentialClientMonitoring.ProductionDetailArray);
-
-            modelPotentialClientMonitoring.ProductionDetailList = modelPotentialClientMonitoring.ProductionDetailArray.Where(x => x.enumCategoryId == modelPotentialClientMonitoring.EnumCategory.Id).ToList();
-
-            if (sproductName != null)
-            {
-                modelPotentialClientMonitoring.ProductionDetailList = modelPotentialClientMonitoring.ProductionDetailList.Where(x => x.productName.ToLowerInvariant().Contains(sproductName)).ToList();
-            }
-
-            if (suserInfo != null)
-            {
-                if (modelPotentialClientMonitoring.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
-                {
-                    modelPotentialClientMonitoring.ProductionDetailList = modelPotentialClientMonitoring.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList();
+                    sproductName = null;
+                    suserInfo = null;
                 }
 
-                if (modelPotentialClientMonitoring.ProductionDetailList.Where(x => x.person.Surname.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
+                if (productName != null)
+                    sproductName = productName;
+                if (userInfo != null)
+                    suserInfo = userInfo;
+                if (monitoringStatusEV != null)
+                    smonitoringStatusEV = monitoringStatusEV;
+
+                baseInput = new BaseInput();
+                modelPotentialClientMonitoring = new PotentialClientMonitoringViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
                 {
-                    modelPotentialClientMonitoring.ProductionDetailList = modelPotentialClientMonitoring.ProductionDetailList.Where(x => x.person.Surname.ToLowerInvariant().Contains(suserInfo)).ToList();
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelPotentialClientMonitoring.User);
+                baseInput.userName = modelPotentialClientMonitoring.User.Username;
+
+                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelPotentialClientMonitoring.EnumCategory);
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, smonitoringStatusEV, out modelPotentialClientMonitoring.EnumValue);
+
+                BaseOutput gpp = srv.WS_GetPotensialProductionDetailistForMonitoringEVId(baseInput, (long)UserId, true, modelPotentialClientMonitoring.EnumValue.Id, true, out modelPotentialClientMonitoring.ProductionDetailArray);
+
+                modelPotentialClientMonitoring.ProductionDetailList = modelPotentialClientMonitoring.ProductionDetailArray.Where(x => x.enumCategoryId == modelPotentialClientMonitoring.EnumCategory.Id && x.person!=null).ToList();
+
+                if (sproductName != null)
+                {
+                    modelPotentialClientMonitoring.ProductionDetailList = modelPotentialClientMonitoring.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName)).ToList();
                 }
 
-                if (modelPotentialClientMonitoring.ProductionDetailList.Where(x => x.person.FatherName.ToLowerInvariant().Contains(suserInfo)).ToList().Count() > 0)
+                if (suserInfo != null)
                 {
-                    modelPotentialClientMonitoring.ProductionDetailList = modelPotentialClientMonitoring.ProductionDetailList.Where(x => x.person.FatherName.ToLowerInvariant().Contains(suserInfo)).ToList();
+                    modelPotentialClientMonitoring.ProductionDetailList = modelPotentialClientMonitoring.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
                 }
+
+                modelPotentialClientMonitoring.PagingDetail = modelPotentialClientMonitoring.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+
+                if (smonitoringStatusEV == "new")
+                    modelPotentialClientMonitoring.isMain = 0;
                 else
-                {
-                    modelPotentialClientMonitoring.ProductionDetailList = modelPotentialClientMonitoring.ProductionDetailList.Where(x => x.person.Name.ToLowerInvariant().Contains(suserInfo)).ToList();
-                }
-            }
-
-            modelPotentialClientMonitoring.PagingDetail = modelPotentialClientMonitoring.ProductionDetailList.ToPagedList(pageNumber, pageSize);
-
-            if (smonitoringStatusEV == "new")
-                modelPotentialClientMonitoring.isMain = 0;
-            else
-                modelPotentialClientMonitoring.isMain = 1;
+                    modelPotentialClientMonitoring.isMain = 1;
 
 
-            modelPotentialClientMonitoring.monitoringStatusEV = smonitoringStatusEV;
-            modelPotentialClientMonitoring.productName = sproductName;
-            modelPotentialClientMonitoring.userInfo = suserInfo;
+                modelPotentialClientMonitoring.monitoringStatusEV = smonitoringStatusEV;
+                modelPotentialClientMonitoring.productName = sproductName;
+                modelPotentialClientMonitoring.userInfo = suserInfo;
 
-            return Request.IsAjaxRequest()
-               ? (ActionResult)PartialView("PartialIndex", modelPotentialClientMonitoring)
-               : View(modelPotentialClientMonitoring);
+                return Request.IsAjaxRequest()
+                   ? (ActionResult)PartialView("PartialIndex", modelPotentialClientMonitoring)
+                   : View(modelPotentialClientMonitoring);
 
             }
             catch (Exception ex)
@@ -131,55 +115,56 @@ namespace Emsal.UI.Controllers
 
         public ActionResult Approv(int[] ids)
         {
-            try { 
-
-            baseInput = new BaseInput();
-            modelPotentialClientMonitoring = new PotentialClientMonitoringViewModel();
-
-            long? UserId = null;
-            if (User != null && User.Identity.IsAuthenticated)
+            try
             {
-                FormsIdentity identity = (FormsIdentity)User.Identity;
-                if (identity.Ticket.UserData.Length > 0)
+
+                baseInput = new BaseInput();
+                modelPotentialClientMonitoring = new PotentialClientMonitoringViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
                 {
-                    UserId = Int32.Parse(identity.Ticket.UserData);
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
                 }
-            }
-            BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelPotentialClientMonitoring.User);
-            baseInput.userName = modelPotentialClientMonitoring.User.Username;
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelPotentialClientMonitoring.User);
+                baseInput.userName = modelPotentialClientMonitoring.User.Username;
 
-            modelPotentialClientMonitoring.PotentialProduction = new tblPotential_Production();
+                modelPotentialClientMonitoring.PotentialProduction = new tblPotential_Production();
 
-            if (ids != null)
-            {
-                for (int i = 0; i < ids.Length; i++)
+                if (ids != null)
                 {
-                    BaseOutput bouput = srv.WS_GetPotential_ProductionById(baseInput, ids[i], true, out modelPotentialClientMonitoring.PotentialProduction);
+                    for (int i = 0; i < ids.Length; i++)
+                    {
+                        BaseOutput bouput = srv.WS_GetPotential_ProductionById(baseInput, ids[i], true, out modelPotentialClientMonitoring.PotentialProduction);
 
-                    BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelPotentialClientMonitoring.EnumValueST);
+                        BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelPotentialClientMonitoring.EnumValueST);
 
-                    modelPotentialClientMonitoring.PotentialProduction.state_eV_Id = modelPotentialClientMonitoring.EnumValueST.Id;
-                    modelPotentialClientMonitoring.PotentialProduction.state_eV_IdSpecified = true;
+                        modelPotentialClientMonitoring.PotentialProduction.state_eV_Id = modelPotentialClientMonitoring.EnumValueST.Id;
+                        modelPotentialClientMonitoring.PotentialProduction.state_eV_IdSpecified = true;
 
-                    BaseOutput ecout = srv.WS_UpdatePotential_Production(baseInput, modelPotentialClientMonitoring.PotentialProduction, out modelPotentialClientMonitoring.PotentialProduction);
+                        BaseOutput ecout = srv.WS_UpdatePotential_Production(baseInput, modelPotentialClientMonitoring.PotentialProduction, out modelPotentialClientMonitoring.PotentialProduction);
 
-                    modelPotentialClientMonitoring.ComMessage = new tblComMessage();
-                    modelPotentialClientMonitoring.ComMessage.message = "Təsdiqləndi";
-                    modelPotentialClientMonitoring.ComMessage.fromUserID = (long)UserId;
-                    modelPotentialClientMonitoring.ComMessage.fromUserIDSpecified = true;
-                    modelPotentialClientMonitoring.ComMessage.toUserID = modelPotentialClientMonitoring.PotentialProduction.user_Id;
-                    modelPotentialClientMonitoring.ComMessage.toUserIDSpecified = true;
-                    modelPotentialClientMonitoring.ComMessage.Production_Id = modelPotentialClientMonitoring.PotentialProduction.Id;
-                    modelPotentialClientMonitoring.ComMessage.Production_IdSpecified = true;
-                    BaseOutput enumval = srv.WS_GetEnumValueByName(baseInput, "potential", out modelPotentialClientMonitoring.EnumValue);
-                    modelPotentialClientMonitoring.ComMessage.Production_type_eV_Id = modelPotentialClientMonitoring.EnumValue.Id;
-                    modelPotentialClientMonitoring.ComMessage.Production_type_eV_IdSpecified = true;
+                        modelPotentialClientMonitoring.ComMessage = new tblComMessage();
+                        modelPotentialClientMonitoring.ComMessage.message = "Təsdiqləndi";
+                        modelPotentialClientMonitoring.ComMessage.fromUserID = (long)UserId;
+                        modelPotentialClientMonitoring.ComMessage.fromUserIDSpecified = true;
+                        modelPotentialClientMonitoring.ComMessage.toUserID = modelPotentialClientMonitoring.PotentialProduction.user_Id;
+                        modelPotentialClientMonitoring.ComMessage.toUserIDSpecified = true;
+                        modelPotentialClientMonitoring.ComMessage.Production_Id = modelPotentialClientMonitoring.PotentialProduction.Id;
+                        modelPotentialClientMonitoring.ComMessage.Production_IdSpecified = true;
+                        BaseOutput enumval = srv.WS_GetEnumValueByName(baseInput, "potential", out modelPotentialClientMonitoring.EnumValue);
+                        modelPotentialClientMonitoring.ComMessage.Production_type_eV_Id = modelPotentialClientMonitoring.EnumValue.Id;
+                        modelPotentialClientMonitoring.ComMessage.Production_type_eV_IdSpecified = true;
 
-                    BaseOutput acm = srv.WS_AddComMessage(baseInput, modelPotentialClientMonitoring.ComMessage, out modelPotentialClientMonitoring.ComMessage);
+                        BaseOutput acm = srv.WS_AddComMessage(baseInput, modelPotentialClientMonitoring.ComMessage, out modelPotentialClientMonitoring.ComMessage);
+                    }
                 }
-            }
 
-            return RedirectToAction("Index", "PotentialClientMonitoring", new { monitoringStatusEV = modelPotentialClientMonitoring.EnumValueST.name });
+                return RedirectToAction("Index", "PotentialClientMonitoring", new { monitoringStatusEV = modelPotentialClientMonitoring.EnumValueST.name });
 
             }
             catch (Exception ex)
@@ -191,33 +176,34 @@ namespace Emsal.UI.Controllers
 
         public ActionResult Edit(int id)
         {
-            try { 
-
-            baseInput = new BaseInput();
-            modelPotentialClientMonitoring = new PotentialClientMonitoringViewModel();
-
-            long? UserId = null;
-            if (User != null && User.Identity.IsAuthenticated)
+            try
             {
-                FormsIdentity identity = (FormsIdentity)User.Identity;
-                if (identity.Ticket.UserData.Length > 0)
+
+                baseInput = new BaseInput();
+                modelPotentialClientMonitoring = new PotentialClientMonitoringViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
                 {
-                    UserId = Int32.Parse(identity.Ticket.UserData);
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
                 }
-            }
-            BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelPotentialClientMonitoring.User);
-            baseInput.userName = modelPotentialClientMonitoring.User.Username;
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelPotentialClientMonitoring.User);
+                baseInput.userName = modelPotentialClientMonitoring.User.Username;
 
 
-            BaseOutput bouput = srv.WS_GetPotential_ProductionById(baseInput, id, true, out modelPotentialClientMonitoring.PotentialProduction);
-            modelPotentialClientMonitoring.Id = modelPotentialClientMonitoring.PotentialProduction.Id;
+                BaseOutput bouput = srv.WS_GetPotential_ProductionById(baseInput, id, true, out modelPotentialClientMonitoring.PotentialProduction);
+                modelPotentialClientMonitoring.Id = modelPotentialClientMonitoring.PotentialProduction.Id;
 
-            BaseOutput enumcat = srv.WS_GetEnumCategorysByName(baseInput, "State", out modelPotentialClientMonitoring.EnumCategory);
+                BaseOutput enumcat = srv.WS_GetEnumCategorysByName(baseInput, "State", out modelPotentialClientMonitoring.EnumCategory);
 
-            BaseOutput enumval = srv.WS_GetEnumValuesByEnumCategoryId(baseInput, modelPotentialClientMonitoring.EnumCategory.Id, true, out modelPotentialClientMonitoring.EnumValueArray);
-            modelPotentialClientMonitoring.EnumValueList = modelPotentialClientMonitoring.EnumValueArray.ToList();
+                BaseOutput enumval = srv.WS_GetEnumValuesByEnumCategoryId(baseInput, modelPotentialClientMonitoring.EnumCategory.Id, true, out modelPotentialClientMonitoring.EnumValueArray);
+                modelPotentialClientMonitoring.EnumValueList = modelPotentialClientMonitoring.EnumValueArray.ToList();
 
-            return View(modelPotentialClientMonitoring);
+                return View(modelPotentialClientMonitoring);
 
             }
             catch (Exception ex)
@@ -229,50 +215,51 @@ namespace Emsal.UI.Controllers
         [HttpPost]
         public ActionResult Edit(PotentialClientMonitoringViewModel model, FormCollection collection)
         {
-            try { 
-
-            baseInput = new BaseInput();
-
-            long? UserId = null;
-            if (User != null && User.Identity.IsAuthenticated)
+            try
             {
-                FormsIdentity identity = (FormsIdentity)User.Identity;
-                if (identity.Ticket.UserData.Length > 0)
+
+                baseInput = new BaseInput();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
                 {
-                    UserId = Int32.Parse(identity.Ticket.UserData);
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
                 }
-            }
-            BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out model.User);
-            baseInput.userName = model.User.Username;
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out model.User);
+                baseInput.userName = model.User.Username;
 
-            model.PotentialProduction = new tblPotential_Production();
+                model.PotentialProduction = new tblPotential_Production();
 
-            BaseOutput bouput = srv.WS_GetPotential_ProductionById(baseInput, model.Id, true, out model.PotentialProduction);
+                BaseOutput bouput = srv.WS_GetPotential_ProductionById(baseInput, model.Id, true, out model.PotentialProduction);
 
-            //BaseOutput envalyd = srv.WS_GetEnumValueById(baseInput, model.monitoringStatusEVId, true, out model.EnumValueST);
-            BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "reedited", out model.EnumValueST);
+                //BaseOutput envalyd = srv.WS_GetEnumValueById(baseInput, model.monitoringStatusEVId, true, out model.EnumValueST);
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "reedited", out model.EnumValueST);
 
-            model.PotentialProduction.state_eV_Id = model.EnumValueST.Id;
-            model.PotentialProduction.state_eV_IdSpecified = true;
+                model.PotentialProduction.state_eV_Id = model.EnumValueST.Id;
+                model.PotentialProduction.state_eV_IdSpecified = true;
 
-            BaseOutput ecout = srv.WS_UpdatePotential_Production(baseInput, model.PotentialProduction, out model.PotentialProduction);
+                BaseOutput ecout = srv.WS_UpdatePotential_Production(baseInput, model.PotentialProduction, out model.PotentialProduction);
 
-            model.ComMessage = new tblComMessage();
-            model.ComMessage.message = model.message;
-            model.ComMessage.fromUserID = (long)UserId;
-            model.ComMessage.fromUserIDSpecified = true;
-            model.ComMessage.toUserID = model.PotentialProduction.user_Id;
-            model.ComMessage.toUserIDSpecified = true;
-            model.ComMessage.Production_Id = model.PotentialProduction.Id;
-            model.ComMessage.Production_IdSpecified = true;
-            BaseOutput enumval = srv.WS_GetEnumValueByName(baseInput, "potential", out model.EnumValue);
-            model.ComMessage.Production_type_eV_Id = model.EnumValue.Id;
-            model.ComMessage.Production_type_eV_IdSpecified = true;
+                model.ComMessage = new tblComMessage();
+                model.ComMessage.message = model.message;
+                model.ComMessage.fromUserID = (long)UserId;
+                model.ComMessage.fromUserIDSpecified = true;
+                model.ComMessage.toUserID = model.PotentialProduction.user_Id;
+                model.ComMessage.toUserIDSpecified = true;
+                model.ComMessage.Production_Id = model.PotentialProduction.Id;
+                model.ComMessage.Production_IdSpecified = true;
+                BaseOutput enumval = srv.WS_GetEnumValueByName(baseInput, "potential", out model.EnumValue);
+                model.ComMessage.Production_type_eV_Id = model.EnumValue.Id;
+                model.ComMessage.Production_type_eV_IdSpecified = true;
 
-            BaseOutput acm = srv.WS_AddComMessage(baseInput, model.ComMessage, out model.ComMessage);
+                BaseOutput acm = srv.WS_AddComMessage(baseInput, model.ComMessage, out model.ComMessage);
 
 
-            return RedirectToAction("Index", "PotentialClientMonitoring", new { monitoringStatusEV = model.EnumValueST.name });
+                return RedirectToAction("Index", "PotentialClientMonitoring", new { monitoringStatusEV = model.EnumValueST.name });
 
             }
             catch (Exception ex)

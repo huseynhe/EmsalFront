@@ -67,7 +67,18 @@ namespace Emsal.UI.Controllers
             string sourceFile = System.IO.Path.Combine(modelProductionDocument.ProductionDocument.documentUrl, fileName);
             string destFile = System.IO.Path.Combine(targetPath, fileName);
 
-            if (!System.IO.Directory.Exists(targetPath))
+
+                string[] files = Directory.GetFiles(targetPath);
+
+                foreach (string file in files)
+                {
+                    var ah = DateTime.Now.AddHours(-1);
+                    FileInfo fi = new FileInfo(file);
+                    if (fi.LastAccessTime < DateTime.Now.AddHours(-1))
+                        fi.Delete();
+                }
+
+                if (!System.IO.Directory.Exists(targetPath))
             {
                 System.IO.Directory.CreateDirectory(targetPath);
             }
