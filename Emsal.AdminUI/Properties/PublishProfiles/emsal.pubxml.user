@@ -6,26 +6,26 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\Users\PeITKa\Desktop\admin</_PublishTargetUrl>
+    <_PublishTargetUrl>D:\Publish\admin</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/BCrypt.Net.dll">
       <publishTime>09/24/2016 14:34:00</publishTime>
     </File>
     <File Include="bin/Emsal.AdminUI.dll">
-      <publishTime>10/08/2016 16:46:50</publishTime>
+      <publishTime>10/13/2016 17:03:25</publishTime>
     </File>
     <File Include="bin/Emsal.AdminUI.dll.config">
       <publishTime>10/06/2016 11:01:46</publishTime>
     </File>
     <File Include="bin/Emsal.Utility.dll">
-      <publishTime>10/08/2016 16:45:06</publishTime>
+      <publishTime>10/13/2016 17:01:09</publishTime>
     </File>
     <File Include="bin/Emsal.WebInt.dll">
-      <publishTime>10/08/2016 16:45:00</publishTime>
+      <publishTime>10/13/2016 17:01:06</publishTime>
     </File>
     <File Include="bin/Emsal.WebInt.XmlSerializers.dll">
-      <publishTime>10/08/2016 16:45:05</publishTime>
+      <publishTime>10/13/2016 17:01:08</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>09/24/2016 14:34:00</publishTime>
@@ -94,7 +94,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/24/2016 14:33:53</publishTime>
     </File>
     <File Include="Content/css/custom.css">
-      <publishTime>09/24/2016 14:33:53</publishTime>
+      <publishTime>10/13/2016 16:22:17</publishTime>
     </File>
     <File Include="Content/css/datepicker.css">
       <publishTime>09/24/2016 14:33:53</publishTime>
@@ -463,7 +463,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/24/2016 14:33:55</publishTime>
     </File>
     <File Include="Content/js/custom.js">
-      <publishTime>09/24/2016 14:33:55</publishTime>
+      <publishTime>10/13/2016 16:23:26</publishTime>
     </File>
     <File Include="Content/js/dashboard.js">
       <publishTime>09/24/2016 14:33:55</publishTime>
@@ -601,13 +601,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/24/2016 14:33:58</publishTime>
     </File>
     <File Include="Views/Announcement/Approv.cshtml">
-      <publishTime>09/24/2016 14:33:58</publishTime>
+      <publishTime>10/13/2016 16:27:01</publishTime>
     </File>
     <File Include="Views/Announcement/Index.cshtml">
       <publishTime>09/24/2016 14:33:58</publishTime>
     </File>
     <File Include="Views/Announcement/PartialApprov.cshtml">
-      <publishTime>09/24/2016 14:33:58</publishTime>
+      <publishTime>10/13/2016 16:29:44</publishTime>
     </File>
     <File Include="Views/ASC/AddASC.cshtml">
       <publishTime>09/24/2016 14:33:58</publishTime>
@@ -799,10 +799,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/24/2016 14:33:59</publishTime>
     </File>
     <File Include="Views/ProductPrice/Index.cshtml">
-      <publishTime>09/24/2016 14:33:59</publishTime>
+      <publishTime>10/13/2016 14:06:43</publishTime>
     </File>
     <File Include="Views/ProductPrice/PartialApprov.cshtml">
-      <publishTime>09/24/2016 14:33:59</publishTime>
+      <publishTime>10/13/2016 16:34:04</publishTime>
     </File>
     <File Include="Views/Report/AdminUnit.cshtml">
       <publishTime>09/24/2016 14:33:59</publishTime>
@@ -874,13 +874,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/24/2016 14:34:00</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>09/24/2016 14:34:00</publishTime>
+      <publishTime>10/13/2016 16:20:59</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>09/24/2016 14:34:00</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/08/2016 16:46:54</publishTime>
+      <publishTime>10/13/2016 17:03:26</publishTime>
     </File>
   </ItemGroup>
 </Project>

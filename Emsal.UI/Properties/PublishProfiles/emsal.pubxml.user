@@ -6,7 +6,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\Users\Internet\Desktop\ui</_PublishTargetUrl>
+    <_PublishTargetUrl>D:\Publish\ui</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="App_Browsers/qt.browser">
@@ -22,25 +22,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/08/2016 13:16:10</publishTime>
     </File>
     <File Include="bin/Controllers/HomeController.cs">
-      <publishTime>10/11/2016 16:36:57</publishTime>
+      <publishTime>10/13/2016 12:33:39</publishTime>
     </File>
     <File Include="bin/Controllers/OfferProductionController.cs">
-      <publishTime>10/07/2016 18:03:09</publishTime>
+      <publishTime>10/13/2016 12:50:56</publishTime>
     </File>
     <File Include="bin/Controllers/SpecialSummaryController.cs">
       <publishTime>10/07/2016 15:58:32</publishTime>
     </File>
     <File Include="bin/Emsal.UI.dll">
-      <publishTime>10/11/2016 16:50:44</publishTime>
+      <publishTime>10/13/2016 17:02:50</publishTime>
     </File>
     <File Include="bin/Emsal.Utility.dll">
-      <publishTime>10/11/2016 16:50:43</publishTime>
+      <publishTime>10/13/2016 17:01:09</publishTime>
     </File>
     <File Include="bin/Emsal.WebInt.dll">
-      <publishTime>10/11/2016 16:50:41</publishTime>
+      <publishTime>10/13/2016 17:01:06</publishTime>
     </File>
     <File Include="bin/Emsal.WebInt.XmlSerializers.dll">
-      <publishTime>10/11/2016 16:50:43</publishTime>
+      <publishTime>10/13/2016 17:01:08</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>09/24/2016 14:34:00</publishTime>
@@ -2260,7 +2260,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/24/2016 14:34:11</publishTime>
     </File>
     <File Include="Views/DemandProduction/SelectedProducts.cshtml">
-      <publishTime>10/11/2016 16:47:23</publishTime>
+      <publishTime>10/11/2016 16:54:55</publishTime>
     </File>
     <File Include="Views/DemandProduction/Unitofmeasurement.cshtml">
       <publishTime>09/24/2016 14:34:11</publishTime>
@@ -2353,7 +2353,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/08/2016 11:36:39</publishTime>
     </File>
     <File Include="Views/Home/PotentialUser.cshtml">
-      <publishTime>10/08/2016 11:16:22</publishTime>
+      <publishTime>10/13/2016 16:01:28</publishTime>
     </File>
     <File Include="Views/Home/ProductCatalog.cshtml">
       <publishTime>09/24/2016 14:34:12</publishTime>
@@ -2656,7 +2656,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/24/2016 14:34:14</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/11/2016 16:51:18</publishTime>
+      <publishTime>10/13/2016 17:01:12</publishTime>
     </File>
   </ItemGroup>
 </Project>

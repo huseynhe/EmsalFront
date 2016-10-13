@@ -46,3 +46,11 @@ H:\projects\Emsal_11.10.2016\EmsalFront\Emsal.WebInt\obj\Release\Emsal.WebInt.cs
 H:\projects\Emsal_11.10.2016\EmsalFront\Emsal.WebInt\obj\Release\Emsal.WebInt.dll
 H:\projects\Emsal_11.10.2016\EmsalFront\Emsal.WebInt\obj\Release\Emsal.WebInt.pdb
 H:\projects\Emsal_11.10.2016\EmsalFront\Emsal.WebInt\obj\Release\Emsal.WebInt.XmlSerializers.dll
+H:\projects\Emsal_13.10.2016\EmsalFront\Emsal.WebInt\bin\Release\Emsal.WebInt.dll.config
+H:\projects\Emsal_13.10.2016\EmsalFront\Emsal.WebInt\bin\Release\Emsal.WebInt.dll
+H:\projects\Emsal_13.10.2016\EmsalFront\Emsal.WebInt\bin\Release\Emsal.WebInt.XmlSerializers.dll
+H:\projects\Emsal_13.10.2016\EmsalFront\Emsal.WebInt\bin\Release\Emsal.WebInt.pdb
+H:\projects\Emsal_13.10.2016\EmsalFront\Emsal.WebInt\obj\Release\Emsal.WebInt.csprojResolveAssemblyReference.cache
+H:\projects\Emsal_13.10.2016\EmsalFront\Emsal.WebInt\obj\Release\Emsal.WebInt.dll
+H:\projects\Emsal_13.10.2016\EmsalFront\Emsal.WebInt\obj\Release\Emsal.WebInt.pdb
+H:\projects\Emsal_13.10.2016\EmsalFront\Emsal.WebInt\obj\Release\Emsal.WebInt.XmlSerializers.dll

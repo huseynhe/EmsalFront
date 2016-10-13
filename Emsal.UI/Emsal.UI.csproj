@@ -755,9 +755,6 @@
     <Content Include="Content\profileImage\fb8d44ae-c411-458d-acc0-24302b05317a.jpg" />
     <Content Include="Content\profileImage\fc997a83-9e4d-401e-9209-4010dc379f3d.png" />
     <Content Include="Content\profileImage\noimage.png" />
-    <Content Include="Content\tempFile\051c3531-8084-445e-90c3-7e766aef3ed5.png" />
-    <Content Include="Content\tempFile\247133d3-0a4d-402b-8d9c-a2902f278b9e.jpg" />
-    <Content Include="Content\tempFile\6d58f47b-e50f-4e82-b1b5-17ad6da8e395.png" />
     <Content Include="Content\UI\css\animate.css" />
     <Content Include="Content\UI\css\bootstrap.min.css" />
     <Content Include="Content\UI\css\font-awesome.css" />
@@ -1074,6 +1071,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ContentProfile\personImage\" />
+    <Folder Include="Content\tempFile\" />
     <Folder Include="Content\UI\images\gallery\" />
     <Folder Include="Content\UI\images\team\" />
   </ItemGroup>

@@ -2,6 +2,18 @@
     font-family:Calibri !important;
 }
     
+    .loader {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url('/Content/img/loading.gif') 50% 50% no-repeat rgba(0,0,0,.5);
+    opacity:0.6;
+    display:none;
+}
+
         .attach-span {
         background: #f2f2f2;
         border: 5px solid #ddd;

@@ -35,7 +35,7 @@
 </table>
 <div class="box-footer clearfix">
     Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
-    @Html.PagedListPager(Model.Paging, page => Url.Action("Approv", new { page, year = Model.year, rub = Model.rub }))
+    @Html.PagedListPager(Model.Paging, page => Url.Action("Approv", new { page, year = Model.year, rub = Model.rub, pname=Model.pname }))
 </div>
 <div class="clearfix"></div>
 <br />
