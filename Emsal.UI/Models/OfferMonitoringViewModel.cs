@@ -161,5 +161,6 @@ namespace Emsal.UI.Models
         public long monitoringStatusEVId { get; set; }
         public string productName { get; set; }
         public string userInfo { get; set; }
+        public int itemCount { get; set; }
     }
 }

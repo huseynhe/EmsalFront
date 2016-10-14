@@ -540,7 +540,7 @@
                             data: { Id: message.toUserID },
                             success: function (user) {
                                 $("#receivedMessages").append("<div class='white_fon'><table class='responcive'><tr><td colspan='2'><span><a href = ''>" +
-                                    user.User.Username + "</a><span></td></tr><tr><td><img src='http://emsal.az/staticFiles/male.png' style = 'max-width:100px;max-height:77px'></td><td>" +
+                                    user.User.Username + "</a><span></td></tr><tr><td><img src='~/Content/img/male.png' style = 'max-width:100px;max-height:77px'></td><td>" +
                               "<p>" + message.message + "</p><p>Mesajın tarixi: " + createdDate + "</p></td><td class='text-right'><div class='btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Əməliyyatlar <span class='caret'></span></button><ul class='dropdown-menu'>" +
                                       "<li><a href='/SpecialSummary/DeleteComMessage?Id=" + message.Id + "'>Sil</a></li></li>" +
                                    "</ul></div></td></tr></table></div>")
@@ -592,7 +592,7 @@
 
                                 var createdDate = convertToMessageDate(message);
                                 $("#receivedMessages").append("<div class='white_fon'><table class='responcive'><tr><td colspan='2'><span><a href = ''>" +
-                        user.User.Username + "</a><span></td></tr><tr><td><img src='http://emsal.az/staticFiles/male.png' style = 'max-width:100px;max-height:77px'></td><td>" +
+                        user.User.Username + "</a><span></td></tr><tr><td><img src='~/Content/img/male.png' style = 'max-width:100px;max-height:77px'></td><td>" +
                   "<p>" + message.message + "</p><p>Mesajın tarixi: " + createdDate + "</p></td><td class='text-right'><div class='btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Əməliyyatlar <span class='caret'></span></button><ul class='dropdown-menu'>" +
                           "<li><a href='/SpecialSummary/DeleteComMessage?Id=" + message.Id + "'>Sil</a></li></li>" +
                        "</ul></div></td></tr></table></div>")
@@ -644,7 +644,7 @@
 
                                 var createdDate = convertToMessageDate(message);
                                 $("#receivedMessages").append("<div class='white_fon'><table class='responcive'><tr><td colspan='2'><span><a href = ''>" +
-                        user.User.Username + "</a><span></td></tr><tr><td><img src='http://emsal.az/staticFiles/male.png' style = 'max-width:100px;max-height:77px'></td><td>" +
+                        user.User.Username + "</a><span></td></tr><tr><td><img src='~/Content/img/male.png' style = 'max-width:100px;max-height:77px'></td><td>" +
                   "<p>" + message.message + "</p><p>Mesajın tarixi: " + createdDate + "</p></td><td class='text-right'><div class='btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Əməliyyatlar <span class='caret'></span></button><ul class='dropdown-menu'>" +
                           "<li><a href='/SpecialSummary/DeleteComMessage?Id=" + message.Id + "'>Sil</a></li></li>" +
                        "</ul></div></td></tr></table></div>")
@@ -696,7 +696,7 @@
                             data: { Id: message.fromUserID },
                             success: function (user) {
                                 $("#receivedMessages").append("<div class='white_fon'><table class='responcive'><tr><td colspan='2'><span><a href = ''>" +
-                                    user.User.Username + "</a><span></td></tr><tr><td><img src='http://emsal.az/staticFiles/male.png' style = 'max-width:100px;max-height:77px'></td><td>" +
+                                    user.User.Username + "</a><span></td></tr><tr><td><img src='~/Content/img/male.png' style = 'max-width:100px;max-height:77px'></td><td>" +
                               "<p>" + message.message + "</p><p>Mesajın tarixi: " + createdDate + "</p></td><td class='text-right'><div class='btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Əməliyyatlar <span class='caret'></span></button><ul class='dropdown-menu'>" +
                                       "<li><a href='/SpecialSummary/DeleteComMessage?Id=" + message.Id + "'>Sil</a></li></li>" +
                                    "</ul></div></td></tr></table></div>")
@@ -744,7 +744,7 @@
 
                                 var createdDate = convertToMessageDate(message);
                                 $("#receivedMessages").append("<div class='white_fon'><table class='responcive'><tr><td colspan='2'><span><a href = ''>" +
-                        user.User.Username + "</a><span></td></tr><tr><td><img src='http://emsal.az/staticFiles/male.png' style = 'max-width:100px;max-height:77px'></td><td>" +
+                        user.User.Username + "</a><span></td></tr><tr><td><img src='~/Content/img/male.png' style = 'max-width:100px;max-height:77px'></td><td>" +
                   "<p>" + message.message + "</p><p>Mesajın tarixi: " + createdDate + "</p></td><td class='text-right'><div class='btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Əməliyyatlar <span class='caret'></span></button><ul class='dropdown-menu'>" +
                           "<li><a href='/SpecialSummary/DeleteComMessage?Id=" + message.Id + "'>Sil</a></li></li>" +
                        "</ul></div></td></tr></table></div>")
@@ -794,7 +794,7 @@
 
                                 var createdDate = convertToMessageDate(message);
                                 $("#receivedMessages").append("<div class='white_fon'><table class='responcive'><tr><td colspan='2'><span><a href = ''>" +
-                        user.User.Username + "</a><span></td></tr><tr><td><img src='http://emsal.az/staticFiles/male.png' style = 'max-width:100px;max-height:77px'></td><td>" +
+                        user.User.Username + "</a><span></td></tr><tr><td><img src='~/Content/img/male.png' style = 'max-width:100px;max-height:77px'></td><td>" +
                   "<p>" + message.message + "</p><p>Mesajın tarixi: " + createdDate + "</p></td><td class='text-right'><div class='btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Əməliyyatlar <span class='caret'></span></button><ul class='dropdown-menu'>" +
                           "<li><a href='/SpecialSummary/DeleteComMessage?Id=" + message.Id + "'>Sil</a></li></li>" +
                        "</ul></div></td></tr></table></div>")

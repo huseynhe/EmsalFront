@@ -91,6 +91,7 @@ namespace Emsal.UI.Controllers
                 }
 
                 modelOfferMonitoring.isPDF = pdf;
+                modelOfferMonitoring.itemCount = modelOfferMonitoring.ProductionDetailList.Count();
 
                 if (modelOfferMonitoring.isPDF == true)
                 {

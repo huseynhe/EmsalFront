@@ -81,7 +81,7 @@ namespace Emsal.UI.Controllers
 
                 if (sproductName != null)
                 {
-                    modelPotentialClientState.ProductionDetailList = modelPotentialClientState.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName)).ToList();
+                    modelPotentialClientState.ProductionDetailList = modelPotentialClientState.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
                 }
 
                 if (suserInfo != null)
@@ -89,7 +89,9 @@ namespace Emsal.UI.Controllers
                     modelPotentialClientState.ProductionDetailList = modelPotentialClientState.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
                 }
 
+                modelPotentialClientState.itemCount = modelPotentialClientState.ProductionDetailList.Count();
                 modelPotentialClientState.PagingDetail = modelPotentialClientState.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+
 
                 if (sstateStatusEV == "Tesdiqlenen" || sstateStatusEV == "tesdiqlenen")
                     modelPotentialClientState.isMain = 0;

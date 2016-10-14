@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+
 }
 
 <script src="~/ContentProfile/js/State.js"></script>
@@ -23,7 +24,7 @@
                 <div class="box-header with-border">
                     <!-- /.box-tools -->
                 </div>
-                <table class="table table-hover table-striped table-bordered">
+                <table class="table table-hover table-striped table-bordered" style="margin-bottom:0;">
                     <tbody>
                         <tr>
                             @if (Model.isMain == 0)
@@ -36,6 +37,9 @@
                             </th>
                             <th class="col-md-1">
                                 Miqdarı (vahidi)
+                            </th>
+                            <th class="col-md-1">
+                                Potensial miqdarı (vahidi)
                             </th>
                             <th class="col-md-1">
                                 @Html.DisplayNameFor(model => model.price)

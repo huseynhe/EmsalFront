@@ -80,7 +80,7 @@ namespace Emsal.UI.Controllers
 
                 if (sproductName != null)
                 {
-                    modelPotentialClientMonitoring.ProductionDetailList = modelPotentialClientMonitoring.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName)).ToList();
+                    modelPotentialClientMonitoring.ProductionDetailList = modelPotentialClientMonitoring.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
                 }
 
                 if (suserInfo != null)
@@ -88,6 +88,7 @@ namespace Emsal.UI.Controllers
                     modelPotentialClientMonitoring.ProductionDetailList = modelPotentialClientMonitoring.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
                 }
 
+                modelPotentialClientMonitoring.itemCount = modelPotentialClientMonitoring.ProductionDetailList.Count();
                 modelPotentialClientMonitoring.PagingDetail = modelPotentialClientMonitoring.ProductionDetailList.ToPagedList(pageNumber, pageSize);
 
                 if (smonitoringStatusEV == "new")

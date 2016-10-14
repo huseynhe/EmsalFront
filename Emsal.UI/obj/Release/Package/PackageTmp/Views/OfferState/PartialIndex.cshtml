@@ -5,6 +5,7 @@
     ViewBag.Title = "Index";
     Layout = "";
     decimal tquantity = 0;
+    string color="#000;";
 }
 
 @using (Html.BeginForm("Approv", "OfferState", FormMethod.Post))
@@ -28,6 +29,10 @@
                         }
                         <input hidden id="checkedList" />
                         <div class="table-responsive">
+                            <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
+                                <span class="badge " style="margin-top: -10px; float: right;background:#D43F3A;">@Model.itemCount</span>
+                            </div>
+
                             <table class="table table-hover table-striped table-bordered">
                                 <tbody>
                                     @foreach (var item in Model.Paging)
@@ -43,8 +48,18 @@
                                                 @item.productName (@item.productParentName)
                                             </td>
                                             <td class="col-md-1">
-                                                @item.quantity @item.enumValueName<br />
-                                                @item.potentialProduct
+                                                @item.quantity @item.enumValueName
+                                            </td>
+                                            <td class="col-md-1">
+                                                @if (item.quantity != item.potentialProductQuantity)
+                                                {
+                                                    color = "#c9302c";
+                                                }
+                                                else
+                                                {
+                                                    color = "#000";
+                                                }
+                                                <span style="color:@color;">@item.potentialProductQuantity @item.enumValueName</span> 
                                             </td>
                                             <td class="col-md-1">
                                                 @item.unitPrice AZN
@@ -87,7 +102,7 @@
                                         if (item.productionCalendarList.Count() > 0)
                                         {
                                             <tr>
-                                                <td colspan="8" style="padding:0;">
+                                                <td colspan="9" style="padding:0;">
                                                     <table class="table" style="margin:0;">
                                                         <tr>
                                                             <th>tipi</th>
@@ -125,7 +140,7 @@
                                         if (item != Model.ProductionDetailList.LastOrDefault())
                                         {
                                             <tr>
-                                                <td colspan="8" style="padding:0;background:#f2f2f2;">
+                                                <td colspan="9" style="padding:0;background:#f2f2f2;">
                                                     &nbsp;
                                                 </td>
                                             </tr>

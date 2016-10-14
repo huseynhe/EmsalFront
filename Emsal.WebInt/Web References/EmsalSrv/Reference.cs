@@ -20834,6 +20834,10 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private string potentialProductField;
         
+        private decimal potentialProductQuantityField;
+        
+        private bool potentialProductQuantityFieldSpecified;
+        
         private tblProduct_Document[] productDocumentListField;
         
         private long productIdField;
@@ -21170,6 +21174,27 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.potentialProductField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal potentialProductQuantity {
+            get {
+                return this.potentialProductQuantityField;
+            }
+            set {
+                this.potentialProductQuantityField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool potentialProductQuantitySpecified {
+            get {
+                return this.potentialProductQuantityFieldSpecified;
+            }
+            set {
+                this.potentialProductQuantityFieldSpecified = value;
             }
         }
         

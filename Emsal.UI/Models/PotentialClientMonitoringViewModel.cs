@@ -154,5 +154,6 @@ namespace Emsal.UI.Models
         public string productName { get; set; }
         public string userInfo { get; set; }
 
+        public int itemCount { get; set; }
     }
 }

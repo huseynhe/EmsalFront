@@ -99,8 +99,9 @@ namespace Emsal.UI.Controllers
                     modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
                 }
 
-
+                modelOfferState.itemCount = modelOfferState.ProductionDetailList.Count();
                 modelOfferState.Paging = modelOfferState.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+
 
                 if (sstateStatusEV == "Yayinda" || sstateStatusEV == "yayinda")
                     modelOfferState.isMain = 0;
