@@ -39,7 +39,7 @@
                                                     <input onchange="getCheckedList()" name="ids" value="@item.productionID" class="ch" type="checkbox">
                                                 </td>
                                             }
-                                            <td class="col-md-2">
+                                            <td class="col-md-3">
                                                 @item.productName (@item.productParentName)
                                             </td>
                                             <td class="col-md-1">
@@ -48,12 +48,12 @@
                                             <td class="col-md-1">
                                                 @item.unitPrice AZN
                                             </td>
-                                            <td class="col-md-2">
+                                            @*<td class="col-md-2">
 @if (item.person != null) {
                                                <span> @item.person.Name @item.person.Surname @item.person.FatherName (@item.person.gender)<br />
                                                 pin: @item.person.PinNumber</span>
                                                 }
-                                            </td>
+                                            </td>*@
                                             <td class="col-md-1">
                                                 @if (item.foreignOrganization != null)
                                                 {
@@ -76,7 +76,7 @@
                                                     }
                                                 </table>
                                             </td>
-                                            <td class="col-md-1">
+                                            <td class="col-md-2">
                                                 @item.description
                                             </td>
                                                 @if (Model.isMain == 0)

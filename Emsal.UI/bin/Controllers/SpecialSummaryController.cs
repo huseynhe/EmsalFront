@@ -51,7 +51,7 @@ namespace Emsal.UI.Controllers
 
             BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
             BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserId, true, out modelSpecial.ForeignOrganisation);
-            modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.LoggedInUser.Username : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
+            modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.ForeignOrganisation.name : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
             if(modelSpecial.ForeignOrganisation==null)
             {
                 modelSpecial.ForeignOrganisation = new tblForeign_Organization();
@@ -249,7 +249,7 @@ namespace Emsal.UI.Controllers
             BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
             BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
 
-            modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.LoggedInUser.Username : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
+            modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.ForeignOrganisation.name : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
             ///////////////////////////////////////////
 
 
@@ -420,7 +420,7 @@ namespace Emsal.UI.Controllers
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
                 BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
 
-                modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.LoggedInUser.Username : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
+                modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.ForeignOrganisation.name : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
                 ///////////////////////////////
 
                 //get the rejected offer productions
@@ -604,7 +604,7 @@ namespace Emsal.UI.Controllers
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
                 BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
 
-                modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.LoggedInUser.Username : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
+                modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.ForeignOrganisation.name : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
                 ////////////////////////////////
 
                 //get the offair offer productions
@@ -775,7 +775,7 @@ namespace Emsal.UI.Controllers
             BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
             BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
 
-            modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.LoggedInUser.Username : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
+            modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.ForeignOrganisation.name : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
             ////////////////////////////////////
 
             //get the confirmed potential productions of the logged in user                
@@ -907,7 +907,7 @@ namespace Emsal.UI.Controllers
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
                 BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
 
-                modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.LoggedInUser.Username : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
+                modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.ForeignOrganisation.name : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
 
                 modelSpecial.PotentialProduction.user_Id = UserID;
                 modelSpecial.PotentialProduction.state_eV_Id = modelSpecial.EnumValue.Id;
@@ -1847,7 +1847,8 @@ namespace Emsal.UI.Controllers
             {
                 BaseOutput bout = srv.WS_GetUserById(binput, Id, true, out modelUser.User);
                 BaseOutput personBout = srv.WS_GetPersonByUserId(binput, Id, true, out modelUser.Person);
-                modelUser.NameSurname = modelUser.Person == null ? modelUser.User.Username : modelUser.Person.Name + ' ' + modelUser.Person.Surname;
+                BaseOutput foreOut = srv.WS_GetForeign_OrganizationByUserId(binput, Id, true, out modelUser.ForeignOrganisation);
+                modelUser.NameSurname = modelUser.Person == null ? modelUser.ForeignOrganisation.name : modelUser.Person.Name + ' ' + modelUser.Person.Surname;
 
                 BaseOutput educOut = srv.WS_GetEnumValueById(binput, (long)modelUser.Person.educationLevel_eV_Id, true, out modelUser.EducationEnumValue);
                 modelUser.EducationLevel = modelUser.EducationEnumValue.name;

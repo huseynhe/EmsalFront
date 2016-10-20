@@ -391,12 +391,12 @@ namespace Emsal.UI.Controllers
                         modelUser.Person.Name = person.Name;
                         modelUser.Person.Surname = person.Surname;
                         modelUser.Person.FatherName = person.FatherName;
-                        //modelUser.Person.createdUser = person.profilePicture;
+                        modelUser.Person.createdUser = person.profilePicture;
                         modelUser.Person.gender = person.gender;
                         modelUser.Person.birtday = person.birtday;
                         modelUser.Person.UserId = person.UserId;
 
-                        //modelUser.Person.profilePicture = Convert.ToBase64String(StringExtension.StringToByteArray(person.profilePicture));
+                        modelUser.Person.profilePicture = Convert.ToBase64String(StringExtension.StringToByteArray(person.profilePicture));
 
                         BaseOutput gabui = srv.WS_GetAddressesByUserId(baseInput, (long)person.UserId, true, out modelUser.AddressArray);
 
@@ -452,8 +452,8 @@ namespace Emsal.UI.Controllers
                         modelUser.Person.FatherName = pa[0];
                         modelUser.Person.gender = iamasPerson.gender;
                         modelUser.Person.birtday = (DateTime.Parse(iamasPerson.birthDate)).getInt64ShortDate();
-                        //modelUser.Person.createdUser = string.Join(",", iamasPerson.photo);
-                        //modelUser.Person.profilePicture = Convert.ToBase64String(iamasPerson.photo);
+                        modelUser.Person.createdUser = string.Join(",", iamasPerson.photo);
+                        modelUser.Person.profilePicture = Convert.ToBase64String(iamasPerson.photo);
 
                         if (iamasPerson.BirthPlace.country != "0")
                         {

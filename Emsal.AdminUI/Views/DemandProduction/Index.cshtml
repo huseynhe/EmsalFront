@@ -22,7 +22,7 @@
             {
                                 <th class="col-md-1">#</th>
                             }
-                            <th class="col-md-2">
+                            <th class="col-md-3">
                                 Məhsulun adı<br />
                                 <input onkeyup="DemandProductionSearch(this, 'productName')" class="form-control" placeholder="axtar" />
                             </th>
@@ -32,10 +32,10 @@
                             <th class="col-md-1">
                                 @Html.DisplayNameFor(model => model.price)
                             </th>
-                            <th class="col-md-2">
+                            @*<th class="col-md-2">
                                 İnfo<br />
 <input onkeyup="DemandProductionSearch(this, 'userInfo')" class="form-control" placeholder="axtar" />
-                            </th>
+                            </th>*@
                             <th class="col-md-1">
                                 Təşkilat<br />
 <input onkeyup="DemandProductionSearch(this, 'adminUnit')" class="form-control" placeholder="axtar" />
@@ -43,7 +43,7 @@
                             <th class="col-md-2">
                                 Sənədlər
                             </th>
-                            <th class="col-md-1">
+                            <th class="col-md-2">
                                 Qeyd
                             </th>
                             @if (Model.isMain == 0)

@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div id="fizikiShexs" style="display:none">
-                                        @Html.LabelFor(model => model.fin, htmlAttributes: new { @class = "control-label" })
+                                        @Html.LabelFor(model => model.fin, htmlAttributes: new { @class = "control-label" }) <a data-toggle="modal" data-target="#pinModal">&nbsp; <span class="glyphicon glyphicon-question-sign">  </span></a>
                                         @Html.EditorFor(model => model.fin, new { @class = "form-control", required = "required" })
                                         @Html.ValidationMessageFor(model => model.fin, "", new { @class = "text-danger" })
                                     </div>
@@ -63,9 +63,9 @@
 
 
                                     <div class="col-md-3" id="userNameDiv" style="display:none">
-                                        <div class="form-group">
+                                        <div class="form-group has-warning">
                                             @Html.LabelFor(model => model.userName, htmlAttributes: new { @class = "control-label" })
-                                            @Html.EditorFor(model => model.userName, new { @class = "form-control", required = "required" })
+                                            @Html.TextBoxFor(model => model.userName, new { @class = "form-control", required = "required", style="background-color:e9d7b0"})
                                             @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
                                             <div class="clearfix"></div>
                                             @if (Model.warning != null)
@@ -76,9 +76,9 @@
                                     </div>
 
                                     <div class="col-md-3">
-                                        <div class="form-group">
+                                        <div class="form-group has-warning">
                                             @Html.LabelFor(model => model.passWord, htmlAttributes: new { @class = "control-label" })
-                                            @Html.PasswordFor(model => model.passWord, new { @class = "form-control", required = "required" })
+                                            @Html.PasswordFor(model => model.passWord, new { @class = "form-control", required = "required", style="background-color:e9d7b0"})
                                             @Html.ValidationMessageFor(model => model.passWord, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -100,6 +100,8 @@
                                             @Html.EditorFor(model => model.legalPersonName, new { @class = "form-control", required = "required" })
                                             @Html.ValidationMessageFor(model => model.legalPersonName, "", new { @class = "text-danger" })
                                         </div>
+
+                                        <img class="img-responsive thumbnail" id="picture" src="" />
                                     </div>
 
 
@@ -244,7 +246,22 @@
                                 @Html.HiddenFor(model => model.pType)
 
                             </div>
-    }
+
+                            <div id="pinModal" style="z-index:3000" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Fin nömrə</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img src="~/Content/img/pasportfin.png" style="max-width:550px" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                            }
                     </div>
 
                 </div>

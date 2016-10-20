@@ -86,6 +86,10 @@ function check() {
                         $('#gender').val(result.data.Person.gender);
                         $("#descAddress").val(result.data.descAddress);
                         $("#birtday").val(result.data.birtday);
+                        if (result.profilePicture != null) {
+                            document.getElementById("picture").src = "data:image/png;base64," + result.profilePicture;
+                            $('#picture').show();
+                        }
                         str = result.data.FullAddress;
                         res = str.split(",");
                         for (var i = 0; i < res.length; i++) {

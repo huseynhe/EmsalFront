@@ -10,6 +10,8 @@ using PagedList;
 using System.Web.Security;
 using Emsal.AdminUI.Infrastructure;
 using Emsal.Utility.CustomObjects;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace Emsal.AdminUI.Controllers
 {
@@ -113,6 +115,119 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
+        public ActionResult Indexwd(int? page, string statusEV = null, string productName = null, string userInfo = null)
+        {
+            try
+            {
+
+                if (statusEV != null)
+                    statusEV = StripTag.strSqlBlocker(statusEV.ToLower());
+                if (productName != null)
+                    productName = StripTag.strSqlBlocker(productName.ToLower());
+                if (userInfo != null)
+                    userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
+
+                int pageSize = 20;
+                int pageNumber = (page ?? 1);
+
+                if (productName == null && userInfo == null)
+                {
+                    sproductName = null;
+                    suserInfo = null;
+                }
+
+                if (productName != null)
+                    sproductName = productName;
+                if (userInfo != null)
+                    suserInfo = userInfo;
+                if (statusEV != null)
+                    sstatusEV = statusEV;
+
+                baseInput = new BaseInput();
+                modelOfferProduction = new OfferProductionViewModel();
+
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferProduction.Admin);
+                baseInput.userName = modelOfferProduction.Admin.Username;
+
+
+                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelOfferProduction.EnumCategory);
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstatusEV, out modelOfferProduction.EnumValue);
+
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId(baseInput, modelOfferProduction.EnumValue.Id, true, out modelOfferProduction.ProductionDetailArray);
+
+                modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelOfferProduction.EnumCategory.Id && x.person != null).ToList();
+
+                if (sproductName != null)
+                {
+                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
+                }
+
+                if (suserInfo != null)
+                {
+                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
+                }
+
+                modelOfferProduction.Paging = modelOfferProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+
+                if (sstatusEV == "Yayinda" || sstatusEV == "yayinda")
+                    modelOfferProduction.isMain = 0;
+                else
+                    modelOfferProduction.isMain = 1;
+
+
+                modelOfferProduction.statusEV = sstatusEV;
+                modelOfferProduction.productName = sproductName;
+                modelOfferProduction.userInfo = suserInfo;
+                //return View(modelDemandProduction);
+
+                modelOfferProduction.OfferProduxtionExcellList = new List<OfferProduxtionExcell>();
+                foreach(var item in modelOfferProduction.ProductionDetailList)
+                {
+                modelOfferProduction.OfferProduxtionExcell = new OfferProduxtionExcell();
+
+                modelOfferProduction.OfferProduxtionExcell.productName = item.productName;
+                modelOfferProduction.OfferProduxtionExcell.fullAddress = item.fullAddress;
+
+
+                modelOfferProduction.OfferProduxtionExcellList.Add(modelOfferProduction.OfferProduxtionExcell);
+                }
+
+                //string filename = Guid.NewGuid() + ".xls";
+                //StringWriter tw = new StringWriter();
+                //HtmlTextWriter hw = new HtmlTextWriter(tw);
+                //DataGrid dgGrid = new DataGrid();
+                //dgGrid.DataSource = modelOfferProduction.OfferProduxtionExcellList;
+                //dgGrid.DataBind();
+                //dgGrid.RenderControl(hw);
+
+                //Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                //Response.ContentType = "application/vnd.ms-excel";
+                //Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename + "");
+                //Response.Write(tw.ToString());
+                //Response.End();
+
+
+                return Request.IsAjaxRequest()
+                   ? (ActionResult)PartialView("PartialIndexwd", modelOfferProduction)
+                   : View(modelOfferProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
 
         [HttpPost]
         public ActionResult Approv(int[] ids)

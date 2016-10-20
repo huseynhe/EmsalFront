@@ -77,12 +77,12 @@
                 <script>
                 $(document).ready(function () {
                     $.ajax({
-                        url: '/Ordinary/AdminUnit?pId=0',
+                        url: '/GovernmentOrganisationSpecialSummary/AdminUnit?pId=0',
                         type: 'GET',
                         success: function (result) {
                             $('#AdminUnit').html(result);
 
-                            $("select[name='adId[0]']").change();
+                            //$("select[name='adId[0]']").change();
                         },
                         error: function () {
 
@@ -270,7 +270,7 @@
 
             if (pId > 0) {
                 $.ajax({
-                    url: '/SignUp/AdminUnit?pId=' + pId,
+                    url: '/GovernmentOrganisationSpecialSummary/AdminUnit?pId=' + pId,
                     type: 'GET',
                     //data: { "pId": appId},
                     success: function (result) {

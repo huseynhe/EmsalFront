@@ -68,14 +68,13 @@
         <div class="row">
             <div class="form-group" id="AdminUnit">
                 <script>
-                $(document).ready(function () {
+                    $(document).ready(function () {
                     $.ajax({
-                        url: '/Ordinary/AdminUnit?pId=0&adminUnitId=@Model.AdminUnitId',
+                        url: '/GovernmentOrganisationSpecialSummary/AdminUnit?pId=0&adminUnitId=@Model.AdminUnitId',
                         type: 'GET',
                         success: function (result) {
                             $('#AdminUnit').html(result);
 
-                            //$("select[name='adId[0]']").change();
                         },
                         error: function () {
 
@@ -305,13 +304,13 @@
     </div>
                             }
 <script>
-        function GetAdminUnit(elem) {
+    function GetAdminUnit(elem) {
             pId = $(elem).val();
             $(elem).parent().nextAll().remove();
 
             if (pId > 0) {
                 $.ajax({
-                    url: '/SignUp/AdminUnit?pId=' + pId,
+                    url: '/GovernmentOrganisationSpecialSummary/AdminUnit?pId=' + pId,
                     type: 'GET',
                     //data: { "pId": appId},
                     success: function (result) {

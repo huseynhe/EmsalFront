@@ -260,7 +260,7 @@
       <CachedSettingsPropName>Emsal_WebInt_IAMAS_Service1</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://localhost:56876/EmsalService.svc">
-      <UrlBehavior>Dynamic</UrlBehavior>
+      <UrlBehavior>Static</UrlBehavior>
       <RelPath>Web References\EmsalSrv\</RelPath>
       <UpdateFromURL>http://localhost:56876/EmsalService.svc</UpdateFromURL>
       <ServiceLocationURL>

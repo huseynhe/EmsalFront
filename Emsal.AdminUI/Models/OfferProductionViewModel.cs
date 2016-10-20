@@ -92,6 +92,10 @@ namespace Emsal.AdminUI.Models
         public IList<tblConfirmationMessage> ConfirmationMessageList { get; set; }
         public tblConfirmationMessage[] ConfirmationMessageArray;
 
+        public OfferProduxtionExcell OfferProduxtionExcell;
+        public IList<OfferProduxtionExcell> OfferProduxtionExcellList { get; set; }
+
+
         public PagedList.IPagedList<ProductionDetail> Paging { get; set; }
 
         public bool isPDF { get; set; }
@@ -157,5 +161,20 @@ namespace Emsal.AdminUI.Models
         public string statusEV { get; set; }
         public string productName { get; set; }
         public string userInfo { get; set; }
+    }
+
+    public class OfferProduxtionExcell
+    {
+           [Display(Name = "Məhsulun adı")]
+        public string productName { get; set; }
+
+           [Display(Name = "Miqdarı")]
+           public string quantity { get; set; }
+           [Display(Name = "Vahidi")]
+           public string enumValueName { get; set; }
+           [Display(Name = "Qiyməti")]
+           public string unitPrice { get; set; }
+           [Display(Name = "Təklifin ünvanı ")]
+           public string fullAddress { get; set; }
     }
 }

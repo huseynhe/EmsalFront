@@ -200,7 +200,7 @@
             $('#lastAdminUnitId').val(pId);
             if (pId > 0) {
                 $.ajax({
-                    url: '/SignUp/AdminUnit?pId=' + pId,
+                    url: '/Ordinary/AdminUnit?pId=' + pId,
                     type: 'GET',
                     //data: { "pId": appId},
                     success: function (result) {

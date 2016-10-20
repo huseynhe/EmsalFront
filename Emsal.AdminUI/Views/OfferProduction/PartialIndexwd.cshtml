@@ -1,0 +1,54 @@
+﻿@model Emsal.AdminUI.Models.OfferProductionViewModel
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+    decimal tquantity = 0;
+}
+
+
+                    <!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped table-bordered">
+                                <tbody>
+                                    @foreach (var item in Model.Paging)
+                                    {
+                                        <tr>
+                                            <td class="col-md-2">
+                                                @item.productName (@item.productParentName)
+                                            </td>
+                                            <td class="col-md-1">
+                                                @item.quantity @item.enumValueName
+                                            </td>
+                                            <td class="col-md-1">
+                                                @item.unitPrice AZN
+                                            </td>
+                                            <td class="col-md-2">
+                                                @item.fullAddress
+                                            </td>
+                                            <td class="col-md-2">
+@if (item.person != null) {
+                                                <span>@item.person.Name @item.person.Surname @item.person.FatherName (@item.person.gender)<br />
+                                                pin: @item.person.PinNumber</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="box-footer clearfix">
+                        Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
+                        @Html.PagedListPager(Model.Paging, page => Url.Action("Indexwd", new { page, statusEV = Model.statusEV, productName=Model.productName, userInfo=Model.userInfo }))
+                    </div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#chall').hide();
+    });
+</script>

@@ -687,7 +687,7 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         public EmsalService() {
-            this.Url = global::Emsal.WebInt.Properties.Settings.Default.Emsal_WebInt_EmsalSrv_EmsalService;
+            this.Url = "http://localhost:56876/EmsalService.svc";
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
@@ -20834,10 +20834,6 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private string potentialProductField;
         
-        private decimal potentialProductQuantityField;
-        
-        private bool potentialProductQuantityFieldSpecified;
-        
         private tblProduct_Document[] productDocumentListField;
         
         private long productIdField;
@@ -21174,27 +21170,6 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.potentialProductField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public decimal potentialProductQuantity {
-            get {
-                return this.potentialProductQuantityField;
-            }
-            set {
-                this.potentialProductQuantityField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool potentialProductQuantitySpecified {
-            get {
-                return this.potentialProductQuantityFieldSpecified;
-            }
-            set {
-                this.potentialProductQuantityFieldSpecified = value;
             }
         }
         

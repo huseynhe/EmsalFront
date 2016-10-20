@@ -817,6 +817,11 @@ namespace Emsal.UI.Controllers
                                 modelDemandProduction.LProductionCalendar.day = model.day[i];
                                 modelDemandProduction.LProductionCalendar.daySpecified = true;
                             }
+                            //else
+                            //{
+                            //    modelDemandProduction.LProductionCalendar.day = 0;
+                            //    modelDemandProduction.LProductionCalendar.daySpecified = true;
+                            //}
 
                             BaseOutput evbidq = srv.WS_GetEnumValueById(baseInput, (long)(model.month[i]), true, out modelDemandProduction.EnumValue);
                             modelDemandProduction.LProductionCalendar.partOfyear = GetQuarter(DateTime.ParseExact(modelDemandProduction.EnumValue.name, "MMMM", CultureInfo.InvariantCulture).Month);

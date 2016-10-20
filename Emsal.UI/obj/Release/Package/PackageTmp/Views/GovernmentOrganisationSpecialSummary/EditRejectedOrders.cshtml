@@ -24,7 +24,7 @@
                 <script>
                     $(document).ready(function () {
                         $.ajax({
-                            url: '/Ordinary/AdminUnit?pId=0',
+                            url: '/GovernmentOrganisationSpecialSummary/AdminUnit?pId=0',
                             type: 'GET',
                             success: function (result) {
                                 $('#profileAdminUnit').html(result);
@@ -151,7 +151,7 @@
 
             if (pId > 0) {
                 $.ajax({
-                    url: '/SignUp/AdminUnit?pId=' + pId,
+                    url: '/GovernmentOrganisationSpecialSummary/AdminUnit?pId=' + pId,
                     type: 'GET',
                     //data: { "pId": appId},
                     success: function (result) {
@@ -159,6 +159,7 @@
                         $(elem).parent().parent().append(result);
 
                         $('.select2').select2();
+
                     },
                     error: function () {
 

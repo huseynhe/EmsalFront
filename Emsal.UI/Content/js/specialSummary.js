@@ -1,5 +1,4 @@
 ﻿$(function () {
-
     $("#per_inf").click(function () {
         $(".per_information").toggle();
         return false;
@@ -167,7 +166,7 @@
         type: "Get",
         data: { Id: 1 },
         success: function (data) {
-            $(".adSoyad").html(data.NameSurname);
+            $(".adSoyad").html(data.ForeignOrganisation.name);
             $(".userNameEkle").html(data.User.Username);
             $(".education").html(data.EducationLevel);
             $(".job").html(data.Job);
@@ -287,5 +286,4 @@
                 })
      
             })
-
 })

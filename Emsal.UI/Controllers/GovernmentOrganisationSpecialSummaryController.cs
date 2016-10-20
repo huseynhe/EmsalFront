@@ -45,7 +45,9 @@ namespace Emsal.UI.Controllers
                 }
             }
             BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.LoggedInUser);
-            modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
+            modelSpecial.ForeignOrganisation = new tblForeign_Organization();
+            BaseOutput nameOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserId, true, out modelSpecial.ForeignOrganisation);
+            modelSpecial.NameSurname = modelSpecial.ForeignOrganisation.name;
             //////////////////////////////////////////////////////////////////
 
 
@@ -171,7 +173,11 @@ namespace Emsal.UI.Controllers
                 }
             }
             BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
-            modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
+            //modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
+
+            modelSpecial.ForeignOrganisation = new tblForeign_Organization();
+            BaseOutput nameOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
+            modelSpecial.NameSurname = modelSpecial.ForeignOrganisation.name;
 
             ////////////////////////////////////////////////////////////////////////////////////
 
@@ -324,8 +330,10 @@ namespace Emsal.UI.Controllers
                 }
             }
             BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
-            modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
-
+            //modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
+            modelSpecial.ForeignOrganisation = new tblForeign_Organization();
+            BaseOutput nameOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
+            modelSpecial.NameSurname = modelSpecial.ForeignOrganisation.name;
             ////////////////////////////////////////////////////////////////////////////////////////
 
             //get expired demands
@@ -452,8 +460,10 @@ namespace Emsal.UI.Controllers
                 }
             }
             BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
-            modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
-
+            //modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
+            modelSpecial.ForeignOrganisation = new tblForeign_Organization();
+            BaseOutput nameOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
+            modelSpecial.NameSurname = modelSpecial.ForeignOrganisation.name;
             //////////////////////////////////////////////////////////////////////////
 
 
@@ -1112,7 +1122,10 @@ namespace Emsal.UI.Controllers
                 }
             }
             BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
-            modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
+            //modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
+            modelSpecial.ForeignOrganisation = new tblForeign_Organization();
+            BaseOutput nameOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
+            modelSpecial.NameSurname = modelSpecial.ForeignOrganisation.name;
             return View(modelSpecial);
         }
 
@@ -1152,8 +1165,10 @@ namespace Emsal.UI.Controllers
                 }
             }
             BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.LoggedInUser);
-            modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
-
+            //modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
+            modelSpecial.ForeignOrganisation = new tblForeign_Organization();
+            BaseOutput nameOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserId, true, out modelSpecial.ForeignOrganisation);
+            modelSpecial.NameSurname = modelSpecial.ForeignOrganisation.name;
             BaseOutput ForeignOrganisationOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserId, true, out modelSpecial.ParentOrganisation);
 
             long organisationId = orgId == null ? (long)modelSpecial.ParentOrganisation.Id : (long)orgId;
@@ -1183,6 +1198,7 @@ namespace Emsal.UI.Controllers
             BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.User);
             modelSpecial.ParentOrganisationId = (long)parentId;
 
+            BaseOutput adminUnit = srv.WS_GetAdminUnitsByParentId(binput, 0, true, out modelSpecial.PRMAdminUnitArray);
 
             BaseOutput edcationCatOut = srv.WS_GetEnumCategorysByName(binput, "Tehsil", out modelSpecial.EnumCategory);
             BaseOutput eductationOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
@@ -1733,9 +1749,11 @@ namespace Emsal.UI.Controllers
                     UserId = Int32.Parse(identity.Ticket.UserData);
                 }
             }
-            BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.LoggedInUser);
-            modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
-
+            //BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.LoggedInUser);
+            //modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
+            modelSpecial.ForeignOrganisation = new tblForeign_Organization();
+            BaseOutput nameOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserId, true, out modelSpecial.ForeignOrganisation);
+            modelSpecial.NameSurname = modelSpecial.ForeignOrganisation.name;
             return View(modelSpecial);
         }
 
@@ -1881,6 +1899,101 @@ namespace Emsal.UI.Controllers
 
             ////////////////////////////////
 
+        }
+
+        public ActionResult AdminUnit(long? adminUnitId, int pId = 0)
+        {
+            binput = new BaseInput();
+
+            SpecialSummaryViewModel modelUser = new SpecialSummaryViewModel();
+
+            BaseOutput bouput = srv.WS_GetPRM_AdminUnits(binput, out modelUser.PRMAdminUnitArray);
+
+
+            modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.Where(x => x.ParentID == pId).ToList();
+
+            if (adminUnitId != null && adminUnitId != 0)
+            {
+
+                List<long> ids = new List<long>();
+
+
+                BaseOutput adminUnittOut = srv.WS_GetPRM_AdminUnitById(binput, (long)adminUnitId, true, out modelUser.PRMAdminUnit);
+                ids.Add(modelUser.PRMAdminUnit.Id);
+
+                while (modelUser.PRMAdminUnit.ParentID != 0)
+                {
+                    srv.WS_GetPRM_AdminUnitById(binput, (long)modelUser.PRMAdminUnit.ParentID, true, out modelUser.PRMAdminUnit);
+                    ids.Add(modelUser.PRMAdminUnit.Id);
+                }
+
+                modelUser.GivenAdminUnitIds = new List<long>();
+
+                modelUser.GivenAdminUnitIds.Add(0);
+
+                for (int i = ids.Count - 1; i >= 0; i--)
+                {
+                    modelUser.GivenAdminUnitIds.Add(ids[i]);
+                }
+
+                modelUser.PRMAdminUnitArrayPa = new IList<tblPRM_AdminUnit>[modelUser.GivenAdminUnitIds.Count() - 1];
+
+                int s = 0;
+                foreach (long itm in modelUser.GivenAdminUnitIds)
+                {
+                    BaseOutput gpc = srv.WS_GetAdminUnitsByParentId(binput, (int)itm, true, out modelUser.PRMAdminUnitArray);
+                    modelUser.PRMAdminUnitArrayPa[s] = modelUser.PRMAdminUnitArray.ToList();
+
+                    s = s + 1;
+                    if (s == modelUser.GivenAdminUnitIds.Count() - 1)
+                    {
+                        break;
+                    }
+                }
+
+            }
+
+
+            if (adminUnitId > 0)
+            {
+                BaseOutput gpa = srv.WS_GetAddressById(binput, (long)adminUnitId, true, out modelUser.Address);
+                modelUser.Address = new tblAddress();
+
+                BaseOutput galf = srv.WS_GetAdminUnitListForID(binput, (long)adminUnitId, true, out modelUser.PRMAdminUnitArray);
+                modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.ToList();
+                modelUser.Address.fullAddress = string.Join(",", modelUser.PRMAdminUnitList.Select(x => x.Id));
+
+
+                modelUser.Address.fullAddress = "0," + modelUser.Address.fullAddress;
+                modelUser.addressIds = modelUser.Address.fullAddress.Split(',').Select(long.Parse).ToArray();
+
+                modelUser.PRMAdminUnitArrayPa = new IList<tblPRM_AdminUnit>[modelUser.addressIds.Count()];
+                int s = 0;
+                foreach (long itm in modelUser.addressIds)
+                {
+                    BaseOutput gpc = srv.WS_GetAdminUnitsByParentId(binput, (int)itm, true, out modelUser.PRMAdminUnitArray);
+                    modelUser.PRMAdminUnitArrayPa[s] = modelUser.PRMAdminUnitArray.ToList();
+                    s = s + 1;
+                }
+
+                if (modelUser.PRMAdminUnitArrayPa[s - 1].Count() > 0)
+                {
+                    modelUser.Address.fullAddress = modelUser.Address.fullAddress + ",0";
+                    modelUser.addressIds = modelUser.Address.fullAddress.Split(',').Select(long.Parse).ToArray();
+                }
+            }
+
+            if (Session["arrONum"] == null)
+            {
+                Session["arrONum"] = modelUser.arrNum;
+            }
+            else
+            {
+                modelUser.arrNum = (int)Session["arrONum"] + 1;
+                Session["arrONum"] = modelUser.arrNum;
+            }
+
+            return View(modelUser);
         }
 
     }

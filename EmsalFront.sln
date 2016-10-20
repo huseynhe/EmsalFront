@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emsal.AdminUI", "Emsal.AdminUI\Emsal.AdminUI.csproj", "{4A28EB3A-2C7B-4198-B7BF-9BA2434AE080}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emsal.UI", "Emsal.UI\Emsal.UI.csproj", "{53B87CE4-BF10-4358-A6BD-DBEBA5CA73CC}"

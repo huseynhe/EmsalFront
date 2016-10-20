@@ -83,7 +83,7 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.ProductionDetailArray);
 
-                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelDemandProduction.EnumCategory.Id && x.foreignOrganization!=null && x.person!=null).ToList();
+                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelDemandProduction.EnumCategory.Id && x.foreignOrganization!=null).ToList();
 
                 if (sproductName != null)
                 {
