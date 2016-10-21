@@ -176,12 +176,17 @@
       <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="organizationName" nillable="true" type="xs:string" />
       <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="person" nillable="true" type="q7:tblPerson" />
+      <xs:element minOccurs="0" name="personAdress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="personAdressDesc" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="pinNumber" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="potentialProduct" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="potentialProductQuantity" type="xs:decimal" />
+      <xs:element minOccurs="0" name="pr" type="xs:decimal" />
       <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="productDocumentList" nillable="true" type="q8:ArrayOftblProduct_Document" />
       <xs:element minOccurs="0" name="productId" type="xs:long" />
       <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="productParentName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="productUnitPrice" type="xs:decimal" />
       <xs:element minOccurs="0" name="productionCalendarList" nillable="true" type="tns:ArrayOfProductionCalendarDetail" />
       <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="productionDocumentList" nillable="true" type="q9:ArrayOftblProduction_Document" />
       <xs:element minOccurs="0" name="productionID" type="xs:long" />

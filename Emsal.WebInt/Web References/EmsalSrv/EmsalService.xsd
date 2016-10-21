@@ -3,6 +3,7 @@
   <xs:complexType name="BaseInput">
     <xs:sequence>
       <xs:element name="ChannelId" nillable="true" type="xs:string" />
+      <xs:element name="IpNumber" nillable="true" type="xs:string" />
       <xs:element name="RequestDate" type="xs:dateTime" />
       <xs:element name="TransactionId" type="xs:long" />
       <xs:element name="userID" type="xs:long" />

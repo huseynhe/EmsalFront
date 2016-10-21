@@ -119,7 +119,7 @@ namespace Emsal.AdminUI.Models
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         public string message { get; set; }
 
-        [Display(Name = "Qiyməti (bir ölçü vahidinə düşən) (AZN-lə)")]
+        [Display(Name = "Qiyməti (AZN-lə)")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         //[Range(typeof(decimal), "1", "79228162514264337593543950335")]
@@ -160,21 +160,20 @@ namespace Emsal.AdminUI.Models
         public int isMain { get; set; }
         public string statusEV { get; set; }
         public string productName { get; set; }
+        public string fullAddress { get; set; }
         public string userInfo { get; set; }
+
+        public decimal currentPagePrice { get; set; }
+        public decimal allPagePrice { get; set; }
     }
 
     public class OfferProduxtionExcell
     {
-           [Display(Name = "Məhsulun adı")]
         public string productName { get; set; }
-
-           [Display(Name = "Miqdarı")]
+           public string typeDescription { get; set; }
            public string quantity { get; set; }
-           [Display(Name = "Vahidi")]
-           public string enumValueName { get; set; }
-           [Display(Name = "Qiyməti")]
            public string unitPrice { get; set; }
-           [Display(Name = "Təklifin ünvanı ")]
            public string fullAddress { get; set; }
+           public string personNameAddress { get; set; }
     }
 }

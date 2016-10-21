@@ -278,6 +278,7 @@ namespace Emsal.UI.Controllers
                     modelUser.Person.gender = mdl.gender;
                     modelUser.Person.birtday = (DateTime.Parse(mdl.birtday)).getInt64ShortDate();
                     modelUser.Person.birtdaySpecified = true;
+                    modelUser.Person.profilePicture = mdl.createdUser;
                     if (mdl.education != null)
                     {
                         modelUser.Person.educationLevel_eV_Id = Int64.Parse(mdl.education);
@@ -391,12 +392,13 @@ namespace Emsal.UI.Controllers
                         modelUser.Person.Name = person.Name;
                         modelUser.Person.Surname = person.Surname;
                         modelUser.Person.FatherName = person.FatherName;
-                        modelUser.Person.createdUser = person.profilePicture;
+                        modelUser.createdUser = person.profilePicture;
                         modelUser.Person.gender = person.gender;
                         modelUser.Person.birtday = person.birtday;
                         modelUser.Person.UserId = person.UserId;
 
-                        modelUser.Person.profilePicture = Convert.ToBase64String(StringExtension.StringToByteArray(person.profilePicture));
+                        modelUser.profilePicture = Convert.ToBase64String(StringExtension.StringToByteArray(person.profilePicture));
+                        modelUser.createdUser = person.profilePicture;
 
                         BaseOutput gabui = srv.WS_GetAddressesByUserId(baseInput, (long)person.UserId, true, out modelUser.AddressArray);
 
@@ -452,8 +454,8 @@ namespace Emsal.UI.Controllers
                         modelUser.Person.FatherName = pa[0];
                         modelUser.Person.gender = iamasPerson.gender;
                         modelUser.Person.birtday = (DateTime.Parse(iamasPerson.birthDate)).getInt64ShortDate();
-                        modelUser.Person.createdUser = string.Join(",", iamasPerson.photo);
-                        modelUser.Person.profilePicture = Convert.ToBase64String(iamasPerson.photo);
+                        modelUser.createdUser = string.Join(",", iamasPerson.photo);
+                        modelUser.profilePicture = Convert.ToBase64String(iamasPerson.photo);
 
                         if (iamasPerson.BirthPlace.country != "0")
                         {

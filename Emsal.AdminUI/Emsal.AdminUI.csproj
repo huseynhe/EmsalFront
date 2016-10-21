@@ -538,6 +538,8 @@
     <Content Include="Views\Announcement\PartialApprov.cshtml" />
     <Content Include="Views\OfferProduction\Indexwd.cshtml" />
     <Content Include="Views\OfferProduction\PartialIndexwd.cshtml" />
+    <Content Include="Views\DemandProduction\Indexwd.cshtml" />
+    <Content Include="Views\DemandProduction\PartialIndexwd.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

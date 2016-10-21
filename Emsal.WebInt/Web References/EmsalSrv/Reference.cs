@@ -12716,6 +12716,8 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private string channelIdField;
         
+        private string ipNumberField;
+        
         private System.DateTime requestDateField;
         
         private long transactionIdField;
@@ -12732,6 +12734,17 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.channelIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string IpNumber {
+            get {
+                return this.ipNumberField;
+            }
+            set {
+                this.ipNumberField = value;
             }
         }
         
@@ -20830,9 +20843,21 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private tblPerson personField;
         
+        private string personAdressField;
+        
+        private string personAdressDescField;
+        
         private string pinNumberField;
         
         private string potentialProductField;
+        
+        private decimal potentialProductQuantityField;
+        
+        private bool potentialProductQuantityFieldSpecified;
+        
+        private decimal prField;
+        
+        private bool prFieldSpecified;
         
         private tblProduct_Document[] productDocumentListField;
         
@@ -20843,6 +20868,10 @@ namespace Emsal.WebInt.EmsalSrv {
         private string productNameField;
         
         private string productParentNameField;
+        
+        private decimal productUnitPriceField;
+        
+        private bool productUnitPriceFieldSpecified;
         
         private ProductionCalendarDetail[] productionCalendarListField;
         
@@ -21153,6 +21182,28 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string personAdress {
+            get {
+                return this.personAdressField;
+            }
+            set {
+                this.personAdressField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string personAdressDesc {
+            get {
+                return this.personAdressDescField;
+            }
+            set {
+                this.personAdressDescField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public string pinNumber {
             get {
                 return this.pinNumberField;
@@ -21170,6 +21221,48 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.potentialProductField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal potentialProductQuantity {
+            get {
+                return this.potentialProductQuantityField;
+            }
+            set {
+                this.potentialProductQuantityField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool potentialProductQuantitySpecified {
+            get {
+                return this.potentialProductQuantityFieldSpecified;
+            }
+            set {
+                this.potentialProductQuantityFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal pr {
+            get {
+                return this.prField;
+            }
+            set {
+                this.prField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool prSpecified {
+            get {
+                return this.prFieldSpecified;
+            }
+            set {
+                this.prFieldSpecified = value;
             }
         }
         
@@ -21225,6 +21318,27 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.productParentNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal productUnitPrice {
+            get {
+                return this.productUnitPriceField;
+            }
+            set {
+                this.productUnitPriceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool productUnitPriceSpecified {
+            get {
+                return this.productUnitPriceFieldSpecified;
+            }
+            set {
+                this.productUnitPriceFieldSpecified = value;
             }
         }
         

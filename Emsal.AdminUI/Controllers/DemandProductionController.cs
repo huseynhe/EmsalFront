@@ -19,6 +19,7 @@ namespace Emsal.AdminUI.Controllers
         private BaseInput baseInput;
 
         private static string sproductName;
+        private static string sfullAddress;
         private static string suserInfo;
         private static string sadminUnit;
         private static string sstatusEV;
@@ -121,6 +122,128 @@ namespace Emsal.AdminUI.Controllers
 
                 return Request.IsAjaxRequest()
                    ? (ActionResult)PartialView("PartialIndex", modelDemandProduction)
+                   : View(modelDemandProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+        public ActionResult Indexwd(int? page, string statusEV = null, string productName = null, string fullAddress = null, string userInfo = null, string adminUnit = null)
+        {
+            try
+            {
+
+                if (statusEV != null)
+                    statusEV = StripTag.strSqlBlocker(statusEV.ToLower());
+                if (productName != null)
+                    productName = StripTag.strSqlBlocker(productName.ToLower());
+                if (fullAddress != null)
+                    fullAddress = StripTag.strSqlBlocker(fullAddress.ToLower());
+                if (userInfo != null)
+                    userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
+                if (adminUnit != null)
+                    adminUnit = StripTag.strSqlBlocker(adminUnit.ToLower());
+
+                int pageSize = 20;
+                int pageNumber = (page ?? 1);
+
+                if (productName == null && fullAddress == null && userInfo == null && adminUnit == null)
+                {
+                    sproductName = null;
+                    sfullAddress = null;
+                    suserInfo = null;
+                    sadminUnit = null;
+                }
+
+                if (productName != null)
+                    sproductName = productName;
+                if (fullAddress != null)
+                    sfullAddress = fullAddress;
+                if (userInfo != null)
+                    suserInfo = userInfo;
+                if (adminUnit != null)
+                    sadminUnit = adminUnit;
+                if (statusEV != null)
+                    sstatusEV = statusEV;
+
+                baseInput = new BaseInput();
+                modelDemandProduction = new DemandProductionViewModel();
+
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
+                baseInput.userName = modelDemandProduction.Admin.Username;
+
+                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelDemandProduction.EnumCategory);
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstatusEV, out modelDemandProduction.EnumValue);
+
+                BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.ProductionDetailArray);
+
+                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelDemandProduction.EnumCategory.Id && x.foreignOrganization != null).ToList();
+
+                if (sproductName != null)
+                {
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
+                }
+
+                if (sfullAddress != null)
+                {
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.fullAddress.ToLower().Contains(sfullAddress) || x.addressDesc.ToLower().Contains(sfullAddress)).ToList();
+                }
+                if (sadminUnit != null)
+                {
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.foreignOrganization.name.ToLower().Contains(sadminUnit)).ToList();
+                }
+
+                if (suserInfo != null)
+                {
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
+                }
+
+
+                modelDemandProduction.Paging = modelDemandProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+
+                foreach (var item in modelDemandProduction.Paging)
+                {
+                    modelDemandProduction.currentPagePrice = modelDemandProduction.currentPagePrice + (item.quantity * item.pr);
+                }
+
+                foreach (var item in modelDemandProduction.ProductionDetailList)
+                {
+                    modelDemandProduction.allPagePrice = modelDemandProduction.allPagePrice + (item.quantity * item.pr);
+                }
+
+                if (sstatusEV == "Yayinda" || sstatusEV == "yayinda")
+                {
+                    modelDemandProduction.isMain = 0;
+                }
+                else
+                {
+                    modelDemandProduction.isMain = 1;
+                }
+
+
+                modelDemandProduction.statusEV = sstatusEV;
+                modelDemandProduction.productName = sproductName;
+                modelDemandProduction.fullAddress = sfullAddress;
+                modelDemandProduction.userInfo = suserInfo;
+                modelDemandProduction.adminUnit = sadminUnit;
+                //return View(modelDemandProduction);
+
+                return Request.IsAjaxRequest()
+                   ? (ActionResult)PartialView("PartialIndexwd", modelDemandProduction)
                    : View(modelDemandProduction);
 
             }

@@ -555,7 +555,7 @@ namespace Emsal.UI.Controllers
                 modelUser.User.Username = userName;
                 modelUser.User.Id = (long)userId;
                 modelUser.User.Status = 1;
-                modelUser.User.Email = email;
+                //modelUser.User.Email = email;
 
                 modelUser.User.IdSpecified = true;
                 modelUser.User.StatusSpecified = true;

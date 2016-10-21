@@ -4,7 +4,8 @@
         $("#fin").val(null);
 
         $('#formBody').hide();
-
+        
+        document.getElementById("picture").style.display = "block";
         document.getElementById("fizikiShexs").style.display = "block";
         document.getElementById("fizikiShexs").style.display = "block";
         document.getElementById("emailDiv").style.display = "block";
@@ -25,6 +26,7 @@
 
         $('#formBody').hide();
 
+        document.getElementById("picture").style.display = "none";
         document.getElementById("fizikiShexs").style.display = "none";
         document.getElementById("emailDiv").style.display = "block";
         document.getElementById("userNameDiv").style.display = "block"; 
@@ -50,6 +52,13 @@ var ai=0;
 var res="";
 
 function check() {
+
+    $('#formBody').find('input:text').val(null);
+    $('#formBody').find('input:password').val(null);
+    $('#eMail').val("");
+    $('#formBody').find('select').val("").change();
+    document.getElementById("picture").src = "";
+
     $("addressId").val(null);
     ai=0;
     var id = $("#personType").val();
@@ -79,15 +88,18 @@ function check() {
                     var regCombo;
                     $('#regionContainer').append(regCombo);
                     //if (result.data.length > 0) {
-                    if (result.data.Person != null) {
+                    if (result.data.Person.Name != null) {
                         $("#Name").val(result.data.Person.Name);
                         $("#Surname").val(result.data.Person.Surname);
                         $("#FatherName").val(result.data.Person.FatherName);
                         $('#gender').val(result.data.Person.gender);
                         $("#descAddress").val(result.data.descAddress);
                         $("#birtday").val(result.data.birtday);
-                        if (result.profilePicture != null) {
-                            document.getElementById("picture").src = "data:image/png;base64," + result.profilePicture;
+
+                        elem = $('#createdUser');
+                        $(elem).val(result.data.createdUser);
+                        if (result.data.profilePicture != null) {
+                            document.getElementById("picture").src = "data:image/png;base64," + result.data.profilePicture;
                             $('#picture').show();
                         }
                         str = result.data.FullAddress;
@@ -98,9 +110,21 @@ function check() {
                             }
 
                         }
+
+                        $("#Name").attr('readonly', true);
+                        $("#Surname").attr('readonly', true);
+                        $("#FatherName").attr('readonly', true);
+                        //$('#gender').attr('disabled', true);
+                        //$("#birtday").attr('disabled', true);
                     }
                     else {
                         $("#birtday").val(result.data.birtday);
+
+                        $("#Name").attr('readonly', false);
+                        $("#Surname").attr('readonly', false);
+                        $("#FatherName").attr('readonly', false);
+                        //$('#gender').attr('disabled', false);
+                        //$("#birtday").attr('disabled', false);
                     }
 
                     //}
@@ -211,6 +235,7 @@ function GetAdminUnit(elem) {
         });
     }
 };
+
 
 //function check(){
 //    var id = document.getElementById("personType").value;

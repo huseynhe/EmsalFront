@@ -73,7 +73,7 @@
                         </div>
                         <div class="navbar_right_login">
                             <span><a href="">Ətraflı axtar</a></span>
-                            <a href=""> <span style="color:#fff"> class="adSoyad"@Model.NameSurname </span><span id="per_inf" class="glyphicon glyphicon-menu-down"></span></a>
+                            <a href=""> <span style="color:#fff" class="adSoyad"> @Model.NameSurname </span><span id="per_inf" class="glyphicon glyphicon-menu-down"></span></a>
                             <a href="" id="per_mes"><span class="glyphicon glyphicon-envelope" aria-hidden="true"><span style="color:red">@Model.MessageCount</span></a>
                             <a href=""><span class="glyphicon glyphicon-bell" aria-hidden="true"></span></a>
                             <a href=""><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
@@ -190,39 +190,44 @@
                     <div class="tab_panel_block_right">
                         <div class="person_settings" id="personalInfos">
                             <h4 class="text-bold">Şəxsi məlumatlar</h4>
-                            <div class="white_fon">
-                                <table>
-                                    <tr>
-                                        <td>İstifadəçi adı</td>
-                                        <td class="userNameEkle">--</td>
-                                    </tr>
-                                    @{
-                                        if (Model.LoggedInUser.userType_eV_ID == 26)
-                                        {
-                                            <tr>
-                                                <td>Adı, soyadı</td>
-                                                <td class="aDbbSoyad">--</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Doğum tarixi</td>
-                                                <td class="birthday">Daxil Edilmeyib</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Cinsi</td>
-                                                <td class="gender">--</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Təhsili</td>
-                                                <td class="education">--</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Məsləyi</td>
-                                                <td class="job">Daxil Edilmeyib</td>
-                                            </tr>
+                            <div class="white_fon row">
+                                <div class="col-lg-10">
+                                    <table>
+                                        <tr>
+                                            <td>İstifadəçi adı</td>
+                                            <td class="userNameEkle">@Model.LoggedInUser.Username</td>
+                                        </tr>
+                                        @{
+                                            if (Model.LoggedInUser.userType_eV_ID == 26)
+                                            {
+                                                <tr>
+                                                    <td>Adı, soyadı</td>
+                                                    <td class="aDbbSoyad">@Model.Person.Name @Model.Person.Surname</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Doğum tarixi</td>
+                                                    <td class="birthday">@Model.Person.birtday</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Cinsi</td>
+                                                    <td class="gender">@Model.Person.gender</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Təhsili</td>
+                                                    <td class="education">@Model.Education</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Məsləyi</td>
+                                                    <td class="job">@Model.Job</td>
+                                                </tr>
+                                            }
                                         }
-                                    }
-
-                                </table>
+                                    </table>
+                                </div>
+                                <div class="col-lg-2">
+                                    <img class="img-responsive thumbnail" id="picture" src="" />
+                                </div>
+                                
                             </div>
 
                             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#updatePerson">Şəxsi Məlumatlara Düzəliş Et</button>
@@ -239,27 +244,27 @@
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <label>İstifadəçi adı</label>
-                                                <input type="text" id="upUserName" class="form-control" /><br />
+                                                <input type="text" id="upUserName" class="form-control" value="@Model.LoggedInUser.Username"/><br />
                                             </div>
                                             <div class="form-group">
                                                 <label>Ad</label>
-                                                <input type="text" id="upName" class="form-control" readonly /><br />
+                                                <input type="text" id="upName" class="form-control" readonly value="@Model.Person.Name"/><br />
                                             </div>
                                             <div class="form-group">
                                                 <label>Soyad</label>
-                                                <input type="text" id="upSurname" class="form-control" readonly /><br />
+                                                <input type="text" id="upSurname" class="form-control" readonly value="@Model.Person.Surname"/><br />
                                             </div>
                                             <div class="form-group">
                                                 <label>Doğum Tarixi</label>
-                                                <input id="upBirthDate" type="text" class="form-control" readonly /><br />
+                                                <input id="upBirthDate" type="text" class="form-control" readonly value="@Model.Person.birtday"/><br />
                                             </div>
                                             <div class="form-group">
                                                 <label>Cinsi</label>
-                                                <input type="text" id="upGender" class="form-control" readonly /><br />
+                                                <input type="text" id="upGender" class="form-control" readonly value="@Model.Person.gender"/><br />
                                             </div>
                                             <div class="form-group">
                                                 <label>Təhsil</label>
-                                                <select id="upEducation" style="width:100%;" class="form-control">
+                                                <select id="upEducation" style="width:100%;" class="form-control" >
                                                     <script>
                                                         $.ajax({
                                                             url: "/SpecialSummary/GetEducation",
@@ -267,6 +272,8 @@
                                                             success: function (data) {
                                                                 data.map(function (item) {
                                                                     $("#upEducation").append('<option value =' + item.Id + '>' + item.name + '</option>');
+
+                                                                    $("#upEducation").val(@Model.Person.educationLevel_eV_Id).change();
                                                                 })
                                                             },
                                                             error: function (e) {
@@ -286,6 +293,8 @@
                                                             success: function (data) {
                                                                 data.map(function (item) {
                                                                     $("#upJobb").append('<option value =' + item.Id + '>' + item.name + '</option>');
+
+                                                                    $("#upJobb").val(@Model.Person.job_eV_Id).change();
                                                                 })
                                                             },
                                                             error: function (e) {
@@ -313,7 +322,7 @@
                                     əlaqəli vacib mesajların sizə çatacağından
                                     əmin olabilmək üçün emailinizin düzgün qeyd olunduğundan emin olun.
                                 </p><br />
-                                <p>Mövcud email adresiniz: <b><span id="currentEmail">--</span></b></p><br />
+                                <p>Mövcud email adresiniz: <b><span id="currentEmail">@Model.LoggedInUser.Email</span></b></p><br />
 
                                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#EmailModal">Dəyişdir</button>
 
