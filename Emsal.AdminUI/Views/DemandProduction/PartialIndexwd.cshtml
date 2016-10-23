@@ -7,8 +7,12 @@
     decimal tquantity = 0;
 }
 
-
-               <h4 class="text-danger text-center"> cari səhifə üçün qiymət: @Model.currentPagePrice azn - bütün qiymət: @Model.allPagePrice azn</h4>
+               <h4 class="text-danger text-center"> cari səhifə üçün qiymət: @Model.currentPagePrice azn - bütün qiymət: @Model.allPagePrice azn
+                   <a href="/DemandProduction/Indexwd?statusEV=@Model.statusEV&productName=@Model.productName&fullAddress=@Model.fullAddress&userInfo = @Model.userInfo&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+                       <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                       Yüklə
+                   </a>
+    </h4>
 
                     <div class="box-body no-padding">
                         <div class="table-responsive">
@@ -24,7 +28,7 @@
                                                 @item.quantity @item.enumValueName
                                             </td>
                                             <td class="col-md-1">
-                                                @item.pr azn
+                                                @item.productUnitPrice azn
                                             </td>
                                             <td class="col-md-1">
                                                 @if (item.productionCalendarList.FirstOrDefault().TypeDescription != null)

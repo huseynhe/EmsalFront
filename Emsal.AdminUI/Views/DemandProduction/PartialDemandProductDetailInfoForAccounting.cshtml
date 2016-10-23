@@ -1,0 +1,48 @@
+﻿@model Emsal.AdminUI.Models.DemandProductionViewModel
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+    decimal tquantity = 0;
+}
+
+               <h4 class="text-danger text-center"> cari səhifə üçün qiymət: @Model.currentPagePrice azn - bütün qiymət: @Model.allPagePrice azn
+                   <a href="/DemandProduction/DemandProductsForAccounting?statusEV=@Model.statusEV&productName=@Model.productName&fullAddress=@Model.fullAddress&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+                       <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                       Yüklə
+                   </a>
+    </h4>
+
+                    <div class="box-body no-padding">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped table-bordered">
+                                <tbody>
+                                    @foreach (var item in Model.Paging)
+                                    {
+                                        <tr>
+                                            <td class="col-md-3">
+                                                @item.productName (@item.productParentName)
+                                            </td>
+                                            <td class="col-md-1">
+                                                @item.quantity @item.description
+                                            </td>
+                                            <td class="col-md-1">
+                                                @item.unitPrice azn
+                                            </td>
+                                            <td class="col-md-1">
+                                                @item.totalPrice azn
+                                            </td>
+                                            <td class="col-md-2">
+                                                @item.fullAddress
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="box-footer clearfix">
+                        Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
+                        @Html.PagedListPager(Model.Paging, page => Url.Action("DemandProductsForAccounting", new { page, statusEV = Model.statusEV, productName = Model.productName, fullAddress = Model.fullAddress }))
+                    </div>

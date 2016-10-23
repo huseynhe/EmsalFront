@@ -89,6 +89,9 @@ namespace Emsal.AdminUI.Models
 
         public PagedList.IPagedList<ProductionDetail> Paging { get; set; }
 
+        public DemandProductionExcell DemandProductionExcell;
+        public IList<DemandProductionExcell> DemandProductionExcellList { get; set; }
+
         public bool isPDF { get; set; }
         public long userId { get; set; }
 
@@ -156,5 +159,16 @@ namespace Emsal.AdminUI.Models
 
         public decimal currentPagePrice { get; set; }
         public decimal allPagePrice { get; set; }
+    }
+
+    public class DemandProductionExcell
+    {
+        public string productName { get; set; }
+        public string typeDescription { get; set; }
+        public string quantity { get; set; }
+        public string productUnitPrice { get; set; }
+        public string productTotalPrice { get; set; }
+        public string fullAddress { get; set; }
+        public string foreignOrganization { get; set; }
     }
 }

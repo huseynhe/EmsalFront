@@ -159,6 +159,8 @@
       <xs:element minOccurs="0" name="addressDesc" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="adress_Id" type="xs:long" />
       <xs:element minOccurs="0" name="birtday" type="xs:long" />
+      <xs:element minOccurs="0" name="createdDate" type="xs:long" />
+      <xs:element minOccurs="0" name="day" type="xs:long" />
       <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="enumCategoryId" type="xs:long" />
@@ -172,6 +174,9 @@
       <xs:element minOccurs="0" name="gender" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="groupId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="grup_id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="kategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="lastUpdateStatus" type="xs:long" />
+      <xs:element minOccurs="0" name="month_Ev_Id" type="xs:long" />
       <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="months" nillable="true" type="q6:ArrayOfstring" />
       <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="organizationName" nillable="true" type="xs:string" />
@@ -181,7 +186,6 @@
       <xs:element minOccurs="0" name="pinNumber" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="potentialProduct" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="potentialProductQuantity" type="xs:decimal" />
-      <xs:element minOccurs="0" name="pr" type="xs:decimal" />
       <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="productDocumentList" nillable="true" type="q8:ArrayOftblProduct_Document" />
       <xs:element minOccurs="0" name="productId" type="xs:long" />
       <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
@@ -193,8 +197,12 @@
       <xs:element minOccurs="0" name="profilPicture" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="quantity" type="xs:decimal" />
       <xs:element minOccurs="0" name="surname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="totalPrice" type="xs:decimal" />
+      <xs:element minOccurs="0" name="transportation_eV_Id" type="xs:long" />
       <xs:element minOccurs="0" name="unitPrice" type="xs:decimal" />
+      <xs:element minOccurs="0" name="updatedDate" type="xs:long" />
       <xs:element minOccurs="0" name="userId" type="xs:long" />
+      <xs:element minOccurs="0" name="year" type="xs:long" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProductionDetail" nillable="true" type="tns:ProductionDetail" />

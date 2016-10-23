@@ -10,6 +10,18 @@
       <xsd:import schemaLocation="http://localhost:56876/EmsalService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarBymonthseVId_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarBymonthseVId" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarBymonthseVId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarBymonthseVIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarDay_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarDay" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetProductionCalendarDay_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarDayResponse" />
+  </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetProductionCalendarOclock_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarOclock" />
   </wsdl:message>
@@ -57,6 +69,18 @@
   </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetProducListByUserID_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetProducListByUserIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetUserRoles_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetUserRoles" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetUserRoles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetUserRolesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetUserRolesByUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetUserRolesByUserId" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetUserRolesByUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetUserRolesByUserIdResponse" />
   </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetDemanProductionGroupList_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetDemanProductionGroupList" />
@@ -424,18 +448,6 @@
   <wsdl:message name="IEmsalService_WS_GetProductionCalendarPrice_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarPriceResponse" />
   </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetProductionCalendarBymonthseVId_InputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarBymonthseVId" />
-  </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetProductionCalendarBymonthseVId_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarBymonthseVIdResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetProductionCalendarDay_InputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarDay" />
-  </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetProductionCalendarDay_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetProductionCalendarDayResponse" />
-  </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetProductionDocumentsByGroupId_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetProductionDocumentsByGroupId" />
   </wsdl:message>
@@ -718,6 +730,18 @@
   <wsdl:message name="IEmsalService_WS_GetProductionDetailist_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetProductionDetailistResponse" />
   </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetDemandProductsForAccounting_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetDemandProductsForAccounting" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetDemandProductsForAccounting_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetDemandProductsForAccountingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetDemandProductDetailInfoForAccounting_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetDemandProductDetailInfoForAccounting" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetDemandProductDetailInfoForAccounting_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetDemandProductDetailInfoForAccountingResponse" />
+  </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetAdminUnitListForID_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetAdminUnitListForID" />
   </wsdl:message>
@@ -807,18 +831,6 @@
   </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetUserRoleById_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetUserRoleByIdResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetUserRoles_InputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetUserRoles" />
-  </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetUserRoles_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetUserRolesResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetUserRolesByUserId_InputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetUserRolesByUserId" />
-  </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetUserRolesByUserId_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetUserRolesByUserIdResponse" />
   </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetUserByUserName_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetUserByUserName" />
@@ -1973,6 +1985,14 @@
     <wsdl:part name="parameters" element="tns:WS_AddCommunicationResponse" />
   </wsdl:message>
   <wsdl:portType name="IEmsalService">
+    <wsdl:operation name="WS_GetProductionCalendarBymonthseVId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarBymonthseVId" message="tns:IEmsalService_WS_GetProductionCalendarBymonthseVId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarBymonthseVIdResponse" message="tns:IEmsalService_WS_GetProductionCalendarBymonthseVId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarDay">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarDay" message="tns:IEmsalService_WS_GetProductionCalendarDay_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarDayResponse" message="tns:IEmsalService_WS_GetProductionCalendarDay_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="WS_GetProductionCalendarOclock">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarOclock" message="tns:IEmsalService_WS_GetProductionCalendarOclock_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarOclockResponse" message="tns:IEmsalService_WS_GetProductionCalendarOclock_OutputMessage" />
@@ -2004,6 +2024,14 @@
     <wsdl:operation name="WS_GetProducListByUserID">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProducListByUserID" message="tns:IEmsalService_WS_GetProducListByUserID_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProducListByUserIDResponse" message="tns:IEmsalService_WS_GetProducListByUserID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetUserRoles">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRoles" message="tns:IEmsalService_WS_GetUserRoles_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRolesResponse" message="tns:IEmsalService_WS_GetUserRoles_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetUserRolesByUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRolesByUserId" message="tns:IEmsalService_WS_GetUserRolesByUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRolesByUserIdResponse" message="tns:IEmsalService_WS_GetUserRolesByUserId_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="WS_GetDemanProductionGroupList">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetDemanProductionGroupList" message="tns:IEmsalService_WS_GetDemanProductionGroupList_InputMessage" />
@@ -2249,14 +2277,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarPrice" message="tns:IEmsalService_WS_GetProductionCalendarPrice_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarPriceResponse" message="tns:IEmsalService_WS_GetProductionCalendarPrice_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="WS_GetProductionCalendarBymonthseVId">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarBymonthseVId" message="tns:IEmsalService_WS_GetProductionCalendarBymonthseVId_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarBymonthseVIdResponse" message="tns:IEmsalService_WS_GetProductionCalendarBymonthseVId_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="WS_GetProductionCalendarDay">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarDay" message="tns:IEmsalService_WS_GetProductionCalendarDay_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionCalendarDayResponse" message="tns:IEmsalService_WS_GetProductionCalendarDay_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="WS_GetProductionDocumentsByGroupId">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionDocumentsByGroupId" message="tns:IEmsalService_WS_GetProductionDocumentsByGroupId_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionDocumentsByGroupIdResponse" message="tns:IEmsalService_WS_GetProductionDocumentsByGroupId_OutputMessage" />
@@ -2445,6 +2465,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionDetailist" message="tns:IEmsalService_WS_GetProductionDetailist_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionDetailistResponse" message="tns:IEmsalService_WS_GetProductionDetailist_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="WS_GetDemandProductsForAccounting">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetDemandProductsForAccounting" message="tns:IEmsalService_WS_GetDemandProductsForAccounting_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetDemandProductsForAccountingResponse" message="tns:IEmsalService_WS_GetDemandProductsForAccounting_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetDemandProductDetailInfoForAccounting">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetDemandProductDetailInfoForAccounting" message="tns:IEmsalService_WS_GetDemandProductDetailInfoForAccounting_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetDemandProductDetailInfoForAccountingResponse" message="tns:IEmsalService_WS_GetDemandProductDetailInfoForAccounting_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="WS_GetAdminUnitListForID">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetAdminUnitListForID" message="tns:IEmsalService_WS_GetAdminUnitListForID_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetAdminUnitListForIDResponse" message="tns:IEmsalService_WS_GetAdminUnitListForID_OutputMessage" />
@@ -2504,14 +2532,6 @@
     <wsdl:operation name="WS_GetUserRoleById">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRoleById" message="tns:IEmsalService_WS_GetUserRoleById_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRoleByIdResponse" message="tns:IEmsalService_WS_GetUserRoleById_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="WS_GetUserRoles">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRoles" message="tns:IEmsalService_WS_GetUserRoles_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRolesResponse" message="tns:IEmsalService_WS_GetUserRoles_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="WS_GetUserRolesByUserId">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRolesByUserId" message="tns:IEmsalService_WS_GetUserRolesByUserId_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRolesByUserIdResponse" message="tns:IEmsalService_WS_GetUserRolesByUserId_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="WS_GetUserByUserName">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserByUserName" message="tns:IEmsalService_WS_GetUserByUserName_InputMessage" />
@@ -3284,6 +3304,24 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IEmsalService" type="tns:IEmsalService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="WS_GetProductionCalendarBymonthseVId">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendarBymonthseVId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetProductionCalendarDay">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendarDay" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="WS_GetProductionCalendarOclock">
       <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendarOclock" style="document" />
       <wsdl:input>
@@ -3349,6 +3387,24 @@
     </wsdl:operation>
     <wsdl:operation name="WS_GetProducListByUserID">
       <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProducListByUserID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetUserRoles">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetUserRoles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetUserRolesByUserId">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetUserRolesByUserId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3905,24 +3961,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="WS_GetProductionCalendarBymonthseVId">
-      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendarBymonthseVId" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="WS_GetProductionCalendarDay">
-      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionCalendarDay" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="WS_GetProductionDocumentsByGroupId">
       <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProductionDocumentsByGroupId" style="document" />
       <wsdl:input>
@@ -4346,6 +4384,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="WS_GetDemandProductsForAccounting">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetDemandProductsForAccounting" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetDemandProductDetailInfoForAccounting">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetDemandProductDetailInfoForAccounting" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="WS_GetAdminUnitListForID">
       <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetAdminUnitListForID" style="document" />
       <wsdl:input>
@@ -4474,24 +4530,6 @@
     </wsdl:operation>
     <wsdl:operation name="WS_GetUserRoleById">
       <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetUserRoleById" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="WS_GetUserRoles">
-      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetUserRoles" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="WS_GetUserRolesByUserId">
-      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetUserRolesByUserId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

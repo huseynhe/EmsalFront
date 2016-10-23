@@ -268,3 +268,15 @@ H:\projects\Emsal_21.10.2016\EmsalFront\Emsal.WebInt\bin\Debug\Emsal.WebInt.pdb
 H:\projects\Emsal_21.10.2016\EmsalFront\Emsal.WebInt\obj\Debug\Emsal.WebInt.csprojResolveAssemblyReference.cache
 H:\projects\Emsal_21.10.2016\EmsalFront\Emsal.WebInt\obj\Debug\Emsal.WebInt.dll
 H:\projects\Emsal_21.10.2016\EmsalFront\Emsal.WebInt\obj\Debug\Emsal.WebInt.pdb
+H:\projects\Emsal_22.10.2016\EmsalFront\Emsal.WebInt\bin\Debug\Emsal.WebInt.dll.config
+H:\projects\Emsal_22.10.2016\EmsalFront\Emsal.WebInt\bin\Debug\Emsal.WebInt.dll
+H:\projects\Emsal_22.10.2016\EmsalFront\Emsal.WebInt\bin\Debug\Emsal.WebInt.pdb
+H:\projects\Emsal_22.10.2016\EmsalFront\Emsal.WebInt\obj\Debug\Emsal.WebInt.csprojResolveAssemblyReference.cache
+H:\projects\Emsal_22.10.2016\EmsalFront\Emsal.WebInt\obj\Debug\Emsal.WebInt.dll
+H:\projects\Emsal_22.10.2016\EmsalFront\Emsal.WebInt\obj\Debug\Emsal.WebInt.pdb
+H:\projects\Emsal_23.10.2016\EmsalFront\Emsal.WebInt\bin\Debug\Emsal.WebInt.dll.config
+H:\projects\Emsal_23.10.2016\EmsalFront\Emsal.WebInt\bin\Debug\Emsal.WebInt.dll
+H:\projects\Emsal_23.10.2016\EmsalFront\Emsal.WebInt\bin\Debug\Emsal.WebInt.pdb
+H:\projects\Emsal_23.10.2016\EmsalFront\Emsal.WebInt\obj\Debug\Emsal.WebInt.csprojResolveAssemblyReference.cache
+H:\projects\Emsal_23.10.2016\EmsalFront\Emsal.WebInt\obj\Debug\Emsal.WebInt.dll
+H:\projects\Emsal_23.10.2016\EmsalFront\Emsal.WebInt\obj\Debug\Emsal.WebInt.pdb

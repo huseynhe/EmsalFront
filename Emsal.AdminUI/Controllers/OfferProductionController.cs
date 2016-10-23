@@ -13,6 +13,9 @@ using Emsal.Utility.CustomObjects;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using System.Text;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace Emsal.AdminUI.Controllers
 {
@@ -206,11 +209,11 @@ namespace Emsal.AdminUI.Controllers
                 modelOfferProduction.userInfo = suserInfo;
                 //return View(modelDemandProduction);
 
-
                 if (excell == true)
                 {
                     DataTable products = new System.Data.DataTable("offer");
 
+                    products.Columns.Add("S/N", typeof(string));
                     products.Columns.Add("Məhsulun adı", typeof(string));
                     products.Columns.Add("Dövrülük", typeof(string));
                     products.Columns.Add("Miqdarı (vahidi)", typeof(string));
@@ -218,69 +221,150 @@ namespace Emsal.AdminUI.Controllers
                     products.Columns.Add("Təklifin ünvanı - Mənşəyi", typeof(string));
                     products.Columns.Add("Təklif verənin soyadı, adı, atasının adı, ünvanı", typeof(string));
 
-                    modelOfferProduction.OfferProduxtionExcellList = new List<OfferProduxtionExcell>();
+                    modelOfferProduction.OfferProductionExcellList = new List<OfferProductionExcell>();
 
+                    int ci = 1;
                     foreach (var item in modelOfferProduction.ProductionDetailList)
                     {
-                        modelOfferProduction.OfferProduxtionExcell = new OfferProduxtionExcell();
+                        modelOfferProduction.OfferProductionExcell = new OfferProductionExcell();
 
-                        modelOfferProduction.OfferProduxtionExcell.productName = item.productName + " " + (item.productParentName);
+                        modelOfferProduction.OfferProductionExcell.productName = item.productName + " " + (item.productParentName);
                         if (item.productionCalendarList.FirstOrDefault().TypeDescription != null)
                         {
-                            modelOfferProduction.OfferProduxtionExcell.typeDescription = item.productionCalendarList.FirstOrDefault().TypeDescription;
+                            modelOfferProduction.OfferProductionExcell.typeDescription = item.productionCalendarList.FirstOrDefault().TypeDescription;
                         }
 
-                        modelOfferProduction.OfferProduxtionExcell.quantity = item.quantity.ToString() + " " + item.enumValueName;
+                        modelOfferProduction.OfferProductionExcell.quantity = item.quantity.ToString() + " " + item.enumValueName;
 
-                        modelOfferProduction.OfferProduxtionExcell.unitPrice = item.unitPrice.ToString();
-                        modelOfferProduction.OfferProduxtionExcell.fullAddress = item.fullAddress;
-                        modelOfferProduction.OfferProduxtionExcell.personNameAddress = item.person.Name + " " + item.person.Surname + " " + item.person.FatherName + " " + (item.person.gender) + " " + item.personAdress + " " + (item.personAdressDesc);
+                        modelOfferProduction.OfferProductionExcell.unitPrice = item.unitPrice.ToString();
+                        modelOfferProduction.OfferProductionExcell.fullAddress = item.fullAddress;
+                        modelOfferProduction.OfferProductionExcell.personNameAddress = item.person.Name + " " + item.person.Surname + " " + item.person.FatherName + " " + (item.person.gender) + " " + item.personAdress + " " + (item.personAdressDesc);
 
 
-                        products.Rows.Add(modelOfferProduction.OfferProduxtionExcell.productName, modelOfferProduction.OfferProduxtionExcell.typeDescription, modelOfferProduction.OfferProduxtionExcell.quantity, modelOfferProduction.OfferProduxtionExcell.unitPrice, modelOfferProduction.OfferProduxtionExcell.fullAddress, modelOfferProduction.OfferProduxtionExcell.personNameAddress);
+                        products.Rows.Add(ci.ToString(), modelOfferProduction.OfferProductionExcell.productName, modelOfferProduction.OfferProductionExcell.typeDescription, modelOfferProduction.OfferProductionExcell.quantity, modelOfferProduction.OfferProductionExcell.unitPrice, modelOfferProduction.OfferProductionExcell.fullAddress, modelOfferProduction.OfferProductionExcell.personNameAddress);
 
+                        ci = ci + 1;
                     }
 
+                    products.Rows.Add("","Bütün qiymət", "", "", modelOfferProduction.allPagePrice.ToString() + " azn");
 
-                    products.Rows.Add("Bütün qiymət", "", "", modelOfferProduction.allPagePrice);
-
-                    var grid = new GridView();
-                    grid.DataSource = products;
-                    grid.DataBind();
-
-                    string filename = Guid.NewGuid() + ".xls";
-
-                    Response.ClearContent();
-                    Response.Buffer = true;
-                    Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
-                    Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename + "");
-                    Response.ContentType = "application/ms-excel";
-
-                    Response.Charset = "";
-                    StringWriter sw = new StringWriter();
-                    HtmlTextWriter htw = new HtmlTextWriter(sw);
-
-                    grid.RenderControl(htw);
-
-                    Response.Output.Write(sw.ToString());
-                    Response.Flush();
-                    Response.End();
-
+                    //var grid = new GridView();
+                    //grid.DataSource = products;
+                    //grid.DataBind();
 
                     //string filename = Guid.NewGuid() + ".xls";
-                    //StringWriter tw = new StringWriter();
-                    //HtmlTextWriter hw = new HtmlTextWriter(tw);
 
-                    //DataGrid dgGrid = new DataGrid();
-                    //dgGrid.DataSource = modelOfferProduction.OfferProduxtionExcellList;
-                    //dgGrid.DataBind();
-                    //dgGrid.RenderControl(hw);
-
+                    //Response.ClearContent();
+                    //Response.Buffer = true;
                     //Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
-                    //Response.ContentType = "application/vnd.ms-excel";
                     //Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename + "");
-                    //Response.Write(tw.ToString());
+                    ////Response.ContentType = "application/ms-excel";
+                    //Response.ContentType = "application/vnd.ms-excel";
+
+                    //Response.Charset = "";
+                    //StringWriter sw = new StringWriter();
+                    //HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+                    //for (int i = 0; i < products.Columns.Count; i++)
+                    //{
+                    //    grid.HeaderRow.Cells[i].Style.Add("background-color", "#fafafa");
+                    //    grid.HeaderRow.Cells[i].Style.Add("height", "50");
+                    //}
+
+                    ////grid.HeaderRow.Cells[0].ColumnSpan = 3;
+
+                    //grid.RenderControl(htw);
+
+
+                    //Response.Output.Write(sw.ToString());
+                    //Response.Flush();
                     //Response.End();
+
+
+
+
+                    using (var excelPackage = new ExcelPackage())
+                    {
+                        excelPackage.Workbook.Properties.Author = "EMSAL";
+                        excelPackage.Workbook.Properties.Title = "emsal.az";
+                        var sheet = excelPackage.Workbook.Worksheets.Add("Təklif");
+                        sheet.Name = "klif";
+
+                        var col = 1;
+                        sheet.Cells[1, col++].Value = "Ərzaq məhsullarının illik tələbatı və təklifi üzrə ümumi cədvəl";
+                        sheet.Row(1).Height = 50;
+                        sheet.Row(1).Style.Font.Size = 14;
+                        sheet.Row(1).Style.Font.Bold = true;
+                        sheet.Row(1).Style.WrapText = true;
+                        sheet.Cells[1, 1, 1, 7].Merge = true;
+                        sheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        col = 1;
+                        sheet.Cells[2, col++].Value = "S/N";
+                        sheet.Cells[2, col++].Value = "Məhsulun adı";
+                        sheet.Cells[2, col++].Value = "Dövrülük";
+                        sheet.Cells[2, col++].Value = "Miqdarı (vahidi)";
+                        sheet.Cells[2, col++].Value = "Qiyməti (AZN-lə)";
+                        sheet.Cells[2, col++].Value = "Təklifin ünvanı - Mənşəyi";
+                        sheet.Cells[2, col++].Value = "Təklif verənin soyadı, adı, atasının adı, ünvanı";
+
+                        sheet.Row(2).Style.Font.Bold = true;
+                        sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                        sheet.Column(1).Width = 6;
+                        sheet.Column(2).Width = 30;
+                        sheet.Column(3).Width = 9;
+                        sheet.Column(4).Width = 15;
+                        sheet.Column(5).Width = 9;
+                        sheet.Column(6).Width = 30;
+                        sheet.Column(7).Width = 50;
+
+                        int rowIndex = 3;
+                        var ri = 1;
+                        foreach (var item in modelOfferProduction.ProductionDetailList)
+                        {
+                            var col2 = 1;
+                            sheet.Cells[rowIndex, col2++].Value = ri.ToString();
+                            sheet.Cells[rowIndex, col2++].Value = item.productName + " " + (item.productParentName);
+                            if (item.productionCalendarList.FirstOrDefault().TypeDescription != null)
+                            {
+                                sheet.Cells[rowIndex, col2++].Value = item.productionCalendarList.FirstOrDefault().TypeDescription;
+                            }
+                            sheet.Cells[rowIndex, col2++].Value = item.quantity.ToString() + " " + item.enumValueName;
+                            sheet.Cells[rowIndex, col2++].Value = item.unitPrice.ToString();
+                            sheet.Cells[rowIndex, col2++].Value = item.fullAddress;
+                            sheet.Cells[rowIndex, col2++].Value = item.person.Name + " " + item.person.Surname + " " + item.person.FatherName + " " + (item.person.gender) + " " + item.personAdress + " " + (item.personAdressDesc);
+
+
+                            //sheet.Cells[rowIndex, col2++].Style.WrapText = true;
+
+                            rowIndex++;
+                            ri++;
+                        }
+
+                        sheet.Cells[1, 1, rowIndex - 1, 7].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 7].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 7].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 7].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 7].Style.WrapText = true;
+                        sheet.Cells[1, 1, rowIndex - 1, 7].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+
+                        //sheet.Cells[rowIndex+1, rowIndex+1].Value = "Toplam";
+                        //sheet.Cells[1, rowIndex, rowIndex, 7].Merge = true;
+
+                        string fileName = Guid.NewGuid() + ".xls";
+
+                        Response.ClearContent();
+                        Response.BinaryWrite(excelPackage.GetAsByteArray());
+                        Response.AddHeader("content-disposition", "attachment;filename=" + fileName);
+                        Response.AppendCookie(new HttpCookie("fileDownloadToken", "1111"));
+                        Response.ContentType = "application/excel";
+                        Response.Flush();
+                        Response.End();
+                    }
                 }
 
                 return Request.IsAjaxRequest()

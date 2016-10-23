@@ -80,62 +80,65 @@
                 </div>
 
                 <div class="clearfix"></div>
-                <hr /><br />
-                <div class="col-md-3" hidden>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.endDate, new { @class = "form-control", required = "required" })
-                        @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+            </div>
+            <h4>Təchizatın təqvim planı</h4>
+                <div class="row">
+                    <div class="col-md-3" hidden>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.endDate, new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.startDateYear, htmlAttributes: new { @class = "control-label" })
+                        <select onchange="Getotherdate(this,'y','d')" required name="startDateYear" id="startDateYear" class="form-control select2">
+                            <option value="">Seçim edin</option>
+                            @for (var i = 0; i <= 1; i++)
+                        {
+                                <option value="@(DateTime.Now.Year+i)">@(DateTime.Now.Year + i)</option>
+                        }
+                        </select>
+                        <span data-valmsg-replace="true" data-valmsg-for="startDateYear" class="field-validation-valid text-danger"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="startDate" class="control-label">&nbsp;</label>
+                        <select required name="startDateMonth" onchange="Getotherdate(this, 'm', 'd')" id="startDateMonth" class="form-control select2">
+                            <option value="">Seçim edin</option>
+                            @foreach (var item in Model.EnumValueMonthList)
+                        {
+                                <option value="@item.Id">@item.description</option>
+                        }
+                        </select>
+                        <span data-valmsg-replace="true" data-valmsg-for="startDateMonth" class="field-validation-valid text-danger"></span>
+                    </div>
+
+
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.endDateYear, htmlAttributes: new { @class = "control-label" })
+                        <select required name="endDateYear" id="endDateYear" onchange="Getotherdate(this, '', 'd')" class="form-control select2">
+                            <option value="">Seçim edin</option>
+                        </select>
+                        <span data-valmsg-replace="true" data-valmsg-for="endDateYear" class="field-validation-valid text-danger"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="endDate" class="control-label">&nbsp;</label>
+                        <select required name="endDateMonth" id="endDateMonth" onchange="Getotherdate(this, '', 'd')" class="form-control select2">
+                            <option value="">Seçim edin</option>
+                            @foreach (var item in Model.EnumValueMonthList)
+                        {
+                                <option value="@item.Id">@item.description</option>
+                        }
+                        </select>
+                        <span data-valmsg-replace="true" data-valmsg-for="endDateMonth" class="field-validation-valid text-danger"></span>
                     </div>
                 </div>
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.startDateYear, htmlAttributes: new { @class = "control-label" })
-                    <select onchange="Getotherdate(this,'y','d')" required name="startDateYear" id="startDateYear" class="form-control select2">
-                        <option value="">Seçim edin</option>
-                        @for (var i = 0; i <= 1; i++)
-                        {
-                            <option value="@(DateTime.Now.Year+i)">@(DateTime.Now.Year + i)</option>
-                        }
-                    </select>
-                    <span data-valmsg-replace="true" data-valmsg-for="startDateYear" class="field-validation-valid text-danger"></span>
-                </div>
-
-                <div class="col-md-3">
-                    <label for="startDate" class="control-label">&nbsp;</label>
-                    <select required name="startDateMonth" onchange="Getotherdate(this, 'm', 'd')" id="startDateMonth" class="form-control select2">
-                        <option value="">Seçim edin</option>
-                        @foreach (var item in Model.EnumValueMonthList)
-                        {
-                            <option value="@item.Id">@item.description</option>
-                        }
-                    </select>
-                    <span data-valmsg-replace="true" data-valmsg-for="startDateMonth" class="field-validation-valid text-danger"></span>
-                </div>
-
-
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.endDateYear, htmlAttributes: new { @class = "control-label" })
-                    <select required name="endDateYear" id="endDateYear" onchange="Getotherdate(this, '', 'd')" class="form-control select2">
-                        <option value="">Seçim edin</option>
-                    </select>
-                    <span data-valmsg-replace="true" data-valmsg-for="endDateYear" class="field-validation-valid text-danger"></span>
-                </div>
-
-                <div class="col-md-3">
-                    <label for="endDate" class="control-label">&nbsp;</label>
-                    <select required name="endDateMonth" id="endDateMonth" onchange="Getotherdate(this, '', 'd')" class="form-control select2">
-                        <option value="">Seçim edin</option>
-                        @foreach (var item in Model.EnumValueMonthList)
-                        {
-                            <option value="@item.Id">@item.description</option>
-                        }
-                    </select>
-                    <span data-valmsg-replace="true" data-valmsg-for="endDateMonth" class="field-validation-valid text-danger"></span>
-                </div>
-            </div>
             <div class="clear-both"></div>
             <div>
-                <h4>Təchizatın təqvim planı</h4>
                 <div class="row">
                     <div class="col-md-7" id="calendarMainDiv">
                         <div class="form-group">

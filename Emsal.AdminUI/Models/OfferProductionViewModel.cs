@@ -92,8 +92,8 @@ namespace Emsal.AdminUI.Models
         public IList<tblConfirmationMessage> ConfirmationMessageList { get; set; }
         public tblConfirmationMessage[] ConfirmationMessageArray;
 
-        public OfferProduxtionExcell OfferProduxtionExcell;
-        public IList<OfferProduxtionExcell> OfferProduxtionExcellList { get; set; }
+        public OfferProductionExcell OfferProductionExcell;
+        public IList<OfferProductionExcell> OfferProductionExcellList { get; set; }
 
 
         public PagedList.IPagedList<ProductionDetail> Paging { get; set; }
@@ -167,7 +167,7 @@ namespace Emsal.AdminUI.Models
         public decimal allPagePrice { get; set; }
     }
 
-    public class OfferProduxtionExcell
+    public class OfferProductionExcell
     {
         public string productName { get; set; }
            public string typeDescription { get; set; }

@@ -75,6 +75,26 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="tblProduct_Document" nillable="true" type="tns:tblProduct_Document" />
+  <xs:complexType name="ArrayOftblUserRole">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblUserRole" nillable="true" type="tns:tblUserRole" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblUserRole" nillable="true" type="tns:ArrayOftblUserRole" />
+  <xs:complexType name="tblUserRole">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="LastUpdatedStatus" type="xs:long" />
+      <xs:element minOccurs="0" name="RoleId" type="xs:long" />
+      <xs:element minOccurs="0" name="Status" type="xs:long" />
+      <xs:element minOccurs="0" name="UserId" type="xs:long" />
+      <xs:element minOccurs="0" name="createdDate" type="xs:long" />
+      <xs:element minOccurs="0" name="createdUser" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="updatedDate" type="xs:long" />
+      <xs:element minOccurs="0" name="updatedUser" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblUserRole" nillable="true" type="tns:tblUserRole" />
   <xs:complexType name="tblProductPrice">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id" type="xs:long" />
@@ -396,26 +416,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOftblProductCatalog" nillable="true" type="tns:ArrayOftblProductCatalog" />
-  <xs:complexType name="tblUserRole">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Id" type="xs:long" />
-      <xs:element minOccurs="0" name="LastUpdatedStatus" type="xs:long" />
-      <xs:element minOccurs="0" name="RoleId" type="xs:long" />
-      <xs:element minOccurs="0" name="Status" type="xs:long" />
-      <xs:element minOccurs="0" name="UserId" type="xs:long" />
-      <xs:element minOccurs="0" name="createdDate" type="xs:long" />
-      <xs:element minOccurs="0" name="createdUser" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="updatedDate" type="xs:long" />
-      <xs:element minOccurs="0" name="updatedUser" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="tblUserRole" nillable="true" type="tns:tblUserRole" />
-  <xs:complexType name="ArrayOftblUserRole">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblUserRole" nillable="true" type="tns:tblUserRole" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOftblUserRole" nillable="true" type="tns:ArrayOftblUserRole" />
   <xs:complexType name="tblUser">
     <xs:sequence>
       <xs:element minOccurs="0" name="ASC_ID" nillable="true" type="xs:long" />

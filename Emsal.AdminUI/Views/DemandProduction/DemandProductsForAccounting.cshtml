@@ -1,0 +1,54 @@
+﻿@model Emsal.AdminUI.Models.DemandProductionViewModel
+@*@using PagedList.Mvc;*@
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Müraciətlər</h3>
+                    <!-- /.box-tools -->
+                </div>
+                <table class="table table-hover table-striped table-bordered" style="margin-bottom:0;">
+                    <tbody>
+                        <tr>
+                            <th class="col-md-3">
+                                Məhsulun adı<br />
+                                <input onkeyup="DemandProductionSearchwd(this, 'productName')" class="form-control" placeholder="axtar" />
+                            </th>
+                            <th class="col-md-1">
+                                Miqdarı (vahidi)
+                            </th>
+                            <th class="col-md-1">
+                                Qiymət (vahidin)
+                            </th>
+                            <th class="col-md-1">
+                                Toplam qiymət
+                            </th>
+                            <th class="col-md-2">
+                                Çatdırılma ünvanı<br />
+                                <input onkeyup="DemandProductionSearchwd(this, 'fullAddress')" class="form-control" placeholder="axtar" />
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="AjaxPaginationList">
+                    @Html.Partial("PartialDemandProductsForAccounting")
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/js/pagedList.js"></script>
+
+
+
+

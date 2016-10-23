@@ -10,6 +10,9 @@ using PagedList;
 using System.Web.Security;
 using Emsal.AdminUI.Infrastructure;
 using Emsal.Utility.CustomObjects;
+using System.Data;
+using System.Web.UI.WebControls;
+using System.Web.UI;
 
 namespace Emsal.AdminUI.Controllers
 {
@@ -84,7 +87,7 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.ProductionDetailArray);
 
-                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelDemandProduction.EnumCategory.Id && x.foreignOrganization!=null).ToList();
+                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelDemandProduction.EnumCategory.Id && x.foreignOrganization != null).ToList();
 
                 if (sproductName != null)
                 {
@@ -131,7 +134,7 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
-        public ActionResult Indexwd(int? page, string statusEV = null, string productName = null, string fullAddress = null, string userInfo = null, string adminUnit = null)
+        public ActionResult Indexwd(int? page, string statusEV = null, string productName = null, string fullAddress = null, string userInfo = null, string adminUnit = null, bool excell = false)
         {
             try
             {
@@ -217,12 +220,12 @@ namespace Emsal.AdminUI.Controllers
 
                 foreach (var item in modelDemandProduction.Paging)
                 {
-                    modelDemandProduction.currentPagePrice = modelDemandProduction.currentPagePrice + (item.quantity * item.pr);
+                    modelDemandProduction.currentPagePrice = modelDemandProduction.currentPagePrice + (item.quantity * item.productUnitPrice);
                 }
 
                 foreach (var item in modelDemandProduction.ProductionDetailList)
                 {
-                    modelDemandProduction.allPagePrice = modelDemandProduction.allPagePrice + (item.quantity * item.pr);
+                    modelDemandProduction.allPagePrice = modelDemandProduction.allPagePrice + (item.quantity * item.productUnitPrice);
                 }
 
                 if (sstatusEV == "Yayinda" || sstatusEV == "yayinda")
@@ -242,8 +245,385 @@ namespace Emsal.AdminUI.Controllers
                 modelDemandProduction.adminUnit = sadminUnit;
                 //return View(modelDemandProduction);
 
+                if (excell == true)
+                {
+                    DataTable products = new System.Data.DataTable("offer");
+
+                    products.Columns.Add("Məhsulun adı", typeof(string));
+                    products.Columns.Add("Miqdarı (vahidi)", typeof(string));
+                    products.Columns.Add("Qiymət (vahidin) (AZN-lə)", typeof(string));
+                    products.Columns.Add("Dövrülük", typeof(string));
+                    products.Columns.Add("Təşkilat", typeof(string));
+                    products.Columns.Add("Çatdırılma ünvanı", typeof(string));
+
+                    modelDemandProduction.DemandProductionExcellList = new List<DemandProductionExcell>();
+
+                    foreach (var item in modelDemandProduction.ProductionDetailList)
+                    {
+                        modelDemandProduction.DemandProductionExcell = new DemandProductionExcell();
+
+                        modelDemandProduction.DemandProductionExcell.productName = item.productName + " " + (item.productParentName);
+
+                        modelDemandProduction.DemandProductionExcell.quantity = item.quantity.ToString() + " " + item.enumValueName;
+                        modelDemandProduction.DemandProductionExcell.productUnitPrice = item.productUnitPrice.ToString();
+
+                        if (item.productionCalendarList.FirstOrDefault().TypeDescription != null)
+                        {
+                            modelDemandProduction.DemandProductionExcell.typeDescription = item.productionCalendarList.FirstOrDefault().TypeDescription;
+                        }
+
+                        if (item.foreignOrganization != null)
+                        {
+                            modelDemandProduction.DemandProductionExcell.foreignOrganization = item.foreignOrganization.name;
+                        }
+
+
+                        modelDemandProduction.DemandProductionExcell.fullAddress = item.fullAddress+" "+(item.addressDesc);
+
+
+
+                        products.Rows.Add(modelDemandProduction.DemandProductionExcell.productName, modelDemandProduction.DemandProductionExcell.quantity, modelDemandProduction.DemandProductionExcell.productUnitPrice, modelDemandProduction.DemandProductionExcell.typeDescription, modelDemandProduction.DemandProductionExcell.foreignOrganization, modelDemandProduction.DemandProductionExcell.fullAddress);
+
+                    }
+
+                    products.Rows.Add("Bütün qiymət", "", modelDemandProduction.allPagePrice.ToString()+ " azn");
+
+                    var grid = new GridView();
+                    grid.DataSource = products;
+                    grid.DataBind();
+
+                    string filename = Guid.NewGuid() + ".xls";
+
+                    Response.ClearContent();
+                    Response.Buffer = true;
+                    Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                    Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename + "");
+                    Response.ContentType = "application/ms-excel";
+
+                    Response.Charset = "";
+                    StringWriter sw = new StringWriter();
+                    HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+                    grid.RenderControl(htw);
+
+                    Response.Output.Write(sw.ToString());
+                    Response.Flush();
+                    Response.End();
+
+                }
                 return Request.IsAjaxRequest()
                    ? (ActionResult)PartialView("PartialIndexwd", modelDemandProduction)
+                   : View(modelDemandProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+
+        public ActionResult DemandProductsForAccounting(int? page, string statusEV = null, string productName = null, string fullAddress = null, bool excell = false)
+        {
+            try
+            {
+
+                if (statusEV != null)
+                    statusEV = StripTag.strSqlBlocker(statusEV.ToLower());
+                if (productName != null)
+                    productName = StripTag.strSqlBlocker(productName.ToLower());
+                if (fullAddress != null)
+                    fullAddress = StripTag.strSqlBlocker(fullAddress.ToLower());
+
+                int pageSize = 20;
+                int pageNumber = (page ?? 1);
+
+                if (productName == null && fullAddress == null)
+                {
+                    sproductName = null;
+                    sfullAddress = null;
+                }
+
+                if (productName != null)
+                    sproductName = productName;
+                if (fullAddress != null)
+                    sfullAddress = fullAddress;
+                if (statusEV != null)
+                    sstatusEV = statusEV;
+
+                baseInput = new BaseInput();
+                modelDemandProduction = new DemandProductionViewModel();
+
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
+                baseInput.userName = modelDemandProduction.Admin.Username;
+
+                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelDemandProduction.EnumCategory);
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstatusEV, out modelDemandProduction.EnumValue);
+
+                BaseOutput gpp = srv.WS_GetDemandProductsForAccounting(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.ProductionDetailArray);
+
+                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.ToList();
+
+                if (sproductName != null)
+                {
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
+                }
+
+                if (sfullAddress != null)
+                {
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.fullAddress.ToLower().Contains(sfullAddress)).ToList();
+                }
+
+                modelDemandProduction.Paging = modelDemandProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+
+                foreach (var item in modelDemandProduction.Paging)
+                {
+                    modelDemandProduction.currentPagePrice = modelDemandProduction.currentPagePrice + (item.quantity * item.unitPrice);
+                }
+
+                foreach (var item in modelDemandProduction.ProductionDetailList)
+                {
+                    modelDemandProduction.allPagePrice = modelDemandProduction.allPagePrice + (item.quantity * item.unitPrice);
+                }
+
+                if (sstatusEV == "Yayinda" || sstatusEV == "yayinda")
+                {
+                    modelDemandProduction.isMain = 0;
+                }
+                else
+                {
+                    modelDemandProduction.isMain = 1;
+                }
+
+
+                modelDemandProduction.statusEV = sstatusEV;
+                modelDemandProduction.productName = sproductName;
+                modelDemandProduction.fullAddress = sfullAddress;
+
+
+
+                if (excell == true)
+                {
+                    DataTable products = new System.Data.DataTable("offer");
+
+                    products.Columns.Add("Məhsulun adı", typeof(string));
+                    products.Columns.Add("Miqdarı (vahidi)", typeof(string));
+                    products.Columns.Add("Qiymət (vahidin) (AZN-lə)", typeof(string));
+                    products.Columns.Add("Toplam qiymət", typeof(string));
+                    products.Columns.Add("Çatdırılma ünvanı", typeof(string));
+
+                    modelDemandProduction.DemandProductionExcellList = new List<DemandProductionExcell>();
+
+                    foreach (var item in modelDemandProduction.ProductionDetailList)
+                    {
+                        modelDemandProduction.DemandProductionExcell = new DemandProductionExcell();
+
+                        modelDemandProduction.DemandProductionExcell.productName = item.productName + " " + (item.productParentName);
+
+                        modelDemandProduction.DemandProductionExcell.quantity = item.quantity.ToString() + " " + item.description;
+                        modelDemandProduction.DemandProductionExcell.productUnitPrice = item.unitPrice.ToString();
+                        modelDemandProduction.DemandProductionExcell.productTotalPrice = item.totalPrice.ToString();
+
+                        modelDemandProduction.DemandProductionExcell.fullAddress = item.fullAddress + " " + (item.addressDesc);
+
+
+                        products.Rows.Add(modelDemandProduction.DemandProductionExcell.productName, modelDemandProduction.DemandProductionExcell.quantity, modelDemandProduction.DemandProductionExcell.productUnitPrice, modelDemandProduction.DemandProductionExcell.productTotalPrice, modelDemandProduction.DemandProductionExcell.fullAddress);
+
+                    }
+
+                    products.Rows.Add("Bütün qiymət", "", modelDemandProduction.allPagePrice.ToString() + " azn");
+
+                    var grid = new GridView();
+                    grid.DataSource = products;
+                    grid.DataBind();
+
+                    string filename = Guid.NewGuid() + ".xls";
+
+                    Response.ClearContent();
+                    Response.Buffer = true;
+                    Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                    Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename + "");
+                    Response.ContentType = "application/ms-excel";
+
+                    Response.Charset = "";
+                    StringWriter sw = new StringWriter();
+                    HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+                    grid.RenderControl(htw);
+
+                    Response.Output.Write(sw.ToString());
+                    Response.Flush();
+                    Response.End();
+                }
+
+                return Request.IsAjaxRequest()
+                   ? (ActionResult)PartialView("PartialDemandProductsForAccounting", modelDemandProduction)
+                   : View(modelDemandProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+        public ActionResult DemandProductDetailInfoForAccounting(int? page, string statusEV = null, string productName = null, string fullAddress = null, bool excell = false)
+        {
+            try
+            {
+
+                if (statusEV != null)
+                    statusEV = StripTag.strSqlBlocker(statusEV.ToLower());
+                if (productName != null)
+                    productName = StripTag.strSqlBlocker(productName.ToLower());
+                if (fullAddress != null)
+                    fullAddress = StripTag.strSqlBlocker(fullAddress.ToLower());
+
+                int pageSize = 20;
+                int pageNumber = (page ?? 1);
+
+                if (productName == null && fullAddress == null)
+                {
+                    sproductName = null;
+                    sfullAddress = null;
+                }
+
+                if (productName != null)
+                    sproductName = productName;
+                if (fullAddress != null)
+                    sfullAddress = fullAddress;
+                if (statusEV != null)
+                    sstatusEV = statusEV;
+
+                baseInput = new BaseInput();
+                modelDemandProduction = new DemandProductionViewModel();
+
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
+                baseInput.userName = modelDemandProduction.Admin.Username;
+
+                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelDemandProduction.EnumCategory);
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstatusEV, out modelDemandProduction.EnumValue);
+
+                BaseOutput gpp = srv.WS_GetDemandProductDetailInfoForAccounting(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.ProductionDetailArray);
+
+                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.ToList();
+
+                if (sproductName != null)
+                {
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
+                }
+
+                if (sfullAddress != null)
+                {
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.fullAddress.ToLower().Contains(sfullAddress)).ToList();
+                }
+
+                modelDemandProduction.Paging = modelDemandProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+
+                foreach (var item in modelDemandProduction.Paging)
+                {
+                    modelDemandProduction.currentPagePrice = modelDemandProduction.currentPagePrice + (item.quantity * item.unitPrice);
+                }
+
+                foreach (var item in modelDemandProduction.ProductionDetailList)
+                {
+                    modelDemandProduction.allPagePrice = modelDemandProduction.allPagePrice + (item.quantity * item.unitPrice);
+                }
+
+                if (sstatusEV == "Yayinda" || sstatusEV == "yayinda")
+                {
+                    modelDemandProduction.isMain = 0;
+                }
+                else
+                {
+                    modelDemandProduction.isMain = 1;
+                }
+
+
+                modelDemandProduction.statusEV = sstatusEV;
+                modelDemandProduction.productName = sproductName;
+                modelDemandProduction.fullAddress = sfullAddress;
+
+
+
+                if (excell == true)
+                {
+                    DataTable products = new System.Data.DataTable("offer");
+
+                    products.Columns.Add("Məhsulun adı", typeof(string));
+                    products.Columns.Add("Miqdarı (vahidi)", typeof(string));
+                    products.Columns.Add("Qiymət (vahidin) (AZN-lə)", typeof(string));
+                    products.Columns.Add("Toplam qiymət", typeof(string));
+                    products.Columns.Add("Çatdırılma ünvanı", typeof(string));
+
+                    modelDemandProduction.DemandProductionExcellList = new List<DemandProductionExcell>();
+
+                    foreach (var item in modelDemandProduction.ProductionDetailList)
+                    {
+                        modelDemandProduction.DemandProductionExcell = new DemandProductionExcell();
+
+                        modelDemandProduction.DemandProductionExcell.productName = item.productName + " " + (item.productParentName);
+
+                        modelDemandProduction.DemandProductionExcell.quantity = item.quantity.ToString() + " " + item.description;
+                        modelDemandProduction.DemandProductionExcell.productUnitPrice = item.unitPrice.ToString();
+                        modelDemandProduction.DemandProductionExcell.productTotalPrice = item.totalPrice.ToString();
+
+                        modelDemandProduction.DemandProductionExcell.fullAddress = item.fullAddress + " " + (item.addressDesc);
+
+
+                        products.Rows.Add(modelDemandProduction.DemandProductionExcell.productName, modelDemandProduction.DemandProductionExcell.quantity, modelDemandProduction.DemandProductionExcell.productUnitPrice, modelDemandProduction.DemandProductionExcell.productTotalPrice, modelDemandProduction.DemandProductionExcell.fullAddress);
+
+                    }
+
+                    products.Rows.Add("Bütün qiymət", "", modelDemandProduction.allPagePrice.ToString() + " azn");
+
+                    var grid = new GridView();
+                    grid.DataSource = products;
+                    grid.DataBind();
+
+                    string filename = Guid.NewGuid() + ".xls";
+
+                    Response.ClearContent();
+                    Response.Buffer = true;
+                    Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                    Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename + "");
+                    Response.ContentType = "application/ms-excel";
+
+                    Response.Charset = "";
+                    StringWriter sw = new StringWriter();
+                    HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+                    grid.RenderControl(htw);
+
+                    Response.Output.Write(sw.ToString());
+                    Response.Flush();
+                    Response.End();
+                }
+
+                return Request.IsAjaxRequest()
+                   ? (ActionResult)PartialView("PartialDemandProductDetailInfoForAccounting", modelDemandProduction)
                    : View(modelDemandProduction);
 
             }
