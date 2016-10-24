@@ -413,7 +413,7 @@ namespace Emsal.UI.Controllers
                         modelUser.Person.FatherName = person.FatherName;
                         modelUser.createdUser = person.profilePicture;
                         modelUser.Person.gender = person.gender;
-                        modelUser.Person.birtday = person.birtday;
+                        modelUser.Person.birtday = (DateTime.Parse(FromSecondToDate((long)person.birtday).ToString())).getInt64ShortDate(); 
                         modelUser.Person.UserId = person.UserId;
 
                         sUid =(long) person.UserId;
@@ -593,6 +593,12 @@ namespace Emsal.UI.Controllers
                 }
             }
             catch (Exception ex) { return null; }
+        }
+
+        public DateTime FromSecondToDate(long seconds)
+        {
+            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            return epoch.AddSeconds(seconds);
         }
 
         public long ConvertStringYearMonthDayFormatToTimestamp(string form)
