@@ -15,46 +15,35 @@
                     <h3 class="box-title">Müraciətlər</h3>
                     <!-- /.box-tools -->
                 </div>
-                <table class="table table-hover table-striped table-bordered">
+                <table class="table table-hover table-striped table-bordered" style="margin-bottom:0;">
                     <tbody>
                         <tr>
-                            @if (Model.isMain == 0)
-            {
-                                <th class="col-md-1">#</th>
-                            }
                             <th class="col-md-3">
                                 Məhsulun adı<br />
-                                <input onkeyup="DemandProductionSearch(this, 'productName')" class="form-control" placeholder="axtar" />
+                                <input onkeyup="DemandProductionSearchwd(this, 'productName')" class="form-control" placeholder="axtar" />
                             </th>
                             <th class="col-md-1">
                                 Miqdarı (vahidi)
                             </th>
                             <th class="col-md-1">
-                                @Html.DisplayNameFor(model => model.price)
+                                Qiymət (vahidin)
                             </th>
-                            @*<th class="col-md-2">
-                                İnfo<br />
-<input onkeyup="DemandProductionSearch(this, 'userInfo')" class="form-control" placeholder="axtar" />
-                            </th>*@
+                            <th class="col-md-1">
+                                Dövrülük
+                            </th>
                             <th class="col-md-1">
                                 Təşkilat<br />
-<input onkeyup="DemandProductionSearch(this, 'adminUnit')" class="form-control" placeholder="axtar" />
+<input onkeyup="DemandProductionSearchwd(this, 'adminUnit')" class="form-control" placeholder="axtar" />
                             </th>
                             <th class="col-md-2">
-                                Sənədlər
+                                Çatdırılma ünvanı<br />
+                                <input onkeyup="DemandProductionSearchwd(this, 'fullAddress')" class="form-control" placeholder="axtar" />
                             </th>
-                            <th class="col-md-2">
-                                Qeyd
-                            </th>
-                            @if (Model.isMain == 0)
-            {
-                                <th class="col-md-1 shsingle text-center">imtina</th>
-                            }
                         </tr>
                     </tbody>
                 </table>
                 <div id="AjaxPaginationList">
-                    @Html.Partial("PartialIndex")
+                    @Html.Partial("PartialIndexwd")
                 </div>
 
             </div>

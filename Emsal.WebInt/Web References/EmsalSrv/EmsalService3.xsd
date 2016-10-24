@@ -189,6 +189,7 @@
       <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="productDocumentList" nillable="true" type="q8:ArrayOftblProduct_Document" />
       <xs:element minOccurs="0" name="productId" type="xs:long" />
       <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="productParentId" type="xs:long" />
       <xs:element minOccurs="0" name="productParentName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="productUnitPrice" type="xs:decimal" />
       <xs:element minOccurs="0" name="productionCalendarList" nillable="true" type="tns:ArrayOfProductionCalendarDetail" />

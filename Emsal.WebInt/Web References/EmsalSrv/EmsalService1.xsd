@@ -1920,6 +1920,8 @@
       <xs:sequence>
         <xs:element xmlns:q379="http://schemas.datacontract.org/2004/07/Emsal.DAL.CodeObjects" minOccurs="0" name="baseinput" nillable="true" type="q379:BaseInput" />
         <xs:element minOccurs="0" name="state_eV_Id" type="xs:long" />
+        <xs:element minOccurs="0" name="year" type="xs:long" />
+        <xs:element minOccurs="0" name="partOfYear" type="xs:long" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

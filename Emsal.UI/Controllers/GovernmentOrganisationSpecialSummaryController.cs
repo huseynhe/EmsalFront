@@ -1749,8 +1749,8 @@ namespace Emsal.UI.Controllers
                     UserId = Int32.Parse(identity.Ticket.UserData);
                 }
             }
-            //BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.LoggedInUser);
-            //modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
+            BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.LoggedInUser);
+            modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
             modelSpecial.ForeignOrganisation = new tblForeign_Organization();
             BaseOutput nameOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserId, true, out modelSpecial.ForeignOrganisation);
             modelSpecial.NameSurname = modelSpecial.ForeignOrganisation.name;

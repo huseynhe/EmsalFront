@@ -480,6 +480,19 @@ function DemandProductionSearchwd(elem, value) {
     });
 }
 
+function DemandProductDetailInfoForAccounting(elem, value) {
+    $.ajax({
+        url: '/DemandProduction/DemandProductDetailInfoForAccounting?' + value + '=' + $(elem).val(),
+        type: 'GET',
+        success: function (result) {
+            $('#AjaxPaginationList').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
+
 function OfferProductionSearch(elem, value) {
     $.ajax({
         url: '/OfferProduction/Index?' + value + '=' + $(elem).val(),

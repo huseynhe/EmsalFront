@@ -21,247 +21,255 @@
                         <h2 style="text-align:center;color:#000;">Qeydiyyatdan Keç</h2><br />
                         <hr />
                         <br />
-                        @using (Html.BeginForm("Index", "SignUpOP", FormMethod.Post))
+                        @using (Html.BeginForm("Index", "SignUpOP", FormMethod.Post, new { @id = "signUpDiv" }))
                         {
                             @Html.AntiForgeryToken()
 
-
-
                             <div class="row">
-                                <div class="col-lg-3">
-                                    <label class="control-label">&nbsp;</label>
-                                    <select id="personType" required name="pType" value="@Model.pType" class="form-control" onchange='PersonType()'>
-                                        <option selected value="">Seçim edin</option>
-                                        <option value="1">Fiziki şəxs</option>
-                                        <option value="2">Hüquqi şəxs</option>
-                                    </select>
-                                    @Html.ValidationMessageFor(model => model.pType, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="col-lg-3">
-                                    <div id="fizikiShexs" style="display:none">
-                                        @Html.LabelFor(model => model.fin, htmlAttributes: new { @class = "control-label" }) <a data-toggle="modal" data-target="#pinModal">&nbsp; <span class="glyphicon glyphicon-question-sign">  </span></a>
-                                        @Html.EditorFor(model => model.fin, new { @class = "form-control", required = "required" })
-                                        @Html.ValidationMessageFor(model => model.fin, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div id="huquqiShexs" style="display:none">
-                                        @Html.LabelFor(model => model.voen, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.voen, new { @class = "form-control", required = "required" })
-                                        @Html.ValidationMessageFor(model => model.voen, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <label class="control-label" for="fin">&nbsp;</label>
-                                    <div class="clearfix"></div>
-                                    <input class="btn btn-primary" type="button" value="Yoxla" onclick="check()">
-                                </div>
-                            </div>
-
-                            <br />
-                            <div id="formBody">
-                                <div class="row">
-
-
-                                    <div class="col-md-3" id="userNameDiv" style="display:none">
-                                        <div class="form-group has-warning">
-                                            @Html.LabelFor(model => model.userName, htmlAttributes: new { @class = "control-label" })
-                                            @Html.TextBoxFor(model => model.userName, new { @class = "form-control", required = "required", style="background-color:e9d7b0"})
-                                            @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
-                                            <div class="clearfix"></div>
-                                            @if (Model.warning != null)
-                                            {
-                                                @Html.LabelFor(model => model.warning, @Model.warning, new { @class = "control-label", Type = "show", @style = "color:red" })
-                                            }
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group has-warning">
-                                            @Html.LabelFor(model => model.passWord, htmlAttributes: new { @class = "control-label" })
-                                            @Html.PasswordFor(model => model.passWord, new { @class = "form-control", required = "required", style="background-color:e9d7b0"})
-                                            @Html.ValidationMessageFor(model => model.passWord, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="emailDiv" style="display:none">
-                                            @Html.LabelFor(model => model.eMail, htmlAttributes: new { @class = "control-label" })
-                                            @Html.TextBoxFor(model => model.eMail, new { @class = "form-control", required = "required", @type = "email" })
-
-                                            @Html.ValidationMessageFor(model => model.eMail, "", new { @class = "text-danger" })
-                                        </div>
-
-
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="huquqiShexsName" style="display:none">
-                                            @Html.LabelFor(model => model.legalPersonName, htmlAttributes: new { @class = "control-label" })
-                                            @Html.EditorFor(model => model.legalPersonName, new { @class = "form-control", required = "required" })
-                                            @Html.ValidationMessageFor(model => model.legalPersonName, "", new { @class = "text-danger" })
-                                        </div>
-
-                                        <img class="img-responsive thumbnail" id="picture" src="" />
-                                    </div>
-
-
-                                </div>
-
-                                <div class="row" id="mobilDiv">
-
-                                    <div class="col-md-2">
-                                        @Html.LabelFor(model => model.mNumber, htmlAttributes: new { @class = "control-label" })
-                                        <select name="mPerefix" class="form-control unicase-form-control">
-                                            <option selected value="">Seçin</option>
-                                            @foreach (var item in Model.EnumValueMobilePhone)
-                                            {
-                                                <option value="@item.Id">@item.name</option>
-                                            }
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="control-label">&nbsp;</label>
-                                        @Html.TextBoxFor(model => model.mNumber, new { @class = "form-control numbersOnly" })
-                                        @Html.ValidationMessageFor(model => model.mNumber, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <br /><br />
-                                <hr /><br /><br />
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
-                                            @Html.EditorFor(model => model.Name, new { @class = "form-control", required = "required" })
-                                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label" })
-                                            @Html.EditorFor(model => model.Surname, new { @class = "form-control", required = "required" })
-                                            @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.FatherName, htmlAttributes: new { @class = "control-label" })
-                                            @Html.EditorFor(model => model.FatherName, new { @class = "form-control", required = "required" })
-                                            @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2 col-md-offset-2" id="genderDiv" style="display:none">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label" })
-                                            <select required name="gender" id="gender" class="form-control">
-                                                <option value="">Seçim edin</option>
-                                                <option value="Kişi"> Kişi </option>
-                                                <option value="Qadın"> Qadın </option>
+                                <div class="col-lg-10">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <label class="control-label">&nbsp;</label>
+                                            <select id="personType" required name="pType" value="@Model.pType" class="form-control" onchange='PersonType()'>
+                                                <option selected value="">Seçim edin</option>
+                                                <option value="1">Fiziki şəxs</option>
+                                                <option value="2">Hüquqi şəxs</option>
                                             </select>
-                                            @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.pType, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div id="fizikiShexs" style="display:none">
+                                                @Html.LabelFor(model => model.fin, htmlAttributes: new { @class = "control-label" }) <a data-toggle="modal" data-target="#pinModal">&nbsp; <span class="glyphicon glyphicon-question-sign">  </span></a>
+                                                @Html.EditorFor(model => model.fin, new { @class = "form-control", required = "required" })
+                                                @Html.ValidationMessageFor(model => model.fin, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div id="huquqiShexs" style="display:none">
+                                                @Html.LabelFor(model => model.voen, htmlAttributes: new { @class = "control-label" })
+                                                @Html.EditorFor(model => model.voen, new { @class = "form-control", required = "required" })
+                                                @Html.ValidationMessageFor(model => model.voen, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <label class="control-label" for="fin">&nbsp;</label>
+                                            <div class="clearfix"></div>
+                                            <input class="btn btn-primary" type="button" value="Yoxla" onclick="check()">
+                                        </div>
+                                        <div class="col-lg-2"></div>
+                                    </div>
+
+                                    <br />
+                                    <div id="formBody">
+                                        <div class="row">
+
+
+                                            <div class="col-md-3" id="userNameDiv" style="display:none">
+                                                <div class="form-group has-warning">
+                                                    @Html.LabelFor(model => model.userName, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.userName, new { @class = "form-control", required = "required", style = "background-color:e9d7b0" })
+                                                    @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
+                                                    <div class="clearfix"></div>
+                                                    @if (Model.warning != null)
+                                                    {
+                                                        @Html.LabelFor(model => model.warning, @Model.warning, new { @class = "control-label", Type = "show", @style = "color:red" })
+                                                    }
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group has-warning">
+                                                    @Html.LabelFor(model => model.passWord, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.PasswordFor(model => model.passWord, new { @class = "form-control", required = "required", style = "background-color:e9d7b0" })
+                                                    @Html.ValidationMessageFor(model => model.passWord, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="emailDiv" style="display:none">
+                                                    @Html.LabelFor(model => model.eMail, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.eMail, new { @class = "form-control", required = "required", @type = "email" })
+
+                                                    @Html.ValidationMessageFor(model => model.eMail, "", new { @class = "text-danger" })
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group" id="huquqiShexsName" style="display:none">
+                                                    @Html.LabelFor(model => model.legalPersonName, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.EditorFor(model => model.legalPersonName, new { @class = "form-control", required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.legalPersonName, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="row" id="mobilDiv">
+
+                                            <div class="col-md-2">
+                                                @Html.LabelFor(model => model.mNumber, htmlAttributes: new { @class = "control-label" })
+                                                <select name="mPerefix" class="form-control unicase-form-control">
+                                                    <option selected value="">Seçin</option>
+                                                    @foreach (var item in Model.EnumValueMobilePhone)
+                                                    {
+                                                        <option value="@item.Id">@item.name</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label">&nbsp;</label>
+                                                @Html.TextBoxFor(model => model.mNumber, new { @class = "form-control numbersOnly" })
+                                                @Html.ValidationMessageFor(model => model.mNumber, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <br /><br />
+                                        <hr /><br /><br />
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.EditorFor(model => model.Name, new { @class = "form-control", required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.EditorFor(model => model.Surname, new { @class = "form-control", required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.FatherName, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.EditorFor(model => model.FatherName, new { @class = "form-control", required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2 col-md-offset-2" id="genderDiv" style="display:none">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label" })
+                                                    <select required name="gender" id="gender" class="form-control">
+                                                        <option value="">Seçim edin</option>
+                                                        <option value="Kişi"> Kişi </option>
+                                                        <option value="Qadın"> Qadın </option>
+                                                    </select>
+                                                    @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2" id="birtdayDiv" style="display:none">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.birtday, htmlAttributes: new { @class = "control-label" })
+                                                    <input class="form-control datepicker" id="birtday" name="birtday" value="@Model.birtday" />
+                                                    @Html.ValidationMessageFor(model => model.birtday, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <br />
+                                        <div class="row" id="regionContainer">
+                                            <div class="col-md-12">
+                                                @Html.LabelFor(model => model.descAddress, htmlAttributes: new { @class = "control-label" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" id="mainRegion" class="form-control unicase-form-control select select2">
+
+                                                    <option selected value=""> Seçim edin</option>
+
+                                                    @foreach (var item in Model.PRMAdminUnitArray)
+                                                    {
+                                                        if (item.Name == "Azərbaycan Respublikası")
+                                                        {
+                                                            <option value="@item.Id"> @item.Name </option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@item.Id"> @item.Name </option>
+                                                        }
+                                                    }
+                                                </select>
+                                                <span data-valmsg-replace="true" class="field-validation-valid text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <br />
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.descAddress, new { @class = "form-control", required = "required" })
+                                                @Html.ValidationMessageFor(model => model.descAddress, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <br />
+                                            <div class="col-lg-3" id="educDiv" style="display:none">
+                                                @Html.LabelFor(model => model.education, htmlAttributes: new { @class = "control-label" })
+                                                <select name="education" class="form-control unicase-form-control">
+                                                    <option selected value="">Seçin</option>
+                                                    @foreach (var item in Model.EnumValueEducationList)
+                                                    {
+                                                        <option value="@item.Id">@item.name</option>
+                                                    }
+                                                </select>
+                                            </div>
+
+                                            <div class="col-lg-3" id="jobDiv" style="display:none">
+                                                @Html.LabelFor(model => model.job, htmlAttributes: new { @class = "control-label" })
+                                                <select name="job" class="form-control unicase-form-control">
+                                                    <option selected value="">Seçin</option>
+                                                    @foreach (var item in Model.EnumValueJobList)
+                                                    {
+                                                        <option value="@item.Id">@item.name</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <button class="btn btn-primary btn-lg pull-right" type="submit">
+                                                <i class="glyphicon glyphicon-ok"></i>&nbsp;Təsdiqlə
+                                            </button>
+                                            <br />
+                                            <br />
+                                        </div>
+
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        @Html.HiddenFor(model => model.addressId)
+                                        @Html.HiddenFor(model => model.pType)
+
+                                    </div>
+
+                                    <div id="pinModal" style="z-index:3000" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Fin nömrə</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img src="~/Content/img/pasportfin.png" style="max-width:550px" />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-2" id="birtdayDiv" style="display:none">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.birtday, htmlAttributes: new { @class = "control-label" })
-                                            <input class="form-control datepicker" id="birtday" name="birtday" value="@Model.birtday" />
-                                            @Html.ValidationMessageFor(model => model.birtday, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-
                                 </div>
 
-                                <br />
-                                <div class="row" id="regionContainer">
-                                    <div class="col-md-12">
-                                        @Html.LabelFor(model => model.descAddress, htmlAttributes: new { @class = "control-label" })
-                                    </div>
-                                    <div class="col-md-3">
-                                        <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" id="mainRegion" class="form-control unicase-form-control select select2">
-
-                                            <option selected value=""> Seçim edin</option>
-
-                                            @foreach (var item in Model.PRMAdminUnitArray)
-                                            {
-                                                if (item.Name == "Azərbaycan Respublikası")
-                                                {
-                                                    <option value="@item.Id"> @item.Name </option>
-                                                }
-                                                else
-                                                {
-                                                    <option value="@item.Id"> @item.Name </option>
-                                                }
-                                            }
-                                        </select>
-                                        <span data-valmsg-replace="true" class="field-validation-valid text-danger"></span>
-                                    </div>
+                                @Html.HiddenFor(model => model.createdUser)
+                                <div class="col-lg-2">
+                                    <img class="img-responsive thumbnail" id="picture" src="" />
                                 </div>
-
-                                <div class="row">
-                                    <br />
-                                    <div class="col-md-12">
-                                        @Html.EditorFor(model => model.descAddress, new { @class = "form-control", required = "required" })
-                                        @Html.ValidationMessageFor(model => model.descAddress, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <br />
-                                    <div class="col-lg-3" id="educDiv" style="display:none">
-                                        @Html.LabelFor(model => model.education, htmlAttributes: new { @class = "control-label" })
-                                        <select name="education" class="form-control unicase-form-control">
-                                            <option selected value="">Seçin</option>
-                                            @foreach (var item in Model.EnumValueEducationList)
-                                            {
-                                                <option value="@item.Id">@item.name</option>
-                                            }
-                                        </select>
-                                    </div>
-
-                                    <div class="col-lg-3" id="jobDiv" style="display:none">
-                                        @Html.LabelFor(model => model.job, htmlAttributes: new { @class = "control-label" })
-                                        <select name="job" class="form-control unicase-form-control">
-                                            <option selected value="">Seçin</option>
-                                            @foreach (var item in Model.EnumValueJobList)
-                                            {
-                                                <option value="@item.Id">@item.name</option>
-                                            }
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <button class="btn btn-primary btn-lg pull-right" type="submit">
-                                        <i class="glyphicon glyphicon-ok"></i>&nbsp;Təsdiqlə
-                                    </button>
-                                    <br />
-                                    <br />
-                                </div>
-
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                @Html.HiddenFor(model => model.addressId)
-                                @Html.HiddenFor(model => model.pType)
-
                             </div>
 
-                            <div id="pinModal" style="z-index:3000" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Fin nömrə</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <img src="~/Content/img/pasportfin.png" style="max-width:550px" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                                            }
+
+    }
                     </div>
 
                 </div>

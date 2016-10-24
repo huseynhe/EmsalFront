@@ -16,6 +16,7 @@ using System.Data;
 using System.Text;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using System.Drawing;
 
 namespace Emsal.AdminUI.Controllers
 {
@@ -211,87 +212,15 @@ namespace Emsal.AdminUI.Controllers
 
                 if (excell == true)
                 {
-                    DataTable products = new System.Data.DataTable("offer");
-
-                    products.Columns.Add("S/N", typeof(string));
-                    products.Columns.Add("Məhsulun adı", typeof(string));
-                    products.Columns.Add("Dövrülük", typeof(string));
-                    products.Columns.Add("Miqdarı (vahidi)", typeof(string));
-                    products.Columns.Add("Qiyməti (AZN-lə)", typeof(string));
-                    products.Columns.Add("Təklifin ünvanı - Mənşəyi", typeof(string));
-                    products.Columns.Add("Təklif verənin soyadı, adı, atasının adı, ünvanı", typeof(string));
-
-                    modelOfferProduction.OfferProductionExcellList = new List<OfferProductionExcell>();
-
-                    int ci = 1;
-                    foreach (var item in modelOfferProduction.ProductionDetailList)
-                    {
-                        modelOfferProduction.OfferProductionExcell = new OfferProductionExcell();
-
-                        modelOfferProduction.OfferProductionExcell.productName = item.productName + " " + (item.productParentName);
-                        if (item.productionCalendarList.FirstOrDefault().TypeDescription != null)
-                        {
-                            modelOfferProduction.OfferProductionExcell.typeDescription = item.productionCalendarList.FirstOrDefault().TypeDescription;
-                        }
-
-                        modelOfferProduction.OfferProductionExcell.quantity = item.quantity.ToString() + " " + item.enumValueName;
-
-                        modelOfferProduction.OfferProductionExcell.unitPrice = item.unitPrice.ToString();
-                        modelOfferProduction.OfferProductionExcell.fullAddress = item.fullAddress;
-                        modelOfferProduction.OfferProductionExcell.personNameAddress = item.person.Name + " " + item.person.Surname + " " + item.person.FatherName + " " + (item.person.gender) + " " + item.personAdress + " " + (item.personAdressDesc);
-
-
-                        products.Rows.Add(ci.ToString(), modelOfferProduction.OfferProductionExcell.productName, modelOfferProduction.OfferProductionExcell.typeDescription, modelOfferProduction.OfferProductionExcell.quantity, modelOfferProduction.OfferProductionExcell.unitPrice, modelOfferProduction.OfferProductionExcell.fullAddress, modelOfferProduction.OfferProductionExcell.personNameAddress);
-
-                        ci = ci + 1;
-                    }
-
-                    products.Rows.Add("","Bütün qiymət", "", "", modelOfferProduction.allPagePrice.ToString() + " azn");
-
-                    //var grid = new GridView();
-                    //grid.DataSource = products;
-                    //grid.DataBind();
-
-                    //string filename = Guid.NewGuid() + ".xls";
-
-                    //Response.ClearContent();
-                    //Response.Buffer = true;
-                    //Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
-                    //Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename + "");
-                    ////Response.ContentType = "application/ms-excel";
-                    //Response.ContentType = "application/vnd.ms-excel";
-
-                    //Response.Charset = "";
-                    //StringWriter sw = new StringWriter();
-                    //HtmlTextWriter htw = new HtmlTextWriter(sw);
-
-                    //for (int i = 0; i < products.Columns.Count; i++)
-                    //{
-                    //    grid.HeaderRow.Cells[i].Style.Add("background-color", "#fafafa");
-                    //    grid.HeaderRow.Cells[i].Style.Add("height", "50");
-                    //}
-
-                    ////grid.HeaderRow.Cells[0].ColumnSpan = 3;
-
-                    //grid.RenderControl(htw);
-
-
-                    //Response.Output.Write(sw.ToString());
-                    //Response.Flush();
-                    //Response.End();
-
-
-
-
                     using (var excelPackage = new ExcelPackage())
                     {
                         excelPackage.Workbook.Properties.Author = "EMSAL";
                         excelPackage.Workbook.Properties.Title = "emsal.az";
                         var sheet = excelPackage.Workbook.Worksheets.Add("Təklif");
-                        sheet.Name = "klif";
+                        sheet.Name = "Təklif";
 
                         var col = 1;
-                        sheet.Cells[1, col++].Value = "Ərzaq məhsullarının illik tələbatı və təklifi üzrə ümumi cədvəl";
+                        sheet.Cells[1, col++].Value = "Təklif olunan məhsullar";
                         sheet.Row(1).Height = 50;
                         sheet.Row(1).Style.Font.Size = 14;
                         sheet.Row(1).Style.Font.Bold = true;
@@ -338,8 +267,41 @@ namespace Emsal.AdminUI.Controllers
                             sheet.Cells[rowIndex, col2++].Value = item.person.Name + " " + item.person.Surname + " " + item.person.FatherName + " " + (item.person.gender) + " " + item.personAdress + " " + (item.personAdressDesc);
 
 
-                            //sheet.Cells[rowIndex, col2++].Style.WrapText = true;
+                            sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                            sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
 
+                            var col3 = 1;
+                            rowIndex++;
+                            sheet.Cells[rowIndex, col3++].Value = "tipi";
+                            sheet.Cells[rowIndex, col3++].Value = "il";
+                            sheet.Cells[rowIndex, col3++].Value = "rüb";
+                            sheet.Cells[rowIndex, col3++].Value = "gün, ay";
+                            sheet.Cells[rowIndex, col3++].Value = "saat";
+                            sheet.Cells[rowIndex, col3++].Value = "miqdar";
+                            sheet.Cells[rowIndex, col3++].Value = "miqdar (cəmi)";
+
+                            sheet.Row(rowIndex).Style.Font.Bold = true;
+                            sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                            sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                             decimal tquantity;
+                             string day = "-";
+                            foreach (var item2 in item.productionCalendarList)
+                            {
+                                if (item2.day != 0)
+                                {
+                                    day = item2.day.ToString();
+                                }
+                                tquantity = (item2.quantity * item2.transportation_eV_Id);
+                                var col4 = 1;
+                                rowIndex++;
+                                sheet.Cells[rowIndex, col4++].Value = item2.TypeDescription;
+                                sheet.Cells[rowIndex, col4++].Value = item2.year;
+                                sheet.Cells[rowIndex, col4++].Value = item2.partOfyear;
+                                sheet.Cells[rowIndex, col4++].Value = day+ " " + item2.MonthDescription;
+                                sheet.Cells[rowIndex, col4++].Value = item2.oclock+":00";
+                                sheet.Cells[rowIndex, col4++].Value = item2.quantity;
+                                sheet.Cells[rowIndex, col4++].Value = tquantity;
+                            }
                             rowIndex++;
                             ri++;
                         }
@@ -352,8 +314,9 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Cells[1, 1, rowIndex - 1, 7].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
 
-                        //sheet.Cells[rowIndex+1, rowIndex+1].Value = "Toplam";
-                        //sheet.Cells[1, rowIndex, rowIndex, 7].Merge = true;
+                        sheet.Cells[rowIndex + 1, 2].Value = "Toplam qiyməti: " + modelOfferProduction.allPagePrice+" azn";
+                        sheet.Cells[rowIndex + 1, 2].Style.Font.Bold = true;
+                        sheet.Cells[rowIndex + 1, 2].Style.WrapText = true;
 
                         string fileName = Guid.NewGuid() + ".xls";
 

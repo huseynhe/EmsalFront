@@ -21,10 +21,7 @@
                                     @foreach (var item in Model.Paging)
                                     {
                                         <tr>
-                                            <td class="col-md-2">
-                                                @item.name
-                                            </td>
-                                            <td class="col-md-2">
+                                            <td class="col-md-3">
                                                 @item.productName (@item.productParentName)
                                             </td>
                                             <td class="col-md-1">
@@ -35,12 +32,6 @@
                                             </td>
                                             <td class="col-md-1">
                                                 @item.totalPrice azn
-                                            </td>
-                                            <td class="col-md-1">
-                                                @if (item.productionCalendarList!=null)
-                                                {
-                                                     <span>@item.productionCalendarList.FirstOrDefault().TypeDescription</span>
-                                                }
                                             </td>
                                             <td class="col-md-2">
                                                 @item.fullAddress
@@ -53,5 +44,5 @@
                     </div>
                     <div class="box-footer clearfix">
                         Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
-                        @Html.PagedListPager(Model.Paging, page => Url.Action("DemandProductDetailInfoForAccounting", new { page, statusEV = Model.statusEV, productName = Model.productName, adminUnit = Model.adminUnit, fullAddress = Model.fullAddress }))
+                        @Html.PagedListPager(Model.Paging, page => Url.Action("DemandProductsForAccounting", new { page, statusEV = Model.statusEV, productName = Model.productName, fullAddress = Model.fullAddress }))
                     </div>

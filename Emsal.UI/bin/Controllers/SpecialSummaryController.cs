@@ -89,11 +89,11 @@ namespace Emsal.UI.Controllers
                 {
                     if (item.comType == 10120)
                     {
-                        modelSpecial.LoggedInUserInfos.MobilePhone = item.description;
+                        modelSpecial.LoggedInUserInfos.MobilePhone = item.communication;
                     }
                     if (item.comType == 10122)
                     {
-                        modelSpecial.LoggedInUserInfos.WorkPhone = item.description;
+                        modelSpecial.LoggedInUserInfos.WorkPhone = item.communication;
                     }
 
                 }

@@ -13,19 +13,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/14/2016 07:00:54</publishTime>
     </File>
     <File Include="bin/Emsal.AdminUI.dll">
-      <publishTime>10/20/2016 17:04:29</publishTime>
+      <publishTime>10/24/2016 20:49:26</publishTime>
     </File>
     <File Include="bin/Emsal.AdminUI.dll.config">
-      <publishTime>10/14/2016 07:00:54</publishTime>
+      <publishTime>10/23/2016 13:51:05</publishTime>
     </File>
     <File Include="bin/Emsal.Utility.dll">
-      <publishTime>10/20/2016 17:04:27</publishTime>
+      <publishTime>10/24/2016 20:49:25</publishTime>
     </File>
     <File Include="bin/Emsal.WebInt.dll">
-      <publishTime>10/20/2016 17:04:22</publishTime>
+      <publishTime>10/24/2016 20:49:19</publishTime>
     </File>
     <File Include="bin/Emsal.WebInt.XmlSerializers.dll">
-      <publishTime>10/20/2016 17:04:26</publishTime>
+      <publishTime>10/24/2016 20:49:24</publishTime>
+    </File>
+    <File Include="bin/EPPlus.dll">
+      <publishTime>10/23/2016 14:11:14</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>10/14/2016 07:00:54</publishTime>
@@ -466,7 +469,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/14/2016 07:00:54</publishTime>
     </File>
     <File Include="Content/js/custom.js">
-      <publishTime>10/14/2016 07:00:54</publishTime>
+      <publishTime>10/24/2016 17:18:20</publishTime>
     </File>
     <File Include="Content/js/dashboard.js">
       <publishTime>10/14/2016 07:00:54</publishTime>
@@ -595,7 +598,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/14/2016 07:00:54</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>10/17/2016 14:32:36</publishTime>
+      <publishTime>10/23/2016 14:11:15</publishTime>
     </File>
     <File Include="Views/AdminLogin/Index.cshtml">
       <publishTime>10/14/2016 07:00:54</publishTime>
@@ -624,14 +627,32 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/ASC/PartialIndex.cshtml">
       <publishTime>10/14/2016 07:00:54</publishTime>
     </File>
+    <File Include="Views/DemandProduction/DemandProductDetailInfoForAccounting.cshtml">
+      <publishTime>10/24/2016 17:19:07</publishTime>
+    </File>
+    <File Include="Views/DemandProduction/DemandProductsForAccounting.cshtml">
+      <publishTime>10/24/2016 16:54:29</publishTime>
+    </File>
     <File Include="Views/DemandProduction/Edit.cshtml">
       <publishTime>10/14/2016 07:00:54</publishTime>
     </File>
     <File Include="Views/DemandProduction/Index.cshtml">
-      <publishTime>10/14/2016 07:00:54</publishTime>
+      <publishTime>10/20/2016 18:52:17</publishTime>
+    </File>
+    <File Include="Views/DemandProduction/Indexwd.cshtml">
+      <publishTime>10/21/2016 13:28:46</publishTime>
+    </File>
+    <File Include="Views/DemandProduction/PartialDemandProductDetailInfoForAccounting.cshtml">
+      <publishTime>10/24/2016 17:14:39</publishTime>
+    </File>
+    <File Include="Views/DemandProduction/PartialDemandProductsForAccounting.cshtml">
+      <publishTime>10/24/2016 16:54:23</publishTime>
     </File>
     <File Include="Views/DemandProduction/PartialIndex.cshtml">
-      <publishTime>10/14/2016 07:00:54</publishTime>
+      <publishTime>10/22/2016 17:01:57</publishTime>
+    </File>
+    <File Include="Views/DemandProduction/PartialIndexwd.cshtml">
+      <publishTime>10/22/2016 15:54:04</publishTime>
     </File>
     <File Include="Views/EnumCategory/Create.cshtml">
       <publishTime>10/14/2016 07:00:54</publishTime>
@@ -775,16 +796,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/14/2016 07:00:54</publishTime>
     </File>
     <File Include="Views/OfferProduction/Index.cshtml">
-      <publishTime>10/14/2016 07:00:54</publishTime>
+      <publishTime>09/24/2016 14:33:59</publishTime>
     </File>
     <File Include="Views/OfferProduction/Indexwd.cshtml">
-      <publishTime>10/20/2016 17:01:11</publishTime>
+      <publishTime>10/21/2016 12:38:04</publishTime>
     </File>
     <File Include="Views/OfferProduction/PartialIndex.cshtml">
-      <publishTime>10/20/2016 16:43:16</publishTime>
+      <publishTime>09/24/2016 14:33:59</publishTime>
     </File>
     <File Include="Views/OfferProduction/PartialIndexwd.cshtml">
-      <publishTime>10/20/2016 16:45:02</publishTime>
+      <publishTime>10/22/2016 15:36:52</publishTime>
     </File>
     <File Include="Views/Ordinary/OrdAdminUnit.cshtml">
       <publishTime>10/14/2016 07:00:54</publishTime>
@@ -883,13 +904,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/14/2016 07:00:54</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>10/14/2016 07:00:54</publishTime>
+      <publishTime>10/24/2016 17:17:09</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>10/14/2016 07:00:54</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/20/2016 17:04:34</publishTime>
+      <publishTime>10/24/2016 20:49:29</publishTime>
     </File>
   </ItemGroup>
 </Project>

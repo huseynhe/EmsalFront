@@ -467,6 +467,31 @@ function DemandProductionSearch(elem, value) {
 }
 
 
+function DemandProductionSearchwd(elem, value) {
+    $.ajax({
+        url: '/DemandProduction/Indexwd?' + value + '=' + $(elem).val(),
+        type: 'GET',
+        success: function (result) {
+            $('#AjaxPaginationList').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
+
+function DemandProductDetailInfoForAccounting(elem, value) {
+    $.ajax({
+        url: '/DemandProduction/DemandProductDetailInfoForAccounting?' + value + '=' + $(elem).val(),
+        type: 'GET',
+        success: function (result) {
+            $('#AjaxPaginationList').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
 
 function OfferProductionSearch(elem, value) {
     $.ajax({
@@ -481,6 +506,18 @@ function OfferProductionSearch(elem, value) {
     });
 }
 
+function OfferProductionSearchwd(elem, value) {
+    $.ajax({
+        url: '/OfferProduction/Indexwd?' + value + '=' + $(elem).val(),
+        type: 'GET',
+        success: function (result) {
+            $('#AjaxPaginationList').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
 
 function PotentialProductionSearch(elem, value) {
     $.ajax({

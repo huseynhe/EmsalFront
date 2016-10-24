@@ -185,6 +185,7 @@ namespace Emsal.UI.Controllers
                         BaseOutput gabui = srv.WS_GetAddressesByUserId(baseInput, modelUser.User.Id, true, out modelUser.AddressArray);
                         modelUser.Address = modelUser.AddressArray.ToList().FirstOrDefault();
                         BaseOutput gpbui = srv.WS_GetPersonByUserId(baseInput, modelUser.User.Id, true, out modelUser.Person);
+                        //BaseOutput cominicationOut = srv.WS_GetCommunicationByPersonId(baseInput,(long)modelUser.Person.Id, true, out modelUser.Comminication);
                     }
 
                     if (modelUser.User == null)
@@ -293,7 +294,7 @@ namespace Emsal.UI.Controllers
 
                     if (modelUser.Person.Id > 0)
                     {
-                        BaseOutput aper = srv.WS_UpdatePerson(baseInput, modelUser.Person, out modelUser.Person);
+                        BaseOutput aper = srv.WS_UpdatePerson(baseInput, modelUser.Person, out modelUser.Person);                       
                     }
                     else
                     {
@@ -311,6 +312,22 @@ namespace Emsal.UI.Controllers
 
                         BaseOutput addUserRole = srv.WS_AddUserRole(baseInput, modelUser.UserRole, out modelUser.UserRole);
                     }
+                    BaseOutput mobOut;
+                    modelUser.EnumValue = new tblEnumValue();                 
+                    modelUser.Comminication = new tblCommunication();
+                    mobOut = srv.WS_GetEnumValueById(baseInput, (long)(mdl.mPerefix), true, out modelUser.EnumValue);
+                    modelUser.Comminication.communication = modelUser.EnumValue.name + mdl.mNumber;
+                    modelUser.Comminication.description = mdl.mNumber;
+                    modelUser.Comminication.priorty = 1;
+                    modelUser.Comminication.Status = 1;
+                    modelUser.Comminication.PersonId = modelUser.Person.Id;
+                    modelUser.Comminication.PersonIdSpecified = true;
+                    mobOut = srv.WS_GetEnumValueByName(baseInput, "mobilePhone", out modelUser.EnumValue);
+                    modelUser.Comminication.comType = (Int32)modelUser.EnumValue.Id;
+                    modelUser.Comminication.comTypeSpecified = true;
+
+                    BaseOutput addMobileNumber = srv.WS_AddCommunication(baseInput, modelUser.Comminication, out modelUser.Comminication);
+                    //BaseOutput addComOut = 
 
                     long adrrId = modelUser.Address.Id;
 

@@ -18,6 +18,7 @@ namespace Emsal.UI.Models
         public tblRole Role;
         public tblUserRole UserRole;
         public tblForeign_Organization ForeignOrganisation;
+        public tblCommunication Comminication;
        
 
         public tblAddress Address;
@@ -87,7 +88,7 @@ namespace Emsal.UI.Models
 
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         [Display(Name = "Mobil nömrə")]
-        public string mPerefix { get; set; }
+        public long mPerefix { get; set; }
 
         [Required(ErrorMessage = "Mesaj daxil edilməmişdir")]
         [Display(Name = "Mesaj")]

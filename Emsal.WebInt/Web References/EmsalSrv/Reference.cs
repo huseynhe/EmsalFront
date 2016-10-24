@@ -5825,29 +5825,37 @@ namespace Emsal.WebInt.EmsalSrv {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetDemandProductDetailInfoForAccounting", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public BaseOutput WS_GetDemandProductDetailInfoForAccounting([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long state_eV_Id, [System.Xml.Serialization.XmlIgnoreAttribute()] bool state_eV_IdSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")] out ProductionDetail[] itemList) {
+        public BaseOutput WS_GetDemandProductDetailInfoForAccounting([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long state_eV_Id, [System.Xml.Serialization.XmlIgnoreAttribute()] bool state_eV_IdSpecified, long year, [System.Xml.Serialization.XmlIgnoreAttribute()] bool yearSpecified, long partOfYear, [System.Xml.Serialization.XmlIgnoreAttribute()] bool partOfYearSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")] out ProductionDetail[] itemList) {
             object[] results = this.Invoke("WS_GetDemandProductDetailInfoForAccounting", new object[] {
                         baseinput,
                         state_eV_Id,
-                        state_eV_IdSpecified});
+                        state_eV_IdSpecified,
+                        year,
+                        yearSpecified,
+                        partOfYear,
+                        partOfYearSpecified});
             itemList = ((ProductionDetail[])(results[1]));
             return ((BaseOutput)(results[0]));
         }
         
         /// <remarks/>
-        public void WS_GetDemandProductDetailInfoForAccountingAsync(BaseInput baseinput, long state_eV_Id, bool state_eV_IdSpecified) {
-            this.WS_GetDemandProductDetailInfoForAccountingAsync(baseinput, state_eV_Id, state_eV_IdSpecified, null);
+        public void WS_GetDemandProductDetailInfoForAccountingAsync(BaseInput baseinput, long state_eV_Id, bool state_eV_IdSpecified, long year, bool yearSpecified, long partOfYear, bool partOfYearSpecified) {
+            this.WS_GetDemandProductDetailInfoForAccountingAsync(baseinput, state_eV_Id, state_eV_IdSpecified, year, yearSpecified, partOfYear, partOfYearSpecified, null);
         }
         
         /// <remarks/>
-        public void WS_GetDemandProductDetailInfoForAccountingAsync(BaseInput baseinput, long state_eV_Id, bool state_eV_IdSpecified, object userState) {
+        public void WS_GetDemandProductDetailInfoForAccountingAsync(BaseInput baseinput, long state_eV_Id, bool state_eV_IdSpecified, long year, bool yearSpecified, long partOfYear, bool partOfYearSpecified, object userState) {
             if ((this.WS_GetDemandProductDetailInfoForAccountingOperationCompleted == null)) {
                 this.WS_GetDemandProductDetailInfoForAccountingOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetDemandProductDetailInfoForAccountingOperationCompleted);
             }
             this.InvokeAsync("WS_GetDemandProductDetailInfoForAccounting", new object[] {
                         baseinput,
                         state_eV_Id,
-                        state_eV_IdSpecified}, this.WS_GetDemandProductDetailInfoForAccountingOperationCompleted, userState);
+                        state_eV_IdSpecified,
+                        year,
+                        yearSpecified,
+                        partOfYear,
+                        partOfYearSpecified}, this.WS_GetDemandProductDetailInfoForAccountingOperationCompleted, userState);
         }
         
         private void OnWS_GetDemandProductDetailInfoForAccountingOperationCompleted(object arg) {
@@ -20751,6 +20759,10 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private string productNameField;
         
+        private long productParentIdField;
+        
+        private bool productParentIdFieldSpecified;
+        
         private string productParentNameField;
         
         private decimal productUnitPriceField;
@@ -21281,6 +21293,27 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.productNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long productParentId {
+            get {
+                return this.productParentIdField;
+            }
+            set {
+                this.productParentIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool productParentIdSpecified {
+            get {
+                return this.productParentIdFieldSpecified;
+            }
+            set {
+                this.productParentIdFieldSpecified = value;
             }
         }
         

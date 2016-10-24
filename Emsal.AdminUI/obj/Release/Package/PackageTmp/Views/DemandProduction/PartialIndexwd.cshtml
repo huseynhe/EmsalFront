@@ -8,7 +8,7 @@
 }
 
                <h4 class="text-danger text-center"> cari səhifə üçün qiymət: @Model.currentPagePrice azn - bütün qiymət: @Model.allPagePrice azn
-                   <a href="/DemandProduction/DemandProductsForAccounting?statusEV=@Model.statusEV&productName=@Model.productName&fullAddress=@Model.fullAddress&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+                   <a href="/DemandProduction/Indexwd?statusEV=@Model.statusEV&productName=@Model.productName&fullAddress=@Model.fullAddress&userInfo = @Model.userInfo&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
                        Yüklə
                    </a>
@@ -21,29 +21,29 @@
                                     @foreach (var item in Model.Paging)
                                     {
                                         <tr>
-                                            <td class="col-md-2">
-                                                @item.name
-                                            </td>
-                                            <td class="col-md-2">
+                                            <td class="col-md-3">
                                                 @item.productName (@item.productParentName)
                                             </td>
                                             <td class="col-md-1">
-                                                @item.quantity @item.description
+                                                @item.quantity @item.enumValueName
                                             </td>
                                             <td class="col-md-1">
-                                                @item.unitPrice azn
+                                                @item.productUnitPrice azn
                                             </td>
                                             <td class="col-md-1">
-                                                @item.totalPrice azn
-                                            </td>
-                                            <td class="col-md-1">
-                                                @if (item.productionCalendarList!=null)
+                                                @if (item.productionCalendarList.FirstOrDefault().TypeDescription != null)
                                                 {
-                                                     <span>@item.productionCalendarList.FirstOrDefault().TypeDescription</span>
+                                                    <span>@item.productionCalendarList.FirstOrDefault().TypeDescription</span>
+                                                }
+                                            </td>
+                                            <td class="col-md-1">
+                                                @if (item.foreignOrganization != null)
+                                                {
+                                                    @item.foreignOrganization.name
                                                 }
                                             </td>
                                             <td class="col-md-2">
-                                                @item.fullAddress
+                                                @item.fullAddress (@item.addressDesc)
                                             </td>
                                         </tr>
                                     }
@@ -53,5 +53,16 @@
                     </div>
                     <div class="box-footer clearfix">
                         Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
-                        @Html.PagedListPager(Model.Paging, page => Url.Action("DemandProductDetailInfoForAccounting", new { page, statusEV = Model.statusEV, productName = Model.productName, adminUnit = Model.adminUnit, fullAddress = Model.fullAddress }))
+                        @Html.PagedListPager(Model.Paging, page => Url.Action("Indexwd", new { page, statusEV = Model.statusEV, productName = Model.productName, fullAddress = Model.fullAddress, userInfo = Model.userInfo }))
                     </div>
+
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#chall').hide();
+    });
+</script>
