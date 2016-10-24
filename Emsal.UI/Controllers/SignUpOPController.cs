@@ -6,6 +6,7 @@ using Emsal.WebInt.IAMAS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -179,7 +180,7 @@ namespace Emsal.UI.Controllers
 
                 if (CheckExistence(mdl))
                 {
-                    BaseOutput uidBase = srv.WS_GetUserById(baseInput, sUid,true, out modelUser.User);
+                    BaseOutput uidBase = srv.WS_GetUserById(baseInput, sUid, true, out modelUser.User);
                     if (modelUser.User != null)
                     {
                         BaseOutput gabui = srv.WS_GetAddressesByUserId(baseInput, modelUser.User.Id, true, out modelUser.AddressArray);
@@ -277,7 +278,8 @@ namespace Emsal.UI.Controllers
 
                     modelUser.Person.address_IdSpecified = true;
                     modelUser.Person.gender = mdl.gender;
-                    modelUser.Person.birtday = (DateTime.Parse(mdl.birtday)).getInt64ShortDate();
+                    //modelUser.Person.birtday = (DateTime.Parse(mdl.birtday)).getInt64ShortDate();
+                    modelUser.Person.birtday = ConvertStringYearMonthDayFormatToTimestamp(mdl.birtday);
                     modelUser.Person.birtdaySpecified = true;
                     modelUser.Person.profilePicture = mdl.createdUser;
                     if (mdl.education != null)
@@ -414,6 +416,8 @@ namespace Emsal.UI.Controllers
                         modelUser.Person.birtday = person.birtday;
                         modelUser.Person.UserId = person.UserId;
 
+                        sUid =(long) person.UserId;
+                        
                         modelUser.profilePicture = Convert.ToBase64String(StringExtension.StringToByteArray(person.profilePicture));
                         modelUser.createdUser = person.profilePicture;
 
@@ -589,6 +593,20 @@ namespace Emsal.UI.Controllers
                 }
             }
             catch (Exception ex) { return null; }
+        }
+
+        public long ConvertStringYearMonthDayFormatToTimestamp(string form)
+        {
+            Regex regex = new Regex(@"\.");
+            string[] dates = regex.Split(form);
+            int year = Convert.ToInt32(dates[2]);
+            int month = Convert.ToInt32(dates[1]);
+            int day = Convert.ToInt32(dates[0]);
+            DateTime dTime = new DateTime(year, month, day, 0, 0, 0, DateTimeKind.Utc);
+            DateTime sTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            long birthday = (long)(dTime - sTime).TotalSeconds;
+
+            return birthday;
         }
     }
 
