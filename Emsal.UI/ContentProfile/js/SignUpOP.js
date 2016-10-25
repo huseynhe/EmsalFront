@@ -90,8 +90,8 @@ function check() {
                     //if (result.data.length > 0) {
                     if (result.data.Person.Name != null) {
                         $("#Name").val(result.data.Person.Name);
-                        $("#Surname").val(result.data.Person.Surname);
-                        $("#FatherName").val(result.data.Person.FatherName);
+                        $("#surname").val(result.data.Person.Surname);
+                        $("#fatherName").val(result.data.Person.FatherName);
                         $('#gender').val(result.data.Person.gender).change();
                         $("#descAddress").val(result.data.descAddress);
                         $("#birtday").val(result.data.birtday);
