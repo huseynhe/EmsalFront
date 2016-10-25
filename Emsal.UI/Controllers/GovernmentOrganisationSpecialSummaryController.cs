@@ -10,6 +10,8 @@ using System.Web.Security;
 using Emsal.Utility.CustomObjects;
 using PagedList;
 using System.Text.RegularExpressions;
+using Emsal.Utility.UtilityObjects;
+using Emsal.WebInt.IAMAS;
 
 namespace Emsal.UI.Controllers
 {
@@ -1317,7 +1319,7 @@ namespace Emsal.UI.Controllers
                 modelSpecial.Manager.PinNumber = form.Pin;
                 modelSpecial.Manager.FatherName = form.FatherName;
                 modelSpecial.Manager.Surname = form.Surname;
-                modelSpecial.Manager.birtday = ConvertStringYearMonthDayFormatToTimestamp(form);
+                modelSpecial.Manager.birtday = long.Parse(ConvertStringYearMonthDayFormatToTimestamp(form));
                 modelSpecial.Manager.birtdaySpecified = true;
                 modelSpecial.Manager.gender = form.Gender;
 
@@ -1544,6 +1546,7 @@ namespace Emsal.UI.Controllers
             modelSpecial.Surname = modelSpecial.Manager.Surname;
             modelSpecial.FatherName = modelSpecial.Manager.FatherName;
             modelSpecial.Pin = modelSpecial.Manager.PinNumber;
+            modelSpecial.Birthday = String.Format("{0:d.M.yyyy}", (FromSecondToDate((long)modelSpecial.Manager.birtday).ToString()));
 
             //get communication informations of the manager
             BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelSpecial.CommunicationInformationsArray);
@@ -1657,7 +1660,7 @@ namespace Emsal.UI.Controllers
             modelSpecial.Manager.PinNumber = form.Pin;
             modelSpecial.Manager.FatherName = form.FatherName;
             modelSpecial.Manager.Surname = form.Surname;
-            modelSpecial.Manager.birtday = ConvertStringYearMonthDayFormatToTimestamp(form);
+            modelSpecial.Manager.birtday = long.Parse(ConvertStringYearMonthDayFormatToTimestamp(form));
             modelSpecial.Manager.gender = form.Gender;
 
             BaseOutput educationEnum = srv.WS_GetEnumValueByName(binput, form.Education, out modelSpecial.EnumValue);
@@ -1757,18 +1760,18 @@ namespace Emsal.UI.Controllers
             return View(modelSpecial);
         }
 
-        public long ConvertStringYearMonthDayFormatToTimestamp(SpecialSummaryViewModel form)
-        {
-            string[] dates = Regex.Split(form.Birthday, @"\.");
-            int year = dates.Length == 0 ? 0 : Convert.ToInt32(dates[2]);
-            int month = Convert.ToInt32(dates[1]);
-            int day = Convert.ToInt32(dates[0]);
-            DateTime dTime = new DateTime(year, month, day);
-            DateTime sTime = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
-            long birthday = (long)(dTime - sTime).TotalSeconds;
+        //public long ConvertStringYearMonthDayFormatToTimestamp(SpecialSummaryViewModel form)
+        //{
+        //    string[] dates = Regex.Split(form.Birthday, @"\.");
+        //    int year = dates.Length == 0 ? 0 : Convert.ToInt32(dates[2]);
+        //    int month = Convert.ToInt32(dates[1]);
+        //    int day = Convert.ToInt32(dates[0]);
+        //    DateTime dTime = new DateTime(year, month, day);
+        //    DateTime sTime = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
+        //    long birthday = (long)(dTime - sTime).TotalSeconds;
 
-            return birthday;
-        }
+        //    return birthday;
+        //}
 
 
         public bool CheckExistence(SpecialSummaryViewModel form)
@@ -1994,6 +1997,102 @@ namespace Emsal.UI.Controllers
             }
 
             return View(modelUser);
+        }
+
+        public JsonResult Check(string pId)
+        {
+            try
+            {
+                binput = new BaseInput();
+                modelSpecial = new SpecialSummaryViewModel();
+
+                modelSpecial = GetPhysicalPerson(pId);
+                string date = "";
+                if (modelSpecial.Birthday != null)
+                {
+                    modelSpecial.Birthday =  String.Format("{0:d.M.yyyy}", (modelSpecial.Birthday));
+                }
+                else
+                {
+                    modelSpecial.Birthday =  String.Format("{0:d.M.yyyy}", DateTime.Today);
+                }
+
+                return Json(new { data = modelSpecial, bDate = date });
+
+            }
+            catch (Exception ex) { return null; }
+        }
+
+        public SpecialSummaryViewModel GetPhysicalPerson(string fin)
+        {
+            modelSpecial = new SpecialSummaryViewModel();
+            binput = new BaseInput();
+            try
+            {
+
+                SingleServiceControl srvcontrol = new SingleServiceControl();
+                getPersonalInfoByPinNewResponseResponse iamasPerson = null;
+                tblPerson person = null;
+
+                int control = 0;
+
+                control = srvcontrol.getPersonInfoByPin(fin, out person, out iamasPerson);
+
+
+                //modelSpecial = new tblPerson();
+                if (person != null)
+                {
+                    modelSpecial.ManagerName = person.Name;
+                    modelSpecial.Surname = person.Surname;
+                    modelSpecial.FatherName = person.FatherName;
+                    //modelSpecial.createdUser = person.profilePicture;
+                    modelSpecial.Gender = person.gender;
+                    modelSpecial.Birthday = String.Format("{0:d.M.yyyy}", ((FromSecondToDate((long)person.birtday).ToString())));
+                    //modelSpecial.Person.UserId = person.UserId;
+
+                    //orgRoles = "producerPerson";
+                }
+                else if (iamasPerson != null)
+                {
+
+                    //addressDesc = iamasPerson.Adress.place + ", " + iamasPerson.Adress.street + ", " + iamasPerson.Adress.apartment + ", " + iamasPerson.Adress.block + ", " + iamasPerson.Adress.building;
+
+                    modelSpecial.ManagerName = iamasPerson.Name;
+                    modelSpecial.Surname = iamasPerson.Surname;
+                    string[] pa = iamasPerson.Patronymic.Split(' ').ToArray();
+                    modelSpecial.FatherName = pa[0];
+                    modelSpecial.Gender = iamasPerson.gender;
+                    modelSpecial.Birthday = ((iamasPerson.birthDate));
+
+
+                    //orgRoles = "sellerPerson";
+                }
+                return modelSpecial;
+            }
+            catch (Exception ex)
+            {
+                return modelSpecial;
+            }
+        }
+
+        public String FromSecondToDate(long seconds)
+        {
+            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            return String.Format("{0:d.M.yyyy}", (epoch.AddSeconds(seconds)));
+        }
+
+        public string ConvertStringYearMonthDayFormatToTimestamp(SpecialSummaryViewModel form)
+        {
+            Regex regex = new Regex(@"\.");
+            string[] dates = regex.Split(form.Birthday);
+            int year = Convert.ToInt32(dates[2]);
+            int month = Convert.ToInt32(dates[1]);
+            int day = Convert.ToInt32(dates[0]);
+            DateTime dTime = new DateTime(year, month, day, 0, 0, 0, DateTimeKind.Utc);
+            DateTime sTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            string birthday = ((long)(dTime - sTime).TotalSeconds).ToString();
+
+            return birthday;
         }
 
     }
