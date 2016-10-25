@@ -6,6 +6,7 @@
     Layout = "";
     Model.prodAltName = "";
     Model.prodName = "";
+    string pv = "";
 }
 
 <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
@@ -15,7 +16,7 @@
     <tbody>
         @foreach (var item in Model.PagingUserInfo)
         {
-            //if (item.pinNumber != "" || item.voen != "") { 
+            //if (pv!= (item.pinNumber+""+item.voen)) { 
             <tr>
                 <td class="col-sm-4 text-black">@item.name</td>
                 @*<td class="col-sm-2">@item.surname</td>*@
@@ -33,7 +34,8 @@
                 
                 </td>
             </tr>
-                //}
+            //}
+            pv = item.pinNumber + "" + item.voen;
             }
 
     </tbody>

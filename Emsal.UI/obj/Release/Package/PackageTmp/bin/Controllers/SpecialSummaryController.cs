@@ -11,6 +11,7 @@ using System.Web;
 using Emsal.UI.Infrastructure;
 using System.Collections.Generic;
 using PagedList;
+using Emsal.Utility.CustomObjects;
 
 namespace Emsal.UI.Controllers
 {
@@ -51,6 +52,19 @@ namespace Emsal.UI.Controllers
 
             BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
             BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserId, true, out modelSpecial.ForeignOrganisation);
+
+            if (modelSpecial.Person.educationLevel_eV_Id != null)
+            {
+                BaseOutput eduOut = srv.WS_GetEnumValueById(binput, (long)modelSpecial.Person.educationLevel_eV_Id, true, out modelSpecial.EnumValue);
+                modelSpecial.Education = modelSpecial.EnumValue.description;
+            }
+
+            if (modelSpecial.Person.job_eV_Id != null)
+            {
+                BaseOutput jobOut = srv.WS_GetEnumValueById(binput, (long)modelSpecial.Person.job_eV_Id, true, out modelSpecial.EnumValue);
+                modelSpecial.Job = modelSpecial.EnumValue.description;
+            }
+
             modelSpecial.NameSurname = modelSpecial.Person == null ? modelSpecial.ForeignOrganisation.name : modelSpecial.Person.Name + ' ' + modelSpecial.Person.Surname;
             if(modelSpecial.ForeignOrganisation==null)
             {
@@ -75,11 +89,11 @@ namespace Emsal.UI.Controllers
                 {
                     if (item.comType == 10120)
                     {
-                        modelSpecial.LoggedInUserInfos.MobilePhone = item.description;
+                        modelSpecial.LoggedInUserInfos.MobilePhone = item.communication;
                     }
                     if (item.comType == 10122)
                     {
-                        modelSpecial.LoggedInUserInfos.WorkPhone = item.description;
+                        modelSpecial.LoggedInUserInfos.WorkPhone = item.communication;
                     }
 
                 }
@@ -1858,6 +1872,10 @@ namespace Emsal.UI.Controllers
             catch (Exception err)
             {
                 Console.WriteLine(err);
+            }
+            if (modelUser.Person != null)
+            {
+                modelUser.Person.profilePicture = Convert.ToBase64String(StringExtension.StringToByteArray(modelUser.Person.profilePicture));
             }
             return Json(modelUser, JsonRequestBehavior.AllowGet);
         }

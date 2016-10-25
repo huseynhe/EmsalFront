@@ -166,7 +166,10 @@
         type: "Get",
         data: { Id: 1 },
         success: function (data) {
-            $(".adSoyad").html(data.ForeignOrganisation.name);
+
+            if (data.ForeignOrganisation != null) {
+                $(".adSoyad").html(data.ForeignOrganisation.name);
+            }
             $(".userNameEkle").html(data.User.Username);
             $(".education").html(data.EducationLevel);
             $(".job").html(data.Job);
@@ -180,8 +183,17 @@
                 $("#upGender").val(data.Person.gender);
                 $("#upName").val(data.Person.Name);
                 $("#upSurname").val(data.Person.Surname);
+
+                if (data.Person.profilePicture != null) {
+                    document.getElementById("picture").src = "data:image/png;base64," + data.Person.profilePicture;
+                    $('#picture').show();
+                }
             }
             
+            
+
+            
+
             $("#upUserName").val(data.User.Username);
             
             localStorage.setItem("name", $("#upName").val());
@@ -271,7 +283,7 @@
                 $.ajax({
                     url: "/Ordinary/UpdateUser",
                     type: "Get",
-                    data: {userName: $("#upUserName").val(), gender: $("#upGender").val(), educationId: $("#upEducation").val(), jobId: $("#upJobb").val(), email: $("#updateEmail").val() },
+                    data: { userName: $("#upUserName").val(), gender: $("#upGender").val(), educationId: $("#upEducation").val(), jobId: $("#upJobb").val() },
                     success: function (data) {
                         if (data == "governmentOrganisationSpecialSummary") {
                             window.location.href = "/GovernmentOrganisationSpecialSummary/Index";

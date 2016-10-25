@@ -72,6 +72,8 @@ function GetAdminUnit(elem) {
         pId = valu;
     }
 
+
+
     if (pId > 0) {
         $.ajax({
             url: '/OfferProduction/AdminUnit?pId=' + pId,
@@ -126,6 +128,7 @@ function sendFiles() {
 
             $('#selectedDocuments').html('');
             getSelectedDocuments();
+
             getChooseFileTemplate(pId);
         },
         error: function () {
@@ -150,10 +153,11 @@ function getSelectedDocuments() {
     });
 }
 
-function getChooseFileTemplate(pId) {
+function getChooseFileTemplate(pIdn) {
+    pId = pIdn;
 
     $.ajax({
-        url: '/OfferProduction/ChooseFileTemplate?&pId=' + pId,
+        url: '/OfferProduction/ChooseFileTemplate?&pId=' + pIdn,
         type: 'GET',
         data: {},
         success: function (result) {
@@ -161,7 +165,7 @@ function getChooseFileTemplate(pId) {
             $('#btnUploadFile').addClass('disabled');
         },
         error: function () {
-            location.reload();
+            //location.reload();
         }
     });
 }

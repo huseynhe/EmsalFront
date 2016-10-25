@@ -493,6 +493,19 @@ function DemandProductDetailInfoForAccounting(elem, value) {
     });
 }
 
+function DemandProductsForAccounting(elem, value) {
+    $.ajax({
+        url: '/DemandProduction/DemandProductsForAccounting?' + value + '=' + $(elem).val(),
+        type: 'GET',
+        success: function (result) {
+            $('#AjaxPaginationList').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
+
 function OfferProductionSearch(elem, value) {
     $.ajax({
         url: '/OfferProduction/Index?' + value + '=' + $(elem).val(),

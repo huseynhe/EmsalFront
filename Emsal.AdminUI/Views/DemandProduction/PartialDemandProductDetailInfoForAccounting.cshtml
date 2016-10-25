@@ -8,7 +8,7 @@
 }
 
                <h4 class="text-danger text-center"> cari səhifə üçün qiymət: @Model.currentPagePrice azn - bütün qiymət: @Model.allPagePrice azn
-                   <a href="/DemandProduction/DemandProductsForAccounting?statusEV=@Model.statusEV&productName=@Model.productName&fullAddress=@Model.fullAddress&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+                   <a href="/DemandProduction/DemandProductDetailInfoForAccounting?statusEV=@Model.statusEV&productName=@Model.productName&adminUnit = @Model.adminUnit&fullAddress=@Model.fullAddress&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
                        Yüklə
                    </a>
@@ -28,7 +28,7 @@
                                                 @item.productName (@item.productParentName)
                                             </td>
                                             <td class="col-md-1">
-                                                @item.quantity @item.description
+                                                @item.quantity @item.kategoryName
                                             </td>
                                             <td class="col-md-1">
                                                 @item.unitPrice azn
@@ -43,7 +43,7 @@
                                                 }
                                             </td>
                                             <td class="col-md-2">
-                                                @item.fullAddress
+                                                @item.fullAddress (@item.addressDesc)
                                             </td>
                                         </tr>
                                     }

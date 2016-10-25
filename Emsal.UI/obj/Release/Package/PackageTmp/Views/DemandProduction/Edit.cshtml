@@ -43,7 +43,6 @@
 
             <h4>Məhsulu seçin</h4>
             <div class="row">
-
                 <div class="sign-in-page inner-bottom-sm" id="demandProductionProductCatalog">
                     <script>
                         $(document).ready(function () {
@@ -61,9 +60,10 @@
                     </script>
                     @*@Html.Action("ProductCatalog", "DemandProduction", new { pId = Model.Id, ppId = Model.Id })*@
                 </div>
-
                 <div class="clearfix"></div>
-                <hr /><br />
+            </div>
+            <h4>Təchizatın təqvim planı</h4>
+                <div class="row">
                 <div class="col-md-3" hidden>
                     <div class="form-group">
                         @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label" })
@@ -153,8 +153,7 @@
             <div id="mainl">
                 <div class="clear-both"></div>
        
-                <div>
-                    <h4>Təchizatın təqvim planı</h4>
+                <div>                 
                     <div class="row">
                         <div class="col-md-7" id="calendarMainDiv">
                             <div class="form-group">

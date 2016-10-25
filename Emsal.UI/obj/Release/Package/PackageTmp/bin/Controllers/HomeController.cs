@@ -326,6 +326,8 @@ namespace Emsal.UI.Controllers
                     modelProductCatalog.UserInfoList = new List<UserInfo>();
                 }
 
+
+                string pv = "";
                 modelProductCatalog.UserInfoListP = new List<UserInfo>();
                 foreach (var pitem in modelProductCatalog.UserInfoList)
                 {
@@ -342,7 +344,11 @@ namespace Emsal.UI.Controllers
                     pitem.name = pitem.surname + " " + pitem.name;
                     pitem.parentAdminUnitName = string.Join(", ", pitem.productCatalogDetailList.Select(x => x.productCatalog.ProductName + " (" + x.productName + ")"));
 
-                    modelProductCatalog.UserInfoListP.Add(pitem);
+                    if (pv != (pitem.pinNumber + "" + pitem.voen))
+                    {
+                        modelProductCatalog.UserInfoListP.Add(pitem);
+                    }
+                    pv = pitem.pinNumber + "" + pitem.voen;
                 }
 
                 modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoListP;

@@ -61,9 +61,10 @@
                     </script>
                     @*@Html.Action("ProductCatalog", "OfferProduction", new { pId = Model.Id, ppId = Model.Id })*@
                 </div>
+            </div>
 
-                <div class="clearfix"></div>
-                <hr /><br />
+            <h4>Təchizatın təqvim planı</h4>
+                <div class="row">
                 <div class="col-md-3" hidden>
                     <div class="form-group">
                         @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label" })
@@ -154,7 +155,6 @@
                 <div class="clear-both"></div>
        
                 <div>
-                    <h4>Təchizatın təqvim planı</h4>
                     <div class="row">
                         <div class="col-md-7" id="calendarMainDiv">
                             <div class="form-group">

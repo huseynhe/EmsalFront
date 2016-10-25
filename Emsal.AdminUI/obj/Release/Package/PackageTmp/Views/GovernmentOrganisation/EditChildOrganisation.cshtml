@@ -3,6 +3,9 @@
     ViewBag.Title = "EditChildOrganisation";
     Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
 }
+
+<script src="~/Content/js/Goverment.js"></script>
+
 <div class="clearfix" style="height:50px;"></div>
 
 <div class="container" style="font-size:11px">
@@ -89,6 +92,22 @@
             <h3>Məsul Şəxsin Məlumatları</h3><br />
             <div class="well">
                 <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group" style="padding:5px;">
+                            <label class="labelEdit required">Məsul Şəxsin Fini</label>
+                            @Html.TextBoxFor(x => x.Pin, new { @class = "form-control", id = "pin" })
+                            @Html.ValidationMessageFor(x => x.Pin, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label class="control-label" for="fin">&nbsp;</label>
+                        <div class="clearfix"></div>
+                        <input class="btn btn-primary" type="button" value="Yoxla" onclick="check()">
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col-md-4">
                         <div class="form-group" style="padding:5px">
                             <label class="labelEdit required">Adı</label>
@@ -113,15 +132,6 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group" style="padding:5px;">
-                            <label class="labelEdit required">Məsul Şəxsin Fini</label>
-                            @Html.TextBoxFor(x => x.Pin, new { @class = "form-control", id = "pin" })
-                            @Html.ValidationMessageFor(x => x.Pin, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
                         <div class="form-group" style="padding:5px; font-size:10px">
                             @Html.LabelFor(x => x.ManagerEmail, new { @class = "control-label required" })
                             @Html.TextBoxFor(x => x.ManagerEmail, new { @class = "form-control", type = "email" })
@@ -136,7 +146,7 @@
                             @Html.LabelFor(x => x.ManagerWorkPhone, new { @class = "control-label required" })
                             <div class="row">
                                 <div class="col-md-4">
-                                    <select class="form-control" name="workPhonePrefix">
+                                    <select class="form-control" name="workPhonePrefix" id="workPhonePrefix">
                                         <option value="">Seçim edin</option>
                                         @foreach (var item in Model.WorkPhonePrefixList)
                                         {
@@ -164,7 +174,7 @@
                             @Html.LabelFor(x => x.ManagerMobilePhone, new { @class = "control-label" })
                             <div class="row">
                                 <div class="col-md-4">
-                                    <select class="form-control" name="mobilePhonePrefix">
+                                    <select class="form-control" name="mobilePhonePrefix" id="mobilePhonePrefix">
                                         <option value="">Seçim edin</option>
                                         @foreach (var item in Model.MobilePhonePrefixList)
                                         {
@@ -192,7 +202,7 @@
                     <div class="col-md-3">
                         <div class="form-group" style="padding:5px">
                             <label class="labelEdit required">Doğum Tarixi</label>
-                            @Html.TextBoxFor(x => x.Birthday, new { @class = "form-control datepicker" })
+                            @Html.TextBoxFor(x => x.Birthday, new { @class = "form-control datepicker", id = "birtday" })
                             @Html.ValidationMessageFor(x => x.Birthday, "", new { @class = "text-danger" })
                         </div>
                     </div>
