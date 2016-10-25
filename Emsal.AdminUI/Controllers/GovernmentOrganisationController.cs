@@ -12,6 +12,8 @@ using PagedList;
 using System.Text.RegularExpressions;
 using Emsal.AdminUI.Infrastructure;
 using System.Web.Security;
+using Emsal.Utility.UtilityObjects;
+using Emsal.WebInt.IAMAS;
 
 namespace Emsal.AdminUI.Controllers
 {
@@ -50,6 +52,8 @@ namespace Emsal.AdminUI.Controllers
                 modelUser.GovernmentOrganisation.UserName = item.Username;
 
                 BaseOutput OrgOut = srv.WS_GetForeign_OrganizationByUserId(binput, item.Id, true, out modelUser.ForeignOrganisation);
+                if (modelUser.ForeignOrganisation == null)
+                    continue;
                 modelUser.GovernmentOrganisation.OrganisationName = modelUser.ForeignOrganisation.name;
                 modelUser.GovernmentOrganisation.Email = item.Email;
                 modelUser.GovernmentOrganisation.Id = item.Id;
@@ -257,7 +261,7 @@ namespace Emsal.AdminUI.Controllers
                 modelUser.Manager.PinNumber = form.Pin;
                 modelUser.Manager.FatherName = form.FatherName;
                 modelUser.Manager.Surname = form.Surname;
-                modelUser.Manager.birtday = ConvertStringYearMonthDayFormatToTimestamp(form);
+                modelUser.Manager.birtday = long.Parse(ConvertStringYearMonthDayFormatToTimestamp(form));
                 modelUser.Manager.birtdaySpecified = true;
                 modelUser.Manager.gender = form.Gender;
 
@@ -427,6 +431,7 @@ namespace Emsal.AdminUI.Controllers
             modelUser.Surname = modelUser.Manager.Surname;
             modelUser.FatherName = modelUser.Manager.FatherName;
             modelUser.Pin = modelUser.Manager.PinNumber;
+            modelUser.Birthday = String.Format("{0:d.M.yyyy}", (FromSecondToDate((long)modelUser.Manager.birtday).ToString()));
 
             //get communication informations of the manager
             BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelUser.CommunicationInformationsArray);
@@ -560,7 +565,7 @@ namespace Emsal.AdminUI.Controllers
             modelUser.Manager.PinNumber = form.Pin;
             modelUser.Manager.FatherName = form.FatherName;
             modelUser.Manager.Surname = form.Surname;
-            modelUser.Manager.birtday = ConvertStringYearMonthDayFormatToTimestamp(form);
+            modelUser.Manager.birtday = long.Parse(ConvertStringYearMonthDayFormatToTimestamp(form));
             modelUser.Manager.gender = form.Gender;
 
             BaseOutput educationEnum = srv.WS_GetEnumValueByName(binput, form.Education, out modelUser.EnumValue);
@@ -1324,18 +1329,18 @@ namespace Emsal.AdminUI.Controllers
         }
 
 
-        public long ConvertStringYearMonthDayFormatToTimestamp(Organisation form)
-        {
-            string[] dates = Regex.Split(form.Birthday, @"\.");
-            int year = dates.Length == 0 ? 0 : Convert.ToInt32(dates[2]);
-            int month = Convert.ToInt32(dates[1]);
-            int day = Convert.ToInt32(dates[0]);
-            DateTime dTime = new DateTime(year, month, day );
-            DateTime sTime = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
-            long birthday = (long)(dTime - sTime).TotalSeconds;
+        //public long ConvertStringYearMonthDayFormatToTimestamp(Organisation form)
+        //{
+        //    string[] dates = Regex.Split(form.Birthday, @"\.");
+        //    int year = dates.Length == 0 ? 0 : Convert.ToInt32(dates[2]);
+        //    int month = Convert.ToInt32(dates[1]);
+        //    int day = Convert.ToInt32(dates[0]);
+        //    DateTime dTime = new DateTime(year, month, day );
+        //    DateTime sTime = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
+        //    long birthday = (long)(dTime - sTime).TotalSeconds;
 
-            return birthday;
-        }
+        //    return birthday;
+        //}
 
         public ActionResult Individuals(int? page, long?AdminId)
         {
@@ -1690,7 +1695,7 @@ namespace Emsal.AdminUI.Controllers
             modelUser.Person.FatherName = form.FatherName;
             modelUser.Person.address_Id = modelUser.FutureAddress == null ? 0 : modelUser.FutureAddress.Id;
             modelUser.Person.address_IdSpecified = true;
-            modelUser.Person.birtday = ConvertStringYearMonthDayFormatToTimestamp(form);
+            modelUser.Person.birtday = long.Parse(ConvertStringYearMonthDayFormatToTimestamp(form));
             modelUser.Person.birtdaySpecified = true;
             modelUser.Person.gender = form.Gender;
 
@@ -1938,7 +1943,7 @@ namespace Emsal.AdminUI.Controllers
             modelUser.Manager.PinNumber = form.Pin;
             modelUser.Manager.FatherName = form.FatherName;
             modelUser.Manager.Surname = form.UserName;
-            modelUser.Manager.birtday = ConvertStringYearMonthDayFormatToTimestamp(form);
+            modelUser.Manager.birtday = long.Parse(ConvertStringYearMonthDayFormatToTimestamp(form));
             modelUser.Manager.birtdaySpecified = true;
             modelUser.Manager.gender = form.Gender;
 
@@ -2028,6 +2033,102 @@ namespace Emsal.AdminUI.Controllers
 
             return RedirectToAction("Index", "GovernmentOrganisation");
 
+        }
+
+        public JsonResult Check(string pId)
+        {
+            try
+            {
+                binput = new BaseInput();
+                modelUser = new Organisation();
+
+                modelUser = GetPhysicalPerson(pId);
+                string date = "";
+                if (modelUser.Birthday != null)
+                {
+                    modelUser.Birthday = String.Format("{0:d.M.yyyy}", (modelUser.Birthday));
+                }
+                else
+                {
+                    modelUser.Birthday = String.Format("{0:d.M.yyyy}", DateTime.Today);
+                }
+
+                return Json(new { data = modelUser, bDate = date });
+
+            }
+            catch (Exception ex) { return null; }
+        }
+
+        public Organisation GetPhysicalPerson(string fin)
+        {
+            modelUser = new Organisation();
+            binput = new BaseInput();
+            try
+            {
+
+                SingleServiceControl srvcontrol = new SingleServiceControl();
+                getPersonalInfoByPinNewResponseResponse iamasPerson = null;
+                tblPerson person = null;
+
+                int control = 0;
+
+                control = srvcontrol.getPersonInfoByPin(fin, out person, out iamasPerson);
+
+
+                //modelSpecial = new tblPerson();
+                if (person != null)
+                {
+                    modelUser.ManagerName = person.Name;
+                    modelUser.Surname = person.Surname;
+                    modelUser.FatherName = person.FatherName;
+                    //modelSpecial.createdUser = person.profilePicture;
+                    modelUser.Gender = person.gender;
+                    modelUser.Birthday = String.Format("{0:d.M.yyyy}", ((FromSecondToDate((long)person.birtday).ToString())));
+                    //modelSpecial.Person.UserId = person.UserId;
+
+                    //orgRoles = "producerPerson";
+                }
+                else if (iamasPerson != null)
+                {
+
+                    //addressDesc = iamasPerson.Adress.place + ", " + iamasPerson.Adress.street + ", " + iamasPerson.Adress.apartment + ", " + iamasPerson.Adress.block + ", " + iamasPerson.Adress.building;
+
+                    modelUser.ManagerName = iamasPerson.Name;
+                    modelUser.Surname = iamasPerson.Surname;
+                    string[] pa = iamasPerson.Patronymic.Split(' ').ToArray();
+                    modelUser.FatherName = pa[0];
+                    modelUser.Gender = iamasPerson.gender;
+                    modelUser.Birthday = ((iamasPerson.birthDate));
+
+
+                    //orgRoles = "sellerPerson";
+                }
+                return modelUser;
+            }
+            catch (Exception ex)
+            {
+                return modelUser;
+            }
+        }
+
+        public String FromSecondToDate(long seconds)
+        {
+            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            return String.Format("{0:d.M.yyyy}", (epoch.AddSeconds(seconds)));
+        }
+
+        public string ConvertStringYearMonthDayFormatToTimestamp(Organisation form)
+        {
+            Regex regex = new Regex(@"\.");
+            string[] dates = regex.Split(form.Birthday);
+            int year = Convert.ToInt32(dates[2]);
+            int month = Convert.ToInt32(dates[1]);
+            int day = Convert.ToInt32(dates[0]);
+            DateTime dTime = new DateTime(year, month, day, 0, 0, 0, DateTimeKind.Utc);
+            DateTime sTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            string birthday = ((long)(dTime - sTime).TotalSeconds).ToString();
+
+            return birthday;
         }
     }
 }
