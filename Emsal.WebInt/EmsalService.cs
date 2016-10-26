@@ -50,5 +50,25 @@ namespace Emsal.WebInt
         }
 
 
+        private static Emsal.WebInt.TaxesSRV.BasicHttpBinding_ITaxesIntegrationService _taxesService;
+
+
+        public static Emsal.WebInt.TaxesSRV.BasicHttpBinding_ITaxesIntegrationService taxesService
+        {
+            get
+            {
+                if (_taxesService == null)
+                {
+                    _taxesService = new Emsal.WebInt.TaxesSRV.BasicHttpBinding_ITaxesIntegrationService();
+                    // _emsalService.SWSessionInfo = new SWSessionInfo();
+
+                    if (ConfigurationManager.AppSettings["Emsal_WebInt_TaxesSRV_TaxesIntegrationService"] != null)
+                        _iamasService.Url = ConfigurationManager.AppSettings["Emsal_WebInt_TaxesSRV_TaxesIntegrationService"];
+
+                }
+                return _taxesService;
+            }
+        }
+
     }
 }

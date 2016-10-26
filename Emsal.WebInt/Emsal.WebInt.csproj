@@ -59,6 +59,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\TaxesSRV\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -246,6 +251,23 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Web References\TaxesSRV\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\TaxesSRV\TaxesIntegrationService.wsdl" />
+    <None Include="Web References\TaxesSRV\TaxesIntegrationService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\TaxesSRV\TaxesIntegrationService0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\TaxesSRV\TaxesIntegrationService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\TaxesSRV\VOENDATA.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WebReferenceUrl Include="http://10.10.10.223/integratedservices/integratedservices.asmx%3fWSDL">
@@ -258,6 +280,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Emsal_WebInt_IAMAS_Service1</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://exidmet1.agro.gov.az:57388/TaxesIntegrationService.svc%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\TaxesSRV\</RelPath>
+      <UpdateFromURL>http://exidmet1.agro.gov.az:57388/TaxesIntegrationService.svc%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Emsal_WebInt_TaxesSRV_TaxesIntegrationService</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://localhost:56876/EmsalService.svc">
       <UrlBehavior>Static</UrlBehavior>

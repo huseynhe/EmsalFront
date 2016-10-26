@@ -8,5 +8,8 @@
     <Setting Name="Emsal_WebInt_EmsalSrv_EmsalService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://localhost:56875/EmsalService.svc</Value>
     </Setting>
+    <Setting Name="Emsal_WebInt_TaxesSRV_TaxesIntegrationService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://exidmet1.agro.gov.az:57388/TaxesIntegrationService.svc</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

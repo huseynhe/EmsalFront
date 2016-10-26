@@ -55,6 +55,7 @@ namespace Emsal.UI.Controllers
         // GET: /Home/
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
        // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
+        Emsal.WebInt.EmsalSrv.EmsalService taxessrv = Emsal.WebInt.EmsalService.taxesService;
 
         private ProductCatalogViewModel modelProductCatalog;
         private ContactViewModel modelContact;
