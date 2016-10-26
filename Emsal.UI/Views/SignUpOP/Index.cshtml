@@ -21,7 +21,7 @@
                         <h2 style="text-align:center;color:#000;">Qeydiyyatdan Keç</h2><br />
                         <hr />
                         <div class="clearfix"></div>
-                        <label type="text" id="warningText" value="" style="border:0; color:red"/>
+                        <input type="text" id="warningText" value="" style="border:0; color:red"/>
                         <br />
                         @using (Html.BeginForm("Index", "SignUpOP", FormMethod.Post, new { @id = "signUpDiv" }))
                         {
@@ -254,6 +254,17 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <img src="~/Content/img/pasportfin.png" style="max-width:550px" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="successDiv" style="z-index:3000" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <h4>Qeydiyyat uğurla sona catdı!</h4>
                                                 </div>
                                             </div>
                                         </div>
