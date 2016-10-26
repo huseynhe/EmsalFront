@@ -614,6 +614,43 @@ namespace Emsal.UI.Controllers
 
             return birthday;
         }
+
+        public JsonResult CheckForExistence(string userName, string email ) {
+
+            baseInput = new BaseInput();
+            User modelUser = new User();
+
+            BaseOutput checkExistenseOut = srv.WS_GetUserByUserName(baseInput, userName, out modelUser.FutureUser);
+
+            BaseOutput checkEdxistenseOut = srv.WS_GetUsers(baseInput, out modelUser.UserArray);
+            List<tblUser> UserFromEmail = modelUser.UserArray.Where(x => x.Email == email).ToList();
+
+            //BaseOutput personsOut = srv.WS_GetPersons(baseInput, out modelUser.PersonArray);
+            //List<tblPerson> PersonFromPin = form.fin == null ? new List<tblPerson>() : modelUser.PersonArray.Where(x => x.PinNumber == form.fin).ToList();
+
+            //BaseOutput orgOut = srv.WS_GetForeign_Organizations(baseInput, out modelUser.ForeignOrganisationArray);
+            //List<tblForeign_Organization> OrgFromVoen = form.voen == null ? new List<tblForeign_Organization>() : modelUser.ForeignOrganisationArray.Where(x => x.voen == form.voen).ToList();
+
+            //normal ucun olmalidir 
+            //if (modelUser.FutureUser != null || UserFromEmail.Count != 0 || PersonFromPin.Count != 0 || OrgFromVoen.Count != 0)
+            //{
+            //    return false;
+            //}
+            //else
+            //{
+            //    return true;
+            //}
+
+            if (modelUser.FutureUser != null || UserFromEmail.Count != 0)
+            {
+                return Json(new { err = "İstifadəçi artıq qeydiyyatdan keçib!", suc = "" });
+            }
+            else
+            {
+                return Json(new { suc = "İstifadəçi uğurla qeydiyyatdan keçdi", err = "" });
+            }
+
+        }
     }
 
     public class regionClass
