@@ -90,8 +90,8 @@ function check() {
                     //if (result.data.length > 0) {
                     if (result.data.Person.Name != null) {
                         $("#Name").val(result.data.Person.Name);
-                        $("#surname").val(result.data.Person.Surname);
-                        $("#fatherName").val(result.data.Person.FatherName);
+                        $("#Surname").val(result.data.Person.Surname);
+                        $("#FatherName").val(result.data.Person.FatherName);
                         $('#gender').val(result.data.Person.gender).change();
                         $("#descAddress").val(result.data.descAddress);
                         $("#birtday").val(result.data.birtday);
@@ -235,6 +235,46 @@ function GetAdminUnit(elem) {
         });
     }
 };
+
+function SaveChanges() {
+    var form = document.getElementById('signUpDiv');
+    //if (form.onsubmit()) {
+
+        var user = $("#userName").val();
+        var email = $("#eMail").val();
+
+        $.ajax({
+            url: '/SignUpOP/CheckForExistence?userName=' + user + "&email=" + email,
+            type: 'POST',
+            datatype: 'json',
+            data: 'data',
+            success: function (result) {
+
+                if (result.err == null && result.suc == null) {
+                    alert('FİN və ya VÖEN doğru deyil');
+                    window.setTimeout(function () {
+                        window.location.href = '/Login';
+                    }, 5000);
+                } else {
+                    var regCombo;
+                    $('#regionContainer').append(regCombo);
+                    //if (result.data.length > 0) {
+                    if (result.err != "") {
+                        $("#warningText").val(result.err);
+                    }
+                    
+                    if (result.suc != "") {
+                        form.submit();
+                    }
+                }
+            },
+            error: function () {
+
+            }
+        });
+        //alert("Submit");
+    //}
+}
 
 
 //function check(){
