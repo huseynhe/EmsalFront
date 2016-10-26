@@ -55,7 +55,7 @@ namespace Emsal.UI.Controllers
         // GET: /Home/
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
        // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
-        Emsal.WebInt.EmsalSrv.EmsalService taxessrv = Emsal.WebInt.EmsalService.taxesService;
+        //Emsal.WebInt.EmsalSrv.EmsalService taxessrv = Emsal.WebInt.EmsalService.taxesService;
 
         private ProductCatalogViewModel modelProductCatalog;
         private ContactViewModel modelContact;
@@ -79,8 +79,8 @@ namespace Emsal.UI.Controllers
 
                 baseInput = new BaseInput();
 
-                baseInput.TransactionId = Int64.Parse(IOUtil.GetFunctionRequestID());
-                baseInput.ChannelId = ChannelEnum.Emsal.ToString();
+                //baseInput.TransactionId = Int64.Parse(IOUtil.GetFunctionRequestID());
+                //baseInput.ChannelId = ChannelEnum.Emsal.ToString();
 
                 modelProductCatalog = new ProductCatalogViewModel();
 
@@ -108,9 +108,15 @@ namespace Emsal.UI.Controllers
                 //BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelProductCatalog.User);
                 //BaseOutput person = srv.WS_GetPersonByUserId(baseInput, (long)userId, true, out modelProductCatalog.Person);
 
-
                 BaseOutput bouput = srv.WS_GetProductCatalogsByParentId(baseInput, pId, true, out modelProductCatalog.ProductCatalogArray);
-                modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogArray.ToList();
+                if (modelProductCatalog.ProductCatalogArray == null)
+                {
+                    modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogArray.ToList();
+                }
+                else
+                {
+                    modelProductCatalog.ProductCatalogList = new List<tblProductCatalog>();
+                }
 
                 if (pId == 0)
                 {

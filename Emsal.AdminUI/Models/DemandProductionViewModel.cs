@@ -30,6 +30,14 @@ namespace Emsal.AdminUI.Models
         public IList<ProductionDetail> ProductionDetailList { get; set; }
         public ProductionDetail[] ProductionDetailArray;
 
+
+        public DemandOfferDetail DemandOfferDetail;
+        public IList<DemandOfferDetail> DemandOfferDetailList { get; set; }
+        public DemandOfferDetail[] DemandOfferDetailArray;
+
+        public DemandProductionViewModel DemandProductionVModel { get; set; }
+        public IList<DemandProductionViewModel> DemandProductionViewModelList { get; set; }
+
         public tblPotential_Production PotentialProduction;
         public IList<tblPotential_Production> PotentialProductionList { get; set; }
         public IList<tblPotential_Production> SelectedPotentialProductionList { get; set; }
@@ -88,6 +96,7 @@ namespace Emsal.AdminUI.Models
         public tblConfirmationMessage[] ConfirmationMessageArray;
 
         public PagedList.IPagedList<ProductionDetail> Paging { get; set; }
+        public PagedList.IPagedList<DemandProductionViewModel> DemandOfferPaging { get; set; }
 
         public DemandProductionExcell DemandProductionExcell;
         public IList<DemandProductionExcell> DemandProductionExcellList { get; set; }
@@ -159,6 +168,11 @@ namespace Emsal.AdminUI.Models
 
         public decimal currentPagePrice { get; set; }
         public decimal allPagePrice { get; set; }
+
+        public decimal totalDemand { get; set; }
+        public decimal totalOffer { get; set; }
+        public decimal differenceDemandOffer { get; set; }
+        public string quantityType { get; set; }
     }
 
     public class DemandProductionExcell

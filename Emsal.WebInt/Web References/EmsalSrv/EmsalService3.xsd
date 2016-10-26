@@ -95,10 +95,19 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="adminUnittName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="count" type="xs:long" />
+      <xs:element minOccurs="0" name="demandQuantity" type="xs:decimal" />
+      <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="difference" type="xs:decimal" />
+      <xs:element minOccurs="0" name="kategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="offerDemand" type="xs:decimal" />
       <xs:element minOccurs="0" name="productID" type="xs:long" />
       <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="productParentName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="productType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="quantity" type="xs:decimal" />
+      <xs:element minOccurs="0" name="type" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="unitPrice" type="xs:decimal" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="DemandOfferDetail" nillable="true" type="tns:DemandOfferDetail" />

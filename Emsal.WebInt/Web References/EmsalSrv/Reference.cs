@@ -49,6 +49,8 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private System.Threading.SendOrPostCallback WS_GetProducListByUserIDOperationCompleted;
         
+        private System.Threading.SendOrPostCallback WS_GetUserRoleByIdOperationCompleted;
+        
         private System.Threading.SendOrPostCallback WS_GetUserRolesOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetUserRolesByUserIdOperationCompleted;
@@ -269,6 +271,8 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private System.Threading.SendOrPostCallback WS_GetProductionDetailistOperationCompleted;
         
+        private System.Threading.SendOrPostCallback WS_GetDemandOfferProductionTotalOperationCompleted;
+        
         private System.Threading.SendOrPostCallback WS_GetDemandProductsForAccountingOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetDemandProductDetailInfoForAccountingOperationCompleted;
@@ -300,8 +304,6 @@ namespace Emsal.WebInt.EmsalSrv {
         private System.Threading.SendOrPostCallback WS_DeleteUserRoleOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_UpdateUserRoleOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback WS_GetUserRoleByIdOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetUserByUserNameOperationCompleted;
         
@@ -756,6 +758,9 @@ namespace Emsal.WebInt.EmsalSrv {
         public event WS_GetProducListByUserIDCompletedEventHandler WS_GetProducListByUserIDCompleted;
         
         /// <remarks/>
+        public event WS_GetUserRoleByIdCompletedEventHandler WS_GetUserRoleByIdCompleted;
+        
+        /// <remarks/>
         public event WS_GetUserRolesCompletedEventHandler WS_GetUserRolesCompleted;
         
         /// <remarks/>
@@ -1086,6 +1091,9 @@ namespace Emsal.WebInt.EmsalSrv {
         public event WS_GetProductionDetailistCompletedEventHandler WS_GetProductionDetailistCompleted;
         
         /// <remarks/>
+        public event WS_GetDemandOfferProductionTotalCompletedEventHandler WS_GetDemandOfferProductionTotalCompleted;
+        
+        /// <remarks/>
         public event WS_GetDemandProductsForAccountingCompletedEventHandler WS_GetDemandProductsForAccountingCompleted;
         
         /// <remarks/>
@@ -1132,9 +1140,6 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         public event WS_UpdateUserRoleCompletedEventHandler WS_UpdateUserRoleCompleted;
-        
-        /// <remarks/>
-        public event WS_GetUserRoleByIdCompletedEventHandler WS_GetUserRoleByIdCompleted;
         
         /// <remarks/>
         public event WS_GetUserByUserNameCompletedEventHandler WS_GetUserByUserNameCompleted;
@@ -2061,6 +2066,41 @@ namespace Emsal.WebInt.EmsalSrv {
             if ((this.WS_GetProducListByUserIDCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.WS_GetProducListByUserIDCompleted(this, new WS_GetProducListByUserIDCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetUserRoleById", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetUserRoleById([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long ID, [System.Xml.Serialization.XmlIgnoreAttribute()] bool IDSpecified, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblUserRole item) {
+            object[] results = this.Invoke("WS_GetUserRoleById", new object[] {
+                        baseinput,
+                        ID,
+                        IDSpecified});
+            item = ((tblUserRole)(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetUserRoleByIdAsync(BaseInput baseinput, long ID, bool IDSpecified) {
+            this.WS_GetUserRoleByIdAsync(baseinput, ID, IDSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetUserRoleByIdAsync(BaseInput baseinput, long ID, bool IDSpecified, object userState) {
+            if ((this.WS_GetUserRoleByIdOperationCompleted == null)) {
+                this.WS_GetUserRoleByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetUserRoleByIdOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetUserRoleById", new object[] {
+                        baseinput,
+                        ID,
+                        IDSpecified}, this.WS_GetUserRoleByIdOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetUserRoleByIdOperationCompleted(object arg) {
+            if ((this.WS_GetUserRoleByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetUserRoleByIdCompleted(this, new WS_GetUserRoleByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -5788,6 +5828,37 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetDemandOfferProductionTotal", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetDemandOfferProductionTotal([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")] out DemandOfferDetail[] itemList) {
+            object[] results = this.Invoke("WS_GetDemandOfferProductionTotal", new object[] {
+                        baseinput});
+            itemList = ((DemandOfferDetail[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetDemandOfferProductionTotalAsync(BaseInput baseinput) {
+            this.WS_GetDemandOfferProductionTotalAsync(baseinput, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetDemandOfferProductionTotalAsync(BaseInput baseinput, object userState) {
+            if ((this.WS_GetDemandOfferProductionTotalOperationCompleted == null)) {
+                this.WS_GetDemandOfferProductionTotalOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetDemandOfferProductionTotalOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetDemandOfferProductionTotal", new object[] {
+                        baseinput}, this.WS_GetDemandOfferProductionTotalOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetDemandOfferProductionTotalOperationCompleted(object arg) {
+            if ((this.WS_GetDemandOfferProductionTotalCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetDemandOfferProductionTotalCompleted(this, new WS_GetDemandOfferProductionTotalCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetDemandProductsForAccounting", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public BaseOutput WS_GetDemandProductsForAccounting([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long state_eV_Id, [System.Xml.Serialization.XmlIgnoreAttribute()] bool state_eV_IdSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")] out ProductionDetail[] itemList) {
@@ -6343,41 +6414,6 @@ namespace Emsal.WebInt.EmsalSrv {
             if ((this.WS_UpdateUserRoleCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.WS_UpdateUserRoleCompleted(this, new WS_UpdateUserRoleCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetUserRoleById", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public BaseOutput WS_GetUserRoleById([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long ID, [System.Xml.Serialization.XmlIgnoreAttribute()] bool IDSpecified, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblUserRole item) {
-            object[] results = this.Invoke("WS_GetUserRoleById", new object[] {
-                        baseinput,
-                        ID,
-                        IDSpecified});
-            item = ((tblUserRole)(results[1]));
-            return ((BaseOutput)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void WS_GetUserRoleByIdAsync(BaseInput baseinput, long ID, bool IDSpecified) {
-            this.WS_GetUserRoleByIdAsync(baseinput, ID, IDSpecified, null);
-        }
-        
-        /// <remarks/>
-        public void WS_GetUserRoleByIdAsync(BaseInput baseinput, long ID, bool IDSpecified, object userState) {
-            if ((this.WS_GetUserRoleByIdOperationCompleted == null)) {
-                this.WS_GetUserRoleByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetUserRoleByIdOperationCompleted);
-            }
-            this.InvokeAsync("WS_GetUserRoleById", new object[] {
-                        baseinput,
-                        ID,
-                        IDSpecified}, this.WS_GetUserRoleByIdOperationCompleted, userState);
-        }
-        
-        private void OnWS_GetUserRoleByIdOperationCompleted(object arg) {
-            if ((this.WS_GetUserRoleByIdCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.WS_GetUserRoleByIdCompleted(this, new WS_GetUserRoleByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -23575,6 +23611,24 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private bool countFieldSpecified;
         
+        private decimal demandQuantityField;
+        
+        private bool demandQuantityFieldSpecified;
+        
+        private string descriptionField;
+        
+        private decimal differenceField;
+        
+        private bool differenceFieldSpecified;
+        
+        private string kategoryNameField;
+        
+        private string nameField;
+        
+        private decimal offerDemandField;
+        
+        private bool offerDemandFieldSpecified;
+        
         private long productIDField;
         
         private bool productIDFieldSpecified;
@@ -23584,6 +23638,16 @@ namespace Emsal.WebInt.EmsalSrv {
         private string productParentNameField;
         
         private string productTypeField;
+        
+        private decimal quantityField;
+        
+        private bool quantityFieldSpecified;
+        
+        private string typeField;
+        
+        private decimal unitPriceField;
+        
+        private bool unitPriceFieldSpecified;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
@@ -23614,6 +23678,102 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.countFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal demandQuantity {
+            get {
+                return this.demandQuantityField;
+            }
+            set {
+                this.demandQuantityField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool demandQuantitySpecified {
+            get {
+                return this.demandQuantityFieldSpecified;
+            }
+            set {
+                this.demandQuantityFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                this.descriptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal difference {
+            get {
+                return this.differenceField;
+            }
+            set {
+                this.differenceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool differenceSpecified {
+            get {
+                return this.differenceFieldSpecified;
+            }
+            set {
+                this.differenceFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string kategoryName {
+            get {
+                return this.kategoryNameField;
+            }
+            set {
+                this.kategoryNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal offerDemand {
+            get {
+                return this.offerDemandField;
+            }
+            set {
+                this.offerDemandField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool offerDemandSpecified {
+            get {
+                return this.offerDemandFieldSpecified;
+            }
+            set {
+                this.offerDemandFieldSpecified = value;
             }
         }
         
@@ -23668,6 +23828,59 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.productTypeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal quantity {
+            get {
+                return this.quantityField;
+            }
+            set {
+                this.quantityField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool quantitySpecified {
+            get {
+                return this.quantityFieldSpecified;
+            }
+            set {
+                this.quantityFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string type {
+            get {
+                return this.typeField;
+            }
+            set {
+                this.typeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal unitPrice {
+            get {
+                return this.unitPriceField;
+            }
+            set {
+                this.unitPriceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool unitPriceSpecified {
+            get {
+                return this.unitPriceFieldSpecified;
+            }
+            set {
+                this.unitPriceFieldSpecified = value;
             }
         }
     }
@@ -26679,6 +26892,40 @@ namespace Emsal.WebInt.EmsalSrv {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((ProductCatalogDetail[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetUserRoleByIdCompletedEventHandler(object sender, WS_GetUserRoleByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetUserRoleByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetUserRoleByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblUserRole item {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblUserRole)(this.results[1]));
             }
         }
     }
@@ -30329,6 +30576,40 @@ namespace Emsal.WebInt.EmsalSrv {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetDemandOfferProductionTotalCompletedEventHandler(object sender, WS_GetDemandOfferProductionTotalCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetDemandOfferProductionTotalCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetDemandOfferProductionTotalCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public DemandOfferDetail[] itemList {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((DemandOfferDetail[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
     public delegate void WS_GetDemandProductsForAccountingCompletedEventHandler(object sender, WS_GetDemandProductsForAccountingCompletedEventArgs e);
     
     /// <remarks/>
@@ -30842,40 +31123,6 @@ namespace Emsal.WebInt.EmsalSrv {
         private object[] results;
         
         internal WS_UpdateUserRoleCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public BaseOutput Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((BaseOutput)(this.results[0]));
-            }
-        }
-        
-        /// <remarks/>
-        public tblUserRole item {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((tblUserRole)(this.results[1]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    public delegate void WS_GetUserRoleByIdCompletedEventHandler(object sender, WS_GetUserRoleByIdCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class WS_GetUserRoleByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal WS_GetUserRoleByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

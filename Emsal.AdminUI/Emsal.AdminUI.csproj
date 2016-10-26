@@ -556,6 +556,8 @@
     <Content Include="Views\DemandProduction\DemandProductsForAccounting.cshtml" />
     <Content Include="Views\DemandProduction\PartialDemandProductDetailInfoForAccounting.cshtml" />
     <Content Include="Views\DemandProduction\DemandProductDetailInfoForAccounting.cshtml" />
+    <Content Include="Views\DemandProduction\DemandOfferProductionTotal.cshtml" />
+    <Content Include="Views\DemandProduction\PartialDemandOfferProductionTotal.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

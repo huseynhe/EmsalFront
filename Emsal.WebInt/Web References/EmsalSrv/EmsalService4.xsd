@@ -75,12 +75,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="tblProduct_Document" nillable="true" type="tns:tblProduct_Document" />
-  <xs:complexType name="ArrayOftblUserRole">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblUserRole" nillable="true" type="tns:tblUserRole" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOftblUserRole" nillable="true" type="tns:ArrayOftblUserRole" />
   <xs:complexType name="tblUserRole">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id" type="xs:long" />
@@ -95,6 +89,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="tblUserRole" nillable="true" type="tns:tblUserRole" />
+  <xs:complexType name="ArrayOftblUserRole">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblUserRole" nillable="true" type="tns:tblUserRole" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblUserRole" nillable="true" type="tns:ArrayOftblUserRole" />
   <xs:complexType name="tblProductPrice">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id" type="xs:long" />

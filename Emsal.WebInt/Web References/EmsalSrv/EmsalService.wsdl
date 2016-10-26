@@ -70,6 +70,12 @@
   <wsdl:message name="IEmsalService_WS_GetProducListByUserID_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetProducListByUserIDResponse" />
   </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetUserRoleById_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetUserRoleById" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetUserRoleById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetUserRoleByIdResponse" />
+  </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetUserRoles_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetUserRoles" />
   </wsdl:message>
@@ -730,6 +736,12 @@
   <wsdl:message name="IEmsalService_WS_GetProductionDetailist_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetProductionDetailistResponse" />
   </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetDemandOfferProductionTotal_InputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetDemandOfferProductionTotal" />
+  </wsdl:message>
+  <wsdl:message name="IEmsalService_WS_GetDemandOfferProductionTotal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WS_GetDemandOfferProductionTotalResponse" />
+  </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetDemandProductsForAccounting_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetDemandProductsForAccounting" />
   </wsdl:message>
@@ -825,12 +837,6 @@
   </wsdl:message>
   <wsdl:message name="IEmsalService_WS_UpdateUserRole_OutputMessage">
     <wsdl:part name="parameters" element="tns:WS_UpdateUserRoleResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetUserRoleById_InputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetUserRoleById" />
-  </wsdl:message>
-  <wsdl:message name="IEmsalService_WS_GetUserRoleById_OutputMessage">
-    <wsdl:part name="parameters" element="tns:WS_GetUserRoleByIdResponse" />
   </wsdl:message>
   <wsdl:message name="IEmsalService_WS_GetUserByUserName_InputMessage">
     <wsdl:part name="parameters" element="tns:WS_GetUserByUserName" />
@@ -2025,6 +2031,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProducListByUserID" message="tns:IEmsalService_WS_GetProducListByUserID_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProducListByUserIDResponse" message="tns:IEmsalService_WS_GetProducListByUserID_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="WS_GetUserRoleById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRoleById" message="tns:IEmsalService_WS_GetUserRoleById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRoleByIdResponse" message="tns:IEmsalService_WS_GetUserRoleById_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="WS_GetUserRoles">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRoles" message="tns:IEmsalService_WS_GetUserRoles_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRolesResponse" message="tns:IEmsalService_WS_GetUserRoles_OutputMessage" />
@@ -2465,6 +2475,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionDetailist" message="tns:IEmsalService_WS_GetProductionDetailist_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetProductionDetailistResponse" message="tns:IEmsalService_WS_GetProductionDetailist_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="WS_GetDemandOfferProductionTotal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetDemandOfferProductionTotal" message="tns:IEmsalService_WS_GetDemandOfferProductionTotal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetDemandOfferProductionTotalResponse" message="tns:IEmsalService_WS_GetDemandOfferProductionTotal_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="WS_GetDemandProductsForAccounting">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetDemandProductsForAccounting" message="tns:IEmsalService_WS_GetDemandProductsForAccounting_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetDemandProductsForAccountingResponse" message="tns:IEmsalService_WS_GetDemandProductsForAccounting_OutputMessage" />
@@ -2528,10 +2542,6 @@
     <wsdl:operation name="WS_UpdateUserRole">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_UpdateUserRole" message="tns:IEmsalService_WS_UpdateUserRole_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_UpdateUserRoleResponse" message="tns:IEmsalService_WS_UpdateUserRole_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="WS_GetUserRoleById">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRoleById" message="tns:IEmsalService_WS_GetUserRoleById_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserRoleByIdResponse" message="tns:IEmsalService_WS_GetUserRoleById_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="WS_GetUserByUserName">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmsalService/WS_GetUserByUserName" message="tns:IEmsalService_WS_GetUserByUserName_InputMessage" />
@@ -3387,6 +3397,15 @@
     </wsdl:operation>
     <wsdl:operation name="WS_GetProducListByUserID">
       <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetProducListByUserID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WS_GetUserRoleById">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetUserRoleById" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4384,6 +4403,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="WS_GetDemandOfferProductionTotal">
+      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetDemandOfferProductionTotal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="WS_GetDemandProductsForAccounting">
       <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetDemandProductsForAccounting" style="document" />
       <wsdl:input>
@@ -4521,15 +4549,6 @@
     </wsdl:operation>
     <wsdl:operation name="WS_UpdateUserRole">
       <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_UpdateUserRole" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="WS_GetUserRoleById">
-      <soap:operation soapAction="http://tempuri.org/IEmsalService/WS_GetUserRoleById" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

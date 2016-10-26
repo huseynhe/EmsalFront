@@ -7,8 +7,8 @@
     decimal tquantity = 0;
 }
 
-               <h4 class="text-danger text-center"> cari səhifə üçün qiymət: @Model.currentPagePrice azn - bütün qiymət: @Model.allPagePrice azn
-                   <a href="/DemandProduction/DemandProductsForAccounting?statusEV=@Model.statusEV&productName=@Model.productName&fullAddress=@Model.fullAddress&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+               <h4 class="text-danger text-center"> &nbsp;
+                   <a href="/DemandProduction/DemandOfferProductionTotal?productName=@Model.productName&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
                        Yüklə
                    </a>
@@ -18,23 +18,23 @@
                         <div class="table-responsive">
                             <table class="table table-hover table-striped table-bordered">
                                 <tbody>
-                                    @foreach (var item in Model.Paging)
+                                    @foreach (var item in Model.DemandOfferPaging)
                                     {
                                         <tr>
                                             <td class="col-md-3">
-                                                @item.productName (@item.productParentName)
+                                                @item.productName
                                             </td>
                                             <td class="col-md-1">
-                                                @item.quantity @item.kategoryName
+                                                @item.quantityType
                                             </td>
                                             <td class="col-md-1">
-                                                @item.unitPrice azn
+                                                @item.totalDemand
                                             </td>
                                             <td class="col-md-1">
-                                                @item.totalPrice azn
+                                                @item.totalOffer
                                             </td>
-                                            <td class="col-md-2">
-                                                @item.fullAddress (@item.addressDesc)
+                                            <td class="col-md-1">
+                                                @(item.totalDemand - item.totalOffer)
                                             </td>
                                         </tr>
                                     }
@@ -43,6 +43,6 @@
                         </div>
                     </div>
                     <div class="box-footer clearfix">
-                        Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
-                        @Html.PagedListPager(Model.Paging, page => Url.Action("DemandProductsForAccounting", new { page, statusEV = Model.statusEV, productName = Model.productName, fullAddress = Model.fullAddress }))
+                        Səhifə @(Model.DemandOfferPaging.PageCount < Model.DemandOfferPaging.PageNumber ? 0 : Model.DemandOfferPaging.PageNumber) (cəmi @Model.DemandOfferPaging.PageCount)
+                        @Html.PagedListPager(Model.DemandOfferPaging, page => Url.Action("DemandOfferProductionTotal", new { page, productName = Model.productName }))
                     </div>
