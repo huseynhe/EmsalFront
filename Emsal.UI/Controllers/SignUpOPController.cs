@@ -31,7 +31,7 @@ namespace Emsal.UI.Controllers
         private UserViewModel modelUser;
         tblPRM_AdminUnit tblAdminUnit;
 
-        
+
 
         public ActionResult Index(long uid = 0, string type = null)
         {
@@ -87,7 +87,7 @@ namespace Emsal.UI.Controllers
 
                     i = (long)modelP.Person.UserId;
 
-                    modelUser.Person =new tblPerson();
+                    modelUser.Person = new tblPerson();
                     //modelUser.fin = modelP.Person.PinNumber;
                     modelUser.pType = type;
                 }
@@ -122,38 +122,43 @@ namespace Emsal.UI.Controllers
 
         public bool CheckExistence(UserViewModel form)
         {
-            baseInput = new BaseInput();
-            User modelUser = new User();
+            //baseInput = new BaseInput();
+            //User modelUser = new User();
 
-            BaseOutput checkExistenseOut = srv.WS_GetUserByUserName(baseInput, form.userName, out modelUser.FutureUser);
+            //BaseOutput checkExistenseOut = srv.WS_GetUserByUserName(baseInput, form.userName, out modelUser.FutureUser);
 
-            BaseOutput checkEdxistenseOut = srv.WS_GetUsers(baseInput, out modelUser.UserArray);
-            List<tblUser> UserFromEmail = modelUser.UserArray.Where(x => x.Email == form.eMail).ToList();
+            //BaseOutput pereOut = srv.WS_GetEnumValueById(baseInput, long.Parse(perefix), true, out modelUser.EnumValue);
+            //BaseOutput comOut = srv.WS_GetCommunications(baseInput, out modelUser.CommunicationInformationsArray);
 
-            BaseOutput personsOut = srv.WS_GetPersons(baseInput, out modelUser.PersonArray);
-            List<tblPerson> PersonFromPin = form.fin == null ? new List<tblPerson>() : modelUser.PersonArray.Where(x => x.PinNumber == form.fin).ToList();
+            //string fullMobNumb = modelUser.EnumValue.name + mobile;
 
-            BaseOutput orgOut = srv.WS_GetForeign_Organizations(baseInput, out modelUser.ForeignOrganisationArray);
-            List<tblForeign_Organization> OrgFromVoen = form.voen == null ? new List<tblForeign_Organization>() : modelUser.ForeignOrganisationArray.Where(x => x.voen == form.voen).ToList();
+            ////BaseOutput checkEdxistenseOut = srv.WS_GetUsers(baseInput, out modelUser.UserArray);
+            //List<tblCommunication> UserFromNumber = modelUser.CommunicationInformationsArray.Where(x => x.communication == fullMobNumb).ToList();
 
-            //normal ucun olmalidir 
-            //if (modelUser.FutureUser != null || UserFromEmail.Count != 0 || PersonFromPin.Count != 0 || OrgFromVoen.Count != 0)
+            ////BaseOutput personsOut = srv.WS_GetPersons(baseInput, out modelUser.PersonArray);
+            ////List<tblPerson> PersonFromPin = form.fin == null ? new List<tblPerson>() : modelUser.PersonArray.Where(x => x.PinNumber == form.fin).ToList();
+
+            ////BaseOutput orgOut = srv.WS_GetForeign_Organizations(baseInput, out modelUser.ForeignOrganisationArray);
+            ////List<tblForeign_Organization> OrgFromVoen = form.voen == null ? new List<tblForeign_Organization>() : modelUser.ForeignOrganisationArray.Where(x => x.voen == form.voen).ToList();
+
+            ////normal ucun olmalidir 
+            ////if (modelUser.FutureUser != null || UserFromEmail.Count != 0 || PersonFromPin.Count != 0 || OrgFromVoen.Count != 0)
+            ////{
+            ////    return false;
+            ////}
+            ////else
+            ////{
+            ////    return true;
+            ////}
+
+            //if (modelUser.FutureUser != null || UserFromNumber.Count != 0)
             //{
             //    return false;
             //}
             //else
             //{
-            //    return true;
+            return true;
             //}
-
-            if (modelUser.FutureUser != null || UserFromEmail.Count != 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
 
         }
 
@@ -186,6 +191,9 @@ namespace Emsal.UI.Controllers
                         BaseOutput gabui = srv.WS_GetAddressesByUserId(baseInput, modelUser.User.Id, true, out modelUser.AddressArray);
                         modelUser.Address = modelUser.AddressArray.ToList().FirstOrDefault();
                         BaseOutput gpbui = srv.WS_GetPersonByUserId(baseInput, modelUser.User.Id, true, out modelUser.Person);
+                        if (!String.IsNullOrEmpty(sVoen)) {
+                            BaseOutput fOut = srv.WS_GetForeign_OrganizationByVoen(baseInput, sVoen, out modelUser.ForeignOrganisation);
+                                }
                         //BaseOutput cominicationOut = srv.WS_GetCommunicationByPersonId(baseInput,(long)modelUser.Person.Id, true, out modelUser.Comminication);
                     }
 
@@ -221,7 +229,7 @@ namespace Emsal.UI.Controllers
                     {
                         enumtype = "fizikişexs";
                     }
-                    else 
+                    else
                     {
                         enumtype = "legalPerson";
                     }
@@ -255,7 +263,7 @@ namespace Emsal.UI.Controllers
                     modelUser.Address.user_IdSpecified = true;
 
                     if (modelUser.Address.Id > 0)
-                    {                       
+                    {
                         BaseOutput aa = srv.WS_UpdateAddress(baseInput, modelUser.Address);
                     }
                     else
@@ -267,11 +275,12 @@ namespace Emsal.UI.Controllers
                     modelUser.Person.Name = mdl.Name;
                     modelUser.Person.Surname = mdl.Surname;
                     modelUser.Person.FatherName = mdl.FatherName;
-                    
+
                     modelUser.Person.UserId = modelUser.User.Id;
                     modelUser.Person.UserIdSpecified = true;
 
-                    if (String.IsNullOrEmpty(sVoen)) {
+                    if (String.IsNullOrEmpty(sVoen))
+                    {
                         modelUser.Person.PinNumber = mdl.fin;
                         modelUser.Person.address_Id = modelUser.Address.Id;
                     }
@@ -296,7 +305,7 @@ namespace Emsal.UI.Controllers
 
                     if (modelUser.Person.Id > 0)
                     {
-                        BaseOutput aper = srv.WS_UpdatePerson(baseInput, modelUser.Person, out modelUser.Person);                       
+                        BaseOutput aper = srv.WS_UpdatePerson(baseInput, modelUser.Person, out modelUser.Person);
                     }
                     else
                     {
@@ -315,7 +324,7 @@ namespace Emsal.UI.Controllers
                         BaseOutput addUserRole = srv.WS_AddUserRole(baseInput, modelUser.UserRole, out modelUser.UserRole);
                     }
                     BaseOutput mobOut;
-                    modelUser.EnumValue = new tblEnumValue();                 
+                    modelUser.EnumValue = new tblEnumValue();
                     modelUser.Comminication = new tblCommunication();
                     mobOut = srv.WS_GetEnumValueById(baseInput, (long)(mdl.mPerefix), true, out modelUser.EnumValue);
                     modelUser.Comminication.communication = modelUser.EnumValue.name + mdl.mNumber;
@@ -334,7 +343,7 @@ namespace Emsal.UI.Controllers
                     long adrrId = modelUser.Address.Id;
 
 
-                    if (modelUser.ForeignOrganisation!=null)
+                    if (!String.IsNullOrEmpty(sVoen))
                     {
                         modelUser.ForeignOrganisation.name = mdl.legalPersonName;
                         modelUser.ForeignOrganisation.voen = mdl.voen;
@@ -353,6 +362,7 @@ namespace Emsal.UI.Controllers
                         }
                     }
 
+                    TempData["personSignUp"] = "success";
                     return RedirectToAction("Index", "Login");
                 }
                 else
@@ -376,14 +386,15 @@ namespace Emsal.UI.Controllers
         {
             sVoen = "";
             sType = "";
-            
+
             modelUser = new UserViewModel();
             baseInput = new BaseInput();
             try
             {
-                                            
+
                 SingleServiceControl srvcontrol = new SingleServiceControl();
                 getPersonalInfoByPinNewResponseResponse iamasPerson = null;
+                Emsal.WebInt.TaxesSRV.VOENDATA taxesService = null;
                 tblPerson person = null;
                 tblForeign_Organization foreignOrg;
                 long auid = 0;
@@ -395,108 +406,119 @@ namespace Emsal.UI.Controllers
                 }
                 else
                   if (type == "2")
-                {
+                {                   
                     BaseOutput foreign = srv.WS_GetForeign_OrganizationByVoen(baseInput, fin, out foreignOrg);
                     sVoen = fin;
-                    if (foreignOrg != null) { 
+                    if (foreignOrg != null)
+                    {
                         BaseOutput personOut = srv.WS_GetPersonByUserId(baseInput, Int64.Parse(foreignOrg.userId.ToString()), true, out person);
+                    }
+                    else
+                    {
+                        taxesService = Emsal.WebInt.EmsalService.taxesService.getOrganisationInfobyVoen(fin);
                     }
                     //control = srvcontrol.getPersonInfoByPin(fin, out person, out iamasPerson);
                 }
 
 
-                    modelUser.Person = new tblPerson();
-                    if (person != null)
-                    {
-                        modelUser.Person.Name = person.Name;
-                        modelUser.Person.Surname = person.Surname;
-                        modelUser.Person.FatherName = person.FatherName;
-                        modelUser.createdUser = person.profilePicture;
-                        modelUser.Person.gender = person.gender;
-                        modelUser.Person.birtday = (DateTime.Parse(FromSecondToDate((long)person.birtday).ToString())).getInt64ShortDate(); 
-                        modelUser.Person.UserId = person.UserId;
+                modelUser.Person = new tblPerson();
+                if (person != null)
+                {
+                    modelUser.Person.Name = person.Name;
+                    modelUser.Person.Surname = person.Surname;
+                    modelUser.Person.FatherName = person.FatherName;
+                    modelUser.createdUser = person.profilePicture;
+                    modelUser.Person.gender = person.gender;
+                    modelUser.Person.birtday = (DateTime.Parse(FromSecondToDate((long)person.birtday).ToString())).getInt64ShortDate();
+                    modelUser.Person.UserId = person.UserId;
 
-                        sUid =(long) person.UserId;
-                        
-                        modelUser.profilePicture = Convert.ToBase64String(StringExtension.StringToByteArray(person.profilePicture));
-                        modelUser.createdUser = person.profilePicture;
+                    sUid = (long)person.UserId;
 
-                        BaseOutput gabui = srv.WS_GetAddressesByUserId(baseInput, (long)person.UserId, true, out modelUser.AddressArray);
+                    modelUser.profilePicture = Convert.ToBase64String(StringExtension.StringToByteArray(person.profilePicture));
+                    modelUser.createdUser = person.profilePicture;
 
-                        modelUser.Address = modelUser.AddressArray.ToList().FirstOrDefault();
-                        auid = (long)modelUser.Address.adminUnit_Id;
-                        addressDesc = modelUser.Address.addressDesc;
+                    BaseOutput gabui = srv.WS_GetAddressesByUserId(baseInput, (long)person.UserId, true, out modelUser.AddressArray);
 
-                        //orgRoles = "producerPerson";
+                    modelUser.Address = modelUser.AddressArray.ToList().FirstOrDefault();
+                    auid = (long)modelUser.Address.adminUnit_Id;
+                    addressDesc = modelUser.Address.addressDesc;
+
+                    //orgRoles = "producerPerson";
                 }
-                    else if (iamasPerson != null)
+                else if (iamasPerson != null)
+                {
+                    if (iamasPerson.Adress.cityId != null)
                     {
-                        if (iamasPerson.Adress.cityId != null)
-                        {
-                            if (iamasPerson.Adress.cityId != "0")
-                            {
-                                BaseOutput gaufci = srv.WS_GetPRM_AdminUnitByIamasId(baseInput, Int64.Parse(iamasPerson.Adress.cityId), true, true, true, out modelUser.PRMAdminUnit);
-                            }
-                        }
-
-                        if (iamasPerson.Adress.districtId != null)
-                        {
-                            if (iamasPerson.Adress.districtId != "0")
-                            {
-                                BaseOutput gaufci = srv.WS_GetPRM_AdminUnitByIamasId(baseInput, Int64.Parse(iamasPerson.Adress.districtId), true, false, true, out modelUser.PRMAdminUnit);
-                            }
-                        }
-
-                        auid = modelUser.PRMAdminUnit.Id;
-
-
-                        addressDesc = "";
-
-                        if (!String.IsNullOrEmpty(iamasPerson.Adress.place))
-                            addressDesc += iamasPerson.Adress.place;
-
-                        if (!String.IsNullOrEmpty(iamasPerson.Adress.street))
-                            addressDesc += ", " + iamasPerson.Adress.street;
-
-                        if (!String.IsNullOrEmpty(iamasPerson.Adress.building))
-                            addressDesc += ", " + iamasPerson.Adress.building;
-
-                        if (!String.IsNullOrEmpty(iamasPerson.Adress.block))
-                            addressDesc += ", " + iamasPerson.Adress.block;
-
-                        if (!String.IsNullOrEmpty(iamasPerson.Adress.apartment))
-                            addressDesc += ", " + iamasPerson.Adress.apartment;
-
-                        //addressDesc = iamasPerson.Adress.place + ", " + iamasPerson.Adress.street + ", " + iamasPerson.Adress.apartment + ", " + iamasPerson.Adress.block + ", " + iamasPerson.Adress.building;
-
-                        modelUser.Person.Name = iamasPerson.Name;
-                        modelUser.Person.Surname = iamasPerson.Surname;
-                        string[] pa = iamasPerson.Patronymic.Split(' ').ToArray();
-                        modelUser.Person.FatherName = pa[0];
-                        modelUser.Person.gender = iamasPerson.gender;
-                        modelUser.Person.birtday = (DateTime.Parse(iamasPerson.birthDate)).getInt64ShortDate();
-                        modelUser.createdUser = string.Join(",", iamasPerson.photo);
-                        modelUser.profilePicture = Convert.ToBase64String(iamasPerson.photo);
-
-                        if (iamasPerson.BirthPlace.country != "0")
-                        {
-                            fullAddressId += "1";
-                        }
-
                         if (iamasPerson.Adress.cityId != "0")
                         {
                             BaseOutput gaufci = srv.WS_GetPRM_AdminUnitByIamasId(baseInput, Int64.Parse(iamasPerson.Adress.cityId), true, true, true, out modelUser.PRMAdminUnit);
-                            fullAddressId += "," + modelUser.PRMAdminUnit.Id;
                         }
+                    }
 
+                    if (iamasPerson.Adress.districtId != null)
+                    {
                         if (iamasPerson.Adress.districtId != "0")
                         {
                             BaseOutput gaufci = srv.WS_GetPRM_AdminUnitByIamasId(baseInput, Int64.Parse(iamasPerson.Adress.districtId), true, false, true, out modelUser.PRMAdminUnit);
-                            fullAddressId += "," + modelUser.PRMAdminUnit.Id;
                         }
+                    }
+
+                    auid = modelUser.PRMAdminUnit.Id;
 
 
-                        //orgRoles = "sellerPerson";
+                    addressDesc = "";
+
+                    if (!String.IsNullOrEmpty(iamasPerson.Adress.place))
+                        addressDesc += iamasPerson.Adress.place;
+
+                    if (!String.IsNullOrEmpty(iamasPerson.Adress.street))
+                        addressDesc += ", " + iamasPerson.Adress.street;
+
+                    if (!String.IsNullOrEmpty(iamasPerson.Adress.building))
+                        addressDesc += ", " + iamasPerson.Adress.building;
+
+                    if (!String.IsNullOrEmpty(iamasPerson.Adress.block))
+                        addressDesc += ", " + iamasPerson.Adress.block;
+
+                    if (!String.IsNullOrEmpty(iamasPerson.Adress.apartment))
+                        addressDesc += ", " + iamasPerson.Adress.apartment;
+
+                    //addressDesc = iamasPerson.Adress.place + ", " + iamasPerson.Adress.street + ", " + iamasPerson.Adress.apartment + ", " + iamasPerson.Adress.block + ", " + iamasPerson.Adress.building;
+
+                    modelUser.Person.Name = iamasPerson.Name;
+                    modelUser.Person.Surname = iamasPerson.Surname;
+                    string[] pa = iamasPerson.Patronymic.Split(' ').ToArray();
+                    modelUser.Person.FatherName = pa[0];
+                    modelUser.Person.gender = iamasPerson.gender;
+                    modelUser.Person.birtday = (DateTime.Parse(iamasPerson.birthDate)).getInt64ShortDate();
+                    modelUser.createdUser = string.Join(",", iamasPerson.photo);
+                    modelUser.profilePicture = Convert.ToBase64String(iamasPerson.photo);
+
+                    if (iamasPerson.BirthPlace.country != "0")
+                    {
+                        fullAddressId += "1";
+                    }
+
+                    if (iamasPerson.Adress.cityId != "0")
+                    {
+                        BaseOutput gaufci = srv.WS_GetPRM_AdminUnitByIamasId(baseInput, Int64.Parse(iamasPerson.Adress.cityId), true, true, true, out modelUser.PRMAdminUnit);
+                        fullAddressId += "," + modelUser.PRMAdminUnit.Id;
+                    }
+
+                    if (iamasPerson.Adress.districtId != "0")
+                    {
+                        BaseOutput gaufci = srv.WS_GetPRM_AdminUnitByIamasId(baseInput, Int64.Parse(iamasPerson.Adress.districtId), true, false, true, out modelUser.PRMAdminUnit);
+                        fullAddressId += "," + modelUser.PRMAdminUnit.Id;
+                    }
+
+
+                    //orgRoles = "sellerPerson";
+                }
+                else if (taxesService != null){
+                    modelUser.Person.Name = taxesService.Name;
+                    modelUser.Person.Surname = taxesService.Surname;
+                    modelUser.Person.FatherName = taxesService.MidleName;
+                    modelUser.legalPersonName = taxesService.FullName;
                 }
                 BaseOutput gal = srv.WS_GetAdminUnitListForID(baseInput, auid, true, out modelUser.PRMAdminUnitArray);
                 modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.ToList();
@@ -511,7 +533,7 @@ namespace Emsal.UI.Controllers
                 modelUser.EnumValueMobilePhone = modelUser.EnumValueArray.ToList();
 
                 BaseOutput educationN = srv.WS_GetEnumCategorysByName(baseInput, "Tehsil", out modelUser.EnumCategory);
-                BaseOutput educationId = srv.WS_GetEnumValuesByEnumCategoryId(baseInput,modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
+                BaseOutput educationId = srv.WS_GetEnumValuesByEnumCategoryId(baseInput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
                 modelUser.EnumValueEducationList = modelUser.EnumValueArray.ToList();
 
                 BaseOutput jobN = srv.WS_GetEnumCategorysByName(baseInput, "İş", out modelUser.EnumCategory);
@@ -528,15 +550,16 @@ namespace Emsal.UI.Controllers
 
         public JsonResult FillRelations(string pId)
         {
-            try { 
-            UserViewModel model = new UserViewModel();
-            BaseOutput adminUnit = srv.WS_GetAdminUnitsByParentId(baseInput, int.Parse(pId), true, out model.PRMAdminUnitArray);
-            List<regionClass> list = new List<regionClass>();
-            foreach (var item in model.PRMAdminUnitArray)
+            try
             {
-                list.Add(new regionClass { id = item.Id.ToString(), name = item.Name.ToString(), parentId = item.ParentID.ToString() });
-            }
-            return  Json(new {data = list});
+                UserViewModel model = new UserViewModel();
+                BaseOutput adminUnit = srv.WS_GetAdminUnitsByParentId(baseInput, int.Parse(pId), true, out model.PRMAdminUnitArray);
+                List<regionClass> list = new List<regionClass>();
+                foreach (var item in model.PRMAdminUnitArray)
+                {
+                    list.Add(new regionClass { id = item.Id.ToString(), name = item.Name.ToString(), parentId = item.ParentID.ToString() });
+                }
+                return Json(new { data = list });
             }
             catch (Exception ex) { return null; }
         }
@@ -566,7 +589,7 @@ namespace Emsal.UI.Controllers
                         modelUser.birtday = String.Format("{0:d.M.yyyy}", DateTime.Today);
                     }
 
-                        return Json(new { data = modelUser });
+                    return Json(new { data = modelUser });
                 }
                 else
                 {
@@ -584,7 +607,7 @@ namespace Emsal.UI.Controllers
                             modelUser.birtday = String.Format("{0:d.M.yyyy}", DateTime.Today);
                         }
 
-                            return Json(new { data = modelUser });
+                        return Json(new { data = modelUser });
                     }
                     else
                     {
@@ -615,15 +638,21 @@ namespace Emsal.UI.Controllers
             return birthday;
         }
 
-        public JsonResult CheckForExistence(string userName, string email ) {
+        public JsonResult CheckForExistence(string userName, string perefix, string mobile)
+        {
 
             baseInput = new BaseInput();
             User modelUser = new User();
 
             BaseOutput checkExistenseOut = srv.WS_GetUserByUserName(baseInput, userName, out modelUser.FutureUser);
 
-            BaseOutput checkEdxistenseOut = srv.WS_GetUsers(baseInput, out modelUser.UserArray);
-            List<tblUser> UserFromEmail = modelUser.UserArray.Where(x => x.Email == email).ToList();
+            BaseOutput pereOut = srv.WS_GetEnumValueById(baseInput, long.Parse(perefix), true, out modelUser.EnumValue);
+            BaseOutput comOut = srv.WS_GetCommunications(baseInput, out modelUser.CommunicationInformationsArray);
+
+            string fullMobNumb = modelUser.EnumValue.name + mobile;
+
+            //BaseOutput checkEdxistenseOut = srv.WS_GetUsers(baseInput, out modelUser.UserArray);
+            List<tblCommunication> UserFromNumber = modelUser.CommunicationInformationsArray.Where(x => x.communication == fullMobNumb).ToList();
 
             //BaseOutput personsOut = srv.WS_GetPersons(baseInput, out modelUser.PersonArray);
             //List<tblPerson> PersonFromPin = form.fin == null ? new List<tblPerson>() : modelUser.PersonArray.Where(x => x.PinNumber == form.fin).ToList();
@@ -641,9 +670,9 @@ namespace Emsal.UI.Controllers
             //    return true;
             //}
 
-            if (modelUser.FutureUser != null || UserFromEmail.Count != 0)
+            if (modelUser.FutureUser != null || UserFromNumber.Count != 0)
             {
-                return Json(new { err = "İstifadəçi artıq qeydiyyatdan keçib!", suc = "" });
+                return Json(new { err = "İstifadəçi adı və ya nömrə artıq qeydiyyatdan keçib!", suc = "" });
             }
             else
             {
