@@ -191,6 +191,9 @@ namespace Emsal.UI.Controllers
                         BaseOutput gabui = srv.WS_GetAddressesByUserId(baseInput, modelUser.User.Id, true, out modelUser.AddressArray);
                         modelUser.Address = modelUser.AddressArray.ToList().FirstOrDefault();
                         BaseOutput gpbui = srv.WS_GetPersonByUserId(baseInput, modelUser.User.Id, true, out modelUser.Person);
+                        if (!String.IsNullOrEmpty(sVoen)) {
+                            BaseOutput fOut = srv.WS_GetForeign_OrganizationByVoen(baseInput, sVoen, out modelUser.ForeignOrganisation);
+                                }
                         //BaseOutput cominicationOut = srv.WS_GetCommunicationByPersonId(baseInput,(long)modelUser.Person.Id, true, out modelUser.Comminication);
                     }
 
@@ -340,7 +343,7 @@ namespace Emsal.UI.Controllers
                     long adrrId = modelUser.Address.Id;
 
 
-                    if (modelUser.ForeignOrganisation != null)
+                    if (!String.IsNullOrEmpty(sVoen))
                     {
                         modelUser.ForeignOrganisation.name = mdl.legalPersonName;
                         modelUser.ForeignOrganisation.voen = mdl.voen;
@@ -391,6 +394,7 @@ namespace Emsal.UI.Controllers
 
                 SingleServiceControl srvcontrol = new SingleServiceControl();
                 getPersonalInfoByPinNewResponseResponse iamasPerson = null;
+                Emsal.WebInt.TaxesSRV.VOENDATA taxesService = null;
                 tblPerson person = null;
                 tblForeign_Organization foreignOrg;
                 long auid = 0;
@@ -402,12 +406,16 @@ namespace Emsal.UI.Controllers
                 }
                 else
                   if (type == "2")
-                {
+                {                   
                     BaseOutput foreign = srv.WS_GetForeign_OrganizationByVoen(baseInput, fin, out foreignOrg);
                     sVoen = fin;
                     if (foreignOrg != null)
                     {
                         BaseOutput personOut = srv.WS_GetPersonByUserId(baseInput, Int64.Parse(foreignOrg.userId.ToString()), true, out person);
+                    }
+                    else
+                    {
+                        taxesService = Emsal.WebInt.EmsalService.taxesService.getOrganisationInfobyVoen(fin);
                     }
                     //control = srvcontrol.getPersonInfoByPin(fin, out person, out iamasPerson);
                 }
@@ -505,6 +513,12 @@ namespace Emsal.UI.Controllers
 
 
                     //orgRoles = "sellerPerson";
+                }
+                else if (taxesService != null){
+                    modelUser.Person.Name = taxesService.Name;
+                    modelUser.Person.Surname = taxesService.Surname;
+                    modelUser.Person.FatherName = taxesService.MidleName;
+                    modelUser.legalPersonName = taxesService.FullName;
                 }
                 BaseOutput gal = srv.WS_GetAdminUnitListForID(baseInput, auid, true, out modelUser.PRMAdminUnitArray);
                 modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.ToList();
