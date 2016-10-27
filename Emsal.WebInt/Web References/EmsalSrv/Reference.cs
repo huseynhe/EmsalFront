@@ -23649,6 +23649,10 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private bool unitPriceFieldSpecified;
         
+        private long userIdField;
+        
+        private bool userIdFieldSpecified;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public string adminUnittName {
@@ -23881,6 +23885,27 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.unitPriceFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long userId {
+            get {
+                return this.userIdField;
+            }
+            set {
+                this.userIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool userIdSpecified {
+            get {
+                return this.userIdFieldSpecified;
+            }
+            set {
+                this.userIdFieldSpecified = value;
             }
         }
     }
@@ -25424,6 +25449,41 @@ namespace Emsal.WebInt.EmsalSrv {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")]
+    public partial class PotesialProducts {
+        
+        private string productNameField;
+        
+        private string productParentNameField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string productName {
+            get {
+                return this.productNameField;
+            }
+            set {
+                this.productNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string productParentName {
+            get {
+                return this.productParentNameField;
+            }
+            set {
+                this.productParentNameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")]
     public partial class UserInfo {
         
         private long adminUnitIDField;
@@ -25431,6 +25491,8 @@ namespace Emsal.WebInt.EmsalSrv {
         private bool adminUnitIDFieldSpecified;
         
         private string adminUnitNameField;
+        
+        private PotesialProducts[] demandDetailField;
         
         private string emailField;
         
@@ -25501,6 +25563,17 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.adminUnitNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
+        public PotesialProducts[] demandDetail {
+            get {
+                return this.demandDetailField;
+            }
+            set {
+                this.demandDetailField = value;
             }
         }
         

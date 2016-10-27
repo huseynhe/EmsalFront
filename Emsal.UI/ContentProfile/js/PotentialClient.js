@@ -378,8 +378,8 @@ function getLegalPerson() {
             elem = $('#legalPName');
             $(elem).val(result.Name);
             if (result.Name != null) {
-                $(elem).attr('disabled', true);
-                GetAdminUnitFUV();
+                //$(elem).attr('disabled', true);
+                //GetAdminUnitFUV();
             }
             else {
                 $(elem).attr('disabled', false);
@@ -388,24 +388,24 @@ function getLegalPerson() {
 
             elem = $('#legalPSurname');
             $(elem).val(result.Surname);
-            if (result.Surname != null)
-                $(elem).attr('disabled', true);
-            else
-                $(elem).attr('disabled', false);
+            //if (result.Surname != null)
+            //    $(elem).attr('disabled', true);
+            //else
+            //    $(elem).attr('disabled', false);
 
             elem = $('#legalPFathername');
             $(elem).val(result.FatherName);
-            if (result.FatherName != null)
-                $(elem).attr('disabled', true);
-            else
-                $(elem).attr('disabled', false);
+            //if (result.FatherName != null)
+            //    $(elem).attr('disabled', true);
+            //else
+            //    $(elem).attr('disabled', false);
 
             elem = $('#legalLame');
             $(elem).val(result.PinNumber);
-            if (result.FatherName != null)
-                $(elem).attr('disabled', true);
-            else
-                $(elem).attr('disabled', false);
+            //if (result.FatherName != null)
+            //    $(elem).attr('disabled', true);
+            //else
+            //    $(elem).attr('disabled', false);
             
         },
         error: function (resut) {
