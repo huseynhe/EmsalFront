@@ -21,7 +21,10 @@
                         <h2 style="text-align:center;color:#000;">Qeydiyyatdan Keç</h2><br />
                         <hr />
                         <div class="clearfix"></div>
-                        <input type="text" id="warningText" value="" style="border:0; color:red"/>
+                        <div class="row col-lg-12" style="display:none" id="warningDiv">
+                            <label style="border:0; color:red; font-size:13px">İstifadəçi adı və ya nömrəsi artıq mövcuddur!</label>
+                        </div>
+
                         <br />
                         @using (Html.BeginForm("Index", "SignUpOP", FormMethod.Post, new { @id = "signUpDiv" }))
                         {
@@ -107,13 +110,14 @@
 
                                             <div class="col-md-2">
                                                 @Html.LabelFor(model => model.mNumber, htmlAttributes: new { @class = "control-label" })
-                                                <select name="mPerefix" class="form-control unicase-form-control">
+                                                <select name="mPerefix" id="mPerefix" class="form-control unicase-form-control" required>
                                                     <option selected value="">Seçin</option>
                                                     @foreach (var item in Model.EnumValueMobilePhone)
                                                     {
                                                         <option value="@item.Id">@item.name</option>
                                                     }
                                                 </select>
+                                                @Html.ValidationMessageFor(model => model.mPerefix, "", new { @class = "text-danger" })
                                             </div>
                                             <div class="col-md-3">
                                                 <label class="control-label">&nbsp;</label>
@@ -230,10 +234,10 @@
                                         </div>
 
                                         <div>
-                                            @*<input class="btn btn-primary btn-lg pull-right" type="button" onclick="SaveChanges()">*@ 
-                                            <button class="btn btn-primary btn-lg pull-right" onclick="SaveChanges()" type="button">
-                                                <i class="glyphicon glyphicon-ok"></i>&nbsp;Təsdiqlə
-                                            </button>
+                                            <input class="btn btn-primary btn-lg pull-right" type="button" onclick="SaveChanges()" value="Təsdiqlə">
+                                            @*<button class="btn btn-primary btn-lg pull-right" onclick="SaveChanges()" type="button">
+                                                    <i class="glyphicon glyphicon-ok"></i>&nbsp;Təsdiqlə
+                                                </button>*@
                                             <br />
                                             <br />
                                         </div>
