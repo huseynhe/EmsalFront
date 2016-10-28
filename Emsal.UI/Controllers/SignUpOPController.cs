@@ -412,6 +412,7 @@ namespace Emsal.UI.Controllers
                     if (foreignOrg != null)
                     {
                         BaseOutput personOut = srv.WS_GetPersonByUserId(baseInput, Int64.Parse(foreignOrg.userId.ToString()), true, out person);
+                        modelUser.legalPersonName = foreignOrg.name;
                     }
                     else
                     {
