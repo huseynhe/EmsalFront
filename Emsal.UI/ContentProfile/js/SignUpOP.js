@@ -5,7 +5,7 @@
 
         $('#formBody').hide();
 
-        document.getElementById("picture").style.display = "block";
+        document.getElementById("picture").style.display = "none";
         document.getElementById("fizikiShexs").style.display = "block";
         document.getElementById("fizikiShexs").style.display = "block";
         document.getElementById("emailDiv").style.display = "block";
@@ -17,7 +17,7 @@
         document.getElementById("jobDiv").style.display = "block";
         document.getElementById("huquqiShexs").style.display = "none";
         document.getElementById("huquqiShexsName").style.display = "none";
-
+        $("#cechkButton").attr("disabled", false);
 
     }
 
@@ -37,11 +37,14 @@
         document.getElementById("jobDiv").style.display = "block";
         document.getElementById("huquqiShexs").style.display = "block";
         document.getElementById("huquqiShexsName").style.display = "block";
+        $("#cechkButton").attr("disabled", false);
     }
 
     if (id == "") {
         document.getElementById("fizikiShexs").style.display = "none";
         document.getElementById("huquqiShexs").style.display = "none";
+        document.getElementById("picture").style.display = "none";
+        $("#cechkButton").attr("disabled", true);
         $('#formBody').hide();
     }
 };
@@ -96,11 +99,14 @@ function check() {
                     $("#descAddress").val(result.data.descAddress);
                     $("#birtday").val(result.data.birtday);
 
-                    elem = $('#createdUser');
-                    $(elem).val(result.data.createdUser);
                     if (result.data.profilePicture != null) {
-                        document.getElementById("picture").src = "data:image/png;base64," + result.data.profilePicture;
-                        $('#picture').show();
+                        document.getElementById("picture").style.display = "block";
+                        elem = $('#createdUser');
+                        $(elem).val(result.data.createdUser);
+                        if (result.data.profilePicture != null) {
+                            document.getElementById("picture").src = "data:image/png;base64," + result.data.profilePicture;
+                            $('#picture').show();
+                        }
                     }
                     str = result.data.FullAddress;
                     res = str.split(",");
@@ -109,6 +115,10 @@ function check() {
                             $("#mainRegion").val(res[i]).change();
                         }
 
+                    }
+
+                    if (id == 2) {
+                        $("#legalPersonName").val(result.data.legalPersonName);
                     }
 
                     $("#Name").attr('readonly', true);
@@ -163,7 +173,8 @@ $(document).ready(function () {
     //    $(this).datepicker('hide');
     //});
 
-
+    document.getElementById("picture").style.display = "none";
+    $("#cechkButton").attr("disabled", true);
 
     $('#formBody').hide();
 
