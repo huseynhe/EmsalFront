@@ -429,12 +429,18 @@ namespace Emsal.UI.Controllers
                     modelUser.Person.FatherName = person.FatherName;
                     modelUser.createdUser = person.profilePicture;
                     modelUser.Person.gender = person.gender;
-                    modelUser.Person.birtday = (DateTime.Parse(FromSecondToDate((long)person.birtday).ToString())).getInt64ShortDate();
+                    if (person.birtday != null)
+                    {
+                        modelUser.Person.birtday = (DateTime.Parse(FromSecondToDate((long)person.birtday).ToString())).getInt64ShortDate();
+                    }
                     modelUser.Person.UserId = person.UserId;
 
                     sUid = (long)person.UserId;
 
-                    modelUser.profilePicture = Convert.ToBase64String(StringExtension.StringToByteArray(person.profilePicture));
+                    if (person.profilePicture != null)
+                    {
+                        modelUser.profilePicture = Convert.ToBase64String(StringExtension.StringToByteArray(person.profilePicture));
+                    }
                     modelUser.createdUser = person.profilePicture;
 
                     BaseOutput gabui = srv.WS_GetAddressesByUserId(baseInput, (long)person.UserId, true, out modelUser.AddressArray);
@@ -517,7 +523,8 @@ namespace Emsal.UI.Controllers
                 else if (taxesService != null){
                     modelUser.Person.Name = taxesService.Name;
                     modelUser.Person.Surname = taxesService.Surname;
-                    modelUser.Person.FatherName = taxesService.MidleName;
+                    string[] pa = taxesService.MidleName.Split(' ').ToArray();
+                    modelUser.Person.FatherName = pa[0];
                     modelUser.legalPersonName = taxesService.FullName;
                 }
                 BaseOutput gal = srv.WS_GetAdminUnitListForID(baseInput, auid, true, out modelUser.PRMAdminUnitArray);
