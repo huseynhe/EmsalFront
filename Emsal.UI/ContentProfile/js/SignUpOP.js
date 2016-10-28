@@ -119,6 +119,7 @@ function check() {
 
                     if (id == 2) {
                         $("#legalPersonName").val(result.data.legalPersonName);
+                        $("#legalPersonName").attr('readonly', true);
                     }
 
                     $("#Name").attr('readonly', true);
