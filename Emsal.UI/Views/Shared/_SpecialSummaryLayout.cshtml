@@ -143,9 +143,9 @@
                                         <li class="list-group-item"><a href="/SpecialSummary/OnAirOffers">Təkliflər</a></li>
                                         <li class="list-group-item"><a href="/SpecialSummary/RejectedOffers">Yararsız Sayılan Təkliflər</a></li>
                                         @*<li class="list-group-item"><a data-toggle="collapse" id="reEditedOffers" href="">Yenidən Düzəldilmiş Təkliflər <span id="re_edited_offers_num"></span></a></li>*@
-                                        @if (Model.UserRole != null)
+                                        @if (Model.UserRoleArray != null)
                                         {
-                                            if (Model.UserRole.RoleId == 15)
+                                            if (Model.UserRoleArray.ToList().Where(x => x.RoleId == 15).Count() > 0)
                                             {
                                             <li class="list-group-item"><a href="/SpecialSummary/ConfirmedPotential">Potensial istehsalçı məhsulları</a></li>
                                             }
