@@ -159,6 +159,9 @@ namespace Emsal.UI.Models
         [Display(Name = "İş")]
         public string job { get; set; }
 
+        [Display(Name = "Tədarükçünün tipi")]
+        public int suplierType { get; set; }
+
         [Display(Name = "Doğum tarixi")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
