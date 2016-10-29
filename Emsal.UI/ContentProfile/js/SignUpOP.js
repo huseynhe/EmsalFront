@@ -1,4 +1,21 @@
-﻿function PersonType() {
+﻿function supplierType() {
+    var sup = $("#supplierTypyId").val();
+    $("#suplierType").val(sup);
+
+    if (sup > 0) {
+        document.getElementById("personTypeDiv").style.display = "block"
+        document.getElementById("legalFizikiDiv").style.display = "block"
+    }
+    else {
+        document.getElementById("personTypeDiv").style.display = "none"
+        document.getElementById("legalFizikiDiv").style.display = "none"
+        document.getElementById("buttonDiv").style.display = "none"
+
+        $("#personType").val("").attr("selected",true).change();
+    }
+}
+
+function PersonType() {
     var id = document.getElementById("personType").value;
     if (id == 1) {
         $("#fin").val(null);
@@ -17,6 +34,7 @@
         document.getElementById("jobDiv").style.display = "block";
         document.getElementById("huquqiShexs").style.display = "none";
         document.getElementById("huquqiShexsName").style.display = "none";
+        document.getElementById("buttonDiv").style.display = "block"
         $("#cechkButton").attr("disabled", false);
 
     }
@@ -36,6 +54,7 @@
         document.getElementById("educDiv").style.display = "block";
         document.getElementById("jobDiv").style.display = "block";
         document.getElementById("huquqiShexs").style.display = "block";
+        document.getElementById("buttonDiv").style.display = "block"
         document.getElementById("huquqiShexsName").style.display = "block";
         $("#cechkButton").attr("disabled", false);
     }
@@ -44,6 +63,7 @@
         document.getElementById("fizikiShexs").style.display = "none";
         document.getElementById("huquqiShexs").style.display = "none";
         document.getElementById("picture").style.display = "none";
+        document.getElementById("buttonDiv").style.display = "none"
         $("#cechkButton").attr("disabled", true);
         $('#formBody').hide();
     }
@@ -83,9 +103,13 @@ function check() {
 
             if (result.data == null) {
                 alert('FİN və ya VÖEN doğru deyil');
-                window.setTimeout(function () {
-                    window.location.href = '/Login';
-                }, 5000);
+                if (window.location.search.indexOf('uid') > -1 && window.location.search.indexOf('type')) {
+                    $('#formBody').hide();
+                    window.setTimeout(function () {
+                        window.location.href = '/Login';
+                    }, 1000);
+                    $('#formBody').show();
+                }
             } else {
 
                 var regCombo;
@@ -142,6 +166,7 @@ function check() {
 
                 $('#formBody').show();
             }
+            
         },
         error: function () {
 
@@ -151,6 +176,26 @@ function check() {
 }
 
 $(document).ready(function () {
+
+    var url = window.location.href;
+    var uid = ""; type = "";
+
+    if (window.location.search.indexOf('uid') > -1 && window.location.search.indexOf('type')) {
+        uid = /uid=([^&]+)/.exec(url)[1];
+        type = /type=([^&]+)/.exec(url)[1];
+    }
+
+    if (type > 0 && uid > 0) {
+        $("#supplierTypyId").attr("disabled", true);
+        document.getElementById("personTypeDiv").style.display = "block"
+        document.getElementById("legalFizikiDiv").style.display = "block"
+    }
+    else {
+        $("#supplierTypyId").attr("disabled", false);
+        document.getElementById("personTypeDiv").style.display = "none"
+        document.getElementById("legalFizikiDiv").style.display = "none"
+        document.getElementById("buttonDiv").style.display = "none"
+    }
 
     $(".numbersOnly").on("keyup", function () {
         this.value = this.value.replace(/[^0-9\.]/g, '');
@@ -255,7 +300,7 @@ function SaveChanges() {
     var perefix = $("#mPerefix").val();
     var mobile = $("#mNumber").val();
 
-    if($('#signUpDiv').validate().form()){
+    if ($('#signUpDiv').validate().form()) {
 
         $.ajax({
             url: '/SignUpOP/CheckForExistence?userName=' + user + "&perefix=" + perefix + "&mobile=" + mobile,
