@@ -831,8 +831,8 @@ namespace Emsal.UI.Controllers
                             modelDemandProduction.LProductionCalendar.months_eV_Id = modelDemandProduction.EnumValue.Id;
                             modelDemandProduction.LProductionCalendar.months_eV_IdSpecified = true;
 
-                            modelDemandProduction.LProductionCalendar.oclock = model.hour[i];
-                            modelDemandProduction.LProductionCalendar.oclockSpecified = true;
+                            //modelDemandProduction.LProductionCalendar.oclock = model.hour[i];
+                            //modelDemandProduction.LProductionCalendar.oclockSpecified = true;
 
                             modelDemandProduction.LProductionCalendar.transportation_eV_Id = model.howMany[i];
                             modelDemandProduction.LProductionCalendar.transportation_eV_IdSpecified = true;
@@ -1131,8 +1131,8 @@ namespace Emsal.UI.Controllers
                         modelDemandProduction.LProductionCalendar.months_eV_Id = modelDemandProduction.EnumValue.Id;
                         modelDemandProduction.LProductionCalendar.months_eV_IdSpecified = true;
 
-                        modelDemandProduction.LProductionCalendar.oclock = model.hour[i];
-                        modelDemandProduction.LProductionCalendar.oclockSpecified = true;
+                        //modelDemandProduction.LProductionCalendar.oclock = model.hour[i];
+                        //modelDemandProduction.LProductionCalendar.oclockSpecified = true;
 
                         modelDemandProduction.LProductionCalendar.transportation_eV_Id = model.howMany[i];
                         modelDemandProduction.LProductionCalendar.transportation_eV_IdSpecified = true;

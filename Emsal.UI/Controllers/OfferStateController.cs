@@ -103,7 +103,7 @@ namespace Emsal.UI.Controllers
                 modelOfferState.Paging = modelOfferState.ProductionDetailList.ToPagedList(pageNumber, pageSize);
 
 
-                if (sstateStatusEV == "Yayinda" || sstateStatusEV == "yayinda")
+                if (sstateStatusEV == "Yayinda" || sstateStatusEV == "yayinda" || sstateStatusEV=="new")
                     modelOfferState.isMain = 0;
                 else
                     modelOfferState.isMain = 1;

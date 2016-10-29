@@ -400,6 +400,16 @@ namespace Emsal.UI.Controllers
             BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
             modelSpecial.WorkPhonePrefixList = modelSpecial.EnumValueArray.ToList();
 
+            if (UserID > 0)
+            {
+                BaseOutput userRolId = srv.WS_GetUserRolesByUserId(binput, (long)UserID, true, out modelSpecial.UserRoleArray);
+
+                modelSpecial.UserRole = modelSpecial.UserRoleArray.ToList().Where(x => x.RoleId == 11).FirstOrDefault();
+
+                if (modelSpecial.UserRole != null)
+                    modelSpecial.roleStatus = 1;
+            }
+
 
             return PartialView(modelSpecial);
 
@@ -583,6 +593,16 @@ namespace Emsal.UI.Controllers
                 BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
                 modelSpecial.WorkPhonePrefixList = modelSpecial.EnumValueArray.ToList();
 
+                if (UserID > 0)
+                {
+                    BaseOutput userRolId = srv.WS_GetUserRolesByUserId(binput, (long)UserID, true, out modelSpecial.UserRoleArray);
+
+                    modelSpecial.UserRole = modelSpecial.UserRoleArray.ToList().Where(x => x.RoleId == 11).FirstOrDefault();
+
+                    if (modelSpecial.UserRole != null)
+                        modelSpecial.roleStatus = 1;
+                }
+
                 return PartialView(modelSpecial);
             }
             catch (Exception err)
@@ -753,6 +773,16 @@ namespace Emsal.UI.Controllers
                 BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
                 modelSpecial.WorkPhonePrefixList = modelSpecial.EnumValueArray.ToList();
 
+                if (UserID > 0)
+                {
+                    BaseOutput userRolId = srv.WS_GetUserRolesByUserId(binput, (long)UserID, true, out modelSpecial.UserRoleArray);
+
+                    modelSpecial.UserRole = modelSpecial.UserRoleArray.ToList().Where(x => x.RoleId == 11).FirstOrDefault();
+
+                    if (modelSpecial.UserRole != null)
+                        modelSpecial.roleStatus = 1;
+                }
+
                 return PartialView(modelSpecial);
             }
             catch (Exception err)
@@ -890,6 +920,16 @@ namespace Emsal.UI.Controllers
             BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelSpecial.EnumCategory);
             BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
             modelSpecial.WorkPhonePrefixList = modelSpecial.EnumValueArray.ToList();
+
+            if (UserID > 0)
+            {
+                BaseOutput userRolId = srv.WS_GetUserRolesByUserId(binput, (long)UserID, true, out modelSpecial.UserRoleArray);
+
+                modelSpecial.UserRole = modelSpecial.UserRoleArray.ToList().Where(x => x.RoleId == 11).FirstOrDefault();
+
+                if (modelSpecial.UserRole != null)
+                    modelSpecial.roleStatus = 15;
+            }
 
             return PartialView(modelSpecial);
 

@@ -385,7 +385,7 @@ function getAllCheckedMonth() {
 
                 selectedMonth.push($(this));
                 selectedMonthName.push($(this).parent().find('.chn').html());
-                selectedMonthNameUI.push('<div><div class="col-md-6"><label class="control-label">Ay</label><h3 style="margin-top: 5px;" class="text-danger text-bold">' + $(this).parent().find('.chn').html() + '</h3></div>' + daySelect + hourSelect + month + year + howManySelect + '<span class="clearfix"></span><br><span>' + Unitofmeasurementresultn + '</span><span class="clearfix"></span></div><hr><br>');
+                selectedMonthNameUI.push('<div><div class="col-md-6"><label class="control-label">Ay</label><h3 style="margin-top: 5px;" class="text-danger text-bold">' + $(this).parent().find('.chn').html() + '</h3></div>' + daySelect + month + year + howManySelect + '<span class="clearfix"></span><br><span>' + Unitofmeasurementresultn + '</span><span class="clearfix"></span></div><hr><br>');
 
                 nc = nc + 1;
         });

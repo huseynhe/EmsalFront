@@ -10,7 +10,7 @@
          <div class="col-md-6 col-md-offset-3">
 <div class="box box-primary">
 <div class="box-header with-border">
-<h3 class="box-title">----</h3>
+@*<h3 class="box-title">----</h3>*@
 </div>
 
 @using (Html.BeginForm())
@@ -25,16 +25,17 @@
     <div class="box-body">
 
         <div class="form-group col-md-12">
-            --
-            @*@Html.LabelFor(model => model.monitoringStatusEVId, htmlAttributes: new { @class = "control-label" })
+            @Html.LabelFor(model => model.monitoringStatusEVId, htmlAttributes: new { @class = "control-label" })
             <select name="monitoringStatusEVId" required class="form-control unicase-form-control select">
                 <option selected value="">Seçim edin</option>
                 @foreach (var item in Model.EnumValueList)
                 {
+                    if (item.Id == 41 || item.Id == 10117) { 
                     <option value="@item.Id">@item.description</option>
                 }
+                }
             </select>
-            <span data-valmsg-replace="true" data-valmsg-for="monitoringStatusEVId" class="field-validation-valid text-danger"></span>*@
+            <span data-valmsg-replace="true" data-valmsg-for="monitoringStatusEVId" class="field-validation-valid text-danger"></span>
         </div>
 
              <div class="col-md-12">

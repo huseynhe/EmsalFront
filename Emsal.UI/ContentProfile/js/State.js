@@ -56,6 +56,7 @@ function OfferStateSearch(elem, value) {
     });
 }
 
+
 function PotentialClientStateSearch(elem, value) {
     $.ajax({
         url: '/PotentialClientState/Index?' + value + '=' + $(elem).val(),

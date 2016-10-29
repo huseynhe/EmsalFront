@@ -58,6 +58,7 @@ namespace Emsal.UI.Models
         public tblEnumCategory[] EnumCategoryArray;
 
         public tblEnumValue EnumValue;
+        public tblEnumValue EnumValueo;
         public IList<tblEnumValue> EnumValueList { get; set; }
         public tblEnumValue[] EnumValueArray;
         public IList<tblEnumValue> EnumValueMonthList { get; set; }

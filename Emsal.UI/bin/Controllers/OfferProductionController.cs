@@ -581,9 +581,18 @@ namespace Emsal.UI.Controllers
                 modelOfferProduction.OfferProduction.Status = 1;
                 modelOfferProduction.OfferProduction.StatusSpecified = true;
 
-                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Yayinda", out modelOfferProduction.EnumValue);
-                modelOfferProduction.OfferProduction.state_eV_Id = modelOfferProduction.EnumValue.Id;
-                modelOfferProduction.OfferProduction.state_eV_IdSpecified = true;
+                if(model.ppId>0)
+                {
+                    BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Yayinda", out modelOfferProduction.EnumValue);
+                    modelOfferProduction.OfferProduction.state_eV_Id = modelOfferProduction.EnumValue.Id;
+                    modelOfferProduction.OfferProduction.state_eV_IdSpecified = true;
+                }
+                else
+                {
+                    BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "new", out modelOfferProduction.EnumValue);
+                    modelOfferProduction.OfferProduction.state_eV_Id = modelOfferProduction.EnumValue.Id;
+                    modelOfferProduction.OfferProduction.state_eV_IdSpecified = true;
+                }              
 
                 BaseOutput envalydn = srv.WS_GetEnumValueByName(baseInput, "new", out modelOfferProduction.EnumValue);
                 modelOfferProduction.OfferProduction.monitoring_eV_Id = modelOfferProduction.EnumValue.Id;
@@ -656,8 +665,8 @@ namespace Emsal.UI.Controllers
                         modelOfferProduction.LProductionCalendar.months_eV_Id = modelOfferProduction.EnumValue.Id;
                         modelOfferProduction.LProductionCalendar.months_eV_IdSpecified = true;
 
-                        modelOfferProduction.LProductionCalendar.oclock = model.hour[i];
-                        modelOfferProduction.LProductionCalendar.oclockSpecified = true;
+                        //modelOfferProduction.LProductionCalendar.oclock = model.hour[i];
+                        //modelOfferProduction.LProductionCalendar.oclockSpecified = true;
 
                         modelOfferProduction.LProductionCalendar.transportation_eV_Id = model.howMany[i];
                         modelOfferProduction.LProductionCalendar.transportation_eV_IdSpecified = true;
@@ -876,9 +885,13 @@ namespace Emsal.UI.Controllers
                 modelOfferProduction.OfferProduction.endDate = endDate.Ticks;
                 modelOfferProduction.OfferProduction.endDateSpecified = true;
 
-                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Yayinda", out modelOfferProduction.EnumValue);
-                modelOfferProduction.OfferProduction.state_eV_Id = modelOfferProduction.EnumValue.Id;
-                modelOfferProduction.OfferProduction.state_eV_IdSpecified = true;
+                BaseOutput envalyo = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferProduction.EnumValueo);
+                if(modelOfferProduction.EnumValueo.Id!=modelOfferProduction.OfferProduction.state_eV_Id)
+                {
+                    BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Yayinda", out modelOfferProduction.EnumValue);
+                    modelOfferProduction.OfferProduction.state_eV_Id = modelOfferProduction.EnumValue.Id;
+                    modelOfferProduction.OfferProduction.state_eV_IdSpecified = true;
+                }    
 
                 BaseOutput envalydn = srv.WS_GetEnumValueByName(baseInput, "new", out modelOfferProduction.EnumValue);
                 modelOfferProduction.OfferProduction.monitoring_eV_Id = modelOfferProduction.EnumValue.Id;
@@ -940,8 +953,8 @@ namespace Emsal.UI.Controllers
                         modelOfferProduction.LProductionCalendar.months_eV_Id = modelOfferProduction.EnumValue.Id;
                         modelOfferProduction.LProductionCalendar.months_eV_IdSpecified = true;
 
-                        modelOfferProduction.LProductionCalendar.oclock = model.hour[i];
-                        modelOfferProduction.LProductionCalendar.oclockSpecified = true;
+                        //modelOfferProduction.LProductionCalendar.oclock = model.hour[i];
+                        //modelOfferProduction.LProductionCalendar.oclockSpecified = true;
 
                         modelOfferProduction.LProductionCalendar.transportation_eV_Id = model.howMany[i];
                         modelOfferProduction.LProductionCalendar.transportation_eV_IdSpecified = true;

@@ -109,7 +109,7 @@ namespace Emsal.UI.Controllers
                 //BaseOutput person = srv.WS_GetPersonByUserId(baseInput, (long)userId, true, out modelProductCatalog.Person);
 
                 BaseOutput bouput = srv.WS_GetProductCatalogsByParentId(baseInput, pId, true, out modelProductCatalog.ProductCatalogArray);
-                if (modelProductCatalog.ProductCatalogArray == null)
+                if (modelProductCatalog.ProductCatalogArray != null)
                 {
                     modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogArray.ToList();
                 }
