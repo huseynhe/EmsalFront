@@ -19,17 +19,20 @@ namespace Emsal.UI.Controllers
         // GET: /SignUpOP/
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
+        Emsal.WebInt.TaxesSRV.BasicHttpBinding_ITaxesIntegrationService taxessrv = Emsal.WebInt.EmsalService.taxesService;
 
         private static string fullAddressId = "";
         private static string addressDesc = "";
         private static string fin = "";
         private static string sVoen = "";
         private static string orgRoles = "";
-        private static long sUid = 0;
+        private static long sUid  = 0;
+        private static long potId = 0;
         private static string sType = null;
         private BaseInput baseInput;
         private UserViewModel modelUser;
         tblPRM_AdminUnit tblAdminUnit;
+        Emsal.WebInt.TaxesSRV.VOENDATA taxesService = null;
 
 
 
@@ -43,7 +46,7 @@ namespace Emsal.UI.Controllers
                 modelUser = new UserViewModel();
 
                 long userId = 0;
-                sUid = uid;
+                sUid = potId = uid;
                 sType = type;
 
                 if (User != null && User.Identity.IsAuthenticated)
@@ -191,9 +194,10 @@ namespace Emsal.UI.Controllers
                         BaseOutput gabui = srv.WS_GetAddressesByUserId(baseInput, modelUser.User.Id, true, out modelUser.AddressArray);
                         modelUser.Address = modelUser.AddressArray.ToList().FirstOrDefault();
                         BaseOutput gpbui = srv.WS_GetPersonByUserId(baseInput, modelUser.User.Id, true, out modelUser.Person);
-                        if (!String.IsNullOrEmpty(sVoen)) {
+                        if (!String.IsNullOrEmpty(sVoen))
+                        {
                             BaseOutput fOut = srv.WS_GetForeign_OrganizationByVoen(baseInput, sVoen, out modelUser.ForeignOrganisation);
-                                }
+                        }
                         //BaseOutput cominicationOut = srv.WS_GetCommunicationByPersonId(baseInput,(long)modelUser.Person.Id, true, out modelUser.Comminication);
                     }
 
@@ -312,6 +316,17 @@ namespace Emsal.UI.Controllers
                         BaseOutput aper = srv.WS_AddPerson(baseInput, modelUser.Person, out modelUser.Person);
 
                         modelUser.UserRole = new tblUserRole();
+                        if (orgRoles == "sellerPerson")
+                        {
+                            if (mdl.suplierType == 2)
+                            {
+                                orgRoles = "draftProducerPerson";
+                            }
+                            else
+                            {
+                                orgRoles = "sellerPerson";
+                            }
+                        }
                         BaseOutput role = srv.WS_GetRoleByName(baseInput, orgRoles, out modelUser.Role);
 
                         modelUser.UserRole.RoleId = modelUser.Role.Id;
@@ -378,6 +393,33 @@ namespace Emsal.UI.Controllers
             }
             catch (Exception ex)
             {
+                if (mdl.User != null) { 
+                    BaseOutput delUserOut = srv.WS_DeleteUser(baseInput, mdl.User);
+                }
+
+                if (mdl.Address != null) { 
+                BaseOutput delAdrrOut = srv.WS_DeleteAddress(baseInput, mdl.Address);
+                }
+
+                if (mdl.Person != null)
+                {
+                    BaseOutput delPerOut = srv.WS_DeletePerson(baseInput, mdl.Person);
+                }
+
+                if (mdl.Role != null)
+                {
+                    BaseOutput delRolOut = srv.WS_DeleteRole(baseInput, mdl.Role);
+                }
+
+                if (mdl.Comminication != null)
+                {
+                    BaseOutput delCommOut = srv.WS_DeleteCommunication(baseInput, mdl.Comminication);
+                }
+
+                if (mdl.ForeignOrganisation != null)
+                {
+                    BaseOutput delForOut = srv.WS_DeleteForeign_Organization(baseInput, mdl.ForeignOrganisation);
+                }
                 return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
@@ -394,9 +436,8 @@ namespace Emsal.UI.Controllers
 
                 SingleServiceControl srvcontrol = new SingleServiceControl();
                 getPersonalInfoByPinNewResponseResponse iamasPerson = null;
-                Emsal.WebInt.TaxesSRV.VOENDATA taxesService = null;
                 tblPerson person = null;
-                tblForeign_Organization foreignOrg;
+                tblForeign_Organization foreignOrg = new tblForeign_Organization();
                 long auid = 0;
 
                 int control = 0;
@@ -406,7 +447,7 @@ namespace Emsal.UI.Controllers
                 }
                 else
                   if (type == "2")
-                {                   
+                {
                     BaseOutput foreign = srv.WS_GetForeign_OrganizationByVoen(baseInput, fin, out foreignOrg);
                     sVoen = fin;
                     if (foreignOrg != null)
@@ -416,7 +457,7 @@ namespace Emsal.UI.Controllers
                     }
                     else
                     {
-                        taxesService = Emsal.WebInt.EmsalService.taxesService.getOrganisationInfobyVoen(fin);
+                        taxesService = taxessrv.getOrganisationInfobyVoen(fin);
                     }
                     //control = srvcontrol.getPersonInfoByPin(fin, out person, out iamasPerson);
                 }
@@ -454,81 +495,97 @@ namespace Emsal.UI.Controllers
                 }
                 else if (iamasPerson != null)
                 {
-                    if (iamasPerson.Adress.cityId != null)
+                    if (iamasPerson.pin != null)
                     {
+                        if (iamasPerson.Adress != null)
+                        {
+                            if (iamasPerson.Adress.cityId != null)
+                            {
+                                if (iamasPerson.Adress.cityId != "0")
+                                {
+                                    BaseOutput gaufci = srv.WS_GetPRM_AdminUnitByIamasId(baseInput, Int64.Parse(iamasPerson.Adress.cityId), true, true, true, out modelUser.PRMAdminUnit);
+                                }
+                            }
+
+                            if (iamasPerson.Adress.districtId != null)
+                            {
+                                if (iamasPerson.Adress.districtId != "0")
+                                {
+                                    BaseOutput gaufci = srv.WS_GetPRM_AdminUnitByIamasId(baseInput, Int64.Parse(iamasPerson.Adress.districtId), true, false, true, out modelUser.PRMAdminUnit);
+                                }
+                            }
+
+                            auid = modelUser.PRMAdminUnit.Id;
+
+
+                            addressDesc = "";
+
+                            if (!String.IsNullOrEmpty(iamasPerson.Adress.place))
+                                addressDesc += iamasPerson.Adress.place;
+
+                            if (!String.IsNullOrEmpty(iamasPerson.Adress.street))
+                                addressDesc += ", " + iamasPerson.Adress.street;
+
+                            if (!String.IsNullOrEmpty(iamasPerson.Adress.building))
+                                addressDesc += ", " + iamasPerson.Adress.building;
+
+                            if (!String.IsNullOrEmpty(iamasPerson.Adress.block))
+                                addressDesc += ", " + iamasPerson.Adress.block;
+
+                            if (!String.IsNullOrEmpty(iamasPerson.Adress.apartment))
+                                addressDesc += ", " + iamasPerson.Adress.apartment;
+
+                        }
+                        //addressDesc = iamasPerson.Adress.place + ", " + iamasPerson.Adress.street + ", " + iamasPerson.Adress.apartment + ", " + iamasPerson.Adress.block + ", " + iamasPerson.Adress.building;
+
+                        modelUser.Person.Name = iamasPerson.Name;
+                        modelUser.Person.Surname = iamasPerson.Surname;
+                        if (iamasPerson.Patronymic != null)
+                        {
+                            string[] pa = iamasPerson.Patronymic.Split(' ').ToArray();
+                            modelUser.Person.FatherName = pa[0];
+                        }
+                        modelUser.Person.gender = iamasPerson.gender;
+                        
+                        modelUser.Person.birtday = (DateTime.Parse(iamasPerson.birthDate)).getInt64ShortDate();
+                        
+
+                        if (iamasPerson.photo != null)
+                        {
+                            modelUser.createdUser = string.Join(",", iamasPerson.photo);
+                            modelUser.profilePicture = Convert.ToBase64String(iamasPerson.photo);
+                        }
+
+                        if (iamasPerson.BirthPlace.country != "0")
+                        {
+                            fullAddressId += "1";
+                        }
+
                         if (iamasPerson.Adress.cityId != "0")
                         {
                             BaseOutput gaufci = srv.WS_GetPRM_AdminUnitByIamasId(baseInput, Int64.Parse(iamasPerson.Adress.cityId), true, true, true, out modelUser.PRMAdminUnit);
+                            fullAddressId += "," + modelUser.PRMAdminUnit.Id;
                         }
-                    }
 
-                    if (iamasPerson.Adress.districtId != null)
-                    {
                         if (iamasPerson.Adress.districtId != "0")
                         {
                             BaseOutput gaufci = srv.WS_GetPRM_AdminUnitByIamasId(baseInput, Int64.Parse(iamasPerson.Adress.districtId), true, false, true, out modelUser.PRMAdminUnit);
+                            fullAddressId += "," + modelUser.PRMAdminUnit.Id;
                         }
+
                     }
-
-                    auid = modelUser.PRMAdminUnit.Id;
-
-
-                    addressDesc = "";
-
-                    if (!String.IsNullOrEmpty(iamasPerson.Adress.place))
-                        addressDesc += iamasPerson.Adress.place;
-
-                    if (!String.IsNullOrEmpty(iamasPerson.Adress.street))
-                        addressDesc += ", " + iamasPerson.Adress.street;
-
-                    if (!String.IsNullOrEmpty(iamasPerson.Adress.building))
-                        addressDesc += ", " + iamasPerson.Adress.building;
-
-                    if (!String.IsNullOrEmpty(iamasPerson.Adress.block))
-                        addressDesc += ", " + iamasPerson.Adress.block;
-
-                    if (!String.IsNullOrEmpty(iamasPerson.Adress.apartment))
-                        addressDesc += ", " + iamasPerson.Adress.apartment;
-
-                    //addressDesc = iamasPerson.Adress.place + ", " + iamasPerson.Adress.street + ", " + iamasPerson.Adress.apartment + ", " + iamasPerson.Adress.block + ", " + iamasPerson.Adress.building;
-
-                    modelUser.Person.Name = iamasPerson.Name;
-                    modelUser.Person.Surname = iamasPerson.Surname;
-                    string[] pa = iamasPerson.Patronymic.Split(' ').ToArray();
-                    modelUser.Person.FatherName = pa[0];
-                    modelUser.Person.gender = iamasPerson.gender;
-                    modelUser.Person.birtday = (DateTime.Parse(iamasPerson.birthDate)).getInt64ShortDate();
-                    modelUser.createdUser = string.Join(",", iamasPerson.photo);
-                    modelUser.profilePicture = Convert.ToBase64String(iamasPerson.photo);
-
-                    if (iamasPerson.BirthPlace.country != "0")
-                    {
-                        fullAddressId += "1";
-                    }
-
-                    if (iamasPerson.Adress.cityId != "0")
-                    {
-                        BaseOutput gaufci = srv.WS_GetPRM_AdminUnitByIamasId(baseInput, Int64.Parse(iamasPerson.Adress.cityId), true, true, true, out modelUser.PRMAdminUnit);
-                        fullAddressId += "," + modelUser.PRMAdminUnit.Id;
-                    }
-
-                    if (iamasPerson.Adress.districtId != "0")
-                    {
-                        BaseOutput gaufci = srv.WS_GetPRM_AdminUnitByIamasId(baseInput, Int64.Parse(iamasPerson.Adress.districtId), true, false, true, out modelUser.PRMAdminUnit);
-                        fullAddressId += "," + modelUser.PRMAdminUnit.Id;
-                    }
-
-
                     //orgRoles = "sellerPerson";
                 }
-                else if (taxesService != null){
+                else if (taxesService != null)
+                {
                     modelUser.Person.Name = taxesService.Name;
                     modelUser.Person.Surname = taxesService.Surname;
                     string[] pa = taxesService.MidleName.Split(' ').ToArray();
                     modelUser.Person.FatherName = pa[0];
                     modelUser.legalPersonName = taxesService.FullName;
                 }
-                BaseOutput gal = srv.WS_GetAdminUnitListForID(baseInput, auid, true, out modelUser.PRMAdminUnitArray);
+
+                 BaseOutput gal = srv.WS_GetAdminUnitListForID(baseInput, auid, true, out modelUser.PRMAdminUnitArray);
                 modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.ToList();
 
                 fullAddressId = string.Join(",", modelUser.PRMAdminUnitList.Select(x => x.Id));
@@ -588,33 +645,37 @@ namespace Emsal.UI.Controllers
                     //modelUser.birtday = (modelUser.Person.birtday).toShortDate().ToString();
                     if (modelUser.Person != null)
                     {
-                        modelUser.birtday = String.Format("{0:d.M.yyyy}", (modelUser.Person.birtday).toShortDate());
-                        modelUser.FullAddress = fullAddressId;
-                        modelUser.descAddress = addressDesc;
-                    }
-                    else
-                    {
-                        modelUser.birtday = String.Format("{0:d.M.yyyy}", DateTime.Today);
-                    }
-
-                    return Json(new { data = modelUser });
-                }
-                else
-                {
-                    if (modelUser.Person.UserId == sUid)
-                    {
-                        //modelUser.birtday = (modelUser.Person.birtday).toShortDate().ToString();
-                        if (modelUser.Person != null)
+                        if (modelUser.Person.birtday !=null)
                         {
                             modelUser.birtday = String.Format("{0:d.M.yyyy}", (modelUser.Person.birtday).toShortDate());
-                            modelUser.FullAddress = fullAddressId;
-                            modelUser.descAddress = addressDesc;
                         }
                         else
                         {
                             modelUser.birtday = String.Format("{0:d.M.yyyy}", DateTime.Today);
                         }
-
+                        modelUser.FullAddress = fullAddressId;
+                        modelUser.descAddress = addressDesc;
+                    }
+                    return Json(new { data = modelUser });
+                }
+                else
+                {
+                    if (modelUser.Person.UserId == potId)
+                    {
+                        //modelUser.birtday = (modelUser.Person.birtday).toShortDate().ToString();
+                        if (modelUser.Person != null)
+                        {
+                            if (modelUser.Person.birtday != null)
+                            {
+                                modelUser.birtday = String.Format("{0:d.M.yyyy}", (modelUser.Person.birtday).toShortDate());
+                            }
+                            else
+                            {
+                                modelUser.birtday = String.Format("{0:d.M.yyyy}", DateTime.Today);
+                            }
+                            modelUser.FullAddress = fullAddressId;
+                            modelUser.descAddress = addressDesc;
+                        }
                         return Json(new { data = modelUser });
                     }
                     else
