@@ -146,9 +146,17 @@ function check() {
                         $("#legalPersonName").attr('readonly', true);
                     }
 
-                    $("#Name").attr('readonly', true);
-                    $("#Surname").attr('readonly', true);
+                    if ($("#Name").val() != "") {
+                        $("#Name").attr('readonly', true);
+                    }
+
+                    if ($("#Surname").val() != "") {
+                        $("#Surname").attr('readonly', true);
+                    }
+
+                    if ($("#FatherName").val() != "") {
                     $("#FatherName").attr('readonly', true);
+                    }
                     //$('#gender').attr('disabled', true);
                     //$("#birtday").attr('disabled', true);
                 }
