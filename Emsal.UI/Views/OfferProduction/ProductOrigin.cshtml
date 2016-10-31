@@ -1,0 +1,33 @@
+﻿@model Emsal.UI.Models.OfferProductionViewModel
+
+@{
+    ViewBag.Title = "ProductCatalog";
+    Layout = "";
+    long itempid = 0;
+}
+
+
+
+       @if (Model.PRMAdminUnitList.Count > 0)
+        {
+            <div class="form-group col-md-3">
+                <select name="productOriginId" required class="form-control unicase-form-control select select2">
+                    <option value="" selected>Seçim edin</option>
+                    @foreach (var item in Model.PRMAdminUnitList)
+                    {
+                            if(Model.selectedPOriginId==item.Id)
+                            {
+                                <option selected value="@item.Id">@item.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }                           
+                    }
+                </select>
+                <span data-valmsg-replace="true" data-valmsg-for="productOriginId" class="field-validation-valid text-danger"></span>
+            </div>
+}
+
+
+
