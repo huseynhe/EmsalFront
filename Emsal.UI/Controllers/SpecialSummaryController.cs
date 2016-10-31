@@ -223,7 +223,7 @@ namespace Emsal.UI.Controllers
             {
                 BaseOutput userRolId = srv.WS_GetUserRolesByUserId(binput, (long)UserId, true, out modelSpecial.UserRoleArray);
 
-                modelSpecial.UserRole = modelSpecial.UserRoleArray.ToList().Where(x => x.RoleId == 11).FirstOrDefault();
+                modelSpecial.UserRole = modelSpecial.UserRoleArray.ToList().Where(x => (x.RoleId == 11 || x.RoleId == 24)).FirstOrDefault();
 
                 if (modelSpecial.UserRole != null)
                     modelSpecial.roleStatus = 1;
@@ -404,7 +404,7 @@ namespace Emsal.UI.Controllers
             {
                 BaseOutput userRolId = srv.WS_GetUserRolesByUserId(binput, (long)UserID, true, out modelSpecial.UserRoleArray);
 
-                modelSpecial.UserRole = modelSpecial.UserRoleArray.ToList().Where(x => x.RoleId == 11).FirstOrDefault();
+                modelSpecial.UserRole = modelSpecial.UserRoleArray.ToList().Where(x => (x.RoleId == 11 || x.RoleId == 24)).FirstOrDefault();
 
                 if (modelSpecial.UserRole != null)
                     modelSpecial.roleStatus = 1;
@@ -597,7 +597,7 @@ namespace Emsal.UI.Controllers
                 {
                     BaseOutput userRolId = srv.WS_GetUserRolesByUserId(binput, (long)UserID, true, out modelSpecial.UserRoleArray);
 
-                    modelSpecial.UserRole = modelSpecial.UserRoleArray.ToList().Where(x => x.RoleId == 11).FirstOrDefault();
+                    modelSpecial.UserRole = modelSpecial.UserRoleArray.ToList().Where(x => (x.RoleId == 11 || x.RoleId == 24)).FirstOrDefault();
 
                     if (modelSpecial.UserRole != null)
                         modelSpecial.roleStatus = 1;
@@ -777,7 +777,7 @@ namespace Emsal.UI.Controllers
                 {
                     BaseOutput userRolId = srv.WS_GetUserRolesByUserId(binput, (long)UserID, true, out modelSpecial.UserRoleArray);
 
-                    modelSpecial.UserRole = modelSpecial.UserRoleArray.ToList().Where(x => x.RoleId == 11).FirstOrDefault();
+                    modelSpecial.UserRole = modelSpecial.UserRoleArray.ToList().Where(x => (x.RoleId == 11 || x.RoleId == 24)).FirstOrDefault();
 
                     if (modelSpecial.UserRole != null)
                         modelSpecial.roleStatus = 1;
@@ -925,7 +925,7 @@ namespace Emsal.UI.Controllers
             {
                 BaseOutput userRolId = srv.WS_GetUserRolesByUserId(binput, (long)UserID, true, out modelSpecial.UserRoleArray);
 
-                modelSpecial.UserRole = modelSpecial.UserRoleArray.ToList().Where(x => x.RoleId == 11).FirstOrDefault();
+                modelSpecial.UserRole = modelSpecial.UserRoleArray.ToList().Where(x => (x.RoleId == 11 || x.RoleId == 24)).FirstOrDefault();
 
                 if (modelSpecial.UserRole != null)
                     modelSpecial.roleStatus = 15;

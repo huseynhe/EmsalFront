@@ -660,7 +660,14 @@ namespace Emsal.UI.Controllers
                 }
                 else
                 {
-                    if (modelUser.Person.UserId == potId)
+                    if (potId > 0)
+                    {
+                        if (modelUser.Person.UserId != potId)
+                        {
+                            return null;
+                        }
+                    }
+                    if (modelUser.Person.UserId == sUid)
                     {
                         //modelUser.birtday = (modelUser.Person.birtday).toShortDate().ToString();
                         if (modelUser.Person != null)
