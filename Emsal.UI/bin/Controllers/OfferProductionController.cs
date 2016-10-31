@@ -628,7 +628,8 @@ namespace Emsal.UI.Controllers
                 }
                 else
                 {
-                    status = "new";
+                    status = "Yayinda";
+                    //status = "new";
                 }
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, status, out modelOfferProduction.EnumValue);
