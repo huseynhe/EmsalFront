@@ -42,7 +42,12 @@
                                 </td>
                             }
                             <td class="col-md-1">
+                                @if (item.profilPicture != null)
+                                {
+                                    if (item.profilPicture != "") { 
                                 <img class="img-responsive thumbnail" style="margin:0;" id="picture" src="data:image/png;base64,@Convert.ToBase64String(Emsal.Utility.CustomObjects.StringExtension.StringToByteArray(item.profilPicture))" />
+                                }
+                                }
                             </td>
                             <td class="col-md-3">
                                 @item.name @item.surname @item.fatherName (@item.gender)

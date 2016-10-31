@@ -269,7 +269,7 @@ namespace Emsal.UI.Controllers
                 BaseOutput acm = srv.WS_AddComMessage(baseInput, model.ComMessage, out model.ComMessage);
 
 
-                return RedirectToAction("Index", "PotentialClientState", new { stateStatusEV = model.EnumValueST.name });
+                return RedirectToAction("Index", "PotentialClientState");
 
             }
             catch (Exception ex)
