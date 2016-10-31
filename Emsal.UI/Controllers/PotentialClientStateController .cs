@@ -18,9 +18,9 @@ namespace Emsal.UI.Controllers
     {
         private BaseInput baseInput;
 
-        private static string sproductName;
-        private static string suserInfo;
-        private static string sstateStatusEV;
+        private static string snameSurnameFathername;
+        private static string spin;
+        private static string sfullAddress;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
        // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
@@ -28,33 +28,34 @@ namespace Emsal.UI.Controllers
         private PotentialClientStateViewModel modelPotentialClientState;
 
 
-        public ActionResult Index(int? page, string stateStatusEV = null, string productName = null, string userInfo = null)
+        public ActionResult Index(int? page, string nameSurnameFathername = null, string pin = null, string fullAddress = null)
         {
             try
             {
 
-                if (stateStatusEV != null)
-                    stateStatusEV = StripTag.strSqlBlocker(stateStatusEV.ToLower());
-                if (productName != null)
-                    productName = StripTag.strSqlBlocker(productName.ToLower());
-                if (userInfo != null)
-                    userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
+                if (nameSurnameFathername != null)
+                    nameSurnameFathername = StripTag.strSqlBlocker(nameSurnameFathername.ToLower());
+                if (pin != null)
+                    pin = StripTag.strSqlBlocker(pin.ToLower());
+                if (fullAddress != null)
+                    fullAddress = StripTag.strSqlBlocker(fullAddress.ToLower());
 
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (productName == null && userInfo == null)
+                if (nameSurnameFathername == null && pin == null && fullAddress == null)
                 {
-                    sproductName = null;
-                    suserInfo = null;
+                    snameSurnameFathername = null;
+                    spin = null;
+                    sfullAddress = null;
                 }
 
-                if (productName != null)
-                    sproductName = productName;
-                if (userInfo != null)
-                    suserInfo = userInfo;
-                if (stateStatusEV != null)
-                    sstateStatusEV = stateStatusEV;
+                if (nameSurnameFathername != null)
+                    snameSurnameFathername = nameSurnameFathername;
+                if (pin != null)
+                    spin = pin;
+                if (fullAddress != null)
+                    sfullAddress = fullAddress;
 
                 baseInput = new BaseInput();
                 modelPotentialClientState = new PotentialClientStateViewModel();
@@ -71,37 +72,39 @@ namespace Emsal.UI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelPotentialClientState.User);
                 baseInput.userName = modelPotentialClientState.User.Username;
 
-                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelPotentialClientState.EnumCategory);
-
-                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstateStatusEV, out modelPotentialClientState.EnumValue);
-
-                BaseOutput gpp = srv.WS_GetPotensialProductionDetailistForStateEVId(baseInput, (long)UserId, true, modelPotentialClientState.EnumValue.Id, true, out modelPotentialClientState.ProductionDetailArray);
-
-                modelPotentialClientState.ProductionDetailList = modelPotentialClientState.ProductionDetailArray.Where(x => x.enumCategoryId == modelPotentialClientState.EnumCategory.Id && x.person!=null).ToList();
-
-                if (sproductName != null)
+                BaseOutput gpp = srv.WS_GetPersonalinformationByRoleId(baseInput, 24, true, modelPotentialClientState.User.Id, true, out modelPotentialClientState.UserInfoArray);
+                                
+                if (modelPotentialClientState.UserInfoArray != null)
                 {
-                    modelPotentialClientState.ProductionDetailList = modelPotentialClientState.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
+                    modelPotentialClientState.UserInfoList = modelPotentialClientState.UserInfoArray.ToList();
                 }
-
-                if (suserInfo != null)
-                {
-                    modelPotentialClientState.ProductionDetailList = modelPotentialClientState.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
-                }
-
-                modelPotentialClientState.itemCount = modelPotentialClientState.ProductionDetailList.Count();
-                modelPotentialClientState.PagingDetail = modelPotentialClientState.ProductionDetailList.ToPagedList(pageNumber, pageSize);
-
-
-                if (sstateStatusEV == "Tesdiqlenen" || sstateStatusEV == "tesdiqlenen")
-                    modelPotentialClientState.isMain = 0;
                 else
-                    modelPotentialClientState.isMain = 1;
+                {
+                    modelPotentialClientState.UserInfoList = new List<UserInfo>();
+                }
 
+                if (snameSurnameFathername != null)
+                {
+                    modelPotentialClientState.UserInfoList = modelPotentialClientState.UserInfoList.Where(x => x.name.ToLower().Contains(snameSurnameFathername) || x.surname.ToLower().Contains(snameSurnameFathername) || x.fatherName.ToLower().Contains(snameSurnameFathername)).ToList();
+                }
 
-                modelPotentialClientState.stateStatusEV = sstateStatusEV;
-                modelPotentialClientState.productName = sproductName;
-                modelPotentialClientState.userInfo = suserInfo;
+                if (spin != null)
+                {
+                    modelPotentialClientState.UserInfoList = modelPotentialClientState.UserInfoList.Where(x =>x.pinNumber.ToLower().Contains(spin)).ToList();
+                }
+
+                if (sfullAddress != null)
+                {
+                    modelPotentialClientState.UserInfoList = modelPotentialClientState.UserInfoList.Where(x =>x.fullAddress.ToLower().Contains(sfullAddress) || x.personAdressDesc.ToLower().Contains(sfullAddress)).ToList();
+                }
+                modelPotentialClientState.itemCount = modelPotentialClientState.UserInfoList.Count();
+                modelPotentialClientState.PagingUserInfo = modelPotentialClientState.UserInfoList.ToPagedList(pageNumber, pageSize);
+
+                modelPotentialClientState.isMain = 0;
+
+                modelPotentialClientState.nameSurnameFathername = snameSurnameFathername;
+                modelPotentialClientState.pin = spin;
+                modelPotentialClientState.fullAddress = sfullAddress;
 
                 return Request.IsAjaxRequest()
                    ? (ActionResult)PartialView("PartialIndex", modelPotentialClientState)
@@ -141,32 +144,35 @@ namespace Emsal.UI.Controllers
                 {
                     for (int i = 0; i < ids.Length; i++)
                     {
-                        BaseOutput bouput = srv.WS_GetPotential_ProductionById(baseInput, ids[i], true, out modelPotentialClientState.PotentialProduction);
+                        BaseOutput userRole = srv.WS_GetUserRolesByUserId(baseInput,ids[i], true, out modelPotentialClientState.UserRoleArray);
+                        modelPotentialClientState.UserRole = modelPotentialClientState.UserRoleArray.FirstOrDefault();
 
-                        BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelPotentialClientState.EnumValueST);
+                        if(modelPotentialClientState.UserRole.RoleId==24)
+                        {
+                            modelPotentialClientState.UserRole.RoleId = 15;
+                        }
 
-                        modelPotentialClientState.PotentialProduction.state_eV_Id = modelPotentialClientState.EnumValueST.Id;
-                        modelPotentialClientState.PotentialProduction.state_eV_IdSpecified = true;
+                        BaseOutput updateUserRole = srv.WS_UpdateUserRole(baseInput, modelPotentialClientState.UserRole, out modelPotentialClientState.UserRole);
 
-                        BaseOutput ecout = srv.WS_UpdatePotential_Production(baseInput, modelPotentialClientState.PotentialProduction, out modelPotentialClientState.PotentialProduction);
+                        BaseOutput gop = srv.WS_GetOffer_ProductionsByUserID(baseInput, ids[i], true, out modelPotentialClientState.Offer_ProductionArray);
 
-                        modelPotentialClientState.ComMessage = new tblComMessage();
-                        modelPotentialClientState.ComMessage.message = "Təsdiqləndi";
-                        modelPotentialClientState.ComMessage.fromUserID = (long)UserId;
-                        modelPotentialClientState.ComMessage.fromUserIDSpecified = true;
-                        modelPotentialClientState.ComMessage.toUserID = modelPotentialClientState.PotentialProduction.user_Id;
-                        modelPotentialClientState.ComMessage.toUserIDSpecified = true;
-                        modelPotentialClientState.ComMessage.Production_Id = modelPotentialClientState.PotentialProduction.Id;
-                        modelPotentialClientState.ComMessage.Production_IdSpecified = true;
-                        BaseOutput enumval = srv.WS_GetEnumValueByName(baseInput, "potential", out modelPotentialClientState.EnumValue);
-                        modelPotentialClientState.ComMessage.Production_type_eV_Id = modelPotentialClientState.EnumValue.Id;
-                        modelPotentialClientState.ComMessage.Production_type_eV_IdSpecified = true;
+                        if (modelPotentialClientState.Offer_ProductionArray != null)
+                        {
+                            modelPotentialClientState.Offer_ProductionList = modelPotentialClientState.Offer_ProductionArray.ToList();
 
-                        BaseOutput acm = srv.WS_AddComMessage(baseInput, modelPotentialClientState.ComMessage, out modelPotentialClientState.ComMessage);
+                            foreach (var item in modelPotentialClientState.Offer_ProductionList)
+                            {
+                                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Yayinda", out modelPotentialClientState.EnumValue);
+                                modelPotentialClientState.Offer_Production.state_eV_Id = modelPotentialClientState.EnumValue.Id;
+                                modelPotentialClientState.Offer_Production.state_eV_IdSpecified = true;
+
+                                BaseOutput uop = srv.WS_UpdateOffer_Production(baseInput, modelPotentialClientState.Offer_Production, out modelPotentialClientState.Offer_Production);
+                            }
+                        }
                     }
                 }
 
-                return RedirectToAction("Index", "PotentialClientState", new { stateStatusEV = modelPotentialClientState.EnumValueST.name });
+                return RedirectToAction("Index", "PotentialClientState");
 
             }
             catch (Exception ex)
@@ -195,12 +201,19 @@ namespace Emsal.UI.Controllers
                 }
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelPotentialClientState.User);
                 baseInput.userName = modelPotentialClientState.User.Username;
+                
+                BaseOutput userRole = srv.WS_GetUserRolesByUserId(baseInput, id, true, out modelPotentialClientState.UserRoleArray);
+                modelPotentialClientState.UserRole = modelPotentialClientState.UserRoleArray.FirstOrDefault();
+
+                if (modelPotentialClientState.UserRole.RoleId == 24)
+                {
+                    modelPotentialClientState.UserRole.RoleId = 11;
+                }
+
+                BaseOutput updateUserRole = srv.WS_UpdateUserRole(baseInput, modelPotentialClientState.UserRole, out modelPotentialClientState.UserRole);
 
 
-                BaseOutput bouput = srv.WS_GetPotential_ProductionById(baseInput, id, true, out modelPotentialClientState.PotentialProduction);
-                modelPotentialClientState.Id = modelPotentialClientState.PotentialProduction.Id;
-
-                return View(modelPotentialClientState);
+                return RedirectToAction("Index", "PotentialClientState");
 
             }
             catch (Exception ex)
@@ -231,20 +244,21 @@ namespace Emsal.UI.Controllers
 
                 model.PotentialProduction = new tblPotential_Production();
 
-                BaseOutput bouput = srv.WS_GetPotential_ProductionById(baseInput, model.Id, true, out model.PotentialProduction);
+                BaseOutput userRole = srv.WS_GetUserRolesByUserId(baseInput, model.userId, true, out modelPotentialClientState.UserRoleArray);
+                modelPotentialClientState.UserRole = modelPotentialClientState.UserRoleArray.FirstOrDefault();
 
-                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "reject", out model.EnumValueST);
+                if (modelPotentialClientState.UserRole.RoleId == 24)
+                {
+                    modelPotentialClientState.UserRole.RoleId = 11;
+                }
 
-                model.PotentialProduction.state_eV_Id = model.EnumValueST.Id;
-                model.PotentialProduction.state_eV_IdSpecified = true;
-
-                BaseOutput ecout = srv.WS_UpdatePotential_Production(baseInput, model.PotentialProduction, out model.PotentialProduction);
+                BaseOutput updateUserRole = srv.WS_UpdateUserRole(baseInput, modelPotentialClientState.UserRole, out modelPotentialClientState.UserRole);
 
                 model.ComMessage = new tblComMessage();
                 model.ComMessage.message = model.message;
                 model.ComMessage.fromUserID = (long)UserId;
                 model.ComMessage.fromUserIDSpecified = true;
-                model.ComMessage.toUserID = model.PotentialProduction.user_Id;
+                model.ComMessage.toUserID = model.userId;
                 model.ComMessage.toUserIDSpecified = true;
                 model.ComMessage.Production_Id = model.PotentialProduction.Id;
                 model.ComMessage.Production_IdSpecified = true;

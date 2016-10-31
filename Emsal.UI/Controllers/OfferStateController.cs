@@ -193,7 +193,6 @@ namespace Emsal.UI.Controllers
         {
             try
             {
-
                 baseInput = new BaseInput();
                 modelOfferState = new OfferStateViewModel();
 

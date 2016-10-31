@@ -22,10 +22,19 @@ namespace Emsal.UI.Models
 
         public tblUser User;
 
+        public tblUserRole UserRole;
+        public IList<tblUserRole> UserRoleList { get; set; }
+        public tblUserRole[] UserRoleArray;
+
         public tblPotential_Production PotentialProduction;
         public IList<tblPotential_Production> PotentialProductionList { get; set; }
         public IList<tblPotential_Production> SelectedPotentialProductionList { get; set; }
         public tblPotential_Production[] PotentialProductionArray;
+
+
+        public tblOffer_Production Offer_Production;
+        public IList<tblOffer_Production> Offer_ProductionList { get; set; }
+        public tblOffer_Production[] Offer_ProductionArray;
 
 
         public ProductionDetail ProductionDetail;
@@ -35,6 +44,10 @@ namespace Emsal.UI.Models
         public tblProductCatalog ProductCatalog;
         public IList<tblProductCatalog> ProductCatalogList { get; set; }
         public tblProductCatalog[] ProductCatalogArray;
+
+        public UserInfo UserInfo;
+        public IList<UserInfo> UserInfoList { get; set; }
+        public UserInfo[] UserInfoArray;
 
         public tblEnumCategory EnumCategory;
         public tblEnumCategory EnumCategorySS;
@@ -86,6 +99,7 @@ namespace Emsal.UI.Models
 
         public PagedList.IPagedList<ProductionDetail> PagingDetail { get; set; }
         public PagedList.IPagedList<tblPotential_Production> Paging { get; set; }
+        public PagedList.IPagedList<UserInfo> PagingUserInfo { get; set; }
 
 
         public bool isPDF { get; set; }
@@ -94,6 +108,7 @@ namespace Emsal.UI.Models
         public long totalSize = 0;
 
         public long Id { get; set; }
+        public long UserId { get; set; }
 
         [Display(Name = "Bildiriş")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
@@ -154,6 +169,10 @@ namespace Emsal.UI.Models
         public string productName { get; set; }
         public string userInfo { get; set; }
 
+
+        public string nameSurnameFathername { get; set; }
+        public string pin { get; set; }
+        public string fullAddress { get; set; }
         public int itemCount { get; set; }
 
     }

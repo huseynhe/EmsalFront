@@ -581,18 +581,23 @@ namespace Emsal.UI.Controllers
                 modelOfferProduction.OfferProduction.Status = 1;
                 modelOfferProduction.OfferProduction.StatusSpecified = true;
 
-                if(model.ppId>0)
+                string status = "";
+                BaseOutput userRole = srv.WS_GetUserRolesByUserId(baseInput, model.User.Id, true, out model.UserRoleArray);
+                model.UserRole = model.UserRoleArray.FirstOrDefault();
+
+                if (model.ppId > 0 || model.UserRole.RoleId==11)
                 {
-                    BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Yayinda", out modelOfferProduction.EnumValue);
-                    modelOfferProduction.OfferProduction.state_eV_Id = modelOfferProduction.EnumValue.Id;
-                    modelOfferProduction.OfferProduction.state_eV_IdSpecified = true;
+                    status = "Yayinda";
                 }
                 else
                 {
-                    BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "new", out modelOfferProduction.EnumValue);
-                    modelOfferProduction.OfferProduction.state_eV_Id = modelOfferProduction.EnumValue.Id;
-                    modelOfferProduction.OfferProduction.state_eV_IdSpecified = true;
-                }              
+                    status = "new";
+                }
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, status, out modelOfferProduction.EnumValue);
+                modelOfferProduction.OfferProduction.state_eV_Id = modelOfferProduction.EnumValue.Id;
+                modelOfferProduction.OfferProduction.state_eV_IdSpecified = true;
+
 
                 BaseOutput envalydn = srv.WS_GetEnumValueByName(baseInput, "new", out modelOfferProduction.EnumValue);
                 modelOfferProduction.OfferProduction.monitoring_eV_Id = modelOfferProduction.EnumValue.Id;

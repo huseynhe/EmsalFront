@@ -8,11 +8,7 @@
 }
 
 <script src="~/ContentProfile/js/State.js"></script>
-<br />
-<div class="btn-group pull-right">
-    <a class="btn btn-primary" href="/PotentialClientState?stateStatusEV=Tesdiqlenen">Yeni daxil olmuş</a>
-    <a class="btn btn-primary" href="/PotentialClientState?stateStatusEV=reject">İmtina olunan</a>
-</div>
+
 <div class="clearfix"></div>
 <br />
 
@@ -26,34 +22,26 @@
                 <table class="table table-hover table-striped table-bordered" style="margin-bottom:0;">
                     <tbody>
                         <tr>
-                            @*@if (Model.isMain == 0)
-            {
-                                <th class="col-md-1">#</th>
-                            }*@
-                            <th class="col-md-2">
-                                Məhsulun adı<br />
-                                <input onkeyup="PotentialClientStateSearch(this, 'productName')" class="form-control" placeholder="axtar" />
-                            </th>
-                            <th class="col-md-1">
-                                Miqdarı (vahidi)
-                            </th>
-                            <th class="col-md-1">
-                                @Html.DisplayNameFor(model => model.price)
-                            </th>
-                            <th class="col-md-2">
-                                Qeyd
-                            </th>
-                            <th class="col-md-2">
-                                İnfo<br />
-                                <input onkeyup="PotentialClientStateSearch(this, 'userInfo')" class="form-control" placeholder="axtar" />
-                            </th>
-                            <th class="col-md-2">
-                                Sənədlər
-                            </th>
                             @if (Model.isMain == 0)
-            {
-                                <th class="col-md-1 shsingle text-center">imtina</th>
+                            {
+                                <th class="col-md-1">#</th>
                             }
+                            <th class="col-md-1">
+                                Şəkil
+                            </th>
+                            <th class="col-md-3">
+                                Ad, soyad, ata adı<br />
+                                <input onkeyup="PotentialClientStateSearch(this, 'nameSurnameFathername')" class="form-control" placeholder="axtar" />
+                            </th>
+                            <th class="col-md-2">
+                                FİN nömrə
+                                <input onkeyup="PotentialClientStateSearch(this, 'pin')" class="form-control" placeholder="axtar" />
+                            </th>
+                            <th class="col-md-3">
+                               Ünvan
+                                <input onkeyup="PotentialClientStateSearch(this, 'fullAddress')" class="form-control" placeholder="axtar" />
+                            </th>
+                            <th class="col-md-1 shsingle text-center">Satıcı et</th>
                         </tr>
                     </tbody>
                 </table>
