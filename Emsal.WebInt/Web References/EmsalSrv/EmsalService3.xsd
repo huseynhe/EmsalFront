@@ -46,24 +46,56 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="adminUnitID" type="xs:long" />
       <xs:element minOccurs="0" name="adminUnitName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="adress_Id" type="xs:long" />
+      <xs:element minOccurs="0" name="birtday" type="xs:long" />
+      <xs:element minOccurs="0" name="createdDate" type="xs:long" />
+      <xs:element minOccurs="0" name="day" type="xs:long" />
+      <xs:element minOccurs="0" name="demandDetail" nillable="true" type="tns:ArrayOfPotesialProducts" />
       <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fatherName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="fullAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="gender" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="lastUpdateStatus" type="xs:long" />
+      <xs:element minOccurs="0" name="month_Ev_Id" type="xs:long" />
       <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="parantName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="parentAdminUnitID" type="xs:long" />
       <xs:element minOccurs="0" name="parentAdminUnitName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="personAdress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="personAdressDesc" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="pinNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="potentialProduct" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="potentialProductQuantity" type="xs:decimal" />
       <xs:element minOccurs="0" name="productCatalogDetailList" nillable="true" type="tns:ArrayOfProductCatalogDetail" />
+      <xs:element minOccurs="0" name="productUnitPrice" type="xs:decimal" />
+      <xs:element minOccurs="0" name="profilPicture" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="roleDescription" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="roleID" type="xs:long" />
       <xs:element minOccurs="0" name="roleName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="surname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="updatedDate" type="xs:long" />
       <xs:element minOccurs="0" name="userID" type="xs:long" />
       <xs:element minOccurs="0" name="userRoleID" type="xs:long" />
       <xs:element minOccurs="0" name="userType" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="userTypeID" type="xs:long" />
       <xs:element minOccurs="0" name="voen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="year" type="xs:long" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UserInfo" nillable="true" type="tns:UserInfo" />
+  <xs:complexType name="ArrayOfPotesialProducts">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PotesialProducts" nillable="true" type="tns:PotesialProducts" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPotesialProducts" nillable="true" type="tns:ArrayOfPotesialProducts" />
+  <xs:complexType name="PotesialProducts">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="productParentName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PotesialProducts" nillable="true" type="tns:PotesialProducts" />
   <xs:complexType name="ProductPriceDetail">
     <xs:sequence>
       <xs:element minOccurs="0" name="ProductDescription" nillable="true" type="xs:string" />
@@ -108,6 +140,7 @@
       <xs:element minOccurs="0" name="quantity" type="xs:decimal" />
       <xs:element minOccurs="0" name="type" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="unitPrice" type="xs:decimal" />
+      <xs:element minOccurs="0" name="userId" type="xs:long" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="DemandOfferDetail" nillable="true" type="tns:DemandOfferDetail" />
@@ -195,6 +228,7 @@
       <xs:element minOccurs="0" name="pinNumber" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="potentialProduct" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="potentialProductQuantity" type="xs:decimal" />
+      <xs:element minOccurs="0" name="potentialQuantity" type="xs:decimal" />
       <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="productDocumentList" nillable="true" type="q8:ArrayOftblProduct_Document" />
       <xs:element minOccurs="0" name="productId" type="xs:long" />
       <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />

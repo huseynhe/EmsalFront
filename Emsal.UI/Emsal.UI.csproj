@@ -161,6 +161,7 @@
     </Compile>
     <Compile Include="Controllers\OfferStateController.cs" />
     <Compile Include="Controllers\OrdinaryController.cs" />
+    <Compile Include="Controllers\OtherController.cs" />
     <Compile Include="Controllers\PotentialClientController.cs" />
     <Compile Include="Controllers\PotentialClientMonitoringController.cs" />
     <Compile Include="Controllers\PotentialClientStateController .cs" />
@@ -992,9 +993,6 @@
     <Content Include="Views\PotentialClientMonitoring\Edit.cshtml" />
     <Content Include="Views\PotentialClientMonitoring\Index.cshtml" />
     <Content Include="Views\PotentialClientMonitoring\PartialIndex.cshtml" />
-    <Content Include="Views\PotentialClientState\Edit.cshtml" />
-    <Content Include="Views\PotentialClientState\Index.cshtml" />
-    <Content Include="Views\PotentialClientState\PartialIndex.cshtml" />
     <Content Include="Views\PotentialClient\AdminUnitFU.cshtml" />
     <Content Include="Views\ProductionDocument\GetFile.cshtml" />
     <Content Include="Views\ProductionDocument\Index.cshtml" />
@@ -1068,6 +1066,12 @@
     <Content Include="Views\OfferHome\ProductionCalendar.cshtml" />
     <Content Include="Views\Home\Style.cshtml" />
     <Content Include="Views\GovernmentOrganisationSpecialSummary\AdminUnit.cshtml" />
+    <Content Include="Views\PotentialClientState\Edit.cshtml" />
+    <Content Include="Views\PotentialClientState\Index.cshtml" />
+    <Content Include="Views\PotentialClientState\PartialIndex.cshtml" />
+    <Content Include="Views\OfferProduction\ProductOrigin.cshtml" />
+    <Content Include="Views\Other\activity.cshtml" />
+    <Content Include="Views\Other\legislation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

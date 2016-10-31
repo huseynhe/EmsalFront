@@ -12,7 +12,7 @@ namespace Emsal.WebInt.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -46,7 +46,7 @@ namespace Emsal.WebInt.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://exidmet1.agro.gov.az:57388/TaxesIntegrationService.svc")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.10.10.123:57388/TaxesIntegrationService.svc")]
         public string Emsal_WebInt_TaxesSRV_TaxesIntegrationService {
             get {
                 return ((string)(this["Emsal_WebInt_TaxesSRV_TaxesIntegrationService"]));

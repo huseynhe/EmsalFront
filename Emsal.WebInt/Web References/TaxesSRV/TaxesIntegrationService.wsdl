@@ -27,9 +27,9 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://exidmet1.agro.gov.az:57388/TaxesIntegrationService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://exidmet1.agro.gov.az:57388/TaxesIntegrationService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://exidmet1.agro.gov.az:57388/TaxesIntegrationService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TaxesIntegration.BLL.Model" />
+      <xsd:import schemaLocation="http://10.10.10.123:57388/TaxesIntegrationService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://10.10.10.123:57388/TaxesIntegrationService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://10.10.10.123:57388/TaxesIntegrationService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TaxesIntegration.BLL.Model" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ITaxesIntegrationService_DoWork_InputMessage">
@@ -99,7 +99,7 @@
   </wsdl:binding>
   <wsdl:service name="TaxesIntegrationService">
     <wsdl:port name="BasicHttpBinding_ITaxesIntegrationService" binding="tns:BasicHttpBinding_ITaxesIntegrationService">
-      <soap:address location="http://exidmet1.agro.gov.az:57388/TaxesIntegrationService.svc" />
+      <soap:address location="http://10.10.10.123:57388/TaxesIntegrationService.svc" />
     </wsdl:port>
     <wsdl:port name="BasicHttpsBinding_ITaxesIntegrationService" binding="tns:BasicHttpsBinding_ITaxesIntegrationService">
       <soap:address location="https://exidmet1.agro.gov.az:57389/TaxesIntegrationService.svc" />

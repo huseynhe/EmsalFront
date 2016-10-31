@@ -29,6 +29,8 @@ namespace Emsal.WebInt.EmsalSrv {
     [System.Web.Services.WebServiceBindingAttribute(Name="BasicHttpBinding_IEmsalService", Namespace="http://tempuri.org/")]
     public partial class EmsalService : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
+        private System.Threading.SendOrPostCallback WS_GetProductionCalendarPriceOperationCompleted;
+        
         private System.Threading.SendOrPostCallback WS_GetProductionCalendarBymonthseVIdOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetProductionCalendarDayOperationCompleted;
@@ -48,6 +50,20 @@ namespace Emsal.WebInt.EmsalSrv {
         private System.Threading.SendOrPostCallback WS_GetProducParentProductByProductIDOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetProducListByUserIDOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_AddComMessageAttachmentOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_DeleteComMessageAttachmentOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetComMessageAttachmentOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetComMessageAttachmentByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_UpdateComMessageAttachmentOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetByComMessageAttachmentIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_UpdateUserRoleOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetUserRoleByIdOperationCompleted;
         
@@ -175,8 +191,6 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private System.Threading.SendOrPostCallback WS_GetProductionCalendarByIdOperationCompleted;
         
-        private System.Threading.SendOrPostCallback WS_GetProductionCalendarPriceOperationCompleted;
-        
         private System.Threading.SendOrPostCallback WS_GetProductionDocumentsByGroupIdOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetProductionDocumentsByGroupIdAndPotential_Production_IdOperationCompleted;
@@ -271,6 +285,8 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private System.Threading.SendOrPostCallback WS_GetProductionDetailistOperationCompleted;
         
+        private System.Threading.SendOrPostCallback WS_GetPersonalinformationByRoleIdOperationCompleted;
+        
         private System.Threading.SendOrPostCallback WS_GetDemandOfferProductionTotalOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetDemandProductsForAccountingOperationCompleted;
@@ -302,8 +318,6 @@ namespace Emsal.WebInt.EmsalSrv {
         private System.Threading.SendOrPostCallback WS_AddUserRoleOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_DeleteUserRoleOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback WS_UpdateUserRoleOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetUserByUserNameOperationCompleted;
         
@@ -728,6 +742,9 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
+        public event WS_GetProductionCalendarPriceCompletedEventHandler WS_GetProductionCalendarPriceCompleted;
+        
+        /// <remarks/>
         public event WS_GetProductionCalendarBymonthseVIdCompletedEventHandler WS_GetProductionCalendarBymonthseVIdCompleted;
         
         /// <remarks/>
@@ -756,6 +773,27 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         public event WS_GetProducListByUserIDCompletedEventHandler WS_GetProducListByUserIDCompleted;
+        
+        /// <remarks/>
+        public event WS_AddComMessageAttachmentCompletedEventHandler WS_AddComMessageAttachmentCompleted;
+        
+        /// <remarks/>
+        public event WS_DeleteComMessageAttachmentCompletedEventHandler WS_DeleteComMessageAttachmentCompleted;
+        
+        /// <remarks/>
+        public event WS_GetComMessageAttachmentCompletedEventHandler WS_GetComMessageAttachmentCompleted;
+        
+        /// <remarks/>
+        public event WS_GetComMessageAttachmentByIdCompletedEventHandler WS_GetComMessageAttachmentByIdCompleted;
+        
+        /// <remarks/>
+        public event WS_UpdateComMessageAttachmentCompletedEventHandler WS_UpdateComMessageAttachmentCompleted;
+        
+        /// <remarks/>
+        public event WS_GetByComMessageAttachmentIdCompletedEventHandler WS_GetByComMessageAttachmentIdCompleted;
+        
+        /// <remarks/>
+        public event WS_UpdateUserRoleCompletedEventHandler WS_UpdateUserRoleCompleted;
         
         /// <remarks/>
         public event WS_GetUserRoleByIdCompletedEventHandler WS_GetUserRoleByIdCompleted;
@@ -947,9 +985,6 @@ namespace Emsal.WebInt.EmsalSrv {
         public event WS_GetProductionCalendarByIdCompletedEventHandler WS_GetProductionCalendarByIdCompleted;
         
         /// <remarks/>
-        public event WS_GetProductionCalendarPriceCompletedEventHandler WS_GetProductionCalendarPriceCompleted;
-        
-        /// <remarks/>
         public event WS_GetProductionDocumentsByGroupIdCompletedEventHandler WS_GetProductionDocumentsByGroupIdCompleted;
         
         /// <remarks/>
@@ -1091,6 +1126,9 @@ namespace Emsal.WebInt.EmsalSrv {
         public event WS_GetProductionDetailistCompletedEventHandler WS_GetProductionDetailistCompleted;
         
         /// <remarks/>
+        public event WS_GetPersonalinformationByRoleIdCompletedEventHandler WS_GetPersonalinformationByRoleIdCompleted;
+        
+        /// <remarks/>
         public event WS_GetDemandOfferProductionTotalCompletedEventHandler WS_GetDemandOfferProductionTotalCompleted;
         
         /// <remarks/>
@@ -1137,9 +1175,6 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         public event WS_DeleteUserRoleCompletedEventHandler WS_DeleteUserRoleCompleted;
-        
-        /// <remarks/>
-        public event WS_UpdateUserRoleCompletedEventHandler WS_UpdateUserRoleCompleted;
         
         /// <remarks/>
         public event WS_GetUserByUserNameCompletedEventHandler WS_GetUserByUserNameCompleted;
@@ -1718,6 +1753,41 @@ namespace Emsal.WebInt.EmsalSrv {
         public event WS_AddCommunicationCompletedEventHandler WS_AddCommunicationCompleted;
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendarPrice", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetProductionCalendarPrice([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, decimal price, [System.Xml.Serialization.XmlIgnoreAttribute()] bool priceSpecified, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblProductionCalendar ProductionCalendar) {
+            object[] results = this.Invoke("WS_GetProductionCalendarPrice", new object[] {
+                        baseinput,
+                        price,
+                        priceSpecified});
+            ProductionCalendar = ((tblProductionCalendar)(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarPriceAsync(BaseInput baseinput, decimal price, bool priceSpecified) {
+            this.WS_GetProductionCalendarPriceAsync(baseinput, price, priceSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetProductionCalendarPriceAsync(BaseInput baseinput, decimal price, bool priceSpecified, object userState) {
+            if ((this.WS_GetProductionCalendarPriceOperationCompleted == null)) {
+                this.WS_GetProductionCalendarPriceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionCalendarPriceOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetProductionCalendarPrice", new object[] {
+                        baseinput,
+                        price,
+                        priceSpecified}, this.WS_GetProductionCalendarPriceOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetProductionCalendarPriceOperationCompleted(object arg) {
+            if ((this.WS_GetProductionCalendarPriceCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetProductionCalendarPriceCompleted(this, new WS_GetProductionCalendarPriceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendarBymonthseVId", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public BaseOutput WS_GetProductionCalendarBymonthseVId([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long months_eV_Id, [System.Xml.Serialization.XmlIgnoreAttribute()] bool months_eV_IdSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProductionCalendar[] ProductionCalendarlList) {
@@ -2066,6 +2136,238 @@ namespace Emsal.WebInt.EmsalSrv {
             if ((this.WS_GetProducListByUserIDCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.WS_GetProducListByUserIDCompleted(this, new WS_GetProducListByUserIDCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_AddComMessageAttachment", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_AddComMessageAttachment([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblComMessageAttachment comMessageAttachment, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblComMessageAttachment comMessageAttachmentOut) {
+            object[] results = this.Invoke("WS_AddComMessageAttachment", new object[] {
+                        baseinput,
+                        comMessageAttachment});
+            comMessageAttachmentOut = ((tblComMessageAttachment)(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_AddComMessageAttachmentAsync(BaseInput baseinput, tblComMessageAttachment comMessageAttachment) {
+            this.WS_AddComMessageAttachmentAsync(baseinput, comMessageAttachment, null);
+        }
+        
+        /// <remarks/>
+        public void WS_AddComMessageAttachmentAsync(BaseInput baseinput, tblComMessageAttachment comMessageAttachment, object userState) {
+            if ((this.WS_AddComMessageAttachmentOperationCompleted == null)) {
+                this.WS_AddComMessageAttachmentOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_AddComMessageAttachmentOperationCompleted);
+            }
+            this.InvokeAsync("WS_AddComMessageAttachment", new object[] {
+                        baseinput,
+                        comMessageAttachment}, this.WS_AddComMessageAttachmentOperationCompleted, userState);
+        }
+        
+        private void OnWS_AddComMessageAttachmentOperationCompleted(object arg) {
+            if ((this.WS_AddComMessageAttachmentCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_AddComMessageAttachmentCompleted(this, new WS_AddComMessageAttachmentCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_DeleteComMessageAttachment", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_DeleteComMessageAttachment([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblComMessageAttachment comMessageAttachment) {
+            object[] results = this.Invoke("WS_DeleteComMessageAttachment", new object[] {
+                        baseinput,
+                        comMessageAttachment});
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_DeleteComMessageAttachmentAsync(BaseInput baseinput, tblComMessageAttachment comMessageAttachment) {
+            this.WS_DeleteComMessageAttachmentAsync(baseinput, comMessageAttachment, null);
+        }
+        
+        /// <remarks/>
+        public void WS_DeleteComMessageAttachmentAsync(BaseInput baseinput, tblComMessageAttachment comMessageAttachment, object userState) {
+            if ((this.WS_DeleteComMessageAttachmentOperationCompleted == null)) {
+                this.WS_DeleteComMessageAttachmentOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_DeleteComMessageAttachmentOperationCompleted);
+            }
+            this.InvokeAsync("WS_DeleteComMessageAttachment", new object[] {
+                        baseinput,
+                        comMessageAttachment}, this.WS_DeleteComMessageAttachmentOperationCompleted, userState);
+        }
+        
+        private void OnWS_DeleteComMessageAttachmentOperationCompleted(object arg) {
+            if ((this.WS_DeleteComMessageAttachmentCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_DeleteComMessageAttachmentCompleted(this, new WS_DeleteComMessageAttachmentCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetComMessageAttachment", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetComMessageAttachment([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseInput, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblComMessageAttachment[] comMessageAttachment) {
+            object[] results = this.Invoke("WS_GetComMessageAttachment", new object[] {
+                        baseInput});
+            comMessageAttachment = ((tblComMessageAttachment[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetComMessageAttachmentAsync(BaseInput baseInput) {
+            this.WS_GetComMessageAttachmentAsync(baseInput, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetComMessageAttachmentAsync(BaseInput baseInput, object userState) {
+            if ((this.WS_GetComMessageAttachmentOperationCompleted == null)) {
+                this.WS_GetComMessageAttachmentOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetComMessageAttachmentOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetComMessageAttachment", new object[] {
+                        baseInput}, this.WS_GetComMessageAttachmentOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetComMessageAttachmentOperationCompleted(object arg) {
+            if ((this.WS_GetComMessageAttachmentCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetComMessageAttachmentCompleted(this, new WS_GetComMessageAttachmentCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetComMessageAttachmentById", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetComMessageAttachmentById([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long Id, [System.Xml.Serialization.XmlIgnoreAttribute()] bool IdSpecified, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblComMessageAttachment comMessageAttachment) {
+            object[] results = this.Invoke("WS_GetComMessageAttachmentById", new object[] {
+                        baseinput,
+                        Id,
+                        IdSpecified});
+            comMessageAttachment = ((tblComMessageAttachment)(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetComMessageAttachmentByIdAsync(BaseInput baseinput, long Id, bool IdSpecified) {
+            this.WS_GetComMessageAttachmentByIdAsync(baseinput, Id, IdSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetComMessageAttachmentByIdAsync(BaseInput baseinput, long Id, bool IdSpecified, object userState) {
+            if ((this.WS_GetComMessageAttachmentByIdOperationCompleted == null)) {
+                this.WS_GetComMessageAttachmentByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetComMessageAttachmentByIdOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetComMessageAttachmentById", new object[] {
+                        baseinput,
+                        Id,
+                        IdSpecified}, this.WS_GetComMessageAttachmentByIdOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetComMessageAttachmentByIdOperationCompleted(object arg) {
+            if ((this.WS_GetComMessageAttachmentByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetComMessageAttachmentByIdCompleted(this, new WS_GetComMessageAttachmentByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_UpdateComMessageAttachment", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_UpdateComMessageAttachment([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblComMessageAttachment comMessageAttachment, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblComMessageAttachment comMessageAttachmentOut) {
+            object[] results = this.Invoke("WS_UpdateComMessageAttachment", new object[] {
+                        baseinput,
+                        comMessageAttachment});
+            comMessageAttachmentOut = ((tblComMessageAttachment)(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_UpdateComMessageAttachmentAsync(BaseInput baseinput, tblComMessageAttachment comMessageAttachment) {
+            this.WS_UpdateComMessageAttachmentAsync(baseinput, comMessageAttachment, null);
+        }
+        
+        /// <remarks/>
+        public void WS_UpdateComMessageAttachmentAsync(BaseInput baseinput, tblComMessageAttachment comMessageAttachment, object userState) {
+            if ((this.WS_UpdateComMessageAttachmentOperationCompleted == null)) {
+                this.WS_UpdateComMessageAttachmentOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_UpdateComMessageAttachmentOperationCompleted);
+            }
+            this.InvokeAsync("WS_UpdateComMessageAttachment", new object[] {
+                        baseinput,
+                        comMessageAttachment}, this.WS_UpdateComMessageAttachmentOperationCompleted, userState);
+        }
+        
+        private void OnWS_UpdateComMessageAttachmentOperationCompleted(object arg) {
+            if ((this.WS_UpdateComMessageAttachmentCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_UpdateComMessageAttachmentCompleted(this, new WS_UpdateComMessageAttachmentCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetByComMessageAttachmentId", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetByComMessageAttachmentId([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long Id, [System.Xml.Serialization.XmlIgnoreAttribute()] bool IdSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblComMessageAttachment[] comMessageAttachment) {
+            object[] results = this.Invoke("WS_GetByComMessageAttachmentId", new object[] {
+                        baseinput,
+                        Id,
+                        IdSpecified});
+            comMessageAttachment = ((tblComMessageAttachment[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetByComMessageAttachmentIdAsync(BaseInput baseinput, long Id, bool IdSpecified) {
+            this.WS_GetByComMessageAttachmentIdAsync(baseinput, Id, IdSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetByComMessageAttachmentIdAsync(BaseInput baseinput, long Id, bool IdSpecified, object userState) {
+            if ((this.WS_GetByComMessageAttachmentIdOperationCompleted == null)) {
+                this.WS_GetByComMessageAttachmentIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetByComMessageAttachmentIdOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetByComMessageAttachmentId", new object[] {
+                        baseinput,
+                        Id,
+                        IdSpecified}, this.WS_GetByComMessageAttachmentIdOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetByComMessageAttachmentIdOperationCompleted(object arg) {
+            if ((this.WS_GetByComMessageAttachmentIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetByComMessageAttachmentIdCompleted(this, new WS_GetByComMessageAttachmentIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_UpdateUserRole", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_UpdateUserRole([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblUserRole userRole, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblUserRole item) {
+            object[] results = this.Invoke("WS_UpdateUserRole", new object[] {
+                        baseinput,
+                        userRole});
+            item = ((tblUserRole)(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_UpdateUserRoleAsync(BaseInput baseinput, tblUserRole userRole) {
+            this.WS_UpdateUserRoleAsync(baseinput, userRole, null);
+        }
+        
+        /// <remarks/>
+        public void WS_UpdateUserRoleAsync(BaseInput baseinput, tblUserRole userRole, object userState) {
+            if ((this.WS_UpdateUserRoleOperationCompleted == null)) {
+                this.WS_UpdateUserRoleOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_UpdateUserRoleOperationCompleted);
+            }
+            this.InvokeAsync("WS_UpdateUserRole", new object[] {
+                        baseinput,
+                        userRole}, this.WS_UpdateUserRoleOperationCompleted, userState);
+        }
+        
+        private void OnWS_UpdateUserRoleOperationCompleted(object arg) {
+            if ((this.WS_UpdateUserRoleCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_UpdateUserRoleCompleted(this, new WS_UpdateUserRoleCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -4197,41 +4499,6 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendarPrice", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public BaseOutput WS_GetProductionCalendarPrice([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, decimal price, [System.Xml.Serialization.XmlIgnoreAttribute()] bool priceSpecified, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblProductionCalendar ProductionCalendar) {
-            object[] results = this.Invoke("WS_GetProductionCalendarPrice", new object[] {
-                        baseinput,
-                        price,
-                        priceSpecified});
-            ProductionCalendar = ((tblProductionCalendar)(results[1]));
-            return ((BaseOutput)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void WS_GetProductionCalendarPriceAsync(BaseInput baseinput, decimal price, bool priceSpecified) {
-            this.WS_GetProductionCalendarPriceAsync(baseinput, price, priceSpecified, null);
-        }
-        
-        /// <remarks/>
-        public void WS_GetProductionCalendarPriceAsync(BaseInput baseinput, decimal price, bool priceSpecified, object userState) {
-            if ((this.WS_GetProductionCalendarPriceOperationCompleted == null)) {
-                this.WS_GetProductionCalendarPriceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionCalendarPriceOperationCompleted);
-            }
-            this.InvokeAsync("WS_GetProductionCalendarPrice", new object[] {
-                        baseinput,
-                        price,
-                        priceSpecified}, this.WS_GetProductionCalendarPriceOperationCompleted, userState);
-        }
-        
-        private void OnWS_GetProductionCalendarPriceOperationCompleted(object arg) {
-            if ((this.WS_GetProductionCalendarPriceCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.WS_GetProductionCalendarPriceCompleted(this, new WS_GetProductionCalendarPriceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionDocumentsByGroupId", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public BaseOutput WS_GetProductionDocumentsByGroupId([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string GroupID, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProduction_Document[] itemList) {
@@ -5828,6 +6095,45 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetPersonalinformationByRoleId", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetPersonalinformationByRoleId([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long roleId, [System.Xml.Serialization.XmlIgnoreAttribute()] bool roleIdSpecified, long userId, [System.Xml.Serialization.XmlIgnoreAttribute()] bool userIdSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")] out UserInfo[] itemList) {
+            object[] results = this.Invoke("WS_GetPersonalinformationByRoleId", new object[] {
+                        baseinput,
+                        roleId,
+                        roleIdSpecified,
+                        userId,
+                        userIdSpecified});
+            itemList = ((UserInfo[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetPersonalinformationByRoleIdAsync(BaseInput baseinput, long roleId, bool roleIdSpecified, long userId, bool userIdSpecified) {
+            this.WS_GetPersonalinformationByRoleIdAsync(baseinput, roleId, roleIdSpecified, userId, userIdSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetPersonalinformationByRoleIdAsync(BaseInput baseinput, long roleId, bool roleIdSpecified, long userId, bool userIdSpecified, object userState) {
+            if ((this.WS_GetPersonalinformationByRoleIdOperationCompleted == null)) {
+                this.WS_GetPersonalinformationByRoleIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetPersonalinformationByRoleIdOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetPersonalinformationByRoleId", new object[] {
+                        baseinput,
+                        roleId,
+                        roleIdSpecified,
+                        userId,
+                        userIdSpecified}, this.WS_GetPersonalinformationByRoleIdOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetPersonalinformationByRoleIdOperationCompleted(object arg) {
+            if ((this.WS_GetPersonalinformationByRoleIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetPersonalinformationByRoleIdCompleted(this, new WS_GetPersonalinformationByRoleIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetDemandOfferProductionTotal", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public BaseOutput WS_GetDemandOfferProductionTotal([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")] out DemandOfferDetail[] itemList) {
@@ -6381,39 +6687,6 @@ namespace Emsal.WebInt.EmsalSrv {
             if ((this.WS_DeleteUserRoleCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.WS_DeleteUserRoleCompleted(this, new WS_DeleteUserRoleCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_UpdateUserRole", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public BaseOutput WS_UpdateUserRole([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblUserRole userRole, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblUserRole item) {
-            object[] results = this.Invoke("WS_UpdateUserRole", new object[] {
-                        baseinput,
-                        userRole});
-            item = ((tblUserRole)(results[1]));
-            return ((BaseOutput)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void WS_UpdateUserRoleAsync(BaseInput baseinput, tblUserRole userRole) {
-            this.WS_UpdateUserRoleAsync(baseinput, userRole, null);
-        }
-        
-        /// <remarks/>
-        public void WS_UpdateUserRoleAsync(BaseInput baseinput, tblUserRole userRole, object userState) {
-            if ((this.WS_UpdateUserRoleOperationCompleted == null)) {
-                this.WS_UpdateUserRoleOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_UpdateUserRoleOperationCompleted);
-            }
-            this.InvokeAsync("WS_UpdateUserRole", new object[] {
-                        baseinput,
-                        userRole}, this.WS_UpdateUserRoleOperationCompleted, userState);
-        }
-        
-        private void OnWS_UpdateUserRoleOperationCompleted(object arg) {
-            if ((this.WS_UpdateUserRoleCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.WS_UpdateUserRoleCompleted(this, new WS_UpdateUserRoleCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -12840,11 +13113,7 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private string channelIdField;
         
-        private string ipNumberField;
-        
         private System.DateTime requestDateField;
-        
-        private long transactionIdField;
         
         private long userIDField;
         
@@ -12862,33 +13131,12 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string IpNumber {
-            get {
-                return this.ipNumberField;
-            }
-            set {
-                this.ipNumberField = value;
-            }
-        }
-        
-        /// <remarks/>
         public System.DateTime RequestDate {
             get {
                 return this.requestDateField;
             }
             set {
                 this.requestDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long TransactionId {
-            get {
-                return this.transactionIdField;
-            }
-            set {
-                this.transactionIdField = value;
             }
         }
         
@@ -16568,6 +16816,10 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private bool productAddress_IdFieldSpecified;
         
+        private System.Nullable<long> productOriginField;
+        
+        private bool productOriginFieldSpecified;
+        
         private System.Nullable<long> product_IdField;
         
         private bool product_IdFieldSpecified;
@@ -16835,6 +17087,28 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.productAddress_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> productOrigin {
+            get {
+                return this.productOriginField;
+            }
+            set {
+                this.productOriginField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool productOriginSpecified {
+            get {
+                return this.productOriginFieldSpecified;
+            }
+            set {
+                this.productOriginFieldSpecified = value;
             }
         }
         
@@ -19268,7 +19542,7 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private bool iamasIdFieldSpecified;
         
-        private System.Nullable<bool> isCityField;
+        private bool isCityField;
         
         private bool isCityFieldSpecified;
         
@@ -19465,8 +19739,7 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<bool> isCity {
+        public bool isCity {
             get {
                 return this.isCityField;
             }
@@ -20787,6 +21060,10 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private bool potentialProductQuantityFieldSpecified;
         
+        private decimal potentialQuantityField;
+        
+        private bool potentialQuantityFieldSpecified;
+        
         private tblProduct_Document[] productDocumentListField;
         
         private long productIdField;
@@ -21285,6 +21562,27 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.potentialProductQuantityFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal potentialQuantity {
+            get {
+                return this.potentialQuantityField;
+            }
+            set {
+                this.potentialQuantityField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool potentialQuantitySpecified {
+            get {
+                return this.potentialQuantityFieldSpecified;
+            }
+            set {
+                this.potentialQuantityFieldSpecified = value;
             }
         }
         
@@ -25492,13 +25790,43 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private string adminUnitNameField;
         
+        private long adress_IdField;
+        
+        private bool adress_IdFieldSpecified;
+        
+        private long birtdayField;
+        
+        private bool birtdayFieldSpecified;
+        
+        private long createdDateField;
+        
+        private bool createdDateFieldSpecified;
+        
+        private long dayField;
+        
+        private bool dayFieldSpecified;
+        
         private PotesialProducts[] demandDetailField;
         
         private string emailField;
         
+        private string fatherNameField;
+        
         private string fullAddressField;
         
+        private string genderField;
+        
+        private long lastUpdateStatusField;
+        
+        private bool lastUpdateStatusFieldSpecified;
+        
+        private long month_Ev_IdField;
+        
+        private bool month_Ev_IdFieldSpecified;
+        
         private string nameField;
+        
+        private string parantNameField;
         
         private long parentAdminUnitIDField;
         
@@ -25506,9 +25834,27 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private string parentAdminUnitNameField;
         
+        private string personAdressField;
+        
+        private string personAdressDescField;
+        
         private string pinNumberField;
         
+        private string potentialProductField;
+        
+        private decimal potentialProductQuantityField;
+        
+        private bool potentialProductQuantityFieldSpecified;
+        
         private ProductCatalogDetail[] productCatalogDetailListField;
+        
+        private decimal productUnitPriceField;
+        
+        private bool productUnitPriceFieldSpecified;
+        
+        private string profilPictureField;
+        
+        private string roleDescriptionField;
         
         private long roleIDField;
         
@@ -25517,6 +25863,10 @@ namespace Emsal.WebInt.EmsalSrv {
         private string roleNameField;
         
         private string surnameField;
+        
+        private long updatedDateField;
+        
+        private bool updatedDateFieldSpecified;
         
         private long userIDField;
         
@@ -25533,6 +25883,10 @@ namespace Emsal.WebInt.EmsalSrv {
         private bool userTypeIDFieldSpecified;
         
         private string voenField;
+        
+        private long yearField;
+        
+        private bool yearFieldSpecified;
         
         /// <remarks/>
         public long adminUnitID {
@@ -25567,6 +25921,90 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
+        public long adress_Id {
+            get {
+                return this.adress_IdField;
+            }
+            set {
+                this.adress_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool adress_IdSpecified {
+            get {
+                return this.adress_IdFieldSpecified;
+            }
+            set {
+                this.adress_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long birtday {
+            get {
+                return this.birtdayField;
+            }
+            set {
+                this.birtdayField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool birtdaySpecified {
+            get {
+                return this.birtdayFieldSpecified;
+            }
+            set {
+                this.birtdayFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long createdDate {
+            get {
+                return this.createdDateField;
+            }
+            set {
+                this.createdDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool createdDateSpecified {
+            get {
+                return this.createdDateFieldSpecified;
+            }
+            set {
+                this.createdDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long day {
+            get {
+                return this.dayField;
+            }
+            set {
+                this.dayField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool daySpecified {
+            get {
+                return this.dayFieldSpecified;
+            }
+            set {
+                this.dayFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
         public PotesialProducts[] demandDetail {
             get {
@@ -25590,6 +26028,17 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string fatherName {
+            get {
+                return this.fatherNameField;
+            }
+            set {
+                this.fatherNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public string fullAddress {
             get {
                 return this.fullAddressField;
@@ -25601,12 +26050,76 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string gender {
+            get {
+                return this.genderField;
+            }
+            set {
+                this.genderField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long lastUpdateStatus {
+            get {
+                return this.lastUpdateStatusField;
+            }
+            set {
+                this.lastUpdateStatusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool lastUpdateStatusSpecified {
+            get {
+                return this.lastUpdateStatusFieldSpecified;
+            }
+            set {
+                this.lastUpdateStatusFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long month_Ev_Id {
+            get {
+                return this.month_Ev_IdField;
+            }
+            set {
+                this.month_Ev_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool month_Ev_IdSpecified {
+            get {
+                return this.month_Ev_IdFieldSpecified;
+            }
+            set {
+                this.month_Ev_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public string name {
             get {
                 return this.nameField;
             }
             set {
                 this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string parantName {
+            get {
+                return this.parantNameField;
+            }
+            set {
+                this.parantNameField = value;
             }
         }
         
@@ -25644,12 +26157,66 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string personAdress {
+            get {
+                return this.personAdressField;
+            }
+            set {
+                this.personAdressField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string personAdressDesc {
+            get {
+                return this.personAdressDescField;
+            }
+            set {
+                this.personAdressDescField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public string pinNumber {
             get {
                 return this.pinNumberField;
             }
             set {
                 this.pinNumberField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string potentialProduct {
+            get {
+                return this.potentialProductField;
+            }
+            set {
+                this.potentialProductField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal potentialProductQuantity {
+            get {
+                return this.potentialProductQuantityField;
+            }
+            set {
+                this.potentialProductQuantityField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool potentialProductQuantitySpecified {
+            get {
+                return this.potentialProductQuantityFieldSpecified;
+            }
+            set {
+                this.potentialProductQuantityFieldSpecified = value;
             }
         }
         
@@ -25661,6 +26228,49 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.productCatalogDetailListField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal productUnitPrice {
+            get {
+                return this.productUnitPriceField;
+            }
+            set {
+                this.productUnitPriceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool productUnitPriceSpecified {
+            get {
+                return this.productUnitPriceFieldSpecified;
+            }
+            set {
+                this.productUnitPriceFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string profilPicture {
+            get {
+                return this.profilPictureField;
+            }
+            set {
+                this.profilPictureField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string roleDescription {
+            get {
+                return this.roleDescriptionField;
+            }
+            set {
+                this.roleDescriptionField = value;
             }
         }
         
@@ -25704,6 +26314,27 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.surnameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long updatedDate {
+            get {
+                return this.updatedDateField;
+            }
+            set {
+                this.updatedDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool updatedDateSpecified {
+            get {
+                return this.updatedDateFieldSpecified;
+            }
+            set {
+                this.updatedDateFieldSpecified = value;
             }
         }
         
@@ -25789,6 +26420,27 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.voenField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long year {
+            get {
+                return this.yearField;
+            }
+            set {
+                this.yearField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool yearSpecified {
+            get {
+                return this.yearFieldSpecified;
+            }
+            set {
+                this.yearFieldSpecified = value;
             }
         }
     }
@@ -26549,6 +27201,300 @@ namespace Emsal.WebInt.EmsalSrv {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
+    public partial class tblComMessageAttachment {
+        
+        private System.Nullable<long> cMessageIdField;
+        
+        private bool cMessageIdFieldSpecified;
+        
+        private long idField;
+        
+        private bool idFieldSpecified;
+        
+        private System.Nullable<long> statusField;
+        
+        private bool statusFieldSpecified;
+        
+        private System.Nullable<long> userIDField;
+        
+        private bool userIDFieldSpecified;
+        
+        private System.Nullable<long> createdDateField;
+        
+        private bool createdDateFieldSpecified;
+        
+        private string createdUserField;
+        
+        private string documentContentField;
+        
+        private string documentNameField;
+        
+        private string documentRealNameField;
+        
+        private System.Nullable<long> documentSizeField;
+        
+        private bool documentSizeFieldSpecified;
+        
+        private string documentTitleField;
+        
+        private string documentUrlField;
+        
+        private string document_type_ev_IdField;
+        
+        private System.Nullable<long> updatedDateField;
+        
+        private bool updatedDateFieldSpecified;
+        
+        private string updatedUserField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> CMessageId {
+            get {
+                return this.cMessageIdField;
+            }
+            set {
+                this.cMessageIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool CMessageIdSpecified {
+            get {
+                return this.cMessageIdFieldSpecified;
+            }
+            set {
+                this.cMessageIdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool IdSpecified {
+            get {
+                return this.idFieldSpecified;
+            }
+            set {
+                this.idFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> Status {
+            get {
+                return this.statusField;
+            }
+            set {
+                this.statusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool StatusSpecified {
+            get {
+                return this.statusFieldSpecified;
+            }
+            set {
+                this.statusFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> UserID {
+            get {
+                return this.userIDField;
+            }
+            set {
+                this.userIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool UserIDSpecified {
+            get {
+                return this.userIDFieldSpecified;
+            }
+            set {
+                this.userIDFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> createdDate {
+            get {
+                return this.createdDateField;
+            }
+            set {
+                this.createdDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool createdDateSpecified {
+            get {
+                return this.createdDateFieldSpecified;
+            }
+            set {
+                this.createdDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string createdUser {
+            get {
+                return this.createdUserField;
+            }
+            set {
+                this.createdUserField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string documentContent {
+            get {
+                return this.documentContentField;
+            }
+            set {
+                this.documentContentField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string documentName {
+            get {
+                return this.documentNameField;
+            }
+            set {
+                this.documentNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string documentRealName {
+            get {
+                return this.documentRealNameField;
+            }
+            set {
+                this.documentRealNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> documentSize {
+            get {
+                return this.documentSizeField;
+            }
+            set {
+                this.documentSizeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool documentSizeSpecified {
+            get {
+                return this.documentSizeFieldSpecified;
+            }
+            set {
+                this.documentSizeFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string documentTitle {
+            get {
+                return this.documentTitleField;
+            }
+            set {
+                this.documentTitleField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string documentUrl {
+            get {
+                return this.documentUrlField;
+            }
+            set {
+                this.documentUrlField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string document_type_ev_Id {
+            get {
+                return this.document_type_ev_IdField;
+            }
+            set {
+                this.document_type_ev_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> updatedDate {
+            get {
+                return this.updatedDateField;
+            }
+            set {
+                this.updatedDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool updatedDateSpecified {
+            get {
+                return this.updatedDateFieldSpecified;
+            }
+            set {
+                this.updatedDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string updatedUser {
+            get {
+                return this.updatedUserField;
+            }
+            set {
+                this.updatedUserField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CodeObjects")]
     public partial class BaseOutput {
         
@@ -26625,6 +27571,40 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.viewStringField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetProductionCalendarPriceCompletedEventHandler(object sender, WS_GetProductionCalendarPriceCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetProductionCalendarPriceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetProductionCalendarPriceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblProductionCalendar ProductionCalendar {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblProductionCalendar)(this.results[1]));
             }
         }
     }
@@ -26965,6 +27945,236 @@ namespace Emsal.WebInt.EmsalSrv {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((ProductCatalogDetail[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_AddComMessageAttachmentCompletedEventHandler(object sender, WS_AddComMessageAttachmentCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_AddComMessageAttachmentCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_AddComMessageAttachmentCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblComMessageAttachment comMessageAttachmentOut {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblComMessageAttachment)(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_DeleteComMessageAttachmentCompletedEventHandler(object sender, WS_DeleteComMessageAttachmentCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_DeleteComMessageAttachmentCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_DeleteComMessageAttachmentCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetComMessageAttachmentCompletedEventHandler(object sender, WS_GetComMessageAttachmentCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetComMessageAttachmentCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetComMessageAttachmentCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblComMessageAttachment[] comMessageAttachment {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblComMessageAttachment[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetComMessageAttachmentByIdCompletedEventHandler(object sender, WS_GetComMessageAttachmentByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetComMessageAttachmentByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetComMessageAttachmentByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblComMessageAttachment comMessageAttachment {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblComMessageAttachment)(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_UpdateComMessageAttachmentCompletedEventHandler(object sender, WS_UpdateComMessageAttachmentCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_UpdateComMessageAttachmentCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_UpdateComMessageAttachmentCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblComMessageAttachment comMessageAttachmentOut {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblComMessageAttachment)(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetByComMessageAttachmentIdCompletedEventHandler(object sender, WS_GetByComMessageAttachmentIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetByComMessageAttachmentIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetByComMessageAttachmentIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblComMessageAttachment[] comMessageAttachment {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblComMessageAttachment[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_UpdateUserRoleCompletedEventHandler(object sender, WS_UpdateUserRoleCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_UpdateUserRoleCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_UpdateUserRoleCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblUserRole item {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblUserRole)(this.results[1]));
             }
         }
     }
@@ -29025,40 +30235,6 @@ namespace Emsal.WebInt.EmsalSrv {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    public delegate void WS_GetProductionCalendarPriceCompletedEventHandler(object sender, WS_GetProductionCalendarPriceCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class WS_GetProductionCalendarPriceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal WS_GetProductionCalendarPriceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public BaseOutput Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((BaseOutput)(this.results[0]));
-            }
-        }
-        
-        /// <remarks/>
-        public tblProductionCalendar ProductionCalendar {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((tblProductionCalendar)(this.results[1]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
     public delegate void WS_GetProductionDocumentsByGroupIdCompletedEventHandler(object sender, WS_GetProductionDocumentsByGroupIdCompletedEventArgs e);
     
     /// <remarks/>
@@ -30649,6 +31825,40 @@ namespace Emsal.WebInt.EmsalSrv {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetPersonalinformationByRoleIdCompletedEventHandler(object sender, WS_GetPersonalinformationByRoleIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetPersonalinformationByRoleIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetPersonalinformationByRoleIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public UserInfo[] itemList {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((UserInfo[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
     public delegate void WS_GetDemandOfferProductionTotalCompletedEventHandler(object sender, WS_GetDemandOfferProductionTotalCompletedEventArgs e);
     
     /// <remarks/>
@@ -31179,40 +32389,6 @@ namespace Emsal.WebInt.EmsalSrv {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((BaseOutput)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    public delegate void WS_UpdateUserRoleCompletedEventHandler(object sender, WS_UpdateUserRoleCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class WS_UpdateUserRoleCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal WS_UpdateUserRoleCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public BaseOutput Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((BaseOutput)(this.results[0]));
-            }
-        }
-        
-        /// <remarks/>
-        public tblUserRole item {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((tblUserRole)(this.results[1]));
             }
         }
     }
