@@ -20,6 +20,8 @@ namespace Emsal.UI.Models
         public string fileDirectory = FileExtension.fileDirectoryExternal;
         public List<string> fileTypes = FileExtension.fileMimeTypes;
 
+        public string fileAcceptTypes = FileExtension.fileTypes;
+
         public tblUser User;
 
         public tblOffer_Production OfferProduction;
@@ -70,6 +72,10 @@ namespace Emsal.UI.Models
         public tblProduction_Document ProductionDocument;
         public IList<tblProduction_Document> ProductionDocumentList { get; set; }
         public tblProduction_Document[] ProductionDocumentArray;
+
+        public tblComMessageAttachment ComMessageAttachment;
+        public IList<tblComMessageAttachment> ComMessageAttachmentList { get; set; }
+        public tblComMessageAttachment[] ComMessageAttachmentArray;
 
         public tblPRM_AdminUnit PRMAdminUnit;
         public IList<tblPRM_AdminUnit> PRMAdminUnitList { get; set; }
@@ -163,5 +169,7 @@ namespace Emsal.UI.Models
         public string userInfo { get; set; }
 
         public int itemCount { get; set; }
+
+       public IList<HttpPostedFileBase> attachfiles { get; set; }
     }
 }

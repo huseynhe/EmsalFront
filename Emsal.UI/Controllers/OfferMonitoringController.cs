@@ -9,6 +9,7 @@ using System.Web.Security;
 using PagedList;
 using Emsal.UI.Infrastructure;
 using Emsal.Utility.CustomObjects;
+using System.IO;
 
 namespace Emsal.UI.Controllers
 {
@@ -291,6 +292,69 @@ namespace Emsal.UI.Controllers
                 model.ComMessage.Production_type_eV_IdSpecified = true;
 
                 BaseOutput acm = srv.WS_AddComMessage(baseInput, model.ComMessage, out model.ComMessage);
+
+
+
+                if (model.attachfiles != null)
+                {
+                    baseInput = new BaseInput();
+
+                    modelOfferMonitoring = new OfferMonitoringViewModel();
+
+                    String sDate = DateTime.Now.ToString();
+                    DateTime datevalue = (Convert.ToDateTime(sDate.ToString()));
+
+                    String dy = datevalue.Day.ToString();
+                    String mn = datevalue.Month.ToString();
+                    String yy = datevalue.Year.ToString();
+
+                    string path = modelOfferMonitoring.fileDirectory + @"\" + yy + @"\" + mn + @"\" + dy;
+
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+
+                    foreach (var attachfile in model.attachfiles)
+                    {
+                        string fre = FileExtension.GetMimeType(attachfile.InputStream, attachfile.FileName);
+
+                        if (attachfile != null && attachfile.ContentLength > 0 && attachfile.ContentLength <= modelOfferMonitoring.fileSize && modelOfferMonitoring.fileTypes.Contains(fre))
+                        {
+                            var fileName = Path.GetFileName(attachfile.FileName);
+                            var ofileName = fileName;
+
+                            string ext = string.Empty;
+                            int fileExtPos = fileName.LastIndexOf(".", StringComparison.Ordinal);
+                            if (fileExtPos >= 0)
+                                ext = fileName.Substring(fileExtPos, fileName.Length - fileExtPos);
+
+                            var newFileName = Guid.NewGuid();
+                            fileName = newFileName.ToString() + ext;
+
+                            attachfile.SaveAs(Path.Combine(path, fileName));
+
+                            modelOfferMonitoring.ComMessageAttachment = new tblComMessageAttachment();
+
+                            modelOfferMonitoring.ComMessageAttachment.CMessageId = model.ComMessage.Id;
+                            modelOfferMonitoring.ComMessageAttachment.CMessageIdSpecified = true;
+
+                            modelOfferMonitoring.ComMessageAttachment.UserID = model.User.Id;
+                            modelOfferMonitoring.ComMessageAttachment.UserIDSpecified = true;
+
+                            modelOfferMonitoring.ComMessageAttachment.documentUrl = path;
+                            modelOfferMonitoring.ComMessageAttachment.documentName = fileName;
+                            modelOfferMonitoring.ComMessageAttachment.documentRealName = ofileName;
+
+                            modelOfferMonitoring.ComMessageAttachment.documentSize = attachfile.ContentLength;
+                            modelOfferMonitoring.ComMessageAttachment.documentSizeSpecified = true;
+
+                            BaseOutput apd = srv.WS_AddComMessageAttachment(baseInput, modelOfferMonitoring.ComMessageAttachment, out modelOfferMonitoring.ComMessageAttachment);
+                        }
+                    }
+                }
+
 
                 return RedirectToAction("Index", "OfferMonitoring", new { monitoringStatusEV = model.EnumValueST.name });
 

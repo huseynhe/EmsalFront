@@ -20,6 +20,11 @@
     <div class="potensial_client">
         <div id="mainf">
 
+            <h4>Məhsulun mənşəyini seçin</h4>
+            <div class="row">
+                @Html.Action("ProductOrigin", "OfferProduction", new { selectedPOriginId = Model.productOriginId})
+            </div>
+
             <h4>Məhsulun çatdırılacağı ünvan</h4>
             <div class="row">
                 <div class="sign-in-page inner-bottom-sm" id="adminUnit">

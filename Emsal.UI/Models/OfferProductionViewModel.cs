@@ -28,6 +28,7 @@ namespace Emsal.UI.Models
         public tblPerson Person;
 
         public tblUserRole UserRole;
+        public IList<tblUserRole> UserRoleList { get; set; }
         public tblUserRole[] UserRoleArray;
 
         public tblOffer_Production OfferProduction;
@@ -141,6 +142,9 @@ namespace Emsal.UI.Models
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public string[] size { get; set; }
 
+
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public long productOriginId { get; set; }
 public string pprice { get; set; }
 public string psize { get; set; }
 
@@ -235,5 +239,6 @@ public int productId { get; set; }
         public string StartDateStr { get; set; }
         public string EndDateStr { get; set; }
         public string UnitPrice { get; set; }
+        public long selectedPOriginId { get; set; }
     }
 }

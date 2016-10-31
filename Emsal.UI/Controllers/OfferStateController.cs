@@ -9,6 +9,7 @@ using System.Web.Security;
 using PagedList;
 using Emsal.UI.Infrastructure;
 using Emsal.Utility.CustomObjects;
+using System.IO;
 
 namespace Emsal.UI.Controllers
 {
@@ -23,7 +24,7 @@ namespace Emsal.UI.Controllers
         private static string sstateStatusEV;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
-       // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
+        // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
 
         private OfferStateViewModel modelOfferState;
 
@@ -82,7 +83,7 @@ namespace Emsal.UI.Controllers
 
                 if (modelOfferState.ProductionDetailArray != null)
                 {
-                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailArray.Where(x=>x.person!=null).ToList();
+                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailArray.Where(x => x.person != null).ToList();
                 }
                 else
                 {
@@ -103,7 +104,7 @@ namespace Emsal.UI.Controllers
                 modelOfferState.Paging = modelOfferState.ProductionDetailList.ToPagedList(pageNumber, pageSize);
 
 
-                if (sstateStatusEV == "Yayinda" || sstateStatusEV == "yayinda" || sstateStatusEV=="new")
+                if (sstateStatusEV == "Yayinda" || sstateStatusEV == "yayinda" || sstateStatusEV == "new")
                     modelOfferState.isMain = 0;
                 else
                     modelOfferState.isMain = 1;
@@ -272,6 +273,69 @@ namespace Emsal.UI.Controllers
                 model.ComMessage.Production_type_eV_IdSpecified = true;
 
                 BaseOutput acm = srv.WS_AddComMessage(baseInput, model.ComMessage, out model.ComMessage);
+
+
+
+                if (model.attachfiles != null)
+                {
+                    baseInput = new BaseInput();
+
+                    modelOfferState = new OfferStateViewModel();
+
+                    String sDate = DateTime.Now.ToString();
+                    DateTime datevalue = (Convert.ToDateTime(sDate.ToString()));
+
+                    String dy = datevalue.Day.ToString();
+                    String mn = datevalue.Month.ToString();
+                    String yy = datevalue.Year.ToString();
+
+                    string path = modelOfferState.fileDirectory + @"\" + yy + @"\" + mn + @"\" + dy;
+
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+
+                    foreach (var attachfile in model.attachfiles)
+                    {
+                        string fre = FileExtension.GetMimeType(attachfile.InputStream, attachfile.FileName);
+
+                        if (attachfile != null && attachfile.ContentLength > 0 && attachfile.ContentLength <= modelOfferState.fileSize && modelOfferState.fileTypes.Contains(fre))
+                        {
+                            var fileName = Path.GetFileName(attachfile.FileName);
+                            var ofileName = fileName;
+
+                            string ext = string.Empty;
+                            int fileExtPos = fileName.LastIndexOf(".", StringComparison.Ordinal);
+                            if (fileExtPos >= 0)
+                                ext = fileName.Substring(fileExtPos, fileName.Length - fileExtPos);
+
+                            var newFileName = Guid.NewGuid();
+                            fileName = newFileName.ToString() + ext;
+
+                            attachfile.SaveAs(Path.Combine(path, fileName));
+
+                            modelOfferState.ComMessageAttachment = new tblComMessageAttachment();
+
+                            modelOfferState.ComMessageAttachment.CMessageId = model.ComMessage.Id;
+                            modelOfferState.ComMessageAttachment.CMessageIdSpecified = true;
+
+                            modelOfferState.ComMessageAttachment.UserID = model.User.Id;
+                            modelOfferState.ComMessageAttachment.UserIDSpecified = true;
+
+                            modelOfferState.ComMessageAttachment.documentUrl = path;
+                            modelOfferState.ComMessageAttachment.documentName = fileName;
+                            modelOfferState.ComMessageAttachment.documentRealName = ofileName;
+
+                            modelOfferState.ComMessageAttachment.documentSize = attachfile.ContentLength;
+                            modelOfferState.ComMessageAttachment.documentSizeSpecified = true;
+
+                            BaseOutput apd = srv.WS_AddComMessageAttachment(baseInput, modelOfferState.ComMessageAttachment, out modelOfferState.ComMessageAttachment);
+                        }
+                    }
+                }
+
 
                 return RedirectToAction("Index", "OfferState", new { stateStatusEV = model.EnumValueST.name });
 

@@ -83,6 +83,7 @@ namespace Emsal.UI.Controllers
                 modelOfferProduction.EnumValueMonthList = modelOfferProduction.EnumValueArray.ToList();
 
                 modelOfferProduction.fullAddressId = fullAddressId;
+
                 if (Session["documentGrupId"] == null)
                 {
                     Guid dg = Guid.NewGuid();
@@ -90,6 +91,42 @@ namespace Emsal.UI.Controllers
                     this.Session.Timeout = 20;
                 }
 
+                return View(modelOfferProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+        public ActionResult ProductOrigin(long selectedPOriginId = 0)
+        {
+            try
+            {
+
+                baseInput = new BaseInput();
+                modelOfferProduction = new OfferProductionViewModel();
+
+
+                long? userId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        userId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelOfferProduction.User);
+                baseInput.userName = modelOfferProduction.User.Username;
+
+                BaseOutput gpo = srv.WS_GetAdminUnitsByParentId(baseInput, 0, true, out modelOfferProduction.PRMAdminUnitArray);
+                modelOfferProduction.PRMAdminUnitList = modelOfferProduction.PRMAdminUnitArray.ToList();
+
+                if (selectedPOriginId > 0)
+                {
+                    modelOfferProduction.selectedPOriginId = selectedPOriginId;
+                }
                 return View(modelOfferProduction);
 
             }
@@ -637,6 +674,9 @@ namespace Emsal.UI.Controllers
                 modelOfferProduction.OfferProduction.potentialProduct_Id = model.ppId;
                 modelOfferProduction.OfferProduction.potentialProduct_IdSpecified = true;
 
+                modelOfferProduction.OfferProduction.productOrigin = model.productOriginId;
+                modelOfferProduction.OfferProduction.productOriginSpecified = true;
+
                 BaseOutput app = srv.WS_AddOffer_Production(baseInput, modelOfferProduction.OfferProduction, out modelOfferProduction.OfferProduction);
 
                 if (model.price != null)
@@ -809,6 +849,9 @@ namespace Emsal.UI.Controllers
                 modelOfferProduction.endDateYear = endDate.Year;
                 modelOfferProduction.endDateMonth = endDate.ToString("MMMM", CultureInfo.CreateSpecificCulture("en"));
 
+                modelOfferProduction.productOriginId = (long)modelOfferProduction.OfferProduction.productOrigin;
+
+
                 BaseOutput enumcat = srv.WS_GetEnumCategorysByName(baseInput, "shippingSchedule", out modelOfferProduction.EnumCategory);
                 if (modelOfferProduction.EnumCategory == null)
                     modelOfferProduction.EnumCategory = new tblEnumCategory();
@@ -906,6 +949,9 @@ namespace Emsal.UI.Controllers
                 //modelOfferProduction.ProductCatalogList = modelOfferProduction.ProductCatalogArray.ToList();
 
                 //modelOfferProduction.OfferProduction.fullProductId = string.Join(",", modelOfferProduction.ProductCatalogList.Select(x => x.Id));
+
+                modelOfferProduction.OfferProduction.productOrigin = model.productOriginId;
+                modelOfferProduction.OfferProduction.productOriginSpecified = true;
 
                 BaseOutput app = srv.WS_UpdateOffer_Production(baseInput, modelOfferProduction.OfferProduction, out modelOfferProduction.OfferProduction);
 

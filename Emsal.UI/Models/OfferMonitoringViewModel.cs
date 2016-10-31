@@ -19,6 +19,7 @@ namespace Emsal.UI.Models
         public int fileSize = FileExtension.fileSize;
         public string fileDirectory = FileExtension.fileDirectoryExternal;
         public List<string> fileTypes = FileExtension.fileMimeTypes;
+        public string fileAcceptTypes = FileExtension.fileTypes;
 
         public tblUser User;
 
@@ -93,6 +94,10 @@ namespace Emsal.UI.Models
         public IList<tblConfirmationMessage> ConfirmationMessageList { get; set; }
         public tblConfirmationMessage[] ConfirmationMessageArray;
 
+        public tblComMessageAttachment ComMessageAttachment;
+        public IList<tblComMessageAttachment> ComMessageAttachmentList { get; set; }
+        public tblComMessageAttachment[] ComMessageAttachmentArray;
+
         public PagedList.IPagedList<ProductionDetail> Paging { get; set; }
 
         public bool isPDF { get; set; }
@@ -162,5 +167,7 @@ namespace Emsal.UI.Models
         public string productName { get; set; }
         public string userInfo { get; set; }
         public int itemCount { get; set; }
+
+        public IList<HttpPostedFileBase> attachfiles { get; set; }
     }
 }
