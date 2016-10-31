@@ -160,7 +160,7 @@ namespace Emsal.UI.Models
         public string job { get; set; }
 
         [Display(Name = "Tədarükçünün tipi")]
-        public int suplierType { get; set; }
+        public int suplierType { get; set; } 
 
         [Display(Name = "Doğum tarixi")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
