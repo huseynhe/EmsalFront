@@ -63,7 +63,15 @@
                             <div class="register-suggest-only">
                                 <h2 class="text-bold">Qeydiyyatdan keçməmisiniz?</h2><br />
                                 <h4>Xüsusi xidmətlərimizdən faydalana bilmək üçün qeydiyyatdan keçin</h4><br /><br />
-                                <a href="/SignUpOP?uid=@Model.uid&type=@Model.type" class="btn btn-default text-blue text-bold btn-lg">İndi qeydiyyatdan keç</a>
+                                @if (Model.uid != null && Model.type != null)
+                                {
+                                    <a href="/SignUpOP?uid=@Model.uid&type=@Model.type" class="btn btn-default text-blue text-bold btn-lg">İndi qeydiyyatdan keç</a>
+                                }
+                                else
+                                {
+                                    <a href="/SignUpOP" class="btn btn-default text-blue text-bold btn-lg">İndi qeydiyyatdan keç</a>
+                                }
+                                
                             </div>
                         </div>
                     </div>

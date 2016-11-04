@@ -127,6 +127,16 @@ namespace Emsal.UI.Controllers
                 {
                     modelOfferProduction.selectedPOriginId = selectedPOriginId;
                 }
+
+
+                BaseOutput userRole = srv.WS_GetUserRolesByUserId(baseInput, modelOfferProduction.User.Id, true, out modelOfferProduction.UserRoleArray);
+                modelOfferProduction.UserRole = modelOfferProduction.UserRoleArray.FirstOrDefault();
+
+                if (modelOfferProduction.UserRole.RoleId == 15)
+                {
+                    modelOfferProduction.originStatus = 1;
+                }
+
                 return View(modelOfferProduction);
 
             }
@@ -935,6 +945,7 @@ namespace Emsal.UI.Controllers
                 modelOfferProduction.OfferProduction.endDateSpecified = true;
 
                 BaseOutput envalyo = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferProduction.EnumValueo);
+
                 if(modelOfferProduction.EnumValueo.Id!=modelOfferProduction.OfferProduction.state_eV_Id)
                 {
                     BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Yayinda", out modelOfferProduction.EnumValue);

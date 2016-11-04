@@ -117,6 +117,7 @@ namespace Emsal.UI.Controllers
             }
         }
 
+
         [HttpPost]
         public ActionResult Approv(int[] ids)
         {
@@ -154,21 +155,21 @@ namespace Emsal.UI.Controllers
 
                         BaseOutput updateUserRole = srv.WS_UpdateUserRole(baseInput, modelPotentialClientState.UserRole, out modelPotentialClientState.UserRole);
 
-                        BaseOutput gop = srv.WS_GetOffer_ProductionsByUserID(baseInput, ids[i], true, out modelPotentialClientState.Offer_ProductionArray);
+                        //BaseOutput gop = srv.WS_GetOffer_ProductionsByUserID(baseInput, ids[i], true, out modelPotentialClientState.Offer_ProductionArray);
 
-                        if (modelPotentialClientState.Offer_ProductionArray != null)
-                        {
-                            modelPotentialClientState.Offer_ProductionList = modelPotentialClientState.Offer_ProductionArray.ToList();
+                        //if (modelPotentialClientState.Offer_ProductionArray != null)
+                        //{
+                        //    modelPotentialClientState.Offer_ProductionList = modelPotentialClientState.Offer_ProductionArray.ToList();
 
-                            foreach (var item in modelPotentialClientState.Offer_ProductionList)
-                            {
-                                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Yayinda", out modelPotentialClientState.EnumValue);
-                                modelPotentialClientState.Offer_Production.state_eV_Id = modelPotentialClientState.EnumValue.Id;
-                                modelPotentialClientState.Offer_Production.state_eV_IdSpecified = true;
+                        //    foreach (var item in modelPotentialClientState.Offer_ProductionList)
+                        //    {
+                        //        BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Yayinda", out modelPotentialClientState.EnumValue);
+                        //        modelPotentialClientState.Offer_Production.state_eV_Id = modelPotentialClientState.EnumValue.Id;
+                        //        modelPotentialClientState.Offer_Production.state_eV_IdSpecified = true;
 
-                                BaseOutput uop = srv.WS_UpdateOffer_Production(baseInput, modelPotentialClientState.Offer_Production, out modelPotentialClientState.Offer_Production);
-                            }
-                        }
+                        //        BaseOutput uop = srv.WS_UpdateOffer_Production(baseInput, modelPotentialClientState.Offer_Production, out modelPotentialClientState.Offer_Production);
+                        //    }
+                        //}
                     }
                 }
 

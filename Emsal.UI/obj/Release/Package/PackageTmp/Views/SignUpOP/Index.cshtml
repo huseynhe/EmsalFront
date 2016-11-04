@@ -21,7 +21,10 @@
                         <h2 style="text-align:center;color:#000;">Qeydiyyatdan Keç</h2><br />
                         <hr />
                         <div class="clearfix"></div>
-                        <input type="text" id="warningText" value="" style="border:0; color:red"/>
+                        <div class="row col-lg-12" style="display:none" id="warningDiv">
+                            <label style="border:0; color:red; font-size:13px">İstifadəçi adı və ya nömrəsi artıq mövcuddur!</label>
+                        </div>
+
                         <br />
                         @using (Html.BeginForm("Index", "SignUpOP", FormMethod.Post, new { @id = "signUpDiv" }))
                         {
@@ -31,6 +34,16 @@
                                 <div class="col-lg-10">
                                     <div class="row">
                                         <div class="col-lg-3">
+                                            <label class="control-label">Tədarükçünün növü</label>
+                                            @Html.HiddenFor(model => model.suplierType)
+                                            <select id="supplierTypyId" required class="form-control" onchange="supplierType()">
+                                                <option selected value="">Seçim edin</option>
+                                                <option value="1">Potensial satıcı</option>
+                                                <option value="2">Potensial istehsalçı</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-lg-3" id="personTypeDiv">
                                             <label class="control-label">&nbsp;</label>
                                             <select id="personType" required name="pType" value="@Model.pType" class="form-control" onchange='PersonType()'>
                                                 <option selected value="">Seçim edin</option>
@@ -39,7 +52,7 @@
                                             </select>
                                             @Html.ValidationMessageFor(model => model.pType, "", new { @class = "text-danger" })
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-3" id="legalFizikiDiv">
                                             <div id="fizikiShexs" style="display:none">
                                                 @Html.LabelFor(model => model.fin, htmlAttributes: new { @class = "control-label" }) <a data-toggle="modal" data-target="#pinModal">&nbsp; <span class="glyphicon glyphicon-question-sign">  </span></a>
                                                 @Html.EditorFor(model => model.fin, new { @class = "form-control", required = "required" })
@@ -52,10 +65,10 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-3" id="buttonDiv">
                                             <label class="control-label" for="fin">&nbsp;</label>
                                             <div class="clearfix"></div>
-                                            <input class="btn btn-primary" type="button" value="Yoxla" onclick="check()">
+                                            <input class="btn btn-primary" type="button" value="Yoxla" id="cechkButton" onclick="check()">
                                         </div>
                                         <div class="col-lg-2"></div>
                                     </div>
@@ -65,7 +78,7 @@
                                         <div class="row">
 
 
-                                            <div class="col-md-3" id="userNameDiv" style="display:none">
+                                            <div class="col-md-2" id="userNameDiv" style="display:none">
                                                 <div class="form-group has-warning">
                                                     @Html.LabelFor(model => model.userName, htmlAttributes: new { @class = "control-label" })
                                                     @Html.TextBoxFor(model => model.userName, new { @class = "form-control", required = "required", style = "background-color:e9d7b0" })
@@ -73,7 +86,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <div class="form-group has-warning">
                                                     @Html.LabelFor(model => model.passWord, htmlAttributes: new { @class = "control-label" })
                                                     @Html.PasswordFor(model => model.passWord, new { @class = "form-control", required = "required", style = "background-color:e9d7b0" })
@@ -92,7 +105,7 @@
 
                                             </div>
 
-                                            <div class="col-md-3">
+                                            <div class="col-md-5">
                                                 <div class="form-group" id="huquqiShexsName" style="display:none">
                                                     @Html.LabelFor(model => model.legalPersonName, htmlAttributes: new { @class = "control-label" })
                                                     @Html.EditorFor(model => model.legalPersonName, new { @class = "form-control", required = "required" })
@@ -107,13 +120,14 @@
 
                                             <div class="col-md-2">
                                                 @Html.LabelFor(model => model.mNumber, htmlAttributes: new { @class = "control-label" })
-                                                <select name="mPerefix" class="form-control unicase-form-control">
+                                                <select name="mPerefix" id="mPerefix" class="form-control unicase-form-control" required>
                                                     <option selected value="">Seçin</option>
                                                     @foreach (var item in Model.EnumValueMobilePhone)
                                                     {
                                                         <option value="@item.Id">@item.name</option>
                                                     }
                                                 </select>
+                                                @Html.ValidationMessageFor(model => model.mPerefix, "", new { @class = "text-danger" })
                                             </div>
                                             <div class="col-md-3">
                                                 <label class="control-label">&nbsp;</label>
@@ -230,10 +244,10 @@
                                         </div>
 
                                         <div>
-                                            @*<input class="btn btn-primary btn-lg pull-right" type="button" onclick="SaveChanges()">*@ 
-                                            <button class="btn btn-primary btn-lg pull-right" onclick="SaveChanges()" type="button">
-                                                <i class="glyphicon glyphicon-ok"></i>&nbsp;Təsdiqlə
-                                            </button>
+                                            <input class="btn btn-primary btn-lg pull-right" type="button" onclick="SaveChanges()" value="Təsdiqlə">
+                                            @*<button class="btn btn-primary btn-lg pull-right" onclick="SaveChanges()" type="button">
+                                                    <i class="glyphicon glyphicon-ok"></i>&nbsp;Təsdiqlə
+                                                </button>*@
                                             <br />
                                             <br />
                                         </div>

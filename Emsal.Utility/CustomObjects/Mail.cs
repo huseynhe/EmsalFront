@@ -31,16 +31,17 @@ namespace Emsal.Utility.CustomObjects
         {
             if(CheckForInternetConnection())
             {
-            //string fromPassword = "e1701895";
+                msg.From = new MailAddress("qorxmazz@gmail.com", "emsal.az");
+                string fromPassword = "123456";
 
-            //SmtpClient smtp = new SmtpClient();
-            //smtp.Host = "smtp.gmail.com";
-            //smtp.Port = 587;
-            //smtp.EnableSsl = true;
-            //smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-            //smtp.Credentials = new NetworkCredential(msg.From.Address, fromPassword);
-            //smtp.Timeout = 20000;
-            //smtp.Send(msg);
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Credentials = new NetworkCredential(msg.From.Address, fromPassword);
+                smtp.Timeout = 20000;
+                smtp.Send(msg);
                 return true;
             }
             else

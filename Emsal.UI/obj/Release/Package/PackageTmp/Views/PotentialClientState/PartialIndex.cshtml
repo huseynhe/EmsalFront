@@ -11,20 +11,20 @@
 
                     <!-- /.box-header -->
     <div class="box-body no-padding">
-        @*@if (Model.isMain == 0)
-            {
-                <div class="checkbox btn-group">
-                    <label style="margin-left: 10px;">
-                        <input id="allCheck" onclick="chcheckList(this)" type="checkbox"> Hamısını seç
-                    </label>
-                </div>
-                <div class="btn-group" id="chall">
-                    <button type="submit" class="btn btn-primary btn-sm">
-                        <span class="glyphicon glyphicon-check"></span>&nbsp;təsdiqlə
-                    </button>
-                </div>
+        @if (Model.isMain == 0)
+        {
+            <div class="checkbox btn-group">
+                <label style="margin-left: 10px;">
+                    <input id="allCheck" onclick="chcheckList(this)" type="checkbox"> Hamısını seç
+                </label>
+            </div>
+            <div class="btn-group" id="chall">
+                <button type="submit" class="btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-check"></span>&nbsp;təsdiqlə
+                </button>
+            </div>
 
-            }*@
+        }
         <input hidden id="checkedList" />
         <div class="table-responsive">
             <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
@@ -32,60 +32,37 @@
             </div>
             <table class="table table-hover table-striped table-bordered">
                 <tbody>
-                    @foreach (var item in Model.PagingDetail)
+                    @foreach (var item in Model.PagingUserInfo)
                     {
                         <tr>
-                            @*@if (Model.isMain == 0)
-                                {
-                                    <td class="col-md-1">
-                                        <input onchange="getCheckedList()" name="ids" value="@item.productionID" class="ch" type="checkbox">
-                                    </td>
-                                }*@
-                            <td class="col-md-2">
-                                @item.productName (@item.productParentName)
-                            </td>
-                            <td class="col-md-1">
-                                @item.quantity @item.enumValueName
-                            </td>
-                            <td class="col-md-1">
-                                @item.unitPrice AZN
-                            </td>
-                            <td class="col-md-2">
-                                @item.description
-                            </td>
-                            <td class="col-md-2">
-                                @if (item.person != null)
-                                {
-                                    <span>
-                                        @item.person.Name @item.person.Surname @item.person.FatherName (@item.person.gender)<br />
-                                        pin: @item.person.PinNumber
-                                    </span>
-                                }
-                            </td>
-                            <td class="col-md-2">
-                                <table>
-                                    @foreach (var itm in item.productionDocumentList)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @itm.documentRealName&nbsp;
-
-                                                (@Math.Round(((decimal)itm.documentSize / 1024) / 1024, 2)  mb)&nbsp;&nbsp;
-
-                                                <div class="glyphicon glyphicon-eye-open text-primary" onclick="getAttachmentFile(@itm.Id)" style="cursor:pointer;"></div>
-                                            </td>
-                                        </tr>
-                                    }
-                                </table>
-                            </td>
                             @if (Model.isMain == 0)
                             {
-                                <td class="col-md-1 shsingle text-center">
-                                    <a href="/PotentialClientState/Edit/@item.productionID" class="badge bg-light-blue">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </a>
+                                <td class="col-md-1">
+                                    <input onchange="getCheckedList()" name="ids" value="@item.userID" class="ch" type="checkbox">
                                 </td>
                             }
+                            <td class="col-md-1">
+                                @if (item.profilPicture != null)
+                                {
+                                    if (item.profilPicture != "") { 
+                                <img class="img-responsive thumbnail" style="margin:0;" id="picture" src="data:image/png;base64,@Convert.ToBase64String(Emsal.Utility.CustomObjects.StringExtension.StringToByteArray(item.profilPicture))" />
+                                }
+                                }
+                            </td>
+                            <td class="col-md-3">
+                                @item.name @item.surname @item.fatherName (@item.gender)
+                            </td>
+                            <td class="col-md-2">
+                                @item.pinNumber
+                            </td>
+                            <td class="col-md-3">
+                                @item.fullAddress (@item.personAdressDesc)
+                            </td>
+                            <td class="col-md-1 shsingle text-center">
+                                <a href="/PotentialClientState/Edit/@item.userID" class="badge bg-light-blue">
+                                    <span class="glyphicon glyphicon-check"></span>
+                                </a>
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -93,13 +70,10 @@
         </div>
     </div>
                     <div class="box-footer clearfix">
-                        Səhifə @(Model.PagingDetail.PageCount < Model.PagingDetail.PageNumber ? 0 : Model.PagingDetail.PageNumber) (cəmi @Model.PagingDetail.PageCount)
-                        @Html.PagedListPager(Model.PagingDetail, page => Url.Action("Index", new { page, stateStatusEV = Model.stateStatusEV, productName = Model.productName, userInfo = Model.userInfo }))
+                        Səhifə @(Model.PagingUserInfo.PageCount < Model.PagingUserInfo.PageNumber ? 0 : Model.PagingUserInfo.PageNumber) (cəmi @Model.PagingUserInfo.PageCount)
+                        @Html.PagedListPager(Model.PagingUserInfo, page => Url.Action("Index", new { page, nameSurnameFathername = Model.nameSurnameFathername, pin = Model.pin, fullAddress = Model.fullAddress }))
                     </div>
 }
-
-
-
 
 
 <script>

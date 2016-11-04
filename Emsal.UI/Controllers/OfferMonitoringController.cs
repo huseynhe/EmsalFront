@@ -293,8 +293,6 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput acm = srv.WS_AddComMessage(baseInput, model.ComMessage, out model.ComMessage);
 
-
-
                 if (model.attachfiles != null)
                 {
                     baseInput = new BaseInput();
@@ -315,9 +313,13 @@ namespace Emsal.UI.Controllers
                         Directory.CreateDirectory(path);
                     }
 
-
                     foreach (var attachfile in model.attachfiles)
                     {
+                        if(attachfile==null)
+                        {
+                            return RedirectToAction("Index", "OfferMonitoring", new { monitoringStatusEV = model.EnumValueST.name });
+                        }
+
                         string fre = FileExtension.GetMimeType(attachfile.InputStream, attachfile.FileName);
 
                         if (attachfile != null && attachfile.ContentLength > 0 && attachfile.ContentLength <= modelOfferMonitoring.fileSize && modelOfferMonitoring.fileTypes.Contains(fre))

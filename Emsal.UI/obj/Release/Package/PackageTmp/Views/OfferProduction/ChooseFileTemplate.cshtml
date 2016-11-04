@@ -12,6 +12,8 @@
     var fsm = Math.Round(((decimal)fs / 1024)/1024,2);
     var ufsm = Math.Round(((decimal)ufs / 1024) / 1024,2);
 }
+
+@*@if (Model.ProductCatalogControlDocumentTypeList.Count() > 0) {*@ 
 <div class="col-md-4">
     <div class="form-group">
         @Html.LabelFor(model => model.documentTypes, htmlAttributes: new { @class = "control-label" })
@@ -67,3 +69,4 @@
 
     <input hidden id="uploadFileSize" value="@cfs" />
 </div>
+@*}*@

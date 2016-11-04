@@ -351,11 +351,11 @@ namespace Emsal.UI.Controllers
                     pitem.name = pitem.surname + " " + pitem.name;
                     pitem.parentAdminUnitName = string.Join(", ", pitem.productCatalogDetailList.Select(x => x.productCatalog.ProductName + " (" + x.productName + ")"));
 
-                    if (pv != (pitem.pinNumber + "" + pitem.voen))
-                    {
+                    //if (pv != (pitem.pinNumber + "" + pitem.voen))
+                    //{
                         modelProductCatalog.UserInfoListP.Add(pitem);
-                    }
-                    pv = pitem.pinNumber + "" + pitem.voen;
+                    //}
+                    //pv = pitem.pinNumber + "" + pitem.voen;
                 }
 
                 modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoListP;
@@ -502,10 +502,8 @@ namespace Emsal.UI.Controllers
             try
             {
                 MailMessage msg = new MailMessage();
-                msg.From = new MailAddress("ferid.heziyev@gmail.com", "emsal.az");
 
-                msg.To.Add("qorxmazz@gmail.com");
-                //string fromPassword = "e1701895";
+                msg.To.Add("qorxmazorucov@gmail.com");
                 msg.Subject = "Müraciət göndər";
 
                 msg.Body = "<p>Ad, soyad, ata adı: " + model.nameSurnameFathername + "</p>" +

@@ -240,5 +240,6 @@ public int productId { get; set; }
         public string EndDateStr { get; set; }
         public string UnitPrice { get; set; }
         public long selectedPOriginId { get; set; }
+        public int originStatus { get; set; }
     }
 }

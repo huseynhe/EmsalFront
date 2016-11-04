@@ -1,4 +1,4 @@
-﻿@*@model Emsal.UI.Models.ProductCatalogViewModel*@
+﻿@model Emsal.UI.Models.ProductCatalogViewModel
     
 @{
     ViewBag.Title = "Announcement";
@@ -6,8 +6,31 @@
 }
 
 
-<div id="AjaxPaginationList">
+@*<div class="col-md-3">
+    @if (Model.AnnouncementDetailList.Count() > 0)
+    {
+        <div class="panel-collapse collapse" style="display:table;width:100%;">
+            <ul class="list-group">
+                @foreach (var item in Model.AnnouncementDetailList)
+                {
+                    <li class="list-group-item">
+                        <span>
+                            <a style="cursor:pointer;" onclick="GetProductCatalog(this, @item.announcementDetail.announcement.Id)">@item.announcementDetail.announcement.ProductName</a>
+                            <span style="margin-left:10px;" class="resp"></span>
+                        </span>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>*@
+
+
+@*<div class="col-md-9">*@
+    <div id="AjaxPaginationList">
     @Html.Partial("PartialAnnouncement")
 </div>
+@*</div>*@
+
 
 <script src="~/Content/UI/js/pagedList.js"></script>

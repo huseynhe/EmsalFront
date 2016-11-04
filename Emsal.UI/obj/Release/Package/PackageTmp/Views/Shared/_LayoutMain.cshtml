@@ -1,13 +1,12 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>EMSAL</title>
+    <title>Ərzaq məhsullarının tədarükü və təchizatı</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 
     <link href="~/Content/UI/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/UI/css/font-awesome.css" rel="stylesheet">
@@ -35,7 +34,6 @@
             }
         }
     </script>
-
 </head>
 <body>
     <div class="site-header">
@@ -47,7 +45,7 @@
                     <li><a href="/Home/PotentialUser"><div class="show-3 templatemo_page3">Potensial istehsalçılar</div></a></li>
                     <li><a href="/OfferHome"><div class="show-4 templatemo_page4">Təkliflər</div></a></li>
                     <li><a href="/Home/Services"><div class="show-5 templatemo_page5">Keçidlər</div></a></li>
-                    <li><a href="/"><div class="show-6 templatemo_page6">Qanunvericilik</div></a></li>
+                    <li><a href="/Other/legislation" target="_blank"><div class="show-6 templatemo_page6">Qanunvericilik</div></a></li>
                     <li><a href="/Home/Contact"><div class="show-7 templatemo_page7">Əlaqə</div></a></li>
 
                     @if (Session["musername"] == null)
@@ -73,7 +71,7 @@
                         <a href="/"><img src="~/Content/UI/images/logo1.png" alt=""></a>
                     </div>
 
-                    <div class="col-md-6 col-sm-12 search_btn">
+                    <div class="col-md-5 col-sm-10 search_btn">
                         <div class="input-group" style="margin-top:30px;">
                             <input autocomplete="off" onkeyup="searchAnnouncement(this)" type="text" class="form-control input-lg" id="formGroupInputLarge" placeholder="Elanlar üzrə axtarış ...">
                             <div style="position: absolute; width: 100%; float: left; z-index: 1000;" id="searchAnnouncementResult"></div>
@@ -83,10 +81,13 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 main_menu">
+                    <div class="col-md-4 main_menu">
                         <ul>
                             @if (Session["musername"] == null)
                             {
+                                <li>
+                                    <a href="/Home/Contact/Login"><div class="show-8 templatemo_page8" style="height:80px;"><span class="fa fa-envelope"></span>ƏLAQƏ</div></a>
+                                </li>
                                 <li>
                                     <a href="/Login"><div class="show-8 templatemo_page8" style="height:80px;"><span class="fa fa-lock"></span>DAXİL OL</div></a>
                                 </li>
@@ -96,6 +97,9 @@
                             }
                             else
                             {
+                                <li>
+                                    <a href="/Home/Contact/Login"><div class="show-8 templatemo_page8" style="height:80px;"><span class="fa fa-envelope"></span>ƏLAQƏ</div></a>
+                                </li>
                                 <li>
                                     <a href="/Login/Redirect"><div class="show-8 templatemo_page8" style="height:80px;"><span class="fa fa-user"></span>@Session["musername"]</div></a>
                                 </li>
@@ -165,6 +169,20 @@
             }
         });
     </script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/58175da0d0f23f0cd8df6f19/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
 
 </body>
 </html>

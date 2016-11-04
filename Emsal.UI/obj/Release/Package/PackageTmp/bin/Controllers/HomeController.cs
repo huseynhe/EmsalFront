@@ -108,9 +108,15 @@ namespace Emsal.UI.Controllers
                 //BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelProductCatalog.User);
                 //BaseOutput person = srv.WS_GetPersonByUserId(baseInput, (long)userId, true, out modelProductCatalog.Person);
 
-
                 BaseOutput bouput = srv.WS_GetProductCatalogsByParentId(baseInput, pId, true, out modelProductCatalog.ProductCatalogArray);
-                modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogArray.ToList();
+                if (modelProductCatalog.ProductCatalogArray != null)
+                {
+                    modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogArray.ToList();
+                }
+                else
+                {
+                    modelProductCatalog.ProductCatalogList = new List<tblProductCatalog>();
+                }
 
                 if (pId == 0)
                 {
@@ -345,11 +351,11 @@ namespace Emsal.UI.Controllers
                     pitem.name = pitem.surname + " " + pitem.name;
                     pitem.parentAdminUnitName = string.Join(", ", pitem.productCatalogDetailList.Select(x => x.productCatalog.ProductName + " (" + x.productName + ")"));
 
-                    if (pv != (pitem.pinNumber + "" + pitem.voen))
-                    {
+                    //if (pv != (pitem.pinNumber + "" + pitem.voen))
+                    //{
                         modelProductCatalog.UserInfoListP.Add(pitem);
-                    }
-                    pv = pitem.pinNumber + "" + pitem.voen;
+                    //}
+                    //pv = pitem.pinNumber + "" + pitem.voen;
                 }
 
                 modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoListP;
