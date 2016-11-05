@@ -348,5 +348,10 @@ namespace Emsal.UI.Models
 
         public long[] addressIds { get; set; }
 
+        public long countOffAirOffers { get; set; }
+        public long countAcceptedOffers { get; set; }
+        public long countOnAirOffers { get; set; }
+        public long countRejectedOffers { get; set; }
+
     }
 }
