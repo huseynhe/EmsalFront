@@ -12,7 +12,8 @@ namespace Emsal.Utility.CustomObjects
     {
         public static string messageSuccess = "Yadda saxlanıldı.";
         public static int fileSize = 2097152;
-        public static string fileDirectoryExternal = @"C:\inetpub\emsalfiles";
+        public static string fileDirectoryExternal = @"C:\inetpub\generalfiles";
+        public static string fileDirectoryExternalContract = @"C:\inetpub\contractfiles";
         public static string fileDirectoryPersonImage = "~/ContentProfile/personImage/";
         public static string fileDirectoryProfileImage = "~/Content/profileImage/";
         public static string fileDirectoryTempFile = "~/Content/tempFile/";
@@ -20,6 +21,8 @@ namespace Emsal.Utility.CustomObjects
         public static string fileDirectorySV = @"/Content/profileImage/";
         public static List<string> fileMimeTypes = new List<string> { "image/jpeg", "image/png", "application/pdf" };
         public static string fileTypes = ".pdf, .jpeg, .jpg, .png";
+
+        public static List<string> fileMimeTypesPDF = new List<string> {"application/pdf" };
 
 
         private static readonly byte[] BMP = { 66, 77 };

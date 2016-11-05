@@ -41,8 +41,6 @@ namespace Emsal.AdminUI.Controllers
         {
             try
             {
-
-
                 baseInput = new BaseInput();
                 modelproductionDocument = new ProductionDocumentViewModel();
 

@@ -1,0 +1,60 @@
+﻿@model Emsal.UI.Models.OfferMonitoringViewModel
+@*@using PagedList.Mvc;*@
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+<script src="~/ContentProfile/js/Monitoring.js"></script>
+
+
+<br />
+<input type="tel" id="personId"  hidden/>
+<div class="clearfix"></div>
+<br />
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                </div>
+                <table class="table table-hover table-striped table-bordered" style="margin-bottom: 0;">
+                    <tbody>
+                        <tr>
+                            <th class="col-md-1">
+                              Şəkil
+                            </th>
+                            <th class="col-md-6">
+                                Soyad, ad, ata adı - Şirkətin adı<br />
+                                <input onkeyup="OfferMonitoringContractSearch(this, 'nameSurnameFathername')" class="form-control" placeholder="axtar" />
+                            </th>
+                            <th class="col-md-1">
+                               Cinsi
+                            </th>
+                            <th class="col-md-2">
+                                FİN<br />
+                                <input onkeyup="OfferMonitoringContractSearch(this, 'pin')" class="form-control" placeholder="axtar" />
+                            </th>
+                            <th class="col-md-1">
+                               Müqaviləni endir
+                            </th>
+                            <th class="col-md-1">
+                                Müqaviləni əlavə et
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="AjaxPaginationList">
+                    @Html.Partial("PartialContract")
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/ContentProfile/js/pagedList.js"></script>
+
+
+

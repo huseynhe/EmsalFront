@@ -1,0 +1,2504 @@
+﻿@model Emsal.UI.Models.OfferMonitoringViewModel
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+}
+<script src="~/ContentProfile/js/Monitoring.js"></script>
+
+
+
+
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+      xmlns:o="urn:schemas-microsoft-com:office:office"
+      xmlns:w="urn:schemas-microsoft-com:office:word"
+      xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+      xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=us-ascii">
+    <meta name=ProgId content=Word.Document>
+    <meta name=Generator content="Microsoft Word 15">
+    <meta name=Originator content="Microsoft Word 15">
+    <link rel=File-List href="emsalfiles.files/filelist.xml">
+    <!--[if gte mso 9]><xml>
+     <o:DocumentProperties>
+      <o:Author>Nijat</o:Author>
+      <o:LastAuthor>PeITKa</o:LastAuthor>
+      <o:Revision>10</o:Revision>
+      <o:TotalTime>20</o:TotalTime>
+      <o:Created>2016-07-30T07:16:00Z</o:Created>
+      <o:LastSaved>2016-11-04T18:07:00Z</o:LastSaved>
+      <o:Pages>8</o:Pages>
+      <o:Words>2172</o:Words>
+      <o:Characters>12382</o:Characters>
+      <o:Lines>103</o:Lines>
+      <o:Paragraphs>29</o:Paragraphs>
+      <o:CharactersWithSpaces>14525</o:CharactersWithSpaces>
+      <o:Version>15.00</o:Version>
+     </o:DocumentProperties>
+     <o:OfficeDocumentSettings>
+      <o:AllowPNG/>
+     </o:OfficeDocumentSettings>
+    </xml><![endif]-->
+    <link rel=themeData href="emsalfiles.files/themedata.thmx">
+    <link rel=colorSchemeMapping href="emsalfiles.files/colorschememapping.xml">
+    <!--[if gte mso 9]><xml>
+     <w:WordDocument>
+      <w:View>Print</w:View>
+      <w:Zoom>90</w:Zoom>
+      <w:TrackMoves>false</w:TrackMoves>
+      <w:TrackFormatting/>
+      <w:ValidateAgainstSchemas/>
+      <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+      <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+      <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+      <w:DoNotPromoteQF/>
+      <w:LidThemeOther>EN-US</w:LidThemeOther>
+      <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
+      <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+      <w:Compatibility>
+       <w:BreakWrappedTables/>
+       <w:SplitPgBreakAndParaMark/>
+      </w:Compatibility>
+      <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+      <m:mathPr>
+       <m:mathFont m:val="Cambria Math"/>
+       <m:brkBin m:val="before"/>
+       <m:brkBinSub m:val="&#45;-"/>
+       <m:smallFrac m:val="off"/>
+       <m:dispDef/>
+       <m:lMargin m:val="0"/>
+       <m:rMargin m:val="0"/>
+       <m:defJc m:val="centerGroup"/>
+       <m:wrapIndent m:val="1440"/>
+       <m:intLim m:val="subSup"/>
+       <m:naryLim m:val="undOvr"/>
+      </m:mathPr></w:WordDocument>
+    </xml><![endif]-->
+    <!--[if gte mso 9]><xml>
+     <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="false"
+      DefSemiHidden="false" DefQFormat="false" DefPriority="99"
+      LatentStyleCount="371">
+      <w:LsdException Locked="false" Priority="0" QFormat="true" Name="Normal"/>
+      <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 1"/>
+      <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+       UnhideWhenUsed="true" QFormat="true" Name="heading 2"/>
+      <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+       UnhideWhenUsed="true" QFormat="true" Name="heading 3"/>
+      <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+       UnhideWhenUsed="true" QFormat="true" Name="heading 4"/>
+      <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+       UnhideWhenUsed="true" QFormat="true" Name="heading 5"/>
+      <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+       UnhideWhenUsed="true" QFormat="true" Name="heading 6"/>
+      <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+       UnhideWhenUsed="true" QFormat="true" Name="heading 7"/>
+      <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+       UnhideWhenUsed="true" QFormat="true" Name="heading 8"/>
+      <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+       UnhideWhenUsed="true" QFormat="true" Name="heading 9"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="index 1"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="index 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="index 3"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="index 4"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="index 5"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="index 6"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="index 7"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="index 8"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="index 9"/>
+      <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+       UnhideWhenUsed="true" Name="toc 1"/>
+      <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+       UnhideWhenUsed="true" Name="toc 2"/>
+      <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+       UnhideWhenUsed="true" Name="toc 3"/>
+      <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+       UnhideWhenUsed="true" Name="toc 4"/>
+      <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+       UnhideWhenUsed="true" Name="toc 5"/>
+      <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+       UnhideWhenUsed="true" Name="toc 6"/>
+      <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+       UnhideWhenUsed="true" Name="toc 7"/>
+      <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+       UnhideWhenUsed="true" Name="toc 8"/>
+      <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+       UnhideWhenUsed="true" Name="toc 9"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Normal Indent"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="footnote text"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="annotation text"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="header"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="footer"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="index heading"/>
+      <w:LsdException Locked="false" Priority="35" SemiHidden="true"
+       UnhideWhenUsed="true" QFormat="true" Name="caption"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="table of figures"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="envelope address"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="envelope return"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="footnote reference"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="annotation reference"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="line number"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="page number"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="endnote reference"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="endnote text"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="table of authorities"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="macro"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="toa heading"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List Bullet"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List Number"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List 3"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List 4"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List 5"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List Bullet 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List Bullet 3"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List Bullet 4"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List Bullet 5"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List Number 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List Number 3"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List Number 4"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List Number 5"/>
+      <w:LsdException Locked="false" Priority="10" QFormat="true" Name="Title"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Closing"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Signature"/>
+      <w:LsdException Locked="false" Priority="1" SemiHidden="true"
+       UnhideWhenUsed="true" Name="Default Paragraph Font"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Body Text"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Body Text Indent"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List Continue"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List Continue 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List Continue 3"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List Continue 4"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="List Continue 5"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Message Header"/>
+      <w:LsdException Locked="false" Priority="11" QFormat="true" Name="Subtitle"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Salutation"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Date"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Body Text First Indent"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Body Text First Indent 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Note Heading"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Body Text 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Body Text 3"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Body Text Indent 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Body Text Indent 3"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Block Text"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Hyperlink"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="FollowedHyperlink"/>
+      <w:LsdException Locked="false" Priority="22" QFormat="true" Name="Strong"/>
+      <w:LsdException Locked="false" Priority="20" QFormat="true" Name="Emphasis"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Document Map"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Plain Text"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="E-mail Signature"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="HTML Top of Form"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="HTML Bottom of Form"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Normal (Web)"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="HTML Acronym"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="HTML Address"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="HTML Cite"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="HTML Code"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="HTML Definition"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="HTML Keyboard"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="HTML Preformatted"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="HTML Sample"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="HTML Typewriter"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="HTML Variable"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Normal Table"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="annotation subject"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="No List"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Outline List 1"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Outline List 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Outline List 3"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Simple 1"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Simple 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Simple 3"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Classic 1"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Classic 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Classic 3"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Classic 4"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Colorful 1"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Colorful 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Colorful 3"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Columns 1"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Columns 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Columns 3"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Columns 4"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Columns 5"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Grid 1"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Grid 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Grid 3"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Grid 4"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Grid 5"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Grid 6"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Grid 7"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Grid 8"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table List 1"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table List 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table List 3"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table List 4"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table List 5"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table List 6"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table List 7"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table List 8"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table 3D effects 1"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table 3D effects 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table 3D effects 3"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Contemporary"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Elegant"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Professional"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Subtle 1"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Subtle 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Web 1"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Web 2"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Web 3"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Balloon Text"/>
+      <w:LsdException Locked="false" Priority="39" Name="Table Grid"/>
+      <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+       Name="Table Theme"/>
+      <w:LsdException Locked="false" SemiHidden="true" Name="Placeholder Text"/>
+      <w:LsdException Locked="false" Priority="1" QFormat="true" Name="No Spacing"/>
+      <w:LsdException Locked="false" Priority="60" Name="Light Shading"/>
+      <w:LsdException Locked="false" Priority="61" Name="Light List"/>
+      <w:LsdException Locked="false" Priority="62" Name="Light Grid"/>
+      <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1"/>
+      <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2"/>
+      <w:LsdException Locked="false" Priority="65" Name="Medium List 1"/>
+      <w:LsdException Locked="false" Priority="66" Name="Medium List 2"/>
+      <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1"/>
+      <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2"/>
+      <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3"/>
+      <w:LsdException Locked="false" Priority="70" Name="Dark List"/>
+      <w:LsdException Locked="false" Priority="71" Name="Colorful Shading"/>
+      <w:LsdException Locked="false" Priority="72" Name="Colorful List"/>
+      <w:LsdException Locked="false" Priority="73" Name="Colorful Grid"/>
+      <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 1"/>
+      <w:LsdException Locked="false" Priority="61" Name="Light List Accent 1"/>
+      <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 1"/>
+      <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 1"/>
+      <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 1"/>
+      <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 1"/>
+      <w:LsdException Locked="false" SemiHidden="true" Name="Revision"/>
+      <w:LsdException Locked="false" Priority="34" QFormat="true"
+       Name="List Paragraph"/>
+      <w:LsdException Locked="false" Priority="29" QFormat="true" Name="Quote"/>
+      <w:LsdException Locked="false" Priority="30" QFormat="true"
+       Name="Intense Quote"/>
+      <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 1"/>
+      <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 1"/>
+      <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 1"/>
+      <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 1"/>
+      <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 1"/>
+      <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 1"/>
+      <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 1"/>
+      <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 1"/>
+      <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 2"/>
+      <w:LsdException Locked="false" Priority="61" Name="Light List Accent 2"/>
+      <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 2"/>
+      <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 2"/>
+      <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 2"/>
+      <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 2"/>
+      <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 2"/>
+      <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 2"/>
+      <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 2"/>
+      <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 2"/>
+      <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 2"/>
+      <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 2"/>
+      <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 2"/>
+      <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 2"/>
+      <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 3"/>
+      <w:LsdException Locked="false" Priority="61" Name="Light List Accent 3"/>
+      <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 3"/>
+      <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 3"/>
+      <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 3"/>
+      <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 3"/>
+      <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 3"/>
+      <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 3"/>
+      <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 3"/>
+      <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 3"/>
+      <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 3"/>
+      <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 3"/>
+      <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 3"/>
+      <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 3"/>
+      <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 4"/>
+      <w:LsdException Locked="false" Priority="61" Name="Light List Accent 4"/>
+      <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 4"/>
+      <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 4"/>
+      <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 4"/>
+      <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 4"/>
+      <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 4"/>
+      <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 4"/>
+      <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 4"/>
+      <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 4"/>
+      <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 4"/>
+      <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 4"/>
+      <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 4"/>
+      <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 4"/>
+      <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 5"/>
+      <w:LsdException Locked="false" Priority="61" Name="Light List Accent 5"/>
+      <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 5"/>
+      <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 5"/>
+      <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 5"/>
+      <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 5"/>
+      <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 5"/>
+      <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 5"/>
+      <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 5"/>
+      <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 5"/>
+      <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 5"/>
+      <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 5"/>
+      <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 5"/>
+      <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 5"/>
+      <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 6"/>
+      <w:LsdException Locked="false" Priority="61" Name="Light List Accent 6"/>
+      <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 6"/>
+      <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 6"/>
+      <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 6"/>
+      <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 6"/>
+      <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 6"/>
+      <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 6"/>
+      <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 6"/>
+      <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 6"/>
+      <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 6"/>
+      <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 6"/>
+      <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 6"/>
+      <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 6"/>
+      <w:LsdException Locked="false" Priority="19" QFormat="true"
+       Name="Subtle Emphasis"/>
+      <w:LsdException Locked="false" Priority="21" QFormat="true"
+       Name="Intense Emphasis"/>
+      <w:LsdException Locked="false" Priority="31" QFormat="true"
+       Name="Subtle Reference"/>
+      <w:LsdException Locked="false" Priority="32" QFormat="true"
+       Name="Intense Reference"/>
+      <w:LsdException Locked="false" Priority="33" QFormat="true" Name="Book Title"/>
+      <w:LsdException Locked="false" Priority="37" SemiHidden="true"
+       UnhideWhenUsed="true" Name="Bibliography"/>
+      <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+       UnhideWhenUsed="true" QFormat="true" Name="TOC Heading"/>
+      <w:LsdException Locked="false" Priority="41" Name="Plain Table 1"/>
+      <w:LsdException Locked="false" Priority="42" Name="Plain Table 2"/>
+      <w:LsdException Locked="false" Priority="43" Name="Plain Table 3"/>
+      <w:LsdException Locked="false" Priority="44" Name="Plain Table 4"/>
+      <w:LsdException Locked="false" Priority="45" Name="Plain Table 5"/>
+      <w:LsdException Locked="false" Priority="40" Name="Grid Table Light"/>
+      <w:LsdException Locked="false" Priority="46" Name="Grid Table 1 Light"/>
+      <w:LsdException Locked="false" Priority="47" Name="Grid Table 2"/>
+      <w:LsdException Locked="false" Priority="48" Name="Grid Table 3"/>
+      <w:LsdException Locked="false" Priority="49" Name="Grid Table 4"/>
+      <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark"/>
+      <w:LsdException Locked="false" Priority="51" Name="Grid Table 6 Colorful"/>
+      <w:LsdException Locked="false" Priority="52" Name="Grid Table 7 Colorful"/>
+      <w:LsdException Locked="false" Priority="46"
+       Name="Grid Table 1 Light Accent 1"/>
+      <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 1"/>
+      <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 1"/>
+      <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 1"/>
+      <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 1"/>
+      <w:LsdException Locked="false" Priority="51"
+       Name="Grid Table 6 Colorful Accent 1"/>
+      <w:LsdException Locked="false" Priority="52"
+       Name="Grid Table 7 Colorful Accent 1"/>
+      <w:LsdException Locked="false" Priority="46"
+       Name="Grid Table 1 Light Accent 2"/>
+      <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 2"/>
+      <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 2"/>
+      <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 2"/>
+      <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 2"/>
+      <w:LsdException Locked="false" Priority="51"
+       Name="Grid Table 6 Colorful Accent 2"/>
+      <w:LsdException Locked="false" Priority="52"
+       Name="Grid Table 7 Colorful Accent 2"/>
+      <w:LsdException Locked="false" Priority="46"
+       Name="Grid Table 1 Light Accent 3"/>
+      <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 3"/>
+      <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 3"/>
+      <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 3"/>
+      <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 3"/>
+      <w:LsdException Locked="false" Priority="51"
+       Name="Grid Table 6 Colorful Accent 3"/>
+      <w:LsdException Locked="false" Priority="52"
+       Name="Grid Table 7 Colorful Accent 3"/>
+      <w:LsdException Locked="false" Priority="46"
+       Name="Grid Table 1 Light Accent 4"/>
+      <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 4"/>
+      <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 4"/>
+      <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 4"/>
+      <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 4"/>
+      <w:LsdException Locked="false" Priority="51"
+       Name="Grid Table 6 Colorful Accent 4"/>
+      <w:LsdException Locked="false" Priority="52"
+       Name="Grid Table 7 Colorful Accent 4"/>
+      <w:LsdException Locked="false" Priority="46"
+       Name="Grid Table 1 Light Accent 5"/>
+      <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 5"/>
+      <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 5"/>
+      <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 5"/>
+      <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 5"/>
+      <w:LsdException Locked="false" Priority="51"
+       Name="Grid Table 6 Colorful Accent 5"/>
+      <w:LsdException Locked="false" Priority="52"
+       Name="Grid Table 7 Colorful Accent 5"/>
+      <w:LsdException Locked="false" Priority="46"
+       Name="Grid Table 1 Light Accent 6"/>
+      <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 6"/>
+      <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 6"/>
+      <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 6"/>
+      <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 6"/>
+      <w:LsdException Locked="false" Priority="51"
+       Name="Grid Table 6 Colorful Accent 6"/>
+      <w:LsdException Locked="false" Priority="52"
+       Name="Grid Table 7 Colorful Accent 6"/>
+      <w:LsdException Locked="false" Priority="46" Name="List Table 1 Light"/>
+      <w:LsdException Locked="false" Priority="47" Name="List Table 2"/>
+      <w:LsdException Locked="false" Priority="48" Name="List Table 3"/>
+      <w:LsdException Locked="false" Priority="49" Name="List Table 4"/>
+      <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark"/>
+      <w:LsdException Locked="false" Priority="51" Name="List Table 6 Colorful"/>
+      <w:LsdException Locked="false" Priority="52" Name="List Table 7 Colorful"/>
+      <w:LsdException Locked="false" Priority="46"
+       Name="List Table 1 Light Accent 1"/>
+      <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 1"/>
+      <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 1"/>
+      <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 1"/>
+      <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 1"/>
+      <w:LsdException Locked="false" Priority="51"
+       Name="List Table 6 Colorful Accent 1"/>
+      <w:LsdException Locked="false" Priority="52"
+       Name="List Table 7 Colorful Accent 1"/>
+      <w:LsdException Locked="false" Priority="46"
+       Name="List Table 1 Light Accent 2"/>
+      <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 2"/>
+      <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 2"/>
+      <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 2"/>
+      <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 2"/>
+      <w:LsdException Locked="false" Priority="51"
+       Name="List Table 6 Colorful Accent 2"/>
+      <w:LsdException Locked="false" Priority="52"
+       Name="List Table 7 Colorful Accent 2"/>
+      <w:LsdException Locked="false" Priority="46"
+       Name="List Table 1 Light Accent 3"/>
+      <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 3"/>
+      <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 3"/>
+      <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 3"/>
+      <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 3"/>
+      <w:LsdException Locked="false" Priority="51"
+       Name="List Table 6 Colorful Accent 3"/>
+      <w:LsdException Locked="false" Priority="52"
+       Name="List Table 7 Colorful Accent 3"/>
+      <w:LsdException Locked="false" Priority="46"
+       Name="List Table 1 Light Accent 4"/>
+      <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 4"/>
+      <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 4"/>
+      <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 4"/>
+      <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 4"/>
+      <w:LsdException Locked="false" Priority="51"
+       Name="List Table 6 Colorful Accent 4"/>
+      <w:LsdException Locked="false" Priority="52"
+       Name="List Table 7 Colorful Accent 4"/>
+      <w:LsdException Locked="false" Priority="46"
+       Name="List Table 1 Light Accent 5"/>
+      <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 5"/>
+      <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 5"/>
+      <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 5"/>
+      <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 5"/>
+      <w:LsdException Locked="false" Priority="51"
+       Name="List Table 6 Colorful Accent 5"/>
+      <w:LsdException Locked="false" Priority="52"
+       Name="List Table 7 Colorful Accent 5"/>
+      <w:LsdException Locked="false" Priority="46"
+       Name="List Table 1 Light Accent 6"/>
+      <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 6"/>
+      <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 6"/>
+      <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 6"/>
+      <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 6"/>
+      <w:LsdException Locked="false" Priority="51"
+       Name="List Table 6 Colorful Accent 6"/>
+      <w:LsdException Locked="false" Priority="52"
+       Name="List Table 7 Colorful Accent 6"/>
+     </w:LatentStyles>
+    </xml><![endif]-->
+    <style>
+<!--
+ /* Font Definitions */
+ font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:-536870145 1107305727 0 0 415 0;}
+font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:-520081665 -1073717157 41 0 66047 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;}
+p
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-margin-top-alt:auto;
+	margin-right:0cm;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	mso-default-props:yes;
+	font-size:10.0pt;
+	mso-ansi-font-size:10.0pt;
+	mso-bidi-font-size:10.0pt;}
+page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;
+	mso-header-margin:35.4pt;
+	mso-footer-margin:35.4pt;
+	mso-paper-source:0;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+    </style>
+    <!--[if gte mso 10]>
+    <style>
+     /* Style Definitions */
+     table.MsoNormalTable
+        {mso-style-name:"\041E\0431\044B\0447\043D\0430\044F \0442\0430\0431\043B\0438\0446\0430";
+        mso-tstyle-rowband-size:0;
+        mso-tstyle-colband-size:0;
+        mso-style-noshow:yes;
+        mso-style-priority:99;
+        mso-style-parent:"";
+        mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+        mso-para-margin:0cm;
+        mso-para-margin-bottom:.0001pt;
+        mso-pagination:widow-orphan;
+        font-size:10.0pt;
+        font-family:"Times New Roman","serif";}
+    table.MsoTableGrid
+        {mso-style-name:"\0421\0435\0442\043A\0430 \0442\0430\0431\043B\0438\0446\044B";
+        mso-tstyle-rowband-size:0;
+        mso-tstyle-colband-size:0;
+        mso-style-priority:39;
+        mso-style-unhide:no;
+        border:solid windowtext 1.0pt;
+        mso-border-alt:solid windowtext .5pt;
+        mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+        mso-border-insideh:.5pt solid windowtext;
+        mso-border-insidev:.5pt solid windowtext;
+        mso-para-margin:0cm;
+        mso-para-margin-bottom:.0001pt;
+        mso-pagination:widow-orphan;
+        font-size:11.0pt;
+        font-family:"Calibri","sans-serif";
+        mso-ascii-font-family:Calibri;
+        mso-ascii-theme-font:minor-latin;
+        mso-fareast-font-family:Calibri;
+        mso-fareast-theme-font:minor-latin;
+        mso-hansi-font-family:Calibri;
+        mso-hansi-theme-font:minor-latin;
+        mso-bidi-font-family:"Times New Roman";
+        mso-bidi-theme-font:minor-bidi;}
+    table.TableNormal
+        {mso-style-name:"Table Normal";
+        mso-tstyle-rowband-size:0;
+        mso-tstyle-colband-size:0;
+        mso-style-noshow:yes;
+        mso-style-priority:99;
+        mso-style-unhide:no;
+        mso-style-parent:"";
+        mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+        mso-para-margin:0cm;
+        mso-para-margin-bottom:.0001pt;
+        mso-pagination:widow-orphan;
+        font-size:10.0pt;
+        font-family:"Times New Roman","serif";}
+    </style>
+    <![endif]-->
+    <!--[if gte mso 9]><xml>
+     <o:shapedefaults v:ext="edit" spidmax="1026"/>
+    </xml><![endif]-->
+    <!--[if gte mso 9]><xml>
+    <o:shapelayout v:ext="edit">
+     <o:idmap v:ext="edit" data="1"/>
+    </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=EN-US style='tab-interval:36.0pt'>
+
+    <div class=WordSection1>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>
+                Az&#601;rbaycan Respublikas&#305; Nazirl&#601;r Kabinetinin 2016-c&#305; il
+                27 oktyabr tarixli 420 n&ouml;mr&#601;li q&#601;rar&#305; il&#601;&nbsp;<b>
+                    t&#601;sdiq
+                    edilmi&#351;dir.
+                </b><o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>5 n&ouml;mr&#601;li &#601;lav&#601;</span>
+            </b><span style='font-size:9.0pt;
+font-family:"Tahoma","sans-serif";mso-fareast-font-family:"Times New Roman";
+color:#6B6B6B;mso-fareast-language:RU'><o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>&nbsp;</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>
+                &quot;&#399;rzaq m&#601;hsullar&#305;n&#305;n t&#601;dar&uuml;k&uuml;
+                v&#601; t&#601;chizat&#305;&quot; A&ccedil;&#305;q S&#601;hmdar
+                C&#601;miyy&#601;ti il&#601; &#601;rzaq m&#601;hsullar&#305;n&#305;n
+                istehsal&ccedil;&#305;lar&#305; v&#601; ya sat&#305;c&#305;lar&#305;
+                aras&#305;nda ba&#287;lan&#305;lan M&uuml;qavil&#601;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>&nbsp; ________ &#351;&#601;h&#601;ri &quot;___&quot; ______ ___ il<o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'><o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;&nbsp;</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                Bu M&uuml;qavil&#601;
+                Az&#601;rbaycan Respublikas&#305; Prezidentinin 2016-c&#305; il 11 aprel
+                tarixli 1944 n&ouml;mr&#601;li S&#601;r&#601;ncam&#305; il&#601;
+                yarad&#305;lm&#305;&#351; &quot;&#399;rzaq m&#601;hsullar&#305;n&#305;n
+                t&#601;dar&uuml;k&uuml; v&#601; t&#601;chizat&#305;&quot; A&ccedil;&#305;q
+                S&#601;hmdar C&#601;miyy&#601;ti (bundan sonra-C&#601;miyy&#601;t),
+                C&#601;miyy&#601;tin ________________________<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>
+                &nbsp;&nbsp;(v&#601;zif&#601;si, soyad&#305;, ad&#305;, atas&#305;n&#305;n
+                ad&#305;)<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                &#351;&#601;xsind&#601;
+                bir t&#601;r&#601;fd&#601;n v&#601; &#601;rzaq m&#601;hsullar&#305;n&#305;n
+                istehsal&ccedil;&#305;s&#305; v&#601; ya sat&#305;c&#305;s&#305;
+               @Model.ProductionDetailList.FirstOrDefault().person.Surname @Model.ProductionDetailList.FirstOrDefault().person.Name @Model.ProductionDetailList.FirstOrDefault().person.FatherName (bundan sonra - &#304;cra&ccedil;&#305;),<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                &nbsp;(ad&#305;
+                v&#601; t&#601;&#351;kilati-h&uuml;quqi formas&#305;)<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>(@Model.ProductionDetailList.FirstOrDefault().userType) @Model.ProductionDetailList.FirstOrDefault().organizationName<o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>(v&#601;zif&#601;si, soyad&#305;, ad&#305;, atas&#305;n&#305;n ad&#305;)<o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                &#351;&#601;xsind&#601;
+                dig&#601;r t&#601;r&#601;fd&#601;n (bundan sonra
+                birlikd&#601;-T&#601;r&#601;fl&#601;r) Az&#601;rbaycan Respublikas&#305;
+                Prezidentinin 2016-c&#305; il 11 aprel tarixli 859 n&ouml;mr&#601;li
+                F&#601;rman&#305; il&#601; t&#601;sdiq edilmi&#351; &quot;D&ouml;vl&#601;t
+                m&uuml;&#601;ssis&#601; v&#601; t&#601;&#351;kilatlar&#305;
+                (idar&#601;l&#601;ri) t&#601;r&#601;find&#601;n &#601;rzaq
+                m&#601;hsullar&#305;n&#305;n m&#601;rk&#601;zl&#601;&#351;dirilmi&#351; qaydada
+                d&ouml;vl&#601;t b&uuml;dc&#601;sinin v&#601;saitl&#601;ri hesab&#305;na
+                sat&#305;n al&#305;nmas&#305; Qaydas&#305;&quot;n&#305;n (bundan sonra-Qayda)
+                m&uuml;dd&#601;alar&#305;na uy&#287;un olaraq ba&#287;lan&#305;l&#305;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>&nbsp;<b>1. M&uuml;qavil&#601;nin predmeti</b><o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                &nbsp;1.1. Bu
+                M&uuml;qavil&#601;y&#601;&nbsp;&#601;sas&#601;n C&#601;miyy&#601;t elektron
+                portal&#305;nda g&ouml;st&#601;ril&#601;n &#601;rzaq
+                m&#601;hsullar&#305;n&#305;n al&#305;nmas&#305;na dair elan&#305;n
+                &#351;&#601;rtl&#601;rin&#601; uy&#287;un g&#601;l&#601;n v&#601; bu
+                M&uuml;qavil&#601;nin 1 n&ouml;mr&#601;li c&#601;dv&#601;lind&#601;
+                g&ouml;st&#601;ril&#601;n &#601;rzaq m&#601;hsullar&#305;n&#305;n sat&#305;n
+                al&#305;nmas&#305; bar&#601;d&#601; &#304;cra&ccedil;&#305;n&#305;n
+                t&#601;klifini q&#601;bul edir.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                1.2.
+                C&#601;miyy&#601;t bu M&uuml;qavil&#601;d&#601; n&#601;z&#601;rd&#601;
+                tutulmu&#351; &#351;&#601;rtl&#601;r &#601;sas&#305;nda &#601;rzaq
+                m&#601;hsullar&#305;n&#305;n &#304;cra&ccedil;&#305;dan q&#601;bul
+                edilm&#601;sini v&#601; d&#601;y&#601;rinin &ouml;d&#601;nilm&#601;sini
+                &ouml;hd&#601;sin&#601; g&ouml;t&uuml;r&uuml;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                1.3.
+                A&#351;a&#287;&#305;dak&#305; s&#601;n&#601;dl&#601;r bu M&uuml;qavil&#601;nin
+                ayr&#305;lmaz t&#601;rkib hiss&#601;si hesab olunur:<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                1.3.1.
+                &quot;&#399;rzaq m&#601;hsullar&#305;n&#305;n t&#601;dar&uuml;k&uuml; v&#601;
+                t&#601;chizat&#305;&quot; A&ccedil;&#305;q S&#601;hmdar C&#601;miyy&#601;ti
+                il&#601; &#601;rzaq m&#601;hsullar&#305;n&#305;n
+                istehsal&ccedil;&#305;lar&#305; v&#601; ya sat&#305;c&#305;lar&#305;
+                aras&#305;nda ba&#287;lan&#305;lm&#305;&#351; M&uuml;qavil&#601;
+                &#601;sas&#305;nda al&#305;nacaq &#601;rzaq m&#601;hsullar&#305;n&#305;n
+                miqdar&#305; v&#601; qiym&#601;t c&#601;dv&#601;li (1 n&ouml;mr&#601;li
+                c&#601;dv&#601;l);<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                1.3.2.
+                ba&#287;lan&#305;lm&#305;&#351; M&uuml;qavil&#601;y&#601; &#601;sas&#601;n
+                &#601;rzaq m&#601;hsullar&#305;n&#305;n istehsal&ccedil;&#305;lar&#305; v&#601;
+                ya sat&#305;c&#305;lar&#305; t&#601;r&#601;find&#601;n &quot;&#399;rzaq
+                m&#601;hsullar&#305;n&#305;n t&#601;dar&uuml;k&uuml; v&#601; t&#601;chizat&#305;&quot;
+                A&ccedil;&#305;q S&#601;hmdar C&#601;miyy&#601;tin&#601; &#601;rzaq
+                m&#601;hsullar&#305;n&#305;n t&#601;qdim edilm&#601;si c&#601;dv&#601;li (2
+                n&ouml;mr&#601;li c&#601;dv&#601;l).<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>&nbsp;<b>2. T&#601;r&#601;fl&#601;rin &ouml;hd&#601;likl&#601;ri</b><o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                2.1.
+                C&#601;miyy&#601;t:<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                2.1.1.
+                &#304;cra&ccedil;&#305;dan M&uuml;qavil&#601;nin 1 n&ouml;mr&#601;li
+                c&#601;dv&#601;lind&#601; g&ouml;st&#601;ril&#601;n &#601;rzaq
+                m&#601;hsullar&#305;n&#305; 2 n&ouml;mr&#601;li c&#601;dv&#601;ld&#601;ki
+                t&#601;dar&uuml;k qrafikin&#601; uy&#287;un q&#601;bul edir;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                2.1.2.
+                &#304;cra&ccedil;&#305;dan q&#601;bul etdiyi &#601;rzaq
+                m&#601;hsullar&#305;n&#305; sat&#305;nalan t&#601;&#351;kilata t&#601;qdim
+                edil&#601;n&#601;d&#601;k saxlan&#305;lma &#351;&#601;raitin&#601; riay&#601;t
+                edilm&#601;kl&#601; saxlan&#305;lmas&#305;n&#305; t&#601;min edir;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                2.1.3. ay
+                &#601;rzind&#601; al&#305;nm&#305;&#351; &#601;rzaq
+                m&#601;hsullar&#305;n&#305;n d&#601;y&#601;rinin (C&#601;miyy&#601;t
+                t&#601;r&#601;find&#601;n avans qismind&#601; &ouml;d&#601;nilmi&#351;
+                m&#601;bl&#601;&#287; n&#601;z&#601;r&#601; al&#305;nmaqla) n&ouml;vb&#601;ti
+                ay&#305;n 5-d&#601;k istehsal&ccedil;&#305;ya (sat&#305;c&#305;ya)
+                &ouml;d&#601;nilm&#601;sini t&#601;min edir;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                2.1.4.
+                &#304;cra&ccedil;&#305;n&#305;n t&#601;qdim etdiyi &#601;rzaq
+                m&#601;hsullar&#305; sat&#305;nalmaya dair m&uuml;qavil&#601;nin
+                &#351;&#601;rtl&#601;rin&#601; uy&#287;un g&#601;lm&#601;dikd&#601;,
+                T&#601;r&#601;fl&#601;rin s&#601;lahiyy&#601;tli
+                n&uuml;may&#601;nd&#601;l&#601;rinin i&#351;tirak&#305; il&#601; keyfiyy&#601;tsiz
+                &#601;rzaq m&#601;hsullar&#305; &uuml;zr&#601; q&uuml;sur akt&#305; t&#601;rtib
+                edilm&#601;kl&#601; onun q&#601;bulundan imtina edir;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                2.1.5.
+                &#304;cra&ccedil;&#305; keyfiyy&#601;tsiz &#601;rzaq m&#601;hsullar&#305;n&#305;
+                3 (&uuml;&ccedil;) t&#601;qvim g&uuml;n&uuml;nd&#601;n gec olmayaraq
+                keyfiyy&#601;tli m&#601;hsulla &#601;v&#601;z etm&#601;dikd&#601;, bu
+                M&uuml;qavil&#601;y&#601; birt&#601;r&#601;fli qaydada xitam verir.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                2.2.
+                &#304;cra&ccedil;&#305;:<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                2.2.1. bu
+                M&uuml;qavil&#601;d&#601; n&#601;z&#601;rd&#601; tutulmu&#351;
+                &#351;&#601;rtl&#601;r &#601;sas&#305;nda M&uuml;qavil&#601;nin 1
+                n&ouml;mr&#601;li c&#601;dv&#601;lind&#601; g&ouml;st&#601;ril&#601;n
+                &#601;rzaq m&#601;hsullar&#305;n&#305;n C&#601;miyy&#601;t&#601; t&#601;hvil
+                verilm&#601;sini &ouml;hd&#601;sin&#601; g&ouml;t&uuml;r&uuml;r;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                2.2.2.
+                n&ouml;vb&#601;ti ild&#601; t&#601;qdim edil&#601;c&#601;k &#601;rzaq
+                m&#601;hsullar&#305;na g&ouml;r&#601; C&#601;miyy&#601;t
+                t&#601;r&#601;find&#601;n &#601;vv&#601;lc&#601;d&#601;n avans qismind&#601;
+                &ouml;d&#601;nilmi&#351; v&#601;saitin t&#601;yinat&#305; &uuml;zr&#601;
+                istifad&#601;sini t&#601;min edir v&#601; bu bar&#601;d&#601; r&uuml;bd&#601;
+                bir d&#601;f&#601; C&#601;miyy&#601;t&#601; m&#601;lumat verir;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                2.2.3. bu
+                M&uuml;qavil&#601;d&#601; g&ouml;st&#601;ril&#601;n sat&#305;n al&#305;nacaq
+                m&#601;hsullar&#305;n h&#601;cmini t&#601;min etm&#601;k potensial&#305;na
+                malik olmad&#305;qda, M&uuml;qavil&#601;d&#601; d&#601;yi&#351;iklikl&#601;r
+                edilm&#601;si &uuml;&ccedil;&uuml;n C&#601;miyy&#601;tin t&#601;klifini
+                q&#601;bul edir;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                2.2.4.
+                &#304;cra&ccedil;&#305; bu M&uuml;qavil&#601;nin 1 n&ouml;mr&#601;li
+                c&#601;dv&#601;lind&#601; g&ouml;st&#601;ril&#601;n &#601;rzaq
+                m&#601;hsullar&#305;n&#305;n g&ouml;nd&#601;rilm&#601;si &uuml;zr&#601;
+                n&#601;z&#601;rd&#601; tutulan &ouml;hd&#601;likl&#601;ri yerin&#601; yetirir
+                v&#601; C&#601;miyy&#601;tin m&uuml;&#601;yy&#601;n etdiyi &uuml;nvanda
+                (t&#601;dar&uuml;k m&#601;nt&#601;q&#601;sind&#601;) ona t&#601;hvil verir.
+                C&#601;miyy&#601;tin n&uuml;may&#601;nd&#601;si t&#601;r&#601;find&#601;n
+                t&#601;hvil-t&#601;slim akt&#305; imzaland&#305;qdan sonra v&#601; ya
+                qaim&#601;-faktura &#601;sas&#305;nda m&#601;hsullar q&#601;bul edilmi&#351;
+                hesab olunur;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                2.2.5.
+                t&#601;dar&uuml;k edilmi&#351; &#601;rzaq m&#601;hsullar&#305; bu
+                M&uuml;qavil&#601;d&#601; g&ouml;st&#601;rilmi&#351;
+                &#351;&#601;rtl&#601;r&#601; uy&#287;un olmad&#305;qda,
+                T&#601;r&#601;fl&#601;rin n&uuml;may&#601;nd&#601;l&#601;rinin
+                i&#351;tirak&#305; il&#601; bu bar&#601;d&#601; q&uuml;sur akt&#305;n&#305;
+                t&#601;rtib edir v&#601; a&#351;kar olunan keyfiyy&#601;tsiz &#601;rzaq
+                m&#601;hsullar&#305;n&#305; 3 (&uuml;&ccedil;) t&#601;qvim
+                g&uuml;n&uuml;nd&#601;n gec olmayaraq keyfiyy&#601;tli m&#601;hsulla
+                &#601;v&#601;z edir. &#399;ks halda, C&#601;miyy&#601;t
+                t&#601;r&#601;find&#601;n m&#601;hsulun d&#601;y&#601;rinin avans qismind&#601;
+                &#601;vv&#601;lc&#601;d&#601;n &ouml;d&#601;nilmi&#351; 25 faizini
+                Az&#601;rbaycan Respublikas&#305; M&#601;rk&#601;zi Bank&#305;n&#305;n
+                h&#601;min d&ouml;vr &uuml;&ccedil;&uuml;n m&uuml;&#601;yy&#601;n etdiyi
+                u&ccedil;ot d&#601;r&#601;c&#601;sin&#601; uy&#287;un olaraq 10 (on) g&uuml;n
+                m&uuml;dd&#601;tind&#601; geri qaytar&#305;r;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                2.2.6. bu
+                M&uuml;qavil&#601;nin icra m&uuml;dd&#601;tind&#601;
+                t&#601;&#351;kilati-h&uuml;quqi formas&#305;, h&uuml;quqi &uuml;nvan&#305;,
+                ad&#305; v&#601; &#601;laq&#601; telefonlar&#305;
+                d&#601;yi&#351;dirildikd&#601;, bu bar&#601;d&#601; t&#601;xir&#601;sal&#305;nmadan
+                C&#601;miyy&#601;t&#601; m&#601;lumat verir;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                2.2.7. bu
+                M&uuml;qavil&#601;nin icras&#305; il&#601; ba&#287;l&#305; m&uuml;vafiq
+                sertifikatlar&#305; v&#601; dig&#601;r s&#601;n&#601;dl&#601;ri
+                C&#601;miyy&#601;t&#601; t&#601;qdim edir;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                2.2.8. bu
+                M&uuml;qavil&#601; &#601;sas&#305;nda C&#601;miyy&#601;t&#601; t&#601;hvil
+                verdiyi m&#601;hsullar&#305;n keyfiyy&#601;tin&#601; (C&#601;miyy&#601;t
+                v&#601; ya &#304;stehlak&ccedil;&#305; t&#601;r&#601;find&#601;n saxlama
+                qaydalar&#305;na riay&#601;t edilm&#601;kl&#601;) istifad&#601;
+                &uuml;&ccedil;&uuml;n m&uuml;&#601;yy&#601;n edilmi&#351; yararl&#305;l&#305;q
+                m&uuml;dd&#601;tind&#601; t&#601;minat verir;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                2.2.9.
+                C&#601;miyy&#601;tin t&#601;l&#601;bin&#601; uy&#287;un olaraq, sat&#305;n
+                al&#305;nacaq &#601;rzaq m&#601;hsullar&#305;n&#305;n n&uuml;mun&#601;sini ona
+                t&#601;qdim edir.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                2.3.
+                M&uuml;qavil&#601;nin icras&#305; M&uuml;qavil&#601;nin
+                &#351;&#601;rtl&#601;rind&#601; g&ouml;st&#601;ril&#601;n
+                m&uuml;dd&#601;td&#601; C&#601;miyy&#601;t v&#601; &#304;cra&ccedil;&#305;
+                t&#601;r&#601;find&#601;n t&#601;sdiq olunmu&#351; qrafikl&#601;r
+                &#601;sas&#305;nda apar&#305;l&#305;r. Qrafikl&#601;r yaln&#305;z
+                T&#601;r&#601;fl&#601;rin yaz&#305;l&#305; raz&#305;l&#305;&#287;&#305;
+                &#601;sas&#305;nda d&#601;yi&#351;diril&#601; bil&#601;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>&nbsp;3. &#399;rzaq m&#601;hsullar&#305;n&#305;n m&#601;n&#351;&#601;yi</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'><o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                &nbsp;3.1. Sat&#305;n
+                al&#305;nan &#601;rzaq m&#601;hsullar&#305;n&#305;n m&#601;n&#351;&#601;yi
+                (istehsal olundu&#287;u &ouml;lk&#601;) Az&#601;rbaycan
+                Respublikas&#305;n&#305;n m&ouml;vcud qanunvericili-yin&#601; v&#601;
+                Az&#601;rbaycan Respublikas&#305;n&#305;n t&#601;r&#601;fdar
+                &ccedil;&#305;xd&#305;&#287;&#305; beyn&#601;lxalq sazi&#351;l&#601;r
+                &ccedil;&#601;r&ccedil;iv&#601;sind&#601; q&#601;bul olunmu&#351;
+                q&#601;rarlara &#601;sas&#601;n sat&#305;nalmalar&#305; qada&#287;an
+                olunmu&#351; &ouml;lk&#601;l&#601;rd&#601;n olmamal&#305;d&#305;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>
+                    &nbsp;4. Mallar&#305;n g&ouml;nd&#601;rilm&#601;si v&#601;
+                    s&#601;n&#601;dl&#601;&#351;dirilm&#601;si
+                </span>
+            </b><span style='font-size:
+9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:"Times New Roman";
+color:#6B6B6B;mso-fareast-language:RU'><o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                4.1.
+                &#304;cra&ccedil;&#305; sat&#305;n al&#305;nan &#601;rzaq
+                m&#601;hsullar&#305;n&#305;n bu M&uuml;qavil&#601;nin 2 n&ouml;mr&#601;li
+                c&#601;dv&#601;lind&#601; g&ouml;st&#601;ril&#601;n m&uuml;dd&#601;tl&#601;rd&#601;
+                C&#601;miyy&#601;t t&#601;r&#601;find&#601;n m&uuml;&#601;yy&#601;n
+                edilmi&#351; t&#601;dar&uuml;k m&#601;nt&#601;q&#601;sin&#601; v&#601; ya
+                &uuml;nvana g&ouml;nd&#601;rilm&#601;sini t&#601;min edir.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                4.2. Az&#601;rbaycan
+                Respublikas&#305;n&#305;n &#601;razisin&#601; idxal olunan &#601;rzaq
+                m&#601;hsullar&#305;n&#305;n g&ouml;nd&#601;rilm&#601;sin&#601; dair
+                t&#601;l&#601;bl&#601;r Parisd&#601; Beyn&#601;lxalq Ticar&#601;t Palatas&#305;
+                t&#601;r&#601;find&#601;n n&#601;&#351;r edil&#601;n v&#601;
+                q&uuml;vv&#601;d&#601; olan &quot;Ticar&#601;t terminl&#601;rinin
+                t&#601;fsirinin beyn&#601;lxalq Qaydalar&#305; &quot;&#304;nkoterms&quot;
+                &#351;&#601;rtl&#601;rin&#601; uy&#287;un olmal&#305;d&#305;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                4.3.
+                &#304;cra&ccedil;&#305; a&#351;a&#287;&#305;dak&#305; s&#601;n&#601;dl&#601;ri
+                Az&#601;rbaycan dilind&#601; C&#601;miyy&#601;t&#601; t&#601;qdim
+                etm&#601;lidir:<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                4.3.1.
+                qaim&#601;-faktura - 1 n&uuml;sx&#601;;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                4.3.2 hesab - 1
+                n&uuml;sx&#601;;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                4.3.3. &#601;rzaq
+                m&#601;hsullar&#305;n&#305;n keyfiyy&#601;tini v&#601;
+                t&#601;hl&uuml;k&#601;sizliyini t&#601;sdiq ed&#601;n gigiyenik, baytarl&#305;q
+                v&#601; ya fitosanitar sertifikatlar&#305;n&#305;n sur&#601;tl&#601;ri, idxal
+                edil&#601;n &#601;rzaq m&#601;hsullar&#305; &uuml;&ccedil;&uuml;n
+                &#601;lav&#601; olaraq m&#601;n&#351;&#601; sertifikat&#305;n&#305;n
+                sur&#601;ti.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                4.4. &#399;rzaq
+                m&#601;hsullar&#305;n&#305;n q&#601;bulu C&#601;miyy&#601;tin v&#601;
+                &#304;cra&ccedil;&#305;n&#305;n n&uuml;may&#601;nd&#601;l&#601;rinin
+                i&#351;tirak&#305; il&#601; h&#601;yata ke&ccedil;irilir v&#601;
+                qaim&#601;-faktura v&#601; ya t&#601;hvil-t&#601;slim akt&#305; il&#601;
+                r&#601;smil&#601;&#351;dirilir.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>
+                    5. Mallar&#305;n qabla&#351;d&#305;r&#305;lmas&#305;, markalanmas&#305;
+                    v&#601; da&#351;&#305;nmas&#305;
+                </span>
+            </b><span style='font-size:9.0pt;
+font-family:"Tahoma","sans-serif";mso-fareast-font-family:"Times New Roman";
+color:#6B6B6B;mso-fareast-language:RU'><o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                5.1. M&#601;hsullar
+                da&#351;&#305;nark&#601;n onlar&#305;n z&#601;d&#601;l&#601;nm&#601;m&#601;si
+                v&#601; ya xarab olmamas&#305;, habel&#601; C&#601;miyy&#601;t
+                t&#601;r&#601;find&#601;n sat&#305;nalan t&#601;&#351;kilata t&#601;qdim
+                edil&#601;n&#601;d&#601;k t&#601;hl&uuml;k&#601;siz saxlan&#305;lmas&#305;
+                &uuml;&ccedil;&uuml;n &#304;cra&ccedil;&#305; t&#601;r&#601;find&#601;n
+                standartlara uy&#287;un olaraq qabla&#351;d&#305;r&#305;lmal&#305;d&#305;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                5.2.
+                M&uuml;qavil&#601; &uuml;zr&#601; al&#305;nacaq &#601;rzaq m&#601;hsullar&#305;
+                m&uuml;vafiq t&#601;l&#601;bl&#601;r&#601; uy&#287;un
+                qabla&#351;d&#305;r&#305;lmal&#305;, markalanmal&#305; v&#601; m&uuml;&#601;yy&#601;nl&#601;&#351;dirilmi&#351;
+                son t&#601;yinat m&#601;nt&#601;q&#601;sin&#601;d&#601;k
+                da&#351;&#305;nmal&#305;d&#305;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                5.3. M&#601;hsulun
+                qabla&#351;d&#305;r&#305;lmas&#305;na v&#601; markalanmas&#305;na olan
+                t&#601;l&#601;bl&#601;r C&#601;miyy&#601;tin ist&#601;yin&#601; uy&#287;un
+                olaraq h&#601;min m&#601;hsula dair standartlar&#305;n
+                t&#601;l&#601;bl&#601;rind&#601;n a&#351;a&#287;&#305; keyfiyy&#601;tli
+                olmamaqla d&#601;yi&#351;diril&#601; bil&#601;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                5.4. Qabla&#351;d&#305;rma
+                m&uuml;vafiq h&#601;rar&#601;t&#601;, duzlu, radioaktiv v&#601; dig&#601;r
+                ekstremal m&uuml;hit&#601;, el&#601;c&#601; d&#601; m&#601;hsullar&#305;n
+                a&ccedil;&#305;q havada saxlan&#305;lmas&#305;na davaml&#305;
+                olmal&#305;d&#305;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                5.5.
+                C&#601;miyy&#601;tin t&#601;l&#601;bl&#601;rin&#601; uy&#287;un olaraq,
+                M&uuml;qavil&#601;nin x&uuml;susi &#351;&#601;rtl&#601;rind&#601;
+                m&#601;hsullar&#305;n t&#601;dar&uuml;k&uuml;nd&#601; istifad&#601; olunan qutular&#305;n
+                &ouml;l&ccedil;&uuml;s&uuml;, &ccedil;&#601;kisi v&#601; dig&#601;r
+                t&#601;l&#601;bl&#601;r g&ouml;st&#601;ril&#601; bil&#601;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                5.6. Markalanma
+                &#601;rzaq m&#601;hsullar&#305;n&#305;n bax&#305;&#351;&#305; zaman&#305;
+                onlar&#305;n dig&#601;r mallardan &#601;n q&#305;sa m&uuml;dd&#601;td&#601;
+                se&ccedil;ilm&#601;sin&#601; imkan yaratmal&#305;d&#305;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>&nbsp;6. M&uuml;qavil&#601; &uuml;zr&#601; &ouml;d&#601;m&#601;l&#601;r</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'><o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                6.1. Bu
+                M&uuml;qavil&#601; &uuml;zr&#601; al&#305;nacaq &#601;rzaq m&#601;hsullar&#305;n&#305;n
+                &uuml;mumi m&#601;bl&#601;&#287;i _____________ manat t&#601;&#351;kil edir.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                6.2.
+                M&#601;hsullar&#305;n qiym&#601;tind&#601; d&#601;yi&#351;iklik olduqda,
+                qiym&#601;tl&#601;r&#601; yenid&#601;n bax&#305;l&#305;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                6.3.
+                C&#601;miyy&#601;t n&ouml;vb&#601;ti ild&#601; t&#601;qdim edil&#601;c&#601;k
+                &#601;rzaq m&#601;hsullar&#305; &uuml;&ccedil;&uuml;n (emal olunmu&#351;
+                &#601;rzaq m&#601;hsullar&#305; istisna olmaqla) bu M&uuml;qavil&#601;nin &uuml;mumi
+                m&#601;bl&#601;&#287;inin 25 faizini cari ilin oktyabr&#305;n 30-d&#601;k avans
+                &ouml;d&#601;yir. &Ouml;d&#601;ni&#351;l&#601;r Az&#601;rbaycan
+                Respublikas&#305;n&#305;n milli pul vahidi il&#601; apar&#305;l&#305;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                6.4. Bu
+                M&uuml;qavil&#601;nin &#351;&#601;rtl&#601;rin&#601; uy&#287;un t&#601;rtib
+                olunmu&#351; qrafik&#601; &#601;sas&#601;n, &#601;rzaq m&#601;hsullar&#305;
+                &#304;cra&ccedil;&#305; t&#601;r&#601;find&#601;n g&ouml;nd&#601;rildikd&#601;n
+                v&#601; C&#601;miyy&#601;t t&#601;r&#601;find&#601;n q&#601;bul edildikd&#601;n
+                sonra &#304;cra&ccedil;&#305;n&#305;n t&#601;qdim etdiyi
+                s&#601;n&#601;dl&#601;r (qaim&#601;, hesab-faktura, vergi hesab fakturas&#305;
+                v&#601; dig&#601;r s&#601;n&#601;dl&#601;r) &#601;sas&#305;nda avans
+                m&#601;bl&#601;&#287;inin x&uuml;susi &ccedil;&#601;kisi (proporsional qaydada)
+                n&#601;z&#601;r&#601; al&#305;nmaqla, faktiki t&#601;hvil verilmi&#351;
+                &#601;rzaq m&#601;hsullar&#305;n&#305;n d&#601;y&#601;ri n&ouml;vb&#601;ti
+                ay&#305;n 5-d&#601;k &ouml;d&#601;nilir.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                6.5.
+                &#304;cra&ccedil;&#305; avans&#305;n g&ouml;st&#601;ril&#601;n
+                m&#601;qs&#601;dl&#601;r &uuml;&ccedil;&uuml;n istifad&#601;
+                olunmas&#305;n&#305; t&#601;sdiq ed&#601;n m&uuml;vafiq
+                s&#601;n&#601;dl&#601;ri C&#601;miyy&#601;t&#601; t&#601;qdim etm&#601;lidir.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                6.6.
+                C&#601;miyy&#601;td&#601;n as&#305;l&#305; olmayan
+                s&#601;b&#601;bl&#601;rd&#601;n &#601;rzaq m&#601;hsullar&#305;n&#305;n
+                d&#601;y&#601;rinin &ouml;d&#601;nilm&#601;sind&#601;
+                gecikm&#601;l&#601;r&#601; yol veril&#601;rs&#601;, &#304;cra&ccedil;&#305;
+                &#601;rzaq m&#601;hsullar&#305;n&#305;n g&ouml;nd&#601;rilm&#601;sini
+                dayand&#305;ra bilm&#601;z.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>&nbsp;7. C&#601;rim&#601;l&#601;r</span>
+            </b><span style='font-size:9.0pt;
+font-family:"Tahoma","sans-serif";mso-fareast-font-family:"Times New Roman";
+color:#6B6B6B;mso-fareast-language:RU'><o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                7.1.
+                &#304;cra&ccedil;&#305; bu M&uuml;qavil&#601;ni v&#601; ya onun h&#601;r
+                hans&#305; hiss&#601;sini m&uuml;&#601;yy&#601;n olunmu&#351; qaydada v&#601;
+                m&uuml;dd&#601;td&#601; yerin&#601; yetirm&#601;dikd&#601; v&#601; ya
+                icras&#305;n&#305; gecikdirdikd&#601;, C&#601;miyy&#601;t dig&#601;r
+                h&uuml;quqlara ziyan vurmadan M&uuml;qavil&#601;nin d&#601;y&#601;rinin 0,1
+                faizi m&#601;bl&#601;&#287;ind&#601; c&#601;rim&#601; sanksiyalar&#305;
+                (qar&#351;&#305;s&#305;al&#305;nmaz q&uuml;vv&#601;nin t&#601;siri istisna
+                olmaqla) t&#601;tbiq edir. Bu hal t&#601;krarland&#305;qda, C&#601;miyy&#601;t
+                M&uuml;qavil&#601;ni birt&#601;r&#601;fli qaydada l&#601;&#287;v ed&#601;
+                bil&#601;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                7.2.
+                C&#601;miyy&#601;t M&uuml;qavil&#601;d&#601; n&#601;z&#601;rd&#601;
+                tutulmu&#351; m&uuml;dd&#601;td&#601; v&#601; qaydada
+                &ouml;d&#601;m&#601;l&#601;ri aparmad&#305;qda, &#304;cra&ccedil;&#305;
+                h&#601;r gecikdirilmi&#351; g&uuml;n &uuml;&ccedil;&uuml;n
+                al&#305;nm&#305;&#351; m&#601;hsullar&#305;n d&#601;y&#601;rinin 0,1 faizi
+                m&#601;bl&#601;&#287;ind&#601; c&#601;rim&#601; sanksiyalar&#305; t&#601;tbiq
+                edir.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                7.3.
+                C&#601;rim&#601;l&#601;rin m&#601;bl&#601;&#287;inin yuxar&#305; h&#601;ddi
+                M&uuml;qavil&#601;nin qiym&#601;tinin 10 (on) faizind&#601;n &ccedil;ox
+                olmamal&#305;d&#305;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>&nbsp;<b>8. Fors-major</b><o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                8.1. Bu
+                M&uuml;qavil&#601;nin icras&#305;na qar&#351;&#305;s&#305;al&#305;nmaz
+                q&uuml;vv&#601; (fors-major hadis&#601;si) t&#601;sir
+                g&ouml;st&#601;r&#601;rs&#601;, M&uuml;qavil&#601; &uuml;zr&#601;
+                &ouml;hd&#601;likl&#601;rini yerin&#601; yetir&#601; bilm&#601;y&#601;n
+                T&#601;r&#601;f n&#601;z&#601;rd&#601; tutulmu&#351; c&#601;rim&#601;l&#601;rin
+                &ouml;d&#601;nilm&#601;sind&#601;n azad edilir v&#601; M&uuml;qavil&#601;nin
+                pozulmas&#305; &uuml;&ccedil;&uuml;n m&#601;suliyy&#601;t
+                da&#351;&#305;m&#305;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                8.2. Bu
+                M&uuml;qavil&#601;d&#601; &quot;qar&#351;&#305;s&#305;al&#305;nmaz
+                q&uuml;vv&#601;&quot; dedikd&#601; a&#351;a&#287;&#305;dak&#305;lar ba&#351;a
+                d&uuml;&#351;&uuml;l&uuml;r:<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                8.2.1. h&#601;rbi
+                &#601;m&#601;liyyatlar, embarqo, qiyam, inqilab, &uuml;syan,
+                i&#287;ti&#351;a&#351;, h&#601;rbi v&#601;ziyy&#601;tin elan olunmas&#305;,
+                v&#601;t&#601;nda&#351; ita&#601;tsizliyi, terror akt&#305; v&#601; ya sabotaj;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                8.2.2. h&#601;r
+                hans&#305; m&#601;nb&#601;d&#601;n radioaktiv &ccedil;irkl&#601;nm&#601;
+                v&#601; ya ion &#351;&uuml;alanmas&#305;;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                8.2.3.
+                z&#601;lz&#601;l&#601;, torpaq s&uuml;r&uuml;&#351;m&#601;si, da&#351;q&#305;n,
+                tufan, siklon v&#601; dig&#601;r f&ouml;vq&#601;lad&#601; hadis&#601;l&#601;r;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                8.2.4.
+                yan&#287;&#305;n, partlay&#305;&#351; v&#601; kimy&#601;vi
+                z&#601;h&#601;rl&#601;nm&#601; v&#601; s.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                8.3.
+                A&#351;a&#287;&#305;dak&#305; hadis&#601;l&#601;r birba&#351;a
+                qar&#351;&#305;s&#305;al&#305;nmaz q&uuml;vv&#601;nin (fors-major
+                hadis&#601;sinin) tam v&#601; ya qism&#601;n n&#601;tic&#601;si
+                deyildirs&#601;, qar&#351;&#305;s&#305;al&#305;nmaz<i>&nbsp;</i>q&uuml;vv&#601;
+                (fors-major hadis&#601;si) hesab olunmur:<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                8.3.1. m&#601;hsul
+                istehsal&#305; &uuml;&ccedil;&uuml;n i&#351;&ccedil;i q&uuml;vv&#601;sinin
+                v&#601; texnikan&#305;n &ccedil;at&#305;&#351;mamas&#305;;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                8.3.2. m&#601;hsul
+                istehsal&ccedil;&#305;s&#305; t&#601;r&#601;find&#601;n aqrotexniki
+                t&#601;dbirl&#601;rin vaxt&#305;nda v&#601; ya d&uuml;zg&uuml;n
+                apar&#305;lmamas&#305;, yaxud m&#601;hsulun keyfiyy&#601;tinin
+                a&#351;a&#287;&#305; olmas&#305;.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>
+                    &nbsp;9. M&uuml;qavil&#601; &uuml;zr&#601;
+                    s&#601;n&#601;dl&#601;&#351;dirilm&#601;nin apar&#305;lmas&#305;
+                </span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'><o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                &nbsp;9.1.
+                M&uuml;qavil&#601; &uuml;zr&#601; s&#601;n&#601;dl&#601;&#351;dirilm&#601; (o
+                c&uuml;ml&#601;d&#601;n, x&#601;b&#601;rdarl&#305;q, bildiri&#351; v&#601; s.)
+                yaz&#305;l&#305; &#351;&#601;kild&#601; apar&#305;l&#305;r, m&uuml;vafiq s&#601;n&#601;dl&#601;r
+                v&#601; m&#601;lumatlar dig&#601;r T&#601;r&#601;f&#601;
+                &ccedil;atd&#305;r&#305;ld&#305;&#287;&#305; tarixd&#601;n
+                q&uuml;vv&#601;y&#601; minir.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                9.2.
+                M&uuml;qavil&#601;nin yerin&#601; yetirilm&#601;sinin
+                s&#601;n&#601;dl&#601;&#351;dirilm&#601;si &#304;cra&ccedil;&#305;
+                t&#601;r&#601;find&#601;n M&uuml;qavil&#601;d&#601; n&#601;z&#601;rd&#601;
+                tutulmu&#351; qaydada apar&#305;l&#305;r. C&#601;miyy&#601;t
+                s&#601;n&#601;dl&#601;&#351;dirilm&#601;nin d&uuml;zg&uuml;n
+                apar&#305;lmas&#305;na n&#601;zar&#601;t ed&#601; bil&#601;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>&nbsp;<b>10. Vergil&#601;r v&#601; r&uuml;sumlar</b><o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                10.1.
+                T&#601;r&#601;fl&#601;r Az&#601;rbaycan Respublikas&#305;n&#305;n m&ouml;vcud
+                qanunvericiliyind&#601; n&#601;z&#601;rd&#601; tutulmu&#351;
+                t&#601;l&#601;bl&#601;r&#601; uy&#287;un olaraq b&uuml;t&uuml;n
+                vergil&#601;rin, r&uuml;sumlar&#305;n v&#601; qanunvericilikl&#601;
+                m&uuml;&#601;yy&#601;n edilmi&#351;<i>&nbsp;</i>dig&#601;r<i>&nbsp;</i>&ouml;d&#601;ni&#351;l&#601;rin
+                apar&#305;lmas&#305;na m&#601;suliyy&#601;t da&#351;&#305;y&#305;rlar.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>&nbsp;11. M&uuml;qavil&#601;nin l&#601;&#287;v edilm&#601;si</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'><o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                11.1. Bu
+                M&uuml;qavil&#601;nin &#351;&#601;rtl&#601;rinin &#601;sasl&#305;
+                pozulmas&#305; hallar&#305;na yol verildikd&#601;,
+                T&#601;r&#601;fl&#601;rd&#601;n biri dig&#601;rin&#601; 30 (otuz) g&uuml;n
+                &#601;vv&#601;l yaz&#305;l&#305; x&#601;b&#601;rdarl&#305;q etm&#601;k
+                &#351;&#601;rtil&#601; M&uuml;qavil&#601;ni b&uuml;t&ouml;vl&uuml;kd&#601;
+                v&#601; ya qism&#601;n l&#601;&#287;v ed&#601; bil&#601;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                11.2.
+                A&#351;a&#287;&#305;dak&#305; pozuntular &#601;sasl&#305; say&#305;l&#305;r:<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                11.2.1.
+                &#304;cra&ccedil;&#305; t&#601;r&#601;find&#601;n bu M&uuml;qavil&#601;d&#601;
+                n&#601;z&#601;rd&#601; tutulmad&#305;&#287;&#305; hallarda v&#601; ya
+                C&#601;miyy&#601;tl&#601; raz&#305;la&#351;d&#305;r&#305;lmadan 5 (be&#351;)
+                g&uuml;nd&#601;n art&#305;q m&uuml;dd&#601;t&#601; i&#351;l&#601;rin
+                dayand&#305;r&#305;lmas&#305;;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                11.2.2.
+                C&#601;miyy&#601;tin v&#601; ya &#304;cra&ccedil;&#305;n&#305;n l&#601;&#287;v
+                olunmas&#305; (m&uuml;&#601;ssis&#601; v&#601; t&#601;&#351;kilatlar&#305;n
+                yenid&#601;n qurulmas&#305; hallar&#305; istisna olmaqla) v&#601; ya
+                m&#601;hk&#601;m&#601;nin q&#601;rar&#305; il&#601; m&uuml;flis elan
+                edilm&#601;si;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                11.2.3.
+                &#304;cra&ccedil;&#305; t&#601;r&#601;find&#601;n bu M&uuml;qavil&#601;nin
+                &#351;&#601;rtl&#601;rinin pozulmas&#305; n&#601;tic&#601;sind&#601;
+                vurulmu&#351; ziyan&#305;n maksimum h&#601;ddi a&#351;mas&#305;;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                11.2.4.
+                T&#601;r&#601;fl&#601;rin t&#601;tbiq etdikl&#601;ri c&#601;rim&#601;
+                m&#601;bl&#601;&#287;inin yuxar&#305; h&#601;ddi a&#351;mas&#305;;<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                11.2.5.
+                T&#601;r&#601;fl&#601;rin M&uuml;qavil&#601;d&#601; n&#601;z&#601;rd&#601;
+                tutulmu&#351; dig&#601;r &ouml;hd&#601;likl&#601;rini yerin&#601;
+                yetirm&#601;m&#601;si.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                11.3.
+                M&uuml;qavil&#601; l&#601;&#287;v olunduqda, &#304;cra&ccedil;&#305; 15 (on
+                be&#351;) g&uuml;n m&uuml;dd&#601;tind&#601; bu M&uuml;qavil&#601;nin
+                icras&#305;n&#305; dayand&#305;r&#305;r v&#601; icra n&#601;tic&#601;sind&#601;
+                &#601;ld&#601; edilmi&#351; m&#601;hsullar&#305;n qorunmas&#305;
+                &uuml;&ccedil;&uuml;n t&#601;xir&#601;sal&#305;nmaz t&#601;dbirl&#601;ri
+                g&ouml;r&#601;r&#601;k, onlar&#305; C&#601;miyy&#601;t&#601; t&#601;hvil verir.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>&nbsp;12. M&uuml;bahis&#601;li m&#601;s&#601;l&#601;l&#601;rin h&#601;lli</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'><o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                12.1.
+                T&#601;r&#601;fl&#601;r M&uuml;qavil&#601; &uuml;zr&#601; &ouml;z
+                aralar&#305;nda yaranm&#305;&#351; m&uuml;bahis&#601;li
+                m&#601;s&#601;l&#601;l&#601;ri v&#601; ya
+                qeyri-m&uuml;&#601;yy&#601;nlikl&#601;ri dan&#305;&#351;&#305;qlar v&#601;
+                qar&#351;&#305;l&#305;ql&#305; g&uuml;z&#601;&#351;tl&#601;r yolu il&#601;
+                h&#601;ll etm&#601;lidirl&#601;r.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                12.2.
+                M&uuml;bahis&#601;li m&#601;s&#601;l&#601;l&#601;rin v&#601;
+                qeyri-m&uuml;&#601;yy&#601;nlikl&#601;rin h&#601;lli dan&#305;&#351;&#305;qlar
+                yolu il&#601; 10 (on) g&uuml;n m&uuml;dd&#601;tind&#601; m&uuml;mk&uuml;n
+                olmad&#305;qda, bu m&#601;s&#601;l&#601;l&#601;r Az&#601;rbaycan
+                Respublikas&#305;n&#305;n m&ouml;vcud qanunvericiliyin&#601; &#601;sas&#601;n
+                h&#601;ll edilm&#601;lidir.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>&nbsp;<b>13. Dig&#601;r &#351;&#601;rtl&#601;r</b><o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                13.1. Bu
+                M&uuml;qavil&#601;nin &#351;&#601;rtl&#601;rini operativ h&#601;ll etm&#601;k
+                &uuml;&ccedil;&uuml;n d&#601;yi&#351;iklikl&#601;r v&#601; dig&#601;r
+                imzalanm&#305;&#351; s&#601;n&#601;dl&#601;rin elektron
+                da&#351;&#305;y&#305;c&#305;lar vasit&#601;sil&#601; icra edilm&#601;si
+                bar&#601;d&#601; T&#601;r&#601;fl&#601;r qar&#351;&#305;l&#305;ql&#305;
+                raz&#305;l&#305;&#287;a g&#601;lirl&#601;r. Bu halda 10 (on) g&uuml;n
+                m&uuml;dd&#601;tind&#601; s&#601;n&#601;dl&#601;rin &#601;sli
+                T&#601;r&#601;fl&#601;r&#601; t&#601;qdim edilm&#601;lidir.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                13.2. Bu
+                M&uuml;qavil&#601; Az&#601;rbaycan dilind&#601; olmaqla, 2 &#601;sl
+                n&uuml;sx&#601;d&#601; t&#601;rtib olunmu&#351;dur. H&#601;r bir
+                T&#601;r&#601;f&#601; eyni h&uuml;quqi q&uuml;vv&#601;y&#601; malik olan bir
+                n&uuml;sx&#601; verilir.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                13.3.
+                M&uuml;qavil&#601; C&#601;miyy&#601;t v&#601; &#304;cra&ccedil;&#305;
+                t&#601;r&#601;find&#601;n imzaland&#305;&#287;&#305; andan
+                q&uuml;vv&#601;y&#601; minir.<o:p></o:p>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;<o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:center'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>H&uuml;quqi &uuml;nvanlar v&#601; rekvizitl&#601;r:</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'><o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'><o:p></o:p></span>
+        </p>
+
+        <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+               style='mso-cellspacing:0cm;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm'>
+            <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+                <td valign=top style='padding:0cm 0cm 0cm 0cm'>
+                    <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center'>
+                        <b>
+                            <span style='font-size:9.0pt;mso-fareast-font-family:
+  "Times New Roman";mso-fareast-language:RU'>&nbsp;</span>
+                        </b><span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'><o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center'>
+                        <b>
+                            <span style='font-size:9.0pt;mso-fareast-font-family:
+  "Times New Roman";mso-fareast-language:RU'>
+                                &quot;&#399;rzaq
+                                m&#601;hsullar&#305;n&#305;n t&#601;dar&uuml;k&uuml; v&#601;
+                                t&#601;chizat&#305;&quot; A&ccedil;&#305;q S&#601;hmdar C&#601;miyy&#601;ti
+                            </span>
+                        </b><span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'><o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;M.Y. ____________<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;(imza)<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;&nbsp;&nbsp;<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;&quot;______&quot;_________20__-ci il<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;<o:p></o:p></span>
+                    </p>
+                </td>
+                <td valign=top style='padding:0cm 0cm 0cm 0cm'>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <b>
+                            <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;</span>
+                        </b><span style='font-size:9.0pt;mso-fareast-font-family:
+  "Times New Roman";mso-fareast-language:RU'><o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center'>
+                        <b>
+                            <span style='font-size:9.0pt;mso-fareast-font-family:
+  "Times New Roman";mso-fareast-language:RU'>&#304;cra&ccedil;&#305;                            
+                            </span>
+                        </b><span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'><o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>@Model.icraci<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;M.Y. ____________<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;(imza)<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;&nbsp;&nbsp;<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&quot;______&quot;_________20__-ci il<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;<o:p></o:p></span>
+                    </p>
+                </td>
+            </tr>
+        </table>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;<o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;<o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'><o:p>&nbsp;</o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>
+                    1 n&ouml;mr&#601;li
+                    c&#601;dv&#601;l
+                </span>
+            </b><span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'><o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;<o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'><o:p>&nbsp;</o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'><o:p>&nbsp;</o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'><o:p>&nbsp;</o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'><o:p>&nbsp;</o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'><o:p>&nbsp;</o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'><o:p>&nbsp;</o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'><o:p>&nbsp;</o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'><o:p>&nbsp;</o:p></span>
+        </p>
+
+        <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+               style='mso-cellspacing:0cm;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm'>
+            <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+                <td style='padding:0cm 0cm 0cm 0cm'>
+                    <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center'>
+                        <b>
+                            <span style='font-size:9.0pt;mso-fareast-font-family:
+  "Times New Roman";mso-fareast-language:RU'>
+                                &quot;&#399;rzaq
+                                m&#601;hsullar&#305;n&#305;n t&#601;dar&uuml;k&uuml; v&#601;
+                                t&#601;chizat&#305;&quot; A&ccedil;&#305;q S&#601;hmdar C&#601;miyy&#601;ti
+                                il&#601; @Model.ProductionDetailList.FirstOrDefault().person.Surname @Model.ProductionDetailList.FirstOrDefault().person.Name @Model.ProductionDetailList.FirstOrDefault().person.FatherName (@Model.ProductionDetailList.FirstOrDefault().userType)   @Model.ProductionDetailList.FirstOrDefault().organizationName aras&#305;nda
+                                ba&#287;lan&#305;lm&#305;&#351;
+                            </span>
+                        </b><span style='font-size:9.0pt;
+  mso-fareast-font-family:"Times New Roman";mso-fareast-language:RU'><o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:
+  "Times New Roman";mso-fareast-language:RU'>
+                            (&#601;rzaq
+                            m&#601;hsullar&#305;n&#305;n istehsal&ccedil;&#305;lar&#305; v&#601; ya
+                            sat&#305;c&#305;lar&#305;)<o:p></o:p>
+                        </span>
+                    </p>
+                    <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center'>
+                        <b>
+                            <span style='font-size:9.0pt;mso-fareast-font-family:
+  "Times New Roman";mso-fareast-language:RU'>
+                                m&uuml;qavil&#601;
+                                &#601;sas&#305;nda al&#305;nacaq &#601;rzaq m&#601;hsullar&#305;n&#305;n
+                                miqdar&#305; v&#601; qiym&#601;t c&#601;dv&#601;li
+                            </span>
+                        </b><span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'><o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <b>
+                            <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;</span>
+                        </b><span style='font-size:9.0pt;mso-fareast-font-family:
+  "Times New Roman";mso-fareast-language:RU'><o:p></o:p></span>
+                    </p>
+                    <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+                           style='border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
+   mso-yfti-tbllook:1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+                        <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+                            <td width=47 style='width:35.2pt;border:solid windowtext 1.0pt;mso-border-alt:
+    solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+    auto;text-align:center'>
+                                    <b>
+                                        <span style='font-size:9.0pt;mso-fareast-font-family:
+    "Times New Roman";mso-fareast-language:RU'>
+                                            S&#305;ra<br>
+                                            &#8470;-si
+                                        </span>
+                                    </b><span style='font-size:9.0pt;mso-fareast-font-family:
+    "Times New Roman";mso-fareast-language:RU'><o:p></o:p></span>
+                                </p>
+                            </td>
+                            <td width=108 style='width:81.25pt;border:solid windowtext 1.0pt;
+    border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+    solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+    auto'>
+                                    <b>
+                                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
+    mso-fareast-language:RU'>&#399;rzaq</span>
+                                    </b><span style='font-size:9.0pt;
+    mso-fareast-font-family:"Times New Roman";mso-fareast-language:RU'><o:p></o:p></span>
+                                </p>
+                            </td>
+                            <td width=78 style='width:58.3pt;border:solid windowtext 1.0pt;border-left:
+    none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+    padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+    auto'>
+                                    <b>
+                                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
+    mso-fareast-language:RU'>&Ouml;l&ccedil;&uuml; vahidi</span>
+                                    </b><span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
+    mso-fareast-language:RU'><o:p></o:p></span>
+                                </p>
+                            </td>
+                            <td width=60 style='width:44.75pt;border:solid windowtext 1.0pt;border-left:
+    none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+    padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+    auto'>
+                                    <b>
+                                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
+    mso-fareast-language:RU'>Miqdar&#305;</span>
+                                    </b><span style='font-size:
+    9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:RU'><o:p></o:p></span>
+                                </p>
+                            </td>
+                            <td width=66 style='width:49.6pt;border:solid windowtext 1.0pt;border-left:
+    none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+    padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+    auto'>
+                                    <b>
+                                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
+    mso-fareast-language:RU'>Qiym&#601;ti (manatla)</span>
+                                    </b><span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
+    mso-fareast-language:RU'><o:p></o:p></span>
+                                </p>
+                            </td>
+                            <td width=57 style='width:42.5pt;border:solid windowtext 1.0pt;border-left:
+    none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+    padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+    auto'>
+                                    <b>
+                                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
+    mso-fareast-language:RU'>&Uuml;mumi</span>
+                                    </b><span style='font-size:9.0pt;
+    mso-fareast-font-family:"Times New Roman";mso-fareast-language:RU'><o:p></o:p></span>
+                                </p>
+                            </td>
+                            <td width=76 style='width:2.0cm;border:solid windowtext 1.0pt;border-left:
+    none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+    padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+    auto'>
+                                    <b>
+                                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
+    mso-fareast-language:RU'>Qeyd</span>
+                                    </b><span style='font-size:9.0pt;
+    mso-fareast-font-family:"Times New Roman";mso-fareast-language:RU'><o:p></o:p></span>
+                                </p>
+                            </td>
+                            <td width=132 style='width:99.2pt;border:solid windowtext 1.0pt;border-left:
+    none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+    padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+    auto'>
+                                    <b>
+                                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
+    mso-fareast-language:RU'>
+                                            M&#601;n&#351;&#601;yi, s&#601;ciyy&#601;vi
+                                            x&uuml;susiyy&#601;t-l&#601;ri v&#601; qabla&#351;d&#305;rma
+                                        </span>
+                                    </b><span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
+    mso-fareast-language:RU'><o:p></o:p></span>
+                                </p>
+                            </td>
+                        </tr>
+
+                        @{ 
+                            int ri=1;
+                            decimal totalPrice = 0;
+                            decimal edv = 0;
+                             }
+                        @foreach (var item in Model.ProductionDetailList) { 
+                        <tr style='mso-yfti-irow:1'>
+                            <td width=47 style='width:35.2pt;border:solid windowtext 1.0pt;border-top:
+    none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+    padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+    auto;text-align:center'>
+                                    <span style='font-size:9.0pt;mso-fareast-font-family:
+    "Times New Roman";mso-fareast-language:RU'>@ri.<o:p></o:p></span>
+                                </p>
+                            </td>
+                            <td width=108 style='width:81.25pt;border-top:none;border-left:none;
+    border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+    mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+    mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+    auto'>
+                                    <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
+    mso-fareast-language:RU'><o:p>@item.productName (@item.productParentName)</o:p></span>
+                                </p>
+                            </td>
+                            <td width=78 style='width:58.3pt;border-top:none;border-left:none;
+    border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+    mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+    mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+    auto'>
+                                    <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
+    mso-fareast-language:RU'><o:p>@item.enumValueName</o:p></span>
+                                </p>
+                            </td>
+                            <td width=60 style='width:44.75pt;border-top:none;border-left:none;
+    border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+    mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+    mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+    auto'>
+                                    <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
+    mso-fareast-language:RU'><o:p>@item.quantity</o:p></span>
+                                </p>
+                            </td>
+                            <td width=66 style='width:49.6pt;border-top:none;border-left:none;
+    border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+    mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+    mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+    auto'>
+                                    <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
+    mso-fareast-language:RU'><o:p>&nbsp;</o:p></span>
+                                </p>
+                            </td>
+                            <td width=57 style='width:42.5pt;border-top:none;border-left:none;
+    border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+    mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+    mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+    auto'>
+                                    <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
+    mso-fareast-language:RU'><o:p>@item.unitPrice</o:p></span>
+                                </p>
+                            </td>
+                            <td width=76 style='width:2.0cm;border-top:none;border-left:none;
+    border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+    mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+    mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+    auto'>
+                                    <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
+    mso-fareast-language:RU'><o:p>@item.description</o:p></span>
+                                </p>
+                            </td>
+                            <td width=132 style='width:99.2pt;border-top:none;border-left:none;
+    border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+    mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+    mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+    auto'>
+                                    <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
+    mso-fareast-language:RU'><o:p>@item.productOriginName</o:p></span>
+                                </p>
+                            </td>
+                        </tr>
+                            ri = ri + 1;
+                            totalPrice = totalPrice + item.unitPrice;
+                        }
+                        @{
+                            edv=(totalPrice*18)/100;
+                        
+                            }
+                    </table>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'><o:p>&nbsp;</o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>
+                            C&#601;mi @totalPrice azn<br>
+                            &#399;DV @edv azn<br>
+                            &Uuml;mumi m&#601;bl&#601;&#287; @(totalPrice+edv) azn<o:p></o:p>
+                        </span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <b>
+                            <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;</span>
+                        </b><span style='font-size:9.0pt;mso-fareast-font-family:
+  "Times New Roman";mso-fareast-language:RU'><o:p></o:p></span>
+                    </p>
+                </td>
+            </tr>
+        </table>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;<o:p></o:p></span>
+        </p>
+
+        <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+               style='mso-cellspacing:0cm;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm'>
+            <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+                <td valign=top style='padding:0cm 0cm 0cm 0cm'>
+                    <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center'>
+                        <b>
+                            <span style='font-size:9.0pt;mso-fareast-font-family:
+  "Times New Roman";mso-fareast-language:RU'>&nbsp;</span>
+                        </b><span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'><o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center'>
+                        <b>
+                            <span style='font-size:9.0pt;mso-fareast-font-family:
+  "Times New Roman";mso-fareast-language:RU'>
+                                &quot;&#399;rzaq
+                                m&#601;hsullar&#305;n&#305;n t&#601;dar&uuml;k&uuml; v&#601;
+                                t&#601;chizat&#305;&quot; A&ccedil;&#305;q S&#601;hmdar C&#601;miyy&#601;ti
+                            </span>
+                        </b><span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'><o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;M.Y. ____________<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;(imza)<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;&nbsp;&nbsp;<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;&quot;______&quot;_________20__-ci il<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;<o:p></o:p></span>
+                    </p>
+                </td>
+                <td valign=top style='padding:0cm 0cm 0cm 0cm'>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <b>
+                            <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;</span>
+                        </b><span style='font-size:9.0pt;mso-fareast-font-family:
+  "Times New Roman";mso-fareast-language:RU'><o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal align=center style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+  auto;text-align:center'>
+                        <b>
+                            <span style='font-size:9.0pt;mso-fareast-font-family:
+  "Times New Roman";mso-fareast-language:RU'>&#304;cra&ccedil;&#305;                           
+                            </span>
+                        </b><span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'><o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>@Model.icraci<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;M.Y. ____________<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;(imza)<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;&nbsp;&nbsp;<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;&quot;______&quot;_________20__-ci il<o:p></o:p></span>
+                    </p>
+                    <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+                        <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
+  RU'>&nbsp;<o:p></o:p></span>
+                    </p>
+                </td>
+            </tr>
+        </table>
+
+        <p class=MsoNormal align=right style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;text-align:right'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";color:#6B6B6B;mso-fareast-language:
+RU'>&nbsp;<o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
+            <span style='font-size:9.0pt;font-family:"Tahoma","sans-serif";mso-fareast-font-family:
+"Times New Roman";color:#6B6B6B;mso-fareast-language:RU'>&nbsp;<o:p></o:p></span>
+        </p>
+
+        <p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+        <p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+        <p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+    </div>
+
+</body>
+
+</html>
+
+

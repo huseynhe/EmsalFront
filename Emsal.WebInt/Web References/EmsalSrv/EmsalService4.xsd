@@ -101,6 +101,115 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOftblComMessageAttachment" nillable="true" type="tns:ArrayOftblComMessageAttachment" />
+  <xs:complexType name="tblContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AgentUserID" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="ContractDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ContractEndDate" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="ContractNumber_" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ContractStartDate" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="ContractTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Contract_type_ev_Id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="SupplierOrganisationID" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="SupplierUserID" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="createdDate" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="createdUser" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="documentName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="documentRealName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="documentSize" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="documentUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="updatedDate" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="updatedUser" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblContract" nillable="true" type="tns:tblContract" />
+  <xs:complexType name="ArrayOftblContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblContract" nillable="true" type="tns:tblContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblContract" nillable="true" type="tns:ArrayOftblContract" />
+  <xs:complexType name="tblForeign_Organization">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="LastUpdatedStatus" type="xs:long" />
+      <xs:element minOccurs="0" name="Status" type="xs:long" />
+      <xs:element minOccurs="0" name="accountNumber" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="actualFunctionAddressId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="address_Id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="bankName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="createdDate" type="xs:long" />
+      <xs:element minOccurs="0" name="createdUser" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="legalAddressId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="legality_eV_Id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="manager_Id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="organisationType_eV_Id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="parent_Id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="party_Id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="updatedDate" type="xs:long" />
+      <xs:element minOccurs="0" name="updatedUser" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="userId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="voen" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblForeign_Organization" nillable="true" type="tns:tblForeign_Organization" />
+  <xs:complexType name="tblPerson">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FatherName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="LastUpdatedStatus" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PinNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="Surname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="address_Id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="birtday" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="createdDate" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="createdUser" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="educationLevel_eV_Id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="gender" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="job_eV_Id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="profilePicture" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="updatedDate" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="updatedUser" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblPerson" nillable="true" type="tns:tblPerson" />
+  <xs:complexType name="ArrayOftblProduction_Document">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblProduction_Document" nillable="true" type="tns:tblProduction_Document" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblProduction_Document" nillable="true" type="tns:ArrayOftblProduction_Document" />
+  <xs:complexType name="tblProduction_Document">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Demand_Production_Id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="LastUpdatedStatus" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="Offer_Production_Id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="Potential_Production_Id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="Production_type_eV_Id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="createdDate" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="createdUser" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="documentContent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="documentName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="documentRealName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="documentSize" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="documentTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="documentUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="document_type_ev_Id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="grup_Id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="updatedDate" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="updatedUser" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblProduction_Document" nillable="true" type="tns:tblProduction_Document" />
   <xs:complexType name="tblUserRole">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id" type="xs:long" />
@@ -255,36 +364,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOftblBranchResponsibility" nillable="true" type="tns:ArrayOftblBranchResponsibility" />
-  <xs:complexType name="ArrayOftblProduction_Document">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblProduction_Document" nillable="true" type="tns:tblProduction_Document" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOftblProduction_Document" nillable="true" type="tns:ArrayOftblProduction_Document" />
-  <xs:complexType name="tblProduction_Document">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Demand_Production_Id" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="Id" type="xs:long" />
-      <xs:element minOccurs="0" name="LastUpdatedStatus" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="Offer_Production_Id" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="Potential_Production_Id" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="Production_type_eV_Id" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="createdDate" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="createdUser" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="documentContent" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="documentName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="documentRealName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="documentSize" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="documentTitle" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="documentUrl" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="document_type_ev_Id" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="grup_Id" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="updatedDate" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="updatedUser" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="tblProduction_Document" nillable="true" type="tns:tblProduction_Document" />
   <xs:complexType name="tblProductionControl">
     <xs:sequence>
       <xs:element minOccurs="0" name="Demand_Production_Id" nillable="true" type="xs:long" />
@@ -332,55 +411,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOftblProduction_Calendar" nillable="true" type="tns:ArrayOftblProduction_Calendar" />
-  <xs:complexType name="tblForeign_Organization">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Id" type="xs:long" />
-      <xs:element minOccurs="0" name="LastUpdatedStatus" type="xs:long" />
-      <xs:element minOccurs="0" name="Status" type="xs:long" />
-      <xs:element minOccurs="0" name="accountNumber" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="actualFunctionAddressId" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="address_Id" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="bankName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="createdDate" type="xs:long" />
-      <xs:element minOccurs="0" name="createdUser" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="legalAddressId" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="legality_eV_Id" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="manager_Id" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="organisationType_eV_Id" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="parent_Id" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="party_Id" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="updatedDate" type="xs:long" />
-      <xs:element minOccurs="0" name="updatedUser" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="userId" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="voen" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="tblForeign_Organization" nillable="true" type="tns:tblForeign_Organization" />
-  <xs:complexType name="tblPerson">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="FatherName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Id" type="xs:long" />
-      <xs:element minOccurs="0" name="LastUpdatedStatus" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PinNumber" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="Surname" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="address_Id" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="birtday" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="createdDate" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="createdUser" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="educationLevel_eV_Id" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="gender" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="job_eV_Id" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="profilePicture" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="updatedDate" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="updatedUser" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="tblPerson" nillable="true" type="tns:tblPerson" />
   <xs:complexType name="tblComMessage">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id" type="xs:long" />
@@ -637,11 +667,13 @@
       <xs:element minOccurs="0" name="Id" type="xs:long" />
       <xs:element minOccurs="0" name="LastUpdatedStatus" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="Status" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="contractId" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="createdDate" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="createdUser" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="endDate" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="grup_Id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="isNew" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="isSelected" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="monitoring_eV_Id" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="potentialProduct_Id" nillable="true" type="xs:long" />
@@ -714,6 +746,7 @@
       <xs:element minOccurs="0" name="fullProductId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="grup_Id" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="isAnnouncement" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="isNew" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="isSelected" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="monitoring_eV_Id" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="product_Id" nillable="true" type="xs:long" />

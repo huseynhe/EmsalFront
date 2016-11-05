@@ -10,6 +10,8 @@ using PagedList;
 using Emsal.UI.Infrastructure;
 using Emsal.Utility.CustomObjects;
 using System.IO;
+using WordDoc.Models;
+using Microsoft.Win32;
 
 namespace Emsal.UI.Controllers
 {
@@ -22,9 +24,11 @@ namespace Emsal.UI.Controllers
         private static string sproductName;
         private static string suserInfo;
         private static string smonitoringStatusEV;
+        private static string snameSurnameFathername;
+        private static string spin;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
-       // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
+        // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
 
         private OfferMonitoringViewModel modelOfferMonitoring;
 
@@ -79,7 +83,7 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId(baseInput, (long)UserId, true, modelOfferMonitoring.EnumValue.Id, true, out modelOfferMonitoring.ProductionDetailArray);
 
-                modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailArray.Where(x => x.enumCategoryId == modelOfferMonitoring.EnumCategory.Id && x.person!=null).ToList();
+                modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailArray.Where(x => x.enumCategoryId == modelOfferMonitoring.EnumCategory.Id && x.person != null).ToList();
 
                 if (sproductName != null)
                 {
@@ -315,7 +319,7 @@ namespace Emsal.UI.Controllers
 
                     foreach (var attachfile in model.attachfiles)
                     {
-                        if(attachfile==null)
+                        if (attachfile == null)
                         {
                             return RedirectToAction("Index", "OfferMonitoring", new { monitoringStatusEV = model.EnumValueST.name });
                         }
@@ -367,5 +371,408 @@ namespace Emsal.UI.Controllers
             }
         }
 
+        public ActionResult Contract(int? page, string nameSurnameFathername = null, string pin = null)
+        {
+            try
+            {
+                if (nameSurnameFathername != null)
+                    nameSurnameFathername = StripTag.strSqlBlocker(nameSurnameFathername.ToLower());
+                if (pin != null)
+                    pin = StripTag.strSqlBlocker(pin.ToLower());
+
+                int pageSize = 20;
+                int pageNumber = (page ?? 1);
+
+                if (nameSurnameFathername == null && pin == null)
+                {
+                    snameSurnameFathername = null;
+                    spin = null;
+                }
+
+                if (nameSurnameFathername != null)
+                    snameSurnameFathername = nameSurnameFathername;
+                if (pin != null)
+                    spin = pin;
+
+                baseInput = new BaseInput();
+                modelOfferMonitoring = new OfferMonitoringViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferMonitoring.User);
+                baseInput.userName = modelOfferMonitoring.User.Username;
+
+                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelOfferMonitoring.EnumCategory);
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferMonitoring.EnumValue);
+
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId(baseInput, (long)UserId, true, modelOfferMonitoring.EnumValue.Id, true, out modelOfferMonitoring.ProductionDetailArray);
+
+                modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailArray.Where(x => x.enumCategoryId == modelOfferMonitoring.EnumCategory.Id && x.person != null).ToList();
+
+                modelOfferMonitoring.PersonList = new List<tblPerson>();
+                long opid = 0;
+                modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.OrderBy(x => x.person.Id).ToList();
+
+                foreach (var item in modelOfferMonitoring.ProductionDetailList)
+                {
+                        if (item.contractID == 0)
+                        {
+                            if (opid != item.person.Id)
+                            {
+                                modelOfferMonitoring.Person = new tblPerson();
+
+                                modelOfferMonitoring.Person.Id = item.person.Id;
+                                modelOfferMonitoring.Person.Name = item.person.Name;
+                                modelOfferMonitoring.Person.Surname = item.person.Surname;
+                                modelOfferMonitoring.Person.FatherName = item.person.FatherName;
+                                modelOfferMonitoring.Person.gender = item.person.gender;
+                                modelOfferMonitoring.Person.PinNumber = item.person.PinNumber;
+                                modelOfferMonitoring.Person.profilePicture = item.person.profilePicture;
+
+                                modelOfferMonitoring.PersonList.Add(modelOfferMonitoring.Person);
+                            }
+
+                        opid = item.person.Id;
+                    }
+                }
+
+                if (snameSurnameFathername != null)
+                {
+                    modelOfferMonitoring.PersonList = modelOfferMonitoring.PersonList.Where(x => x.Name.ToLower().Contains(snameSurnameFathername) || x.Surname.ToLower().Contains(snameSurnameFathername) || x.FatherName.ToLower().Contains(snameSurnameFathername)).ToList();
+                }
+
+                if (spin != null)
+                {
+                    modelOfferMonitoring.PersonList = modelOfferMonitoring.PersonList.Where(x => x.PinNumber.ToLower().Contains(spin)).ToList();
+                }
+
+                modelOfferMonitoring.itemCount = modelOfferMonitoring.PersonList.Count();
+
+                modelOfferMonitoring.PagingPerson = modelOfferMonitoring.PersonList.ToPagedList(pageNumber, pageSize);
+
+                modelOfferMonitoring.nameSurnameFathername = snameSurnameFathername;
+                modelOfferMonitoring.pin = spin;
+
+                return Request.IsAjaxRequest()
+                ? (ActionResult)PartialView("PartialContract", modelOfferMonitoring)
+                : View(modelOfferMonitoring);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+        [WordDocument]
+        public ActionResult ContractForm(long pid, bool isContract)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+                modelOfferMonitoring = new OfferMonitoringViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferMonitoring.User);
+                baseInput.userName = modelOfferMonitoring.User.Username;
+
+                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelOfferMonitoring.EnumCategory);
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferMonitoring.EnumValue);
+
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId(baseInput, (long)UserId, true, modelOfferMonitoring.EnumValue.Id, true, out modelOfferMonitoring.ProductionDetailArray);
+
+                modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailArray.Where(x => x.enumCategoryId == modelOfferMonitoring.EnumCategory.Id && x.person != null).ToList();
+
+                modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.person.Id == pid).ToList();
+
+                BaseOutput gpbui = srv.WS_GetPersonByUserId(baseInput, modelOfferMonitoring.User.Id, true, out modelOfferMonitoring.Person);
+
+                modelOfferMonitoring.icraci = modelOfferMonitoring.Person.Surname + " " + modelOfferMonitoring.Person.Name + " " + modelOfferMonitoring.Person.FatherName;
+
+                return View(modelOfferMonitoring);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+        public ActionResult FileTemplate(long pid)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+                modelOfferMonitoring = new OfferMonitoringViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferMonitoring.User);
+                baseInput.userName = modelOfferMonitoring.User.Username;
+
+                BaseOutput gpbuid = srv.WS_GetPersonById(baseInput, pid, true, out modelOfferMonitoring.Person);
+
+                //BaseOutput gfobuid = srv.WS_GetContractBySupplierUserID(baseInput, pid, true, out modelOfferMonitoring.ContractArray);
+
+                BaseOutput gfobuid = srv.WS_GetContract(baseInput, out modelOfferMonitoring.ContractArray);
+
+                if (modelOfferMonitoring.ContractArray != null)
+                {
+                    modelOfferMonitoring.ContractList = modelOfferMonitoring.ContractArray.ToList();
+                }
+                else
+                {
+                    modelOfferMonitoring.ContractList = new List<tblContract>();
+                }
+
+
+
+
+                foreach (var item in modelOfferMonitoring.ContractList)
+                {
+                    string fileName = item.documentName;
+                    string targetPath = modelOfferMonitoring.tempFileDirectory;
+
+                    string sourceFile = System.IO.Path.Combine(item.documentUrl, fileName);
+                    string destFile = System.IO.Path.Combine(targetPath, fileName);
+
+                    string[] files = Directory.GetFiles(targetPath);
+
+                    foreach (string file in files)
+                    {
+                        FileInfo fi = new FileInfo(file);
+                        if (fi.LastAccessTime < DateTime.Now.AddHours(-1))
+                            fi.Delete();
+                    }
+
+                    if (!System.IO.Directory.Exists(targetPath))
+                    {
+                        System.IO.Directory.CreateDirectory(targetPath);
+                    }
+
+                    var extension = Path.GetExtension(fileName);
+
+                    if (String.IsNullOrWhiteSpace(extension))
+                    {
+                        return null;
+                    }
+
+                    var registryKey = Registry.ClassesRoot.OpenSubKey(extension);
+
+                    if (registryKey == null)
+                    {
+                        return null;
+                    }
+
+                    modelOfferMonitoring.FCType = registryKey.GetValue("Content Type") as string;
+
+                    System.IO.File.Copy(sourceFile, destFile, true);
+                }
+
+                return View(modelOfferMonitoring);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+        [HttpPost]
+        public void File(IList<HttpPostedFileBase> file, long pid)
+        {
+            try
+            {
+                if (file != null)
+                {
+                    baseInput = new BaseInput();
+                    modelOfferMonitoring = new OfferMonitoringViewModel();
+
+                    long? userId = null;
+                    if (User != null && User.Identity.IsAuthenticated)
+                    {
+                        FormsIdentity identity = (FormsIdentity)User.Identity;
+                        if (identity.Ticket.UserData.Length > 0)
+                        {
+                            userId = Int32.Parse(identity.Ticket.UserData);
+                        }
+                    }
+                    BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelOfferMonitoring.User);
+                    baseInput.userName = modelOfferMonitoring.User.Username;
+
+
+                    String sDate = DateTime.Now.ToString();
+                    DateTime datevalue = (Convert.ToDateTime(sDate.ToString()));
+
+                    String dy = datevalue.Day.ToString();
+                    String mn = datevalue.Month.ToString();
+                    String yy = datevalue.Year.ToString();
+
+                    string path = modelOfferMonitoring.fileDirectoryContract + @"\" + yy + @"\" + mn + @"\" + dy;
+
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    BaseOutput gpbuid = srv.WS_GetPersonById(baseInput, pid, true, out modelOfferMonitoring.Person);
+
+                    BaseOutput gfobuid = srv.WS_GetForeign_OrganizationByUserId(baseInput, (long)modelOfferMonitoring.Person.UserId, true, out modelOfferMonitoring.Foreign_Organization);
+
+                    BaseOutput fop = srv.WS_GetOffer_ProductionsByUserID(baseInput, (long)modelOfferMonitoring.Person.UserId, true, out modelOfferMonitoring.OfferProductionArray);
+
+                    if (modelOfferMonitoring.OfferProductionArray != null)
+                    {
+                        modelOfferMonitoring.OfferProductionList = modelOfferMonitoring.OfferProductionArray.ToList();
+                    }
+                    else
+                    {
+                        modelOfferMonitoring.OfferProductionList = new List<tblOffer_Production>();
+                    }
+
+                    modelOfferMonitoring.OfferProductionList = modelOfferMonitoring.OfferProductionList.Where(x => x.contractId == null).ToList();
+
+                    foreach (var attachfile in file)
+                    {
+                        //var dec=(attachfile.ContentLength / 1024);
+                        //var decd = (decimal)731 / 1024;
+                        //var fl = Math.Round(dec,2);
+
+                        string fre = FileExtension.GetMimeType(attachfile.InputStream, attachfile.FileName);
+
+                        if (attachfile != null && attachfile.ContentLength > 0 && attachfile.ContentLength <= modelOfferMonitoring.fileSize && modelOfferMonitoring.fileTypesPDF.Contains(fre))
+                        {
+                            var fileName = Path.GetFileName(attachfile.FileName);
+                            var ofileName = fileName;
+
+                            string ext = string.Empty;
+                            int fileExtPos = fileName.LastIndexOf(".", StringComparison.Ordinal);
+                            if (fileExtPos >= 0)
+                                ext = fileName.Substring(fileExtPos, fileName.Length - fileExtPos);
+
+                            var newFileName = Guid.NewGuid();
+                            fileName = newFileName.ToString() + ext;
+
+                            attachfile.SaveAs(Path.Combine(path, fileName));
+
+
+                            modelOfferMonitoring.Contract = new tblContract();
+
+                            modelOfferMonitoring.Contract.AgentUserID = modelOfferMonitoring.User.Id;
+                            modelOfferMonitoring.Contract.AgentUserIDSpecified = true;
+
+                            if (modelOfferMonitoring.Foreign_Organization != null)
+                            {
+                                modelOfferMonitoring.Contract.SupplierOrganisationID = modelOfferMonitoring.Foreign_Organization.Id;
+                                modelOfferMonitoring.Contract.SupplierOrganisationIDSpecified = true;
+                            }
+
+                            modelOfferMonitoring.Contract.SupplierUserID = pid;
+                            modelOfferMonitoring.Contract.SupplierUserIDSpecified = true;
+
+                            modelOfferMonitoring.Contract.documentUrl = path;
+                            modelOfferMonitoring.Contract.documentName = fileName;
+                            modelOfferMonitoring.Contract.documentRealName = ofileName;
+                            modelOfferMonitoring.Contract.documentSize = attachfile.ContentLength;
+                            modelOfferMonitoring.Contract.documentSizeSpecified = true;
+
+                            BaseOutput apd = srv.WS_AddContract(baseInput, modelOfferMonitoring.Contract, out modelOfferMonitoring.Contract);
+
+                            foreach (var item in modelOfferMonitoring.OfferProductionList)
+                            {
+                                item.contractId = modelOfferMonitoring.Contract.Id;
+
+                                BaseOutput upop = srv.WS_UpdateOffer_Production(baseInput, item, out modelOfferMonitoring.OfferProduction);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message + ex.Source + ex.StackTrace;
+            }
+        }
+
+        public ActionResult GetContractFile(string fname)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+                modelOfferMonitoring = new OfferMonitoringViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferMonitoring.User);
+                baseInput.userName = modelOfferMonitoring.User.Username;
+
+                modelOfferMonitoring.fname = fname;
+
+                return View(modelOfferMonitoring);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+        public void DeleteContract(long id)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+                modelOfferMonitoring = new OfferMonitoringViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferMonitoring.User);
+                baseInput.userName = modelOfferMonitoring.User.Username;
+
+
+                BaseOutput gc = srv.WS_GetContractById(baseInput, id, true, out modelOfferMonitoring.Contract);
+
+                BaseOutput dc = srv.WS_DeleteContract(baseInput, modelOfferMonitoring.Contract);
+
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message + ex.Source + ex.StackTrace;
+            }
+        }
     }
 }

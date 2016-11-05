@@ -29,6 +29,8 @@ namespace Emsal.WebInt.EmsalSrv {
     [System.Web.Services.WebServiceBindingAttribute(Name="BasicHttpBinding_IEmsalService", Namespace="http://tempuri.org/")]
     public partial class EmsalService : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
+        private System.Threading.SendOrPostCallback WS_DeleteProductionCalendarOperationCompleted;
+        
         private System.Threading.SendOrPostCallback WS_GetProductionCalendarOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetProductionCalendarByIdOperationCompleted;
@@ -66,6 +68,24 @@ namespace Emsal.WebInt.EmsalSrv {
         private System.Threading.SendOrPostCallback WS_UpdateComMessageAttachmentOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetByComMessageAttachmentIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_AddContractOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_DeleteContractOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetContractOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_UpdateContractOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetContractByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetContractBySupplierOrganisationIDOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetContractBySupplierUserIDOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetContractByAgentUserIDOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetOfferProductionDetailByIdOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_AddUserRoleOperationCompleted;
         
@@ -193,7 +213,7 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private System.Threading.SendOrPostCallback WS_AddProductionCalendarOperationCompleted;
         
-        private System.Threading.SendOrPostCallback WS_DeleteProductionCalendarOperationCompleted;
+        private System.Threading.SendOrPostCallback WS_GetProductionDocumentsByPotential_Production_IdOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetProductionDocumentsOperationCompleted;
         
@@ -321,7 +341,7 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private System.Threading.SendOrPostCallback WS_GetDemandProductionDetailistForEValueIdOperationCompleted;
         
-        private System.Threading.SendOrPostCallback WS_GetOfferProductionDetailByIdOperationCompleted;
+        private System.Threading.SendOrPostCallback WS_UpdateUserOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetUserByIdOperationCompleted;
         
@@ -449,8 +469,6 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private System.Threading.SendOrPostCallback WS_GetProductionDocumentsByOffer_Production_IdOperationCompleted;
         
-        private System.Threading.SendOrPostCallback WS_GetProductionDocumentsByPotential_Production_IdOperationCompleted;
-        
         private System.Threading.SendOrPostCallback WS_DeleteCommunicationOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_UpdateCommunicationOperationCompleted;
@@ -502,6 +520,8 @@ namespace Emsal.WebInt.EmsalSrv {
         private System.Threading.SendOrPostCallback WS_GetOfferProductionDetailistForMonitoringEVIdOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_GetOfferProductionDetailistForStateEVIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WS_GetOffer_ProductionsByContractIdOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_AddPotential_ProductionOperationCompleted;
         
@@ -576,8 +596,6 @@ namespace Emsal.WebInt.EmsalSrv {
         private System.Threading.SendOrPostCallback WS_AddUserOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_DeleteUserOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback WS_UpdateUserOperationCompleted;
         
         private System.Threading.SendOrPostCallback WS_createDbOperationCompleted;
         
@@ -746,6 +764,9 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
+        public event WS_DeleteProductionCalendarCompletedEventHandler WS_DeleteProductionCalendarCompleted;
+        
+        /// <remarks/>
         public event WS_GetProductionCalendarCompletedEventHandler WS_GetProductionCalendarCompleted;
         
         /// <remarks/>
@@ -801,6 +822,33 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         public event WS_GetByComMessageAttachmentIdCompletedEventHandler WS_GetByComMessageAttachmentIdCompleted;
+        
+        /// <remarks/>
+        public event WS_AddContractCompletedEventHandler WS_AddContractCompleted;
+        
+        /// <remarks/>
+        public event WS_DeleteContractCompletedEventHandler WS_DeleteContractCompleted;
+        
+        /// <remarks/>
+        public event WS_GetContractCompletedEventHandler WS_GetContractCompleted;
+        
+        /// <remarks/>
+        public event WS_UpdateContractCompletedEventHandler WS_UpdateContractCompleted;
+        
+        /// <remarks/>
+        public event WS_GetContractByIdCompletedEventHandler WS_GetContractByIdCompleted;
+        
+        /// <remarks/>
+        public event WS_GetContractBySupplierOrganisationIDCompletedEventHandler WS_GetContractBySupplierOrganisationIDCompleted;
+        
+        /// <remarks/>
+        public event WS_GetContractBySupplierUserIDCompletedEventHandler WS_GetContractBySupplierUserIDCompleted;
+        
+        /// <remarks/>
+        public event WS_GetContractByAgentUserIDCompletedEventHandler WS_GetContractByAgentUserIDCompleted;
+        
+        /// <remarks/>
+        public event WS_GetOfferProductionDetailByIdCompletedEventHandler WS_GetOfferProductionDetailByIdCompleted;
         
         /// <remarks/>
         public event WS_AddUserRoleCompletedEventHandler WS_AddUserRoleCompleted;
@@ -992,7 +1040,7 @@ namespace Emsal.WebInt.EmsalSrv {
         public event WS_AddProductionCalendarCompletedEventHandler WS_AddProductionCalendarCompleted;
         
         /// <remarks/>
-        public event WS_DeleteProductionCalendarCompletedEventHandler WS_DeleteProductionCalendarCompleted;
+        public event WS_GetProductionDocumentsByPotential_Production_IdCompletedEventHandler WS_GetProductionDocumentsByPotential_Production_IdCompleted;
         
         /// <remarks/>
         public event WS_GetProductionDocumentsCompletedEventHandler WS_GetProductionDocumentsCompleted;
@@ -1184,7 +1232,7 @@ namespace Emsal.WebInt.EmsalSrv {
         public event WS_GetDemandProductionDetailistForEValueIdCompletedEventHandler WS_GetDemandProductionDetailistForEValueIdCompleted;
         
         /// <remarks/>
-        public event WS_GetOfferProductionDetailByIdCompletedEventHandler WS_GetOfferProductionDetailByIdCompleted;
+        public event WS_UpdateUserCompletedEventHandler WS_UpdateUserCompleted;
         
         /// <remarks/>
         public event WS_GetUserByIdCompletedEventHandler WS_GetUserByIdCompleted;
@@ -1376,9 +1424,6 @@ namespace Emsal.WebInt.EmsalSrv {
         public event WS_GetProductionDocumentsByOffer_Production_IdCompletedEventHandler WS_GetProductionDocumentsByOffer_Production_IdCompleted;
         
         /// <remarks/>
-        public event WS_GetProductionDocumentsByPotential_Production_IdCompletedEventHandler WS_GetProductionDocumentsByPotential_Production_IdCompleted;
-        
-        /// <remarks/>
         public event WS_DeleteCommunicationCompletedEventHandler WS_DeleteCommunicationCompleted;
         
         /// <remarks/>
@@ -1455,6 +1500,9 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         public event WS_GetOfferProductionDetailistForStateEVIdCompletedEventHandler WS_GetOfferProductionDetailistForStateEVIdCompleted;
+        
+        /// <remarks/>
+        public event WS_GetOffer_ProductionsByContractIdCompletedEventHandler WS_GetOffer_ProductionsByContractIdCompleted;
         
         /// <remarks/>
         public event WS_AddPotential_ProductionCompletedEventHandler WS_AddPotential_ProductionCompleted;
@@ -1566,9 +1614,6 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         public event WS_DeleteUserCompletedEventHandler WS_DeleteUserCompleted;
-        
-        /// <remarks/>
-        public event WS_UpdateUserCompletedEventHandler WS_UpdateUserCompleted;
         
         /// <remarks/>
         public event WS_createDbCompletedEventHandler WS_createDbCompleted;
@@ -1761,6 +1806,38 @@ namespace Emsal.WebInt.EmsalSrv {
         
         /// <remarks/>
         public event WS_AddCommunicationCompletedEventHandler WS_AddCommunicationCompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_DeleteProductionCalendar", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_DeleteProductionCalendar([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblProductionCalendar ProductionCalendar) {
+            object[] results = this.Invoke("WS_DeleteProductionCalendar", new object[] {
+                        baseinput,
+                        ProductionCalendar});
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_DeleteProductionCalendarAsync(BaseInput baseinput, tblProductionCalendar ProductionCalendar) {
+            this.WS_DeleteProductionCalendarAsync(baseinput, ProductionCalendar, null);
+        }
+        
+        /// <remarks/>
+        public void WS_DeleteProductionCalendarAsync(BaseInput baseinput, tblProductionCalendar ProductionCalendar, object userState) {
+            if ((this.WS_DeleteProductionCalendarOperationCompleted == null)) {
+                this.WS_DeleteProductionCalendarOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_DeleteProductionCalendarOperationCompleted);
+            }
+            this.InvokeAsync("WS_DeleteProductionCalendar", new object[] {
+                        baseinput,
+                        ProductionCalendar}, this.WS_DeleteProductionCalendarOperationCompleted, userState);
+        }
+        
+        private void OnWS_DeleteProductionCalendarOperationCompleted(object arg) {
+            if ((this.WS_DeleteProductionCalendarCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_DeleteProductionCalendarCompleted(this, new WS_DeleteProductionCalendarCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionCalendar", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -2411,6 +2488,310 @@ namespace Emsal.WebInt.EmsalSrv {
             if ((this.WS_GetByComMessageAttachmentIdCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.WS_GetByComMessageAttachmentIdCompleted(this, new WS_GetByComMessageAttachmentIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_AddContract", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_AddContract([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblContract item, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblContract contractOut) {
+            object[] results = this.Invoke("WS_AddContract", new object[] {
+                        baseinput,
+                        item});
+            contractOut = ((tblContract)(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_AddContractAsync(BaseInput baseinput, tblContract item) {
+            this.WS_AddContractAsync(baseinput, item, null);
+        }
+        
+        /// <remarks/>
+        public void WS_AddContractAsync(BaseInput baseinput, tblContract item, object userState) {
+            if ((this.WS_AddContractOperationCompleted == null)) {
+                this.WS_AddContractOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_AddContractOperationCompleted);
+            }
+            this.InvokeAsync("WS_AddContract", new object[] {
+                        baseinput,
+                        item}, this.WS_AddContractOperationCompleted, userState);
+        }
+        
+        private void OnWS_AddContractOperationCompleted(object arg) {
+            if ((this.WS_AddContractCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_AddContractCompleted(this, new WS_AddContractCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_DeleteContract", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_DeleteContract([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblContract contract) {
+            object[] results = this.Invoke("WS_DeleteContract", new object[] {
+                        baseinput,
+                        contract});
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_DeleteContractAsync(BaseInput baseinput, tblContract contract) {
+            this.WS_DeleteContractAsync(baseinput, contract, null);
+        }
+        
+        /// <remarks/>
+        public void WS_DeleteContractAsync(BaseInput baseinput, tblContract contract, object userState) {
+            if ((this.WS_DeleteContractOperationCompleted == null)) {
+                this.WS_DeleteContractOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_DeleteContractOperationCompleted);
+            }
+            this.InvokeAsync("WS_DeleteContract", new object[] {
+                        baseinput,
+                        contract}, this.WS_DeleteContractOperationCompleted, userState);
+        }
+        
+        private void OnWS_DeleteContractOperationCompleted(object arg) {
+            if ((this.WS_DeleteContractCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_DeleteContractCompleted(this, new WS_DeleteContractCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetContract", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetContract([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseInput, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblContract[] contractOut) {
+            object[] results = this.Invoke("WS_GetContract", new object[] {
+                        baseInput});
+            contractOut = ((tblContract[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetContractAsync(BaseInput baseInput) {
+            this.WS_GetContractAsync(baseInput, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetContractAsync(BaseInput baseInput, object userState) {
+            if ((this.WS_GetContractOperationCompleted == null)) {
+                this.WS_GetContractOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetContractOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetContract", new object[] {
+                        baseInput}, this.WS_GetContractOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetContractOperationCompleted(object arg) {
+            if ((this.WS_GetContractCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetContractCompleted(this, new WS_GetContractCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_UpdateContract", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_UpdateContract([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblContract contract, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblContract contractOut) {
+            object[] results = this.Invoke("WS_UpdateContract", new object[] {
+                        baseinput,
+                        contract});
+            contractOut = ((tblContract)(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_UpdateContractAsync(BaseInput baseinput, tblContract contract) {
+            this.WS_UpdateContractAsync(baseinput, contract, null);
+        }
+        
+        /// <remarks/>
+        public void WS_UpdateContractAsync(BaseInput baseinput, tblContract contract, object userState) {
+            if ((this.WS_UpdateContractOperationCompleted == null)) {
+                this.WS_UpdateContractOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_UpdateContractOperationCompleted);
+            }
+            this.InvokeAsync("WS_UpdateContract", new object[] {
+                        baseinput,
+                        contract}, this.WS_UpdateContractOperationCompleted, userState);
+        }
+        
+        private void OnWS_UpdateContractOperationCompleted(object arg) {
+            if ((this.WS_UpdateContractCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_UpdateContractCompleted(this, new WS_UpdateContractCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetContractById", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetContractById([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long Id, [System.Xml.Serialization.XmlIgnoreAttribute()] bool IdSpecified, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblContract contract) {
+            object[] results = this.Invoke("WS_GetContractById", new object[] {
+                        baseinput,
+                        Id,
+                        IdSpecified});
+            contract = ((tblContract)(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetContractByIdAsync(BaseInput baseinput, long Id, bool IdSpecified) {
+            this.WS_GetContractByIdAsync(baseinput, Id, IdSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetContractByIdAsync(BaseInput baseinput, long Id, bool IdSpecified, object userState) {
+            if ((this.WS_GetContractByIdOperationCompleted == null)) {
+                this.WS_GetContractByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetContractByIdOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetContractById", new object[] {
+                        baseinput,
+                        Id,
+                        IdSpecified}, this.WS_GetContractByIdOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetContractByIdOperationCompleted(object arg) {
+            if ((this.WS_GetContractByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetContractByIdCompleted(this, new WS_GetContractByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetContractBySupplierOrganisationID", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetContractBySupplierOrganisationID([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long organisationID, [System.Xml.Serialization.XmlIgnoreAttribute()] bool organisationIDSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblContract[] contractOut) {
+            object[] results = this.Invoke("WS_GetContractBySupplierOrganisationID", new object[] {
+                        baseinput,
+                        organisationID,
+                        organisationIDSpecified});
+            contractOut = ((tblContract[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetContractBySupplierOrganisationIDAsync(BaseInput baseinput, long organisationID, bool organisationIDSpecified) {
+            this.WS_GetContractBySupplierOrganisationIDAsync(baseinput, organisationID, organisationIDSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetContractBySupplierOrganisationIDAsync(BaseInput baseinput, long organisationID, bool organisationIDSpecified, object userState) {
+            if ((this.WS_GetContractBySupplierOrganisationIDOperationCompleted == null)) {
+                this.WS_GetContractBySupplierOrganisationIDOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetContractBySupplierOrganisationIDOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetContractBySupplierOrganisationID", new object[] {
+                        baseinput,
+                        organisationID,
+                        organisationIDSpecified}, this.WS_GetContractBySupplierOrganisationIDOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetContractBySupplierOrganisationIDOperationCompleted(object arg) {
+            if ((this.WS_GetContractBySupplierOrganisationIDCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetContractBySupplierOrganisationIDCompleted(this, new WS_GetContractBySupplierOrganisationIDCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetContractBySupplierUserID", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetContractBySupplierUserID([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long supplierUserID, [System.Xml.Serialization.XmlIgnoreAttribute()] bool supplierUserIDSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblContract[] contractOut) {
+            object[] results = this.Invoke("WS_GetContractBySupplierUserID", new object[] {
+                        baseinput,
+                        supplierUserID,
+                        supplierUserIDSpecified});
+            contractOut = ((tblContract[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetContractBySupplierUserIDAsync(BaseInput baseinput, long supplierUserID, bool supplierUserIDSpecified) {
+            this.WS_GetContractBySupplierUserIDAsync(baseinput, supplierUserID, supplierUserIDSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetContractBySupplierUserIDAsync(BaseInput baseinput, long supplierUserID, bool supplierUserIDSpecified, object userState) {
+            if ((this.WS_GetContractBySupplierUserIDOperationCompleted == null)) {
+                this.WS_GetContractBySupplierUserIDOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetContractBySupplierUserIDOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetContractBySupplierUserID", new object[] {
+                        baseinput,
+                        supplierUserID,
+                        supplierUserIDSpecified}, this.WS_GetContractBySupplierUserIDOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetContractBySupplierUserIDOperationCompleted(object arg) {
+            if ((this.WS_GetContractBySupplierUserIDCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetContractBySupplierUserIDCompleted(this, new WS_GetContractBySupplierUserIDCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetContractByAgentUserID", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetContractByAgentUserID([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long agentUserID, [System.Xml.Serialization.XmlIgnoreAttribute()] bool agentUserIDSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblContract[] contractOut) {
+            object[] results = this.Invoke("WS_GetContractByAgentUserID", new object[] {
+                        baseinput,
+                        agentUserID,
+                        agentUserIDSpecified});
+            contractOut = ((tblContract[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetContractByAgentUserIDAsync(BaseInput baseinput, long agentUserID, bool agentUserIDSpecified) {
+            this.WS_GetContractByAgentUserIDAsync(baseinput, agentUserID, agentUserIDSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetContractByAgentUserIDAsync(BaseInput baseinput, long agentUserID, bool agentUserIDSpecified, object userState) {
+            if ((this.WS_GetContractByAgentUserIDOperationCompleted == null)) {
+                this.WS_GetContractByAgentUserIDOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetContractByAgentUserIDOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetContractByAgentUserID", new object[] {
+                        baseinput,
+                        agentUserID,
+                        agentUserIDSpecified}, this.WS_GetContractByAgentUserIDOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetContractByAgentUserIDOperationCompleted(object arg) {
+            if ((this.WS_GetContractByAgentUserIDCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetContractByAgentUserIDCompleted(this, new WS_GetContractByAgentUserIDCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetOfferProductionDetailById", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetOfferProductionDetailById([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long offer, [System.Xml.Serialization.XmlIgnoreAttribute()] bool offerSpecified, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out ProductionDetail itemList) {
+            object[] results = this.Invoke("WS_GetOfferProductionDetailById", new object[] {
+                        baseinput,
+                        offer,
+                        offerSpecified});
+            itemList = ((ProductionDetail)(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetOfferProductionDetailByIdAsync(BaseInput baseinput, long offer, bool offerSpecified) {
+            this.WS_GetOfferProductionDetailByIdAsync(baseinput, offer, offerSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetOfferProductionDetailByIdAsync(BaseInput baseinput, long offer, bool offerSpecified, object userState) {
+            if ((this.WS_GetOfferProductionDetailByIdOperationCompleted == null)) {
+                this.WS_GetOfferProductionDetailByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetOfferProductionDetailByIdOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetOfferProductionDetailById", new object[] {
+                        baseinput,
+                        offer,
+                        offerSpecified}, this.WS_GetOfferProductionDetailByIdOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetOfferProductionDetailByIdOperationCompleted(object arg) {
+            if ((this.WS_GetOfferProductionDetailByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetOfferProductionDetailByIdCompleted(this, new WS_GetOfferProductionDetailByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -4542,34 +4923,36 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_DeleteProductionCalendar", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionDocumentsByPotential_Production_" +
+            "Id", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public BaseOutput WS_DeleteProductionCalendar([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblProductionCalendar ProductionCalendar) {
-            object[] results = this.Invoke("WS_DeleteProductionCalendar", new object[] {
+        public BaseOutput WS_GetProductionDocumentsByPotential_Production_Id([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblProduction_Document ProductionDocument, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProduction_Document[] items) {
+            object[] results = this.Invoke("WS_GetProductionDocumentsByPotential_Production_Id", new object[] {
                         baseinput,
-                        ProductionCalendar});
+                        ProductionDocument});
+            items = ((tblProduction_Document[])(results[1]));
             return ((BaseOutput)(results[0]));
         }
         
         /// <remarks/>
-        public void WS_DeleteProductionCalendarAsync(BaseInput baseinput, tblProductionCalendar ProductionCalendar) {
-            this.WS_DeleteProductionCalendarAsync(baseinput, ProductionCalendar, null);
+        public void WS_GetProductionDocumentsByPotential_Production_IdAsync(BaseInput baseinput, tblProduction_Document ProductionDocument) {
+            this.WS_GetProductionDocumentsByPotential_Production_IdAsync(baseinput, ProductionDocument, null);
         }
         
         /// <remarks/>
-        public void WS_DeleteProductionCalendarAsync(BaseInput baseinput, tblProductionCalendar ProductionCalendar, object userState) {
-            if ((this.WS_DeleteProductionCalendarOperationCompleted == null)) {
-                this.WS_DeleteProductionCalendarOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_DeleteProductionCalendarOperationCompleted);
+        public void WS_GetProductionDocumentsByPotential_Production_IdAsync(BaseInput baseinput, tblProduction_Document ProductionDocument, object userState) {
+            if ((this.WS_GetProductionDocumentsByPotential_Production_IdOperationCompleted == null)) {
+                this.WS_GetProductionDocumentsByPotential_Production_IdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionDocumentsByPotential_Production_IdOperationCompleted);
             }
-            this.InvokeAsync("WS_DeleteProductionCalendar", new object[] {
+            this.InvokeAsync("WS_GetProductionDocumentsByPotential_Production_Id", new object[] {
                         baseinput,
-                        ProductionCalendar}, this.WS_DeleteProductionCalendarOperationCompleted, userState);
+                        ProductionDocument}, this.WS_GetProductionDocumentsByPotential_Production_IdOperationCompleted, userState);
         }
         
-        private void OnWS_DeleteProductionCalendarOperationCompleted(object arg) {
-            if ((this.WS_DeleteProductionCalendarCompleted != null)) {
+        private void OnWS_GetProductionDocumentsByPotential_Production_IdOperationCompleted(object arg) {
+            if ((this.WS_GetProductionDocumentsByPotential_Production_IdCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.WS_DeleteProductionCalendarCompleted(this, new WS_DeleteProductionCalendarCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.WS_GetProductionDocumentsByPotential_Production_IdCompleted(this, new WS_GetProductionDocumentsByPotential_Production_IdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -6730,37 +7113,35 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetOfferProductionDetailById", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_UpdateUser", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public BaseOutput WS_GetOfferProductionDetailById([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long offer, [System.Xml.Serialization.XmlIgnoreAttribute()] bool offerSpecified, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out ProductionDetail itemList) {
-            object[] results = this.Invoke("WS_GetOfferProductionDetailById", new object[] {
+        public BaseOutput WS_UpdateUser([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblUser user, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblUser updatedItem) {
+            object[] results = this.Invoke("WS_UpdateUser", new object[] {
                         baseinput,
-                        offer,
-                        offerSpecified});
-            itemList = ((ProductionDetail)(results[1]));
+                        user});
+            updatedItem = ((tblUser)(results[1]));
             return ((BaseOutput)(results[0]));
         }
         
         /// <remarks/>
-        public void WS_GetOfferProductionDetailByIdAsync(BaseInput baseinput, long offer, bool offerSpecified) {
-            this.WS_GetOfferProductionDetailByIdAsync(baseinput, offer, offerSpecified, null);
+        public void WS_UpdateUserAsync(BaseInput baseinput, tblUser user) {
+            this.WS_UpdateUserAsync(baseinput, user, null);
         }
         
         /// <remarks/>
-        public void WS_GetOfferProductionDetailByIdAsync(BaseInput baseinput, long offer, bool offerSpecified, object userState) {
-            if ((this.WS_GetOfferProductionDetailByIdOperationCompleted == null)) {
-                this.WS_GetOfferProductionDetailByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetOfferProductionDetailByIdOperationCompleted);
+        public void WS_UpdateUserAsync(BaseInput baseinput, tblUser user, object userState) {
+            if ((this.WS_UpdateUserOperationCompleted == null)) {
+                this.WS_UpdateUserOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_UpdateUserOperationCompleted);
             }
-            this.InvokeAsync("WS_GetOfferProductionDetailById", new object[] {
+            this.InvokeAsync("WS_UpdateUser", new object[] {
                         baseinput,
-                        offer,
-                        offerSpecified}, this.WS_GetOfferProductionDetailByIdOperationCompleted, userState);
+                        user}, this.WS_UpdateUserOperationCompleted, userState);
         }
         
-        private void OnWS_GetOfferProductionDetailByIdOperationCompleted(object arg) {
-            if ((this.WS_GetOfferProductionDetailByIdCompleted != null)) {
+        private void OnWS_UpdateUserOperationCompleted(object arg) {
+            if ((this.WS_UpdateUserCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.WS_GetOfferProductionDetailByIdCompleted(this, new WS_GetOfferProductionDetailByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.WS_UpdateUserCompleted(this, new WS_UpdateUserCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -8866,40 +9247,6 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetProductionDocumentsByPotential_Production_" +
-            "Id", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public BaseOutput WS_GetProductionDocumentsByPotential_Production_Id([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblProduction_Document ProductionDocument, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblProduction_Document[] items) {
-            object[] results = this.Invoke("WS_GetProductionDocumentsByPotential_Production_Id", new object[] {
-                        baseinput,
-                        ProductionDocument});
-            items = ((tblProduction_Document[])(results[1]));
-            return ((BaseOutput)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void WS_GetProductionDocumentsByPotential_Production_IdAsync(BaseInput baseinput, tblProduction_Document ProductionDocument) {
-            this.WS_GetProductionDocumentsByPotential_Production_IdAsync(baseinput, ProductionDocument, null);
-        }
-        
-        /// <remarks/>
-        public void WS_GetProductionDocumentsByPotential_Production_IdAsync(BaseInput baseinput, tblProduction_Document ProductionDocument, object userState) {
-            if ((this.WS_GetProductionDocumentsByPotential_Production_IdOperationCompleted == null)) {
-                this.WS_GetProductionDocumentsByPotential_Production_IdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetProductionDocumentsByPotential_Production_IdOperationCompleted);
-            }
-            this.InvokeAsync("WS_GetProductionDocumentsByPotential_Production_Id", new object[] {
-                        baseinput,
-                        ProductionDocument}, this.WS_GetProductionDocumentsByPotential_Production_IdOperationCompleted, userState);
-        }
-        
-        private void OnWS_GetProductionDocumentsByPotential_Production_IdOperationCompleted(object arg) {
-            if ((this.WS_GetProductionDocumentsByPotential_Production_IdCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.WS_GetProductionDocumentsByPotential_Production_IdCompleted(this, new WS_GetProductionDocumentsByPotential_Production_IdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_DeleteCommunication", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public BaseOutput WS_DeleteCommunication([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblCommunication communication) {
@@ -9333,12 +9680,11 @@ namespace Emsal.WebInt.EmsalSrv {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetOnAirOfferCount_ProductionsByUserId", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public BaseOutput WS_GetOnAirOfferCount_ProductionsByUserId([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblOffer_Production Offer, out long itemCount, [System.Xml.Serialization.XmlIgnoreAttribute()] out bool itemCountSpecified) {
+        public BaseOutput WS_GetOnAirOfferCount_ProductionsByUserId([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblOffer_Production Offer, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblOffer_Production[] itemList) {
             object[] results = this.Invoke("WS_GetOnAirOfferCount_ProductionsByUserId", new object[] {
                         baseinput,
                         Offer});
-            itemCount = ((long)(results[1]));
-            itemCountSpecified = ((bool)(results[2]));
+            itemList = ((tblOffer_Production[])(results[1]));
             return ((BaseOutput)(results[0]));
         }
         
@@ -9779,6 +10125,41 @@ namespace Emsal.WebInt.EmsalSrv {
             if ((this.WS_GetOfferProductionDetailistForStateEVIdCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.WS_GetOfferProductionDetailistForStateEVIdCompleted(this, new WS_GetOfferProductionDetailistForStateEVIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetOffer_ProductionsByContractId", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public BaseOutput WS_GetOffer_ProductionsByContractId([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, long contractId, [System.Xml.Serialization.XmlIgnoreAttribute()] bool contractIdSpecified, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblOffer_Production[] offerOut) {
+            object[] results = this.Invoke("WS_GetOffer_ProductionsByContractId", new object[] {
+                        baseinput,
+                        contractId,
+                        contractIdSpecified});
+            offerOut = ((tblOffer_Production[])(results[1]));
+            return ((BaseOutput)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WS_GetOffer_ProductionsByContractIdAsync(BaseInput baseinput, long contractId, bool contractIdSpecified) {
+            this.WS_GetOffer_ProductionsByContractIdAsync(baseinput, contractId, contractIdSpecified, null);
+        }
+        
+        /// <remarks/>
+        public void WS_GetOffer_ProductionsByContractIdAsync(BaseInput baseinput, long contractId, bool contractIdSpecified, object userState) {
+            if ((this.WS_GetOffer_ProductionsByContractIdOperationCompleted == null)) {
+                this.WS_GetOffer_ProductionsByContractIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_GetOffer_ProductionsByContractIdOperationCompleted);
+            }
+            this.InvokeAsync("WS_GetOffer_ProductionsByContractId", new object[] {
+                        baseinput,
+                        contractId,
+                        contractIdSpecified}, this.WS_GetOffer_ProductionsByContractIdOperationCompleted, userState);
+        }
+        
+        private void OnWS_GetOffer_ProductionsByContractIdOperationCompleted(object arg) {
+            if ((this.WS_GetOffer_ProductionsByContractIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WS_GetOffer_ProductionsByContractIdCompleted(this, new WS_GetOffer_ProductionsByContractIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -10259,12 +10640,11 @@ namespace Emsal.WebInt.EmsalSrv {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_GetOnAirDemand_ProductionsByUserId", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public BaseOutput WS_GetOnAirDemand_ProductionsByUserId([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblDemand_Production demand, out long itemCount, [System.Xml.Serialization.XmlIgnoreAttribute()] out bool itemCountSpecified) {
+        public BaseOutput WS_GetOnAirDemand_ProductionsByUserId([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblDemand_Production demand, [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)] [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")] out tblDemand_Production[] itemList) {
             object[] results = this.Invoke("WS_GetOnAirDemand_ProductionsByUserId", new object[] {
                         baseinput,
                         demand});
-            itemCount = ((long)(results[1]));
-            itemCountSpecified = ((bool)(results[2]));
+            itemList = ((tblDemand_Production[])(results[1]));
             return ((BaseOutput)(results[0]));
         }
         
@@ -11016,39 +11396,6 @@ namespace Emsal.WebInt.EmsalSrv {
             if ((this.WS_DeleteUserCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.WS_DeleteUserCompleted(this, new WS_DeleteUserCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IEmsalService/WS_UpdateUser", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public BaseOutput WS_UpdateUser([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] BaseInput baseinput, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] tblUser user, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] out tblUser updatedItem) {
-            object[] results = this.Invoke("WS_UpdateUser", new object[] {
-                        baseinput,
-                        user});
-            updatedItem = ((tblUser)(results[1]));
-            return ((BaseOutput)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void WS_UpdateUserAsync(BaseInput baseinput, tblUser user) {
-            this.WS_UpdateUserAsync(baseinput, user, null);
-        }
-        
-        /// <remarks/>
-        public void WS_UpdateUserAsync(BaseInput baseinput, tblUser user, object userState) {
-            if ((this.WS_UpdateUserOperationCompleted == null)) {
-                this.WS_UpdateUserOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWS_UpdateUserOperationCompleted);
-            }
-            this.InvokeAsync("WS_UpdateUser", new object[] {
-                        baseinput,
-                        user}, this.WS_UpdateUserOperationCompleted, userState);
-        }
-        
-        private void OnWS_UpdateUserOperationCompleted(object arg) {
-            if ((this.WS_UpdateUserCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.WS_UpdateUserCompleted(this, new WS_UpdateUserCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -16890,6 +17237,10 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private bool statusFieldSpecified;
         
+        private System.Nullable<long> contractIdField;
+        
+        private bool contractIdFieldSpecified;
+        
         private System.Nullable<long> createdDateField;
         
         private bool createdDateFieldSpecified;
@@ -17030,6 +17381,28 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.statusFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> contractId {
+            get {
+                return this.contractIdField;
+            }
+            set {
+                this.contractIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool contractIdSpecified {
+            get {
+                return this.contractIdFieldSpecified;
+            }
+            set {
+                this.contractIdFieldSpecified = value;
             }
         }
         
@@ -20219,3089 +20592,6 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.toUserIDFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> updatedDate {
-            get {
-                return this.updatedDateField;
-            }
-            set {
-                this.updatedDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool updatedDateSpecified {
-            get {
-                return this.updatedDateFieldSpecified;
-            }
-            set {
-                this.updatedDateFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string updatedUser {
-            get {
-                return this.updatedUserField;
-            }
-            set {
-                this.updatedUserField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
-    public partial class tblPerson {
-        
-        private string fatherNameField;
-        
-        private long idField;
-        
-        private bool idFieldSpecified;
-        
-        private System.Nullable<long> lastUpdatedStatusField;
-        
-        private bool lastUpdatedStatusFieldSpecified;
-        
-        private string nameField;
-        
-        private string pinNumberField;
-        
-        private System.Nullable<long> statusField;
-        
-        private bool statusFieldSpecified;
-        
-        private string surnameField;
-        
-        private System.Nullable<long> userIdField;
-        
-        private bool userIdFieldSpecified;
-        
-        private System.Nullable<long> address_IdField;
-        
-        private bool address_IdFieldSpecified;
-        
-        private System.Nullable<long> birtdayField;
-        
-        private bool birtdayFieldSpecified;
-        
-        private System.Nullable<long> createdDateField;
-        
-        private bool createdDateFieldSpecified;
-        
-        private string createdUserField;
-        
-        private System.Nullable<long> educationLevel_eV_IdField;
-        
-        private bool educationLevel_eV_IdFieldSpecified;
-        
-        private string genderField;
-        
-        private System.Nullable<long> job_eV_IdField;
-        
-        private bool job_eV_IdFieldSpecified;
-        
-        private string profilePictureField;
-        
-        private System.Nullable<long> updatedDateField;
-        
-        private bool updatedDateFieldSpecified;
-        
-        private string updatedUserField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string FatherName {
-            get {
-                return this.fatherNameField;
-            }
-            set {
-                this.fatherNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long Id {
-            get {
-                return this.idField;
-            }
-            set {
-                this.idField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool IdSpecified {
-            get {
-                return this.idFieldSpecified;
-            }
-            set {
-                this.idFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> LastUpdatedStatus {
-            get {
-                return this.lastUpdatedStatusField;
-            }
-            set {
-                this.lastUpdatedStatusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool LastUpdatedStatusSpecified {
-            get {
-                return this.lastUpdatedStatusFieldSpecified;
-            }
-            set {
-                this.lastUpdatedStatusFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string Name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string PinNumber {
-            get {
-                return this.pinNumberField;
-            }
-            set {
-                this.pinNumberField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> Status {
-            get {
-                return this.statusField;
-            }
-            set {
-                this.statusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool StatusSpecified {
-            get {
-                return this.statusFieldSpecified;
-            }
-            set {
-                this.statusFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string Surname {
-            get {
-                return this.surnameField;
-            }
-            set {
-                this.surnameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> UserId {
-            get {
-                return this.userIdField;
-            }
-            set {
-                this.userIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool UserIdSpecified {
-            get {
-                return this.userIdFieldSpecified;
-            }
-            set {
-                this.userIdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> address_Id {
-            get {
-                return this.address_IdField;
-            }
-            set {
-                this.address_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool address_IdSpecified {
-            get {
-                return this.address_IdFieldSpecified;
-            }
-            set {
-                this.address_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> birtday {
-            get {
-                return this.birtdayField;
-            }
-            set {
-                this.birtdayField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool birtdaySpecified {
-            get {
-                return this.birtdayFieldSpecified;
-            }
-            set {
-                this.birtdayFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> createdDate {
-            get {
-                return this.createdDateField;
-            }
-            set {
-                this.createdDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool createdDateSpecified {
-            get {
-                return this.createdDateFieldSpecified;
-            }
-            set {
-                this.createdDateFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string createdUser {
-            get {
-                return this.createdUserField;
-            }
-            set {
-                this.createdUserField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> educationLevel_eV_Id {
-            get {
-                return this.educationLevel_eV_IdField;
-            }
-            set {
-                this.educationLevel_eV_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool educationLevel_eV_IdSpecified {
-            get {
-                return this.educationLevel_eV_IdFieldSpecified;
-            }
-            set {
-                this.educationLevel_eV_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string gender {
-            get {
-                return this.genderField;
-            }
-            set {
-                this.genderField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> job_eV_Id {
-            get {
-                return this.job_eV_IdField;
-            }
-            set {
-                this.job_eV_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool job_eV_IdSpecified {
-            get {
-                return this.job_eV_IdFieldSpecified;
-            }
-            set {
-                this.job_eV_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string profilePicture {
-            get {
-                return this.profilePictureField;
-            }
-            set {
-                this.profilePictureField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> updatedDate {
-            get {
-                return this.updatedDateField;
-            }
-            set {
-                this.updatedDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool updatedDateSpecified {
-            get {
-                return this.updatedDateFieldSpecified;
-            }
-            set {
-                this.updatedDateFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string updatedUser {
-            get {
-                return this.updatedUserField;
-            }
-            set {
-                this.updatedUserField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
-    public partial class tblForeign_Organization {
-        
-        private long idField;
-        
-        private bool idFieldSpecified;
-        
-        private long lastUpdatedStatusField;
-        
-        private bool lastUpdatedStatusFieldSpecified;
-        
-        private long statusField;
-        
-        private bool statusFieldSpecified;
-        
-        private System.Nullable<long> accountNumberField;
-        
-        private bool accountNumberFieldSpecified;
-        
-        private System.Nullable<long> actualFunctionAddressIdField;
-        
-        private bool actualFunctionAddressIdFieldSpecified;
-        
-        private System.Nullable<long> address_IdField;
-        
-        private bool address_IdFieldSpecified;
-        
-        private string bankNameField;
-        
-        private long createdDateField;
-        
-        private bool createdDateFieldSpecified;
-        
-        private string createdUserField;
-        
-        private string descriptionField;
-        
-        private System.Nullable<long> legalAddressIdField;
-        
-        private bool legalAddressIdFieldSpecified;
-        
-        private System.Nullable<long> legality_eV_IdField;
-        
-        private bool legality_eV_IdFieldSpecified;
-        
-        private System.Nullable<long> manager_IdField;
-        
-        private bool manager_IdFieldSpecified;
-        
-        private string nameField;
-        
-        private System.Nullable<long> organisationType_eV_IdField;
-        
-        private bool organisationType_eV_IdFieldSpecified;
-        
-        private System.Nullable<long> parent_IdField;
-        
-        private bool parent_IdFieldSpecified;
-        
-        private System.Nullable<long> party_IdField;
-        
-        private bool party_IdFieldSpecified;
-        
-        private long updatedDateField;
-        
-        private bool updatedDateFieldSpecified;
-        
-        private string updatedUserField;
-        
-        private System.Nullable<long> userIdField;
-        
-        private bool userIdFieldSpecified;
-        
-        private string voenField;
-        
-        /// <remarks/>
-        public long Id {
-            get {
-                return this.idField;
-            }
-            set {
-                this.idField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool IdSpecified {
-            get {
-                return this.idFieldSpecified;
-            }
-            set {
-                this.idFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long LastUpdatedStatus {
-            get {
-                return this.lastUpdatedStatusField;
-            }
-            set {
-                this.lastUpdatedStatusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool LastUpdatedStatusSpecified {
-            get {
-                return this.lastUpdatedStatusFieldSpecified;
-            }
-            set {
-                this.lastUpdatedStatusFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long Status {
-            get {
-                return this.statusField;
-            }
-            set {
-                this.statusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool StatusSpecified {
-            get {
-                return this.statusFieldSpecified;
-            }
-            set {
-                this.statusFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> accountNumber {
-            get {
-                return this.accountNumberField;
-            }
-            set {
-                this.accountNumberField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool accountNumberSpecified {
-            get {
-                return this.accountNumberFieldSpecified;
-            }
-            set {
-                this.accountNumberFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> actualFunctionAddressId {
-            get {
-                return this.actualFunctionAddressIdField;
-            }
-            set {
-                this.actualFunctionAddressIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool actualFunctionAddressIdSpecified {
-            get {
-                return this.actualFunctionAddressIdFieldSpecified;
-            }
-            set {
-                this.actualFunctionAddressIdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> address_Id {
-            get {
-                return this.address_IdField;
-            }
-            set {
-                this.address_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool address_IdSpecified {
-            get {
-                return this.address_IdFieldSpecified;
-            }
-            set {
-                this.address_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string bankName {
-            get {
-                return this.bankNameField;
-            }
-            set {
-                this.bankNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long createdDate {
-            get {
-                return this.createdDateField;
-            }
-            set {
-                this.createdDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool createdDateSpecified {
-            get {
-                return this.createdDateFieldSpecified;
-            }
-            set {
-                this.createdDateFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string createdUser {
-            get {
-                return this.createdUserField;
-            }
-            set {
-                this.createdUserField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string description {
-            get {
-                return this.descriptionField;
-            }
-            set {
-                this.descriptionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> legalAddressId {
-            get {
-                return this.legalAddressIdField;
-            }
-            set {
-                this.legalAddressIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool legalAddressIdSpecified {
-            get {
-                return this.legalAddressIdFieldSpecified;
-            }
-            set {
-                this.legalAddressIdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> legality_eV_Id {
-            get {
-                return this.legality_eV_IdField;
-            }
-            set {
-                this.legality_eV_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool legality_eV_IdSpecified {
-            get {
-                return this.legality_eV_IdFieldSpecified;
-            }
-            set {
-                this.legality_eV_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> manager_Id {
-            get {
-                return this.manager_IdField;
-            }
-            set {
-                this.manager_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool manager_IdSpecified {
-            get {
-                return this.manager_IdFieldSpecified;
-            }
-            set {
-                this.manager_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> organisationType_eV_Id {
-            get {
-                return this.organisationType_eV_IdField;
-            }
-            set {
-                this.organisationType_eV_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool organisationType_eV_IdSpecified {
-            get {
-                return this.organisationType_eV_IdFieldSpecified;
-            }
-            set {
-                this.organisationType_eV_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> parent_Id {
-            get {
-                return this.parent_IdField;
-            }
-            set {
-                this.parent_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool parent_IdSpecified {
-            get {
-                return this.parent_IdFieldSpecified;
-            }
-            set {
-                this.parent_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> party_Id {
-            get {
-                return this.party_IdField;
-            }
-            set {
-                this.party_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool party_IdSpecified {
-            get {
-                return this.party_IdFieldSpecified;
-            }
-            set {
-                this.party_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long updatedDate {
-            get {
-                return this.updatedDateField;
-            }
-            set {
-                this.updatedDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool updatedDateSpecified {
-            get {
-                return this.updatedDateFieldSpecified;
-            }
-            set {
-                this.updatedDateFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string updatedUser {
-            get {
-                return this.updatedUserField;
-            }
-            set {
-                this.updatedUserField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> userId {
-            get {
-                return this.userIdField;
-            }
-            set {
-                this.userIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool userIdSpecified {
-            get {
-                return this.userIdFieldSpecified;
-            }
-            set {
-                this.userIdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string voen {
-            get {
-                return this.voenField;
-            }
-            set {
-                this.voenField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")]
-    public partial class ProductionDetail {
-        
-        private string statusField;
-        
-        private string addressDescField;
-        
-        private long adress_IdField;
-        
-        private bool adress_IdFieldSpecified;
-        
-        private long birtdayField;
-        
-        private bool birtdayFieldSpecified;
-        
-        private long createdDateField;
-        
-        private bool createdDateFieldSpecified;
-        
-        private long dayField;
-        
-        private bool dayFieldSpecified;
-        
-        private string descriptionField;
-        
-        private string emailField;
-        
-        private long enumCategoryIdField;
-        
-        private bool enumCategoryIdFieldSpecified;
-        
-        private long enumValueIdField;
-        
-        private bool enumValueIdFieldSpecified;
-        
-        private string enumValueNameField;
-        
-        private string fatherNameField;
-        
-        private tblForeign_Organization foreignOrganizationField;
-        
-        private System.Nullable<long> forgIdField;
-        
-        private bool forgIdFieldSpecified;
-        
-        private string fullAddressField;
-        
-        private string fullForeignOrganizationField;
-        
-        private string genderField;
-        
-        private string groupIdField;
-        
-        private string grup_idField;
-        
-        private string kategoryNameField;
-        
-        private long lastUpdateStatusField;
-        
-        private bool lastUpdateStatusFieldSpecified;
-        
-        private long month_Ev_IdField;
-        
-        private bool month_Ev_IdFieldSpecified;
-        
-        private string[] monthsField;
-        
-        private string nameField;
-        
-        private string organizationNameField;
-        
-        private tblPerson personField;
-        
-        private string personAdressField;
-        
-        private string personAdressDescField;
-        
-        private string pinNumberField;
-        
-        private string potentialProductField;
-        
-        private decimal potentialProductQuantityField;
-        
-        private bool potentialProductQuantityFieldSpecified;
-        
-        private decimal potentialQuantityField;
-        
-        private bool potentialQuantityFieldSpecified;
-        
-        private tblProduct_Document[] productDocumentListField;
-        
-        private long productIdField;
-        
-        private bool productIdFieldSpecified;
-        
-        private string productNameField;
-        
-        private long productParentIdField;
-        
-        private bool productParentIdFieldSpecified;
-        
-        private string productParentNameField;
-        
-        private decimal productUnitPriceField;
-        
-        private bool productUnitPriceFieldSpecified;
-        
-        private ProductionCalendarDetail[] productionCalendarListField;
-        
-        private tblProduction_Document[] productionDocumentListField;
-        
-        private long productionIDField;
-        
-        private bool productionIDFieldSpecified;
-        
-        private string profilPictureField;
-        
-        private decimal quantityField;
-        
-        private bool quantityFieldSpecified;
-        
-        private string surnameField;
-        
-        private decimal totalPriceField;
-        
-        private bool totalPriceFieldSpecified;
-        
-        private long transportation_eV_IdField;
-        
-        private bool transportation_eV_IdFieldSpecified;
-        
-        private decimal unitPriceField;
-        
-        private bool unitPriceFieldSpecified;
-        
-        private long updatedDateField;
-        
-        private bool updatedDateFieldSpecified;
-        
-        private long userIdField;
-        
-        private bool userIdFieldSpecified;
-        
-        private long yearField;
-        
-        private bool yearFieldSpecified;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string Status {
-            get {
-                return this.statusField;
-            }
-            set {
-                this.statusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string addressDesc {
-            get {
-                return this.addressDescField;
-            }
-            set {
-                this.addressDescField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long adress_Id {
-            get {
-                return this.adress_IdField;
-            }
-            set {
-                this.adress_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool adress_IdSpecified {
-            get {
-                return this.adress_IdFieldSpecified;
-            }
-            set {
-                this.adress_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long birtday {
-            get {
-                return this.birtdayField;
-            }
-            set {
-                this.birtdayField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool birtdaySpecified {
-            get {
-                return this.birtdayFieldSpecified;
-            }
-            set {
-                this.birtdayFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long createdDate {
-            get {
-                return this.createdDateField;
-            }
-            set {
-                this.createdDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool createdDateSpecified {
-            get {
-                return this.createdDateFieldSpecified;
-            }
-            set {
-                this.createdDateFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long day {
-            get {
-                return this.dayField;
-            }
-            set {
-                this.dayField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool daySpecified {
-            get {
-                return this.dayFieldSpecified;
-            }
-            set {
-                this.dayFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string description {
-            get {
-                return this.descriptionField;
-            }
-            set {
-                this.descriptionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string email {
-            get {
-                return this.emailField;
-            }
-            set {
-                this.emailField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long enumCategoryId {
-            get {
-                return this.enumCategoryIdField;
-            }
-            set {
-                this.enumCategoryIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool enumCategoryIdSpecified {
-            get {
-                return this.enumCategoryIdFieldSpecified;
-            }
-            set {
-                this.enumCategoryIdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long enumValueId {
-            get {
-                return this.enumValueIdField;
-            }
-            set {
-                this.enumValueIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool enumValueIdSpecified {
-            get {
-                return this.enumValueIdFieldSpecified;
-            }
-            set {
-                this.enumValueIdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string enumValueName {
-            get {
-                return this.enumValueNameField;
-            }
-            set {
-                this.enumValueNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string fatherName {
-            get {
-                return this.fatherNameField;
-            }
-            set {
-                this.fatherNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public tblForeign_Organization foreignOrganization {
-            get {
-                return this.foreignOrganizationField;
-            }
-            set {
-                this.foreignOrganizationField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> forgId {
-            get {
-                return this.forgIdField;
-            }
-            set {
-                this.forgIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool forgIdSpecified {
-            get {
-                return this.forgIdFieldSpecified;
-            }
-            set {
-                this.forgIdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string fullAddress {
-            get {
-                return this.fullAddressField;
-            }
-            set {
-                this.fullAddressField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string fullForeignOrganization {
-            get {
-                return this.fullForeignOrganizationField;
-            }
-            set {
-                this.fullForeignOrganizationField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string gender {
-            get {
-                return this.genderField;
-            }
-            set {
-                this.genderField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string groupId {
-            get {
-                return this.groupIdField;
-            }
-            set {
-                this.groupIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string grup_id {
-            get {
-                return this.grup_idField;
-            }
-            set {
-                this.grup_idField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string kategoryName {
-            get {
-                return this.kategoryNameField;
-            }
-            set {
-                this.kategoryNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long lastUpdateStatus {
-            get {
-                return this.lastUpdateStatusField;
-            }
-            set {
-                this.lastUpdateStatusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool lastUpdateStatusSpecified {
-            get {
-                return this.lastUpdateStatusFieldSpecified;
-            }
-            set {
-                this.lastUpdateStatusFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long month_Ev_Id {
-            get {
-                return this.month_Ev_IdField;
-            }
-            set {
-                this.month_Ev_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool month_Ev_IdSpecified {
-            get {
-                return this.month_Ev_IdFieldSpecified;
-            }
-            set {
-                this.month_Ev_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
-        [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays")]
-        public string[] months {
-            get {
-                return this.monthsField;
-            }
-            set {
-                this.monthsField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string organizationName {
-            get {
-                return this.organizationNameField;
-            }
-            set {
-                this.organizationNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public tblPerson person {
-            get {
-                return this.personField;
-            }
-            set {
-                this.personField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string personAdress {
-            get {
-                return this.personAdressField;
-            }
-            set {
-                this.personAdressField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string personAdressDesc {
-            get {
-                return this.personAdressDescField;
-            }
-            set {
-                this.personAdressDescField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string pinNumber {
-            get {
-                return this.pinNumberField;
-            }
-            set {
-                this.pinNumberField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string potentialProduct {
-            get {
-                return this.potentialProductField;
-            }
-            set {
-                this.potentialProductField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public decimal potentialProductQuantity {
-            get {
-                return this.potentialProductQuantityField;
-            }
-            set {
-                this.potentialProductQuantityField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool potentialProductQuantitySpecified {
-            get {
-                return this.potentialProductQuantityFieldSpecified;
-            }
-            set {
-                this.potentialProductQuantityFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public decimal potentialQuantity {
-            get {
-                return this.potentialQuantityField;
-            }
-            set {
-                this.potentialQuantityField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool potentialQuantitySpecified {
-            get {
-                return this.potentialQuantityFieldSpecified;
-            }
-            set {
-                this.potentialQuantityFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
-        [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
-        public tblProduct_Document[] productDocumentList {
-            get {
-                return this.productDocumentListField;
-            }
-            set {
-                this.productDocumentListField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long productId {
-            get {
-                return this.productIdField;
-            }
-            set {
-                this.productIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool productIdSpecified {
-            get {
-                return this.productIdFieldSpecified;
-            }
-            set {
-                this.productIdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string productName {
-            get {
-                return this.productNameField;
-            }
-            set {
-                this.productNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long productParentId {
-            get {
-                return this.productParentIdField;
-            }
-            set {
-                this.productParentIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool productParentIdSpecified {
-            get {
-                return this.productParentIdFieldSpecified;
-            }
-            set {
-                this.productParentIdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string productParentName {
-            get {
-                return this.productParentNameField;
-            }
-            set {
-                this.productParentNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public decimal productUnitPrice {
-            get {
-                return this.productUnitPriceField;
-            }
-            set {
-                this.productUnitPriceField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool productUnitPriceSpecified {
-            get {
-                return this.productUnitPriceFieldSpecified;
-            }
-            set {
-                this.productUnitPriceFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
-        public ProductionCalendarDetail[] productionCalendarList {
-            get {
-                return this.productionCalendarListField;
-            }
-            set {
-                this.productionCalendarListField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
-        [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
-        public tblProduction_Document[] productionDocumentList {
-            get {
-                return this.productionDocumentListField;
-            }
-            set {
-                this.productionDocumentListField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long productionID {
-            get {
-                return this.productionIDField;
-            }
-            set {
-                this.productionIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool productionIDSpecified {
-            get {
-                return this.productionIDFieldSpecified;
-            }
-            set {
-                this.productionIDFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string profilPicture {
-            get {
-                return this.profilPictureField;
-            }
-            set {
-                this.profilPictureField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public decimal quantity {
-            get {
-                return this.quantityField;
-            }
-            set {
-                this.quantityField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool quantitySpecified {
-            get {
-                return this.quantityFieldSpecified;
-            }
-            set {
-                this.quantityFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string surname {
-            get {
-                return this.surnameField;
-            }
-            set {
-                this.surnameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public decimal totalPrice {
-            get {
-                return this.totalPriceField;
-            }
-            set {
-                this.totalPriceField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool totalPriceSpecified {
-            get {
-                return this.totalPriceFieldSpecified;
-            }
-            set {
-                this.totalPriceFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long transportation_eV_Id {
-            get {
-                return this.transportation_eV_IdField;
-            }
-            set {
-                this.transportation_eV_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool transportation_eV_IdSpecified {
-            get {
-                return this.transportation_eV_IdFieldSpecified;
-            }
-            set {
-                this.transportation_eV_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public decimal unitPrice {
-            get {
-                return this.unitPriceField;
-            }
-            set {
-                this.unitPriceField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool unitPriceSpecified {
-            get {
-                return this.unitPriceFieldSpecified;
-            }
-            set {
-                this.unitPriceFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long updatedDate {
-            get {
-                return this.updatedDateField;
-            }
-            set {
-                this.updatedDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool updatedDateSpecified {
-            get {
-                return this.updatedDateFieldSpecified;
-            }
-            set {
-                this.updatedDateFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long userId {
-            get {
-                return this.userIdField;
-            }
-            set {
-                this.userIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool userIdSpecified {
-            get {
-                return this.userIdFieldSpecified;
-            }
-            set {
-                this.userIdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long year {
-            get {
-                return this.yearField;
-            }
-            set {
-                this.yearField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool yearSpecified {
-            get {
-                return this.yearFieldSpecified;
-            }
-            set {
-                this.yearFieldSpecified = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")]
-    public partial class ProductionCalendarDetail {
-        
-        private long idField;
-        
-        private bool idFieldSpecified;
-        
-        private string monthDescriptionField;
-        
-        private string monthNameField;
-        
-        private long production_type_eV_IdField;
-        
-        private bool production_type_eV_IdFieldSpecified;
-        
-        private string typeDescriptionField;
-        
-        private string typeNameField;
-        
-        private long dayField;
-        
-        private bool dayFieldSpecified;
-        
-        private long demand_IdField;
-        
-        private bool demand_IdFieldSpecified;
-        
-        private long months_eV_IdField;
-        
-        private bool months_eV_IdFieldSpecified;
-        
-        private long oclockField;
-        
-        private bool oclockFieldSpecified;
-        
-        private long offer_IdField;
-        
-        private bool offer_IdFieldSpecified;
-        
-        private long partOfyearField;
-        
-        private bool partOfyearFieldSpecified;
-        
-        private decimal priceField;
-        
-        private bool priceFieldSpecified;
-        
-        private tblProductionCalendar[] productionCalendarListField;
-        
-        private long production_IdField;
-        
-        private bool production_IdFieldSpecified;
-        
-        private decimal quantityField;
-        
-        private bool quantityFieldSpecified;
-        
-        private long transportation_eV_IdField;
-        
-        private bool transportation_eV_IdFieldSpecified;
-        
-        private long type_eV_IdField;
-        
-        private bool type_eV_IdFieldSpecified;
-        
-        private long yearField;
-        
-        private bool yearFieldSpecified;
-        
-        /// <remarks/>
-        public long ID {
-            get {
-                return this.idField;
-            }
-            set {
-                this.idField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool IDSpecified {
-            get {
-                return this.idFieldSpecified;
-            }
-            set {
-                this.idFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string MonthDescription {
-            get {
-                return this.monthDescriptionField;
-            }
-            set {
-                this.monthDescriptionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string MonthName {
-            get {
-                return this.monthNameField;
-            }
-            set {
-                this.monthNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long Production_type_eV_Id {
-            get {
-                return this.production_type_eV_IdField;
-            }
-            set {
-                this.production_type_eV_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool Production_type_eV_IdSpecified {
-            get {
-                return this.production_type_eV_IdFieldSpecified;
-            }
-            set {
-                this.production_type_eV_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string TypeDescription {
-            get {
-                return this.typeDescriptionField;
-            }
-            set {
-                this.typeDescriptionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string TypeName {
-            get {
-                return this.typeNameField;
-            }
-            set {
-                this.typeNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long day {
-            get {
-                return this.dayField;
-            }
-            set {
-                this.dayField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool daySpecified {
-            get {
-                return this.dayFieldSpecified;
-            }
-            set {
-                this.dayFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long demand_Id {
-            get {
-                return this.demand_IdField;
-            }
-            set {
-                this.demand_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool demand_IdSpecified {
-            get {
-                return this.demand_IdFieldSpecified;
-            }
-            set {
-                this.demand_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long months_eV_Id {
-            get {
-                return this.months_eV_IdField;
-            }
-            set {
-                this.months_eV_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool months_eV_IdSpecified {
-            get {
-                return this.months_eV_IdFieldSpecified;
-            }
-            set {
-                this.months_eV_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long oclock {
-            get {
-                return this.oclockField;
-            }
-            set {
-                this.oclockField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool oclockSpecified {
-            get {
-                return this.oclockFieldSpecified;
-            }
-            set {
-                this.oclockFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long offer_Id {
-            get {
-                return this.offer_IdField;
-            }
-            set {
-                this.offer_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool offer_IdSpecified {
-            get {
-                return this.offer_IdFieldSpecified;
-            }
-            set {
-                this.offer_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long partOfyear {
-            get {
-                return this.partOfyearField;
-            }
-            set {
-                this.partOfyearField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool partOfyearSpecified {
-            get {
-                return this.partOfyearFieldSpecified;
-            }
-            set {
-                this.partOfyearFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public decimal price {
-            get {
-                return this.priceField;
-            }
-            set {
-                this.priceField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool priceSpecified {
-            get {
-                return this.priceFieldSpecified;
-            }
-            set {
-                this.priceFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
-        [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
-        public tblProductionCalendar[] productionCalendarList {
-            get {
-                return this.productionCalendarListField;
-            }
-            set {
-                this.productionCalendarListField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long production_Id {
-            get {
-                return this.production_IdField;
-            }
-            set {
-                this.production_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool production_IdSpecified {
-            get {
-                return this.production_IdFieldSpecified;
-            }
-            set {
-                this.production_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public decimal quantity {
-            get {
-                return this.quantityField;
-            }
-            set {
-                this.quantityField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool quantitySpecified {
-            get {
-                return this.quantityFieldSpecified;
-            }
-            set {
-                this.quantityFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long transportation_eV_Id {
-            get {
-                return this.transportation_eV_IdField;
-            }
-            set {
-                this.transportation_eV_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool transportation_eV_IdSpecified {
-            get {
-                return this.transportation_eV_IdFieldSpecified;
-            }
-            set {
-                this.transportation_eV_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long type_eV_Id {
-            get {
-                return this.type_eV_IdField;
-            }
-            set {
-                this.type_eV_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool type_eV_IdSpecified {
-            get {
-                return this.type_eV_IdFieldSpecified;
-            }
-            set {
-                this.type_eV_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long year {
-            get {
-                return this.yearField;
-            }
-            set {
-                this.yearField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool yearSpecified {
-            get {
-                return this.yearFieldSpecified;
-            }
-            set {
-                this.yearFieldSpecified = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
-    public partial class tblProductionCalendar {
-        
-        private long idField;
-        
-        private bool idFieldSpecified;
-        
-        private System.Nullable<long> lastUpdateStatusField;
-        
-        private bool lastUpdateStatusFieldSpecified;
-        
-        private System.Nullable<long> production_IdField;
-        
-        private bool production_IdFieldSpecified;
-        
-        private System.Nullable<long> production_type_eV_IdField;
-        
-        private bool production_type_eV_IdFieldSpecified;
-        
-        private System.Nullable<long> statusField;
-        
-        private bool statusFieldSpecified;
-        
-        private System.Nullable<long> createdDateField;
-        
-        private bool createdDateFieldSpecified;
-        
-        private string createdUserField;
-        
-        private System.Nullable<long> dayField;
-        
-        private bool dayFieldSpecified;
-        
-        private System.Nullable<long> demand_IdField;
-        
-        private bool demand_IdFieldSpecified;
-        
-        private System.Nullable<long> months_eV_IdField;
-        
-        private bool months_eV_IdFieldSpecified;
-        
-        private System.Nullable<long> oclockField;
-        
-        private bool oclockFieldSpecified;
-        
-        private System.Nullable<long> offer_IdField;
-        
-        private bool offer_IdFieldSpecified;
-        
-        private System.Nullable<long> partOfyearField;
-        
-        private bool partOfyearFieldSpecified;
-        
-        private System.Nullable<decimal> priceField;
-        
-        private bool priceFieldSpecified;
-        
-        private System.Nullable<decimal> quantityField;
-        
-        private bool quantityFieldSpecified;
-        
-        private System.Nullable<long> transportation_eV_IdField;
-        
-        private bool transportation_eV_IdFieldSpecified;
-        
-        private System.Nullable<long> type_eV_IdField;
-        
-        private bool type_eV_IdFieldSpecified;
-        
-        private System.Nullable<long> updatedDateField;
-        
-        private bool updatedDateFieldSpecified;
-        
-        private string updatedUserField;
-        
-        private System.Nullable<long> yearField;
-        
-        private bool yearFieldSpecified;
-        
-        /// <remarks/>
-        public long Id {
-            get {
-                return this.idField;
-            }
-            set {
-                this.idField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool IdSpecified {
-            get {
-                return this.idFieldSpecified;
-            }
-            set {
-                this.idFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> LastUpdateStatus {
-            get {
-                return this.lastUpdateStatusField;
-            }
-            set {
-                this.lastUpdateStatusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool LastUpdateStatusSpecified {
-            get {
-                return this.lastUpdateStatusFieldSpecified;
-            }
-            set {
-                this.lastUpdateStatusFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> Production_Id {
-            get {
-                return this.production_IdField;
-            }
-            set {
-                this.production_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool Production_IdSpecified {
-            get {
-                return this.production_IdFieldSpecified;
-            }
-            set {
-                this.production_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> Production_type_eV_Id {
-            get {
-                return this.production_type_eV_IdField;
-            }
-            set {
-                this.production_type_eV_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool Production_type_eV_IdSpecified {
-            get {
-                return this.production_type_eV_IdFieldSpecified;
-            }
-            set {
-                this.production_type_eV_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> Status {
-            get {
-                return this.statusField;
-            }
-            set {
-                this.statusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool StatusSpecified {
-            get {
-                return this.statusFieldSpecified;
-            }
-            set {
-                this.statusFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> createdDate {
-            get {
-                return this.createdDateField;
-            }
-            set {
-                this.createdDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool createdDateSpecified {
-            get {
-                return this.createdDateFieldSpecified;
-            }
-            set {
-                this.createdDateFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string createdUser {
-            get {
-                return this.createdUserField;
-            }
-            set {
-                this.createdUserField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> day {
-            get {
-                return this.dayField;
-            }
-            set {
-                this.dayField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool daySpecified {
-            get {
-                return this.dayFieldSpecified;
-            }
-            set {
-                this.dayFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> demand_Id {
-            get {
-                return this.demand_IdField;
-            }
-            set {
-                this.demand_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool demand_IdSpecified {
-            get {
-                return this.demand_IdFieldSpecified;
-            }
-            set {
-                this.demand_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> months_eV_Id {
-            get {
-                return this.months_eV_IdField;
-            }
-            set {
-                this.months_eV_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool months_eV_IdSpecified {
-            get {
-                return this.months_eV_IdFieldSpecified;
-            }
-            set {
-                this.months_eV_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> oclock {
-            get {
-                return this.oclockField;
-            }
-            set {
-                this.oclockField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool oclockSpecified {
-            get {
-                return this.oclockFieldSpecified;
-            }
-            set {
-                this.oclockFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> offer_Id {
-            get {
-                return this.offer_IdField;
-            }
-            set {
-                this.offer_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool offer_IdSpecified {
-            get {
-                return this.offer_IdFieldSpecified;
-            }
-            set {
-                this.offer_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> partOfyear {
-            get {
-                return this.partOfyearField;
-            }
-            set {
-                this.partOfyearField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool partOfyearSpecified {
-            get {
-                return this.partOfyearFieldSpecified;
-            }
-            set {
-                this.partOfyearFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<decimal> price {
-            get {
-                return this.priceField;
-            }
-            set {
-                this.priceField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool priceSpecified {
-            get {
-                return this.priceFieldSpecified;
-            }
-            set {
-                this.priceFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<decimal> quantity {
-            get {
-                return this.quantityField;
-            }
-            set {
-                this.quantityField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool quantitySpecified {
-            get {
-                return this.quantityFieldSpecified;
-            }
-            set {
-                this.quantityFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> transportation_eV_Id {
-            get {
-                return this.transportation_eV_IdField;
-            }
-            set {
-                this.transportation_eV_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool transportation_eV_IdSpecified {
-            get {
-                return this.transportation_eV_IdFieldSpecified;
-            }
-            set {
-                this.transportation_eV_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> type_eV_Id {
-            get {
-                return this.type_eV_IdField;
-            }
-            set {
-                this.type_eV_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool type_eV_IdSpecified {
-            get {
-                return this.type_eV_IdFieldSpecified;
-            }
-            set {
-                this.type_eV_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> updatedDate {
-            get {
-                return this.updatedDateField;
-            }
-            set {
-                this.updatedDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool updatedDateSpecified {
-            get {
-                return this.updatedDateFieldSpecified;
-            }
-            set {
-                this.updatedDateFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string updatedUser {
-            get {
-                return this.updatedUserField;
-            }
-            set {
-                this.updatedUserField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> year {
-            get {
-                return this.yearField;
-            }
-            set {
-                this.yearField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool yearSpecified {
-            get {
-                return this.yearFieldSpecified;
-            }
-            set {
-                this.yearFieldSpecified = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
-    public partial class tblProduction_Document {
-        
-        private System.Nullable<long> demand_Production_IdField;
-        
-        private bool demand_Production_IdFieldSpecified;
-        
-        private long idField;
-        
-        private bool idFieldSpecified;
-        
-        private System.Nullable<long> lastUpdatedStatusField;
-        
-        private bool lastUpdatedStatusFieldSpecified;
-        
-        private System.Nullable<long> offer_Production_IdField;
-        
-        private bool offer_Production_IdFieldSpecified;
-        
-        private System.Nullable<long> potential_Production_IdField;
-        
-        private bool potential_Production_IdFieldSpecified;
-        
-        private System.Nullable<long> production_type_eV_IdField;
-        
-        private bool production_type_eV_IdFieldSpecified;
-        
-        private System.Nullable<long> statusField;
-        
-        private bool statusFieldSpecified;
-        
-        private System.Nullable<long> createdDateField;
-        
-        private bool createdDateFieldSpecified;
-        
-        private string createdUserField;
-        
-        private string documentContentField;
-        
-        private string documentNameField;
-        
-        private string documentRealNameField;
-        
-        private System.Nullable<long> documentSizeField;
-        
-        private bool documentSizeFieldSpecified;
-        
-        private string documentTitleField;
-        
-        private string documentUrlField;
-        
-        private string document_type_ev_IdField;
-        
-        private string grup_IdField;
-        
-        private System.Nullable<long> updatedDateField;
-        
-        private bool updatedDateFieldSpecified;
-        
-        private string updatedUserField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> Demand_Production_Id {
-            get {
-                return this.demand_Production_IdField;
-            }
-            set {
-                this.demand_Production_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool Demand_Production_IdSpecified {
-            get {
-                return this.demand_Production_IdFieldSpecified;
-            }
-            set {
-                this.demand_Production_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long Id {
-            get {
-                return this.idField;
-            }
-            set {
-                this.idField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool IdSpecified {
-            get {
-                return this.idFieldSpecified;
-            }
-            set {
-                this.idFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> LastUpdatedStatus {
-            get {
-                return this.lastUpdatedStatusField;
-            }
-            set {
-                this.lastUpdatedStatusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool LastUpdatedStatusSpecified {
-            get {
-                return this.lastUpdatedStatusFieldSpecified;
-            }
-            set {
-                this.lastUpdatedStatusFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> Offer_Production_Id {
-            get {
-                return this.offer_Production_IdField;
-            }
-            set {
-                this.offer_Production_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool Offer_Production_IdSpecified {
-            get {
-                return this.offer_Production_IdFieldSpecified;
-            }
-            set {
-                this.offer_Production_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> Potential_Production_Id {
-            get {
-                return this.potential_Production_IdField;
-            }
-            set {
-                this.potential_Production_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool Potential_Production_IdSpecified {
-            get {
-                return this.potential_Production_IdFieldSpecified;
-            }
-            set {
-                this.potential_Production_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> Production_type_eV_Id {
-            get {
-                return this.production_type_eV_IdField;
-            }
-            set {
-                this.production_type_eV_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool Production_type_eV_IdSpecified {
-            get {
-                return this.production_type_eV_IdFieldSpecified;
-            }
-            set {
-                this.production_type_eV_IdFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> Status {
-            get {
-                return this.statusField;
-            }
-            set {
-                this.statusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool StatusSpecified {
-            get {
-                return this.statusFieldSpecified;
-            }
-            set {
-                this.statusFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> createdDate {
-            get {
-                return this.createdDateField;
-            }
-            set {
-                this.createdDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool createdDateSpecified {
-            get {
-                return this.createdDateFieldSpecified;
-            }
-            set {
-                this.createdDateFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string createdUser {
-            get {
-                return this.createdUserField;
-            }
-            set {
-                this.createdUserField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string documentContent {
-            get {
-                return this.documentContentField;
-            }
-            set {
-                this.documentContentField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string documentName {
-            get {
-                return this.documentNameField;
-            }
-            set {
-                this.documentNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string documentRealName {
-            get {
-                return this.documentRealNameField;
-            }
-            set {
-                this.documentRealNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<long> documentSize {
-            get {
-                return this.documentSizeField;
-            }
-            set {
-                this.documentSizeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool documentSizeSpecified {
-            get {
-                return this.documentSizeFieldSpecified;
-            }
-            set {
-                this.documentSizeFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string documentTitle {
-            get {
-                return this.documentTitleField;
-            }
-            set {
-                this.documentTitleField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string documentUrl {
-            get {
-                return this.documentUrlField;
-            }
-            set {
-                this.documentUrlField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string document_type_ev_Id {
-            get {
-                return this.document_type_ev_IdField;
-            }
-            set {
-                this.document_type_ev_IdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string grup_Id {
-            get {
-                return this.grup_IdField;
-            }
-            set {
-                this.grup_IdField = value;
             }
         }
         
@@ -27332,6 +24622,3638 @@ namespace Emsal.WebInt.EmsalSrv {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
+    public partial class tblProduction_Document {
+        
+        private System.Nullable<long> demand_Production_IdField;
+        
+        private bool demand_Production_IdFieldSpecified;
+        
+        private long idField;
+        
+        private bool idFieldSpecified;
+        
+        private System.Nullable<long> lastUpdatedStatusField;
+        
+        private bool lastUpdatedStatusFieldSpecified;
+        
+        private System.Nullable<long> offer_Production_IdField;
+        
+        private bool offer_Production_IdFieldSpecified;
+        
+        private System.Nullable<long> potential_Production_IdField;
+        
+        private bool potential_Production_IdFieldSpecified;
+        
+        private System.Nullable<long> production_type_eV_IdField;
+        
+        private bool production_type_eV_IdFieldSpecified;
+        
+        private System.Nullable<long> statusField;
+        
+        private bool statusFieldSpecified;
+        
+        private System.Nullable<long> createdDateField;
+        
+        private bool createdDateFieldSpecified;
+        
+        private string createdUserField;
+        
+        private string documentContentField;
+        
+        private string documentNameField;
+        
+        private string documentRealNameField;
+        
+        private System.Nullable<long> documentSizeField;
+        
+        private bool documentSizeFieldSpecified;
+        
+        private string documentTitleField;
+        
+        private string documentUrlField;
+        
+        private string document_type_ev_IdField;
+        
+        private string grup_IdField;
+        
+        private System.Nullable<long> updatedDateField;
+        
+        private bool updatedDateFieldSpecified;
+        
+        private string updatedUserField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> Demand_Production_Id {
+            get {
+                return this.demand_Production_IdField;
+            }
+            set {
+                this.demand_Production_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool Demand_Production_IdSpecified {
+            get {
+                return this.demand_Production_IdFieldSpecified;
+            }
+            set {
+                this.demand_Production_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool IdSpecified {
+            get {
+                return this.idFieldSpecified;
+            }
+            set {
+                this.idFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> LastUpdatedStatus {
+            get {
+                return this.lastUpdatedStatusField;
+            }
+            set {
+                this.lastUpdatedStatusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool LastUpdatedStatusSpecified {
+            get {
+                return this.lastUpdatedStatusFieldSpecified;
+            }
+            set {
+                this.lastUpdatedStatusFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> Offer_Production_Id {
+            get {
+                return this.offer_Production_IdField;
+            }
+            set {
+                this.offer_Production_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool Offer_Production_IdSpecified {
+            get {
+                return this.offer_Production_IdFieldSpecified;
+            }
+            set {
+                this.offer_Production_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> Potential_Production_Id {
+            get {
+                return this.potential_Production_IdField;
+            }
+            set {
+                this.potential_Production_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool Potential_Production_IdSpecified {
+            get {
+                return this.potential_Production_IdFieldSpecified;
+            }
+            set {
+                this.potential_Production_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> Production_type_eV_Id {
+            get {
+                return this.production_type_eV_IdField;
+            }
+            set {
+                this.production_type_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool Production_type_eV_IdSpecified {
+            get {
+                return this.production_type_eV_IdFieldSpecified;
+            }
+            set {
+                this.production_type_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> Status {
+            get {
+                return this.statusField;
+            }
+            set {
+                this.statusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool StatusSpecified {
+            get {
+                return this.statusFieldSpecified;
+            }
+            set {
+                this.statusFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> createdDate {
+            get {
+                return this.createdDateField;
+            }
+            set {
+                this.createdDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool createdDateSpecified {
+            get {
+                return this.createdDateFieldSpecified;
+            }
+            set {
+                this.createdDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string createdUser {
+            get {
+                return this.createdUserField;
+            }
+            set {
+                this.createdUserField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string documentContent {
+            get {
+                return this.documentContentField;
+            }
+            set {
+                this.documentContentField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string documentName {
+            get {
+                return this.documentNameField;
+            }
+            set {
+                this.documentNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string documentRealName {
+            get {
+                return this.documentRealNameField;
+            }
+            set {
+                this.documentRealNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> documentSize {
+            get {
+                return this.documentSizeField;
+            }
+            set {
+                this.documentSizeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool documentSizeSpecified {
+            get {
+                return this.documentSizeFieldSpecified;
+            }
+            set {
+                this.documentSizeFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string documentTitle {
+            get {
+                return this.documentTitleField;
+            }
+            set {
+                this.documentTitleField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string documentUrl {
+            get {
+                return this.documentUrlField;
+            }
+            set {
+                this.documentUrlField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string document_type_ev_Id {
+            get {
+                return this.document_type_ev_IdField;
+            }
+            set {
+                this.document_type_ev_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string grup_Id {
+            get {
+                return this.grup_IdField;
+            }
+            set {
+                this.grup_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> updatedDate {
+            get {
+                return this.updatedDateField;
+            }
+            set {
+                this.updatedDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool updatedDateSpecified {
+            get {
+                return this.updatedDateFieldSpecified;
+            }
+            set {
+                this.updatedDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string updatedUser {
+            get {
+                return this.updatedUserField;
+            }
+            set {
+                this.updatedUserField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")]
+    public partial class ProductionCalendarDetail {
+        
+        private long idField;
+        
+        private bool idFieldSpecified;
+        
+        private string monthDescriptionField;
+        
+        private string monthNameField;
+        
+        private long production_type_eV_IdField;
+        
+        private bool production_type_eV_IdFieldSpecified;
+        
+        private string typeDescriptionField;
+        
+        private string typeNameField;
+        
+        private long dayField;
+        
+        private bool dayFieldSpecified;
+        
+        private long demand_IdField;
+        
+        private bool demand_IdFieldSpecified;
+        
+        private long months_eV_IdField;
+        
+        private bool months_eV_IdFieldSpecified;
+        
+        private long oclockField;
+        
+        private bool oclockFieldSpecified;
+        
+        private long offer_IdField;
+        
+        private bool offer_IdFieldSpecified;
+        
+        private long partOfyearField;
+        
+        private bool partOfyearFieldSpecified;
+        
+        private decimal priceField;
+        
+        private bool priceFieldSpecified;
+        
+        private tblProductionCalendar[] productionCalendarListField;
+        
+        private long production_IdField;
+        
+        private bool production_IdFieldSpecified;
+        
+        private decimal quantityField;
+        
+        private bool quantityFieldSpecified;
+        
+        private long transportation_eV_IdField;
+        
+        private bool transportation_eV_IdFieldSpecified;
+        
+        private long type_eV_IdField;
+        
+        private bool type_eV_IdFieldSpecified;
+        
+        private long yearField;
+        
+        private bool yearFieldSpecified;
+        
+        /// <remarks/>
+        public long ID {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool IDSpecified {
+            get {
+                return this.idFieldSpecified;
+            }
+            set {
+                this.idFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string MonthDescription {
+            get {
+                return this.monthDescriptionField;
+            }
+            set {
+                this.monthDescriptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string MonthName {
+            get {
+                return this.monthNameField;
+            }
+            set {
+                this.monthNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long Production_type_eV_Id {
+            get {
+                return this.production_type_eV_IdField;
+            }
+            set {
+                this.production_type_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool Production_type_eV_IdSpecified {
+            get {
+                return this.production_type_eV_IdFieldSpecified;
+            }
+            set {
+                this.production_type_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string TypeDescription {
+            get {
+                return this.typeDescriptionField;
+            }
+            set {
+                this.typeDescriptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string TypeName {
+            get {
+                return this.typeNameField;
+            }
+            set {
+                this.typeNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long day {
+            get {
+                return this.dayField;
+            }
+            set {
+                this.dayField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool daySpecified {
+            get {
+                return this.dayFieldSpecified;
+            }
+            set {
+                this.dayFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long demand_Id {
+            get {
+                return this.demand_IdField;
+            }
+            set {
+                this.demand_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool demand_IdSpecified {
+            get {
+                return this.demand_IdFieldSpecified;
+            }
+            set {
+                this.demand_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long months_eV_Id {
+            get {
+                return this.months_eV_IdField;
+            }
+            set {
+                this.months_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool months_eV_IdSpecified {
+            get {
+                return this.months_eV_IdFieldSpecified;
+            }
+            set {
+                this.months_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long oclock {
+            get {
+                return this.oclockField;
+            }
+            set {
+                this.oclockField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool oclockSpecified {
+            get {
+                return this.oclockFieldSpecified;
+            }
+            set {
+                this.oclockFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long offer_Id {
+            get {
+                return this.offer_IdField;
+            }
+            set {
+                this.offer_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool offer_IdSpecified {
+            get {
+                return this.offer_IdFieldSpecified;
+            }
+            set {
+                this.offer_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long partOfyear {
+            get {
+                return this.partOfyearField;
+            }
+            set {
+                this.partOfyearField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool partOfyearSpecified {
+            get {
+                return this.partOfyearFieldSpecified;
+            }
+            set {
+                this.partOfyearFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal price {
+            get {
+                return this.priceField;
+            }
+            set {
+                this.priceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool priceSpecified {
+            get {
+                return this.priceFieldSpecified;
+            }
+            set {
+                this.priceFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
+        [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
+        public tblProductionCalendar[] productionCalendarList {
+            get {
+                return this.productionCalendarListField;
+            }
+            set {
+                this.productionCalendarListField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long production_Id {
+            get {
+                return this.production_IdField;
+            }
+            set {
+                this.production_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool production_IdSpecified {
+            get {
+                return this.production_IdFieldSpecified;
+            }
+            set {
+                this.production_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal quantity {
+            get {
+                return this.quantityField;
+            }
+            set {
+                this.quantityField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool quantitySpecified {
+            get {
+                return this.quantityFieldSpecified;
+            }
+            set {
+                this.quantityFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long transportation_eV_Id {
+            get {
+                return this.transportation_eV_IdField;
+            }
+            set {
+                this.transportation_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool transportation_eV_IdSpecified {
+            get {
+                return this.transportation_eV_IdFieldSpecified;
+            }
+            set {
+                this.transportation_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long type_eV_Id {
+            get {
+                return this.type_eV_IdField;
+            }
+            set {
+                this.type_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool type_eV_IdSpecified {
+            get {
+                return this.type_eV_IdFieldSpecified;
+            }
+            set {
+                this.type_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long year {
+            get {
+                return this.yearField;
+            }
+            set {
+                this.yearField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool yearSpecified {
+            get {
+                return this.yearFieldSpecified;
+            }
+            set {
+                this.yearFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
+    public partial class tblProductionCalendar {
+        
+        private long idField;
+        
+        private bool idFieldSpecified;
+        
+        private System.Nullable<long> lastUpdateStatusField;
+        
+        private bool lastUpdateStatusFieldSpecified;
+        
+        private System.Nullable<long> production_IdField;
+        
+        private bool production_IdFieldSpecified;
+        
+        private System.Nullable<long> production_type_eV_IdField;
+        
+        private bool production_type_eV_IdFieldSpecified;
+        
+        private System.Nullable<long> statusField;
+        
+        private bool statusFieldSpecified;
+        
+        private System.Nullable<long> createdDateField;
+        
+        private bool createdDateFieldSpecified;
+        
+        private string createdUserField;
+        
+        private System.Nullable<long> dayField;
+        
+        private bool dayFieldSpecified;
+        
+        private System.Nullable<long> demand_IdField;
+        
+        private bool demand_IdFieldSpecified;
+        
+        private System.Nullable<long> months_eV_IdField;
+        
+        private bool months_eV_IdFieldSpecified;
+        
+        private System.Nullable<long> oclockField;
+        
+        private bool oclockFieldSpecified;
+        
+        private System.Nullable<long> offer_IdField;
+        
+        private bool offer_IdFieldSpecified;
+        
+        private System.Nullable<long> partOfyearField;
+        
+        private bool partOfyearFieldSpecified;
+        
+        private System.Nullable<decimal> priceField;
+        
+        private bool priceFieldSpecified;
+        
+        private System.Nullable<decimal> quantityField;
+        
+        private bool quantityFieldSpecified;
+        
+        private System.Nullable<long> transportation_eV_IdField;
+        
+        private bool transportation_eV_IdFieldSpecified;
+        
+        private System.Nullable<long> type_eV_IdField;
+        
+        private bool type_eV_IdFieldSpecified;
+        
+        private System.Nullable<long> updatedDateField;
+        
+        private bool updatedDateFieldSpecified;
+        
+        private string updatedUserField;
+        
+        private System.Nullable<long> yearField;
+        
+        private bool yearFieldSpecified;
+        
+        /// <remarks/>
+        public long Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool IdSpecified {
+            get {
+                return this.idFieldSpecified;
+            }
+            set {
+                this.idFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> LastUpdateStatus {
+            get {
+                return this.lastUpdateStatusField;
+            }
+            set {
+                this.lastUpdateStatusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool LastUpdateStatusSpecified {
+            get {
+                return this.lastUpdateStatusFieldSpecified;
+            }
+            set {
+                this.lastUpdateStatusFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> Production_Id {
+            get {
+                return this.production_IdField;
+            }
+            set {
+                this.production_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool Production_IdSpecified {
+            get {
+                return this.production_IdFieldSpecified;
+            }
+            set {
+                this.production_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> Production_type_eV_Id {
+            get {
+                return this.production_type_eV_IdField;
+            }
+            set {
+                this.production_type_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool Production_type_eV_IdSpecified {
+            get {
+                return this.production_type_eV_IdFieldSpecified;
+            }
+            set {
+                this.production_type_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> Status {
+            get {
+                return this.statusField;
+            }
+            set {
+                this.statusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool StatusSpecified {
+            get {
+                return this.statusFieldSpecified;
+            }
+            set {
+                this.statusFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> createdDate {
+            get {
+                return this.createdDateField;
+            }
+            set {
+                this.createdDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool createdDateSpecified {
+            get {
+                return this.createdDateFieldSpecified;
+            }
+            set {
+                this.createdDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string createdUser {
+            get {
+                return this.createdUserField;
+            }
+            set {
+                this.createdUserField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> day {
+            get {
+                return this.dayField;
+            }
+            set {
+                this.dayField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool daySpecified {
+            get {
+                return this.dayFieldSpecified;
+            }
+            set {
+                this.dayFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> demand_Id {
+            get {
+                return this.demand_IdField;
+            }
+            set {
+                this.demand_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool demand_IdSpecified {
+            get {
+                return this.demand_IdFieldSpecified;
+            }
+            set {
+                this.demand_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> months_eV_Id {
+            get {
+                return this.months_eV_IdField;
+            }
+            set {
+                this.months_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool months_eV_IdSpecified {
+            get {
+                return this.months_eV_IdFieldSpecified;
+            }
+            set {
+                this.months_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> oclock {
+            get {
+                return this.oclockField;
+            }
+            set {
+                this.oclockField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool oclockSpecified {
+            get {
+                return this.oclockFieldSpecified;
+            }
+            set {
+                this.oclockFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> offer_Id {
+            get {
+                return this.offer_IdField;
+            }
+            set {
+                this.offer_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool offer_IdSpecified {
+            get {
+                return this.offer_IdFieldSpecified;
+            }
+            set {
+                this.offer_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> partOfyear {
+            get {
+                return this.partOfyearField;
+            }
+            set {
+                this.partOfyearField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool partOfyearSpecified {
+            get {
+                return this.partOfyearFieldSpecified;
+            }
+            set {
+                this.partOfyearFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<decimal> price {
+            get {
+                return this.priceField;
+            }
+            set {
+                this.priceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool priceSpecified {
+            get {
+                return this.priceFieldSpecified;
+            }
+            set {
+                this.priceFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<decimal> quantity {
+            get {
+                return this.quantityField;
+            }
+            set {
+                this.quantityField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool quantitySpecified {
+            get {
+                return this.quantityFieldSpecified;
+            }
+            set {
+                this.quantityFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> transportation_eV_Id {
+            get {
+                return this.transportation_eV_IdField;
+            }
+            set {
+                this.transportation_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool transportation_eV_IdSpecified {
+            get {
+                return this.transportation_eV_IdFieldSpecified;
+            }
+            set {
+                this.transportation_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> type_eV_Id {
+            get {
+                return this.type_eV_IdField;
+            }
+            set {
+                this.type_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool type_eV_IdSpecified {
+            get {
+                return this.type_eV_IdFieldSpecified;
+            }
+            set {
+                this.type_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> updatedDate {
+            get {
+                return this.updatedDateField;
+            }
+            set {
+                this.updatedDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool updatedDateSpecified {
+            get {
+                return this.updatedDateFieldSpecified;
+            }
+            set {
+                this.updatedDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string updatedUser {
+            get {
+                return this.updatedUserField;
+            }
+            set {
+                this.updatedUserField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> year {
+            get {
+                return this.yearField;
+            }
+            set {
+                this.yearField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool yearSpecified {
+            get {
+                return this.yearFieldSpecified;
+            }
+            set {
+                this.yearFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
+    public partial class tblPerson {
+        
+        private string fatherNameField;
+        
+        private long idField;
+        
+        private bool idFieldSpecified;
+        
+        private System.Nullable<long> lastUpdatedStatusField;
+        
+        private bool lastUpdatedStatusFieldSpecified;
+        
+        private string nameField;
+        
+        private string pinNumberField;
+        
+        private System.Nullable<long> statusField;
+        
+        private bool statusFieldSpecified;
+        
+        private string surnameField;
+        
+        private System.Nullable<long> userIdField;
+        
+        private bool userIdFieldSpecified;
+        
+        private System.Nullable<long> address_IdField;
+        
+        private bool address_IdFieldSpecified;
+        
+        private System.Nullable<long> birtdayField;
+        
+        private bool birtdayFieldSpecified;
+        
+        private System.Nullable<long> createdDateField;
+        
+        private bool createdDateFieldSpecified;
+        
+        private string createdUserField;
+        
+        private System.Nullable<long> educationLevel_eV_IdField;
+        
+        private bool educationLevel_eV_IdFieldSpecified;
+        
+        private string genderField;
+        
+        private System.Nullable<long> job_eV_IdField;
+        
+        private bool job_eV_IdFieldSpecified;
+        
+        private string profilePictureField;
+        
+        private System.Nullable<long> updatedDateField;
+        
+        private bool updatedDateFieldSpecified;
+        
+        private string updatedUserField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string FatherName {
+            get {
+                return this.fatherNameField;
+            }
+            set {
+                this.fatherNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool IdSpecified {
+            get {
+                return this.idFieldSpecified;
+            }
+            set {
+                this.idFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> LastUpdatedStatus {
+            get {
+                return this.lastUpdatedStatusField;
+            }
+            set {
+                this.lastUpdatedStatusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool LastUpdatedStatusSpecified {
+            get {
+                return this.lastUpdatedStatusFieldSpecified;
+            }
+            set {
+                this.lastUpdatedStatusFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string Name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string PinNumber {
+            get {
+                return this.pinNumberField;
+            }
+            set {
+                this.pinNumberField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> Status {
+            get {
+                return this.statusField;
+            }
+            set {
+                this.statusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool StatusSpecified {
+            get {
+                return this.statusFieldSpecified;
+            }
+            set {
+                this.statusFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string Surname {
+            get {
+                return this.surnameField;
+            }
+            set {
+                this.surnameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> UserId {
+            get {
+                return this.userIdField;
+            }
+            set {
+                this.userIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool UserIdSpecified {
+            get {
+                return this.userIdFieldSpecified;
+            }
+            set {
+                this.userIdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> address_Id {
+            get {
+                return this.address_IdField;
+            }
+            set {
+                this.address_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool address_IdSpecified {
+            get {
+                return this.address_IdFieldSpecified;
+            }
+            set {
+                this.address_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> birtday {
+            get {
+                return this.birtdayField;
+            }
+            set {
+                this.birtdayField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool birtdaySpecified {
+            get {
+                return this.birtdayFieldSpecified;
+            }
+            set {
+                this.birtdayFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> createdDate {
+            get {
+                return this.createdDateField;
+            }
+            set {
+                this.createdDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool createdDateSpecified {
+            get {
+                return this.createdDateFieldSpecified;
+            }
+            set {
+                this.createdDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string createdUser {
+            get {
+                return this.createdUserField;
+            }
+            set {
+                this.createdUserField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> educationLevel_eV_Id {
+            get {
+                return this.educationLevel_eV_IdField;
+            }
+            set {
+                this.educationLevel_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool educationLevel_eV_IdSpecified {
+            get {
+                return this.educationLevel_eV_IdFieldSpecified;
+            }
+            set {
+                this.educationLevel_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string gender {
+            get {
+                return this.genderField;
+            }
+            set {
+                this.genderField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> job_eV_Id {
+            get {
+                return this.job_eV_IdField;
+            }
+            set {
+                this.job_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool job_eV_IdSpecified {
+            get {
+                return this.job_eV_IdFieldSpecified;
+            }
+            set {
+                this.job_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string profilePicture {
+            get {
+                return this.profilePictureField;
+            }
+            set {
+                this.profilePictureField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> updatedDate {
+            get {
+                return this.updatedDateField;
+            }
+            set {
+                this.updatedDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool updatedDateSpecified {
+            get {
+                return this.updatedDateFieldSpecified;
+            }
+            set {
+                this.updatedDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string updatedUser {
+            get {
+                return this.updatedUserField;
+            }
+            set {
+                this.updatedUserField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
+    public partial class tblForeign_Organization {
+        
+        private long idField;
+        
+        private bool idFieldSpecified;
+        
+        private long lastUpdatedStatusField;
+        
+        private bool lastUpdatedStatusFieldSpecified;
+        
+        private long statusField;
+        
+        private bool statusFieldSpecified;
+        
+        private System.Nullable<long> accountNumberField;
+        
+        private bool accountNumberFieldSpecified;
+        
+        private System.Nullable<long> actualFunctionAddressIdField;
+        
+        private bool actualFunctionAddressIdFieldSpecified;
+        
+        private System.Nullable<long> address_IdField;
+        
+        private bool address_IdFieldSpecified;
+        
+        private string bankNameField;
+        
+        private long createdDateField;
+        
+        private bool createdDateFieldSpecified;
+        
+        private string createdUserField;
+        
+        private string descriptionField;
+        
+        private System.Nullable<long> legalAddressIdField;
+        
+        private bool legalAddressIdFieldSpecified;
+        
+        private System.Nullable<long> legality_eV_IdField;
+        
+        private bool legality_eV_IdFieldSpecified;
+        
+        private System.Nullable<long> manager_IdField;
+        
+        private bool manager_IdFieldSpecified;
+        
+        private string nameField;
+        
+        private System.Nullable<long> organisationType_eV_IdField;
+        
+        private bool organisationType_eV_IdFieldSpecified;
+        
+        private System.Nullable<long> parent_IdField;
+        
+        private bool parent_IdFieldSpecified;
+        
+        private System.Nullable<long> party_IdField;
+        
+        private bool party_IdFieldSpecified;
+        
+        private long updatedDateField;
+        
+        private bool updatedDateFieldSpecified;
+        
+        private string updatedUserField;
+        
+        private System.Nullable<long> userIdField;
+        
+        private bool userIdFieldSpecified;
+        
+        private string voenField;
+        
+        /// <remarks/>
+        public long Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool IdSpecified {
+            get {
+                return this.idFieldSpecified;
+            }
+            set {
+                this.idFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long LastUpdatedStatus {
+            get {
+                return this.lastUpdatedStatusField;
+            }
+            set {
+                this.lastUpdatedStatusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool LastUpdatedStatusSpecified {
+            get {
+                return this.lastUpdatedStatusFieldSpecified;
+            }
+            set {
+                this.lastUpdatedStatusFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long Status {
+            get {
+                return this.statusField;
+            }
+            set {
+                this.statusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool StatusSpecified {
+            get {
+                return this.statusFieldSpecified;
+            }
+            set {
+                this.statusFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> accountNumber {
+            get {
+                return this.accountNumberField;
+            }
+            set {
+                this.accountNumberField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool accountNumberSpecified {
+            get {
+                return this.accountNumberFieldSpecified;
+            }
+            set {
+                this.accountNumberFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> actualFunctionAddressId {
+            get {
+                return this.actualFunctionAddressIdField;
+            }
+            set {
+                this.actualFunctionAddressIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool actualFunctionAddressIdSpecified {
+            get {
+                return this.actualFunctionAddressIdFieldSpecified;
+            }
+            set {
+                this.actualFunctionAddressIdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> address_Id {
+            get {
+                return this.address_IdField;
+            }
+            set {
+                this.address_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool address_IdSpecified {
+            get {
+                return this.address_IdFieldSpecified;
+            }
+            set {
+                this.address_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string bankName {
+            get {
+                return this.bankNameField;
+            }
+            set {
+                this.bankNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long createdDate {
+            get {
+                return this.createdDateField;
+            }
+            set {
+                this.createdDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool createdDateSpecified {
+            get {
+                return this.createdDateFieldSpecified;
+            }
+            set {
+                this.createdDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string createdUser {
+            get {
+                return this.createdUserField;
+            }
+            set {
+                this.createdUserField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                this.descriptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> legalAddressId {
+            get {
+                return this.legalAddressIdField;
+            }
+            set {
+                this.legalAddressIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool legalAddressIdSpecified {
+            get {
+                return this.legalAddressIdFieldSpecified;
+            }
+            set {
+                this.legalAddressIdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> legality_eV_Id {
+            get {
+                return this.legality_eV_IdField;
+            }
+            set {
+                this.legality_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool legality_eV_IdSpecified {
+            get {
+                return this.legality_eV_IdFieldSpecified;
+            }
+            set {
+                this.legality_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> manager_Id {
+            get {
+                return this.manager_IdField;
+            }
+            set {
+                this.manager_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool manager_IdSpecified {
+            get {
+                return this.manager_IdFieldSpecified;
+            }
+            set {
+                this.manager_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> organisationType_eV_Id {
+            get {
+                return this.organisationType_eV_IdField;
+            }
+            set {
+                this.organisationType_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool organisationType_eV_IdSpecified {
+            get {
+                return this.organisationType_eV_IdFieldSpecified;
+            }
+            set {
+                this.organisationType_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> parent_Id {
+            get {
+                return this.parent_IdField;
+            }
+            set {
+                this.parent_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool parent_IdSpecified {
+            get {
+                return this.parent_IdFieldSpecified;
+            }
+            set {
+                this.parent_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> party_Id {
+            get {
+                return this.party_IdField;
+            }
+            set {
+                this.party_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool party_IdSpecified {
+            get {
+                return this.party_IdFieldSpecified;
+            }
+            set {
+                this.party_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long updatedDate {
+            get {
+                return this.updatedDateField;
+            }
+            set {
+                this.updatedDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool updatedDateSpecified {
+            get {
+                return this.updatedDateFieldSpecified;
+            }
+            set {
+                this.updatedDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string updatedUser {
+            get {
+                return this.updatedUserField;
+            }
+            set {
+                this.updatedUserField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> userId {
+            get {
+                return this.userIdField;
+            }
+            set {
+                this.userIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool userIdSpecified {
+            get {
+                return this.userIdFieldSpecified;
+            }
+            set {
+                this.userIdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string voen {
+            get {
+                return this.voenField;
+            }
+            set {
+                this.voenField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL.CustomObjects")]
+    public partial class ProductionDetail {
+        
+        private string statusField;
+        
+        private string addressDescField;
+        
+        private long adress_IdField;
+        
+        private bool adress_IdFieldSpecified;
+        
+        private long birtdayField;
+        
+        private bool birtdayFieldSpecified;
+        
+        private long contractIDField;
+        
+        private bool contractIDFieldSpecified;
+        
+        private long createdDateField;
+        
+        private bool createdDateFieldSpecified;
+        
+        private long dayField;
+        
+        private bool dayFieldSpecified;
+        
+        private string descriptionField;
+        
+        private string emailField;
+        
+        private long enumCategoryIdField;
+        
+        private bool enumCategoryIdFieldSpecified;
+        
+        private long enumValueIdField;
+        
+        private bool enumValueIdFieldSpecified;
+        
+        private string enumValueNameField;
+        
+        private string fatherNameField;
+        
+        private tblForeign_Organization foreignOrganizationField;
+        
+        private System.Nullable<long> forgIdField;
+        
+        private bool forgIdFieldSpecified;
+        
+        private string fullAddressField;
+        
+        private string fullForeignOrganizationField;
+        
+        private string genderField;
+        
+        private string groupIdField;
+        
+        private string grup_idField;
+        
+        private string kategoryNameField;
+        
+        private long lastUpdateStatusField;
+        
+        private bool lastUpdateStatusFieldSpecified;
+        
+        private long managerIdField;
+        
+        private bool managerIdFieldSpecified;
+        
+        private long month_Ev_IdField;
+        
+        private bool month_Ev_IdFieldSpecified;
+        
+        private string[] monthsField;
+        
+        private string nameField;
+        
+        private long organizationIdField;
+        
+        private bool organizationIdFieldSpecified;
+        
+        private string organizationManagerNameField;
+        
+        private string organizationNameField;
+        
+        private tblPerson personField;
+        
+        private string personAdressField;
+        
+        private string personAdressDescField;
+        
+        private string pinNumberField;
+        
+        private string potentialProductField;
+        
+        private decimal potentialProductQuantityField;
+        
+        private bool potentialProductQuantityFieldSpecified;
+        
+        private decimal potentialQuantityField;
+        
+        private bool potentialQuantityFieldSpecified;
+        
+        private tblProduct_Document[] productDocumentListField;
+        
+        private long productIdField;
+        
+        private bool productIdFieldSpecified;
+        
+        private string productNameField;
+        
+        private long productOriginField;
+        
+        private bool productOriginFieldSpecified;
+        
+        private string productOriginNameField;
+        
+        private long productParentIdField;
+        
+        private bool productParentIdFieldSpecified;
+        
+        private string productParentNameField;
+        
+        private decimal productUnitPriceField;
+        
+        private bool productUnitPriceFieldSpecified;
+        
+        private ProductionCalendarDetail[] productionCalendarListField;
+        
+        private tblProduction_Document[] productionDocumentListField;
+        
+        private long productionIDField;
+        
+        private bool productionIDFieldSpecified;
+        
+        private string profilPictureField;
+        
+        private decimal quantityField;
+        
+        private bool quantityFieldSpecified;
+        
+        private string surnameField;
+        
+        private decimal totalPriceField;
+        
+        private bool totalPriceFieldSpecified;
+        
+        private long transportation_eV_IdField;
+        
+        private bool transportation_eV_IdFieldSpecified;
+        
+        private decimal unitPriceField;
+        
+        private bool unitPriceFieldSpecified;
+        
+        private long updatedDateField;
+        
+        private bool updatedDateFieldSpecified;
+        
+        private long userIdField;
+        
+        private bool userIdFieldSpecified;
+        
+        private string userTypeField;
+        
+        private long userType_eV_IDField;
+        
+        private bool userType_eV_IDFieldSpecified;
+        
+        private long yearField;
+        
+        private bool yearFieldSpecified;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string Status {
+            get {
+                return this.statusField;
+            }
+            set {
+                this.statusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string addressDesc {
+            get {
+                return this.addressDescField;
+            }
+            set {
+                this.addressDescField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long adress_Id {
+            get {
+                return this.adress_IdField;
+            }
+            set {
+                this.adress_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool adress_IdSpecified {
+            get {
+                return this.adress_IdFieldSpecified;
+            }
+            set {
+                this.adress_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long birtday {
+            get {
+                return this.birtdayField;
+            }
+            set {
+                this.birtdayField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool birtdaySpecified {
+            get {
+                return this.birtdayFieldSpecified;
+            }
+            set {
+                this.birtdayFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long contractID {
+            get {
+                return this.contractIDField;
+            }
+            set {
+                this.contractIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool contractIDSpecified {
+            get {
+                return this.contractIDFieldSpecified;
+            }
+            set {
+                this.contractIDFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long createdDate {
+            get {
+                return this.createdDateField;
+            }
+            set {
+                this.createdDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool createdDateSpecified {
+            get {
+                return this.createdDateFieldSpecified;
+            }
+            set {
+                this.createdDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long day {
+            get {
+                return this.dayField;
+            }
+            set {
+                this.dayField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool daySpecified {
+            get {
+                return this.dayFieldSpecified;
+            }
+            set {
+                this.dayFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                this.descriptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string email {
+            get {
+                return this.emailField;
+            }
+            set {
+                this.emailField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long enumCategoryId {
+            get {
+                return this.enumCategoryIdField;
+            }
+            set {
+                this.enumCategoryIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool enumCategoryIdSpecified {
+            get {
+                return this.enumCategoryIdFieldSpecified;
+            }
+            set {
+                this.enumCategoryIdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long enumValueId {
+            get {
+                return this.enumValueIdField;
+            }
+            set {
+                this.enumValueIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool enumValueIdSpecified {
+            get {
+                return this.enumValueIdFieldSpecified;
+            }
+            set {
+                this.enumValueIdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string enumValueName {
+            get {
+                return this.enumValueNameField;
+            }
+            set {
+                this.enumValueNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string fatherName {
+            get {
+                return this.fatherNameField;
+            }
+            set {
+                this.fatherNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public tblForeign_Organization foreignOrganization {
+            get {
+                return this.foreignOrganizationField;
+            }
+            set {
+                this.foreignOrganizationField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> forgId {
+            get {
+                return this.forgIdField;
+            }
+            set {
+                this.forgIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool forgIdSpecified {
+            get {
+                return this.forgIdFieldSpecified;
+            }
+            set {
+                this.forgIdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string fullAddress {
+            get {
+                return this.fullAddressField;
+            }
+            set {
+                this.fullAddressField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string fullForeignOrganization {
+            get {
+                return this.fullForeignOrganizationField;
+            }
+            set {
+                this.fullForeignOrganizationField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string gender {
+            get {
+                return this.genderField;
+            }
+            set {
+                this.genderField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string groupId {
+            get {
+                return this.groupIdField;
+            }
+            set {
+                this.groupIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string grup_id {
+            get {
+                return this.grup_idField;
+            }
+            set {
+                this.grup_idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string kategoryName {
+            get {
+                return this.kategoryNameField;
+            }
+            set {
+                this.kategoryNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long lastUpdateStatus {
+            get {
+                return this.lastUpdateStatusField;
+            }
+            set {
+                this.lastUpdateStatusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool lastUpdateStatusSpecified {
+            get {
+                return this.lastUpdateStatusFieldSpecified;
+            }
+            set {
+                this.lastUpdateStatusFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long managerId {
+            get {
+                return this.managerIdField;
+            }
+            set {
+                this.managerIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool managerIdSpecified {
+            get {
+                return this.managerIdFieldSpecified;
+            }
+            set {
+                this.managerIdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long month_Ev_Id {
+            get {
+                return this.month_Ev_IdField;
+            }
+            set {
+                this.month_Ev_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool month_Ev_IdSpecified {
+            get {
+                return this.month_Ev_IdFieldSpecified;
+            }
+            set {
+                this.month_Ev_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
+        [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays")]
+        public string[] months {
+            get {
+                return this.monthsField;
+            }
+            set {
+                this.monthsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long organizationId {
+            get {
+                return this.organizationIdField;
+            }
+            set {
+                this.organizationIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool organizationIdSpecified {
+            get {
+                return this.organizationIdFieldSpecified;
+            }
+            set {
+                this.organizationIdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string organizationManagerName {
+            get {
+                return this.organizationManagerNameField;
+            }
+            set {
+                this.organizationManagerNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string organizationName {
+            get {
+                return this.organizationNameField;
+            }
+            set {
+                this.organizationNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public tblPerson person {
+            get {
+                return this.personField;
+            }
+            set {
+                this.personField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string personAdress {
+            get {
+                return this.personAdressField;
+            }
+            set {
+                this.personAdressField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string personAdressDesc {
+            get {
+                return this.personAdressDescField;
+            }
+            set {
+                this.personAdressDescField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string pinNumber {
+            get {
+                return this.pinNumberField;
+            }
+            set {
+                this.pinNumberField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string potentialProduct {
+            get {
+                return this.potentialProductField;
+            }
+            set {
+                this.potentialProductField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal potentialProductQuantity {
+            get {
+                return this.potentialProductQuantityField;
+            }
+            set {
+                this.potentialProductQuantityField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool potentialProductQuantitySpecified {
+            get {
+                return this.potentialProductQuantityFieldSpecified;
+            }
+            set {
+                this.potentialProductQuantityFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal potentialQuantity {
+            get {
+                return this.potentialQuantityField;
+            }
+            set {
+                this.potentialQuantityField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool potentialQuantitySpecified {
+            get {
+                return this.potentialQuantityFieldSpecified;
+            }
+            set {
+                this.potentialQuantityFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
+        [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
+        public tblProduct_Document[] productDocumentList {
+            get {
+                return this.productDocumentListField;
+            }
+            set {
+                this.productDocumentListField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long productId {
+            get {
+                return this.productIdField;
+            }
+            set {
+                this.productIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool productIdSpecified {
+            get {
+                return this.productIdFieldSpecified;
+            }
+            set {
+                this.productIdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string productName {
+            get {
+                return this.productNameField;
+            }
+            set {
+                this.productNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long productOrigin {
+            get {
+                return this.productOriginField;
+            }
+            set {
+                this.productOriginField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool productOriginSpecified {
+            get {
+                return this.productOriginFieldSpecified;
+            }
+            set {
+                this.productOriginFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string productOriginName {
+            get {
+                return this.productOriginNameField;
+            }
+            set {
+                this.productOriginNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long productParentId {
+            get {
+                return this.productParentIdField;
+            }
+            set {
+                this.productParentIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool productParentIdSpecified {
+            get {
+                return this.productParentIdFieldSpecified;
+            }
+            set {
+                this.productParentIdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string productParentName {
+            get {
+                return this.productParentNameField;
+            }
+            set {
+                this.productParentNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal productUnitPrice {
+            get {
+                return this.productUnitPriceField;
+            }
+            set {
+                this.productUnitPriceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool productUnitPriceSpecified {
+            get {
+                return this.productUnitPriceFieldSpecified;
+            }
+            set {
+                this.productUnitPriceFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
+        public ProductionCalendarDetail[] productionCalendarList {
+            get {
+                return this.productionCalendarListField;
+            }
+            set {
+                this.productionCalendarListField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
+        [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
+        public tblProduction_Document[] productionDocumentList {
+            get {
+                return this.productionDocumentListField;
+            }
+            set {
+                this.productionDocumentListField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long productionID {
+            get {
+                return this.productionIDField;
+            }
+            set {
+                this.productionIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool productionIDSpecified {
+            get {
+                return this.productionIDFieldSpecified;
+            }
+            set {
+                this.productionIDFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string profilPicture {
+            get {
+                return this.profilPictureField;
+            }
+            set {
+                this.profilPictureField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal quantity {
+            get {
+                return this.quantityField;
+            }
+            set {
+                this.quantityField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool quantitySpecified {
+            get {
+                return this.quantityFieldSpecified;
+            }
+            set {
+                this.quantityFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string surname {
+            get {
+                return this.surnameField;
+            }
+            set {
+                this.surnameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal totalPrice {
+            get {
+                return this.totalPriceField;
+            }
+            set {
+                this.totalPriceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool totalPriceSpecified {
+            get {
+                return this.totalPriceFieldSpecified;
+            }
+            set {
+                this.totalPriceFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long transportation_eV_Id {
+            get {
+                return this.transportation_eV_IdField;
+            }
+            set {
+                this.transportation_eV_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool transportation_eV_IdSpecified {
+            get {
+                return this.transportation_eV_IdFieldSpecified;
+            }
+            set {
+                this.transportation_eV_IdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal unitPrice {
+            get {
+                return this.unitPriceField;
+            }
+            set {
+                this.unitPriceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool unitPriceSpecified {
+            get {
+                return this.unitPriceFieldSpecified;
+            }
+            set {
+                this.unitPriceFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long updatedDate {
+            get {
+                return this.updatedDateField;
+            }
+            set {
+                this.updatedDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool updatedDateSpecified {
+            get {
+                return this.updatedDateFieldSpecified;
+            }
+            set {
+                this.updatedDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long userId {
+            get {
+                return this.userIdField;
+            }
+            set {
+                this.userIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool userIdSpecified {
+            get {
+                return this.userIdFieldSpecified;
+            }
+            set {
+                this.userIdFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string userType {
+            get {
+                return this.userTypeField;
+            }
+            set {
+                this.userTypeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long userType_eV_ID {
+            get {
+                return this.userType_eV_IDField;
+            }
+            set {
+                this.userType_eV_IDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool userType_eV_IDSpecified {
+            get {
+                return this.userType_eV_IDFieldSpecified;
+            }
+            set {
+                this.userType_eV_IDFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long year {
+            get {
+                return this.yearField;
+            }
+            set {
+                this.yearField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool yearSpecified {
+            get {
+                return this.yearFieldSpecified;
+            }
+            set {
+                this.yearFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
+    public partial class tblContract {
+        
+        private System.Nullable<long> agentUserIDField;
+        
+        private bool agentUserIDFieldSpecified;
+        
+        private string contractDescriptionField;
+        
+        private System.Nullable<long> contractEndDateField;
+        
+        private bool contractEndDateFieldSpecified;
+        
+        private string contractNumber_Field;
+        
+        private System.Nullable<long> contractStartDateField;
+        
+        private bool contractStartDateFieldSpecified;
+        
+        private string contractTitleField;
+        
+        private string contract_type_ev_IdField;
+        
+        private long idField;
+        
+        private bool idFieldSpecified;
+        
+        private System.Nullable<long> statusField;
+        
+        private bool statusFieldSpecified;
+        
+        private System.Nullable<long> supplierOrganisationIDField;
+        
+        private bool supplierOrganisationIDFieldSpecified;
+        
+        private System.Nullable<long> supplierUserIDField;
+        
+        private bool supplierUserIDFieldSpecified;
+        
+        private System.Nullable<long> createdDateField;
+        
+        private bool createdDateFieldSpecified;
+        
+        private string createdUserField;
+        
+        private string documentNameField;
+        
+        private string documentRealNameField;
+        
+        private System.Nullable<long> documentSizeField;
+        
+        private bool documentSizeFieldSpecified;
+        
+        private string documentUrlField;
+        
+        private System.Nullable<long> updatedDateField;
+        
+        private bool updatedDateFieldSpecified;
+        
+        private string updatedUserField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> AgentUserID {
+            get {
+                return this.agentUserIDField;
+            }
+            set {
+                this.agentUserIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool AgentUserIDSpecified {
+            get {
+                return this.agentUserIDFieldSpecified;
+            }
+            set {
+                this.agentUserIDFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string ContractDescription {
+            get {
+                return this.contractDescriptionField;
+            }
+            set {
+                this.contractDescriptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> ContractEndDate {
+            get {
+                return this.contractEndDateField;
+            }
+            set {
+                this.contractEndDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool ContractEndDateSpecified {
+            get {
+                return this.contractEndDateFieldSpecified;
+            }
+            set {
+                this.contractEndDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string ContractNumber_ {
+            get {
+                return this.contractNumber_Field;
+            }
+            set {
+                this.contractNumber_Field = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> ContractStartDate {
+            get {
+                return this.contractStartDateField;
+            }
+            set {
+                this.contractStartDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool ContractStartDateSpecified {
+            get {
+                return this.contractStartDateFieldSpecified;
+            }
+            set {
+                this.contractStartDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string ContractTitle {
+            get {
+                return this.contractTitleField;
+            }
+            set {
+                this.contractTitleField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string Contract_type_ev_Id {
+            get {
+                return this.contract_type_ev_IdField;
+            }
+            set {
+                this.contract_type_ev_IdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool IdSpecified {
+            get {
+                return this.idFieldSpecified;
+            }
+            set {
+                this.idFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> Status {
+            get {
+                return this.statusField;
+            }
+            set {
+                this.statusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool StatusSpecified {
+            get {
+                return this.statusFieldSpecified;
+            }
+            set {
+                this.statusFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> SupplierOrganisationID {
+            get {
+                return this.supplierOrganisationIDField;
+            }
+            set {
+                this.supplierOrganisationIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool SupplierOrganisationIDSpecified {
+            get {
+                return this.supplierOrganisationIDFieldSpecified;
+            }
+            set {
+                this.supplierOrganisationIDFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> SupplierUserID {
+            get {
+                return this.supplierUserIDField;
+            }
+            set {
+                this.supplierUserIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool SupplierUserIDSpecified {
+            get {
+                return this.supplierUserIDFieldSpecified;
+            }
+            set {
+                this.supplierUserIDFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> createdDate {
+            get {
+                return this.createdDateField;
+            }
+            set {
+                this.createdDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool createdDateSpecified {
+            get {
+                return this.createdDateFieldSpecified;
+            }
+            set {
+                this.createdDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string createdUser {
+            get {
+                return this.createdUserField;
+            }
+            set {
+                this.createdUserField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string documentName {
+            get {
+                return this.documentNameField;
+            }
+            set {
+                this.documentNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string documentRealName {
+            get {
+                return this.documentRealNameField;
+            }
+            set {
+                this.documentRealNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> documentSize {
+            get {
+                return this.documentSizeField;
+            }
+            set {
+                this.documentSizeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool documentSizeSpecified {
+            get {
+                return this.documentSizeFieldSpecified;
+            }
+            set {
+                this.documentSizeFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string documentUrl {
+            get {
+                return this.documentUrlField;
+            }
+            set {
+                this.documentUrlField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<long> updatedDate {
+            get {
+                return this.updatedDateField;
+            }
+            set {
+                this.updatedDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool updatedDateSpecified {
+            get {
+                return this.updatedDateFieldSpecified;
+            }
+            set {
+                this.updatedDateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string updatedUser {
+            get {
+                return this.updatedUserField;
+            }
+            set {
+                this.updatedUserField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Emsal.DAL")]
     public partial class tblComMessageAttachment {
         
         private System.Nullable<long> cMessageIdField;
@@ -27701,6 +28623,32 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.viewStringField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_DeleteProductionCalendarCompletedEventHandler(object sender, WS_DeleteProductionCalendarCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_DeleteProductionCalendarCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_DeleteProductionCalendarCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
             }
         }
     }
@@ -28339,6 +29287,304 @@ namespace Emsal.WebInt.EmsalSrv {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((tblComMessageAttachment[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_AddContractCompletedEventHandler(object sender, WS_AddContractCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_AddContractCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_AddContractCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblContract contractOut {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblContract)(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_DeleteContractCompletedEventHandler(object sender, WS_DeleteContractCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_DeleteContractCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_DeleteContractCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetContractCompletedEventHandler(object sender, WS_GetContractCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetContractCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetContractCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblContract[] contractOut {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblContract[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_UpdateContractCompletedEventHandler(object sender, WS_UpdateContractCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_UpdateContractCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_UpdateContractCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblContract contractOut {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblContract)(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetContractByIdCompletedEventHandler(object sender, WS_GetContractByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetContractByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetContractByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblContract contract {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblContract)(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetContractBySupplierOrganisationIDCompletedEventHandler(object sender, WS_GetContractBySupplierOrganisationIDCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetContractBySupplierOrganisationIDCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetContractBySupplierOrganisationIDCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblContract[] contractOut {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblContract[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetContractBySupplierUserIDCompletedEventHandler(object sender, WS_GetContractBySupplierUserIDCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetContractBySupplierUserIDCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetContractBySupplierUserIDCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblContract[] contractOut {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblContract[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetContractByAgentUserIDCompletedEventHandler(object sender, WS_GetContractByAgentUserIDCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetContractByAgentUserIDCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetContractByAgentUserIDCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblContract[] contractOut {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblContract[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetOfferProductionDetailByIdCompletedEventHandler(object sender, WS_GetOfferProductionDetailByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetOfferProductionDetailByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetOfferProductionDetailByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public ProductionDetail itemList {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((ProductionDetail)(this.results[1]));
             }
         }
     }
@@ -30399,17 +31645,17 @@ namespace Emsal.WebInt.EmsalSrv {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    public delegate void WS_DeleteProductionCalendarCompletedEventHandler(object sender, WS_DeleteProductionCalendarCompletedEventArgs e);
+    public delegate void WS_GetProductionDocumentsByPotential_Production_IdCompletedEventHandler(object sender, WS_GetProductionDocumentsByPotential_Production_IdCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class WS_DeleteProductionCalendarCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class WS_GetProductionDocumentsByPotential_Production_IdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal WS_DeleteProductionCalendarCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal WS_GetProductionDocumentsByPotential_Production_IdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -30419,6 +31665,14 @@ namespace Emsal.WebInt.EmsalSrv {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblProduction_Document[] items {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblProduction_Document[])(this.results[1]));
             }
         }
     }
@@ -32559,17 +33813,17 @@ namespace Emsal.WebInt.EmsalSrv {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    public delegate void WS_GetOfferProductionDetailByIdCompletedEventHandler(object sender, WS_GetOfferProductionDetailByIdCompletedEventArgs e);
+    public delegate void WS_UpdateUserCompletedEventHandler(object sender, WS_UpdateUserCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class WS_GetOfferProductionDetailByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class WS_UpdateUserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal WS_GetOfferProductionDetailByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal WS_UpdateUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -32583,10 +33837,10 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
-        public ProductionDetail itemList {
+        public tblUser updatedItem {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((ProductionDetail)(this.results[1]));
+                return ((tblUser)(this.results[1]));
             }
         }
     }
@@ -34655,40 +35909,6 @@ namespace Emsal.WebInt.EmsalSrv {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    public delegate void WS_GetProductionDocumentsByPotential_Production_IdCompletedEventHandler(object sender, WS_GetProductionDocumentsByPotential_Production_IdCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class WS_GetProductionDocumentsByPotential_Production_IdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal WS_GetProductionDocumentsByPotential_Production_IdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public BaseOutput Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((BaseOutput)(this.results[0]));
-            }
-        }
-        
-        /// <remarks/>
-        public tblProduction_Document[] items {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((tblProduction_Document[])(this.results[1]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
     public delegate void WS_DeleteCommunicationCompletedEventHandler(object sender, WS_DeleteCommunicationCompletedEventArgs e);
     
     /// <remarks/>
@@ -35139,18 +36359,10 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
-        public long itemCount {
+        public tblOffer_Production[] itemList {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((long)(this.results[1]));
-            }
-        }
-        
-        /// <remarks/>
-        public bool itemCountSpecified {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((bool)(this.results[2]));
+                return ((tblOffer_Production[])(this.results[1]));
             }
         }
     }
@@ -35559,6 +36771,40 @@ namespace Emsal.WebInt.EmsalSrv {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((ProductionDetail[])(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void WS_GetOffer_ProductionsByContractIdCompletedEventHandler(object sender, WS_GetOffer_ProductionsByContractIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WS_GetOffer_ProductionsByContractIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WS_GetOffer_ProductionsByContractIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public BaseOutput Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((BaseOutput)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public tblOffer_Production[] offerOut {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((tblOffer_Production[])(this.results[1]));
             }
         }
     }
@@ -36049,18 +37295,10 @@ namespace Emsal.WebInt.EmsalSrv {
         }
         
         /// <remarks/>
-        public long itemCount {
+        public tblDemand_Production[] itemList {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((long)(this.results[1]));
-            }
-        }
-        
-        /// <remarks/>
-        public bool itemCountSpecified {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((bool)(this.results[2]));
+                return ((tblDemand_Production[])(this.results[1]));
             }
         }
     }
@@ -36785,40 +38023,6 @@ namespace Emsal.WebInt.EmsalSrv {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((BaseOutput)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    public delegate void WS_UpdateUserCompletedEventHandler(object sender, WS_UpdateUserCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class WS_UpdateUserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal WS_UpdateUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public BaseOutput Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((BaseOutput)(this.results[0]));
-            }
-        }
-        
-        /// <remarks/>
-        public tblUser updatedItem {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((tblUser)(this.results[1]));
             }
         }
     }

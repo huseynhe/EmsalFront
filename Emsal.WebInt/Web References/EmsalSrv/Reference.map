@@ -7,7 +7,6 @@
     <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://localhost:56876/EmsalService.svc?xsd=xsd1" filename="EmsalService2.xsd" />
     <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://localhost:56876/EmsalService.svc?xsd=xsd4" filename="EmsalService3.xsd" />
     <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://localhost:56876/EmsalService.svc?xsd=xsd3" filename="EmsalService4.xsd" />
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="http://localhost:56876/EmsalService.svc?disco" filename="EmsalService.disco" />
     <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://localhost:56876/EmsalService.svc?wsdl" filename="EmsalService.wsdl" />
   </Results>
 </DiscoveryClientResultsFile>

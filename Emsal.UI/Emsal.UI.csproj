@@ -201,6 +201,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRoles.cs" />
     <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\WordDocumentAttribute .cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -981,6 +982,7 @@
     <Content Include="Content\fonts\pacifico\pacifico.ttf" />
     <Content Include="Content\fonts\pacifico\pacifico.woff" />
     <Content Include="Content\fonts\pacifico\pacifico.woff2" />
+    <None Include="Properties\PublishProfiles\asd.pubxml" />
     <None Include="Properties\PublishProfiles\emsal.pubxml" />
     <None Include="Properties\PublishProfiles\feridd.pubxml" />
     <Content Include="Views\Home\Pages.cshtml" />
@@ -1072,6 +1074,13 @@
     <Content Include="Views\OfferProduction\ProductOrigin.cshtml" />
     <Content Include="Views\Other\activity.cshtml" />
     <Content Include="Views\Other\legislation.cshtml" />
+    <None Include="Properties\PublishProfiles\rrr.pubxml" />
+    <Content Include="Views\OfferMonitoring\PartialContract.cshtml" />
+    <Content Include="Views\OfferMonitoring\Contract.cshtml" />
+    <Content Include="Views\OfferMonitoring\FileTemplate.cshtml" />
+    <Content Include="Views\OfferMonitoring\ContractForm.cshtml" />
+    <Content Include="Views\Shared\_LayoutWord.cshtml" />
+    <Content Include="Views\OfferMonitoring\GetContractFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

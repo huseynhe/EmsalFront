@@ -16,6 +16,99 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProductCatalogDetail" nillable="true" type="tns:ProductCatalogDetail" />
+  <xs:complexType name="ProductionDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="addressDesc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="adress_Id" type="xs:long" />
+      <xs:element minOccurs="0" name="birtday" type="xs:long" />
+      <xs:element minOccurs="0" name="contractID" type="xs:long" />
+      <xs:element minOccurs="0" name="createdDate" type="xs:long" />
+      <xs:element minOccurs="0" name="day" type="xs:long" />
+      <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="enumCategoryId" type="xs:long" />
+      <xs:element minOccurs="0" name="enumValueId" type="xs:long" />
+      <xs:element minOccurs="0" name="enumValueName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fatherName" nillable="true" type="xs:string" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="foreignOrganization" nillable="true" type="q3:tblForeign_Organization" />
+      <xs:element minOccurs="0" name="forgId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="fullAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fullForeignOrganization" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="gender" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="groupId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="grup_id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="kategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="lastUpdateStatus" type="xs:long" />
+      <xs:element minOccurs="0" name="managerId" type="xs:long" />
+      <xs:element minOccurs="0" name="month_Ev_Id" type="xs:long" />
+      <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="months" nillable="true" type="q4:ArrayOfstring" />
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="organizationId" type="xs:long" />
+      <xs:element minOccurs="0" name="organizationManagerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="organizationName" nillable="true" type="xs:string" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="person" nillable="true" type="q5:tblPerson" />
+      <xs:element minOccurs="0" name="personAdress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="personAdressDesc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="pinNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="potentialProduct" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="potentialProductQuantity" type="xs:decimal" />
+      <xs:element minOccurs="0" name="potentialQuantity" type="xs:decimal" />
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="productDocumentList" nillable="true" type="q6:ArrayOftblProduct_Document" />
+      <xs:element minOccurs="0" name="productId" type="xs:long" />
+      <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="productOrigin" type="xs:long" />
+      <xs:element minOccurs="0" name="productOriginName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="productParentId" type="xs:long" />
+      <xs:element minOccurs="0" name="productParentName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="productUnitPrice" type="xs:decimal" />
+      <xs:element minOccurs="0" name="productionCalendarList" nillable="true" type="tns:ArrayOfProductionCalendarDetail" />
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="productionDocumentList" nillable="true" type="q7:ArrayOftblProduction_Document" />
+      <xs:element minOccurs="0" name="productionID" type="xs:long" />
+      <xs:element minOccurs="0" name="profilPicture" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="quantity" type="xs:decimal" />
+      <xs:element minOccurs="0" name="surname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="totalPrice" type="xs:decimal" />
+      <xs:element minOccurs="0" name="transportation_eV_Id" type="xs:long" />
+      <xs:element minOccurs="0" name="unitPrice" type="xs:decimal" />
+      <xs:element minOccurs="0" name="updatedDate" type="xs:long" />
+      <xs:element minOccurs="0" name="userId" type="xs:long" />
+      <xs:element minOccurs="0" name="userType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="userType_eV_ID" type="xs:long" />
+      <xs:element minOccurs="0" name="year" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductionDetail" nillable="true" type="tns:ProductionDetail" />
+  <xs:complexType name="ArrayOfProductionCalendarDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProductionCalendarDetail" nillable="true" type="tns:ProductionCalendarDetail" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProductionCalendarDetail" nillable="true" type="tns:ArrayOfProductionCalendarDetail" />
+  <xs:complexType name="ProductionCalendarDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" type="xs:long" />
+      <xs:element minOccurs="0" name="MonthDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MonthName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Production_type_eV_Id" type="xs:long" />
+      <xs:element minOccurs="0" name="TypeDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TypeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="day" type="xs:long" />
+      <xs:element minOccurs="0" name="demand_Id" type="xs:long" />
+      <xs:element minOccurs="0" name="months_eV_Id" type="xs:long" />
+      <xs:element minOccurs="0" name="oclock" type="xs:long" />
+      <xs:element minOccurs="0" name="offer_Id" type="xs:long" />
+      <xs:element minOccurs="0" name="partOfyear" type="xs:long" />
+      <xs:element minOccurs="0" name="price" type="xs:decimal" />
+      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="productionCalendarList" nillable="true" type="q8:ArrayOftblProductionCalendar" />
+      <xs:element minOccurs="0" name="production_Id" type="xs:long" />
+      <xs:element minOccurs="0" name="quantity" type="xs:decimal" />
+      <xs:element minOccurs="0" name="transportation_eV_Id" type="xs:long" />
+      <xs:element minOccurs="0" name="type_eV_Id" type="xs:long" />
+      <xs:element minOccurs="0" name="year" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductionCalendarDetail" nillable="true" type="tns:ProductionCalendarDetail" />
   <xs:complexType name="ArrayOfDemanProductionGroup">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="DemanProductionGroup" nillable="true" type="tns:DemanProductionGroup" />
@@ -105,7 +198,7 @@
       <xs:element minOccurs="0" name="productID" type="xs:long" />
       <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="productParentName" nillable="true" type="xs:string" />
-      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="productPriceList" nillable="true" type="q3:ArrayOftblProductPrice" />
+      <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="productPriceList" nillable="true" type="q9:ArrayOftblProductPrice" />
       <xs:element minOccurs="0" name="unit_price" type="xs:decimal" />
       <xs:element minOccurs="0" name="year" type="xs:long" />
     </xs:sequence>
@@ -144,36 +237,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="DemandOfferDetail" nillable="true" type="tns:DemandOfferDetail" />
-  <xs:complexType name="ArrayOfProductionCalendarDetail">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProductionCalendarDetail" nillable="true" type="tns:ProductionCalendarDetail" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfProductionCalendarDetail" nillable="true" type="tns:ArrayOfProductionCalendarDetail" />
-  <xs:complexType name="ProductionCalendarDetail">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="ID" type="xs:long" />
-      <xs:element minOccurs="0" name="MonthDescription" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MonthName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Production_type_eV_Id" type="xs:long" />
-      <xs:element minOccurs="0" name="TypeDescription" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TypeName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="day" type="xs:long" />
-      <xs:element minOccurs="0" name="demand_Id" type="xs:long" />
-      <xs:element minOccurs="0" name="months_eV_Id" type="xs:long" />
-      <xs:element minOccurs="0" name="oclock" type="xs:long" />
-      <xs:element minOccurs="0" name="offer_Id" type="xs:long" />
-      <xs:element minOccurs="0" name="partOfyear" type="xs:long" />
-      <xs:element minOccurs="0" name="price" type="xs:decimal" />
-      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="productionCalendarList" nillable="true" type="q4:ArrayOftblProductionCalendar" />
-      <xs:element minOccurs="0" name="production_Id" type="xs:long" />
-      <xs:element minOccurs="0" name="quantity" type="xs:decimal" />
-      <xs:element minOccurs="0" name="transportation_eV_Id" type="xs:long" />
-      <xs:element minOccurs="0" name="type_eV_Id" type="xs:long" />
-      <xs:element minOccurs="0" name="year" type="xs:long" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ProductionCalendarDetail" nillable="true" type="tns:ProductionCalendarDetail" />
   <xs:complexType name="ArrayOfPotentialClientDetail">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="PotentialClientDetail" nillable="true" type="tns:PotentialClientDetail" />
@@ -195,61 +258,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfProductionDetail" nillable="true" type="tns:ArrayOfProductionDetail" />
-  <xs:complexType name="ProductionDetail">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="addressDesc" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="adress_Id" type="xs:long" />
-      <xs:element minOccurs="0" name="birtday" type="xs:long" />
-      <xs:element minOccurs="0" name="createdDate" type="xs:long" />
-      <xs:element minOccurs="0" name="day" type="xs:long" />
-      <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="enumCategoryId" type="xs:long" />
-      <xs:element minOccurs="0" name="enumValueId" type="xs:long" />
-      <xs:element minOccurs="0" name="enumValueName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="fatherName" nillable="true" type="xs:string" />
-      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="foreignOrganization" nillable="true" type="q5:tblForeign_Organization" />
-      <xs:element minOccurs="0" name="forgId" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="fullAddress" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="fullForeignOrganization" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="gender" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="groupId" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="grup_id" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="kategoryName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="lastUpdateStatus" type="xs:long" />
-      <xs:element minOccurs="0" name="month_Ev_Id" type="xs:long" />
-      <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="months" nillable="true" type="q6:ArrayOfstring" />
-      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="organizationName" nillable="true" type="xs:string" />
-      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="person" nillable="true" type="q7:tblPerson" />
-      <xs:element minOccurs="0" name="personAdress" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="personAdressDesc" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="pinNumber" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="potentialProduct" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="potentialProductQuantity" type="xs:decimal" />
-      <xs:element minOccurs="0" name="potentialQuantity" type="xs:decimal" />
-      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="productDocumentList" nillable="true" type="q8:ArrayOftblProduct_Document" />
-      <xs:element minOccurs="0" name="productId" type="xs:long" />
-      <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="productParentId" type="xs:long" />
-      <xs:element minOccurs="0" name="productParentName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="productUnitPrice" type="xs:decimal" />
-      <xs:element minOccurs="0" name="productionCalendarList" nillable="true" type="tns:ArrayOfProductionCalendarDetail" />
-      <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Emsal.DAL" minOccurs="0" name="productionDocumentList" nillable="true" type="q9:ArrayOftblProduction_Document" />
-      <xs:element minOccurs="0" name="productionID" type="xs:long" />
-      <xs:element minOccurs="0" name="profilPicture" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="quantity" type="xs:decimal" />
-      <xs:element minOccurs="0" name="surname" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="totalPrice" type="xs:decimal" />
-      <xs:element minOccurs="0" name="transportation_eV_Id" type="xs:long" />
-      <xs:element minOccurs="0" name="unitPrice" type="xs:decimal" />
-      <xs:element minOccurs="0" name="updatedDate" type="xs:long" />
-      <xs:element minOccurs="0" name="userId" type="xs:long" />
-      <xs:element minOccurs="0" name="year" type="xs:long" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ProductionDetail" nillable="true" type="tns:ProductionDetail" />
   <xs:complexType name="ArrayOfAnnouncementDetail">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="AnnouncementDetail" nillable="true" type="tns:AnnouncementDetail" />

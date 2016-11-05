@@ -5,6 +5,7 @@ using System.Web;
 using Emsal.WebInt.EmsalSrv;
 using System.ComponentModel.DataAnnotations;
 using Emsal.Utility.CustomObjects;
+using System.Web.Mvc;
 
 namespace Emsal.UI.Models
 {
@@ -18,8 +19,13 @@ namespace Emsal.UI.Models
         public string messageSuccess = FileExtension.messageSuccess;
         public int fileSize = FileExtension.fileSize;
         public string fileDirectory = FileExtension.fileDirectoryExternal;
+        public string fileDirectoryContract = FileExtension.fileDirectoryExternalContract;
         public List<string> fileTypes = FileExtension.fileMimeTypes;
         public string fileAcceptTypes = FileExtension.fileTypes;
+        public string tempFileDirectory = HttpContext.Current.Server.MapPath(FileExtension.fileDirectoryTempFile);
+        public string tempFileDirectoryFV = FileExtension.tempFileDirectoryFV;
+
+        public List<string> fileTypesPDF = FileExtension.fileMimeTypesPDF;
 
         public tblUser User;
 
@@ -72,6 +78,10 @@ namespace Emsal.UI.Models
         public IList<tblProduction_Document> ProductionDocumentList { get; set; }
         public tblProduction_Document[] ProductionDocumentArray;
 
+        public tblContract Contract;
+        public IList<tblContract> ContractList { get; set; }
+        public tblContract[] ContractArray;
+
         public tblPRM_AdminUnit PRMAdminUnit;
         public IList<tblPRM_AdminUnit> PRMAdminUnitList { get; set; }
         public tblPRM_AdminUnit[] PRMAdminUnitArray;
@@ -80,6 +90,13 @@ namespace Emsal.UI.Models
         public IList<tblProductAddress> ProductAddressList { get; set; }
         public tblProductAddress[] ProductAddressArray;
 
+        public tblPerson Person;
+        public IList<tblPerson> PersonList { get; set; }
+        public tblPerson[] PersonArray;
+
+        public tblForeign_Organization Foreign_Organization;
+        public IList<tblForeign_Organization> Foreign_OrganizationList { get; set; }
+        public tblForeign_Organization[] Foreign_OrganizationArray;
 
         public tblProduction_Calendar ProductionCalendar;
         public IList<tblProduction_Calendar> ProductionCalendarList { get; set; }
@@ -99,6 +116,7 @@ namespace Emsal.UI.Models
         public tblComMessageAttachment[] ComMessageAttachmentArray;
 
         public PagedList.IPagedList<ProductionDetail> Paging { get; set; }
+        public PagedList.IPagedList<tblPerson> PagingPerson { get; set; }
 
         public bool isPDF { get; set; }
         public long userId { get; set; }
@@ -168,6 +186,11 @@ namespace Emsal.UI.Models
         public string userInfo { get; set; }
         public int itemCount { get; set; }
 
+        public string nameSurnameFathername { get; set; }
+        public string icraci { get; set; }
+        public string pin { get; set; }
         public IList<HttpPostedFileBase> attachfiles { get; set; }
+        public string FCType { get; set; }
+        public string fname { get; set; }
     }
 }

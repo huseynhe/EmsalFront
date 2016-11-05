@@ -153,6 +153,9 @@
     <None Include="Web References\EmsalSrv\tblConfirmationMessage.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\EmsalSrv\tblContract.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\EmsalSrv\tblDemand_Production.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -295,10 +298,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Emsal_WebInt_TaxesSRV_TaxesIntegrationService</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://localhost:56876/EmsalService.svc">
+    <WebReferenceUrl Include="http://localhost:56876/EmsalService.svc%3fwsdl">
       <UrlBehavior>Static</UrlBehavior>
       <RelPath>Web References\EmsalSrv\</RelPath>
-      <UpdateFromURL>http://localhost:56876/EmsalService.svc</UpdateFromURL>
+      <UpdateFromURL>http://localhost:56876/EmsalService.svc%3fwsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
@@ -306,9 +309,6 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Emsal_WebInt_EmsalSrv_EmsalService</CachedSettingsPropName>
     </WebReferenceUrl>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Web References\EmsalSrv\EmsalService.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
