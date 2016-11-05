@@ -39,6 +39,8 @@ namespace Emsal.UI.Controllers
 
             modelSpecial.LoggedInUserInfos = new LoggedInUserInfos();
 
+
+
             //get the informations of logged in user
             if (User != null && User.Identity.IsAuthenticated)
             {
@@ -48,6 +50,16 @@ namespace Emsal.UI.Controllers
                     UserId = Int32.Parse(identity.Ticket.UserData);
                 }
             }
+
+
+            List<products> productsList = new List<products>();
+            productsList = getCountsOffProducts((long)UserId);
+
+            modelSpecial.countAcceptedOffers = productsList.Where(p => p.type == 1).Count();
+            modelSpecial.countOffAirOffers = productsList.Where(p => p.type == 3).Count();
+            modelSpecial.countOnAirOffers = productsList.Where(p => p.type == 2).Count();
+            modelSpecial.countRejectedOffers = productsList.Where(p => p.type == 4).Count();
+
             BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.LoggedInUser);
 
             BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
@@ -87,13 +99,15 @@ namespace Emsal.UI.Controllers
             {
                 foreach (var item in modelSpecial.CommunicationInformationsList)
                 {
+                    //if (modelSpecial.LoggedInUserInfos == null)
+                       // break;
                     if (item.comType == 10120)
                     {
-                        modelSpecial.LoggedInUserInfos.MobilePhone = item.communication;
+                        modelSpecial.MobilePhone = item.communication;
                     }
                     if (item.comType == 10122)
                     {
-                        modelSpecial.LoggedInUserInfos.WorkPhone = item.communication;
+                        modelSpecial.WorkPhone = item.communication;
                     }
 
                 }
@@ -118,10 +132,7 @@ namespace Emsal.UI.Controllers
             modelSpecial.OfferProduction.monitoring_eV_IdSpecified = true;
 
             BaseOutput offer = srv.WS_GetOnAirOffer_ProductionsByUserID(binput, modelSpecial.OfferProduction, out modelSpecial.OfferProductionArray);
-
-
             modelSpecial.OfferProductionList = modelSpecial.OfferProductionArray.ToList();
-
 
             modelSpecial.ProductCatalogList = new List<tblProductCatalog>();
             modelSpecial.ProductionControlList = new List<tblProductionControl>();
@@ -198,11 +209,14 @@ namespace Emsal.UI.Controllers
                 }
 
                 modelSpecial.SpOfferList.Add(modelSpecial.SpOffer);
+
+                tblOffer_Production mtbl = new tblOffer_Production();
+                if (item.isNew == 1)
+                {
+                    item.isNew = 0;
+                    BaseOutput up = srv.WS_UpdateOffer_Production(binput, item, out mtbl);
+                }
             }
-
-
-
-
             modelSpecial.PagingConfirmedOffer = modelSpecial.SpOfferList.ToPagedList(pageNumber, pageSize);
 
             //get the inbox messages
@@ -243,7 +257,7 @@ namespace Emsal.UI.Controllers
             int pageSize = 5;
             int pageNumber = (page ?? 1);
 
-            BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "Yayinda", out modelSpecial.EnumValue);
+            
             modelSpecial.OfferProduction = new tblOffer_Production();
             modelSpecial.ProductCatalogList = new List<tblProductCatalog>();
             modelSpecial.ProductionControlList = new List<tblProductionControl>();
@@ -259,6 +273,15 @@ namespace Emsal.UI.Controllers
                 }
             }
 
+
+            List<products> productsList = new List<products>();
+            productsList = getCountsOffProducts((long)UserID);
+
+            modelSpecial.countAcceptedOffers = productsList.Where(p => p.type == 1).Count();
+            modelSpecial.countOffAirOffers = productsList.Where(p => p.type == 3).Count();
+            modelSpecial.countOnAirOffers = productsList.Where(p => p.type == 2).Count();
+            modelSpecial.countRejectedOffers = productsList.Where(p => p.type == 4).Count();
+
             BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
             BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
             BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
@@ -268,11 +291,18 @@ namespace Emsal.UI.Controllers
 
 
             //get the on air offer productions
+            BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "Yayinda", out modelSpecial.EnumValue);
             modelSpecial.OfferProduction.user_Id = UserID;
             modelSpecial.OfferProduction.state_eV_Id = modelSpecial.EnumValue.Id;
 
+
             modelSpecial.OfferProduction.user_IdSpecified = true;
             modelSpecial.OfferProduction.state_eV_IdSpecified = true;
+
+            BaseOutput enumValr = srv.WS_GetEnumValueByName(binput, "reedited", out modelSpecial.EnumValue);
+
+            modelSpecial.OfferProduction.monitoring_eV_Id = modelSpecial.EnumValue.Id;
+            modelSpecial.OfferProduction.monitoring_eV_IdSpecified = true;
 
             BaseOutput offer = srv.WS_GetOnAirOffer_ProductionsByUserID(binput, modelSpecial.OfferProduction, out modelSpecial.OfferProductionArray);
 
@@ -355,6 +385,13 @@ namespace Emsal.UI.Controllers
 
 
                 modelSpecial.SpOfferList.Add(modelSpecial.SpOffer);
+
+                tblOffer_Production mtbl = new tblOffer_Production();
+                if (item.isNew == 1)
+                {
+                    item.isNew = 0;
+                    BaseOutput up = srv.WS_UpdateOffer_Production(binput, item, out mtbl);
+                }
             }
 
             modelSpecial.PagingOffer = modelSpecial.SpOfferList.ToPagedList(pageNumber, pageSize);
@@ -382,11 +419,11 @@ namespace Emsal.UI.Controllers
             {
                 if (item.comType == 10120)
                 {
-                    modelSpecial.LoggedInUserInfos.MobilePhone = item.description;
+                    modelSpecial.MobilePhone = item.description;
                 }
                 if (item.comType == 10122)
                 {
-                    modelSpecial.LoggedInUserInfos.WorkPhone = item.description;
+                    modelSpecial.WorkPhone = item.description;
                 }
 
             }
@@ -440,6 +477,16 @@ namespace Emsal.UI.Controllers
                         UserID = Int32.Parse(identity.Ticket.UserData);
                     }
                 }
+
+
+                List<products> productsList = new List<products>();
+                productsList = getCountsOffProducts((long)UserID);
+
+                modelSpecial.countAcceptedOffers = productsList.Where(p => p.type == 1).Count();
+                modelSpecial.countOffAirOffers = productsList.Where(p => p.type == 3).Count();
+                modelSpecial.countOnAirOffers = productsList.Where(p => p.type == 2).Count();
+                modelSpecial.countRejectedOffers = productsList.Where(p => p.type == 4).Count();
+
                 BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
                 BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
@@ -543,10 +590,14 @@ namespace Emsal.UI.Controllers
                         modelSpecial.SpOffer.DemandCalendarList.Add(modelSpecial.SpOffer.DemandCalendar);
                     }
 
-
-
-
                     modelSpecial.SpOfferList.Add(modelSpecial.SpOffer);
+
+                    tblOffer_Production mtbl = new tblOffer_Production();
+                    if (item.isNew == 1)
+                    {
+                        item.isNew = 0;
+                        BaseOutput up = srv.WS_UpdateOffer_Production(binput, item, out mtbl);
+                    }
                 }
 
                 modelSpecial.PagingRejectedOffer = modelSpecial.SpOfferList.ToPagedList(pageNumber, pageSize);
@@ -575,11 +626,11 @@ namespace Emsal.UI.Controllers
                 {
                     if (item.comType == 10120)
                     {
-                        modelSpecial.LoggedInUserInfos.MobilePhone = item.description;
+                        modelSpecial.MobilePhone = item.description;
                     }
                     if (item.comType == 10122)
                     {
-                        modelSpecial.LoggedInUserInfos.WorkPhone = item.description;
+                        modelSpecial.WorkPhone = item.description;
                     }
 
                 }
@@ -634,6 +685,15 @@ namespace Emsal.UI.Controllers
                         UserID = Int32.Parse(identity.Ticket.UserData);
                     }
                 }
+
+                List<products> productsList = new List<products>();
+                productsList = getCountsOffProducts((long)UserID);
+
+                modelSpecial.countAcceptedOffers = productsList.Where(p => p.type == 1).Count();
+                modelSpecial.countOffAirOffers = productsList.Where(p => p.type == 3).Count();
+                modelSpecial.countOnAirOffers = productsList.Where(p => p.type == 2).Count();
+                modelSpecial.countRejectedOffers = productsList.Where(p => p.type == 4).Count();
+
                 BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
                 BaseOutput orgOUt = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
@@ -650,9 +710,16 @@ namespace Emsal.UI.Controllers
                 modelSpecial.OfferProduction.user_IdSpecified = true;
                 modelSpecial.OfferProduction.state_eV_IdSpecified = true;
 
+                BaseOutput enumValr = srv.WS_GetEnumValueByName(binput, "reedited", out modelSpecial.EnumValue);
+
+                modelSpecial.OfferProduction.monitoring_eV_Id = modelSpecial.EnumValue.Id;
+                modelSpecial.OfferProduction.monitoring_eV_IdSpecified = true;
+
                 BaseOutput offer = srv.WS_GetOffAirOffer_ProductionsByUserID(binput, modelSpecial.OfferProduction, out modelSpecial.OfferProductionArray);
 
+
                 modelSpecial.OfferProductionList = modelSpecial.OfferProductionArray.ToList();
+
                 ////////////////////////
 
                 modelSpecial.SpOfferList = new List<SpecialSummaryPotentialAndOffer>();
@@ -729,6 +796,14 @@ namespace Emsal.UI.Controllers
                     }
 
                     modelSpecial.SpOfferList.Add(modelSpecial.SpOffer);
+
+                    SpecialSummaryViewModel sp = new SpecialSummaryViewModel();
+                    sp.OfferProduction = new tblOffer_Production();
+                    if (item.isNew == 1)
+                    {
+                        item.isNew = 0;
+                        BaseOutput up = srv.WS_UpdateOffer_Production(binput, item,out modelSpecial.OfferProduction);
+                    }
                 }
 
                 modelSpecial.PagingOffAirOffer = modelSpecial.SpOfferList.ToPagedList(pageNumber, pageSize);
@@ -755,11 +830,11 @@ namespace Emsal.UI.Controllers
                 {
                     if (item.comType == 10120)
                     {
-                        modelSpecial.LoggedInUserInfos.MobilePhone = item.description;
+                        modelSpecial.MobilePhone = item.description;
                     }
                     if (item.comType == 10122)
                     {
-                        modelSpecial.LoggedInUserInfos.WorkPhone = item.description;
+                        modelSpecial.WorkPhone = item.description;
                     }
 
                 }
@@ -1920,7 +1995,85 @@ namespace Emsal.UI.Controllers
             return Json(modelUser, JsonRequestBehavior.AllowGet);
         }
 
+        public List<products> getCountsOffProducts(long userId)
+        {
+            binput = new BaseInput();
+            modelSpecial = new SpecialSummaryViewModel();
+            SpecialSummaryViewModel model = new SpecialSummaryViewModel();
+            modelSpecial.OfferProduction = new tblOffer_Production();
+            BaseOutput enumVal = null;
+            BaseOutput offerOutCount = null;
+            List<products> newOffers = new List<products>();
+            //type Tesdiqlenen = 1; Yayinda = 2; YayindaDeyil = 3; reject = 4;
 
+            modelSpecial.OfferProduction.user_Id = userId;
+            modelSpecial.OfferProduction.user_IdSpecified = true;
+            //begin
+
+            enumVal = srv.WS_GetEnumValueByName(binput, "Tesdiqlenen", out modelSpecial.EnumValue);
+            modelSpecial.OfferProduction.state_eV_Id = modelSpecial.EnumValue.Id;
+            modelSpecial.OfferProduction.state_eV_IdSpecified = true;
+            offerOutCount = srv.WS_GetOnAirOfferCount_ProductionsByUserId(binput, modelSpecial.OfferProduction, out model.OfferProductionArray);
+            model.OfferProductionList = model.OfferProductionArray.ToList();
+
+            foreach (var item in model.OfferProductionList)
+            {
+                newOffers.Add(new products { id = item.Id, type = 1 });
+            }
+
+            //end 
+            //begin
+
+            enumVal = srv.WS_GetEnumValueByName(binput, "Yayinda", out modelSpecial.EnumValue);
+            modelSpecial.OfferProduction.state_eV_Id = modelSpecial.EnumValue.Id;
+            modelSpecial.OfferProduction.state_eV_IdSpecified = true;
+            offerOutCount = srv.WS_GetOnAirOfferCount_ProductionsByUserId(binput, modelSpecial.OfferProduction, out model.OfferProductionArray);
+            model.OfferProductionList = model.OfferProductionArray.ToList();
+
+            foreach (var item in model.OfferProductionList)
+            {
+                newOffers.Add(new products { id = item.Id, type = 2 });
+            }
+
+            //end
+            //begin
+
+            enumVal = srv.WS_GetEnumValueByName(binput, "YayindaDeyil", out modelSpecial.EnumValue);
+            modelSpecial.OfferProduction.state_eV_Id = modelSpecial.EnumValue.Id;
+            modelSpecial.OfferProduction.state_eV_IdSpecified = true;
+            offerOutCount = srv.WS_GetOnAirOfferCount_ProductionsByUserId(binput, modelSpecial.OfferProduction, out model.OfferProductionArray);
+            model.OfferProductionList = model.OfferProductionArray.ToList();
+
+            foreach (var item in model.OfferProductionList)
+            {
+                newOffers.Add(new products { id = item.Id, type = 3 });
+            }
+
+            //end
+            //begin
+
+            enumVal = srv.WS_GetEnumValueByName(binput, "reject", out modelSpecial.EnumValue);
+            modelSpecial.OfferProduction.state_eV_Id = modelSpecial.EnumValue.Id;
+            modelSpecial.OfferProduction.state_eV_IdSpecified = true;
+            offerOutCount = srv.WS_GetOnAirOfferCount_ProductionsByUserId(binput, modelSpecial.OfferProduction, out model.OfferProductionArray);
+            model.OfferProductionList = model.OfferProductionArray.ToList();
+
+            foreach (var item in model.OfferProductionList)
+            {
+                newOffers.Add(new products { id = item.Id, type = 4 });
+            }
+
+            //end
+            return newOffers; 
+        }
+
+
+    }
+
+    public class products
+    {
+        public long id { get; set; }
+        public int type { get; set; }
     }
 }
 
