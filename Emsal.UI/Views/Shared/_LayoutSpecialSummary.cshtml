@@ -102,13 +102,13 @@
 
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation"><a href="/GovernmentOrganisationSpecialSummary/Index" @*aria-controls="home" role="tab" data-toggle="tab"*@><h5 class="text-bold">Sifarişlər</h5></a></li>
+                    <li role="presentation"><a href="/GovernmentOrganisationSpecialSummary/Index" @*aria-controls="home" role="tab" data-toggle="tab"*@><h5 class="text-bold">Tələbatlar</h5></a></li>
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"><h5 class="text-bold"><span class="adSoyad">@Model.NameSurname</span><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></h5></a></li>
                     <li role="presentation"><a href="/GovernmentOrganisationSpecialSummary/Organisations"><h5 class="text-bold"><span>Təşkilatlarım</span></h5></a></li>
 
                     <li>
                         <a href="/DemandProduction" class="btn btn-info active pull-right">
-                            <i class="glyphicon glyphicon-link"></i>&nbsp;Sifariş yerləşdir
+                            <i class="glyphicon glyphicon-link"></i>&nbsp;Tələbat yerləşdir
                         </a>
                     </li>
                 </ul>
@@ -123,18 +123,18 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" href="#collapse1">Sifarişlərim<span class="glyphicon glyphicon-menu-down f-right text-gray" aria-hidden="true"></span></a>
+                                        <a data-toggle="collapse" href="#collapse1">Tələbatlarım<span class="glyphicon glyphicon-menu-down f-right text-gray" aria-hidden="true"></span></a>
                                     </h4>
                                 </div>
                                 <div id="collapse1" class="panel-collapse collapse in">
                                     <ul class="list-group list-unstyled">
                                         @*<li class="list-group-item"><a data-toggle="collapse" id="newOrders" href="">Yeni Sifarişlərim <span id="new_order_num"></span></a></li>*@
-                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/Index">Təsdiqlənən Sifarişlərim <span id="approved_order_num"></span></a></li>
-                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/OnAirDemands">Sifarişlərim <span id="order_num"></span></a></li>
-                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/ExpiredDemands">Vaxtı Bitmiş Sifarişlərim <span id="expire_order_num"></span></a></li>
-                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/RejectedDemands">Yararsız Sayılan Sifarişlərim <span id="rejected_order_num"></span></a></li>
+                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/Index">Təsdiqlənən Tələbatlarım <span id="approved_order_num"></span></a></li>
+                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/OnAirDemands">Tələbatlarım <span id="order_num"></span></a></li>
+                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/ExpiredDemands">Vaxtı Bitmiş Tələbatlarım <span id="expire_order_num"></span></a></li>
+                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/RejectedDemands">Yararsız Sayılan Tələbatlarım <span id="rejected_order_num"></span></a></li>
                                         @*<li class="list-group-item"><a data-toggle="collapse" id="reEditedOrders" href="">Yenidən Düzəldilmiş Sifarişlərim <span id="re_edited_order_num"></span></a></li>*@
-                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/NotSentYetOrders">Kənd Təsərrüfatı Nazirliyinə göndərilməmiş sifarişlərim <span id="not_sent_yet_order_num"></span></a></li>
+                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/NotSentYetOrders">Kənd Təsərrüfatı Nazirliyinə göndərilməmiş tələbatlarım <span id="not_sent_yet_order_num"></span></a></li>
 
                                         @* <li class="list-group-item"><a data-toggle="collapse" id="contracts" href="">Müqavilələrim <span id="contract_num"></span> </a></li>*@
                                     </ul>
