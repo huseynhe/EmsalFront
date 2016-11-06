@@ -1390,7 +1390,10 @@ namespace Emsal.AdminUI.Controllers
                                 modelUser.Individual.FullAddress += adminunit.Name + ",";
                             }
                         }
-                        modelUser.Individual.FullAddress = modelUser.Individual.FullAddress.Remove(modelUser.Individual.FullAddress.Length - 1);
+                        if (modelUser.Individual.FullAddress != null)
+                        {
+                            modelUser.Individual.FullAddress = modelUser.Individual.FullAddress.Remove(modelUser.Individual.FullAddress.Length - 1);
+                        }
                     }
                     
                 }
