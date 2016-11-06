@@ -158,8 +158,6 @@ function sendFiles() {
         processData: false,
         contentType: false,
         success: function (data) {
-            alert("fayl yükləndi");
-
             GetAttachFileTemp(attObj, pid);
         },
         error: function () {

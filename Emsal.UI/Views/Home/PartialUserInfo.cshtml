@@ -9,11 +9,15 @@
     string link = "";
     string icon = "";
 }
-
+<style>
+    .tr:hover {
+        background: #089c07;
+    }
+</style>
 <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
     <span class="badge " style="margin-top: -10px; float: right; margin-right: -5px;background:#D43F3A;position:relative;z-index:1000;">@Model.itemCount</span>
 </div>
-<table class="table table-bordered table-hover">
+<table class="table table-bordered">
     <tbody>
         @foreach (var item in Model.PagingUserInfo)
         {
@@ -28,7 +32,7 @@
                         icon = "fa fa-building-o";
                     }
                    
-            <tr onclick="location.href = '@link'" style="cursor:pointer;">
+            <tr onclick="location.href = '@link'" style="cursor:pointer;" class="tr">
                 <td class="col-sm-4 text-black">@item.name</td>
                 @*<td class="col-sm-2">@item.surname</td>*@
                 <td class="col-sm-2 text-black">@item.adminUnitName</td>

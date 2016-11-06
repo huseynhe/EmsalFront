@@ -192,5 +192,7 @@ namespace Emsal.UI.Models
         public IList<HttpPostedFileBase> attachfiles { get; set; }
         public string FCType { get; set; }
         public string fname { get; set; }
+        public bool isApprov { get; set; }
+        public bool isSeller { get; set; }
     }
 }

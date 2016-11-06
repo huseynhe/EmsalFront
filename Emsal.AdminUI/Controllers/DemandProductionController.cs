@@ -630,7 +630,14 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput gpp = srv.WS_GetDemandProductsForAccounting(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.ProductionDetailArray);
 
-                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.ToList();
+                if (modelDemandProduction.ProductionDetailArray != null)
+                {
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.ToList();
+                }
+                else
+                {
+                    modelDemandProduction.ProductionDetailList = new List<ProductionDetail>();
+                }
 
                 if (sproductName != null)
                 {

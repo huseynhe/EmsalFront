@@ -26918,6 +26918,10 @@ namespace Emsal.WebInt.EmsalSrv {
         
         private bool quantityFieldSpecified;
         
+        private long roleIDField;
+        
+        private bool roleIDFieldSpecified;
+        
         private string surnameField;
         
         private decimal totalPriceField;
@@ -27690,6 +27694,27 @@ namespace Emsal.WebInt.EmsalSrv {
             }
             set {
                 this.quantityFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long roleID {
+            get {
+                return this.roleIDField;
+            }
+            set {
+                this.roleIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool roleIDSpecified {
+            get {
+                return this.roleIDFieldSpecified;
+            }
+            set {
+                this.roleIDFieldSpecified = value;
             }
         }
         

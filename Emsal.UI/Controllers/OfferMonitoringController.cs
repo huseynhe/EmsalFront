@@ -26,6 +26,8 @@ namespace Emsal.UI.Controllers
         private static string smonitoringStatusEV;
         private static string snameSurnameFathername;
         private static string spin;
+        private static bool sisApprov;
+        private static bool sisSeller;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
         // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
@@ -371,7 +373,7 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult Contract(int? page, string nameSurnameFathername = null, string pin = null)
+        public ActionResult Contract(int? page, bool isApprov = false, bool isSeller = false, string nameSurnameFathername = null, string pin = null)
         {
             try
             {
@@ -383,16 +385,24 @@ namespace Emsal.UI.Controllers
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (nameSurnameFathername == null && pin == null)
+                if (nameSurnameFathername == null && pin == null && isApprov==false && isSeller==false)
                 {
                     snameSurnameFathername = null;
                     spin = null;
+                    sisApprov = false;
+                    sisSeller = false;
                 }
 
                 if (nameSurnameFathername != null)
                     snameSurnameFathername = nameSurnameFathername;
                 if (pin != null)
                     spin = pin;
+                if (isApprov == true || isSeller == true)
+                {
+                    sisApprov = isApprov;
+                    sisSeller = isSeller;
+                }
+
 
                 baseInput = new BaseInput();
                 modelOfferMonitoring = new OfferMonitoringViewModel();
@@ -421,27 +431,42 @@ namespace Emsal.UI.Controllers
                 long opid = 0;
                 modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.OrderBy(x => x.person.Id).ToList();
 
+                if (sisApprov == false)
+                {
+                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.contractID == 0 || x.contractID == null).ToList();
+                }
+                else
+                {
+                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.contractID > 0).ToList();
+                }
+
+                if(sisSeller==true)
+                {
+                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.roleID==11).ToList();
+                }
+                else
+                {
+                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.roleID != 11).ToList();
+                }
+
                 foreach (var item in modelOfferMonitoring.ProductionDetailList)
                 {
-                        if (item.contractID == 0)
-                        {
-                            if (opid != item.person.Id)
-                            {
-                                modelOfferMonitoring.Person = new tblPerson();
+                    if (opid != item.person.Id)
+                    {
+                        modelOfferMonitoring.Person = new tblPerson();
 
-                                modelOfferMonitoring.Person.Id = item.person.Id;
-                                modelOfferMonitoring.Person.Name = item.person.Name;
-                                modelOfferMonitoring.Person.Surname = item.person.Surname;
-                                modelOfferMonitoring.Person.FatherName = item.person.FatherName;
-                                modelOfferMonitoring.Person.gender = item.person.gender;
-                                modelOfferMonitoring.Person.PinNumber = item.person.PinNumber;
-                                modelOfferMonitoring.Person.profilePicture = item.person.profilePicture;
+                        modelOfferMonitoring.Person.Id = item.person.Id;
+                        modelOfferMonitoring.Person.Name = item.person.Name;
+                        modelOfferMonitoring.Person.Surname = item.person.Surname;
+                        modelOfferMonitoring.Person.FatherName = item.person.FatherName;
+                        modelOfferMonitoring.Person.gender = item.person.gender;
+                        modelOfferMonitoring.Person.PinNumber = item.person.PinNumber;
+                        modelOfferMonitoring.Person.profilePicture = item.person.profilePicture;
 
-                                modelOfferMonitoring.PersonList.Add(modelOfferMonitoring.Person);
-                            }
-
-                        opid = item.person.Id;
+                        modelOfferMonitoring.PersonList.Add(modelOfferMonitoring.Person);
                     }
+
+                    opid = item.person.Id;
                 }
 
                 if (snameSurnameFathername != null)
@@ -460,6 +485,8 @@ namespace Emsal.UI.Controllers
 
                 modelOfferMonitoring.nameSurnameFathername = snameSurnameFathername;
                 modelOfferMonitoring.pin = spin;
+                modelOfferMonitoring.isApprov = sisApprov;
+                modelOfferMonitoring.isSeller = sisSeller;
 
                 return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("PartialContract", modelOfferMonitoring)
@@ -533,7 +560,7 @@ namespace Emsal.UI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferMonitoring.User);
                 baseInput.userName = modelOfferMonitoring.User.Username;
 
-                BaseOutput gpbuid = srv.WS_GetPersonById(baseInput, pid, true, out modelOfferMonitoring.Person);
+                //BaseOutput gpbuid = srv.WS_GetPersonById(baseInput, pid, true, out modelOfferMonitoring.Person);
 
                 BaseOutput gfobuid = srv.WS_GetContractBySupplierUserID(baseInput, pid, true, out modelOfferMonitoring.ContractArray);
 
@@ -547,9 +574,6 @@ namespace Emsal.UI.Controllers
                 {
                     modelOfferMonitoring.ContractList = new List<tblContract>();
                 }
-
-
-
 
                 foreach (var item in modelOfferMonitoring.ContractList)
                 {
@@ -636,6 +660,8 @@ namespace Emsal.UI.Controllers
                         Directory.CreateDirectory(path);
                     }
 
+                    BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferMonitoring.EnumValue);
+
                     BaseOutput gpbuid = srv.WS_GetPersonById(baseInput, pid, true, out modelOfferMonitoring.Person);
 
                     BaseOutput gfobuid = srv.WS_GetForeign_OrganizationByUserId(baseInput, (long)modelOfferMonitoring.Person.UserId, true, out modelOfferMonitoring.Foreign_Organization);
@@ -651,7 +677,9 @@ namespace Emsal.UI.Controllers
                         modelOfferMonitoring.OfferProductionList = new List<tblOffer_Production>();
                     }
 
-                    modelOfferMonitoring.OfferProductionList = modelOfferMonitoring.OfferProductionList.Where(x => x.contractId == null).ToList();
+                    modelOfferMonitoring.OfferProductionList = modelOfferMonitoring.OfferProductionList.Where(x => x.contractId == 0 || x.contractId == null).Where(x => x.monitoring_eV_Id == modelOfferMonitoring.EnumValue.Id).ToList();
+
+
 
                     foreach (var attachfile in file)
                     {
@@ -768,11 +796,38 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput dc = srv.WS_DeleteContract(baseInput, modelOfferMonitoring.Contract);
 
+
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferMonitoring.EnumValue);
+
+                BaseOutput gpbuid = srv.WS_GetPersonById(baseInput, (long)modelOfferMonitoring.Contract.SupplierUserID, true, out modelOfferMonitoring.Person);
+                
+                BaseOutput fop = srv.WS_GetOffer_ProductionsByUserID(baseInput, (long)modelOfferMonitoring.Person.UserId, true, out modelOfferMonitoring.OfferProductionArray);
+
+                if (modelOfferMonitoring.OfferProductionArray != null)
+                {
+                    modelOfferMonitoring.OfferProductionList = modelOfferMonitoring.OfferProductionArray.ToList();
+                }
+                else
+                {
+                    modelOfferMonitoring.OfferProductionList = new List<tblOffer_Production>();
+                }
+
+                modelOfferMonitoring.OfferProductionList = modelOfferMonitoring.OfferProductionList.Where(x => x.contractId ==id).Where(x => x.monitoring_eV_Id == modelOfferMonitoring.EnumValue.Id).ToList();
+
+                foreach (var item in modelOfferMonitoring.OfferProductionList)
+                {
+                    item.contractId = 0;
+
+                    BaseOutput upop = srv.WS_UpdateOffer_Production(baseInput, item, out modelOfferMonitoring.OfferProduction);
+                }
+
             }
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message + ex.Source + ex.StackTrace;
             }
         }
+
     }
 }
