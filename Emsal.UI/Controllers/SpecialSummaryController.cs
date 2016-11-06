@@ -131,8 +131,8 @@ namespace Emsal.UI.Controllers
             modelSpecial.OfferProduction.monitoring_eV_Id = modelSpecial.EnumValue.Id;
             modelSpecial.OfferProduction.monitoring_eV_IdSpecified = true;
 
-            BaseOutput offer = srv.WS_GetOnAirOffer_ProductionsByUserID(binput, modelSpecial.OfferProduction, out modelSpecial.OfferProductionArray);
-            modelSpecial.OfferProductionList = modelSpecial.OfferProductionArray.ToList();
+            BaseOutput offer = srv.WS_GetOffer_ProductionsByUserID(binput, (long)UserId, true, out modelSpecial.OfferProductionArray);
+            modelSpecial.OfferProductionList = modelSpecial.OfferProductionArray.Where(p => (p.state_eV_Id == 2 && p.monitoring_eV_Id == 2) || (p.state_eV_Id == 2 && p.monitoring_eV_Id == 10118)).ToList();
 
             modelSpecial.ProductCatalogList = new List<tblProductCatalog>();
             modelSpecial.ProductionControlList = new List<tblProductionControl>();
@@ -232,6 +232,9 @@ namespace Emsal.UI.Controllers
             BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelSpecial.EnumCategory);
             BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
             modelSpecial.WorkPhonePrefixList = modelSpecial.EnumValueArray.ToList();
+
+            //modelSpecial.Contract = new tblContract();
+            //BaseOutput contOut = srv.WS_GetContractBySupplierUserID()
 
             if (UserId > 0)
             {
@@ -496,27 +499,27 @@ namespace Emsal.UI.Controllers
 
                 //get the rejected offer productions
 
-                BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "reject", out modelSpecial.EnumValue);
+                //BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "reject", out modelSpecial.EnumValue);
 
-                modelSpecial.OfferProduction.user_Id = UserID;
-                modelSpecial.OfferProduction.state_eV_Id = modelSpecial.EnumValue.Id;
+                //modelSpecial.OfferProduction.user_Id = UserID;
+                //modelSpecial.OfferProduction.state_eV_Id = modelSpecial.EnumValue.Id;
 
-                modelSpecial.OfferProduction.user_IdSpecified = true;
-                modelSpecial.OfferProduction.state_eV_IdSpecified = true;
+                //modelSpecial.OfferProduction.user_IdSpecified = true;
+                //modelSpecial.OfferProduction.state_eV_IdSpecified = true;
 
-                BaseOutput enumValr = srv.WS_GetEnumValueByName(binput, "reedited", out modelSpecial.EnumValue);
-                modelSpecial.OfferProduction.monitoring_eV_Id = modelSpecial.EnumValue.Id;
-                modelSpecial.OfferProduction.monitoring_eV_IdSpecified = true;
+                //BaseOutput enumValr = srv.WS_GetEnumValueByName(binput, "reedited", out modelSpecial.EnumValue);
+                //modelSpecial.OfferProduction.monitoring_eV_Id = modelSpecial.EnumValue.Id;
+                //modelSpecial.OfferProduction.monitoring_eV_IdSpecified = true;
 
-                modelSpecial.OfferProduction.Status =2;
-                modelSpecial.OfferProduction.StatusSpecified = true;
+                //modelSpecial.OfferProduction.Status =2;
+                //modelSpecial.OfferProduction.StatusSpecified = true;
 
-                BaseOutput offer = srv.WS_GetOnAirOffer_ProductionsByUserID(binput, modelSpecial.OfferProduction, out modelSpecial.OfferProductionArray);
+                BaseOutput offer = srv.WS_GetOffer_ProductionsByUserID(binput, (long)UserID, true ,out modelSpecial.OfferProductionArray);
 
                 //////////////////////////////////////////////////
 
 
-                modelSpecial.OfferProductionList = modelSpecial.OfferProductionArray.ToList();
+                modelSpecial.OfferProductionList = modelSpecial.OfferProductionArray.Where(p => ((p.state_eV_Id == 41 && p.monitoring_eV_Id == 10118) ||( p.state_eV_Id == 2 && p.monitoring_eV_Id == 41) || (p.state_eV_Id == 2 && p.monitoring_eV_Id ==10117)) && p.state_eV_Id != 1) .ToList();
                 modelSpecial.SpOfferList = new List<SpecialSummaryPotentialAndOffer>();
 
                 foreach (var item in modelSpecial.OfferProductionList)
@@ -716,8 +719,6 @@ namespace Emsal.UI.Controllers
                 modelSpecial.OfferProduction.monitoring_eV_IdSpecified = true;
 
                 BaseOutput offer = srv.WS_GetOffAirOffer_ProductionsByUserID(binput, modelSpecial.OfferProduction, out modelSpecial.OfferProductionArray);
-
-
                 modelSpecial.OfferProductionList = modelSpecial.OfferProductionArray.ToList();
 
                 ////////////////////////
