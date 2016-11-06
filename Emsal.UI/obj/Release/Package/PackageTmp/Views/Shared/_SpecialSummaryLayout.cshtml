@@ -138,10 +138,44 @@
                                 </div>
                                 <div id="collapse1" class="panel-collapse collapse in">
                                     <ul class="list-group list-unstyled">
-                                        <li class="list-group-item"><a href="/SpecialSummary/OffAirOffers">Yayımdan çıxan təkliflər</a></li>
-                                        <li class="list-group-item"><a href="/SpecialSummary/Index">Təsdiqlənən Təkliflər</a></li>
-                                        <li class="list-group-item"><a href="/SpecialSummary/OnAirOffers">Təkliflər</a></li>
-                                        <li class="list-group-item"><a href="/SpecialSummary/RejectedOffers">Yararsız Sayılan Təkliflər</a></li>
+                                        <li class="list-group-item">
+                                            <a href="/SpecialSummary/OffAirOffers">Yayımdan çıxan təkliflər 
+                                                
+                                                    @if (Model.countOffAirOffers > 0)
+                                                    {
+                                                        <span style="color:red"> (@Model.countOffAirOffers) </span>
+                                                    }
+                                                       
+                                            </a>
+                                      </li>
+                                        <li class="list-group-item">
+                                            <a href="/SpecialSummary/Index">Təsdiqlənən Təkliflər 
+                                                @if (Model.countAcceptedOffers > 0)
+                                                {
+                                                    <span style="color:red">(@Model.countAcceptedOffers) </span>
+                                                }
+                                            </a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a href="/SpecialSummary/OnAirOffers">Təkliflər 
+
+                                                @if (Model.countOnAirOffers > 0)
+                                                {
+                                                    <span style="color:red">(@Model.countOnAirOffers)</span>
+                                                }
+                                                
+                                            </a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a href="/SpecialSummary/RejectedOffers">Yararsız Sayılan Təkliflər 
+
+                                                @if (Model.countRejectedOffers > 0)
+                                                {
+                                                    <span style="color:red">(@Model.countRejectedOffers)</span>
+                                                }
+                                                
+                                            </a>
+                                        </li>
                                         @*<li class="list-group-item"><a data-toggle="collapse" id="reEditedOffers" href="">Yenidən Düzəldilmiş Təkliflər <span id="re_edited_offers_num"></span></a></li>*@
                                         @if (Model.UserRoleArray != null)
                                         {
@@ -365,8 +399,8 @@
                         <div class="person_settings" id="personalPhoneMain" style="display:none">
                             <h4 class="text-bold">E-mail</h4>
                             <div class="white_fon">
-                                <p>Mövcud mobil telefon nömrəniz: <b><span>@Model.LoggedInUserInfos.MobilePhone</span></b></p><br />
-                                <p>Mövcud iş telefon nömrəniz: <b><span>@Model.LoggedInUserInfos.WorkPhone</span></b></p><br />
+                                <p>Mövcud mobil telefon nömrəniz: <b><span>@Model.MobilePhone</span></b></p><br />
+                                <p>Mövcud iş telefon nömrəniz: <b><span>@Model.WorkPhone</span></b></p><br />
 
                                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#PhoneModal">Dəyişdir</button>
 

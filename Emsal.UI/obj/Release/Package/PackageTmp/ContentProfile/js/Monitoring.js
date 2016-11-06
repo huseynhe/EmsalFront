@@ -56,6 +56,20 @@ function OfferMonitoringSearch(elem, value) {
     });
 }
 
+function OfferMonitoringContractSearch(elem, value) {
+    $.ajax({
+        url: '/OfferMonitoring/Contract?' + value + '=' + $(elem).val(),
+        type: 'GET',
+        success: function (result) {
+            $('#AjaxPaginationList').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
+
+
 function PotentialClientMonitoringSearch(elem, value) {
     $.ajax({
         url: '/PotentialClientMonitoring/Index?' + value + '=' + $(elem).val(),
@@ -83,4 +97,73 @@ function getAttachmentFile(Id) {
         error: function () {
         }
     })
+}
+
+var attObj;
+function GetAttachFileTemp(elem, pid) {
+    attObj = elem;
+    $('.attachFileField').html('');
+    $('#personId').val(pid);
+
+    $.ajax({
+        url: '/OfferMonitoring/FileTemplate?pid='+pid,
+        type: 'GET',
+        success: function (result) {
+            $(attObj).parent().parent().find('.attachFileField').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
+
+
+function DeleteContractById(id) {
+    var pid = $('#personId').val();
+
+    $.ajax({
+        url: '/OfferMonitoring/DeleteContract?id=' + id,
+        type: 'GET',
+        success: function (result) {
+            GetAttachFileTemp(attObj, pid);
+        },
+        error: function () {
+
+        }
+    });
+}
+
+
+function sendFiles() {
+    var formData = new FormData();
+    var len = $('#fup')[0].files.length;
+
+    for (i = 0; i < len; i++) {
+        formData.append('file', $('#fup')[0].files[i]);
+    }
+
+    //formData.append('documentType', documentType)
+    if (i == 0)
+    {
+        alert('fayl seçilməyib');
+        return false;
+    }
+
+    var pid=$('#personId').val();
+    formData.append('pid', pid)
+    $.ajax({
+        url: '/OfferMonitoring/File',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            alert("fayl yükləndi");
+
+            GetAttachFileTemp(attObj, pid);
+        },
+        error: function () {
+            alert('səhv baş verdi');
+        }
+    });
 }

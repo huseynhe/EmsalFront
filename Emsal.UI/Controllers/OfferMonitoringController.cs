@@ -535,9 +535,9 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput gpbuid = srv.WS_GetPersonById(baseInput, pid, true, out modelOfferMonitoring.Person);
 
-                //BaseOutput gfobuid = srv.WS_GetContractBySupplierUserID(baseInput, pid, true, out modelOfferMonitoring.ContractArray);
+                BaseOutput gfobuid = srv.WS_GetContractBySupplierUserID(baseInput, pid, true, out modelOfferMonitoring.ContractArray);
 
-                BaseOutput gfobuid = srv.WS_GetContract(baseInput, out modelOfferMonitoring.ContractArray);
+                //BaseOutput gfobuid = srv.WS_GetContract(baseInput, out modelOfferMonitoring.ContractArray);
 
                 if (modelOfferMonitoring.ContractArray != null)
                 {

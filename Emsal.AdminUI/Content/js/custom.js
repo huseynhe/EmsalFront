@@ -274,7 +274,7 @@ function AddProductCatalog() {
     //    //e.preventDefault();
     //}
 
-    if ($.trim(productName).length < 3) {
+    if ($.trim(productName).length < 2) {
         $('#dproductName').html('Məhsulun adı daxil edilməyib');
         return false;
         //e.preventDefault();

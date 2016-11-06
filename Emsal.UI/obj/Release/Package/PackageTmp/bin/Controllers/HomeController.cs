@@ -502,10 +502,8 @@ namespace Emsal.UI.Controllers
             try
             {
                 MailMessage msg = new MailMessage();
-                msg.From = new MailAddress("ferid.heziyev@gmail.com", "emsal.az");
 
-                msg.To.Add("qorxmazz@gmail.com");
-                //string fromPassword = "e1701895";
+                msg.To.Add("qorxmazorucov@gmail.com");
                 msg.Subject = "Müraciət göndər";
 
                 msg.Body = "<p>Ad, soyad, ata adı: " + model.nameSurnameFathername + "</p>" +

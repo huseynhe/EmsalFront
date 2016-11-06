@@ -274,7 +274,7 @@ function AddProductCatalog() {
     //    //e.preventDefault();
     //}
 
-    if ($.trim(productName).length < 3) {
+    if ($.trim(productName).length < 2) {
         $('#dproductName').html('Məhsulun adı daxil edilməyib');
         return false;
         //e.preventDefault();
@@ -496,6 +496,19 @@ function DemandProductDetailInfoForAccounting(elem, value) {
 function DemandProductsForAccounting(elem, value) {
     $.ajax({
         url: '/DemandProduction/DemandProductsForAccounting?' + value + '=' + $(elem).val(),
+        type: 'GET',
+        success: function (result) {
+            $('#AjaxPaginationList').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
+
+function DemandOfferProductionTotal(elem, value) {
+    $.ajax({
+        url: '/DemandProduction/DemandOfferProductionTotal?' + value + '=' + $(elem).val(),
         type: 'GET',
         success: function (result) {
             $('#AjaxPaginationList').html(result);
