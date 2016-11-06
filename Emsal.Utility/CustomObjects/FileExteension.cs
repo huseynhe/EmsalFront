@@ -44,6 +44,31 @@ namespace Emsal.Utility.CustomObjects
         private static readonly byte[] WMV_WMA = { 48, 38, 178, 117, 142, 102, 207, 17, 166, 217, 0, 170, 0, 98, 206, 108 };
         private static readonly byte[] ZIP_DOCX = { 80, 75, 3, 4 };
 
+        public static string GetMimeTypeSimple(string extension)
+        {
+            string mime = "";
+
+            if (extension==".pdf")
+                {
+                    mime = "application/pdf";
+                }
+            else if (extension == ".png")
+                {
+                    mime = "image/png";
+                }
+            else if (extension == ".gif")
+            {
+                mime = "image/gif";
+            }
+            else if (extension == ".jpeg")
+            {
+                mime = "image/jpeg";
+            }
+
+
+            return mime;
+        }
+
         public static string GetMimeType(Stream stream, string fileName)
         {
             try

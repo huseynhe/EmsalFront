@@ -90,17 +90,17 @@ namespace Emsal.AdminUI.Controllers
                     return null;
                 }
 
-                var registryKey = Registry.ClassesRoot.OpenSubKey(extension);
+                //var registryKey = Registry.ClassesRoot.OpenSubKey(extension);
 
-                if (registryKey == null)
-                {
-                    return null;
-                }
+                //if (registryKey == null)
+                //{
+                //    return null;
+                //}
 
-                modelproductionDocument.FCType = registryKey.GetValue("Content Type") as string;
+                //modelproductionDocument.FCType = registryKey.GetValue("Content Type") as string;
 
 
-
+                modelproductionDocument.FCType = FileExtension.GetMimeTypeSimple(extension);
 
                 System.IO.File.Copy(sourceFile, destFile, true);
 

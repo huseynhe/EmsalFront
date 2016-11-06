@@ -604,14 +604,17 @@ namespace Emsal.UI.Controllers
                         return null;
                     }
 
-                    var registryKey = Registry.ClassesRoot.OpenSubKey(extension);
 
-                    if (registryKey == null)
-                    {
-                        return null;
-                    }
+                    //var registryKey = Registry.ClassesRoot.OpenSubKey(extension);
 
-                    modelOfferMonitoring.FCType = registryKey.GetValue("Content Type") as string;
+                    //if (registryKey == null)
+                    //{
+                    //    return null;
+                    //}
+
+                    //modelOfferMonitoring.FCType = registryKey.GetValue("Content Type") as string;
+
+                    modelOfferMonitoring.FCType = FileExtension.GetMimeTypeSimple(extension);
 
                     System.IO.File.Copy(sourceFile, destFile, true);
                 }
