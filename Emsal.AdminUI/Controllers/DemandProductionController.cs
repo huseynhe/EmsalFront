@@ -252,8 +252,8 @@ namespace Emsal.AdminUI.Controllers
                 {
                     using (var excelPackage = new ExcelPackage())
                     {
-                        excelPackage.Workbook.Properties.Author = "EMSAL";
-                        excelPackage.Workbook.Properties.Title = "emsal.az";
+                        excelPackage.Workbook.Properties.Author = "tedaruk";
+                        excelPackage.Workbook.Properties.Title = "tedaruk.az";
                         var sheet = excelPackage.Workbook.Worksheets.Add("Tələb");
                         sheet.Name = "Tələb";
 
@@ -487,8 +487,8 @@ namespace Emsal.AdminUI.Controllers
                 {
                     using (var excelPackage = new ExcelPackage())
                     {
-                        excelPackage.Workbook.Properties.Author = "EMSAL";
-                        excelPackage.Workbook.Properties.Title = "emsal.az";
+                        excelPackage.Workbook.Properties.Author = "tedaruk";
+                        excelPackage.Workbook.Properties.Title = "tedaruk.az";
                         var sheet = excelPackage.Workbook.Worksheets.Add("Tələb");
                         sheet.Name = "Tələb";
 
@@ -681,8 +681,8 @@ namespace Emsal.AdminUI.Controllers
                 {
                     using (var excelPackage = new ExcelPackage())
                     {
-                        excelPackage.Workbook.Properties.Author = "EMSAL";
-                        excelPackage.Workbook.Properties.Title = "emsal.az";
+                        excelPackage.Workbook.Properties.Author = "tedaruk";
+                        excelPackage.Workbook.Properties.Title = "tedaruk.az";
                         var sheet = excelPackage.Workbook.Worksheets.Add("Tələb");
                         sheet.Name = "Tələb";
 
@@ -848,8 +848,8 @@ namespace Emsal.AdminUI.Controllers
                 {
                     using (var excelPackage = new ExcelPackage())
                     {
-                        excelPackage.Workbook.Properties.Author = "EMSAL";
-                        excelPackage.Workbook.Properties.Title = "emsal.az";
+                        excelPackage.Workbook.Properties.Author = "tedaruk";
+                        excelPackage.Workbook.Properties.Title = "tedaruk.az";
                         var sheet = excelPackage.Workbook.Worksheets.Add("Tələb-Təklif");
                         sheet.Name = "Tələb-Təklif";
 

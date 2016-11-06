@@ -1386,7 +1386,7 @@ namespace Emsal.UI.Controllers
         private void SendMail(string kod = null)
         {
             MailMessage msg = new MailMessage();
-            msg.From = new MailAddress("ferid.heziyev@gmail.com", "emsal.az");
+            msg.From = new MailAddress("ferid.heziyev@gmail.com", "tedaruk.az");
             msg.To.Add("qala2009@gmail.com");
             string fromPassword = "e1701895";
             msg.Subject = "Üzvlüyü tesdiqle";

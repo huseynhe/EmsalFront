@@ -31,7 +31,7 @@ namespace Emsal.Utility.CustomObjects
         {
             if(CheckForInternetConnection())
             {
-                msg.From = new MailAddress("qorxmazz@gmail.com", "emsal.az");
+                msg.From = new MailAddress("qorxmazz@gmail.com", "tedaruk.az");
                 string fromPassword = "123456";
 
                 SmtpClient smtp = new SmtpClient();

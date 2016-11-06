@@ -397,7 +397,7 @@ namespace Emsal.UI.Controllers
             if (CheckForInternetConnection())
             {
                 MailMessage msg = new MailMessage();
-                msg.From = new MailAddress("ferid.heziyev@gmail.com", "emsal.az");
+                msg.From = new MailAddress("ferid.heziyev@gmail.com", "tedaruk.az");
                 if (String.IsNullOrWhiteSpace(email) || !email.Contains("@") || !email.Contains(".com"))
                 {
                     email = "ferid.heziyev@gmail.com";
