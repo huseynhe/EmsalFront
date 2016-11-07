@@ -109,8 +109,8 @@ namespace Emsal.AdminUI.Controllers
 
                     model.ProductPrice.productId = model.prodId[i];
                     model.ProductPrice.productIdSpecified = true;
-                    model.ProductPrice.unit_price = Convert.ToDecimal(model.price[i]);
-                    //model.ProductPrice.unit_price = Convert.ToDecimal(model.price[i].Replace('.', ','));
+                    //model.ProductPrice.unit_price = Convert.ToDecimal(model.price[i]);
+                    model.ProductPrice.unit_price = Convert.ToDecimal(model.price[i].Replace('.', ','));
                     model.ProductPrice.unit_priceSpecified = true;
                     model.ProductPrice.year = Convert.ToInt64(model.EnumValueYear.name);
                     model.ProductPrice.yearSpecified = true;
