@@ -263,22 +263,26 @@ namespace Emsal.UI.Controllers
                     BaseOutput ua = srv.WS_UpdateAddress(baseInput, modelPotentialProduction.Address);
                 }
 
-                //Shekili saxlamaq ucun
-                string str = String.Format("{0:dd.MM.yyyy}", DateTime.ParseExact(model.birtday.ToString(), "yyyyMMdd", new CultureInfo("az-Latn-AZ")));
-                string path = Server.MapPath("~/ContentProfile/personImage/") + "/" + str + "/";
-
-                if (!Directory.Exists(path))
+                string bday = model.birtday.ToString();
+                string str = "";
+                if (bday != "0")
                 {
-                    Directory.CreateDirectory(path);
-                }
+                    str = String.Format("{0:dd.MM.yyyy}", DateTime.ParseExact(bday, "yyyyMMdd", new CultureInfo("az-Latn-AZ")));
+                    //Shekili saxlamaq ucun
+                    string path = Server.MapPath("~/ContentProfile/personImage/") + "/" + str + "/";
 
-                Image image;
-                using (MemoryStream ms = new MemoryStream(StringExtension.StringToByteArray(model.profilePicture)))
-                {
-                    image = Image.FromStream(ms);
-                    image.Save(path + model.FIN + ".png", ImageFormat.Jpeg);
-                }
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
 
+                    Image image;
+                    using (MemoryStream ms = new MemoryStream(StringExtension.StringToByteArray(model.profilePicture)))
+                    {
+                        image = Image.FromStream(ms);
+                        image.Save(path + model.FIN + ".png", ImageFormat.Jpeg);
+                    }
+                }
 
 
                 Guid grupId = Guid.NewGuid();
