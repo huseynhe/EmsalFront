@@ -1,6 +1,7 @@
 ﻿@model Emsal.UI.Models.SpecialSummaryViewModel
 @{
     ViewBag.Title = "Index";
+    int numb = 0;
 }
 
 <!DOCTYPE html>
@@ -110,6 +111,7 @@
 
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#admin" aria-controls="home" role="tab" data-toggle="tab"><h5 class="text-bold">Məhsullar</h5></a></li>
+                    <li role="presentation"><a href="#contracts" aria-controls="home" role="tab" data-toggle="tab"><h5 class="text-bold">Müqavilələrim</h5></a></li>
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"><h5 class="text-bold"><span class="adSoyad" id="godadd">@Model.NameSurname</span><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></h5></a></li>
 
 
@@ -511,7 +513,35 @@
 
             </div>
 
+                <div id="contracts" role="tabpanel" class="tab-pane fade">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="success">
+                                <th class="col-md-1 text-center">№</th>
+                                <th class="col-md-7 text-center">Müqavilənin adı</th>
+                                <th class="col-md-2 text-center">Müqavilənin ölçüsü</th>
+                                <th class="col-md-2 text-center">Bax</th>
+                            </tr>
+                        </thead>
+                        
+                        @foreach (var cont in Model.ContractList)
+                        {
+                            numb++;
+                            <tbody>
+                                <tr class="info text-center">
+                                    <td> @numb </td>
+                                    <td> @cont.documentRealName </td>
+                                    <td> (@Math.Round(((decimal)cont.documentSize / 1024) / 1024, 2)  mb)&nbsp;&nbsp; </td>
+                                    
+                                    <td><a target="_blank" href="/SpecialSummary/GetContractFile?fname=@cont.documentName">
+                                                <div style="cursor:pointer;" class="glyphicon glyphicon-eye-open text-primary"></div>
+                                    </a></td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
 
+                </div>
 
         </div>
     </section>
