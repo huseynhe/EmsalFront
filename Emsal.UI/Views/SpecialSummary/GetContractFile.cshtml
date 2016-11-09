@@ -1,0 +1,25 @@
+﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+<br />
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        @*<object class="img-responsive img-thumbnail" type=".pdf" data="@Model.tempFileDirectoryFV@Model.fname" style="width:100%;height:700px;">this is not working as expected</object>*@
+
+        <object data="@Model.tempFileDirectoryFV@Model.fname" type="application/pdf" style="width:100%;height:700px;">
+            @*<embed src="@Model.tempFileDirectoryFV@Model.fname">*@
+            Faylı göstərmək mümkün olmadı.
+            @*</embed>*@
+        </object>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+<br />
+<br />
+
+
