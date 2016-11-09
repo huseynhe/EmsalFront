@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using Emsal.Utility.CustomObjects;
 
 namespace Emsal.UI.Models
 {
     public class SpecialSummaryViewModel:UserRoles
     {
+        public string tempFileDirectoryFV = FileExtension.tempFileDirectoryFV;
+
         public PagedList.IPagedList<SpecialSummaryPotentialAndOffer> PagingConfirmedOffer
         {
             get;
@@ -98,6 +101,10 @@ namespace Emsal.UI.Models
         public IList<tblProductionControl> ProductionControlList { get; set; }
         public tblProductionControl[] ProductionControlArray;
 
+        public tblContract Contract;
+        public IList<tblContract> ContractList { get; set; }
+        public tblContract[] ContractArray;
+
 
         public tblEnumCategory EnumCategory;
         public IList<tblEnumCategory> EnumCategoryList { get; set; }
@@ -108,9 +115,9 @@ namespace Emsal.UI.Models
         public IList<tblEnumValue> EnumValueList { get; set; }
         public tblEnumValue[] EnumValueArray;
 
-
-
-
+        public ProductionDetail ProductionDetail;
+        public IList<ProductionDetail> ProductionDetailList { get; set; }
+        public ProductionDetail[] ProductionDetailArray;
 
         public tblComMessage ComMessage;
         public long ComMessageId { get; set; }
@@ -352,6 +359,9 @@ namespace Emsal.UI.Models
         public long countAcceptedOffers { get; set; }
         public long countOnAirOffers { get; set; }
         public long countRejectedOffers { get; set; }
+
+        public string icraci { get; set; }
+        public string fname { get; set; }
 
     }
 }
