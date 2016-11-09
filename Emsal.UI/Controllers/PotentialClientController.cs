@@ -565,9 +565,18 @@ namespace Emsal.UI.Controllers
 
                     modelPotentialProduction.Personr.Name = taxesService.Name;
                     modelPotentialProduction.Personr.Surname = taxesService.Surname;
-                    
-                    string[] arrStr = taxesService.MidleName.Split(' ').ToArray();
-                    modelPotentialProduction.Personr.FatherName = arrStr[0];
+
+                    bool hasSpace = taxesService.MidleName.Contains(" ");
+
+                    if (hasSpace == true)
+                    {
+                        string[] arrStr = taxesService.MidleName.Split(' ').ToArray();
+                        modelPotentialProduction.Personr.FatherName = arrStr[0];
+                    }
+                    else
+                    {
+                        modelPotentialProduction.Personr.FatherName = taxesService.MidleName;
+                    }
 
                     modelPotentialProduction.Personr.PinNumber = taxesService.FullName;
 

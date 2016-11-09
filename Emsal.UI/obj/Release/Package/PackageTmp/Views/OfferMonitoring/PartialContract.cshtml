@@ -1,0 +1,69 @@
+﻿@model Emsal.UI.Models.OfferMonitoringViewModel
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    if (Model.isPDF == true)
+    {
+        Layout = "~/Views/Shared/_LayoutProfilePW.cshtml";
+    }
+    else
+    {
+        Layout = "";
+    }
+    decimal tquantity = 0;
+}
+
+
+
+<div class="box-body no-padding">
+    <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
+        <span class="badge " style="margin-top: -10px; float: right;background:#D43F3A;">@Model.itemCount</span>
+    </div>
+    <table class="table table-hover table-striped table-bordered">
+        @foreach (var item in Model.PagingPerson)
+        {
+            <tbody>
+                <tr>
+                    <td class="col-md-1">
+
+                        @if (item.profilePicture != null)
+                        {
+                            if (item.profilePicture != "")
+                            {
+                                <img class="img-responsive thumbnail" style="margin:0;" id="picture" src="data:image/png;base64,@Convert.ToBase64String(Emsal.Utility.CustomObjects.StringExtension.StringToByteArray(item.profilePicture))" />
+                            }
+                        }
+                    </td>
+                    <td class="col-md-6">
+                        @item.Surname @item.Name @item.FatherName
+                    </td>
+                    <td class="col-md-1">
+                        @item.gender
+                    </td>
+                    <td class="col-md-2">
+                        @item.PinNumber
+                    </td>
+                    <td onclick="location.href = '/OfferMonitoring/ContractForm?isContract=true&pId=@item.Id'" class="col-md-1 text-center" style="cursor:pointer;font-size:20px;">
+                        <span class="glyphicon glyphicon-save-file"></span>
+                    </td>
+                        <td onclick="GetAttachFileTemp(this,@item.Id)" class="col-md-1 text-center" style="cursor:pointer;font-size:20px;">
+                            <span class="glyphicon glyphicon-upload"></span>
+                        </td>
+</tr>
+                <tr>
+                    <td colspan="7" style="padding:0;">
+                        <div class="attachFileField"></div>
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>
+
+<div class="box-footer clearfix">
+    Səhifə @(Model.PagingPerson.PageCount < Model.PagingPerson.PageNumber ? 0 : Model.PagingPerson.PageNumber) (cəmi @Model.PagingPerson.PageCount)
+    @Html.PagedListPager(Model.PagingPerson, page => Url.Action("Contract", new { page, nameSurnameFathername = Model.nameSurnameFathername, pin = Model.pin}))
+</div>
+
+

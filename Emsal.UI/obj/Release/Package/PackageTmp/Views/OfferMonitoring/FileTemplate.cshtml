@@ -1,0 +1,68 @@
+﻿@model Emsal.UI.Models.OfferMonitoringViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "";
+}
+<br />
+
+@if (Model.ContractList.Count() == 0) { 
+<div class="col-md-12">
+    <div class="box box-primary">
+        <div class="col-md-10">
+            <div id="filefieldtemplate">
+                <input type="file" accept=".pdf" multiple="" name="attachfiles" onchange="chosefiles(this)" id="fup" class="attach-input false">
+
+                <span class="glyphicon glyphicon-paperclip attach-span"></span>
+                <div style="float: left; margin-top: 10px;">
+                    <div style="padding: 10px; font-size: 14px; float: left" class="sel">fayl seçilməyib</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-2">
+            <br />
+            <div id="btnUploadFile" class="btn btn-success active pull-right" onclick="sendFiles()">
+                <i class="glyphicon glyphicon-upload"></i>&nbsp;Yüklə
+            </div>
+        </div>
+    </div>
+</div>
+}
+else
+{
+    <div class="col-md-12">
+        <table class="table table-hover table-striped table-bordered" style="margin-bottom: 0;">
+            <tbody>
+                <tr>
+                    <th>Sənədin adı</th>
+                    <th>Ölçüsü</th>
+                    <th>bax</th>
+                    <th>sil</th>
+                </tr>
+                @foreach (var item in Model.ContractList)
+                {
+                    <tr>
+                        <td>
+                            @item.documentRealName
+                        </td>
+                        <td>
+                            @Math.Round(((decimal)((item.documentSize) / 1024) / 1024), 2) mb
+                        </td>
+                        <td>
+                            <a target="_blank" href="/OfferMonitoring/GetContractFile?fname=@item.documentName">
+                                <div style="cursor:pointer;" class="glyphicon glyphicon-eye-open text-primary"></div>
+                            </a>
+</td>
+                        <td>
+                            <div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="DeleteContractById(@item.Id)"></div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+<div class="clearfix"></div>
+<br />
