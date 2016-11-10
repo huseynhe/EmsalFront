@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Emsal.Utility.CustomObjects
 {
-    public static class FileExteension
+    public static class FileExtension
     {
         public static string messageSuccess = "Yadda saxlanıldı.";
         public static int fileSize = 2097152;
