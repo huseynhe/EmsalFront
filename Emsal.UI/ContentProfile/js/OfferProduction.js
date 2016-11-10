@@ -17,7 +17,7 @@ function GetProductCatalog(elem) {
             //    $('#calendarMainDiv').show();
             //    GetUnitofmeasurement(pId);
             //}
-            getChooseFileTemplate(pId);
+            getChooseFileTemplate( $('#productId').val());
             $('.select2').select2();
         },
         error: function () {
