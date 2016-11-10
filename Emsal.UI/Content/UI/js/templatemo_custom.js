@@ -6,9 +6,9 @@ jQuery(document).ready(function($){
 	$(".main_menu a, .responsive_menu a").click(function(){
 		var id =  $(this).attr('class');
 		id = id.split('-');
-		//$("#menu-container .content").hide();
+		$("#menu-container .content").hide();
 		$("#menu-container #menu-"+id[1]).addClass("animated fadeInDown").show();
-		//$("#menu-container .homepage").hide();
+		$("#menu-container .homepage").hide();
 		$(".support").hide();
 		$(".testimonials").hide();
 		return false;
@@ -116,7 +116,27 @@ jQuery(document).ready(function($){
 		}
 		
 	});
-	
+
+
+	if (window.innerWidth < 991) {
+
+			$('.none-block').css("display", "none");
+		
+		} else {
+			
+			$('.none-block').css("display", "block");
+		}
+		
+		
+		if (window.innerWidth < 767) {
+
+			$('.none-block1').css("display", "none");
+		
+		} else {
+			
+			$('.none-block1').css("display", "block");
+		}
+		
 	
 
 });
