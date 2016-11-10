@@ -1,5 +1,6 @@
 ﻿@model Emsal.AdminUI.Models.AnnouncementViewModel
 @using PagedList.Mvc;
+@using Emsal.Utility.CustomObjects;
 
 @{
     ViewBag.Title = "Index";
@@ -15,7 +16,7 @@
                                 @*<td>
                                         <input onchange="getCheckedList()" name="ids" value="@item.productionID" class="ch" type="checkbox">
                                     </td>*@
-                                <td class="col-md-8">
+                                <td class="col-md-6">
                                     @item.announcement.product_name (@item.parentName)
                                 </td>
                                 <td class="col-md-1">
@@ -23,6 +24,20 @@
                                 </td>
                                 <td class="col-md-1">
                                     @item.announcement.unit_price AZN
+                                </td>
+                                <td class="col-md-1">
+                                    @item.announcement.description
+                                    @if (DatetimeExtension.toShortDate(item.announcement.startDate).ToShortDateString() != "01.01.0001")
+                                    {
+                                        <span>@DatetimeExtension.toShortDate(item.announcement.startDate).ToShortDateString()</span>
+                                    }
+                                </td>
+                                <td class="col-md-1">
+                                    @item.announcement.description
+                                    @if (DatetimeExtension.toShortDate(item.announcement.endDate).ToShortDateString() != "01.01.0001")
+                                    {
+                                        <span>@DatetimeExtension.toShortDate(item.announcement.endDate).ToShortDateString()</span>
+                                    }
                                 </td>
                                 <td class="col-md-1">
                                     @item.announcement.description
