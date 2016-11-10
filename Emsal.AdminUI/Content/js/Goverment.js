@@ -7,6 +7,11 @@ function enableDisable(state) {
 }
 
 function firstRun(state) {
+    $("#UserName").attr('readonly', state);
+    $("#Name").attr('readonly', state);
+    $("#Email").attr('readonly', state);
+    $("#Password").attr('readonly', state);
+
     $("#name").attr('readonly', state);
     $("#surname").attr('readonly', state);
     $("#fatherName").attr('readonly', state);
@@ -20,9 +25,50 @@ function firstRun(state) {
     $("#education").attr('disabled', state);
     $("#Job").attr('disabled', state);
 
+
+
 }
 
 
+function check4voen() {
+    var voen = $("#Voen").val();
+
+    if (voen.length > 0) {
+        $.ajax({
+            url: '/GovernmentOrganisation/CheckForVoen?voen=' + voen,
+            type: 'POST',
+            datatype: 'json',
+            data: 'data',
+            success: function (result) {
+                if (result.data == null) {
+                    alert('VÖEN doğru deyil');
+                } else {
+                    //if (result.data.length > 0) {
+                    if (result.data.Name != null) {
+                        $("#Name").val(result.data.Name);
+
+                        enableDisable(true);
+
+                        //$('#gender').attr('disabled', true);
+                        //$("#birtday").attr('disabled', true);
+                    }
+                    else {
+
+                        enableDisable(false);
+                        //$('#gender').attr('disabled', false);
+                        //$("#birtday").attr('disabled', false);
+                    }
+                }
+            },
+            error: function () {
+
+            }
+        });
+
+        firstRun(false);
+    }
+    else { firstRun(true) }
+}
 
 
 function check() {
@@ -36,7 +82,7 @@ function check() {
             data: 'data',
             success: function (result) {
                 if (result.data == null) {
-                    alert('FİN və ya VÖEN doğru deyil');
+                    alert('FİN doğru deyil');
                 } else {
                     //if (result.data.length > 0) {
                     if (result.data.ManagerName != null) {
