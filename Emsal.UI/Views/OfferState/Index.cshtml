@@ -29,7 +29,7 @@
                         <tr>
                             @if (Model.isMain == 0)
             {
-                                <th class="col-md-1">#</th>
+                                <th class="col-md-1" style="width:30px;float:left;border:none;">#</th>
                             }
                             <th class="col-md-2">
                                 Məhsulun adı<br />
@@ -42,14 +42,23 @@
                                 Potensial miqdarı (vahidi)
                             </th>
                             <th class="col-md-1">
-                                @Html.DisplayNameFor(model => model.price)
+                                Qiyməti (AZN-lə) 
+                                @*@Html.DisplayNameFor(model => model.price)*@
                             </th>
-                            <th class="col-md-2">
+                            <th class="col-md-1">
                                 Qeyd
                             </th>
                             <th class="col-md-2">
                                 İnfo<br />
                                 <input onkeyup="OfferStateSearch(this, 'userInfo')" class="form-control" placeholder="axtar" />
+                            </th>
+                            <th class="col-md-1">
+                                İstehsalçı növü<br />
+                                <select class="form-control" onchange="OfferStateSearch(this, 'rId')">
+                                    <option value="">Seçim edin</option>
+                                    <option value="15">Potensial istehsalçı</option>
+                                    <option value="11">Satıcı</option>
+                                </select>
                             </th>
                             <th class="col-md-2">
                                 Sənədlər
