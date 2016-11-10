@@ -24,6 +24,8 @@ namespace Emsal.AdminUI.Controllers
         //
         // GET: /AddGovernmentOrganisation/
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
+        Emsal.WebInt.TaxesSRV.BasicHttpBinding_ITaxesIntegrationService taxessrv = Emsal.WebInt.EmsalService.taxesService;
+        Emsal.WebInt.TaxesSRV.VOENDATA taxesService = null;
         private BaseInput binput;
         Organisation modelUser;
         public ActionResult Index(int? page, long? UserId)
@@ -2045,7 +2047,7 @@ namespace Emsal.AdminUI.Controllers
                 binput = new BaseInput();
                 modelUser = new Organisation();
 
-                modelUser = GetPhysicalPerson(pId);
+                modelUser = GetPhysicalPerson(pId, "fin");
                 string date = "";
                 if (modelUser.Birthday != null)
                 {
@@ -2062,10 +2064,26 @@ namespace Emsal.AdminUI.Controllers
             catch (Exception ex) { return null; }
         }
 
-        public Organisation GetPhysicalPerson(string fin)
+        public JsonResult CheckForVoen(string voen)
+        {
+            try
+            {
+                binput = new BaseInput();
+                modelUser = new Organisation();
+
+                modelUser = GetPhysicalPerson(voen, "voen");
+
+                return Json(new { data = modelUser});
+
+            }
+            catch (Exception ex) { return null; }
+        }
+
+        public Organisation GetPhysicalPerson(string value, string type)
         {
             modelUser = new Organisation();
             binput = new BaseInput();
+            tblForeign_Organization foreignOrg = new tblForeign_Organization();
             try
             {
 
@@ -2074,38 +2092,60 @@ namespace Emsal.AdminUI.Controllers
                 tblPerson person = null;
 
                 int control = 0;
-
-                control = srvcontrol.getPersonInfoByPin(fin, out person, out iamasPerson);
-
-
-                //modelSpecial = new tblPerson();
-                if (person != null)
+                if (type == "fin")
                 {
-                    modelUser.ManagerName = person.Name;
-                    modelUser.Surname = person.Surname;
-                    modelUser.FatherName = person.FatherName;
-                    //modelSpecial.createdUser = person.profilePicture;
-                    modelUser.Gender = person.gender;
-                    modelUser.Birthday = String.Format("{0:d.M.yyyy}", ((FromSecondToDate((long)person.birtday).ToString())));
-                    //modelSpecial.Person.UserId = person.UserId;
+                    control = srvcontrol.getPersonInfoByPin(value, out person, out iamasPerson);
 
-                    //orgRoles = "producerPerson";
+
+                    //modelSpecial = new tblPerson();
+                    if (person != null)
+                    {
+                        modelUser.ManagerName = person.Name;
+                        modelUser.Surname = person.Surname;
+                        modelUser.FatherName = person.FatherName;
+                        //modelSpecial.createdUser = person.profilePicture;
+                        modelUser.Gender = person.gender;
+                        modelUser.Birthday = String.Format("{0:d.M.yyyy}", ((FromSecondToDate((long)person.birtday).ToString())));
+                        //modelSpecial.Person.UserId = person.UserId;
+
+                        //orgRoles = "producerPerson";
+                    }
+                    else if (iamasPerson != null)
+                    {
+
+                        //addressDesc = iamasPerson.Adress.place + ", " + iamasPerson.Adress.street + ", " + iamasPerson.Adress.apartment + ", " + iamasPerson.Adress.block + ", " + iamasPerson.Adress.building;
+
+                        modelUser.ManagerName = iamasPerson.Name;
+                        modelUser.Surname = iamasPerson.Surname;
+                        string[] pa = iamasPerson.Patronymic.Split(' ').ToArray();
+                        modelUser.FatherName = pa[0];
+                        modelUser.Gender = iamasPerson.gender;
+                        modelUser.Birthday = ((iamasPerson.birthDate));
+
+
+                        //orgRoles = "sellerPerson";
+                    }
                 }
-                else if (iamasPerson != null)
+                else 
+                if (type == "voen")
                 {
+                    BaseOutput foreign = srv.WS_GetForeign_OrganizationByVoen(binput, value, out foreignOrg);
+                    if (foreignOrg != null)
+                    {
+                        BaseOutput personOut = srv.WS_GetPersonByUserId(binput, Int64.Parse(foreignOrg.userId.ToString()), true, out person);
+                        modelUser.Name = foreignOrg.name;
+                    }
+                    else
+                    {
+                        taxesService = taxessrv.getOrganisationInfobyVoen(value);
+                        modelUser.Name = taxesService.FullName;
+                    }
 
-                    //addressDesc = iamasPerson.Adress.place + ", " + iamasPerson.Adress.street + ", " + iamasPerson.Adress.apartment + ", " + iamasPerson.Adress.block + ", " + iamasPerson.Adress.building;
 
-                    modelUser.ManagerName = iamasPerson.Name;
-                    modelUser.Surname = iamasPerson.Surname;
-                    string[] pa = iamasPerson.Patronymic.Split(' ').ToArray();
-                    modelUser.FatherName = pa[0];
-                    modelUser.Gender = iamasPerson.gender;
-                    modelUser.Birthday = ((iamasPerson.birthDate));
-
-
-                    //orgRoles = "sellerPerson";
                 }
+
+
+
                 return modelUser;
             }
             catch (Exception ex)
