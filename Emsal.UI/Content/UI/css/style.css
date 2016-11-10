@@ -1199,10 +1199,20 @@ header {
 
 @media screen and (max-width: 991px) {
 
-.search_btn img {
+/*.search_btn img {
 	margin-top:30px;
 	float:none;
-}
+}*/
+
+site-header
+{ position: static; }
+
+.homepage
+{ margin-top:-280px; }
+
+.search_btn img
+{ margin-top:30px; float:none; }
+
 }
 
 @media screen and (max-width: 768px) {
