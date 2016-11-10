@@ -22,7 +22,9 @@ namespace Emsal.UI.Controllers
         //
         // GET: /GovernmentOrganisation/
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
-       // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
+        Emsal.WebInt.TaxesSRV.BasicHttpBinding_ITaxesIntegrationService taxessrv = Emsal.WebInt.EmsalService.taxesService;
+        Emsal.WebInt.TaxesSRV.VOENDATA taxesService = null;
+        // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
         private BaseInput binput;
         UserViewModel modelUser;
         SpecialSummaryViewModel modelSpecial;
@@ -1491,6 +1493,7 @@ namespace Emsal.UI.Controllers
 
         public ActionResult EditChildOrganisation(long? UserId, long? Id)
         {
+
             binput = new BaseInput();
 
             Session["arrONum"] = null;
@@ -1557,12 +1560,16 @@ namespace Emsal.UI.Controllers
             BaseOutput emailEnumOut = srv.WS_GetEnumValueByName(binput, "email", out modelSpecial.EnumValue);
             modelSpecial.ManagerEmail = modelSpecial.CommunicationInformationsList.Where(x => x.comType == modelSpecial.EnumValue.Id).ToList().Count == 0 ? null : modelSpecial.CommunicationInformationsList.Where(x => x.comType == modelSpecial.EnumValue.Id).FirstOrDefault().communication;
 
-
+            string a = "";
             //get MobilePhone type enum value
             BaseOutput mobilePhoneOut = srv.WS_GetEnumValueByName(binput, "mobilePhone", out modelSpecial.EnumValue);
-            string a = modelSpecial.CommunicationInformationsList.Where(x => x.comType == modelSpecial.EnumValue.Id).FirstOrDefault().communication;
-            modelSpecial.mobilePhonePrefix = a.Remove(a.Length - 7);
-            modelSpecial.ManagerMobilePhone = a.Substring(modelSpecial.mobilePhonePrefix.Length, 7);
+            List<tblCommunication> l = modelSpecial.CommunicationInformationsList.Where(x => x.comType == modelSpecial.EnumValue.Id).ToList();
+            if (l.Count() > 0)
+            {
+                a = modelSpecial.CommunicationInformationsList.Where(x => x.comType == modelSpecial.EnumValue.Id).FirstOrDefault().communication;
+                modelSpecial.mobilePhonePrefix = a.Remove(a.Length - 7);
+                modelSpecial.ManagerMobilePhone = a.Substring(modelSpecial.mobilePhonePrefix.Length, 7);
+            }
 
             //get WorkPhone type enum value
             BaseOutput workPhoneOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelSpecial.EnumValue);
@@ -2006,7 +2013,7 @@ namespace Emsal.UI.Controllers
                 binput = new BaseInput();
                 modelSpecial = new SpecialSummaryViewModel();
 
-                modelSpecial = GetPhysicalPerson(pId);
+                modelSpecial = GetPhysicalPerson(pId, "fin");
                 string date = "";
                 if (modelSpecial.Birthday != null)
                 {
@@ -2023,7 +2030,22 @@ namespace Emsal.UI.Controllers
             catch (Exception ex) { return null; }
         }
 
-        public SpecialSummaryViewModel GetPhysicalPerson(string fin)
+        public JsonResult CheckForVoen(string voen)
+        {
+            try
+            {
+                binput = new BaseInput();
+                modelSpecial = new SpecialSummaryViewModel();
+
+                modelSpecial = GetPhysicalPerson(voen, "voen");
+
+                return Json(new { data = modelSpecial });
+
+            }
+            catch (Exception ex) { return null; }
+        }
+
+        public SpecialSummaryViewModel GetPhysicalPerson(string value, string type)
         {
             modelSpecial = new SpecialSummaryViewModel();
             binput = new BaseInput();
@@ -2036,36 +2058,57 @@ namespace Emsal.UI.Controllers
 
                 int control = 0;
 
-                control = srvcontrol.getPersonInfoByPin(fin, out person, out iamasPerson);
-
-
-                //modelSpecial = new tblPerson();
-                if (person != null)
+                if (type == "fin")
                 {
-                    modelSpecial.ManagerName = person.Name;
-                    modelSpecial.Surname = person.Surname;
-                    modelSpecial.FatherName = person.FatherName;
-                    //modelSpecial.createdUser = person.profilePicture;
-                    modelSpecial.Gender = person.gender;
-                    modelSpecial.Birthday = String.Format("{0:d.M.yyyy}", ((FromSecondToDate((long)person.birtday).ToString())));
-                    //modelSpecial.Person.UserId = person.UserId;
+                    control = srvcontrol.getPersonInfoByPin(value, out person, out iamasPerson);
 
-                    //orgRoles = "producerPerson";
+
+                    //modelSpecial = new tblPerson();
+                    if (person != null)
+                    {
+                        modelSpecial.ManagerName = person.Name;
+                        modelSpecial.Surname = person.Surname;
+                        modelSpecial.FatherName = person.FatherName;
+                        //modelSpecial.createdUser = person.profilePicture;
+                        modelSpecial.Gender = person.gender;
+                        modelSpecial.Birthday = String.Format("{0:d.M.yyyy}", ((FromSecondToDate((long)person.birtday).ToString())));
+                        //modelSpecial.Person.UserId = person.UserId;
+
+                        //orgRoles = "producerPerson";
+                    }
+                    else if (iamasPerson != null)
+                    {
+
+                        //addressDesc = iamasPerson.Adress.place + ", " + iamasPerson.Adress.street + ", " + iamasPerson.Adress.apartment + ", " + iamasPerson.Adress.block + ", " + iamasPerson.Adress.building;
+
+                        modelSpecial.ManagerName = iamasPerson.Name;
+                        modelSpecial.Surname = iamasPerson.Surname;
+                        string[] pa = iamasPerson.Patronymic.Split(' ').ToArray();
+                        modelSpecial.FatherName = pa[0];
+                        modelSpecial.Gender = iamasPerson.gender;
+                        modelSpecial.Birthday = ((iamasPerson.birthDate));
+
+
+                        //orgRoles = "sellerPerson";
+                    }
                 }
-                else if (iamasPerson != null)
+                else
+                    if (type == "voen")
                 {
+                    tblForeign_Organization foreignOrg = new tblForeign_Organization();
+                    BaseOutput foreign = srv.WS_GetForeign_OrganizationByVoen(binput, value, out foreignOrg);
+                    if (foreignOrg != null)
+                    {
+                        BaseOutput personOut = srv.WS_GetPersonByUserId(binput, Int64.Parse(foreignOrg.userId.ToString()), true, out person);
+                        modelSpecial.Name = foreignOrg.name;
+                    }
+                    else
+                    {
+                        taxesService = taxessrv.getOrganisationInfobyVoen(value);
+                        modelSpecial.Name = taxesService.FullName;
+                    }
 
-                    //addressDesc = iamasPerson.Adress.place + ", " + iamasPerson.Adress.street + ", " + iamasPerson.Adress.apartment + ", " + iamasPerson.Adress.block + ", " + iamasPerson.Adress.building;
 
-                    modelSpecial.ManagerName = iamasPerson.Name;
-                    modelSpecial.Surname = iamasPerson.Surname;
-                    string[] pa = iamasPerson.Patronymic.Split(' ').ToArray();
-                    modelSpecial.FatherName = pa[0];
-                    modelSpecial.Gender = iamasPerson.gender;
-                    modelSpecial.Birthday = ((iamasPerson.birthDate));
-
-
-                    //orgRoles = "sellerPerson";
                 }
                 return modelSpecial;
             }
