@@ -22,6 +22,7 @@ namespace Emsal.UI.Controllers
         private static string sproductName;
         private static string suserInfo;
         private static string sstateStatusEV;
+        private static long srId;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
         // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
@@ -29,11 +30,10 @@ namespace Emsal.UI.Controllers
         private OfferStateViewModel modelOfferState;
 
 
-        public ActionResult Index(int? page, string stateStatusEV = null, string productName = null, string userInfo = null)
+        public ActionResult Index(int? page, string stateStatusEV = null, long rId = 0, string productName = null, string userInfo = null)
         {
             try
             {
-
                 if (stateStatusEV != null)
                     stateStatusEV = StripTag.strSqlBlocker(stateStatusEV.ToLower());
                 if (productName != null)
@@ -45,10 +45,11 @@ namespace Emsal.UI.Controllers
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (productName == null && userInfo == null)
+                if (productName == null && userInfo == null && rId==0)
                 {
                     sproductName = null;
                     suserInfo = null;
+                    srId = 0;
                 }
 
                 if (productName != null)
@@ -57,6 +58,8 @@ namespace Emsal.UI.Controllers
                     suserInfo = userInfo;
                 if (stateStatusEV != null)
                     sstateStatusEV = stateStatusEV;
+                if (rId >0)
+                    srId = rId;
 
                 baseInput = new BaseInput();
                 modelOfferState = new OfferStateViewModel();
