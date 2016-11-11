@@ -1453,7 +1453,7 @@ namespace Emsal.AdminUI.Controllers
                 if (modelUser.ForeignOrganisation.address_Id != null)
                 {
                     BaseOutput addressout = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
-                    BaseOutput fulladdressListOut = srv.WS_GetAdminUnitListForID(binput, (long)modelUser.FutureAddress.adminUnit_Id, true, out modelUser.PRMAdminUnitArray);
+                    BaseOutput fulladdressListOut = srv.WS_GetAdminUnitListForID(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.PRMAdminUnitArray);
 
                     foreach (var adminunit in modelUser.PRMAdminUnitArray)
                     {
