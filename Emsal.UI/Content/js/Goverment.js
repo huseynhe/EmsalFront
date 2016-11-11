@@ -1,4 +1,7 @@
-﻿$(document).ready(function () { firstRun(true); });
+﻿$(document).ready(function () {
+
+    firstRun(true);
+});
 
 function enableDisable(state) {
     $("#name").attr('readonly', state);
