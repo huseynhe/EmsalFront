@@ -362,6 +362,7 @@ namespace Emsal.UI.Models
 
         public string icraci { get; set; }
         public string fname { get; set; }
+        public bool hideButton { get; set; }
 
     }
 }
