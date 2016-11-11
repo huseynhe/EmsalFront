@@ -170,6 +170,7 @@ namespace Emsal.UI.Controllers
                 }
                 else
                 {
+                    modelProductCatalog.PRMAdminUnitList = modelProductCatalog.PRMAdminUnitList.OrderBy(x => x.Name).ToList();
                     return View(modelProductCatalog);
                 }
             }
@@ -464,14 +465,15 @@ namespace Emsal.UI.Controllers
                 modelProductCatalog.ProductCatalogList = null;
                 modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogListPC.OrderBy(x => x.ProductName).ToList();
 
-                if (pId == 0)
-                {
-                    return View("Main", modelProductCatalog);
-                }
-                else
-                {
+                //if (pId == 0)
+                //{
+                //    return View("Main", modelProductCatalog);
+                //}
+                //else
+                //{
+                modelProductCatalog.pId = pId;
                     return View(modelProductCatalog);
-                }
+                //}
 
             }
             catch (Exception ex)
@@ -479,6 +481,7 @@ namespace Emsal.UI.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
+
         public ActionResult Contact()
         {
             try
