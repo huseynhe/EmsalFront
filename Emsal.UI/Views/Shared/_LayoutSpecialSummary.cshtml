@@ -106,11 +106,16 @@
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"><h5 class="text-bold"><span class="adSoyad">@Model.NameSurname</span><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></h5></a></li>
                     <li role="presentation"><a href="/GovernmentOrganisationSpecialSummary/Organisations"><h5 class="text-bold"><span>Təşkilatlarım</span></h5></a></li>
 
+                    
                     <li>
-                        <a href="/DemandProduction" class="btn btn-info active pull-right">
-                            <i class="glyphicon glyphicon-link"></i>&nbsp;Tələbat yerləşdir
-                        </a>
+                        @if (Model.hideButton != true)
+                        {
+                            <a href="/DemandProduction" class="btn btn-info active pull-right">
+                                <i class="glyphicon glyphicon-link"></i>&nbsp;Tələbat yerləşdir
+                            </a>
+                        }
                     </li>
+                    
                 </ul>
             </div>
 
