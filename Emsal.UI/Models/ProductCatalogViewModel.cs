@@ -148,5 +148,6 @@ namespace Emsal.UI.Models
         public string pName { get; set; }
 
         public long arrNum = 0;
+        public long pId = 0;
     }
 }
