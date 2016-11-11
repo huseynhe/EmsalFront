@@ -1,27 +1,33 @@
 ﻿@model Emsal.UI.Models.ProductCatalogViewModel
-
 @{
     Layout = "";
-}
+    int margin = 0;
 
+    if (Model.pId == 0)
+    {
+        margin = 15;
+    }
+}
 @if (Model.ProductCatalogList.Count() > 0)
 {
-        <div class="panel-collapse collapse"  style="display:table;width:100%;">
-            <ul class="list-group">
-@foreach (var item in Model.ProductCatalogList)
-{
+    <div class="panel-collapse collapse" style="display:table;width:100%;padding-top:@margin;padding-bottom:@margin;background:#eee;border-radius: 4px;">
+        <ul class="list-group">
+            @foreach (var item in Model.ProductCatalogList)
+            {
                 <li class="list-group-item">
                     <span>
-                        <a style="cursor:pointer;" onclick="GetProductCatalog(this, @item.Id,0)">@item.ProductName 
-                        @if (Convert.ToInt64(item.ProductDescription) > 0 || item.canBeOrder==1)
+                        <a style="cursor:pointer;" onclick="GetProductCatalog(this, @item.Id)">
+                            @item.ProductName
+                        @if (Convert.ToInt64(item.ProductDescription) > 0 || item.canBeOrder == 1)
                         {
-                        <span class="badge" style="background:#28a4c9;">@item.ProductDescription</span>
+                            <span class="badge" style="background:#28a4c9;">@item.ProductDescription</span>
                         }
-                        </a>
-                        <span style="margin-left:10px;" class="resp"></span>
-                    </span>
-                </li>
-}
-            </ul>
-        </div>
+                    </a>
+                        <input hidden value="0" class="lstatus" />
+                    <span style="margin-left:0px;" class="resp"></span>
+                </span>
+            </li>
+            }
+        </ul>
+    </div>
 }

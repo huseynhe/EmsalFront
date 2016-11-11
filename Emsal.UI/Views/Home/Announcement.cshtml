@@ -1,36 +1,43 @@
 ﻿@model Emsal.UI.Models.ProductCatalogViewModel
-    
+
 @{
     ViewBag.Title = "Announcement";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-@*<div class="col-md-3">
-    @if (Model.AnnouncementDetailList.Count() > 0)
-    {
-        <div class="panel-collapse collapse" style="display:table;width:100%;">
-            <ul class="list-group">
-                @foreach (var item in Model.AnnouncementDetailList)
-                {
-                    <li class="list-group-item">
-                        <span>
-                            <a style="cursor:pointer;" onclick="GetProductCatalog(this, @item.announcementDetail.announcement.Id)">@item.announcementDetail.announcement.ProductName</a>
-                            <span style="margin-left:10px;" class="resp"></span>
-                        </span>
-                    </li>
-                }
-            </ul>
-        </div>
+<style>
+    .list-group {
+        margin-bottom: 0;
     }
-</div>*@
+    #center .list-group-item{
+        padding: 5px 2px 5px 15px;
+    }
+    #center .list-group li::before{
+        margin:0;
+        padding:0;
+    }
+</style>
 
-
-@*<div class="col-md-9">*@
-    <div id="AjaxPaginationList">
-    @Html.Partial("PartialAnnouncement")
+<div id="menu-container">
+    <!-- gallery start -->
+    <div class="content homepage" id="menu-1">
+        <div class="container">
+            <div class="right_below" id="center" style="padding-top:0px;">
+                <div class="elanlar">
+                    <div class="col-md-3">
+                        @Html.Action("ProductCatalog", "Home", new { pId = 0 })
+                    </div>
+                    <div class="col-md-9">
+                        <div id="AjaxPaginationList">
+                            @Html.Partial("PartialAnnouncement")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-@*</div>*@
+
 
 
 <script src="~/Content/UI/js/pagedList.js"></script>
