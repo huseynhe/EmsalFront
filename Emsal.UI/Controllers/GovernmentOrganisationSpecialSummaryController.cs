@@ -149,6 +149,8 @@ namespace Emsal.UI.Controllers
             }
             modelSpecial.PagingConfirmedDemand = modelSpecial.OrgDemandList.ToPagedList(pageNumber, pageSize);
 
+            chekForDemandButton((long)UserId);
+
             //get the inbox messages
             BaseOutput mesOut = srv.WS_GetNotReadComMessagesByToUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.NotReadComMessageArray);
             modelSpecial.ComMessageList = modelSpecial.NotReadComMessageArray == null ? null : modelSpecial.NotReadComMessageArray.ToList();
@@ -310,6 +312,8 @@ namespace Emsal.UI.Controllers
             modelSpecial.ComMessageList = modelSpecial.NotReadComMessageArray == null ? null : modelSpecial.NotReadComMessageArray.ToList();
             modelSpecial.MessageCount = modelSpecial.ComMessageList == null ? 0 : modelSpecial.ComMessageList.Count();
 
+            chekForDemandButton((long)UserID);
+
             return View(modelSpecial);
         }
 
@@ -433,6 +437,7 @@ namespace Emsal.UI.Controllers
 
             modelSpecial.PagingOffAirDemand = modelSpecial.OrgDemandList.ToPagedList(pageNumber, pageSize);
 
+            chekForDemandButton((long)UserID);
 
             //get the inbox messages
             BaseOutput mesOut = srv.WS_GetNotReadComMessagesByToUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.NotReadComMessageArray);
@@ -564,6 +569,8 @@ namespace Emsal.UI.Controllers
             }
 
             modelSpecial.PagingRejectedDemand = modelSpecial.OrgDemandList.ToPagedList(pageNumber, pageSize);
+
+            chekForDemandButton((long)UserID);
 
             //get the inbox messages
             BaseOutput mesOut = srv.WS_GetNotReadComMessagesByToUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.NotReadComMessageArray);
@@ -1130,6 +1137,9 @@ namespace Emsal.UI.Controllers
             modelSpecial.ForeignOrganisation = new tblForeign_Organization();
             BaseOutput nameOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
             modelSpecial.NameSurname = modelSpecial.ForeignOrganisation.name;
+
+            chekForDemandButton((long)UserID);
+
             return View(modelSpecial);
         }
 
@@ -2136,6 +2146,27 @@ namespace Emsal.UI.Controllers
             string birthday = ((long)(dTime - sTime).TotalSeconds).ToString();
 
             return birthday;
+        }
+
+        public void chekForDemandButton(long UserId)
+        {
+            try {
+                modelSpecial.DemandProduction = new tblDemand_Production();
+                BaseOutput demandOut = srv.WS_GetDemandProductionForUserId(binput, (long)UserId, true, out modelSpecial.DemandProductionArray);
+
+                if (modelSpecial.DemandProductionArray.Count() > 0)
+                {
+                    modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.Where(x => x.grup_Id != null).ToList();
+
+                    if (modelSpecial.DemandProductionList.Count() > 0)
+                    {
+                        modelSpecial.hideButton = true;
+                    }
+                }
+            }
+            catch
+            {
+            }
         }
 
     }
