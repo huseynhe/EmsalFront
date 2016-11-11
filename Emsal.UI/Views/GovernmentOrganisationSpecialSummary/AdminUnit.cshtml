@@ -44,33 +44,54 @@
             <input type="text" name="descAddress" id="descAddress" placeholder="məs: Azadlıq prospekti 22, mənzil 33" class="form-control">
         </div>
     </div>*@
-    }
+     }
 
 
-    else {
+      else
+      {
         if (Model.PRMAdminUnitList.Count > 0)
-        {
-            <div class="form-group col-md-6">
-
-                <select required name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
-
-                        <option value="" selected> Seçim edin</option>
-
-                    @foreach (var item in Model.PRMAdminUnitList)
+            {
+                    if (Model.arrNum < 2)
                     {
-                        if (item.Name == "Azərbaycan Respublikası")
-                        {
-                            <option  value="@item.Id"> @item.Name </option>
-                        }
-                        else
-                        {
-                            <option value="@item.Id"> @item.Name </option>
-                        }
+                        <div class="form-group col-md-6">
+                                <select required name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+                                    <option value="" selected> Seçim edin</option>
+                                    @foreach (var item in Model.PRMAdminUnitList)
+                                    {
+                                        if (item.Name == "Azərbaycan Respublikası")
+                                            {
+                                                <option value="@item.Id"> @item.Name </option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Id"> @item.Name </option>
+                                            }
+                                    }
+                                </select>
+                                    <span data-valmsg-replace="true" data-valmsg-for="adId[@{ @Model.arrNum }]" class="field-validation-valid text-danger"></span>
+                       </div>
                     }
-                </select>
+                    else
+                    {
+                        <div class="form-group col-md-6">
+                                <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+                                    <option value="" selected> Seçim edin</option>
+                                    @foreach (var item in Model.PRMAdminUnitList)
+                                    {
+                                        if (item.Name == "Azərbaycan Respublikası")
+                                            {
+                                                <option value="@item.Id"> @item.Name </option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Id"> @item.Name </option>
+                                            }
+                                    }
+                                </select>
+                                    @*<span data-valmsg-replace="true" data-valmsg-for="adId[@{ @Model.arrNum }]" class="field-validation-valid text-danger"></span>*@
+                       </div>
+                    }
 
-                <span data-valmsg-replace="true" data-valmsg-for="adId[@{ @Model.arrNum }]" class="field-validation-valid text-danger"></span>
-            </div>
     }
     else
     {
