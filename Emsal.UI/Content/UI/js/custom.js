@@ -293,16 +293,15 @@ function UserInfoSearch(elem, value)
 }
 
 var oldpId = 0;
-function GetProductCatalog(elem, pId, isMain) {
+function GetProductCatalog(elem, pId) {
+    var lStatus = $(elem).parent().find('.lstatus');
 
-    if (isMain == 1 && oldpId == pId) {
-        $('.resp').html('');
-        pId = 0;
+    if (lStatus.val() == pId)
+    {
+        lStatus.val(1);
+        $(elem).parent().find('.resp').html('');
     }
     else {
-        if (isMain == 1) {
-            $('.resp').html('');
-        }
         $.ajax({
             url: '/Home/ProductCatalog?pId=' + pId,
             type: 'GET',
@@ -320,6 +319,12 @@ function GetProductCatalog(elem, pId, isMain) {
         });
     }
 
+    if (lStatus.val()<1)
+        lStatus.val(pId);
+
+    if (lStatus.val() == 1)
+        lStatus.val(0);
+
     oldpId = pId;
 };
 
@@ -330,7 +335,7 @@ function GetAnnouncement(productId) {
         url: '/Home/Announcement?productId=' + productId,
         type: 'GET',
         success: function (result) {
-            $('#responceAnnouncement').html(result);
+            $('#AjaxPaginationList').html(result);
         },
         error: function () {
 
