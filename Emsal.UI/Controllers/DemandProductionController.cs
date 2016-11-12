@@ -27,7 +27,6 @@ namespace Emsal.UI.Controllers
         {
             try
             {
-
                 Session["arrDNum"] = null;
                 string userIpAddress = this.Request.ServerVariables["REMOTE_ADDR"];
 
@@ -46,6 +45,18 @@ namespace Emsal.UI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelDemandProduction.User);
                 baseInput.userName = modelDemandProduction.User.Username;
 
+
+                BaseOutput gdpbui = srv.WS_GetDemandProductionForUserId(baseInput, (long)modelDemandProduction.User.Id, true, out modelDemandProduction.DemandProductionArrayM);
+
+                if (modelDemandProduction.DemandProductionArrayM != null)
+                {
+                    modelDemandProduction.DemandProductionListM = modelDemandProduction.DemandProductionArrayM.Where(x => x.grup_Id != "").ToList();
+                    
+                    if (modelDemandProduction.DemandProductionListM.Count() > 0)
+                    {
+                        return RedirectToAction("Redirect", "Login");
+                    }
+                }
 
                 BaseOutput enumcat = srv.WS_GetEnumCategorysByName(baseInput, "shippingSchedule", out modelDemandProduction.EnumCategory);
                 if (modelDemandProduction.EnumCategory == null)

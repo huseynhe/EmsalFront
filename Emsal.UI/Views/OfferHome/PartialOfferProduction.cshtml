@@ -1,6 +1,5 @@
 ﻿@model Emsal.UI.Models.ProductCatalogViewModel
 @using PagedList.Mvc;
-
 @{
     ViewBag.Title = "Index";
     Layout = "";
@@ -8,8 +7,6 @@
     Model.prodName = "";
     int i = 0;
 }
-
-
 
 <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
     <span class="badge " style="margin-top: -10px; float: right; margin-right: 15px;background:#D43F3A;">@Model.itemCount</span>
@@ -43,20 +40,15 @@
 {
     <h5 class="text-center">Qeyd tapılmadı</h5>
 }
-
 <div class="navig">
     <div class="clearfix"></div>
-
     @if (Model.noPaged == 0)
-                            {
-                            <div class="box-footer clearfix">
-                                Səhifə @(Model.PagingProduction.PageCount < Model.PagingProduction.PageNumber ? 0 : Model.PagingProduction.PageNumber) (cəmi @Model.PagingProduction.PageCount)
-                                @Html.PagedListPager(Model.PagingProduction, page => Url.Action("OfferProduction", new { page, productName = Model.pName }))
-                            </div>
-                            }
+    {
+        <div class="box-footer clearfix">
+            Səhifə @(Model.PagingProduction.PageCount < Model.PagingProduction.PageNumber ? 0 : Model.PagingProduction.PageNumber) (cəmi @Model.PagingProduction.PageCount)
+            @Html.PagedListPager(Model.PagingProduction, page => Url.Action("OfferProduction", new { page, productName = Model.pName, productId = Model.productId }))
+        </div>
+    }
 </div>
-
-
-
 
 

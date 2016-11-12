@@ -86,7 +86,7 @@ namespace Emsal.UI.Controllers
 
                 if (modelOfferState.ProductionDetailArray != null)
                 {
-                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailArray.Where(x => x.person != null).ToList();
+                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailArray.Where(x => x.personInformation != null).ToList();
                 }
                 else
                 {
@@ -100,7 +100,12 @@ namespace Emsal.UI.Controllers
 
                 if (suserInfo != null)
                 {
-                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
+                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.personInformation.Name.ToLower().Contains(suserInfo) || x.personInformation.Surname.ToLower().Contains(suserInfo) || x.personInformation.FatherName.ToLower().Contains(suserInfo)).ToList();
+                }
+
+                if (srId >0)
+                {
+                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.personInformation.roleId== srId).ToList();
                 }
 
                 modelOfferState.itemCount = modelOfferState.ProductionDetailList.Count();

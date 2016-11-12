@@ -4,35 +4,53 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script>
+    $(document).ready(function () {
+        $("#rId").trigger('change');
+    });    
+</script>
 
 <div id="menu-container">
     <div class="content homepage" id="menu-1">
         <div class="container">
             <div class="right_below" id="center" style="padding-top:0px;">
                 <div class="elanlar">
-                    <div class="thumbnail col-md-3" id="puserMenu">
-                        @*@Html.Action("AdminUnit", "Home", new { pId = 0 })*@
-                        <script>
-                            $(document).ready(function () {
-                                $.ajax({
-                                    url: '/Home/AdminUnit?pId=0',
-                                    type: 'GET',
-                                    success: function (result) {
-                                        $('#puserMenu').html(result);
 
-                                        $('.select2').select2();
-                                    },
-                                    error: function () {
+                    <div class="thumbnail col-md-3">
+                        <label class="control-label">İstifadəçinin növü</label><br />
+                        <select id="rId" class="form-control" onchange="UserInfoSearch(this, 'rId')">
+                            <option value="15">Potensial istehsalçı</option>
+                            <option value="11">İdxalçı</option>
+                        </select>
+                        <br />
+                        <hr />
+                        <br />
+                        <div class="clearfix"></div>
+                        <label class="control-label">Ünvanı</label><br />
+                        <div id="puserMenu">
+                            @*@Html.Action("AdminUnit", "Home", new { pId = 0 })*@
+                            <script>
+                                $(document).ready(function () {
+                                    $.ajax({
+                                        url: '/Home/AdminUnit?pId=0&rId=15',
+                                        type: 'GET',
+                                        success: function (result) {
+                                            $('#puserMenu').html(result);
 
-                                    }
+                                            $('.select2').select2();
+                                        },
+                                        error: function () {
+
+                                        }
+                                    });
                                 });
-                            });
-                        </script>
+                            </script>
+                        </div>
                     </div>
 
-                    <div class="thumbnail col-md-9">
+                    <div class="thumbnail col-md-9">                    
 
-                        <h2 style="color: #000; margin-top: 30px; text-align:center;" class="text-bold mt-50">POTENSİAL İSTEHSALÇILAR</h2>
+                        <h2 style="color: #000; margin-top: 30px; text-align:center;" id="userListHeader" class="text-bold mt-50">POTENSİAL İSTEHSALÇILAR</h2>
 
                         <div class="clearfix"></div>
                         <table class="table table-bordered" style="margin:0;">

@@ -2,22 +2,42 @@
 @model Emsal.UI.Models.ProductCatalogViewModel
 
 @{
-    Layout = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Model.ProductCatalogList.Count() > 0)
-{
-    <div class="panel-collapse collapse" style="display:table;width:100%;">
-        <ul class="list-group">
-            @foreach (var item in Model.ProductCatalogList)
-            {
-                <li class="list-group-item">
-                    <span>
-                        <a style="cursor:pointer;" onclick="GetHomeOffer(this, @item.Id)">@item.ProductName</a>
-                        <span style="margin-left:10px;" class="resp"></span>
-                    </span>
-                </li>
-            }
-        </ul>
+<style>
+    .list-group {
+        margin-bottom: 0;
+    }
+
+    #center .list-group-item {
+        padding: 5px 2px 5px 15px;
+    }
+
+    #center .list-group li::before {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<div id="menu-container">
+    <!-- gallery start -->
+    <div class="content homepage" id="menu-1">
+        <div class="container">
+            <div class="right_below" id="center" style="padding-top:0px;">
+                <div class="elanlar">
+                    <div class="col-md-3" style="padding-left:0;">
+                        <div class="categoria_left_header">
+                            <h3 class="text-bold">KATEQORİYALAR</h3>
+                        </div>
+                        @Html.Action("ProductCatalog", "OfferHome", new { pId = 0 })
+                    </div>
+                    <div class="col-md-9" style="padding:0;">
+                            @Html.Action("OfferProduction", "OfferHome")
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-}
+</div>
+

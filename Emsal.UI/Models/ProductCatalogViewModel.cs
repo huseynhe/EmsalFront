@@ -140,6 +140,8 @@ namespace Emsal.UI.Models
 
         public int itemCount { get; set; }
         public int addressId { get; set; }
+        public long rId { get; set; }
+        public long rIdau { get; set; }
         public string sort { get; set; }
         public string name { get; set; }
         public string surname { get; set; }
@@ -149,5 +151,7 @@ namespace Emsal.UI.Models
 
         public long arrNum = 0;
         public long pId = 0;
+        public long productId = 0;
+        public long pIdau = 0;
     }
 }

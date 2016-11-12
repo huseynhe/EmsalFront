@@ -5,14 +5,30 @@
     Layout = "";
 }
 
+<script>
+</script>
 @if (Model.PRMAdminUnitList.Count > 0)
 {
     <div class="form-group col-md-12" style="padding:0;">
         <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
-            <option selected value="">Seçim edin</option>
+            <option selected value="0">Seçim edin</option>
             @foreach (var item in Model.PRMAdminUnitList)
             {
-                <option value="@item.Id">@item.Name</option>
+                if (Model.rIdau == 15)
+                {
+                    if (item.Name== "Azərbaycan Respublikası" && Model.pIdau==0)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                   else if (Model.pIdau > 0)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                }
+                else
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
             }
             </select>
         </div>

@@ -32,6 +32,10 @@ namespace Emsal.UI.Models
         public IList<tblDemand_Production> SelectedDemandProductionList { get; set; }
         public tblDemand_Production[] DemandProductionArray;
 
+        public tblDemand_Production DemandProductionM;
+        public IList<tblDemand_Production> DemandProductionListM { get; set; }
+        public tblDemand_Production[] DemandProductionArrayM;
+
         public tblPotential_Production PotentialProduction;
         public IList<tblPotential_Production> PotentialProductionList { get; set; }
         public IList<tblPotential_Production> SelectedPotentialProductionList { get; set; }

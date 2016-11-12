@@ -25,6 +25,7 @@ namespace Emsal.UI.Controllers
         private static string sname;
         private static string ssurname;
         private static string sproductName;
+        private static long sproductId;
 
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
@@ -46,14 +47,7 @@ namespace Emsal.UI.Controllers
                 BaseOutput bouput = srv.WS_GetProductCatalogsByParentId(baseInput, pId, true, out modelProductCatalog.ProductCatalogArray);
                 modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogArray.ToList();
 
-                if (pId == 0)
-                {
-                    return View("PCDetail", modelProductCatalog);
-                }
-                else
-                {
                     return View(modelProductCatalog);
-                }
 
             }
             catch (Exception ex)
@@ -69,13 +63,16 @@ namespace Emsal.UI.Controllers
                 if (productName != null)
                     productName = StripTag.strSqlBlocker(productName.ToLower());
 
-                if (productName == null)
+                if (productName == null && productId==0)
                 {
                     sproductName = null;
+                    sproductId = 0;
                 }
 
                 if (productName != null)
                     sproductName = productName;
+                if (productId >0)
+                    sproductId = productId;
 
                 baseInput = new BaseInput();
 
@@ -91,11 +88,11 @@ namespace Emsal.UI.Controllers
 
                 if (modelProductCatalog.ProductionDetailArray != null)
                 {
-                    if (productId > 0)
+                    if (sproductId > 0)
                     {
                         modelProductCatalog.noPaged = 1;
 
-                        modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.Where(x => x.productId == productId).ToList();
+                        modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.Where(x => x.productId == sproductId).ToList();
                     }
                     else
                     {
@@ -117,6 +114,7 @@ namespace Emsal.UI.Controllers
                 modelProductCatalog.PagingProduction = modelProductCatalog.ProductionDetailList.ToPagedList(pageNumber, pageSize);
 
                 modelProductCatalog.pName = sproductName;
+                modelProductCatalog.productId = sproductId;
 
                 return Request.IsAjaxRequest()
                     ? (ActionResult)PartialView("PartialOfferProduction", modelProductCatalog)
@@ -174,14 +172,15 @@ namespace Emsal.UI.Controllers
             modelProductCatalog.ProductCatalogList = null;
             modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogListPC;
 
-            if (pId == 0)
-            {
-                return View("PCDetail", modelProductCatalog);
-            }
-            else
-            {
-                return View(modelProductCatalog);
-            }
+            //if (pId == 0)
+            //{
+            //    return View("PCDetail", modelProductCatalog);
+            //}
+            //else
+            //{
+            modelProductCatalog.pId = pId;
+            return View(modelProductCatalog);
+            //}
         }
 
         public ActionResult OfferProductionDetail(long id)
