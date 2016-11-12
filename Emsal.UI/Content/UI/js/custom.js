@@ -135,6 +135,17 @@ var valu;
 function GetAdminUnit(elem) {
     $(elem).parent().nextAll().remove();
     pId = $(elem).val();
+    var rId = $('#rId').val();
+
+    if(rId=='15')
+    {
+        $('#userListHeader').html('POTENSİAL İSTEHSALÇILAR');
+    }
+
+    else if (rId == '11')
+    {
+        $('#userListHeader').html('İDXALÇILAR');
+    }
 
     valu = 0;
     if (pId == '') {
@@ -157,19 +168,23 @@ function GetAdminUnit(elem) {
         GetUserInfoBy(0, elem);
     }
 
-    if (pId > 0) {
+    if (pId >= 0) {
         //$('#puserMenu').html('');
         $.ajax({
-            url: '/Home/AdminUnit?pId=' + pId,
+            url: '/Home/AdminUnit?pId=' + pId + '&rId=' + rId,
             type: 'GET',
             //data: { "pId": appId},
             success: function (result) {
                 //if (result == "")
                 //{
-                GetUserInfoBy(pId, elem);
-                //}
                
+                //}
+                if (pId == 0) {
+                    $('#puserMenu').html(result);
+                } else {
+                    GetUserInfoBy(pId, elem);
                     $(elem).parent().parent().append(result);
+                }
 
                 $('.select2').select2();
             },
@@ -263,8 +278,8 @@ function GetUserInfoBy(addressId, elem) {
             type: 'GET',
             //data: { "pId": appId},
             success: function (result) {
-                $(elem).parent().parent().parent().find('#AjaxPaginationList').html(result);
-
+                //$(elem).parent().parent().parent().find('#AjaxPaginationList').html(result);
+                $('#AjaxPaginationList').html(result);
                 if (valu > 0) {
                     $(elem).parent().remove();
                 }
@@ -279,6 +294,9 @@ function GetUserInfoBy(addressId, elem) {
 
 function UserInfoSearch(elem, value)
 {
+    var au = $('select[name="adId[0]"]');
+    GetAdminUnit(au);
+    
     $.ajax({
         url: '/Home/UserInfo?' + value + '=' + $(elem).val(),
         type: 'GET',
@@ -362,16 +380,14 @@ function searchAnnouncement(elem) {
 
 
 var oldopId = 0;
-function GetHomeOffer(elem, pId, isMain) {
+function GetHomeOffer(elem, pId) {
+    var lStatus = $(elem).parent().find('.lstatus');
 
-    if (isMain == 1 && oldopId == pId) {
-        $('.resp').html('');
-        pId = 0;
+    if (lStatus.val() == pId) {
+        lStatus.val(1);
+        $(elem).parent().find('.resp').html('');
     }
     else {
-        if (isMain == 1) {
-            $('.resp').html('');
-        }
         $.ajax({
             url: '/OfferHome/ProductCatalog?pId=' + pId,
             type: 'GET',
@@ -389,17 +405,21 @@ function GetHomeOffer(elem, pId, isMain) {
         });
     }
 
-    oldopId = pId;
+    if (lStatus.val() < 1)
+        lStatus.val(pId);
+
+    if (lStatus.val() == 1)
+        lStatus.val(0);
 };
 
 
 function GetOfferProduction(productId) {
-    $('#responceAnnouncement').html('');
+    $('#AjaxPaginationList').html('');
     $.ajax({
         url: '/OfferHome/OfferProduction?productId=' + productId,
         type: 'GET',
         success: function (result) {
-            $('#responceAnnouncement').html(result);
+            $('#AjaxPaginationList').html(result);
         },
         error: function () {
 
