@@ -534,7 +534,7 @@ namespace Emsal.UI.Controllers
             {
                 MailMessage msg = new MailMessage();
 
-                msg.To.Add("qorxmazorucov@gmail.com");
+                msg.To.Add("tedaruk@agro.gov.az");
                 msg.Subject = "Müraciət göndər";
 
                 msg.Body = "<p>Ad, soyad, ata adı: " + model.nameSurnameFathername + "</p>" +
@@ -545,13 +545,17 @@ namespace Emsal.UI.Controllers
                 msg.IsBodyHtml = true;
 
                 Mail.SendMail(msg);
+                TempData["Message"] = "Müraciətiniz göndərildi.";
 
-                return RedirectToAction("Index", "Contact");
+                return RedirectToAction("Contact", "Home");
 
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+                TempData["Message"] = "Müraciətiniz göndərilmədi. Zəhmət olmasa məlumatın düzgünlüyünü yoxlayın.";
+                return View(model);
+                //return RedirectToAction("Contact", "Home", model);
+                //return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
 

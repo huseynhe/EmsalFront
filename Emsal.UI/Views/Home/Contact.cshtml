@@ -1,10 +1,8 @@
 ﻿@model Emsal.UI.Models.ContactViewModel
-
 @{
     ViewBag.Title = "Contact";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div id="menu-container">
     <!-- gallery start -->
     <div class="content homepage" id="menu-1">
@@ -12,7 +10,6 @@
             <div class="right_below" id="center" style="padding-top:0px;">
                 <div class="elanlar">
                     <div class="thumbnail col-md-12" style="padding: 20px;">
-
                         <span style="font-size:14px">
                             “Ərzaq məhsullarının tədarükü və təchizatı” Açıq Səhmdar Cəmiyyəti Azərbaycan Respublikası Prezidentinin 11 aprel 2016-cı il tarixli Fərmanı ilə yaradılmışdır.
                         </span>
@@ -23,90 +20,88 @@
                                     <div style="width:500px;overflow:hidden;height:500px;width:100%;">
                                         <div id="embed-map-display" style="height:100%; width:100%;max-width:100%;">
                                             <iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/d/embed?mid=16cj4V8hrbLcSFPkCT0e_-AR233I&ll=40.42306123405338%2C49.7942139180866&z=11"></iframe>
-                                        </div> 
-                                </div>
-                                <div class="clearfix"></div>
-                                <br />
-                                @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
-                                {
-                                    <div class="col-md-9 contact-form">
-                                        <div class="col-md-12 contact-title">
-                                            <h2>Müraciət göndər</h2><br />
                                         </div>
-                                        <div class="col-md-4 ">
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.nameSurnameFathername, htmlAttributes: new { @class = "control-label" })
-                                                @Html.EditorFor(model => model.nameSurnameFathername, new { @class = "form-control", required = "required" })
-                                                @Html.ValidationMessageFor(model => model.nameSurnameFathername, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.mail, htmlAttributes: new { @class = "control-label" })
-                                                @Html.EditorFor(model => model.mail, new { @class = "form-control", required = "required" })
-                                                @Html.ValidationMessageFor(model => model.mail, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label" })
-                                                @Html.EditorFor(model => model.phone, new { @class = "form-control", required = "required" })
-                                                @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.appealBody, htmlAttributes: new { @class = "control-label" })
-                                                @Html.TextAreaFor(model => model.appealBody, new { @class = "form-control", required = "required" })
-                                                @Html.ValidationMessageFor(model => model.appealBody, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-
-                                        <div class="clearfix"></div>
-                                        <div class="col-md-12">
-                                            <button class="btn btn-primary btn-lg pull-right" type="submit">
-                                                <i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Təsdiqlə
-                                            </button>
-                                        </div>
-                                        <br />
-                                        <br />
-
                                     </div>
-                                    <div class="col-md-3 contact-info">
-                                        <div class="contact-title">
-                                            <h2>&nbsp;</h2><br />
-                                        </div>
-                                        <div class="clearfix address">
-                                            <span class="contact-i"><i class="fa fa-map-marker"></i></span>
-                                            <span class="contact-span">Bakı şəh., Qaradağ rayonu</span>
+                                    <div class="clearfix"></div>
+                                    <br />
+                                    @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+                                    {
+                                        <div class="col-md-9 contact-form">
+                                            <div class="col-md-12 contact-title">
+                                                <h2>Müraciət göndər</h2><br />
+                                            </div>
+                                            <div class="col-md-4 ">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.nameSurnameFathername, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.EditorFor(model => model.nameSurnameFathername, new { @class = "form-control", required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.nameSurnameFathername, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.mail, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.EditorFor(model => model.mail, new { @class = "form-control", required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.mail, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.EditorFor(model => model.phone, new { @class = "form-control", required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.appealBody, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.TextAreaFor(model => model.appealBody, new { @class = "form-control", required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.appealBody, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-12">
+                                                <button class="btn btn-primary btn-lg pull-right" type="submit">
+                                                    <i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Təsdiqlə
+                                                </button>
+                                            </div>
                                             <br />
-                                            <span class="contact-span">AZ1063, Lökbatan qəs, Xocasən yolu 57</span>
+                                            <br />
                                         </div>
-                                        <div class="clearfix phone-no">
-                                            <span class="contact-i"><i class="fa fa-mobile"></i></span>
-                                            <span class="contact-span">
-                                                (012) 012 555 04 14<br>
-                                                (050) 050 243 28 95<br/>
-                                                (050) 050 243 28 96<br />
-                                                (050) 050 243 28 97
-                                            </span>
-                                        </div>
-                                        <div class="clearfix email">
-                                            <span class="contact-i"><i class="fa fa-envelope"></i></span>
-                                            <span class="contact-span">info@tedaruk.az</span>
+                                        <div class="col-md-3 contact-info">
+                                            <div class="contact-title">
+                                                <h2>&nbsp;</h2><br />
+                                            </div>
+                                            <div class="clearfix address">
+                                                <span class="contact-i"><i class="fa fa-map-marker"></i></span>
+                                                <span class="contact-span">Bakı şəh., Qaradağ rayonu</span>
+                                                <br />
+                                                <span class="contact-span">AZ1063, Lökbatan qəs, Xocasən yolu 57</span>
+                                            </div><br />
+
+                                            <div class="clearfix phone-no">
+                                                <span class="contact-i"><i class="fa fa-mobile"></i></span>
+                                                <span class="contact-span">
+                                                    (012) 012 555 04 14<br>
+                                                    (050) 050 243 28 95<br />
+                                                    (050) 050 243 28 96<br />
+                                                    (050) 050 243 28 97
+                                                </span>
+                                            </div><br />
+
+                                            <div class="clearfix email">
+                                                <span class="contact-i"><i class="fa fa-envelope"></i></span>
+                                                <span class="contact-span">tedaruk@agro.gov.az</span>
+                                            </div>
                                         </div>
 
-                                    </div>
-
-                                }
-                            </div><!-- /.contact-page -->
-                        </div><!-- /.row -->
+                                    }
+                                </div><!-- /.contact-page -->
+                            </div><!-- /.row -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <br />
 </div>
-
-                <br />
-    </div>

@@ -252,5 +252,34 @@
     </script>
     <!--End of Tawk.to Script-->
 
+
+
+    @if (TempData["Message"] != null)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#myModal").modal('show');
+            });
+        </script>
+        <div id="myModal" class="modal fade" style="z-index:3000">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Məlumat</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4 id="successMessage">@TempData["Message"]</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        TempData["Message"] = null;
+    }
+
 </body>
 </html>
