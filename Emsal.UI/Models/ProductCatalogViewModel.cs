@@ -148,6 +148,7 @@ namespace Emsal.UI.Models
         public string address { get; set; }
         public string products { get; set; }
         public string pName { get; set; }
+        public string fv { get; set; }
 
         public long arrNum = 0;
         public long pId = 0;

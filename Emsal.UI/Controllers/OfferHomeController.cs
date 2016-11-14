@@ -12,6 +12,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using WebBarCodec.Core;
 
 namespace Emsal.UI.Controllers
 {
@@ -25,6 +26,7 @@ namespace Emsal.UI.Controllers
         private static string sname;
         private static string ssurname;
         private static string sproductName;
+        private static string sfv;
         private static long sproductId;
 
 
@@ -56,21 +58,30 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult OfferProduction(int? page, int productId = 0, string productName = null)
+
+        public ActionResult OfferProduction(int? page, int productId = 0, string productName = null, string fv = null)
         {
             try
             {
                 if (productName != null)
                     productName = StripTag.strSqlBlocker(productName.ToLower());
+                if (fv != null)
+                    fv = StripTag.strSqlBlocker(fv.ToLower());
 
-                if (productName == null && productId==0)
+                if (fv == "")
+                    fv = null;
+
+                if (productName == null && fv == null && productId==0)
                 {
                     sproductName = null;
+                    sfv = null;
                     sproductId = 0;
                 }
 
                 if (productName != null)
                     sproductName = productName;
+                if (fv != null)
+                    sfv = fv;
                 if (productId >0)
                     sproductId = productId;
 
@@ -104,6 +115,16 @@ namespace Emsal.UI.Controllers
                         modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
                     }
 
+                    if (sfv != null)
+                    {
+                        modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailList.Where(x => x.voen.ToLower() == sfv).ToList();
+
+                        if(modelProductCatalog.ProductionDetailList==null)
+                        {
+                            modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailList.Where(x => x.person.PinNumber.ToLower() == sfv).ToList();
+                        }                        
+                    }
+
                 }
                 else
                 {
@@ -114,6 +135,7 @@ namespace Emsal.UI.Controllers
                 modelProductCatalog.PagingProduction = modelProductCatalog.ProductionDetailList.ToPagedList(pageNumber, pageSize);
 
                 modelProductCatalog.pName = sproductName;
+                modelProductCatalog.fv = sfv;
                 modelProductCatalog.productId = sproductId;
 
                 return Request.IsAjaxRequest()

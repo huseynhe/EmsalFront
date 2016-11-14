@@ -41,6 +41,20 @@ function OfferHomeSearch(elem, value) {
     });
 }
 
+function OfferHomeSearchFV() {
+    var value = $('#finvoen').val();
+    $.ajax({
+        url: '/OfferHome/OfferProduction?fv=' + value,
+        type: 'GET',
+        success: function (result) {
+            $('#AjaxPaginationList').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
+
 var allowfiletype = ["image/jpeg", "application/pdf"];
 var ftypes = ".pdf, .jpeg, .jpg";
 var tfilefieldtemplate;

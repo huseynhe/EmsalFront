@@ -12,6 +12,7 @@ using Emsal.Utility.CustomObjects;
 using System.IO;
 using WordDoc.Models;
 using Microsoft.Win32;
+using WebBarCodec.Core;
 
 namespace Emsal.UI.Controllers
 {
@@ -532,8 +533,12 @@ namespace Emsal.UI.Controllers
 
                 modelOfferMonitoring.icraci = modelOfferMonitoring.Person.Surname + " " + modelOfferMonitoring.Person.Name + " " + modelOfferMonitoring.Person.FatherName;
 
-                return View(modelOfferMonitoring);
+                //Guid barcode = Guid.NewGuid();
+                //string bcode = barcode.ToString();
+                //string barCode = BarCodeToHTML.get39(bcode, 2, 20);
+                //ViewBag.htmlBarcode = barCode;
 
+                return View(modelOfferMonitoring);
             }
             catch (Exception ex)
             {

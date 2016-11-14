@@ -8,6 +8,11 @@
     int i = 0;
 }
 
+
+@Html.Raw(ViewBag.htmlBarcode)
+
+
+
 <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
     <span class="badge " style="margin-top: -10px; float: right; margin-right: 15px;background:#D43F3A;">@Model.itemCount</span>
 </div>
