@@ -50,7 +50,7 @@ namespace Emsal.UI.Controllers
 
                 if (modelDemandProduction.DemandProductionArrayM != null)
                 {
-                    modelDemandProduction.DemandProductionListM = modelDemandProduction.DemandProductionArrayM.Where(x => x.grup_Id != "").ToList();
+                    modelDemandProduction.DemandProductionListM = modelDemandProduction.DemandProductionArrayM.Where(x => x.grup_Id != null).ToList();
                     
                     if (modelDemandProduction.DemandProductionListM.Count() > 0)
                     {
@@ -516,9 +516,16 @@ namespace Emsal.UI.Controllers
                     modelDemandProduction.ForeignOrganizationArray = modelDemandProduction.ForeignOrganizationList.ToArray();
                 }
 
-                modelDemandProduction.ForeignOrganizationList = modelDemandProduction.ForeignOrganizationArray.Where(x => x.parent_Id == pId).ToList();
+                //modelDemandProduction.ForeignOrganizationList = modelDemandProduction.ForeignOrganizationArray.Where(x => x.parent_Id == pId).ToList();
 
-
+                if (pId == 0)
+                {
+                    modelDemandProduction.ForeignOrganizationList = modelDemandProduction.ForeignOrganizationArray.Where(x => x.userId == modelDemandProduction.User.Id).ToList();
+                }
+                else
+                {
+                    modelDemandProduction.ForeignOrganizationList = modelDemandProduction.ForeignOrganizationArray.ToList();
+                }
 
                 modelDemandProduction.productAddressIds = null;
                 if (productAddressId > 0)
