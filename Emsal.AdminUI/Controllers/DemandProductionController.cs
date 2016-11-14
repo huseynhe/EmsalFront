@@ -1071,7 +1071,7 @@ namespace Emsal.AdminUI.Controllers
                             }
                             
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                            sheet.Cells[rowIndex, col2++].Value = item.productName + " ("+item.productParentName+")";
+                            sheet.Cells[rowIndex, col2++].Value = item.productName;
                             sheet.Cells[rowIndex, col2++].Value = item.quantityType;
                             sheet.Cells[rowIndex, col2++].Value = item.totalDemand;
                             sheet.Cells[rowIndex, col2++].Value = item.unitPrice;
