@@ -12,7 +12,7 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tələb - Təklif</h3>
+                    <h3 class="box-title">Ərzaq məhsullarının illik tələbatı və təklifi üzrə ümumi cədvəl</h3>
                     <!-- /.box-tools -->
                 </div>
                 <table class="table table-hover table-striped table-bordered" style="margin-bottom:0;">
@@ -20,13 +20,19 @@
                         <tr>
                             <th class="col-md-3">
                                 Ərzaq məhsullarının adı və növü<br />
-                                <input onkeyup="DemandOfferProductionTotal('DemandOfferProductionTotal', this, 'productName')" class="form-control" placeholder="axtar" />
+                                <input onkeyup="DemandOfferProductionTotal('DemandOfferProductionTotaln',this, 'productName')" class="form-control" placeholder="axtar" />
                             </th>
                             <th class="col-md-1">
                                 Ölçü vahidi
                             </th>
                             <th class="col-md-1">
                                 Cəmi tələbat
+                            </th>
+                            <th class="col-md-1">
+                                Qiymet (AZN)
+                            </th>
+                            <th class="col-md-1">
+                                Cəmi qiymət (AZN)
                             </th>
                             <th class="col-md-1">
                                 Cəmi təklif
@@ -38,7 +44,7 @@
                     </tbody>
                 </table>
                 <div id="AjaxPaginationList">
-                    @Html.Partial("PartialDemandOfferProductionTotal")
+                    @Html.Partial("PartialDemandOfferProductionTotaln")
                 </div>
 
             </div>

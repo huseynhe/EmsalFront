@@ -162,9 +162,14 @@ namespace Emsal.AdminUI.Models
         public int isMain { get; set; }
         public string statusEV { get; set; }
         public string productName { get; set; }
+        public string productParentName { get; set; }
         public string fullAddress { get; set; }
         public string userInfo { get; set; }
         public string adminUnit { get; set; }
+
+        public decimal unitPrice { get; set; }
+        public decimal totalPrice { get; set; }
+
 
         public decimal currentPagePrice { get; set; }
         public decimal allPagePrice { get; set; }

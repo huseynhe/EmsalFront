@@ -506,9 +506,9 @@ function DemandProductsForAccounting(elem, value) {
     });
 }
 
-function DemandOfferProductionTotal(elem, value) {
+function DemandOfferProductionTotal(action, elem, value) {
     $.ajax({
-        url: '/DemandProduction/DemandOfferProductionTotal?' + value + '=' + $(elem).val(),
+        url: '/DemandProduction/' + action + '?' + value + '=' + $(elem).val(),
         type: 'GET',
         success: function (result) {
             $('#AjaxPaginationList').html(result);

@@ -1,0 +1,65 @@
+﻿@model Emsal.AdminUI.Models.DemandProductionViewModel
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+    decimal tquantity = 0;
+
+    string oppName = "";
+}
+
+               <h4 class="text-danger text-center"> &nbsp;
+                   <a href="/DemandProduction/DemandOfferProductionTotaln?productName=@Model.productName&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+                       <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                       Yüklə
+                   </a>
+    </h4>
+
+                    <div class="box-body no-padding">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped table-bordered">
+                                <tbody>
+                                    @foreach (var item in Model.DemandOfferPaging)
+                                    {
+                                        if (oppName != item.productParentName)
+                                        {
+                                            <tr>
+                                                <td colspan="2" class="text-center text-bold">
+                                                    @item.productParentName
+                                                </td>
+                                            </tr>
+                                        }
+                                        <tr>
+                                            <td class="col-md-3">
+                                                @item.productName
+                                            </td>
+                                            <td class="col-md-1">
+                                                @item.quantityType
+                                            </td>
+                                            <td class="col-md-1">
+                                                @item.totalDemand
+                                            </td>
+                                            <td class="col-md-1">
+                                                @item.unitPrice
+                                            </td>
+                                            <td class="col-md-1">
+                                                @item.totalPrice
+                                            </td>
+                                            <td class="col-md-1">
+                                                @item.totalOffer
+                                            </td>
+                                            <td class="col-md-1">
+                                                @(item.totalDemand - item.totalOffer)
+                                            </td>
+                                        </tr>
+                                        oppName = item.productParentName;
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="box-footer clearfix">
+                        Səhifə @(Model.DemandOfferPaging.PageCount < Model.DemandOfferPaging.PageNumber ? 0 : Model.DemandOfferPaging.PageNumber) (cəmi @Model.DemandOfferPaging.PageCount)
+                        @Html.PagedListPager(Model.DemandOfferPaging, page => Url.Action("DemandOfferProductionTotaln", new { page, productName = Model.productName }))
+                    </div>
