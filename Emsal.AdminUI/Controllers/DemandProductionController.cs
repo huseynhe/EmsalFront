@@ -1025,7 +1025,7 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Row(1).Style.Font.Size = 14;
                         sheet.Row(1).Style.Font.Bold = true;
                         sheet.Row(1).Style.WrapText = true;
-                        sheet.Cells[1, 1, 1, 8].Merge = true;
+                        sheet.Cells[1, 1, 1, 9].Merge = true;
                         sheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
@@ -1034,10 +1034,11 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Cells[2, col++].Value = "Ərzaq məhsullarının adı və növü";
                         sheet.Cells[2, col++].Value = "Ölçü vahidi";
                         sheet.Cells[2, col++].Value = "Cəmi tələbat";
-                        sheet.Cells[2, col++].Value = "Qiymet (AZN)";
+                        sheet.Cells[2, col++].Value = "Qiymət (AZN)";
                         sheet.Cells[2, col++].Value = "Cəmi qiymət (AZN)";
                         sheet.Cells[2, col++].Value = "Cəmi təklif";
                         sheet.Cells[2, col++].Value = "Tələb və təklifin fərqi";
+                        sheet.Cells[2, col++].Value = "Qeyd";
 
                         sheet.Row(2).Style.Font.Bold = true;
                         sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -1051,6 +1052,7 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Column(6).Width = 10;
                         sheet.Column(7).Width = 10;
                         sheet.Column(8).Width = 10;
+                        sheet.Column(9).Width = 20;
 
                         int rowIndex = 3;
                         var ri = 1;
@@ -1064,8 +1066,8 @@ namespace Emsal.AdminUI.Controllers
                                 sheet.Cells[rowIndex, 1, rowIndex, 2].Merge = true;
                                 sheet.Cells[rowIndex, 1].Value = item.productParentName;
 
-                                sheet.Cells[rowIndex, 1, rowIndex, 8].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                sheet.Cells[rowIndex, 1, rowIndex, 8].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+                                sheet.Cells[rowIndex, 1, rowIndex, 9].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                sheet.Cells[rowIndex, 1, rowIndex, 9].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
 
                                 rowIndex++;
                             }
@@ -1078,18 +1080,19 @@ namespace Emsal.AdminUI.Controllers
                             sheet.Cells[rowIndex, col2++].Value = item.totalPrice;
                             sheet.Cells[rowIndex, col2++].Value = item.totalOffer;
                             sheet.Cells[rowIndex, col2++].Value = (item.totalDemand - item.totalOffer).ToString();
+                            sheet.Cells[rowIndex, col2++].Value = "";
 
                             rowIndex++;
                             ri++;
                             oppName = item.productParentName;
                         }
 
-                        sheet.Cells[1, 1, rowIndex - 1, 8].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 8].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 8].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 8].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 8].Style.WrapText = true;
-                        sheet.Cells[1, 1, rowIndex - 1, 8].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.WrapText = true;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
                         string fileName = Guid.NewGuid() + ".xls";
 
@@ -1113,6 +1116,149 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
+        public ActionResult DemandProductionAmountOfEachProduct(int? page, string productName = null, bool excell = false)
+        {
+            try
+            {
+                if (productName != null)
+                    productName = StripTag.strSqlBlocker(productName.ToLower());
+
+                int pageSize = 20;
+                int pageNumber = (page ?? 1);
+
+                if (productName == null)
+                {
+                    sproductName = null;
+                }
+
+                if (productName != null)
+                    sproductName = productName;
+
+                baseInput = new BaseInput();
+                modelDemandProduction = new DemandProductionViewModel();
+
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
+                baseInput.userName = modelDemandProduction.Admin.Username;
+
+                BaseOutput gpp = srv.WS_GetDemandProductionAmountOfEachProduct(baseInput, out modelDemandProduction.DemandOfferDetailArray);
+
+                modelDemandProduction.DemandOfferDetailList = modelDemandProduction.DemandOfferDetailArray.OrderBy(x=>x.productParentName).ToList();              
+
+                if (sproductName != null)
+                {
+                    modelDemandProduction.DemandOfferDetailList = modelDemandProduction.DemandOfferDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
+                }
+
+                modelDemandProduction.DemandOfferDetailPaging = modelDemandProduction.DemandOfferDetailList.ToPagedList(pageNumber, pageSize);
+
+                modelDemandProduction.productName = sproductName;
+
+                if (excell == true)
+                {
+                    using (var excelPackage = new ExcelPackage())
+                    {
+                        excelPackage.Workbook.Properties.Author = "tedaruk";
+                        excelPackage.Workbook.Properties.Title = "tedaruk.az";
+                        var sheet = excelPackage.Workbook.Worksheets.Add("Tələb-Təklif");
+                        sheet.Name = "Tələb-Təklif";
+
+                        var col = 1;
+                        sheet.Cells[1, col++].Value = "Ərzaq məhsullarının illik tələbat və qiymətlər üzrə məlumat";
+                        sheet.Row(1).Height = 50;
+                        sheet.Row(1).Style.Font.Size = 14;
+                        sheet.Row(1).Style.Font.Bold = true;
+                        sheet.Row(1).Style.WrapText = true;
+                        sheet.Cells[1, 1, 1, 6].Merge = true;
+                        sheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        col = 1;
+                        sheet.Cells[2, col++].Value = "S/N";
+                        sheet.Cells[2, col++].Value = "Ərzaq məhsullarının adı və növü";
+                        sheet.Cells[2, col++].Value = "Ölçü vahidi";
+                        sheet.Cells[2, col++].Value = "Tələbatın həcmi (miqdar)";
+                        sheet.Cells[2, col++].Value = "Qiymət (AZN)";
+                        sheet.Cells[2, col++].Value = "Qeyd";
+
+                        sheet.Row(2).Style.Font.Bold = true;
+                        sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                        sheet.Column(1).Width = 6;
+                        sheet.Column(2).Width = 30;
+                        sheet.Column(3).Width = 10;
+                        sheet.Column(4).Width = 10;
+                        sheet.Column(5).Width = 10;
+                        sheet.Column(6).Width = 20;
+
+                        int rowIndex = 3;
+                        var ri = 1;
+                        string oppName = "";
+
+                        foreach (var item in modelDemandProduction.DemandOfferDetailList)
+                        {
+                            var col2 = 1;
+                            if(oppName!=item.productParentName)
+                            {
+                                sheet.Cells[rowIndex, 1, rowIndex, 2].Merge = true;
+                                sheet.Cells[rowIndex, 1].Value = item.productParentName;
+
+                                sheet.Cells[rowIndex, 1, rowIndex, 6].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                sheet.Cells[rowIndex, 1, rowIndex, 6].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
+                                rowIndex++;
+                            }
+                            
+                            sheet.Cells[rowIndex, col2++].Value = ri.ToString();
+                            sheet.Cells[rowIndex, col2++].Value = item.productName;
+                            sheet.Cells[rowIndex, col2++].Value = item.quantity;
+                            sheet.Cells[rowIndex, col2++].Value = item.kategoryName;
+                            sheet.Cells[rowIndex, col2++].Value = item.unitPrice;
+                            sheet.Cells[rowIndex, col2++].Value = "";
+
+                            rowIndex++;
+                            ri++;
+                            oppName = item.productParentName;
+                        }
+
+                        sheet.Cells[1, 1, rowIndex - 1, 6].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 6].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 6].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 6].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 6].Style.WrapText = true;
+                        sheet.Cells[1, 1, rowIndex - 1, 6].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        string fileName = Guid.NewGuid() + ".xls";
+
+                        Response.ClearContent();
+                        Response.BinaryWrite(excelPackage.GetAsByteArray());
+                        Response.AddHeader("content-disposition", "attachment;filename=" + fileName);
+                        Response.AppendCookie(new HttpCookie("fileDownloadToken", "1111"));
+                        Response.ContentType = "application/excel";
+                        Response.Flush();
+                        Response.End();
+                    }
+                }
+                return Request.IsAjaxRequest()
+                   ? (ActionResult)PartialView("PartialDemandProductionAmountOfEachProduct", modelDemandProduction)
+                   : View(modelDemandProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
         [HttpPost]
         public ActionResult Approv(int[] ids)
         {

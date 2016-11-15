@@ -97,6 +97,7 @@ namespace Emsal.AdminUI.Models
 
         public PagedList.IPagedList<ProductionDetail> Paging { get; set; }
         public PagedList.IPagedList<DemandProductionViewModel> DemandOfferPaging { get; set; }
+        public PagedList.IPagedList<DemandOfferDetail> DemandOfferDetailPaging { get; set; }
 
         public DemandProductionExcell DemandProductionExcell;
         public IList<DemandProductionExcell> DemandProductionExcellList { get; set; }
