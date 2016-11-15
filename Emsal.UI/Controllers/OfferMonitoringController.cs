@@ -103,7 +103,7 @@ namespace Emsal.UI.Controllers
 
                 if (modelOfferMonitoring.isPDF == true)
                 {
-                    modelOfferMonitoring.Paging = modelOfferMonitoring.ProductionDetailList.ToPagedList(1, 5000);
+                    modelOfferMonitoring.Paging = modelOfferMonitoring.ProductionDetailList.ToPagedList(1, 50000);
                 }
                 else
                 {
