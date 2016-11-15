@@ -58,6 +58,7 @@ namespace Emsal.UI.Controllers
                     }
                 }
 
+
                 BaseOutput enumcat = srv.WS_GetEnumCategorysByName(baseInput, "shippingSchedule", out modelDemandProduction.EnumCategory);
                 if (modelDemandProduction.EnumCategory == null)
                     modelDemandProduction.EnumCategory = new tblEnumCategory();
