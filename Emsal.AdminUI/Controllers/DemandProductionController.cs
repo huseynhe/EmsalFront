@@ -90,7 +90,14 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.ProductionDetailArray);
 
-                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelDemandProduction.EnumCategory.Id && x.foreignOrganization != null).ToList();
+                if (modelDemandProduction.ProductionDetailArray == null)
+                {
+                    modelDemandProduction.ProductionDetailList = new List<ProductionDetail>();
+                }
+                else
+                {
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelDemandProduction.EnumCategory.Id && x.foreignOrganization != null).ToList();
+                }
 
                 if (sproductName != null)
                 {
@@ -197,7 +204,14 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.ProductionDetailArray);
 
-                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelDemandProduction.EnumCategory.Id && x.foreignOrganization != null).ToList();
+                if (modelDemandProduction.ProductionDetailArray == null)
+                {
+                    modelDemandProduction.ProductionDetailList = new List<ProductionDetail>();
+                }
+                else
+                {
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelDemandProduction.EnumCategory.Id && x.foreignOrganization != null).ToList();
+                }
 
                 if (sproductName != null)
                 {
@@ -438,7 +452,14 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput gpp = srv.WS_GetDemandProductDetailInfoForAccounting(baseInput, modelDemandProduction.EnumValue.Id, true, year, true, rub, true, out modelDemandProduction.ProductionDetailArray);
 
-                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.ToList();
+                if (modelDemandProduction.ProductionDetailArray == null)
+                {
+                    modelDemandProduction.ProductionDetailList = new List<ProductionDetail>();
+                }
+                else
+                {
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.ToList();
+                }
 
                 if (sproductName != null)
                 {
@@ -800,7 +821,14 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput gpp = srv.WS_GetDemandOfferProductionTotal(baseInput, out modelDemandProduction.DemandOfferDetailArray);
 
-                modelDemandProduction.DemandOfferDetailList = modelDemandProduction.DemandOfferDetailArray.ToList();
+                if (modelDemandProduction.DemandOfferDetailArray == null)
+                {
+                    modelDemandProduction.DemandOfferDetailList = new List<DemandOfferDetail>();
+                }
+                else
+                {
+                    modelDemandProduction.DemandOfferDetailList = modelDemandProduction.DemandOfferDetailArray.ToList();
+                }
 
                 modelDemandProduction.DemandProductionViewModelList = new List<DemandProductionViewModel>();
                 long oproductID = 0;
@@ -963,7 +991,14 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput gpp = srv.WS_GetDemandOfferProductionTotal(baseInput, out modelDemandProduction.DemandOfferDetailArray);
 
-                modelDemandProduction.DemandOfferDetailList = modelDemandProduction.DemandOfferDetailArray.OrderBy(x=>x.productParentName).ToList();
+                if (modelDemandProduction.DemandOfferDetailArray == null)
+                {
+                    modelDemandProduction.DemandOfferDetailList = new List<DemandOfferDetail>();
+                }
+                else
+                {
+                    modelDemandProduction.DemandOfferDetailList = modelDemandProduction.DemandOfferDetailArray.OrderBy(x => x.productParentName).ToList();
+                }
 
                 modelDemandProduction.DemandProductionViewModelList = new List<DemandProductionViewModel>();
                 long oproductID = 0;
@@ -1152,7 +1187,14 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput gpp = srv.WS_GetDemandProductionAmountOfEachProduct(baseInput, out modelDemandProduction.DemandOfferDetailArray);
 
-                modelDemandProduction.DemandOfferDetailList = modelDemandProduction.DemandOfferDetailArray.OrderBy(x=>x.productParentName).ToList();              
+                if (modelDemandProduction.DemandOfferDetailArray == null)
+                {
+                    modelDemandProduction.DemandOfferDetailList = new List<DemandOfferDetail>();
+                }
+                else
+                {
+                    modelDemandProduction.DemandOfferDetailList = modelDemandProduction.DemandOfferDetailArray.OrderBy(x => x.productParentName).ToList();
+                }         
 
                 if (sproductName != null)
                 {
@@ -1259,6 +1301,7 @@ namespace Emsal.AdminUI.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
+
         [HttpPost]
         public ActionResult Approv(int[] ids)
         {
