@@ -54,7 +54,7 @@ namespace Emsal.UI.Controllers
                     
                     if (modelDemandProduction.DemandProductionListM.Count() > 0)
                     {
-                        return RedirectToAction("Redirect", "Login");
+                        //return RedirectToAction("Redirect", "Login");
                     }
                 }
 
@@ -571,7 +571,15 @@ namespace Emsal.UI.Controllers
                     int s = 0;
                     foreach (long itm in modelDemandProduction.productAddressIds)
                     {
-                        BaseOutput gfolbid = srv.WS_GetForeign_OrganisationsByParentId(baseInput, (int)itm, true, out modelDemandProduction.ForeignOrganizationArray);
+                        if (itm == 0)
+                        {
+                            BaseOutput folbid = srv.WS_GetForeignOrganizationListByUserId(baseInput, (long)userId, true, out modelDemandProduction.ForeignOrganizationArray);
+                        }
+                        else
+                        {
+                            BaseOutput gfolbid = srv.WS_GetForeign_OrganisationsByParentId(baseInput, (int)itm, true, out modelDemandProduction.ForeignOrganizationArray);
+                        }
+                            
 
                         modelDemandProduction.ForeignOrganizationArrayFA[s] = modelDemandProduction.ForeignOrganizationArray.ToList();
                         s = s + 1;
