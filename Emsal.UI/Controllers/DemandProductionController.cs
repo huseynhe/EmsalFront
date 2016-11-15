@@ -54,7 +54,7 @@ namespace Emsal.UI.Controllers
                     
                     if (modelDemandProduction.DemandProductionListM.Count() > 0)
                     {
-                        //return RedirectToAction("Redirect", "Login");
+                        return RedirectToAction("Redirect", "Login");
                     }
                 }
 
