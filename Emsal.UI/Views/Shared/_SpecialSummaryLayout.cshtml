@@ -247,7 +247,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Doğum tarixi</td>
-                                                    <td class="birthday">@Model.Person.birtday</td>
+                                                    <td> @Model.Birthday </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Cinsi</td>
@@ -523,10 +523,11 @@
                                 <th class="col-md-2 text-center">Bax</th>
                             </tr>
                         </thead>
-                        
-                        @foreach (var cont in Model.ContractList)
+                        @if (Model.ContractList != null)
                         {
-                            numb++;
+                            foreach (var cont in Model.ContractList)
+                            {
+                                numb++;
                             <tbody>
                                 <tr class="info text-center">
                                     <td> @numb </td>
@@ -538,6 +539,7 @@
                                     </a></td>
                                 </tr>
                             </tbody>
+                            }
                         }
                     </table>
 
