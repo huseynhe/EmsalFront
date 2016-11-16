@@ -1317,7 +1317,7 @@ namespace Emsal.UI.Controllers
                 modelSpecial.Address.user_Id = modelSpecial.User.Id;
                 modelSpecial.Address.user_IdSpecified = true;
                 modelSpecial.Address.user_type_eV_IdSpecified = true;
-                modelSpecial.Address.adminUnit_Id = form.adId.LastOrDefault();
+                modelSpecial.Address.adminUnit_Id = long.Parse(form.FullAddress);
 
                 modelSpecial.Address.adminUnit_IdSpecified = true;
                 BaseOutput address = srv.WS_AddAddress(binput, modelSpecial.Address, out modelSpecial.Address);
@@ -1503,131 +1503,143 @@ namespace Emsal.UI.Controllers
 
         public ActionResult EditChildOrganisation(long? UserId, long? Id)
         {
-
-            binput = new BaseInput();
-
-            Session["arrONum"] = null;
-            modelSpecial = new SpecialSummaryViewModel();
-
-            if (User != null && User.Identity.IsAuthenticated)
+            try
             {
-                FormsIdentity identity = (FormsIdentity)User.Identity;
-                if (identity.Ticket.UserData.Length > 0)
+                binput = new BaseInput();
+
+                Session["arrONum"] = null;
+                modelSpecial = new SpecialSummaryViewModel();
+
+                if (User != null && User.Identity.IsAuthenticated)
                 {
-                    UserId = Int32.Parse(identity.Ticket.UserData);
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
                 }
-            }
-            BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.User);
+                BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.User);
 
-            modelSpecial.OrganisationId = (long)Id; 
-            //get the orgaisation  that is going to be updated
-            BaseOutput organisationOut = srv.WS_GetForeign_OrganizationById(binput, (long)Id, true, out modelSpecial.Organisation);
-            modelSpecial.Voen = modelSpecial.Organisation.voen;
-            modelSpecial.Name = modelSpecial.Organisation.name;
+                modelSpecial.OrganisationId = (long)Id;
+                //get the orgaisation  that is going to be updated
+                BaseOutput organisationOut = srv.WS_GetForeign_OrganizationById(binput, (long)Id, true, out modelSpecial.Organisation);
+                modelSpecial.Voen = modelSpecial.Organisation.voen;
+                modelSpecial.Name = modelSpecial.Organisation.name;
 
-            //get the user registered to the organisation
-            BaseOutput orgOut = srv.WS_GetUserById(binput, (long)modelSpecial.Organisation.userId, true, out modelSpecial.User);
-            modelSpecial.UserName = modelSpecial.User.Username;
-            //modelSpecial.Password = modelSpecial.User.Password;
-            modelSpecial.Email = modelSpecial.User.Email;
+                //get the user registered to the organisation
+                BaseOutput orgOut = srv.WS_GetUserById(binput, (long)modelSpecial.Organisation.userId, true, out modelSpecial.User);
+                modelSpecial.UserName = modelSpecial.User.Username;
+                //modelSpecial.Password = modelSpecial.User.Password;
+                modelSpecial.Email = modelSpecial.User.Email;
 
-            //get the address of the organisation
-            //this is biased. we do not know if an organisation can have more than one address.***********************
-            BaseOutput addressOut = srv.WS_GetAddressById(binput, (long)modelSpecial.Organisation.address_Id, true, out modelSpecial.Address);
-            modelSpecial.AdminUnitId = (long)modelSpecial.Address.adminUnit_Id;
+                //get the address of the organisation
+                //this is biased. we do not know if an organisation can have more than one address.***********************
+                BaseOutput addressOut = srv.WS_GetAddressById(binput, (long)modelSpecial.Organisation.address_Id, true, out modelSpecial.Address);
+                modelSpecial.AdminUnitId = (long)modelSpecial.Address.adminUnit_Id;
 
-            modelSpecial.FullAddress = modelSpecial.Address.fullAddress;
-            //*********************************************************
-
-
-            //get the address hierarchy this is also biased *************************
-            //BaseOutput adminUnitOut = srv.WS_GetPRM_AdminUnitById(binput, (long)modelSpecial.AddressArray.FirstOrDefault().adminUnit_Id, true, out modelSpecial.PRMAdminUnit);
-            //BaseOutput addressesOut = srv.WS_GETPRM_AdminUnitsByChildId(binput, modelSpecial.PRMAdminUnit, out modelSpecial.PRMAdminUnitArray);
-
-            BaseOutput edcationCatOut = srv.WS_GetEnumCategorysByName(binput, "Tehsil", out modelSpecial.EnumCategory);
-            BaseOutput eductationOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
-            modelSpecial.EducationList = modelSpecial.EnumValueArray.ToList();
+                modelSpecial.FullAddress = modelSpecial.Address.fullAddress;
+                //*********************************************************
 
 
-            BaseOutput jobCatOut = srv.WS_GetEnumCategorysByName(binput, "İş-Təşkilat", out modelSpecial.EnumCategory);
-            BaseOutput jobbOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
-            modelSpecial.JobList = modelSpecial.EnumValueArray.ToList();
-
-            //get manager infos
-            BaseOutput ManagerOut = srv.WS_GetPersonById(binput, (long)modelSpecial.Organisation.manager_Id, true, out modelSpecial.Manager);
-            modelSpecial.ManagerName = modelSpecial.Manager.Name;
-            modelSpecial.Surname = modelSpecial.Manager.Surname;
-            modelSpecial.FatherName = modelSpecial.Manager.FatherName;
-            modelSpecial.Pin = modelSpecial.Manager.PinNumber;
-            modelSpecial.Birthday = String.Format("{0:d.M.yyyy}", (FromSecondToDate((long)modelSpecial.Manager.birtday).ToString()));
-
-            //get communication informations of the manager
-            BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelSpecial.CommunicationInformationsArray);
-            modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.Manager.Id).ToList();
-
-
-            //get emailtype enum value
-            BaseOutput emailEnumOut = srv.WS_GetEnumValueByName(binput, "email", out modelSpecial.EnumValue);
-            modelSpecial.ManagerEmail = modelSpecial.CommunicationInformationsList.Where(x => x.comType == modelSpecial.EnumValue.Id).ToList().Count == 0 ? null : modelSpecial.CommunicationInformationsList.Where(x => x.comType == modelSpecial.EnumValue.Id).FirstOrDefault().communication;
-
-            string a = "";
-            //get MobilePhone type enum value
-            BaseOutput mobilePhoneOut = srv.WS_GetEnumValueByName(binput, "mobilePhone", out modelSpecial.EnumValue);
-            List<tblCommunication> l = modelSpecial.CommunicationInformationsList.Where(x => x.comType == modelSpecial.EnumValue.Id).ToList();
-            if (l.Count() > 0)
-            {
-                a = modelSpecial.CommunicationInformationsList.Where(x => x.comType == modelSpecial.EnumValue.Id).FirstOrDefault().communication;
-                modelSpecial.mobilePhonePrefix = a.Remove(a.Length - 7);
-                modelSpecial.ManagerMobilePhone = a.Substring(modelSpecial.mobilePhonePrefix.Length, 7);
-            }
-
-            //get WorkPhone type enum value
-            BaseOutput workPhoneOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelSpecial.EnumValue);
-            string b = modelSpecial.CommunicationInformationsList.Where(x => x.comType == modelSpecial.EnumValue.Id).FirstOrDefault().communication;
-            modelSpecial.WorkPhonePrefix = b.Remove(b.Length -7);
-            modelSpecial.ManagerWorkPhone = b.Substring(modelSpecial.WorkPhonePrefix.Length, 7);
-
-
-            //get the gender
-            modelSpecial.Gender = modelSpecial.Manager.gender;
-            modelSpecial.ManagerEducation = (long)modelSpecial.Manager.educationLevel_eV_Id;
-            modelSpecial.ManagerJob = (long)modelSpecial.Manager.job_eV_Id;
-
-            //birthday not finished
-            //modelSpecial.Birthday = modelSpecial.Manager.birtday;
-
-            BaseOutput adminnOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.User);
-
-
-            BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelSpecial.EnumCategory);
-            BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
-            modelSpecial.MobilePhonePrefixList = modelSpecial.EnumValueArray.ToList();
-
-
-            BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelSpecial.EnumCategory);
-            BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
-            modelSpecial.WorkPhonePrefixList = modelSpecial.EnumValueArray.ToList();
-
-            //get user roles to use 
-            BaseOutput userRoleOut = srv.WS_GetUserRolesByUserId(binput, modelSpecial.User.Id, true, out modelSpecial.UserRolesArray);
-
-            bool editOrg = false;
-
-            foreach (var role in modelSpecial.UserRolesArray)
-            {
-                if (role.RoleId == 22)
+                //get the address hierarchy this is also biased *************************
+                //BaseOutput adminUnitOut = srv.WS_GetPRM_AdminUnitById(binput, (long)modelSpecial.AddressArray.FirstOrDefault().adminUnit_Id, true, out modelSpecial.PRMAdminUnit);
+                //BaseOutput addressesOut = srv.WS_GETPRM_AdminUnitsByChildId(binput, modelSpecial.PRMAdminUnit, out modelSpecial.PRMAdminUnitArray);
+                modelSpecial.PRMAdminUnit = new tblPRM_AdminUnit();
+                if ((long)modelSpecial.Address.adminUnit_Id != null)
                 {
-                    editOrg = true;
+                    BaseOutput galf = srv.WS_GetAdminUnitListForID(binput, (long)modelSpecial.Address.adminUnit_Id, true, out modelSpecial.PRMAdminUnitArray);
                 }
-            }
 
-            if (!editOrg)
+                BaseOutput edcationCatOut = srv.WS_GetEnumCategorysByName(binput, "Tehsil", out modelSpecial.EnumCategory);
+                BaseOutput eductationOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+                modelSpecial.EducationList = modelSpecial.EnumValueArray.ToList();
+
+
+                BaseOutput jobCatOut = srv.WS_GetEnumCategorysByName(binput, "İş-Təşkilat", out modelSpecial.EnumCategory);
+                BaseOutput jobbOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+                modelSpecial.JobList = modelSpecial.EnumValueArray.ToList();
+
+                //get manager infos
+                BaseOutput ManagerOut = srv.WS_GetPersonById(binput, (long)modelSpecial.Organisation.manager_Id, true, out modelSpecial.Manager);
+                modelSpecial.ManagerName = modelSpecial.Manager.Name;
+                modelSpecial.Surname = modelSpecial.Manager.Surname;
+                modelSpecial.FatherName = modelSpecial.Manager.FatherName;
+                modelSpecial.Pin = modelSpecial.Manager.PinNumber;
+                modelSpecial.Birthday = String.Format("{0:d.M.yyyy}", (FromSecondToDate((long)modelSpecial.Manager.birtday).ToString()));
+
+                //get communication informations of the manager
+                BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelSpecial.CommunicationInformationsArray);
+                modelSpecial.CommunicationInformationsList = modelSpecial.CommunicationInformationsArray.Where(x => x.PersonId == modelSpecial.Manager.Id).ToList();
+
+
+                //get emailtype enum value
+                BaseOutput emailEnumOut = srv.WS_GetEnumValueByName(binput, "email", out modelSpecial.EnumValue);
+                modelSpecial.ManagerEmail = modelSpecial.CommunicationInformationsList.Where(x => x.comType == modelSpecial.EnumValue.Id).ToList().Count == 0 ? null : modelSpecial.CommunicationInformationsList.Where(x => x.comType == modelSpecial.EnumValue.Id).FirstOrDefault().communication;
+
+                string a = "";
+                //get MobilePhone type enum value
+                BaseOutput mobilePhoneOut = srv.WS_GetEnumValueByName(binput, "mobilePhone", out modelSpecial.EnumValue);
+                List<tblCommunication> l = modelSpecial.CommunicationInformationsList.Where(x => x.comType == modelSpecial.EnumValue.Id).ToList();
+                if (l.Count() > 0)
+                {
+                    a = modelSpecial.CommunicationInformationsList.Where(x => x.comType == modelSpecial.EnumValue.Id).FirstOrDefault().communication;
+                    modelSpecial.mobilePhonePrefix = a.Remove(a.Length - 7);
+                    modelSpecial.ManagerMobilePhone = a.Substring(modelSpecial.mobilePhonePrefix.Length, 7);
+                }
+
+                //get WorkPhone type enum value
+                BaseOutput workPhoneOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelSpecial.EnumValue);
+                string b = modelSpecial.CommunicationInformationsList.Where(x => x.comType == modelSpecial.EnumValue.Id).FirstOrDefault().communication;
+                modelSpecial.WorkPhonePrefix = b.Remove(b.Length - 7);
+                modelSpecial.ManagerWorkPhone = b.Substring(modelSpecial.WorkPhonePrefix.Length, 7);
+
+
+                //get the gender
+                modelSpecial.Gender = modelSpecial.Manager.gender;
+                modelSpecial.ManagerEducation = (long)modelSpecial.Manager.educationLevel_eV_Id;
+                modelSpecial.ManagerJob = (long)modelSpecial.Manager.job_eV_Id;
+
+                //birthday not finished
+                //modelSpecial.Birthday = modelSpecial.Manager.birtday;
+
+                BaseOutput adminnOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.User);
+
+
+                BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelSpecial.EnumCategory);
+                BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+                modelSpecial.MobilePhonePrefixList = modelSpecial.EnumValueArray.ToList();
+
+
+                BaseOutput workPhoneCat = srv.WS_GetEnumCategorysByName(binput, "workPhonePrefix", out modelSpecial.EnumCategory);
+                BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
+                modelSpecial.WorkPhonePrefixList = modelSpecial.EnumValueArray.ToList();
+
+                //get user roles to use 
+                BaseOutput userRoleOut = srv.WS_GetUserRolesByUserId(binput, modelSpecial.User.Id, true, out modelSpecial.UserRolesArray);
+
+                bool editOrg = false;
+
+                foreach (var role in modelSpecial.UserRolesArray)
+                {
+                    if (role.RoleId == 22)
+                    {
+                        editOrg = true;
+                    }
+                }
+
+                if (!editOrg)
+                {
+                    TempData["denied"] = "denied";
+                    return RedirectToAction("Organisations");
+                }
+
+                return View("EditChildOrganisation", modelSpecial);
+            }
+            catch (Exception ex)
             {
-                TempData["denied"] = "denied";
-                return RedirectToAction("Organisations");
+                return View("EditChildOrganisation");
             }
-
-            return View("EditChildOrganisation", modelSpecial);
+            
         }
 
         [HttpPost]
@@ -1666,7 +1678,7 @@ namespace Emsal.UI.Controllers
             //update address
             BaseOutput addressOUT = srv.WS_GetAddressById(binput, (long)modelSpecial.Organisation.address_Id, true, out modelSpecial.Address);
             modelSpecial.Address.fullAddress = form.FullAddress;
-            modelSpecial.Address.adminUnit_Id = form.adId.LastOrDefault();
+            modelSpecial.Address.adminUnit_Id = long.Parse(form.FullAddress);
             BaseOutput address = srv.WS_UpdateAddress(binput, modelSpecial.Address);
 
 
@@ -1930,7 +1942,7 @@ namespace Emsal.UI.Controllers
             BaseOutput bouput = srv.WS_GetPRM_AdminUnits(binput, out modelUser.PRMAdminUnitArray);
 
 
-            modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.Where(x => x.ParentID == pId).ToList();
+            modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.Where(x => x.ParentID == pId).OrderBy(x=> x.Name).ToList();
 
             if (adminUnitId != null && adminUnitId != 0)
             {

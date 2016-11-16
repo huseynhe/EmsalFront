@@ -216,7 +216,7 @@ namespace Emsal.UI.Controllers
                     userId = Int32.Parse(identity.Ticket.UserData);
                 }
             }
-            BaseOutput user = srv.WS_GetUserById(binput, (long)userId, true, out modelUser.User);
+            BaseOutput user = srv.WS_GetUserById(binput, userId, true, out modelUser.User);
 
             if(modelUser.User==null)
             {

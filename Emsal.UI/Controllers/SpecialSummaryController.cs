@@ -249,6 +249,8 @@ namespace Emsal.UI.Controllers
                     modelSpecial.roleStatus = 1;
             }
 
+            modelSpecial.Birthday = String.Format("{0:d.M.yyyy}", (modelSpecial.Person.birtday).toShortDate());
+
             return Request.IsAjaxRequest()
             ? (ActionResult)PartialView("PartialIndex", modelSpecial)
             : View(modelSpecial);

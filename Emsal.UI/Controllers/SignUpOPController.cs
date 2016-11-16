@@ -10,6 +10,8 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Emsal.Utility.CustomObjects;
+using System.Net.Mail;
 
 namespace Emsal.UI.Controllers
 {
@@ -68,6 +70,7 @@ namespace Emsal.UI.Controllers
                 //fullAddressId = string.Join(",", modelUser.PRMAdminUnitList.Select(x => x.Id));
 
                 BaseOutput adminUnit = srv.WS_GetAdminUnitsByParentId(baseInput, 0, true, out modelUser.PRMAdminUnitArray);
+                modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.OrderBy( x=> x.Name ).ToList();
 
 
                 BaseOutput mobileN = srv.WS_GetEnumCategorysByName(baseInput, "mobilePhonePrefix", out modelUser.EnumCategory);
@@ -292,7 +295,7 @@ namespace Emsal.UI.Controllers
                     modelUser.Person.address_IdSpecified = true;
                     modelUser.Person.gender = mdl.gender;
                     //modelUser.Person.birtday = (DateTime.Parse(mdl.birtday)).getInt64ShortDate();
-                    modelUser.Person.birtday = ConvertStringYearMonthDayFormatToTimestamp(mdl.birtday);
+                    modelUser.Person.birtday = (DateTime.Parse(mdl.birtday)).getInt64ShortDate();
                     modelUser.Person.birtdaySpecified = true;
                     modelUser.Person.profilePicture = mdl.createdUser;
                     if (mdl.education != null)
@@ -375,6 +378,29 @@ namespace Emsal.UI.Controllers
                         {
                             BaseOutput fO = srv.WS_AddForeign_Organization(baseInput, modelUser.ForeignOrganisation, out modelUser.ForeignOrganisation);
                         }
+                    }
+
+                    MailMessage msg = new MailMessage();
+
+                    msg.To.Add("tedaruk@agro.gov.az");
+                    msg.Subject = "Qeydiyyat";
+
+                    msg.Body = "<p>Hörmətli " + modelUser.Name + " "+ modelUser.Surname +"</p>" +
+                        "<p>Təqdim etdiyiniz məlumatlara əsasən, “Satınalan təşkilatların ərzaq məhsullarına tələbatı” portalında (tedaruk.az) </p>" +
+                        "<p>İstifadəçi adınız: " + modelUser.userName + "</p>" +
+                        "<p>Şifrəniz :  " + modelUser.passWord + "</p>";
+
+                    msg.IsBodyHtml = true;
+
+                    
+
+                    if (Mail.SendMail(msg))
+                    {
+                        TempData["Message"] = "Email göndərildi.";
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Email göndərilmədi.";
                     }
 
                     TempData["personSignUp"] = "success";
@@ -473,7 +499,7 @@ namespace Emsal.UI.Controllers
                     modelUser.Person.gender = person.gender;
                     if (person.birtday != null)
                     {
-                        modelUser.Person.birtday = (DateTime.Parse(FromSecondToDate((long)person.birtday).ToString())).getInt64ShortDate();
+                        modelUser.Person.birtday = person.birtday;
                     }
                     modelUser.Person.UserId = person.UserId;
 
@@ -547,7 +573,7 @@ namespace Emsal.UI.Controllers
                         }
                         modelUser.Person.gender = iamasPerson.gender;
                         
-                        modelUser.Person.birtday = (DateTime.Parse(iamasPerson.birthDate)).getInt64ShortDate();
+                        modelUser.Person.birtday = (long)(DateTime.Parse(iamasPerson.birthDate)).getInt64ShortDate();
                         
 
                         if (iamasPerson.photo != null)
@@ -620,7 +646,8 @@ namespace Emsal.UI.Controllers
                 UserViewModel model = new UserViewModel();
                 BaseOutput adminUnit = srv.WS_GetAdminUnitsByParentId(baseInput, int.Parse(pId), true, out model.PRMAdminUnitArray);
                 List<regionClass> list = new List<regionClass>();
-                foreach (var item in model.PRMAdminUnitArray)
+                model.PRMAdminUnitList = model.PRMAdminUnitArray.OrderBy(x => x.Name).ToList();
+                foreach (var item in model.PRMAdminUnitList)
                 {
                     list.Add(new regionClass { id = item.Id.ToString(), name = item.Name.ToString(), parentId = item.ParentID.ToString() });
                 }
