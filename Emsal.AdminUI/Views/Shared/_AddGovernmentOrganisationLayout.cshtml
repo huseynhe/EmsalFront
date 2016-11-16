@@ -22,7 +22,6 @@
     <script src="~/Content/js/jQuery-2.2.0.min.js"></script>
 
     <script src="~/Content/js/addPotentialGovOrg.js"></script>
-    <script src="~/Content/js/Goverment.js"></script>
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -489,6 +488,8 @@
                     success: function (result) {
                         $('#addressId').val(pId);
                         $(elem).parent().parent().append(result);
+
+                        $("#FullAddress").val(pId);
 
                         $('.select2').select2();
                     },
