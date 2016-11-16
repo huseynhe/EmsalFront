@@ -23,6 +23,16 @@ namespace Emsal.UI.Controllers
 
         private DemandProductionViewModel modelDemandProduction;
 
+        public void ResetStaticVariables()
+        {
+            fullAddressId = "";
+            TempData["Success"] = null;
+
+            Session.Clear();
+            Response.Cookies.Clear();
+            Session.RemoveAll();
+        }
+
         public ActionResult Index()
         {
             try
@@ -572,15 +582,19 @@ namespace Emsal.UI.Controllers
                     int s = 0;
                     foreach (long itm in modelDemandProduction.productAddressIds)
                     {
+                        //if (itm == 0)
+                        //{
+                        //    BaseOutput folbid = srv.WS_GetForeignOrganizationListByUserId(baseInput, (long)userId, true, out modelDemandProduction.ForeignOrganizationArray);
+                        //    modelDemandProduction.ForeignOrganizationArray = modelDemandProduction.ForeignOrganizationArray.Where(x => x.userId == modelDemandProduction.User.Id).ToArray();
+                        //}
+                        //else
+                        //{                            
+                            BaseOutput gfolbid = srv.WS_GetForeign_OrganisationsByParentId(baseInput, (int)itm, true, out modelDemandProduction.ForeignOrganizationArray);
                         if (itm == 0)
                         {
-                            BaseOutput folbid = srv.WS_GetForeignOrganizationListByUserId(baseInput, (long)userId, true, out modelDemandProduction.ForeignOrganizationArray);
+                            modelDemandProduction.ForeignOrganizationArray = modelDemandProduction.ForeignOrganizationArray.Where(x => x.userId == modelDemandProduction.User.Id).ToArray();
                         }
-                        else
-                        {
-                            BaseOutput gfolbid = srv.WS_GetForeign_OrganisationsByParentId(baseInput, (int)itm, true, out modelDemandProduction.ForeignOrganizationArray);
-                        }
-                            
+                        //}                            
 
                         modelDemandProduction.ForeignOrganizationArrayFA[s] = modelDemandProduction.ForeignOrganizationArray.ToList();
                         s = s + 1;

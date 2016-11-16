@@ -21,6 +21,18 @@ function resetStaticVariables() {
             }
         });
     }
+
+    if (res[1] == 'Login') {
+        $.ajax({
+            url: '/DemandProduction/ResetStaticVariables',
+            type: 'GET',
+            success: function (result) {
+            },
+            error: function () {
+
+            }
+        });
+    }
 }
 $(document).ready(function () {
     resetStaticVariables();
