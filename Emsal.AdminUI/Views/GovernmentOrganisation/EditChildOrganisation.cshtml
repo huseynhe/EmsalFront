@@ -20,6 +20,7 @@
             @Html.HiddenFor(model => model.OrganisationId)
             @Html.HiddenFor(model => model.RedirectToParent)
             @Html.HiddenFor(model => model.NotChild)
+            @Html.HiddenFor(model => model.FullAddress)
 
             <div class="well" style="margin:8px; font-size:11px">
                 <div class="row">
@@ -95,9 +96,20 @@
                         </script>
                     </div>
                 </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.descAddress, htmlAttributes: new { @class = "control-label" })
+                            <input type="text" name="descAddress" id="descAddress" placeholder="məs: Azadlıq prospekti 22, mənzil 33" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-
+            
 
 
             <h3>Məsul Şəxsin Məlumatları</h3><br />
@@ -331,6 +343,8 @@
                     success: function (result) {
                         $('#addressId').val(pId);
                         $(elem).parent().parent().append(result);
+
+                        $("#FullAddress").val(pId);
 
                         $('.select2').select2();
                     },

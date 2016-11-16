@@ -38,51 +38,78 @@
 
     <div class="clearfix"></div>
 
-    <div class="col-md-12">
+    @*<div class="col-md-12">
         <div class="form-group">
             @Html.LabelFor(model => model.descAddress, htmlAttributes: new { @class = "control-label" })
             <input type="text" name="descAddress" id="descAddress" placeholder="məs: Azadlıq prospekti 22, mənzil 33" class="form-control">
         </div>
-    </div>
+    </div>*@
                         }
 
 
-                        else {
+                        else
+                        {
                             if (Model.PRMAdminUnitList.Count > 0)
                             {
-            <div class="form-group col-md-6">
 
-            <select required name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
-            @if (Model.arrNum > 0)
-            {
-                <option value = "" > Seçim edin</option >
-            }
-                @foreach(var item in Model.PRMAdminUnitList)
-            {
-                if (item.Name == "Azərbaycan Respublikası")
-                {
-                    <option selected value = "@item.Id" > @item.Name </option >
-                }
-                else
-                {
-                    <option value = "@item.Id" > @item.Name </option >
-                }
-            }
-            </select>
+                                if (Model.arrNum > 2)
+                                {
+                                    <div class="form-group col-md-6">
+                                        <select required name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+                                            @if (Model.arrNum > 0)
+                                            {
+                                                <option value=""> Seçim edin</option>
+                                            }
+                                            @foreach (var item in Model.PRMAdminUnitList)
+                                            {
+                                                if (item.Name == "Azərbaycan Respublikası")
+                                                {
+                                                    <option selected value="@item.Id"> @item.Name </option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Id"> @item.Name </option>
+                                                }
+                                            }
+                                        </select>
+                                        <span data-valmsg-replace="true" data-valmsg-for="adId[@{ @Model.arrNum }]" class="field-validation-valid text-danger"></span>
+                                    </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="form-group col-md-6">
+                                                    <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+                                                        @if (Model.arrNum > 0)
+                                                        {
+                                                            <option value=""> Seçim edin</option>
+                                                        }
+                                                        @foreach (var item in Model.PRMAdminUnitList)
+                                                        {
+                                                            if (item.Name == "Azərbaycan Respublikası")
+                                                            {
+                                                                <option selected value="@item.Id"> @item.Name </option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@item.Id"> @item.Name </option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                    @*<span data-valmsg-replace="true" data-valmsg-for="adId[@{ @Model.arrNum }]" class="field-validation-valid text-danger"></span>*@
+                                                </div>
+        }
 
-            <span data-valmsg-replace="true" data-valmsg-for="adId[@{ @Model.arrNum }]" class="field-validation-valid text-danger"></span>
-        </div>
     }
     else
     {
         <div class="clearfix"></div>
 
-        <div class="col-md-12">
+        @*<div class="col-md-12">
             <div class="form-group">
                 @Html.LabelFor(model => model.descAddress, htmlAttributes: new { @class = "control-label" })
                 <input type="text" name="descAddress" id="descAddress" placeholder="məs: Azadlıq prospekti 22, mənzil 33" class="form-control">
             </div>
-        </div>
+        </div>*@
                     }
                 }
 
