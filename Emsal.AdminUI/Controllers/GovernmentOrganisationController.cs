@@ -249,8 +249,8 @@ namespace Emsal.AdminUI.Controllers
                 modelUser.FutureAddress.user_Id = modelUser.User.Id;
                 modelUser.FutureAddress.user_IdSpecified = true;
                 modelUser.FutureAddress.user_type_eV_IdSpecified = true;
-                modelUser.FutureAddress.adminUnit_Id = form.adId.LastOrDefault();
-
+                modelUser.FutureAddress.adminUnit_Id = long.Parse(form.FullAddress);
+                modelUser.FutureAddress.addressDesc = form.descAddress;
                 modelUser.FutureAddress.adminUnit_IdSpecified = true;
                 BaseOutput address = srv.WS_AddAddress(binput, modelUser.FutureAddress, out modelUser.FutureAddress);
 
@@ -410,13 +410,16 @@ namespace Emsal.AdminUI.Controllers
             //this is biased. we do not know if an organisation can have more than one address.***********************
             BaseOutput addressOut = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
             modelUser.AdminUnitId = (long)modelUser.FutureAddress.adminUnit_Id;
+            modelUser.descAddress = modelUser.FutureAddress.addressDesc;
             modelUser.FullAddress = modelUser.FutureAddress.fullAddress;
             //*********************************************************
 
 
             //get the address hierarchy this is also biased *************************
-            //BaseOutput adminUnitOut = srv.WS_GetPRM_AdminUnitById(binput, (long)modelUser.AddressArray.FirstOrDefault().adminUnit_Id, true, out modelUser.PRMAdminUnit);
-            //BaseOutput addressesOut = srv.WS_GETPRM_AdminUnitsByChildId(binput, modelUser.PRMAdminUnit, out modelUser.PRMAdminUnitArray);
+            //BaseOutput adminUnitOut = srv.WS_GetPRM_AdminUnitById(binput, long.Parse(modelUser.FullAddress), true, out modelUser.PRMAdminUnit);
+            //BaseOutput addressesOut = srv.WS_GET(binput, modelUser.PRMAdminUnit, out modelUser.PRMAdminUnitArray);
+
+            BaseOutput galf = srv.WS_GetAdminUnitListForID(binput, modelUser.AdminUnitId, true, out modelUser.PRMAdminUnitArray);
 
             BaseOutput edcationCatOut = srv.WS_GetEnumCategorysByName(binput, "Tehsil", out modelUser.EnumCategory);
             BaseOutput eductationOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
@@ -482,8 +485,12 @@ namespace Emsal.AdminUI.Controllers
                 {
                     tblCommunication comd = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault();
                     string a = comd == null ? null : comd.communication;
-                    modelUser.mobilePhonePrefix = a.Remove(a.Length - 7);
-                    modelUser.ManagerMobilePhone = a.Substring(modelUser.mobilePhonePrefix.Length, 7);
+                    if (!String.IsNullOrEmpty(a))
+                    {
+                        modelUser.mobilePhonePrefix = a.Remove(a.Length - 7);
+                        modelUser.ManagerMobilePhone = a.Substring(modelUser.mobilePhonePrefix.Length, 7);
+                    }
+
                 }
                 if (modelUser.ManagerMobilePhone == null)
                 {
@@ -556,7 +563,8 @@ namespace Emsal.AdminUI.Controllers
             //update address
             BaseOutput addressOUT = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
             modelUser.FutureAddress.fullAddress = form.FullAddress;
-            modelUser.FutureAddress.adminUnit_Id = form.adId.LastOrDefault();
+            modelUser.FutureAddress.addressDesc = form.descAddress;
+            modelUser.FutureAddress.adminUnit_Id = long.Parse(form.FullAddress);
             BaseOutput address = srv.WS_UpdateAddress(binput, modelUser.FutureAddress);
 
 
@@ -1003,6 +1011,19 @@ namespace Emsal.AdminUI.Controllers
                 if (identity.Ticket.UserData.Length > 0)
                 {
                     UserId = Int32.Parse(identity.Ticket.UserData);
+                }
+            }
+
+            modelUser.ComunicationInformations = new tblCommunication();
+            BaseOutput comOut = srv.WS_GetCommunicationByPersonId(binput, modelUser.Person.Id, true, out modelUser.CommunicationInformationsArray);
+            modelUser.CommunicationInformationsList = modelUser.CommunicationInformationsArray.ToList();
+            if (modelUser.CommunicationInformationsList != null)
+            {
+                string a = modelUser.CommunicationInformationsList.FirstOrDefault().communication == null ? null : modelUser.CommunicationInformationsList.OrderByDescending(x => x.createdDate).FirstOrDefault().communication;
+                if (!String.IsNullOrEmpty(a))
+                {
+                    modelUser.mobilePhonePrefix = a.Remove(a.Length - 7);
+                    modelUser.ManagerMobilePhone = a.Substring(modelUser.mobilePhonePrefix.Length, 7);
                 }
             }
             BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
@@ -1742,7 +1763,7 @@ namespace Emsal.AdminUI.Controllers
 
 
 
-            modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.Where(x => x.ParentID == pId).ToList();
+            modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.Where(x => x.ParentID == pId).OrderBy(x => x.Name).ToList();
 
             if (adminUnitId != null && adminUnitId != 0)
             {
@@ -1935,8 +1956,8 @@ namespace Emsal.AdminUI.Controllers
             modelUser.FutureAddress.user_Id = modelUser.FutureUser.Id;
             modelUser.FutureAddress.user_IdSpecified = true;
             modelUser.FutureAddress.user_type_eV_IdSpecified = true;
-            modelUser.FutureAddress.adminUnit_Id = form.adId.LastOrDefault();
-
+            modelUser.FutureAddress.adminUnit_Id = long.Parse(form.FullAddress);
+            modelUser.FutureAddress.addressDesc = form.descAddress;
             modelUser.FutureAddress.adminUnit_IdSpecified = true;
             BaseOutput address = srv.WS_AddAddress(binput, modelUser.FutureAddress, out modelUser.FutureAddress);
 
