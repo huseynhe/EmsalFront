@@ -99,6 +99,7 @@ namespace Emsal.UI.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
+
         public ActionResult ProductOrigin(long selectedPOriginId = 0)
         {
             try
@@ -121,7 +122,7 @@ namespace Emsal.UI.Controllers
                 baseInput.userName = modelOfferProduction.User.Username;
 
                 BaseOutput gpo = srv.WS_GetAdminUnitsByParentId(baseInput, 0, true, out modelOfferProduction.PRMAdminUnitArray);
-                modelOfferProduction.PRMAdminUnitList = modelOfferProduction.PRMAdminUnitArray.ToList();
+                modelOfferProduction.PRMAdminUnitList = modelOfferProduction.PRMAdminUnitArray.OrderBy(x=>x.Name).ToList();
 
                 if (selectedPOriginId > 0)
                 {
@@ -132,7 +133,7 @@ namespace Emsal.UI.Controllers
                 BaseOutput userRole = srv.WS_GetUserRolesByUserId(baseInput, modelOfferProduction.User.Id, true, out modelOfferProduction.UserRoleArray);
                 modelOfferProduction.UserRole = modelOfferProduction.UserRoleArray.FirstOrDefault();
 
-                if (modelOfferProduction.UserRole.RoleId == 15)
+                if (modelOfferProduction.UserRole.RoleId == 15 || modelOfferProduction.UserRole.RoleId == 24)
                 {
                     modelOfferProduction.originStatus = 1;
                 }
