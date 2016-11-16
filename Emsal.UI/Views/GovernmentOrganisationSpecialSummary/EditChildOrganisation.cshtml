@@ -14,6 +14,7 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.OrganisationId)
+    @Html.HiddenFor(model => model.FullAddress)
 
     <div class="well" style="margin:8px; font-size:11px">
         <div class="row">
@@ -336,6 +337,8 @@
                     success: function (result) {
                         $('#addressId').val(pId);
                         $(elem).parent().parent().append(result);
+
+                        $('#FullAddress').val(pId);
 
                         $('.select2').select2();
                     },
