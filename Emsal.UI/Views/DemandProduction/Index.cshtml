@@ -61,8 +61,13 @@
 
             <div class="row">
 
-                <div class="sign-in-page inner-bottom-sm" id="productCatalogDemandProduction">
-                    <script>
+                <div class="sign-in-page inner-bottom-sm" id="productCatalogForSale">
+    
+                    </div>
+                <div class="clearfix"></div>
+                
+                                <div class="sign-in-page inner-bottom-sm" id="productCatalogDemandProduction">
+                        <script>
                         $(document).ready(function () {
                             $.ajax({
                                 url: '/DemandProduction/ProductCatalog?pId=0',
@@ -75,12 +80,11 @@
                                 }
                             });
                         });
-                    </script>
-                    @*@Html.Action("ProductCatalog", "DemandProduction", new { pId = 0 })*@
+                        </script>
+                        @*@Html.Action("ProductCatalog", "DemandProduction", new { pId = 0 })*@
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
-
-                <div class="clearfix"></div>
-            </div>
             <h4>Təchizatın təqvim planı</h4>
                 <div class="row">
                     <div class="col-md-3" hidden>

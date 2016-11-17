@@ -61,10 +61,10 @@
         {
             <div class="form-group col-md-3">
                 <select name="adId[@{ @Model.arrNum }]" onchange="GetForeignOrganization(this)" class="form-control unicase-form-control select select2">
-                    @if (Model.arrNum > 0)
-                    {
+                    @*@if (Model.arrNum > 0)
+                    {*@
                         <option value="">Seçim edin</option>
-                    }
+                    @*}*@
                   
                      @foreach (var item in Model.ForeignOrganizationList)
                     {

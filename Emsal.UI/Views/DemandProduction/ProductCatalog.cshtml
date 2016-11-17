@@ -1,10 +1,8 @@
 ﻿@model Emsal.UI.Models.DemandProductionViewModel
-
 @{
     ViewBag.Title = "ProductCatalog";
     Layout = "";
 }
-
 @if (Model.ProductCatalogListFEA != null)
 {
     <input hidden name="productId" value="@Model.productIds.LastOrDefault()" id="productId" />
@@ -39,14 +37,16 @@
         {
             if (Model.ProductCatalogControlList.Select(x => x.EnumCategoryId).ToList().Contains(item.Id))
             {
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="control-label">@item.description</label>
-                        <input hidden name="pcId[@{ @e }]" value="@Model.ProductionControlList[e].Id" />
-                        <input hidden name="enumCat[@{ @e }]" value="@item.Id" />
-                        <select required name="enumVal[@{ @e }]" class="form-control select2">
-                            <option value="">Seçim edin</option>
-                            @foreach (var item2 in Model.EnumValueList)
+                if (Model.fpid == null)
+                {
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">@item.description</label>
+                            <input hidden name="pcId[@{ @e }]" value="@Model.ProductionControlList[e].Id" />
+                            <input hidden name="enumCat[@{ @e }]" value="@item.Id" />
+                            <select required name="enumVal[@{ @e }]" class="form-control select2">
+                                <option value="">Seçim edin</option>
+                                @foreach (var item2 in Model.EnumValueList)
                             {
                                 if (item2.enumCategory_enumCategoryId == item.Id)
                                 {
@@ -54,20 +54,46 @@
                                     {
                                         if (Model.productionControlEVIds.Contains(@item2.Id))
                                         {
-                                            <option selected value="@item2.Id">@item2.name</option>
+                                <option selected value="@item2.Id">@item2.name</option>
                                         }
                                         else
                                         {
-                                            <option value="@item2.Id">@item2.name</option>
+                                <option value="@item2.Id">@item2.name</option>
                                         }
 
                                     }
                                 }
                             }
-                        </select>
-                        <span data-valmsg-replace="true" data-valmsg-for="enumVal[@{ @e }]" class="field-validation-valid text-danger"></span>
+                            </select>
+                            <span data-valmsg-replace="true" data-valmsg-for="enumVal[@{ @e }]" class="field-validation-valid text-danger"></span>
+                        </div>
                     </div>
-                </div>
+
+    }
+    else
+    {
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label" for="size">@item.description</label>
+                <input hidden name="enumCat[@{ @e }]" value="@item.Id" />
+                <select required name="enumVal[@{ @e }]" class="form-control select2">
+                    <option value="">Seçim edin</option>
+                    @foreach (var item2 in Model.EnumValueList)
+                    {
+                        if (item2.enumCategory_enumCategoryId == item.Id)
+                        {
+                            if (Model.ProductCatalogControlList.Select(x => x.EnumValueId).ToList().Contains(item2.Id))
+                            {
+                                <option value="@item2.Id">@item2.name</option>
+                            }
+                        }
+                    }
+                </select>
+                <span data-valmsg-replace="true" data-valmsg-for="enumVal[@{ @e }]" class="field-validation-valid text-danger"></span>
+            </div>
+        </div>
+
+                    }
                     e = e + 1;
                 }
             }

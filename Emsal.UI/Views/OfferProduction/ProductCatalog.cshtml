@@ -8,12 +8,15 @@
 
     if(Model.opId==0)
     {
-        dis = "disabled";
+        if (Model.fpid == null)
+        {
+            dis = "disabled";
         <script>
             getChooseFileTemplate(@Model.productId);
         </script>
+            }
+        }
     }
-}
 
 @if (Model.ProductCatalogListFEA != null)
 {
@@ -46,12 +49,14 @@
     {
         <div class="clearfix"></div>
 
-        int e = 0;
+                        int e = 0;
 
-        foreach (var item in Model.EnumCategoryList)
-        {
-            if (Model.ProductCatalogControlList.Select(x => x.EnumCategoryId).ToList().Contains(item.Id))
-            {
+                        foreach (var item in Model.EnumCategoryList)
+                        {
+                            if (Model.ProductCatalogControlList.Select(x => x.EnumCategoryId).ToList().Contains(item.Id))
+                            {
+                                if (Model.fpid == null)
+                                {
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label" for="size">@item.description</label>
@@ -82,6 +87,30 @@
                         <span data-valmsg-replace="true" data-valmsg-for="enumVal[@{ @e }]" class="field-validation-valid text-danger"></span>
                     </div>
                 </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="size">@item.description</label>
+                                        <input hidden name="enumCat[@{ @e }]" value="@item.Id" />
+                                        <select required name="enumVal[@{ @e }]" class="form-control select2">
+                                            <option value="">Seçim edin</option>
+                                            @foreach (var item2 in Model.EnumValueList)
+                                            {
+                                                if (item2.enumCategory_enumCategoryId == item.Id)
+                                                {
+                                                    if (Model.ProductCatalogControlList.Select(x => x.EnumValueId).ToList().Contains(item2.Id))
+                                                    {
+                                                        <option value="@item2.Id">@item2.name</option>
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                        <span data-valmsg-replace="true" data-valmsg-for="enumVal[@{ @e }]" class="field-validation-valid text-danger"></span>
+                                    </div>
+                                </div>
+            }
             e = e + 1;
         }
     }
