@@ -27,6 +27,56 @@ function GetProductCatalog(elem) {
 };
 
 
+
+function GetProductCat(prodId, fpid) {
+    $('#productId').val(prodId);
+    pId = prodId;
+    $.ajax({
+        url: '/OfferProduction/ProductCatalog?ppId=' + prodId + '&pId=' + prodId + '&fpid=' + fpid,
+        type: 'GET',
+        success: function (result) {
+            $('#offerProductionProductCatalog').html(result);
+        },
+        error: function () {
+        }
+    });
+};
+
+
+$(document).ready(function () {
+    GetProductCatalogForSale();
+});
+
+function GetProductCatalogForSale() {
+    $.ajax({
+        url: '/OfferProduction/ProductCatalogForSale',
+        type: 'GET',
+        success: function (result) {
+            $('#productCatalogForSale').html(result);
+            $('.select2').select2();
+        },
+        error: function () {
+
+        }
+    });
+};
+
+function GetProductCatalogForSaleAS(elem) {
+    var prId = $(elem).val();
+
+    $.ajax({
+        url: '/OfferProduction/ProductCatalogForSaleAS?prId=' + prId,
+        type: 'GET',
+        success: function (result) {
+            GetProductCat(prId, result);
+        },
+        error: function () {
+
+        }
+    });
+};
+
+
 var Unitofmeasurementresult;
 function GetUnitofmeasurement(pId) {
     $.ajax({

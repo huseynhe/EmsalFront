@@ -15,6 +15,8 @@ using System.Text.RegularExpressions;
 using Emsal.Utility.UtilityObjects;
 using Emsal.WebInt.IAMAS;
 using System.Web.Hosting;
+using reCaptcha;
+using System.Configuration;
 
 namespace Emsal.UI.Controllers
 {
@@ -514,9 +516,11 @@ namespace Emsal.UI.Controllers
         {
             try
             {
-
                 baseInput = new BaseInput();
                 modelContact = new ContactViewModel();
+
+                ViewBag.Recaptcha = ReCaptcha.GetHtml(ConfigurationManager.AppSettings["ReCaptcha:SiteKey"]);
+                ViewBag.publicKey = ConfigurationManager.AppSettings["ReCaptcha:SiteKey"];
 
                 return View(modelContact);
 
@@ -532,6 +536,8 @@ namespace Emsal.UI.Controllers
         {
             try
             {
+                if (ReCaptcha.Validate(ConfigurationManager.AppSettings["ReCaptcha:SecretKey"]))
+                {
                 MailMessage msg = new MailMessage();
 
                 msg.To.Add("tedaruk@agro.gov.az");
@@ -547,7 +553,15 @@ namespace Emsal.UI.Controllers
                 Mail.SendMail(msg);
                 TempData["Message"] = "Müraciətiniz göndərildi.";
 
-                return RedirectToAction("Contact", "Home");
+                    return RedirectToAction("Contact", "Home");
+                }
+                else
+                {
+                    ViewBag.RecaptchaLastErrors = ReCaptcha.GetLastErrors(this.HttpContext);
+
+                    ViewBag.publicKey = ConfigurationManager.AppSettings["ReCaptcha:SiteKey"];
+                    return View(model);
+                }
 
             }
             catch (Exception ex)

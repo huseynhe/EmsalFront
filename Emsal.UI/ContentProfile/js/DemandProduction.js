@@ -14,12 +14,64 @@ function GetProductCatalog(elem) {
 
             getChooseFileTemplate(pId);
             callSelect2();
+
+            GetProductCatalogForSale();
         },
         error: function () {
 
         }
     });
 };
+
+
+function GetProductCat(prodId, fpid) {
+    $('#productId').val(prodId);
+    $.ajax({
+        url: '/DemandProduction/ProductCatalog?ppId=' + prodId + '&pId=' + prodId + '&fpid=' + fpid,
+        type: 'GET',
+        success: function (result) {
+            $('#productCatalogDemandProduction').html(result);
+            $('#calendarMainDiv').show();
+        },
+        error: function () {
+        }
+    });
+};
+
+
+$(document).ready(function () {
+    GetProductCatalogForSale();
+});
+
+function GetProductCatalogForSale() {
+    $.ajax({
+        url: '/DemandProduction/ProductCatalogForSale',
+        type: 'GET',
+        success: function (result) {
+            $('#productCatalogForSale').html(result);
+             callSelect2();
+        },
+        error: function () {
+
+        }
+    });
+};
+
+function GetProductCatalogForSaleAS(elem) {
+    var prId = $(elem).val();
+
+    $.ajax({
+        url: '/DemandProduction/ProductCatalogForSaleAS?prId=' + prId,
+        type: 'GET',
+        success: function (result) {
+            GetProductCat(prId, result);
+        },
+        error: function () {
+
+        }
+    });
+};
+
 
 
 var Unitofmeasurementresult;

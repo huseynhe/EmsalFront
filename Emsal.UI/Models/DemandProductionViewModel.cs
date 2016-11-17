@@ -133,6 +133,7 @@ namespace Emsal.UI.Models
         public long productionCalendarId { get; set; }
         public long productAddressId { get; set; }
         public long[] productAddressIds { get; set; }
+        public long[] productAddressIdsn { get; set; }
 
         public long[] productionControlEVIds { get; set; }
 
@@ -158,6 +159,7 @@ namespace Emsal.UI.Models
         public string[] size { get; set; }
 
         public int productId { get; set; }
+        public string fpid { get; set; }
         public long[] productIds { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]

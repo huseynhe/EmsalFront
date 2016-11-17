@@ -31,7 +31,7 @@ namespace Emsal.UI.Controllers
         private static string voen = "";
         private BaseInput baseInput;
 
-
+        [AllowAnonymous]
         public void ResetStaticVariables()
         {
             fullAddressId = "";

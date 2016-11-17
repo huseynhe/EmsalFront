@@ -22,7 +22,7 @@ function resetStaticVariables() {
         });
     }
 
-    if (res[1] == 'Login') {
+    if (res[1] != 'DemandProduction') {
         $.ajax({
             url: '/DemandProduction/ResetStaticVariables',
             type: 'GET',

@@ -17,20 +17,22 @@ namespace Emsal.UI.Controllers
     public class DemandProductionController : Controller
     {
         private static string fullAddressId = "";
+        private static string sfullProductId = "";
         private BaseInput baseInput;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
 
         private DemandProductionViewModel modelDemandProduction;
 
+        [AllowAnonymous]
         public void ResetStaticVariables()
         {
             fullAddressId = "";
             TempData["Success"] = null;
 
-            Session.Clear();
-            Response.Cookies.Clear();
-            Session.RemoveAll();
+            //Session.Clear();
+            //Response.Cookies.Clear();
+            //Session.RemoveAll();
         }
 
         public ActionResult Index()
@@ -101,7 +103,80 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult ProductCatalog(long pId = 0, long ppId = 0)
+
+        public ActionResult ProductCatalogForSale()
+        {
+            try
+            {
+                baseInput = new BaseInput();
+
+                modelDemandProduction = new DemandProductionViewModel();
+
+                long? userId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        userId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelDemandProduction.User);
+                baseInput.userName = modelDemandProduction.User.Username;
+
+                BaseOutput bouput = srv.WS_GetProductCatalogs(baseInput, out modelDemandProduction.ProductCatalogArray);
+                if (modelDemandProduction.ProductCatalogArray == null)
+                {
+                    modelDemandProduction.ProductCatalogList = new List<tblProductCatalog>();
+                }
+                else
+                {
+                    modelDemandProduction.ProductCatalogList = modelDemandProduction.ProductCatalogArray.Where(x => x.canBeOrder == 1).ToList();
+                }
+
+                return View(modelDemandProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+        public string ProductCatalogForSaleAS(long prId)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+
+                modelDemandProduction = new DemandProductionViewModel();
+
+                long? userId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        userId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelDemandProduction.User);
+                baseInput.userName = modelDemandProduction.User.Username;
+
+                BaseOutput gcl = srv.WS_GetProductCatalogListForID(baseInput, prId, true, out modelDemandProduction.ProductCatalogArray);
+                modelDemandProduction.ProductCatalogList = modelDemandProduction.ProductCatalogArray.ToList();
+
+                return string.Join(",", modelDemandProduction.ProductCatalogList.Select(x => x.Id)); ;
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message + ex.Source + ex.StackTrace;
+            }
+        }
+
+
+        public ActionResult ProductCatalog(long pId = 0, long ppId = 0, string fpid="")
         {
             try
             {
@@ -169,18 +244,34 @@ namespace Emsal.UI.Controllers
 
 
                 //if (modelDemandProduction.ProductCatalogList.Count() == 0 && ppId > 0)
-                if (ppId > 0)
+
+
+                if (ppId > 0 || fpid != "")
                 {
-                    BaseOutput gpp = srv.WS_GetDemand_ProductionById(baseInput, ppId, true, out modelDemandProduction.DemandProduction);
+                    if (fpid == "")
+                    {
+                        BaseOutput gpp = srv.WS_GetDemand_ProductionById(baseInput, ppId, true, out modelDemandProduction.DemandProduction);
 
-                    modelDemandProduction.Id = modelDemandProduction.DemandProduction.Id;
-                    modelDemandProduction.productId = (int)modelDemandProduction.DemandProduction.product_Id;
-                    modelDemandProduction.description = modelDemandProduction.DemandProduction.description;
-                    //modelDemandProduction.size = (modelDemandProduction.DemandProduction.quantity.ToString()).Replace(',', '.');
-                    //modelDemandProduction.price = (modelDemandProduction.DemandProduction.unit_price.ToString()).Replace(',', '.');
-                    modelDemandProduction.DemandProduction.fullProductId = "0," + modelDemandProduction.DemandProduction.fullProductId;
-                    modelDemandProduction.productIds = modelDemandProduction.DemandProduction.fullProductId.Split(',').Select(long.Parse).ToArray();
+                        modelDemandProduction.Id = modelDemandProduction.DemandProduction.Id;
+                        modelDemandProduction.productId = (int)modelDemandProduction.DemandProduction.product_Id;
+                        modelDemandProduction.description = modelDemandProduction.DemandProduction.description;
 
+                        //modelDemandProduction.size = (modelDemandProduction.DemandProduction.quantity.ToString()).Replace(',', '.');
+                        //modelDemandProduction.price = (modelDemandProduction.DemandProduction.unit_price.ToString()).Replace(',', '.');
+
+                        modelDemandProduction.DemandProduction.fullProductId = "0," + modelDemandProduction.DemandProduction.fullProductId;
+                        modelDemandProduction.productIds = modelDemandProduction.DemandProduction.fullProductId.Split(',').Select(long.Parse).ToArray();
+                    }
+                    else
+                    {
+                        modelDemandProduction.DemandProduction = new tblDemand_Production();
+                        modelDemandProduction.productId = Int32.Parse(ppId.ToString());
+                        modelDemandProduction.description = "";
+                        modelDemandProduction.fpid = fpid;
+
+                        modelDemandProduction.DemandProduction.fullProductId = "0," + fpid;
+                        modelDemandProduction.productIds = modelDemandProduction.DemandProduction.fullProductId.Split(',').Select(long.Parse).ToArray();
+                    }
                     modelDemandProduction.ProductCatalogListFEA = new IList<tblProductCatalog>[modelDemandProduction.productIds.Count()];
                     int s = 0;
                     foreach (long itm in modelDemandProduction.productIds)
@@ -207,17 +298,20 @@ namespace Emsal.UI.Controllers
                         s = s + 1;
                     }
 
-                    BaseOutput pcln = srv.WS_GetProductCatalogControlsByProductID(baseInput, modelDemandProduction.productIds.LastOrDefault(), true, out modelDemandProduction.ProductCatalogControlArray);
-
-                    modelDemandProduction.ProductCatalogControlList = modelDemandProduction.ProductCatalogControlArray.Where(x => x.Status == 1).Where(x => x.EnumCategoryId != modelDemandProduction.EnumCategory.Id).Where(x => x.EnumCategoryId != modelDemandProduction.EnumCategoryM.Id).ToList();
-
-                    BaseOutput pcb = srv.WS_GetProductionControls(baseInput, out modelDemandProduction.ProductionControlArray);
-                    modelDemandProduction.ProductionControlList = modelDemandProduction.ProductionControlArray.Where(x => x.Demand_Production_Id == pId).ToList();
-
-                    modelDemandProduction.productionControlEVIds = new long[modelDemandProduction.ProductionControlList.Count()];
-                    for (int t = 0; t < modelDemandProduction.ProductionControlList.Count(); t++)
+                    if (fpid == "")
                     {
-                        modelDemandProduction.productionControlEVIds[t] = (long)modelDemandProduction.ProductionControlList[t].EnumValueId;
+                        BaseOutput pcln = srv.WS_GetProductCatalogControlsByProductID(baseInput, modelDemandProduction.productIds.LastOrDefault(), true, out modelDemandProduction.ProductCatalogControlArray);
+
+                        modelDemandProduction.ProductCatalogControlList = modelDemandProduction.ProductCatalogControlArray.Where(x => x.Status == 1).Where(x => x.EnumCategoryId != modelDemandProduction.EnumCategory.Id).Where(x => x.EnumCategoryId != modelDemandProduction.EnumCategoryM.Id).ToList();
+
+                        BaseOutput pcb = srv.WS_GetProductionControls(baseInput, out modelDemandProduction.ProductionControlArray);
+                        modelDemandProduction.ProductionControlList = modelDemandProduction.ProductionControlArray.Where(x => x.Demand_Production_Id == pId).ToList();
+
+                        modelDemandProduction.productionControlEVIds = new long[modelDemandProduction.ProductionControlList.Count()];
+                        for (int t = 0; t < modelDemandProduction.ProductionControlList.Count(); t++)
+                        {
+                            modelDemandProduction.productionControlEVIds[t] = (long)modelDemandProduction.ProductionControlList[t].EnumValueId;
+                        }
                     }
                 }
 
@@ -539,6 +633,7 @@ namespace Emsal.UI.Controllers
                 }
 
                 modelDemandProduction.productAddressIds = null;
+
                 if (productAddressId > 0)
                 {
                     BaseOutput gpa = srv.WS_GetProductAddressById(baseInput, productAddressId, true, out modelDemandProduction.ProductAddress);
@@ -573,43 +668,66 @@ namespace Emsal.UI.Controllers
                     }
                 }
 
-                if (fullAddressId != "" && pId == 0 && productAddressId == 0)
-                {
-                    //fullAddressId = "0," + fullAddressId;
-                    modelDemandProduction.productAddressIds = ("0," + fullAddressId).Split(',').Select(long.Parse).ToArray();
 
-                    modelDemandProduction.ForeignOrganizationArrayFA = new IList<tblForeign_Organization>[modelDemandProduction.productAddressIds.Count()];
-                    int s = 0;
-                    foreach (long itm in modelDemandProduction.productAddressIds)
-                    {
-                        //if (itm == 0)
-                        //{
-                        //    BaseOutput folbid = srv.WS_GetForeignOrganizationListByUserId(baseInput, (long)userId, true, out modelDemandProduction.ForeignOrganizationArray);
-                        //    modelDemandProduction.ForeignOrganizationArray = modelDemandProduction.ForeignOrganizationArray.Where(x => x.userId == modelDemandProduction.User.Id).ToArray();
-                        //}
-                        //else
-                        //{                            
-                            BaseOutput gfolbid = srv.WS_GetForeign_OrganisationsByParentId(baseInput, (int)itm, true, out modelDemandProduction.ForeignOrganizationArray);
-                        if (itm == 0)
-                        {
-                            modelDemandProduction.ForeignOrganizationArray = modelDemandProduction.ForeignOrganizationArray.Where(x => x.userId == modelDemandProduction.User.Id).ToArray();
-                        }
-                        //}                            
+                //if (fullAddressId != "" && pId == 0 && productAddressId == 0)
+                //{
+                //    //fullAddressId = "0," + fullAddressId;
+                //    modelDemandProduction.productAddressIds = ("0," + fullAddressId).Split(',').Select(long.Parse).ToArray();
 
-                        modelDemandProduction.ForeignOrganizationArrayFA[s] = modelDemandProduction.ForeignOrganizationArray.ToList();
-                        s = s + 1;
-                    }
+                //    int index = Array.IndexOf(modelDemandProduction.productAddressIds, modelDemandProduction.ForeignOrganizationList.FirstOrDefault().Id);
 
-                    if (modelDemandProduction.ForeignOrganizationArrayFA[s - 1].Count() > 0)
-                    {
-                        //fullAddressId = fullAddressId + ",0";
-                        modelDemandProduction.productAddressIds = ("0," + fullAddressId + ",0").Split(',').Select(long.Parse).ToArray();
-                    }
+                //    int ss = 0;
+                //    for (int i = index; i < modelDemandProduction.productAddressIds.Length; i++)
+                //    {
+                //        if (ss == 0)
+                //        {
+                //            fullAddressId = modelDemandProduction.productAddressIds[i].ToString();
+                //        } else {
+                //            fullAddressId = fullAddressId+"," +modelDemandProduction.productAddressIds[i].ToString();
+                //        }
+                //        ss++;
+                //    }
 
-                    modelDemandProduction.ProductAddress = new tblProductAddress();
-                }
+                //    modelDemandProduction.productAddressIds = ("0," + fullAddressId).Split(',').Select(long.Parse).ToArray();
 
-                //fullAddressId = "";
+                //    modelDemandProduction.ForeignOrganizationArrayFA = new IList<tblForeign_Organization>[modelDemandProduction.productAddressIds.Count()];
+                //    int s = 0;
+                //    foreach (long itm in modelDemandProduction.productAddressIds)
+                //    {
+                //        //if (itm == 0)
+                //        //{
+                //        //    BaseOutput folbid = srv.WS_GetForeignOrganizationListByUserId(baseInput, (long)userId, true, out modelDemandProduction.ForeignOrganizationArray);
+                //        //    modelDemandProduction.ForeignOrganizationArray = modelDemandProduction.ForeignOrganizationArray.Where(x => x.userId == modelDemandProduction.User.Id).ToArray();
+                //        //}
+                //        //else
+                //        //{                           
+                            
+
+                //        if (itm == 0)
+                //        {
+                //            BaseOutput folbid = srv.WS_GetForeignOrganizationListByUserId(baseInput, (long)userId, true, out modelDemandProduction.ForeignOrganizationArray);
+
+                //            modelDemandProduction.ForeignOrganizationArray = modelDemandProduction.ForeignOrganizationArray.Where(x => x.userId == modelDemandProduction.User.Id).ToArray();
+                //        }
+                //        else
+                //        {
+                //            BaseOutput gfolbid = srv.WS_GetForeign_OrganisationsByParentId(baseInput, (int)itm, true, out modelDemandProduction.ForeignOrganizationArray);
+                //        }
+                //        //}                            
+
+                //        modelDemandProduction.ForeignOrganizationArrayFA[s] = modelDemandProduction.ForeignOrganizationArray.ToList();
+                //        s = s + 1;
+                //    }
+
+                //    if (modelDemandProduction.ForeignOrganizationArrayFA[s - 1].Count() > 0)
+                //    {
+                //        //fullAddressId = fullAddressId + ",0";
+                //        modelDemandProduction.productAddressIds = ("0," + fullAddressId + ",0").Split(',').Select(long.Parse).ToArray();
+                //    }
+
+                //    modelDemandProduction.ProductAddress = new tblProductAddress();
+                //}
+                
 
 
                 if (Session["arrDNum"] == null)
