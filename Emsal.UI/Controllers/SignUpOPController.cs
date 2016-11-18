@@ -29,7 +29,7 @@ namespace Emsal.UI.Controllers
         //private static string sVoen = "";
         private static string orgRoles = "";
         //private static long sUid  = 0;
-        private static long potId = 0;
+        //private static long potId = 0;
         private static string sType = null;
         private BaseInput baseInput;
         private UserViewModel modelUser;
@@ -42,7 +42,6 @@ namespace Emsal.UI.Controllers
         {
             try
             {
-                Session["newUser"] = new Guid();
                 UserViewModel model = new UserViewModel();
 
                 baseInput = new BaseInput();
@@ -667,7 +666,9 @@ namespace Emsal.UI.Controllers
                 modelUser.Address = new tblAddress();
 
                 modelUser.Person = GetPhysicalPerson(pId, type);
-                if (modelUser.Person.UserId == null)
+                Uri str = new Uri(Request.UrlReferrer.AbsoluteUri);
+                string strr = HttpUtility.ParseQueryString(str.Query).Get("uid");
+                if (modelUser.Person.UserId == null && strr == null)
                 {
                     //modelUser.birtday = (modelUser.Person.birtday).toShortDate().ToString();
                     if (modelUser.Person != null)
@@ -687,10 +688,10 @@ namespace Emsal.UI.Controllers
                 }
                 else
                 {
-
-                    if (potId > 0)
+                    
+                    if (strr != null)
                     {
-                        if (modelUser.Person.UserId != potId)
+                        if (modelUser.Person.UserId != long.Parse(strr))
                         {
                             return null;
                         }
