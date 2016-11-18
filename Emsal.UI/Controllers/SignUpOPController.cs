@@ -190,13 +190,30 @@ namespace Emsal.UI.Controllers
 
                 if (CheckExistence(mdl))
                 {
-                    BaseOutput uidBase = srv.WS_GetUserById(baseInput, mdl.User.Id, true, out modelUser.User);
+                    if (mdl.fin != null)
+                    {
+                        BaseOutput finOut = srv.WS_GetPersonByPinNumber(baseInput, mdl.fin, out mdl.Person);
+                        if (mdl.Person != null)
+                        {
+                            BaseOutput uidBase = srv.WS_GetUserById(baseInput, (long)mdl.Person.UserId, true, out modelUser.User);
+                        }
+                    }
+                    else
+                        if (mdl.voen != null)
+                    {
+                        BaseOutput voenOut = srv.WS_GetForeign_OrganizationByVoen(baseInput, mdl.voen, out mdl.ForeignOrganisation);
+                        if (mdl.ForeignOrganisation != null)
+                        {
+                            BaseOutput uidBase = srv.WS_GetUserById(baseInput, (long)mdl.ForeignOrganisation.userId, true, out modelUser.User);
+                        }
+                    }
+                    
                     if (modelUser.User != null)
                     {
                         BaseOutput gabui = srv.WS_GetAddressesByUserId(baseInput, modelUser.User.Id, true, out modelUser.AddressArray);
                         modelUser.Address = modelUser.AddressArray.ToList().FirstOrDefault();
                         BaseOutput gpbui = srv.WS_GetPersonByUserId(baseInput, modelUser.User.Id, true, out modelUser.Person);
-                        if (!String.IsNullOrEmpty(modelUser.voen))
+                        if (!String.IsNullOrEmpty(mdl.voen))
                         {
                             BaseOutput fOut = srv.WS_GetForeign_OrganizationByVoen(baseInput, modelUser.voen, out modelUser.ForeignOrganisation);
                         }
@@ -369,9 +386,9 @@ namespace Emsal.UI.Controllers
                         modelUser.ForeignOrganisation.address_Id = adrrId;
                         modelUser.ForeignOrganisation.address_IdSpecified = true;
 
-                        if (modelUser.ForeignOrganisation.Id > 0)
+                        if (mdl.ForeignOrganisation != null)
                         {
-                            BaseOutput fO = srv.WS_UpdateForeign_Organization(baseInput, modelUser.ForeignOrganisation, out modelUser.ForeignOrganisation);
+                            BaseOutput fO = srv.WS_UpdateForeign_Organization(baseInput, mdl.ForeignOrganisation, out modelUser.ForeignOrganisation);
                         }
                         else
                         {
@@ -431,9 +448,9 @@ namespace Emsal.UI.Controllers
                     BaseOutput delPerOut = srv.WS_DeletePerson(baseInput, modelUser.Person);
                 }
 
-                if (modelUser.Role != null)
+                if (modelUser.UserRole != null)
                 {
-                    BaseOutput delRolOut = srv.WS_DeleteRole(baseInput, modelUser.Role);
+                    BaseOutput delRolOut = srv.WS_DeleteUserRole(baseInput, modelUser.UserRole);
                 }
 
                 if (modelUser.Comminication != null)
