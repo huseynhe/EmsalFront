@@ -69,11 +69,16 @@ namespace Emsal.UI.Models
         public int arrNum = 0;
         public int arrPNum = 0;
 
+
         [Display(Name = null)]
         public string warning { get; set; }
 
+         public string adId { get; set; }
+
+        [Required(ErrorMessage = "Ünvan xanası məcburidir.")]
         [Display(Name = "Ünvan")]
         public string descAddress { get; set; }
+
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası məcburidir.")]
         public int addressId { get; set; }
 
