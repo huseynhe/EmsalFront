@@ -274,12 +274,13 @@ function GetAdminUnit(elem) {
 
                 $('#regionContainer').append(regCombo);
                 if (result.data.length > 0) {
-                    regCombo += "<div class='col-md-3'> <select id='" + "id" + result.data[0].parentId + "' onchange='GetAdminUnit(this)' class='form-control select2'>"
+                    regCombo += "<div class='col-md-3'> <select required id='" + "adId" + result.data[0].parentId + "' name='adId[" + result.data[0].parentId + "]' onchange='GetAdminUnit(this)' class='form-control select2'>"
                     regCombo += " <option value=''>Seçim edin</option>"
                     for (var i = 0; i < result.data.length; i++) {
                         regCombo += " <option value='" + result.data[i].id + "'> " + result.data[i].name + " </option>"
                     }
                     regCombo += "</div> </select> "
+                    regCombo += "<span data-valmsg-replace='true' data-valmsg-for=adId[" + result.data[0].parentId + "]  class='field-validation-valid text-danger'></span>"
                     $('#regionContainer').append(regCombo);
                 }
 
@@ -288,7 +289,7 @@ function GetAdminUnit(elem) {
 
                 //if (ai > 0) {
 
-                $("#id" + res[ai] + "").val(res[ai + 1]).change();
+                $("#adId" + res[ai] + "").val(res[ai + 1]).change();
                 //}
                 ai = ai + 1;
 
