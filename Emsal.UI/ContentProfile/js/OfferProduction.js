@@ -19,6 +19,8 @@ function GetProductCatalog(elem) {
             //}
             getChooseFileTemplate( $('#productId').val());
             $('.select2').select2();
+
+            GetProductCatalogForSale();
         },
         error: function () {
 
