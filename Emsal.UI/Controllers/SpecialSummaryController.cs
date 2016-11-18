@@ -233,8 +233,9 @@ namespace Emsal.UI.Controllers
             BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
             modelSpecial.WorkPhonePrefixList = modelSpecial.EnumValueArray.ToList();
 
+            
+
             BaseOutput contOut = srv.WS_GetContractBySupplierUserID(binput, modelSpecial.Person.Id, true, out modelSpecial.ContractArray);
-            modelSpecial.ContractList = modelSpecial.ContractArray.ToList();
 
             //modelSpecial.Contract = new tblContract();
             //BaseOutput contOut = srv.WS_GetContractBySupplierUserID()
@@ -2020,11 +2021,14 @@ namespace Emsal.UI.Controllers
             modelSpecial.OfferProduction.state_eV_Id = modelSpecial.EnumValue.Id;
             modelSpecial.OfferProduction.state_eV_IdSpecified = true;
             offerOutCount = srv.WS_GetOnAirOfferCount_ProductionsByUserId(binput, modelSpecial.OfferProduction, out model.OfferProductionArray);
-            model.OfferProductionList = model.OfferProductionArray.ToList();
-
-            foreach (var item in model.OfferProductionList)
+            if (model.OfferProductionArray != null)
             {
-                newOffers.Add(new products { id = item.Id, type = 1 });
+                model.OfferProductionList = model.OfferProductionArray.ToList();
+
+                foreach (var item in model.OfferProductionList)
+                {
+                    newOffers.Add(new products { id = item.Id, type = 1 });
+                }
             }
 
             //end 
@@ -2034,11 +2038,15 @@ namespace Emsal.UI.Controllers
             modelSpecial.OfferProduction.state_eV_Id = modelSpecial.EnumValue.Id;
             modelSpecial.OfferProduction.state_eV_IdSpecified = true;
             offerOutCount = srv.WS_GetOnAirOfferCount_ProductionsByUserId(binput, modelSpecial.OfferProduction, out model.OfferProductionArray);
-            model.OfferProductionList = model.OfferProductionArray.ToList();
 
-            foreach (var item in model.OfferProductionList)
+            if (model.OfferProductionArray != null)
             {
-                newOffers.Add(new products { id = item.Id, type = 2 });
+                model.OfferProductionList = model.OfferProductionArray.ToList();
+
+                foreach (var item in model.OfferProductionList)
+                {
+                    newOffers.Add(new products { id = item.Id, type = 2 });
+                }
             }
 
             //end
@@ -2048,11 +2056,15 @@ namespace Emsal.UI.Controllers
             modelSpecial.OfferProduction.state_eV_Id = modelSpecial.EnumValue.Id;
             modelSpecial.OfferProduction.state_eV_IdSpecified = true;
             offerOutCount = srv.WS_GetOnAirOfferCount_ProductionsByUserId(binput, modelSpecial.OfferProduction, out model.OfferProductionArray);
-            model.OfferProductionList = model.OfferProductionArray.ToList();
 
-            foreach (var item in model.OfferProductionList)
+            if (model.OfferProductionArray != null)
             {
-                newOffers.Add(new products { id = item.Id, type = 3 });
+                model.OfferProductionList = model.OfferProductionArray.ToList();
+
+                foreach (var item in model.OfferProductionList)
+                {
+                    newOffers.Add(new products { id = item.Id, type = 3 });
+                }
             }
 
             //end
@@ -2062,11 +2074,15 @@ namespace Emsal.UI.Controllers
             modelSpecial.OfferProduction.state_eV_Id = modelSpecial.EnumValue.Id;
             modelSpecial.OfferProduction.state_eV_IdSpecified = true;
             offerOutCount = srv.WS_GetOnAirOfferCount_ProductionsByUserId(binput, modelSpecial.OfferProduction, out model.OfferProductionArray);
-            model.OfferProductionList = model.OfferProductionArray.ToList();
 
-            foreach (var item in model.OfferProductionList)
+            if (model.OfferProductionArray != null)
             {
-                newOffers.Add(new products { id = item.Id, type = 4 });
+                model.OfferProductionList = model.OfferProductionArray.ToList();
+
+                foreach (var item in model.OfferProductionList)
+                {
+                    newOffers.Add(new products { id = item.Id, type = 4 });
+                }
             }
 
             //end

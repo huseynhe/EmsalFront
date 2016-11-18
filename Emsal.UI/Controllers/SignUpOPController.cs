@@ -382,13 +382,13 @@ namespace Emsal.UI.Controllers
 
                     MailMessage msg = new MailMessage();
 
-                    msg.To.Add("tedaruk@agro.gov.az");
+                    msg.To.Add(mdl.eMail);
                     msg.Subject = "Qeydiyyat";
 
-                    msg.Body = "<p>Hörmətli " + modelUser.Name + " "+ modelUser.Surname +"</p>" +
-                        "<p>Təqdim etdiyiniz məlumatlara əsasən, “Satınalan təşkilatların ərzaq məhsullarına tələbatı” portalında (tedaruk.az) </p>" +
-                        "<p>İstifadəçi adınız: " + modelUser.userName + "</p>" +
-                        "<p>Şifrəniz :  " + modelUser.passWord + "</p>";
+                    msg.Body = "<p>Hörmətli " + mdl.Name + " "+ mdl.Surname +"</p>" +
+                        "<p>Təqdim etdiyiniz məlumatlara əsasən, “Satınalan təşkilatların ərzaq məhsullarına tələbatı” portalında (tedaruk.az) qeydiyyatdan keçdiniz.</p>" +
+                        "<p>İstifadəçi adınız: " + mdl.userName + "</p>" +
+                        "<p>Şifrəniz :  " + mdl.passWord + "</p>";
 
                     msg.IsBodyHtml = true;
 
