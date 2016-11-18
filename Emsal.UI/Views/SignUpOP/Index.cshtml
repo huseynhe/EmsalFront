@@ -190,23 +190,23 @@
                                                 @Html.LabelFor(model => model.descAddress, htmlAttributes: new { @class = "control-label" })
                                             </div>
                                             <div class="col-md-3">
-                                                <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" id="mainRegion" class="form-control unicase-form-control select select2">
+                                                <select required name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" id="mainRegion" class="form-control unicase-form-control select select2">
 
                                                     <option selected value=""> Seçim edin</option>
 
                                                     @foreach (var item in Model.PRMAdminUnitList)
                                                     {
-                                                        if (item.Name == "Azərbaycan Respublikası")
+                                                        @*if (item.Name == "Azərbaycan Respublikası")
                                                         {
                                                             <option value="@item.Id"> @item.Name </option>
                                                         }
-                                                        else
+                                                        else*@
                                                         {
                                                             <option value="@item.Id"> @item.Name </option>
                                                         }
                                                     }
                                                 </select>
-                                                <span data-valmsg-replace="true" class="field-validation-valid text-danger"></span>
+                                                <span data-valmsg-replace="true" data-valmsg-for="adId[@{ @Model.arrNum }]" class="field-validation-valid text-danger"></span>
                                             </div>
                                         </div>
 
