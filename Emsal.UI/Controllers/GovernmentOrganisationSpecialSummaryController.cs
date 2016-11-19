@@ -197,8 +197,16 @@ namespace Emsal.UI.Controllers
             modelSpecial.DemandProduction.state_eV_IdSpecified = true;
 
             BaseOutput demand = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
-
-            modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.ToList();
+            modelSpecial.PagingProduction = modelSpecial.DemandProductionArray.ToList().ToPagedList(pageNumber, pageSize);
+            if (page == null)
+            {
+                modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.Skip(0).Take(pageSize).ToList();
+            }
+            else
+            {
+                modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.Skip(pageSize * pageNumber).Take(pageSize).ToList();
+            }
+           
             
             //////////////////////////////////////////////////////////////////////////////////////
 
@@ -305,7 +313,7 @@ namespace Emsal.UI.Controllers
                 }
             }
 
-            modelSpecial.PagingDemand = modelSpecial.OrgDemandList.ToPagedList(pageNumber, pageSize);
+            modelSpecial.PagingDemand = modelSpecial.OrgDemandList.ToPagedList(1, pageSize);
 
             //get the inbox messages
             BaseOutput mesOut = srv.WS_GetNotReadComMessagesByToUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.NotReadComMessageArray);
