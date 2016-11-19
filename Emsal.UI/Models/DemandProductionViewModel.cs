@@ -52,6 +52,10 @@ namespace Emsal.UI.Models
         public tblEnumCategory EnumCategory;
         public tblEnumCategory EnumCategoryM;
         public tblEnumCategory EnumCategorySS;
+
+        public ProductCatalogDetail[] ProductCatalogDetailArray;
+        public IList<ProductCatalogDetail> ProductCatalogDetailList { get; set; }
+
         public IList<tblEnumCategory> EnumCategoryList { get; set; }
         public tblEnumCategory[] EnumCategoryArray;
 

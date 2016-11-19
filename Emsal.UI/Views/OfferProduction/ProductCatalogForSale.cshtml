@@ -8,9 +8,9 @@
 <div class="form-group col-md-6">
     <select onchange="GetProductCatalogForSaleAS(this)" class="form-control unicase-form-control select select2">
         <option value="0">Satılacaq məhsul üzrə axtar</option>
-        @foreach (var item in Model.ProductCatalogList)
+        @foreach (var item in Model.ProductCatalogDetailList)
         {
-            <option value="@item.Id">@item.ProductName</option>
+            <option value="@item.productCatalog.Id">@item.productCatalog.ProductName (@item.productName)</option>
         }
     </select>
 </div>
