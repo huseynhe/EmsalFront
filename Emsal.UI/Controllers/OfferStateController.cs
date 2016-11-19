@@ -86,7 +86,7 @@ namespace Emsal.UI.Controllers
 
                 if (modelOfferState.ProductionDetailArray != null)
                 {
-                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailArray.Where(x => x.personInformation != null).ToList();
+                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailArray.Where(x => x.personInformation != null && x.enumCategoryId == modelOfferState.EnumCategory.Id).ToList();
                 }
                 else
                 {

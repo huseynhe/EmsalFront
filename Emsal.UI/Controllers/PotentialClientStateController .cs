@@ -85,7 +85,7 @@ namespace Emsal.UI.Controllers
 
                 if (snameSurnameFathername != null)
                 {
-                    modelPotentialClientState.UserInfoList = modelPotentialClientState.UserInfoList.Where(x => x.name.ToLower().Contains(snameSurnameFathername) || x.surname.ToLower().Contains(snameSurnameFathername) || x.fatherName.ToLower().Contains(snameSurnameFathername)).ToList();
+                    modelPotentialClientState.UserInfoList = modelPotentialClientState.UserInfoList.Where(x => x.name.ToLower().Contains(snameSurnameFathername) || x.surname.ToLower().Contains(snameSurnameFathername) || x.fatherName.ToLower().Contains(snameSurnameFathername) || x.OrganisationName.ToLower().Contains(snameSurnameFathername)).ToList();
                 }
 
                 if (spin != null)
