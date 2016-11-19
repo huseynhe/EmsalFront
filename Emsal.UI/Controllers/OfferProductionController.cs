@@ -168,16 +168,16 @@ namespace Emsal.UI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelOfferProduction.User);
                 baseInput.userName = modelOfferProduction.User.Username;
 
-                BaseOutput bouput = srv.WS_GetProductCatalogs(baseInput, out modelOfferProduction.ProductCatalogArray);
-                if (modelOfferProduction.ProductCatalogArray == null)
+                BaseOutput bouput = srv.GetProductCatalogsWithParent(baseInput, out modelOfferProduction.ProductCatalogDetailArray);
+
+                if (modelOfferProduction.ProductCatalogDetailArray == null)
                 {
-                    modelOfferProduction.ProductCatalogList = new List<tblProductCatalog>();
+                    modelOfferProduction.ProductCatalogDetailList = new List<ProductCatalogDetail>();
                 }
                 else
                 {
-                    modelOfferProduction.ProductCatalogList = modelOfferProduction.ProductCatalogArray.Where(x => x.canBeOrder == 1).ToList();
+                    modelOfferProduction.ProductCatalogDetailList = modelOfferProduction.ProductCatalogDetailArray.Where(x => x.productCatalog.canBeOrder == 1).ToList();
                 }
-
                 return View(modelOfferProduction);
 
             }
@@ -350,6 +350,7 @@ namespace Emsal.UI.Controllers
                             }
                         }
                         modelOfferProduction.ProductCatalogListFEA[s] = modelOfferProduction.ProductCatalogListPC;
+
 
                         s = s + 1;
                     }

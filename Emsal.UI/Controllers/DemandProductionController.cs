@@ -124,14 +124,15 @@ namespace Emsal.UI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelDemandProduction.User);
                 baseInput.userName = modelDemandProduction.User.Username;
 
-                BaseOutput bouput = srv.WS_GetProductCatalogs(baseInput, out modelDemandProduction.ProductCatalogArray);
-                if (modelDemandProduction.ProductCatalogArray == null)
+                BaseOutput bouput = srv.GetProductCatalogsWithParent(baseInput, out modelDemandProduction.ProductCatalogDetailArray);
+
+                if (modelDemandProduction.ProductCatalogDetailArray == null)
                 {
-                    modelDemandProduction.ProductCatalogList = new List<tblProductCatalog>();
+                    modelDemandProduction.ProductCatalogDetailList = new List<ProductCatalogDetail>();
                 }
                 else
                 {
-                    modelDemandProduction.ProductCatalogList = modelDemandProduction.ProductCatalogArray.Where(x => x.canBeOrder == 1).ToList();
+                    modelDemandProduction.ProductCatalogDetailList = modelDemandProduction.ProductCatalogDetailArray.Where(x => x.productCatalog.canBeOrder == 1).ToList();
                 }
 
                 return View(modelDemandProduction);
