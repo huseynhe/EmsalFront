@@ -1185,6 +1185,8 @@ namespace Emsal.AdminUI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
                 baseInput.userName = modelDemandProduction.Admin.Username;
 
+                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelDemandProduction.EnumCategory);
+
                 BaseOutput gpp = srv.WS_GetDemandProductionAmountOfEachProduct(baseInput, out modelDemandProduction.DemandOfferDetailArray);
 
                 if (modelDemandProduction.DemandOfferDetailArray == null)
@@ -1193,7 +1195,7 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    modelDemandProduction.DemandOfferDetailList = modelDemandProduction.DemandOfferDetailArray.OrderBy(x => x.productParentName).ToList();
+                    modelDemandProduction.DemandOfferDetailList = modelDemandProduction.DemandOfferDetailArray.Where(x => x.enumKategoryID == modelDemandProduction.EnumCategory.Id).OrderBy(x => x.productParentName).ToList();
                 }         
 
                 if (sproductName != null)
