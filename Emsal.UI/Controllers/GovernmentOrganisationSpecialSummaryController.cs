@@ -16,7 +16,6 @@ using Emsal.WebInt.IAMAS;
 namespace Emsal.UI.Controllers
 {
     [EmsalAuthorization(AuthorizedAction = ActionName.governmentOrganisation)]
-
     public class GovernmentOrganisationSpecialSummaryController : Controller
     {
         //
@@ -28,6 +27,7 @@ namespace Emsal.UI.Controllers
         private BaseInput binput;
         UserViewModel modelUser;
         SpecialSummaryViewModel modelSpecial;
+        List<tblDemand_Production> result;
 
         public ActionResult Index(int? page, long? UserId)
         {
@@ -198,16 +198,35 @@ namespace Emsal.UI.Controllers
 
             BaseOutput demand = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
             modelSpecial.PagingProduction = modelSpecial.DemandProductionArray.ToList().ToPagedList(pageNumber, pageSize);
+            //List<tblDemand_Production> name = null;
+
+            var result = Session["result"] as List<tblDemand_Production>;
+            Session["result"] = null;
             if (page == null)
             {
-                modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.Skip(0).Take(pageSize).ToList();
+                if (result != null)
+                {
+                    modelSpecial.DemandProductionList = result;
+                    modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToList().ToPagedList(pageNumber, pageSize);
+                }
+                else
+                {
+                    modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.Skip(0).Take(pageSize).ToList();
+                }
             }
             else
             {
-                modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.Skip(pageSize * pageNumber).Take(pageSize).ToList();
+                if (result != null)
+                {
+                    modelSpecial.DemandProductionList = result;
+                    modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToList().ToPagedList(pageNumber, pageSize);
+                }
+                else
+                {
+                    modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.Skip(pageSize * pageNumber).Take(pageSize).ToList();
+                }                
             }
-           
-            
+
             //////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -313,7 +332,7 @@ namespace Emsal.UI.Controllers
                 }
             }
 
-            modelSpecial.PagingDemand = modelSpecial.OrgDemandList.ToPagedList(1, pageSize);
+            modelSpecial.PagingDemand = modelSpecial.OrgDemandList.ToPagedList(pageNumber, pageSize);
 
             //get the inbox messages
             BaseOutput mesOut = srv.WS_GetNotReadComMessagesByToUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.NotReadComMessageArray);
@@ -877,7 +896,70 @@ namespace Emsal.UI.Controllers
 
         }
 
-       
+        public JsonResult Search(string name)
+        {
+
+            string str = (Request.UrlReferrer.Segments[2].ToString());
+            long UserID = 0;
+            if (User != null && User.Identity.IsAuthenticated)
+            {
+                FormsIdentity identity = (FormsIdentity)User.Identity;
+                if (identity.Ticket.UserData.Length > 0)
+                {
+                    UserID = Int32.Parse(identity.Ticket.UserData);
+                }
+            }
+            modelSpecial = new SpecialSummaryViewModel();
+            //SpecialSummaryViewModel resultModel = new SpecialSummaryViewModel();
+            //resultModel.DemandProduction = new tblDemand_Production();
+            result = new List<tblDemand_Production>();
+            modelSpecial.DemandProduction = new tblDemand_Production();
+            modelSpecial.ProductionControlList = new List<tblProductionControl>();
+            binput = new BaseInput();
+
+            string url = "";
+            switch (str)
+            {
+                case "Index":
+
+                break;
+
+                case "OnAirDemands":
+                    BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "Yayinda", out modelSpecial.EnumValue);
+                    BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
+                    modelSpecial.ForeignOrganisation = new tblForeign_Organization();
+                    BaseOutput nameOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
+                    modelSpecial.NameSurname = modelSpecial.ForeignOrganisation.name;
+                    modelSpecial.DemandProduction.user_Id = UserID;
+                    modelSpecial.DemandProduction.state_eV_Id = modelSpecial.EnumValue.Id;
+                    modelSpecial.DemandProduction.user_IdSpecified = true;
+                    modelSpecial.DemandProduction.state_eV_IdSpecified = true;
+                    BaseOutput demand = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
+                    modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.ToList();
+                    foreach (var item in modelSpecial.DemandProductionList)
+                    {
+                        BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
+                        if (modelSpecial.ProductCatalog.ProductName.Contains(name))
+                        {
+                            result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
+                        }
+                    }
+                    Session.Add("result", result);
+                    url = "OnAirDemands";
+                    break;
+
+                case "ExpiredDemands":                  
+                    break;
+
+                case "RejectedDemands":
+                    break;
+
+                case "NotSentYetOrders":
+                    break;
+            }
+
+            return Json(new { data = url });
+        }
 
         public ActionResult ReEditedOrders(long? UserID)
         {
