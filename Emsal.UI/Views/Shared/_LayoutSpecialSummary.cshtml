@@ -27,6 +27,7 @@
 
     <!-- Bootstrap core JS -->
 
+    <script src="~/Content/js/Goverment.js"></script>
     <script src="~/Content/js/jquery-1.12.3.js"></script>
     <script src="~/Content/js/bootstrap.min.js"></script>
     <script src="~/Content/js/ie10-viewport-bug-workaround.js"></script>
@@ -149,6 +150,10 @@
 
                     </div>
                     <div class="tab_panel_block_right">
+                        <div>
+                            <input type="text" onchange="SearchForProduct()" id="searchTextBox"/>
+                            <br />
+                        </div>
                         @RenderBody()
                     </div>
                 </div>
