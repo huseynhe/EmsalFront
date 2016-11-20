@@ -6,6 +6,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    p {
+        color: black !important;
+    }
+</style>
+
 <script src="~/ContentProfile/js/SignUpOP.js"></script>
 <link href="~/Content/css/datepicker.css" rel="stylesheet" />
 <script src="~/Content/js/bootstrap-datepicker.js"></script>
@@ -273,12 +279,12 @@
                                         </div>
                                     </div>
 
-                                    <div id="successDiv" style="z-index:3000" class="modal fade" role="dialog">
+                                    <div id="successDiv" style="z-index:3000;display:table" class="modal fade"  role="dialog">
                                         <div class="modal-dialog">
                                             <!-- Modal content-->
                                             <div class="modal-content">
                                                 <div class="modal-body">
-                                                    <h4>Qeydiyyat uğurla sona catdı!</h4>
+                                                    <p style="color: black !important;">Qeydiyyat uğurla sona catdı!</p>
                                                 </div>
                                             </div>
                                         </div>
