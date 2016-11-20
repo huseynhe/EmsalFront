@@ -59,6 +59,11 @@ namespace Emsal.UI.Models
             get;
             set;
         }
+        public PagedList.IPagedList<tblDemand_Production> PagingProduction
+        {
+            get;
+            set;
+        }
         public PagedList.IPagedList<GovernmentOrganisationDemand> PagingOffAirDemand
         {
             get;
@@ -364,5 +369,6 @@ namespace Emsal.UI.Models
         public string fname { get; set; }
         public bool hideButton { get; set; }
 
+        public bool isPDF { get; set; }
     }
 }
