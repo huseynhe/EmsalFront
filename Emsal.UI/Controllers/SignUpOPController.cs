@@ -420,6 +420,18 @@ namespace Emsal.UI.Controllers
                     }
 
                     TempData["personSignUp"] = "success";
+
+                    bool verify = BCrypt.Net.BCrypt.Verify(mdl.passWord, modelUser.User.Password);
+                    if (verify)
+                    {
+                        long uId = 0;
+                        uId = modelUser.User.Id;
+                        //LoginController lg = new LoginController();
+                        //return lg.CreateTicket(1, "OfferProduction", modelUser.User, null);
+                        return RedirectToAction("CreateTicket", "Login",new { ticketNum = 1, route = "OfferProduction",  User = "", returnUrl = "", uId= uId });
+                        //return CreateTicket(1, "AsanXidmetSpecial", modelUser.User, returnUrl);
+                        //return RedirectToAction("Index", "OfferProduction");
+                    }
                     return RedirectToAction("Index", "Login");
                 }
                 else
