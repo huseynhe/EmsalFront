@@ -131,7 +131,7 @@ namespace Emsal.UI.Models
         public bool noButton { get; set; }
         public long userId { get; set; }
         public string fullAddressId = "";
-        public string productName { get; set; }
+        
 
         public long totalSize = 0;
 
