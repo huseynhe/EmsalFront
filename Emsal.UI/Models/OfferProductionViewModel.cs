@@ -83,6 +83,7 @@ namespace Emsal.UI.Models
 
 
         public tblProductionCalendar LProductionCalendar;
+        public tblProductionCalendar LNProductionCalendar;
         public IList<tblProductionCalendar> LProductionCalendarList { get; set; }
         public tblProductionCalendar[] LProductionCalendarArray;
 

@@ -827,13 +827,15 @@ namespace Emsal.UI.Controllers
                         modelOfferProduction.LProductionCalendar.type_eV_Id = model.shippingSchedule;
                         modelOfferProduction.LProductionCalendar.type_eV_IdSpecified = true;
 
-                        BaseOutput gpcall = srv.WS_GetProductionCalendar(baseInput, out modelOfferProduction.LProductionCalendarArray);
+                        BaseOutput gpcbi = srv.WS_GetProductionCalendarByInstance(baseInput, modelOfferProduction.LProductionCalendar, out modelOfferProduction.LNProductionCalendar);
 
-                        modelOfferProduction.LProductionCalendarList = modelOfferProduction.LProductionCalendarArray.ToList();
+                        //BaseOutput gpcall = srv.WS_GetProductionCalendar(baseInput, out modelOfferProduction.LProductionCalendarArray);
 
-                        modelOfferProduction.LProductionCalendarList = modelOfferProduction.LProductionCalendarList.Where(x => x.demand_Id == modelOfferProduction.LProductionCalendar.offer_Id).Where(x => x.Production_type_eV_Id == modelOfferProduction.LProductionCalendar.Production_type_eV_Id).Where(x => x.year == modelOfferProduction.LProductionCalendar.year).Where(x => x.months_eV_Id == modelOfferProduction.LProductionCalendar.months_eV_Id).Where(x => x.type_eV_Id == modelOfferProduction.LProductionCalendar.type_eV_Id).ToList();
+                        //modelOfferProduction.LProductionCalendarList = modelOfferProduction.LProductionCalendarArray.ToList();
 
-                        if (modelOfferProduction.LProductionCalendarList.Count() == 0)
+                        //modelOfferProduction.LProductionCalendarList = modelOfferProduction.LProductionCalendarList.Where(x => x.demand_Id == modelOfferProduction.LProductionCalendar.offer_Id).Where(x => x.Production_type_eV_Id == modelOfferProduction.LProductionCalendar.Production_type_eV_Id).Where(x => x.year == modelOfferProduction.LProductionCalendar.year).Where(x => x.months_eV_Id == modelOfferProduction.LProductionCalendar.months_eV_Id).Where(x => x.type_eV_Id == modelOfferProduction.LProductionCalendar.type_eV_Id).ToList();
+
+                        if (modelOfferProduction.LNProductionCalendar == null)
                         {
                             BaseOutput alpc = srv.WS_AddProductionCalendar(baseInput, modelOfferProduction.LProductionCalendar, out modelOfferProduction.LProductionCalendar);
                         }
@@ -1080,7 +1082,7 @@ namespace Emsal.UI.Controllers
                 {
                     for (int i = 0; i < model.size.Length; i++)
                     {
-                        BaseOutput gpca = srv.WS_GetProductionCalendar(baseInput, out modelOfferProduction.LProductionCalendarArray);
+                        //BaseOutput gpca = srv.WS_GetProductionCalendar(baseInput, out modelOfferProduction.LProductionCalendarArray);
 
                         BaseOutput envalpc = srv.WS_GetEnumValueByName(baseInput, "offer", out modelOfferProduction.EnumValue);
 
@@ -1130,13 +1132,15 @@ namespace Emsal.UI.Controllers
                         modelOfferProduction.LProductionCalendar.type_eV_Id = model.shippingSchedule;
                         modelOfferProduction.LProductionCalendar.type_eV_IdSpecified = true;
 
-                        BaseOutput gpcall = srv.WS_GetProductionCalendar(baseInput, out modelOfferProduction.LProductionCalendarArray);
+                        BaseOutput gpcbi = srv.WS_GetProductionCalendarByInstance(baseInput, modelOfferProduction.LProductionCalendar, out modelOfferProduction.LNProductionCalendar);
 
-                        modelOfferProduction.LProductionCalendarList = modelOfferProduction.LProductionCalendarArray.ToList();
+                        //BaseOutput gpcall = srv.WS_GetProductionCalendar(baseInput, out modelOfferProduction.LProductionCalendarArray);
 
-                        modelOfferProduction.LProductionCalendarList = modelOfferProduction.LProductionCalendarList.Where(x => x.offer_Id == modelOfferProduction.LProductionCalendar.offer_Id).Where(x => x.Production_type_eV_Id == modelOfferProduction.LProductionCalendar.Production_type_eV_Id).Where(x => x.year == modelOfferProduction.LProductionCalendar.year).Where(x => x.months_eV_Id == modelOfferProduction.LProductionCalendar.months_eV_Id).Where(x => x.type_eV_Id == modelOfferProduction.LProductionCalendar.type_eV_Id).ToList();
+                        //modelOfferProduction.LProductionCalendarList = modelOfferProduction.LProductionCalendarArray.ToList();
 
-                        if (modelOfferProduction.LProductionCalendarList.Count() == 0)
+                        //modelOfferProduction.LProductionCalendarList = modelOfferProduction.LProductionCalendarList.Where(x => x.offer_Id == modelOfferProduction.LProductionCalendar.offer_Id).Where(x => x.Production_type_eV_Id == modelOfferProduction.LProductionCalendar.Production_type_eV_Id).Where(x => x.year == modelOfferProduction.LProductionCalendar.year).Where(x => x.months_eV_Id == modelOfferProduction.LProductionCalendar.months_eV_Id).Where(x => x.type_eV_Id == modelOfferProduction.LProductionCalendar.type_eV_Id).ToList();
+
+                        if (modelOfferProduction.LNProductionCalendar == null)
                         {
                             BaseOutput alpc = srv.WS_AddProductionCalendar(baseInput, modelOfferProduction.LProductionCalendar, out modelOfferProduction.LProductionCalendar);
                         }
