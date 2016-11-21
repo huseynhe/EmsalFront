@@ -239,6 +239,8 @@ namespace Emsal.UI.Models
 
 
 
+        public string rurl { get; set; }
+
         //ferid
         public MonthsModel modelMonths { get; set; }
         public List<MonthsModel> modelMonthsList { get; set; }

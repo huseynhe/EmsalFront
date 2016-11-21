@@ -1076,11 +1076,10 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult Edit(long id)
+        public ActionResult Edit(long id, string rurl=null)
         {
             try
             {
-
                 string userIpAddress = this.Request.ServerVariables["REMOTE_ADDR"];
 
                 baseInput = new BaseInput();
@@ -1158,6 +1157,8 @@ namespace Emsal.UI.Controllers
 
                 //modelDemandProduction.shippingSchedule = (long)modelDemandProduction.ProductionCalendar.Transportation_eV_Id;
                 //modelDemandProduction.productionCalendarId = modelDemandProduction.ProductionCalendar.Id;
+
+                modelDemandProduction.rurl = rurl;
 
                 if (Session["documentGrupId"] == null)
                 {
@@ -1398,7 +1399,8 @@ namespace Emsal.UI.Controllers
                 Session["documentGrupId"] = null;
                 TempData["Success"] = modelDemandProduction.messageSuccess;
 
-                return RedirectToAction("Index", "DemandProduction");
+                //return RedirectToAction("Index", "DemandProduction");
+                return Redirect(model.rurl);
 
             }
             catch (Exception ex)
@@ -1531,7 +1533,7 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult SelectedProducts(int? page, bool pdf = false, bool noButton = true, string productName = null)
+        public ActionResult SelectedProducts(int? page, bool pdf = false, bool noButton = true, string productName = null, string rurl=null)
         {
             try
             {
@@ -1586,6 +1588,7 @@ namespace Emsal.UI.Controllers
                 modelDemandProduction.userId = (long)userId;
                 modelDemandProduction.noButton = noButton;
                 modelDemandProduction.productName = sproductName;
+                modelDemandProduction.rurl = rurl;
 
                 var gd = Guid.NewGuid();
 
