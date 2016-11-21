@@ -267,8 +267,9 @@ namespace Emsal.UI.Controllers
                 string str = "";
                 if (bday != "0")
                 {
-                    str = String.Format("{0:dd.MM.yyyy}", DateTime.ParseExact(bday, "yyyyMMdd", new CultureInfo("az-Latn-AZ")));
                     //Shekili saxlamaq ucun
+
+                    str = String.Format("{0:dd.MM.yyyy}", DateTime.ParseExact(bday, "yyyyMMdd", new CultureInfo("az-Latn-AZ")));
                     //string path = Server.MapPath("~/ContentProfile/personImage/") + "/" + str + "/";
                     string path = Server.MapPath("~/ContentProfile/personImage/");
 
