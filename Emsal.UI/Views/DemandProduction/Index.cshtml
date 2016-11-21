@@ -185,12 +185,12 @@
         </div>
 
         <div id="selectedProducts">
-            <script>
+            @*<script>
                         $(document).ready(function () {
                             getSelectedProducts();
                         });
-            </script>
-            @*@Html.Action("SelectedProducts", "DemandProduction")*@
+            </script>*@
+            @Html.Action("SelectedProducts", "DemandProduction", new { noButton = false })
         </div>  
 
         <div class="row">

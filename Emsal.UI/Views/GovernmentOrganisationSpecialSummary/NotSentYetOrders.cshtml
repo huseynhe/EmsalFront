@@ -2,6 +2,7 @@
     ViewBag.Title = "NotSentYetOffers";
     Layout = "~/Views/Shared/_LayoutSpecialSummary.cshtml";
 }
+<script src="~/ContentProfile/js/DemandProduction.js"></script>
 <style>
     .bttns {
         display: none;
@@ -11,7 +12,9 @@
 <div class="tesdiqlenen">
     <div class="mesajlar">
         <div id="selectedProducts">
-            <script>
+            @Html.Action("SelectedProducts", "DemandProduction", new { noButton = false })
+
+            @*<script>
                         $(document).ready(function () {
                             $.ajax({
                                 url: '/DemandProduction/SelectedProducts',
@@ -24,7 +27,7 @@
                                 }
                             });
                         });
-            </script>
+            </script>*@
         </div>
     </div>
 </div>

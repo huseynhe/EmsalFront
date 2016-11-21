@@ -307,3 +307,17 @@ function getSelectedProducts() {
         }
     });
 }
+
+
+function SelectedProductsSearch(elem, value) {
+    $.ajax({
+        url: '/DemandProduction/SelectedProducts?' + value + '=' + $(elem).val(),
+        type: 'GET',
+        success: function (result) {
+            $('#AjaxPaginationList').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}

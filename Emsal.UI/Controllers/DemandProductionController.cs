@@ -2,6 +2,7 @@
 using Emsal.UI.Models;
 using Emsal.Utility.CustomObjects;
 using Emsal.WebInt.EmsalSrv;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -18,6 +19,7 @@ namespace Emsal.UI.Controllers
     {
         private static string fullAddressId = "";
         private static string sfullProductId = "";
+        private static string sproductName;
         private BaseInput baseInput;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
@@ -1529,13 +1531,26 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult SelectedProducts(bool pdf = false, bool noButton = true)
+        public ActionResult SelectedProducts(int? page, bool pdf = false, bool noButton = true, string productName = null)
         {
             try
             {
+                int pageSize = 10;
+                int pageNumber = (page ?? 1);
 
                 baseInput = new BaseInput();
                 modelDemandProduction = new DemandProductionViewModel();
+
+                if (productName != null)
+                    productName = StripTag.strSqlBlocker(productName.ToLower());
+
+                if (productName == null)
+                {
+                    sproductName = null;
+                }
+
+                if (productName != null)
+                    sproductName = productName;
 
                 long? userId = null;
                 if (User != null && User.Identity.IsAuthenticated)
@@ -1562,19 +1577,29 @@ namespace Emsal.UI.Controllers
                     modelDemandProduction.ProductionDetailList = new List<ProductionDetail>();
                 }
 
+                if (sproductName != null)
+                {
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
+                }
+
                 modelDemandProduction.isPDF = pdf;
                 modelDemandProduction.userId = (long)userId;
                 modelDemandProduction.noButton = noButton;
+                modelDemandProduction.productName = sproductName;
 
                 var gd = Guid.NewGuid();
 
                 if (modelDemandProduction.isPDF == true)
                 {
+                    modelDemandProduction.Paging = modelDemandProduction.ProductionDetailList.ToPagedList(1, 50000);
                     return new Rotativa.PartialViewAsPdf(modelDemandProduction) { FileName = gd + ".pdf" };
                 }
                 else
                 {
-                    return View(modelDemandProduction);
+                    modelDemandProduction.Paging = modelDemandProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+                    return Request.IsAjaxRequest()
+         ? (ActionResult)PartialView("PartialSelectedProducts", modelDemandProduction)
+         : View(modelDemandProduction);
                 }
 
             }
