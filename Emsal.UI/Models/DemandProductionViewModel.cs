@@ -144,7 +144,7 @@ namespace Emsal.UI.Models
 
         public long[] productionControlEVIds { get; set; }
 
-
+        public int itemCount { get; set; }
 
         //[Display(Name = "Başlıq")]
         //[Required(ErrorMessage = "{0} xanası məcburidir.")]

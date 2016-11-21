@@ -1,5 +1,4 @@
 ﻿@model Emsal.UI.Models.DemandProductionViewModel
-
 @{
     ViewBag.Title = "DemandProduction";
     if (Model.isPDF == true)
@@ -11,24 +10,25 @@
         Layout = "";
     }
 }
-
 <h4>Tələb olunan məhsullar</h4>
-<div class="row">
-    <div class="col-md-6">
-        <input onkeyup="SelectedProductsSearch(this, 'productName')" class="form-control" placeholder="Məhsulun adına görə axtar" /><br />
-    </div>
-    <div class="clearfix"></div>
-        <div class="col-md-12">
 
+<div class="row">
+
+    @if (Model.isPDF == false)
+    {
+        <div class="col-md-6">
+            <input onkeyup="SelectedProductsSearch(this, 'productName')" class="form-control" placeholder="Məhsulun adına görə axtar" /><br />
+        </div>
+    }
+    <div class="clearfix"></div>
+    <div class="col-md-12">
         <div id="AjaxPaginationList">
             @Html.Partial("PartialSelectedProducts")
         </div>
     </div>
 </div>
 
-
 <script src="~/ContentProfile/js/pagedList.js"></script>
-
 @if (Model.isPDF == true)
 {
     @Html.Action("Style", "Home", new { pId = 0 })

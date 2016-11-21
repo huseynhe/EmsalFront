@@ -311,7 +311,7 @@ function getSelectedProducts() {
 
 function SelectedProductsSearch(elem, value) {
     $.ajax({
-        url: '/DemandProduction/SelectedProducts?' + value + '=' + $(elem).val(),
+        url: '/DemandProduction/SelectedProducts?' + value + '=' + $(elem).val() + '&noButton=false',
         type: 'GET',
         success: function (result) {
             $('#AjaxPaginationList').html(result);

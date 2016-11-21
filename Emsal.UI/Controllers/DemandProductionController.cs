@@ -1589,6 +1589,8 @@ namespace Emsal.UI.Controllers
 
                 var gd = Guid.NewGuid();
 
+                modelDemandProduction.itemCount = modelDemandProduction.ProductionDetailList.Count();
+
                 if (modelDemandProduction.isPDF == true)
                 {
                     modelDemandProduction.Paging = modelDemandProduction.ProductionDetailList.ToPagedList(1, 50000);
