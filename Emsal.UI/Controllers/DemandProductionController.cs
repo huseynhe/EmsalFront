@@ -1014,13 +1014,15 @@ namespace Emsal.UI.Controllers
                             modelDemandProduction.LProductionCalendar.type_eV_Id = model.shippingSchedule;
                             modelDemandProduction.LProductionCalendar.type_eV_IdSpecified = true;
 
-                            BaseOutput gpcall = srv.WS_GetProductionCalendar(baseInput, out modelDemandProduction.LProductionCalendarArray);
+                            BaseOutput gpcbi = srv.WS_GetProductionCalendarByInstance(baseInput, modelDemandProduction.LProductionCalendar, out modelDemandProduction.LNProductionCalendar);
 
-                            modelDemandProduction.LProductionCalendarList = modelDemandProduction.LProductionCalendarArray.ToList();
+                            //BaseOutput gpcall = srv.WS_GetProductionCalendar(baseInput, out modelDemandProduction.LProductionCalendarArray);
 
-                            modelDemandProduction.LProductionCalendarList = modelDemandProduction.LProductionCalendarList.Where(x => x.demand_Id == modelDemandProduction.LProductionCalendar.demand_Id).Where(x => x.Production_type_eV_Id == modelDemandProduction.LProductionCalendar.Production_type_eV_Id).Where(x => x.year == modelDemandProduction.LProductionCalendar.year).Where(x => x.months_eV_Id == modelDemandProduction.LProductionCalendar.months_eV_Id).Where(x => x.type_eV_Id == modelDemandProduction.LProductionCalendar.type_eV_Id).ToList();
+                            //modelDemandProduction.LProductionCalendarList = modelDemandProduction.LProductionCalendarArray.ToList();
 
-                            if (modelDemandProduction.LProductionCalendarList.Count() == 0)
+                            //modelDemandProduction.LProductionCalendarList = modelDemandProduction.LProductionCalendarList.Where(x => x.demand_Id == modelDemandProduction.LProductionCalendar.demand_Id).Where(x => x.Production_type_eV_Id == modelDemandProduction.LProductionCalendar.Production_type_eV_Id).Where(x => x.year == modelDemandProduction.LProductionCalendar.year).Where(x => x.months_eV_Id == modelDemandProduction.LProductionCalendar.months_eV_Id).Where(x => x.type_eV_Id == modelDemandProduction.LProductionCalendar.type_eV_Id).ToList();
+
+                            if (modelDemandProduction.LNProductionCalendar != null)
                             {
                                 BaseOutput alpc = srv.WS_AddProductionCalendar(baseInput, modelDemandProduction.LProductionCalendar, out modelDemandProduction.LProductionCalendar);
                             }
