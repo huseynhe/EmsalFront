@@ -70,11 +70,11 @@
             </div>
                             }
 
-        <div class="box-footer clearfix">
-            Səhifə @(Model.PagingConfirmedDemand.PageCount < Model.PagingConfirmedDemand.PageNumber ? 0 : Model.PagingConfirmedDemand.PageNumber) (cəmi @Model.PagingConfirmedDemand.PageCount)
-            @Html.PagedListPager(Model.PagingConfirmedDemand, page => Url.Action("Index", "GovernmentOrganisationSpecialSummary", new { page }))
-        </div>
+                            <div class="box-footer clearfix">
+                                Səhifə @(Model.PagingProduction.PageCount < Model.PagingProduction.PageNumber ? 0 : Model.PagingProduction.PageNumber) (cəmi @Model.PagingProduction.PageCount)
+                                @Html.PagedListPager(Model.PagingProduction, page => Url.Action("OnAirDemands", "GovernmentOrganisationSpecialSummary", new { page }))
+                            </div>
 
-                                    }
                                 }
                             }
+}

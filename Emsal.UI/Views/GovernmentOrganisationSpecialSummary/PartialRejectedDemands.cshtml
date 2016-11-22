@@ -75,10 +75,10 @@
             </div>
                             }
 
-    <div class="box-footer clearfix">
-        Səhifə @(Model.PagingRejectedDemand.PageCount < Model.PagingRejectedDemand.PageNumber ? 0 : Model.PagingRejectedDemand.PageNumber) (cəmi @Model.PagingRejectedDemand.PageCount)
-        @Html.PagedListPager(Model.PagingRejectedDemand, page => Url.Action("RejectedDemands", "GovernmentOrganisationSpecialSummary", new { page }))
-    </div>
+                            <div class="box-footer clearfix">
+                                Səhifə @(Model.PagingProduction.PageCount < Model.PagingProduction.PageNumber ? 0 : Model.PagingProduction.PageNumber) (cəmi @Model.PagingProduction.PageCount)
+                                @Html.PagedListPager(Model.PagingProduction, page => Url.Action("OnAirDemands", "GovernmentOrganisationSpecialSummary", new { page }))
+                            </div>
 
-    }
+                            }
 }

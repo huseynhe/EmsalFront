@@ -68,10 +68,10 @@
             </div>
                             }
 
-            <div class="box-footer clearfix">
-                Səhifə @(Model.PagingOffAirDemand.PageCount < Model.PagingOffAirDemand.PageNumber ? 0 : Model.PagingOffAirDemand.PageNumber) (cəmi @Model.PagingOffAirDemand.PageCount)
-                @Html.PagedListPager(Model.PagingOffAirDemand, page => Url.Action("ExpiredDemands", "GovernmentOrganisationSpecialSummary", new { page }))
-            </div>
+                            <div class="box-footer clearfix">
+                                Səhifə @(Model.PagingProduction.PageCount < Model.PagingProduction.PageNumber ? 0 : Model.PagingProduction.PageNumber) (cəmi @Model.PagingProduction.PageCount)
+                                @Html.PagedListPager(Model.PagingProduction, page => Url.Action("OnAirDemands", "GovernmentOrganisationSpecialSummary", new { page }))
+                            </div>
 
-    }
+                            }
 }
