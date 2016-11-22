@@ -29,7 +29,7 @@ namespace Emsal.UI.Controllers
         SpecialSummaryViewModel modelSpecial;
         List<tblDemand_Production> result;
 
-        public ActionResult Index(int? page, long? UserId)
+        public ActionResult Index(int? page, long? UserId, string productName = null)
         {
             binput = new BaseInput();
             modelSpecial = new SpecialSummaryViewModel();
@@ -63,8 +63,53 @@ namespace Emsal.UI.Controllers
             modelSpecial.DemandProduction.state_eV_IdSpecified = true;
 
             BaseOutput demand = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
-
             modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.ToList();
+            modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToPagedList(pageNumber, pageSize);
+
+            if (page == null)
+            {
+                if (!String.IsNullOrEmpty(productName))
+                {
+                    List<tblDemand_Production> result = new List<tblDemand_Production>();
+                    foreach (var item in modelSpecial.DemandProductionList)
+                    {
+                        BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
+                        if (modelSpecial.ProductCatalog.ProductName.Contains(productName))
+                        {
+                            result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
+                        }
+                    }
+                    modelSpecial.DemandProductionList = null;
+                    modelSpecial.DemandProductionList = result;
+                    modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToPagedList(pageNumber, pageSize);
+                }
+                else
+                {
+                    modelSpecial.DemandProductionList = modelSpecial.DemandProductionList.Skip(0).Take(pageSize).ToList();
+                }
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(productName))
+                {
+                    List<tblDemand_Production> result = null;
+                    foreach (var item in modelSpecial.DemandProductionList)
+                    {
+                        BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
+                        if (modelSpecial.ProductCatalog.ProductName.Contains(productName))
+                        {
+                            result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
+                        }
+                    }
+                    modelSpecial.DemandProductionList = null;
+                    modelSpecial.DemandProductionList = result;
+                    modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToList().ToPagedList(pageNumber, pageSize);
+                }
+                else
+                {
+                    modelSpecial.DemandProductionList = modelSpecial.DemandProductionList.Skip(pageSize * pageNumber).Take(pageSize).ToList();
+                }
+            }
             //////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -147,7 +192,7 @@ namespace Emsal.UI.Controllers
 
                 modelSpecial.OrgDemandList.Add(modelSpecial.OrgDemand);
             }
-            modelSpecial.PagingConfirmedDemand = modelSpecial.OrgDemandList.ToPagedList(pageNumber, pageSize);
+            modelSpecial.PagingConfirmedDemand = modelSpecial.OrgDemandList.ToPagedList(1, pageSize);
 
             chekForDemandButton((long)UserId);
 
@@ -155,7 +200,11 @@ namespace Emsal.UI.Controllers
             BaseOutput mesOut = srv.WS_GetNotReadComMessagesByToUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.NotReadComMessageArray);
             modelSpecial.ComMessageList = modelSpecial.NotReadComMessageArray == null ? null : modelSpecial.NotReadComMessageArray.ToList();
             modelSpecial.MessageCount = modelSpecial.ComMessageList == null ? 0 : modelSpecial.ComMessageList.Count();
-            return View(modelSpecial);
+            //return View(modelSpecial);
+
+            return Request.IsAjaxRequest()
+ ? (ActionResult)PartialView("PartialIndex", modelSpecial)
+ : View(modelSpecial);
         }
 
         public ActionResult OnAirDemands(int? page, long? UserID, string productName = null)
@@ -205,7 +254,7 @@ namespace Emsal.UI.Controllers
 
             if (page == null)
             {
-                if (productName != null)
+                if (!String.IsNullOrEmpty(productName))
                 {
                     List<tblDemand_Production> result = new List<tblDemand_Production>() ;
                     foreach (var item in modelSpecial.DemandProductionList)
@@ -227,7 +276,7 @@ namespace Emsal.UI.Controllers
             }
             else
             {
-                if (productName != null)
+                if (!String.IsNullOrEmpty(productName))
                 {
                     List<tblDemand_Production> result = null;
                     foreach (var item in modelSpecial.DemandProductionList)
@@ -369,7 +418,7 @@ namespace Emsal.UI.Controllers
             //return View(modelSpecial);
         }
 
-        public ActionResult ExpiredDemands(int?page,long?UserID)
+        public ActionResult ExpiredDemands(int?page,long?UserID, string productName = null)
         {
             modelSpecial = new SpecialSummaryViewModel();
             binput = new BaseInput();
@@ -405,6 +454,52 @@ namespace Emsal.UI.Controllers
 
             BaseOutput demand = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
             modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.ToList();
+            modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToPagedList(pageNumber, pageSize);
+
+            if (page == null)
+            {
+                if (!String.IsNullOrEmpty(productName))
+                {
+                    List<tblDemand_Production> result = new List<tblDemand_Production>();
+                    foreach (var item in modelSpecial.DemandProductionList)
+                    {
+                        BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
+                        if (modelSpecial.ProductCatalog.ProductName.Contains(productName))
+                        {
+                            result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
+                        }
+                    }
+                    modelSpecial.DemandProductionList = null;
+                    modelSpecial.DemandProductionList = result;
+                    modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToPagedList(pageNumber, pageSize);
+                }
+                else
+                {
+                    modelSpecial.DemandProductionList = modelSpecial.DemandProductionList.Skip(0).Take(pageSize).ToList();
+                }
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(productName))
+                {
+                    List<tblDemand_Production> result = null;
+                    foreach (var item in modelSpecial.DemandProductionList)
+                    {
+                        BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
+                        if (modelSpecial.ProductCatalog.ProductName.Contains(productName))
+                        {
+                            result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
+                        }
+                    }
+                    modelSpecial.DemandProductionList = null;
+                    modelSpecial.DemandProductionList = result;
+                    modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToList().ToPagedList(pageNumber, pageSize);
+                }
+                else
+                {
+                    modelSpecial.DemandProductionList = modelSpecial.DemandProductionList.Skip(pageSize * pageNumber).Take(pageSize).ToList();
+                }
+            }
 
             ////////////////////////////////////////////////////////////////
 
@@ -487,7 +582,7 @@ namespace Emsal.UI.Controllers
                 modelSpecial.OrgDemandList.Add(modelSpecial.OrgDemand);
             }
 
-            modelSpecial.PagingOffAirDemand = modelSpecial.OrgDemandList.ToPagedList(pageNumber, pageSize);
+            modelSpecial.PagingOffAirDemand = modelSpecial.OrgDemandList.ToPagedList(1, pageSize);
 
             chekForDemandButton((long)UserID);
 
@@ -495,11 +590,13 @@ namespace Emsal.UI.Controllers
             BaseOutput mesOut = srv.WS_GetNotReadComMessagesByToUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.NotReadComMessageArray);
             modelSpecial.ComMessageList = modelSpecial.NotReadComMessageArray == null ? null : modelSpecial.NotReadComMessageArray.ToList();
             modelSpecial.MessageCount = modelSpecial.ComMessageList == null ? 0 : modelSpecial.ComMessageList.Count();
-            return View(modelSpecial);
-
+            //return View(modelSpecial);
+            return Request.IsAjaxRequest()
+ ? (ActionResult)PartialView("PartialExpiredDemands", modelSpecial)
+ : View(modelSpecial);
         }
 
-        public ActionResult RejectedDemands(int?page,long? UserID)
+        public ActionResult RejectedDemands(int?page,long? UserID, string productName = null)
         {
             modelSpecial = new SpecialSummaryViewModel();
             binput = new BaseInput();
@@ -538,6 +635,53 @@ namespace Emsal.UI.Controllers
 
             BaseOutput demand = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
             modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.ToList();
+            modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToPagedList(pageNumber, pageSize);
+            //List<tblDemand_Production> name = null;
+
+            if (page == null)
+            {
+                if (!String.IsNullOrEmpty(productName))
+                {
+                    List<tblDemand_Production> result = new List<tblDemand_Production>();
+                    foreach (var item in modelSpecial.DemandProductionList)
+                    {
+                        BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
+                        if (modelSpecial.ProductCatalog.ProductName.Contains(productName))
+                        {
+                            result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
+                        }
+                    }
+                    modelSpecial.DemandProductionList = null;
+                    modelSpecial.DemandProductionList = result;
+                    modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToPagedList(pageNumber, pageSize);
+                }
+                else
+                {
+                    modelSpecial.DemandProductionList = modelSpecial.DemandProductionList.Skip(0).Take(pageSize).ToList();
+                }
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(productName))
+                {
+                    List<tblDemand_Production> result = null;
+                    foreach (var item in modelSpecial.DemandProductionList)
+                    {
+                        BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
+                        if (modelSpecial.ProductCatalog.ProductName.Contains(productName))
+                        {
+                            result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
+                        }
+                    }
+                    modelSpecial.DemandProductionList = null;
+                    modelSpecial.DemandProductionList = result;
+                    modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToList().ToPagedList(pageNumber, pageSize);
+                }
+                else
+                {
+                    modelSpecial.DemandProductionList = modelSpecial.DemandProductionList.Skip(pageSize * pageNumber).Take(pageSize).ToList();
+                }
+            }
 
             ////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -620,7 +764,7 @@ namespace Emsal.UI.Controllers
                 modelSpecial.OrgDemandList.Add(modelSpecial.OrgDemand);
             }
 
-            modelSpecial.PagingRejectedDemand = modelSpecial.OrgDemandList.ToPagedList(pageNumber, pageSize);
+            modelSpecial.PagingRejectedDemand = modelSpecial.OrgDemandList.ToPagedList(1, pageSize);
 
             chekForDemandButton((long)UserID);
 
@@ -628,7 +772,12 @@ namespace Emsal.UI.Controllers
             BaseOutput mesOut = srv.WS_GetNotReadComMessagesByToUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.NotReadComMessageArray);
             modelSpecial.ComMessageList = modelSpecial.NotReadComMessageArray == null ? null : modelSpecial.NotReadComMessageArray.ToList();
             modelSpecial.MessageCount = modelSpecial.ComMessageList == null ? 0 : modelSpecial.ComMessageList.Count();
-            return View(modelSpecial);
+
+            //return View(modelSpecial);
+
+            return Request.IsAjaxRequest()
+ ? (ActionResult)PartialView("PartialRejectedDemands", modelSpecial)
+ : View(modelSpecial);
         }
         public ActionResult ReceivedMessages(int userId)
         {
@@ -921,70 +1070,70 @@ namespace Emsal.UI.Controllers
 
         }
 
-        public JsonResult Search(string name)
-        {
+        //public JsonResult Search(string name)
+        //{
 
-            string str = (Request.UrlReferrer.Segments[2].ToString());
-            long UserID = 0;
-            if (User != null && User.Identity.IsAuthenticated)
-            {
-                FormsIdentity identity = (FormsIdentity)User.Identity;
-                if (identity.Ticket.UserData.Length > 0)
-                {
-                    UserID = Int32.Parse(identity.Ticket.UserData);
-                }
-            }
-            modelSpecial = new SpecialSummaryViewModel();
-            //SpecialSummaryViewModel resultModel = new SpecialSummaryViewModel();
-            //resultModel.DemandProduction = new tblDemand_Production();
-            result = new List<tblDemand_Production>();
-            modelSpecial.DemandProduction = new tblDemand_Production();
-            modelSpecial.ProductionControlList = new List<tblProductionControl>();
-            binput = new BaseInput();
+        //    string str = (Request.UrlReferrer.Segments[2].ToString());
+        //    long UserID = 0;
+        //    if (User != null && User.Identity.IsAuthenticated)
+        //    {
+        //        FormsIdentity identity = (FormsIdentity)User.Identity;
+        //        if (identity.Ticket.UserData.Length > 0)
+        //        {
+        //            UserID = Int32.Parse(identity.Ticket.UserData);
+        //        }
+        //    }
+        //    modelSpecial = new SpecialSummaryViewModel();
+        //    //SpecialSummaryViewModel resultModel = new SpecialSummaryViewModel();
+        //    //resultModel.DemandProduction = new tblDemand_Production();
+        //    result = new List<tblDemand_Production>();
+        //    modelSpecial.DemandProduction = new tblDemand_Production();
+        //    modelSpecial.ProductionControlList = new List<tblProductionControl>();
+        //    binput = new BaseInput();
 
-            string url = "";
-            switch (str)
-            {
-                case "Index":
+        //    string url = "";
+        //    switch (str)
+        //    {
+        //        case "Index":
 
-                break;
+        //        break;
 
-                case "OnAirDemands":
-                    BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "Yayinda", out modelSpecial.EnumValue);
-                    BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
-                    modelSpecial.ForeignOrganisation = new tblForeign_Organization();
-                    BaseOutput nameOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
-                    modelSpecial.NameSurname = modelSpecial.ForeignOrganisation.name;
-                    modelSpecial.DemandProduction.user_Id = UserID;
-                    modelSpecial.DemandProduction.state_eV_Id = modelSpecial.EnumValue.Id;
-                    modelSpecial.DemandProduction.user_IdSpecified = true;
-                    modelSpecial.DemandProduction.state_eV_IdSpecified = true;
-                    BaseOutput demand = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
-                    modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.ToList();
-                    foreach (var item in modelSpecial.DemandProductionList)
-                    {
-                        BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
-                        if (modelSpecial.ProductCatalog.ProductName.Contains(name))
-                        {
-                            result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
-                        }
-                    }
-                    Session.Add("result", result);
-                    url = "OnAirDemands";
-                    break;
+        //        case "OnAirDemands":
+        //            BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "Yayinda", out modelSpecial.EnumValue);
+        //            BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
+        //            modelSpecial.ForeignOrganisation = new tblForeign_Organization();
+        //            BaseOutput nameOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
+        //            modelSpecial.NameSurname = modelSpecial.ForeignOrganisation.name;
+        //            modelSpecial.DemandProduction.user_Id = UserID;
+        //            modelSpecial.DemandProduction.state_eV_Id = modelSpecial.EnumValue.Id;
+        //            modelSpecial.DemandProduction.user_IdSpecified = true;
+        //            modelSpecial.DemandProduction.state_eV_IdSpecified = true;
+        //            BaseOutput demand = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
+        //            modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.ToList();
+        //            foreach (var item in modelSpecial.DemandProductionList)
+        //            {
+        //                BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
+        //                if (modelSpecial.ProductCatalog.ProductName.Contains(name))
+        //                {
+        //                    result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
+        //                }
+        //            }
+        //            Session.Add("result", result);
+        //            url = "OnAirDemands";
+        //            break;
 
-                case "ExpiredDemands":                  
-                    break;
+        //        case "ExpiredDemands":                  
+        //            break;
 
-                case "RejectedDemands":
-                    break;
+        //        case "RejectedDemands":
+        //            break;
 
-                case "NotSentYetOrders":
-                    break;
-            }
+        //        case "NotSentYetOrders":
+        //            break;
+        //    }
 
-            return Json(new { data = url });
-        }
+        //    return Json(new { data = url });
+        //}
 
         public ActionResult ReEditedOrders(long? UserID)
         {
