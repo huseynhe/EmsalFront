@@ -27,7 +27,6 @@
 
     <!-- Bootstrap core JS -->
 
-    <script src="~/Content/js/Goverment.js"></script>
     <script src="~/Content/js/jquery-1.12.3.js"></script>
     <script src="~/Content/js/bootstrap.min.js"></script>
     <script src="~/Content/js/ie10-viewport-bug-workaround.js"></script>
@@ -40,6 +39,10 @@
     <link href="~/Content/css/select2.min.css" rel="stylesheet" />
     <script src="~/Content/js/select2.min.js"></script>
     <script src="~/Content/js/specialSummary.js"></script>
+
+    <script src="~/Content/js/Goverment.js"></script>
+    <script src="~/Content/UI/js/custom.js"></script>
+
 </head>
 <body>
     <header>
@@ -120,6 +123,8 @@
                 </ul>
             </div>
 
+            <div class="loader"></div>
+
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="Admin">
 
@@ -150,10 +155,6 @@
 
                     </div>
                     <div class="tab_panel_block_right">
-                        <div>
-                            <input type="text" onchange="SearchForProduct()" id="searchTextBox"/>
-                            <br />
-                        </div>
                         @RenderBody()
                     </div>
                 </div>
