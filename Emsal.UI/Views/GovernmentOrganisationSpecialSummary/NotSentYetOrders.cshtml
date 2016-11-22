@@ -7,27 +7,28 @@
     .bttns {
         display: none;
     }
-</style>
 
+
+</style>
 <div class="tesdiqlenen">
     <div class="mesajlar">
         <div id="selectedProducts">
-            @Html.Action("SelectedProducts", "DemandProduction", new { noButton = false, rurl = "/GovernmentOrganisationSpecialSummary/NotSentYetOrders" })
-
+            @Html.Action("SelectedProducts", "DemandProduction", new { noButton = false, rurl = "/GovernmentOrganisationSpecialSummary/NotSentYetOffers" })
             @*<script>
-                        $(document).ready(function () {
-                            $.ajax({
-                                url: '/DemandProduction/SelectedProducts',
-                                type: 'GET',
-                                success: function (result) {
-                                    $('#selectedProducts').html(result);
-                                },
-                                error: function () {
+                            $(document).ready(function () {
+                                $.ajax({
+                                    url: '/DemandProduction/SelectedProducts',
+                                    type: 'GET',
+                                    success: function (result) {
+                                        $('#selectedProducts').html(result);
+                                    },
+                                    error: function () {
 
-                                }
+                                    }
+                                });
                             });
-                        });
-            </script>*@
+                </script>*@
         </div>
     </div>
 </div>
+
