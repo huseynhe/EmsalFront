@@ -1,7 +1,9 @@
 ﻿@model Emsal.UI.Models.SpecialSummaryViewModel
 @{
     ViewBag.Title = "Orders";
+    Layout = "";
 }
+    
 @using PagedList.Mvc;
 @{
     if (Model.DemandProductionList.Count == 0)
@@ -72,4 +74,8 @@
             @Html.PagedListPager(Model.PagingProduction, page => Url.Action("OnAirDemands", "GovernmentOrganisationSpecialSummary", new { page }))
         </div>
     }
+
+  @Html.HiddenFor(x => x.actionName);
 }
+
+
