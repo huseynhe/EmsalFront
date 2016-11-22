@@ -120,17 +120,14 @@ function check() {
 }
 
 function SearchForProduct() {
-    alert("test");
     $.ajax({
-        url: '/GovernmentOrganisationSpecialSummary/Search?name=1-ci',
-        type: 'POST',
-        datatype: 'json',
-        data: 'data',
+        url: '/GovernmentOrganisationSpecialSummary/OnAirDemands?productName=1-ci',
+        type: 'GET',
         success: function (result) {
-            document.location = "/GovernmentOrganisationSpecialSummary/OnAirDemands";
-            if (result.data != null) {
-                document.location = "/GovernmentOrganisationSpecialSummary/OnAirDemands";
-            }
+            $('#specialSummaryMain').html(result);
+        },
+        error: function () {
+
         }
     });
 }
