@@ -369,6 +369,6 @@ namespace Emsal.UI.Models
         public string fname { get; set; }
         public bool hideButton { get; set; }
 
-        public bool isPDF { get; set; }
+        public string actionName { get; set; }
     }
 }
