@@ -278,7 +278,7 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult UserInfo(int? page, int addressId = 0, long rId = 0, string sort = null, string name = null, string surname = null, string address = null, string products = null)
+        public ActionResult UserInfo(int? page, int addressId = 0, long rId = 15, string sort = null, string name = null, string surname = null, string address = null, string products = null)
         {
             try
             {

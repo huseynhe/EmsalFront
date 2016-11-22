@@ -309,9 +309,17 @@ function getSelectedProducts() {
 }
 
 
-function SelectedProductsSearch(elem, value) {
+function SelectedProductsSearch(value) {
+    var val = $('#SelectedProductsSearchPN').val();
+
+    if (val.length == 0) {
+        alert('Məhsulun adını daxiledin');
+        return false;
+    }
+
+    $('#AjaxPaginationList').html('');
     $.ajax({
-        url: '/DemandProduction/SelectedProducts?' + value + '=' + $(elem).val() + '&noButton=false',
+        url: '/DemandProduction/SelectedProducts?' + value + '=' + val + '&noButton=false',
         type: 'GET',
         success: function (result) {
             $('#AjaxPaginationList').html(result);

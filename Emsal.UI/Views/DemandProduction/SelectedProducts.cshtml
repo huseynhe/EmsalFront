@@ -17,16 +17,23 @@
     @if (Model.isPDF == false)
     {
         <div class="col-md-6">
-            <input onkeyup="SelectedProductsSearch(this, 'productName')" class="form-control" placeholder="Məhsulun adına görə axtar" /><br />
+            <input id="SelectedProductsSearchPN" class="form-control" placeholder="Məhsulun adına görə axtar" />
         </div>
+        <div class="col-md-6" style="padding:0;">
+            <div class="btn btn-primary" onclick="SelectedProductsSearch('productName')">
+                <i class="glyphicon glyphicon-search"></i>&nbsp;axtar
+            </div>
+            </div>
+            <div class="clearfix"></div>
+            <br />
     }
-    <div class="clearfix"></div>
-    <div class="col-md-12">
-        <div id="AjaxPaginationList">
-            @Html.Partial("PartialSelectedProducts")
+            <div class="clearfix"></div>
+            <div class="col-md-12">
+                <div id="AjaxPaginationList">
+                    @Html.Partial("PartialSelectedProducts")
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
 <script src="~/ContentProfile/js/pagedList.js"></script>
 @if (Model.isPDF == true)
