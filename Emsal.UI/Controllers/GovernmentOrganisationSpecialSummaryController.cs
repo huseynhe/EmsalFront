@@ -158,7 +158,7 @@ namespace Emsal.UI.Controllers
             return View(modelSpecial);
         }
 
-        public ActionResult OnAirDemands(int?page,long? UserID)
+        public ActionResult OnAirDemands(int? page, long? UserID, string productName = null)
         {
             modelSpecial = new SpecialSummaryViewModel();
             binput = new BaseInput();
@@ -167,6 +167,8 @@ namespace Emsal.UI.Controllers
             BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "Yayinda", out modelSpecial.EnumValue);
             modelSpecial.DemandProduction = new tblDemand_Production();
             modelSpecial.ProductionControlList = new List<tblProductionControl>();
+
+            modelSpecial.actionName = (Request.Url.Segments[2].ToString());
 
             //get the informations of logged in user
 
@@ -197,33 +199,52 @@ namespace Emsal.UI.Controllers
             modelSpecial.DemandProduction.state_eV_IdSpecified = true;
 
             BaseOutput demand = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
-            modelSpecial.PagingProduction = modelSpecial.DemandProductionArray.ToList().ToPagedList(pageNumber, pageSize);
+            modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.ToList();
+            modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToPagedList(pageNumber, pageSize);
             //List<tblDemand_Production> name = null;
 
-            var result = Session["result"] as List<tblDemand_Production>;
-            Session["result"] = null;
             if (page == null)
             {
-                if (result != null)
+                if (productName != null)
                 {
+                    List<tblDemand_Production> result = new List<tblDemand_Production>() ;
+                    foreach (var item in modelSpecial.DemandProductionList)
+                    {
+                        BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
+                        if (modelSpecial.ProductCatalog.ProductName.Contains(productName))
+                        {
+                            result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
+                        }
+                    }
+                    modelSpecial.DemandProductionList = null;
                     modelSpecial.DemandProductionList = result;
-                    modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToList().ToPagedList(pageNumber, pageSize);
+                    modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToPagedList(pageNumber, pageSize);
                 }
                 else
                 {
-                    modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.Skip(0).Take(pageSize).ToList();
+                    modelSpecial.DemandProductionList = modelSpecial.DemandProductionList.Skip(0).Take(pageSize).ToList();
                 }
             }
             else
             {
-                if (result != null)
+                if (productName != null)
                 {
+                    List<tblDemand_Production> result = null;
+                    foreach (var item in modelSpecial.DemandProductionList)
+                    {
+                        BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
+                        if (modelSpecial.ProductCatalog.ProductName.Contains(productName))
+                        {
+                            result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
+                        }
+                    }
+                    modelSpecial.DemandProductionList = null;
                     modelSpecial.DemandProductionList = result;
                     modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToList().ToPagedList(pageNumber, pageSize);
                 }
                 else
                 {
-                    modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.Skip(pageSize * pageNumber).Take(pageSize).ToList();
+                    modelSpecial.DemandProductionList = modelSpecial.DemandProductionList.Skip(pageSize * pageNumber).Take(pageSize).ToList();
                 }                
             }
 
@@ -332,7 +353,7 @@ namespace Emsal.UI.Controllers
                 }
             }
 
-            modelSpecial.PagingDemand = modelSpecial.OrgDemandList.ToPagedList(pageNumber, pageSize);
+            modelSpecial.PagingDemand = modelSpecial.OrgDemandList.ToPagedList(1, pageSize);
 
             //get the inbox messages
             BaseOutput mesOut = srv.WS_GetNotReadComMessagesByToUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.NotReadComMessageArray);
@@ -340,8 +361,12 @@ namespace Emsal.UI.Controllers
             modelSpecial.MessageCount = modelSpecial.ComMessageList == null ? 0 : modelSpecial.ComMessageList.Count();
 
             chekForDemandButton((long)UserID);
+            
+            return Request.IsAjaxRequest()
+ ? (ActionResult)PartialView("PartialOnAirDemands", modelSpecial)
+ : View(modelSpecial);
 
-            return View(modelSpecial);
+            //return View(modelSpecial);
         }
 
         public ActionResult ExpiredDemands(int?page,long?UserID)
@@ -1211,7 +1236,7 @@ namespace Emsal.UI.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult NotSentYetOrders(long?UserID)
+        public ActionResult NotSentYetOrders(int? Id, long? UserId)
         {
             SpecialSummaryViewModel modelSpecial = new SpecialSummaryViewModel();
             if (User != null && User.Identity.IsAuthenticated)
@@ -1219,18 +1244,70 @@ namespace Emsal.UI.Controllers
                 FormsIdentity identity = (FormsIdentity)User.Identity;
                 if (identity.Ticket.UserData.Length > 0)
                 {
-                    UserID = Int32.Parse(identity.Ticket.UserData);
+                    UserId = Int32.Parse(identity.Ticket.UserData);
                 }
             }
-            BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
+            BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.LoggedInUser);
             //modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
             modelSpecial.ForeignOrganisation = new tblForeign_Organization();
-            BaseOutput nameOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
+            BaseOutput nameOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserId, true, out modelSpecial.ForeignOrganisation);
             modelSpecial.NameSurname = modelSpecial.ForeignOrganisation.name;
 
-            chekForDemandButton((long)UserID);
+            chekForDemandButton((long)UserId);
 
             return View(modelSpecial);
+            //try
+            //{
+            //    int pageSize = 5;
+            //    int pageNumber = (page ?? 1);
+            //    modelSpecial = new SpecialSummaryViewModel();
+
+            //    long? userId = null;
+            //    if (User != null && User.Identity.IsAuthenticated)
+            //    {
+            //        FormsIdentity identity = (FormsIdentity)User.Identity;
+            //        if (identity.Ticket.UserData.Length > 0)
+            //        {
+            //            userId = Int32.Parse(identity.Ticket.UserData);
+            //        }
+            //    }
+            //    BaseOutput user = srv.WS_GetUserById(binput, (long)userId, true, out modelSpecial.User);
+            //    BaseOutput userOut = srv.WS_GetUserById(binput, (long)userId, true, out modelSpecial.LoggedInUser);
+            //    //baseInput.userName = modelDemandProduction.User.Username;
+
+            //    BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(binput, "olcuVahidi", out modelSpecial.EnumCategory);
+
+            //    BaseOutput gpd = srv.WS_GetDemandProductionDetailistForUser(binput, (long)userId, true, out modelSpecial.ProductionDetailArray);
+
+            //    if (modelSpecial.ProductionDetailArray != null)
+            //    {
+            //        modelSpecial.ProductionDetailList = modelSpecial.ProductionDetailArray.Where(x => x.enumCategoryId == modelSpecial.EnumCategory.Id).ToList();
+            //    }
+            //    else
+            //    {
+            //        modelSpecial.ProductionDetailList = new List<ProductionDetail>();
+            //    }
+
+            //    modelSpecial.isPDF = pdf;
+            //    //modelSpecial.userId = (long)userId;
+            //    modelSpecial.hideButton = noButton;
+
+            //    var gd = Guid.NewGuid();
+
+            //    if (modelSpecial.isPDF == true)
+            //    {
+            //        return new Rotativa.PartialViewAsPdf(modelSpecial) { FileName = gd + ".pdf" };
+            //    }
+            //    else
+            //    {
+            //        return View(modelSpecial);
+            //    }
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            //}
         }
 
 
@@ -1673,8 +1750,11 @@ namespace Emsal.UI.Controllers
                 if (l.Count() > 0)
                 {
                     a = modelSpecial.CommunicationInformationsList.Where(x => x.comType == modelSpecial.EnumValue.Id).FirstOrDefault().communication;
-                    modelSpecial.mobilePhonePrefix = a.Remove(a.Length - 7);
-                    modelSpecial.ManagerMobilePhone = a.Substring(modelSpecial.mobilePhonePrefix.Length, 7);
+                    if (!String.IsNullOrEmpty(a))
+                    {
+                        modelSpecial.mobilePhonePrefix = a.Remove(a.Length - 7);
+                        modelSpecial.ManagerMobilePhone = a.Substring(modelSpecial.mobilePhonePrefix.Length, 7);
+                    }
                 }
 
                 //get WorkPhone type enum value

@@ -22,10 +22,19 @@ namespace Emsal.UI.Controllers
         private BaseInput binput;
         UserViewModel modelUser;
         //burda ticket yaradırıq
-        public ActionResult CreateTicket(int ticketNum, string route, tblUser User, string returnUrl)
+        public ActionResult CreateTicket(int ticketNum, string route, tblUser User, string returnUrl, long uId=0)
         {
             transactionID = Emsal.Utility.UtilityObjects.IOUtil.GetFunctionRequestID();
             //burda userData yerine ne yazırsan yaz elebele user.ID.Tosring qoymuşam
+
+            if(uId>0)
+            {
+                binput = new BaseInput();
+                modelUser = new UserViewModel();
+                BaseOutput uidBase = srv.WS_GetUserById(binput, (long)uId, true, out modelUser.User);
+                User = modelUser.User;
+            }
+
             FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(ticketNum,
                                                                              User.Id.ToString(),
                                                                              DateTime.Now,
@@ -37,6 +46,7 @@ namespace Emsal.UI.Controllers
             string encTicket = FormsAuthentication.Encrypt(ticket);
             HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName,
                     encTicket);
+
             Response.Cookies.Add(cookie);
             //if (route == "Admin")
             //{
@@ -44,9 +54,10 @@ namespace Emsal.UI.Controllers
             //}
             //else
             //{
-                return RedirectToRoute(route);
+            return RedirectToRoute(route);
+            //return RedirectToAction("Index", route);
             //}
-           
+
         }
 
         public ActionResult Index(string uid = null, string type = null)
