@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-
     firstRun(true);
 });
 
@@ -120,8 +119,10 @@ function check() {
 }
 
 function SearchForProduct() {
+    var actionName = $("#actionName").val();
+
     $.ajax({
-        url: '/GovernmentOrganisationSpecialSummary/OnAirDemands?productName=1-ci',
+        url: '/GovernmentOrganisationSpecialSummary/' + actionName + '?productName=' + $("#pNameInput").val(),
         type: 'GET',
         success: function (result) {
             $('#specialSummaryMain').html(result);
