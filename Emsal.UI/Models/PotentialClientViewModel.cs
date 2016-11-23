@@ -63,6 +63,9 @@ namespace Emsal.UI.Models
         public IList<tblProductionControl> ProductionControlList { get; set; }
         public tblProductionControl[] ProductionControlArray;
 
+        public ProductCatalogDetail[] ProductCatalogDetailArray;
+        public IList<ProductCatalogDetail> ProductCatalogDetailList { get; set; }
+
         public tblAddress Address;
         public IList<tblAddress> AddressList { get; set; }
         public tblAddress[] AddressArray;
@@ -137,6 +140,7 @@ namespace Emsal.UI.Models
 
         public long productId { get; set; }
         public long[] productIds { get; set; }
+        public string fpid { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public int[] enumCat { get; set; }

@@ -1,29 +1,30 @@
 ﻿@model Emsal.UI.Models.OfferProductionViewModel
-
 @{
     ViewBag.Title = "ProductCatalog";
     Layout = "";
     long enumVal = 0;
     string dis = "";
 
-    if(Model.opId==0)
+    if (Model.opId == 0)
     {
         if (Model.fpid == null)
         {
             dis = "disabled";
-        <script>
-            getChooseFileTemplate(@Model.productId);
-        </script>
-            }
+            <script>
+                getChooseFileTemplate(@Model.productId);
+            </script>
         }
     }
-
+}
 @if (Model.ProductCatalogListFEA != null)
 {
-  <script>
-      $('#getmonthresult').hide();
-  </script>
-    <input hidden name="productId" value="@Model.productIds.LastOrDefault()" id="productId" />
+    <script>
+        $('#getmonthresult').hide();
+    </script>
+    if (Model.fpid == null)
+    {
+        <input hidden name="productId" value="@Model.productIds.LastOrDefault()" id="productId" />
+    }
     for (var i = 0; i < Model.ProductCatalogListFEA.Count(); i++)
     {
         if (Model.ProductCatalogListFEA[i].Count() > 0)
@@ -49,67 +50,66 @@
     {
         <div class="clearfix"></div>
 
-                        int e = 0;
+        int e = 0;
 
-                        foreach (var item in Model.EnumCategoryList)
-                        {
-                            if (Model.ProductCatalogControlList.Select(x => x.EnumCategoryId).ToList().Contains(item.Id))
-                            {
-                                if (Model.fpid == null)
+        foreach (var item in Model.EnumCategoryList)
+        {
+            if (Model.ProductCatalogControlList.Select(x => x.EnumCategoryId).ToList().Contains(item.Id))
+            {
+                if (Model.fpid == null)
+                {
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label" for="size">@item.description</label>
+                            <input hidden name="enumCat[@{ @e }]" value="@item.Id" />
+                            <select required @dis class="form-control select2">
+                                <option value="">Seçim edin</option>
+                                @foreach (var item2 in Model.EnumValueList)
                                 {
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="control-label" for="size">@item.description</label>
-                        <input hidden name="enumCat[@{ @e }]" value="@item.Id" />
-                        <select required @dis class="form-control select2">
-                            <option value="">Seçim edin</option>
-                            @foreach (var item2 in Model.EnumValueList)
-                            {
-                                if (item2.enumCategory_enumCategoryId == item.Id)
-                                {
-                                    if (Model.ProductCatalogControlList.Select(x => x.EnumValueId).ToList().Contains(item2.Id))
+                                    if (item2.enumCategory_enumCategoryId == item.Id)
                                     {
-                                        if (Model.productionControlEVIds.Contains(item2.Id))
+                                        if (Model.ProductCatalogControlList.Select(x => x.EnumValueId).ToList().Contains(item2.Id))
                                         {
-                                            enumVal = item2.Id;
-                                            <option selected value="@item2.Id">@item2.name</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@item2.Id">@item2.name</option>
+                                            if (Model.productionControlEVIds.Contains(item2.Id))
+                                            {
+                                                enumVal = item2.Id;
+                                                <option selected value="@item2.Id">@item2.name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item2.Id">@item2.name</option>
+                                            }
                                         }
                                     }
                                 }
-                            }
-                        </select>
-
-                        <input hidden name="enumVal[@{ @e }]" value="@enumVal" />
-                        <span data-valmsg-replace="true" data-valmsg-for="enumVal[@{ @e }]" class="field-validation-valid text-danger"></span>
+                            </select>
+                            <input hidden name="enumVal[@{ @e }]" value="@enumVal" />
+                            <span data-valmsg-replace="true" data-valmsg-for="enumVal[@{ @e }]" class="field-validation-valid text-danger"></span>
+                        </div>
                     </div>
-                </div>
-                            }
-                            else
+    }
+    else
+    {
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label" for="size">@item.description</label>
+                <input hidden name="enumCat[@{ @e }]" value="@item.Id" />
+                <select required name="enumVal[@{ @e }]" class="form-control select2">
+                    <option value="">Seçim edin</option>
+                    @foreach (var item2 in Model.EnumValueList)
+                    {
+                        if (item2.enumCategory_enumCategoryId == item.Id)
+                        {
+                            if (Model.ProductCatalogControlList.Select(x => x.EnumValueId).ToList().Contains(item2.Id))
                             {
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label" for="size">@item.description</label>
-                                        <input hidden name="enumCat[@{ @e }]" value="@item.Id" />
-                                        <select required name="enumVal[@{ @e }]" class="form-control select2">
-                                            <option value="">Seçim edin</option>
-                                            @foreach (var item2 in Model.EnumValueList)
-                                            {
-                                                if (item2.enumCategory_enumCategoryId == item.Id)
-                                                {
-                                                    if (Model.ProductCatalogControlList.Select(x => x.EnumValueId).ToList().Contains(item2.Id))
-                                                    {
-                                                        <option value="@item2.Id">@item2.name</option>
-                                                    }
-                                                }
-                                            }
-                                        </select>
-                                        <span data-valmsg-replace="true" data-valmsg-for="enumVal[@{ @e }]" class="field-validation-valid text-danger"></span>
-                                    </div>
-                                </div>
+                                <option value="@item2.Id">@item2.name</option>
+                            }
+                        }
+                    }
+                </select>
+                <span data-valmsg-replace="true" data-valmsg-for="enumVal[@{ @e }]" class="field-validation-valid text-danger"></span>
+            </div>
+        </div>
             }
             e = e + 1;
         }
@@ -121,8 +121,8 @@
         @if (dis != "")
         {
             <input hidden id="osize" value="@Model.psize" />
-        <label for="size" class="control-label">&nbsp;</label>
-        <h4 class="text-danger">@Html.LabelFor(model => model.size, htmlAttributes: new { @class = "control-label" }) : @Model.psize</h4>
+            <label for="size" class="control-label">&nbsp;</label>
+            <h4 class="text-danger">@Html.LabelFor(model => model.size, htmlAttributes: new { @class = "control-label" }) : @Model.psize</h4>
         }
     </div>
         }
@@ -130,32 +130,32 @@
     <script>
         GetUnitofmeasurement(0);
     </script>
-                            }
-                            else
-                            {
-                                if (Model.ProductCatalogList.Count > 0)
-                                {
-                                    <script>
-                                        $('#calendarMainDiv').hide();
-                                        $('#getmonthresult').hide();
-                                    </script>
-            <div class="form-group col-md-3">
-                <select name="prodId[@{ @Model.arrPNum }]" required onchange="GetProductCatalog(this)" size="8" class="form-control unicase-form-control select">
-                    @foreach (var item in Model.ProductCatalogList)
+    }
+    else
+    {
+        if (Model.ProductCatalogList.Count > 0)
+        {
+            <script>
+                $('#calendarMainDiv').hide();
+                $('#getmonthresult').hide();
+            </script>
+                                    <div class="form-group col-md-3">
+                                        <select name="prodId[@{ @Model.arrPNum }]" required onchange="GetProductCatalog(this)" size="8" class="form-control unicase-form-control select">
+                                            @foreach (var item in Model.ProductCatalogList)
                     {
-                        <option value="@item.Id">@item.ProductName</option>
-                    }
-                </select>
-                <span data-valmsg-replace="true" data-valmsg-for="prodId[@{ @Model.arrPNum }]" class="field-validation-valid text-danger"></span>
-            </div>
-                    }
-                    else
-                    {
-                        <script>
-                            $('#calendarMainDiv').show();
-                            GetUnitofmeasurement(@Model.Id);
-                        </script>
-        <div class="clearfix"></div>
+                                                <option value="@item.Id">@item.ProductName</option>
+                                            }
+                                        </select>
+                                        <span data-valmsg-replace="true" data-valmsg-for="prodId[@{ @Model.arrPNum }]" class="field-validation-valid text-danger"></span>
+                                    </div>
+    }
+    else
+    {
+        <script>
+            $('#calendarMainDiv').show();
+            GetUnitofmeasurement(@Model.Id);
+        </script>
+                        <div class="clearfix"></div>
 
         int e = 0;
 
@@ -175,7 +175,7 @@
                                 {
                                     if (Model.ProductCatalogControlList.Select(x => x.EnumValueId).ToList().Contains(item2.Id))
                                     {
-                            <option value="@item2.Id">@item2.name</option>
+                                        <option value="@item2.Id">@item2.name</option>
                                     }
                                 }
                             }
@@ -183,9 +183,9 @@
                         <span data-valmsg-replace="true" data-valmsg-for="enumVal[@{ @e }]" class="field-validation-valid text-danger"></span>
                     </div>
                 </div>
-            e = e + 1;
-        }
-    }
+                    e = e + 1;
+                }
+            }
 
         }
 

@@ -5,7 +5,10 @@
 }
 @if (Model.ProductCatalogListFEA != null)
 {
+    if (Model.fpid == null)
+    {
     <input hidden name="productId" value="@Model.productIds.LastOrDefault()" id="productId" />
+    }
     for (var i = 0; i < Model.ProductCatalogListFEA.Count(); i++)
     {
         if (Model.ProductCatalogListFEA[i].Count() > 0)
