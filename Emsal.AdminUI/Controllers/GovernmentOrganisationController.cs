@@ -28,7 +28,7 @@ namespace Emsal.AdminUI.Controllers
         Emsal.WebInt.TaxesSRV.VOENDATA taxesService = null;
         private BaseInput binput;
         Organisation modelUser;
-        public ActionResult Index(int? page, long? UserId)
+        public ActionResult Index(int? page, long? UserId, string name=null)
         {
             binput = new BaseInput();
 
@@ -42,30 +42,51 @@ namespace Emsal.AdminUI.Controllers
                     UserId = Int32.Parse(identity.Ticket.UserData);
                 }
             }
+
             Organisation modelUser = new Organisation();
+            modelUser.actionName = "Index";
             //get roles by name gelecek bura
             BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
-            BaseOutput bouput = srv.WS_GetGovernmentOrganisations(binput, 12, true, out modelUser.UserArray);
+            //BaseOutput bouput = srv.WS_GetGovernmentOrganisations(binput, 12, true, out modelUser.UserArray);
+            BaseOutput bout  = srv.WS_GetForeign_Organizations(binput, out modelUser.ForeignOrganisationArray);
 
             modelUser.GovernmentOrganisationList = new List<GovOrAnyOrganisation>();
-            foreach (var item in modelUser.UserArray)
+            modelUser.ForeignOrganisationArray = modelUser.ForeignOrganisationArray.Where(x => x.parent_Id == 0).ToArray();
+            foreach (var item in modelUser.ForeignOrganisationArray)
             {
                 modelUser.GovernmentOrganisation = new GovOrAnyOrganisation();
-                modelUser.GovernmentOrganisation.UserName = item.Username;
+                BaseOutput bouput = srv.WS_GetUserById(binput, (long)item.userId, true, out modelUser.User);
 
-                BaseOutput OrgOut = srv.WS_GetForeign_OrganizationByUserId(binput, item.Id, true, out modelUser.ForeignOrganisation);
-                if (modelUser.ForeignOrganisation == null)
+                modelUser.UserRole = new tblUserRole();
+                BaseOutput bout1 = srv.WS_GetUserRolesByUserId(binput, (long)item.userId, true, out modelUser.UserRolesArray);
+                modelUser.UserRolesArray = modelUser.UserRolesArray.Where(x => x.RoleId == 12).ToArray();
+
+                if  (modelUser.UserRolesArray.Count() == 0)
                     continue;
-                modelUser.GovernmentOrganisation.OrganisationName = modelUser.ForeignOrganisation.name;
-                modelUser.GovernmentOrganisation.Email = item.Email;
-                modelUser.GovernmentOrganisation.Id = item.Id;
-                
-                if(modelUser.ForeignOrganisation.address_Id != null)
+
+                modelUser.GovernmentOrganisation.UserName = modelUser.User.Username;
+
+                if (name != null)
                 {
-                    if (modelUser.ForeignOrganisation.parent_Id != 0)
+                    if (!item.name.ToLower().Contains(name.ToLower()))
+                        continue;
+                }
+
+                //BaseOutput OrgOut = srv.WS_GetForeign_OrganizationByUserId(binput, item.Id, true, out modelUser.ForeignOrganisation);
+
+                //if (modelUser.ForeignOrganisation == null)
+                //continue;
+
+                modelUser.GovernmentOrganisation.OrganisationName = item.name.ToString();
+                modelUser.GovernmentOrganisation.Email = modelUser.User.Email;
+                modelUser.GovernmentOrganisation.Id = modelUser.User.Id;
+                
+                if(item.address_Id != null)
+                {
+                    if (item.parent_Id != 0)
                         continue;
 
-                    BaseOutput addressout = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
+                    BaseOutput addressout = srv.WS_GetAddressById(binput, (long)item.address_Id, true, out modelUser.FutureAddress);
                     BaseOutput fulladdressListOut = srv.WS_GetAdminUnitListForID(binput, (long)modelUser.FutureAddress.adminUnit_Id, true, out modelUser.PRMAdminUnitArray);
 
 
@@ -81,6 +102,7 @@ namespace Emsal.AdminUI.Controllers
 
                 modelUser.GovernmentOrganisationList.Add(modelUser.GovernmentOrganisation);
             }
+
 
             modelUser.PagingOrganisation = modelUser.GovernmentOrganisationList.ToPagedList(pageNumber, pageSize);
 
@@ -570,7 +592,10 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput addressOUT = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
             modelUser.FutureAddress.fullAddress = form.FullAddress;
             modelUser.FutureAddress.addressDesc = form.descAddress;
-            modelUser.FutureAddress.adminUnit_Id = long.Parse(form.FullAddress);
+            if (!String.IsNullOrEmpty(form.FullAddress))
+            {
+                modelUser.FutureAddress.adminUnit_Id = long.Parse(form.FullAddress);
+            }
             BaseOutput address = srv.WS_UpdateAddress(binput, modelUser.FutureAddress);
 
 
@@ -1371,7 +1396,7 @@ namespace Emsal.AdminUI.Controllers
         //    return birthday;
         //}
 
-        public ActionResult Individuals(int? page, long?AdminId)
+        public ActionResult Individuals(int? page, long?AdminId, string name=null)
         {
             binput = new BaseInput();
 
@@ -1379,6 +1404,7 @@ namespace Emsal.AdminUI.Controllers
             int pageNumber = (page ?? 1);
 
             Organisation modelUser = new Organisation();
+            modelUser.actionName = "Individuals";
             //get roles by name gelecek bura
             if (User != null && User.Identity.IsAuthenticated)
             {
@@ -1400,6 +1426,14 @@ namespace Emsal.AdminUI.Controllers
                 modelUser.Individual.Username = item.Username;
 
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, item.Id, true, out modelUser.Person);
+
+                if (!String.IsNullOrEmpty(name))
+                {
+                    if (!modelUser.Person.Name.ToLower().Contains(name.ToLower()) && !modelUser.Person.Surname.ToLower().Contains(name.ToLower()) && !modelUser.Person.FatherName.ToLower().Contains(name.ToLower()))
+                    {
+                        continue;
+                    }
+                }
 
                 if (modelUser.Person != null)
                 {
@@ -1440,7 +1474,7 @@ namespace Emsal.AdminUI.Controllers
                 ? (ActionResult)PartialView("PartialIndividuals", modelUser)
                 : View(modelUser);
         }
-        public ActionResult Organisations(int? page, long?AdminId)
+        public ActionResult Organisations(int? page, long?AdminId, string name = null)
         {
             binput = new BaseInput();
 
@@ -1448,6 +1482,7 @@ namespace Emsal.AdminUI.Controllers
             int pageNumber = (page ?? 1);
 
             Organisation modelUser = new Organisation();
+            modelUser.actionName = "Organisations";
             //get roles by name gelecek bura
 
             if (User != null && User.Identity.IsAuthenticated)
@@ -1472,6 +1507,14 @@ namespace Emsal.AdminUI.Controllers
                 modelUser.GovernmentOrganisation.UserName = item.Username;
 
                 BaseOutput OrgOut = srv.WS_GetForeign_OrganizationByUserId(binput, item.Id, true, out modelUser.ForeignOrganisation);
+
+                if (!String.IsNullOrEmpty(name)) {
+                    if (!modelUser.ForeignOrganisation.name.ToLower().Contains(name.ToLower()))
+                    {
+                        continue;
+                    }
+                }
+
                 modelUser.GovernmentOrganisation.OrganisationName = modelUser.ForeignOrganisation.name;
                 modelUser.GovernmentOrganisation.Email = item.Email;
                 modelUser.GovernmentOrganisation.Id = item.Id;
@@ -1575,7 +1618,7 @@ namespace Emsal.AdminUI.Controllers
                 : View(modelUser);
         }
 
-        public ActionResult KTNUsers(int? page, long? AdminId)
+        public ActionResult KTNUsers(int? page, long? AdminId, string name = null)
         {
             binput = new BaseInput();
 
@@ -1583,6 +1626,7 @@ namespace Emsal.AdminUI.Controllers
             int pageNumber = (page ?? 1);
 
             Organisation modelUser = new Organisation();
+            modelUser.actionName = "KTNUsers";
             if (User != null && User.Identity.IsAuthenticated)
             {
                 FormsIdentity identity = (FormsIdentity)User.Identity;
@@ -1598,7 +1642,21 @@ namespace Emsal.AdminUI.Controllers
 
             foreach (var item in modelUser.UserArray)
             {
+
+                //get the branch name
+                BaseOutput ktnbranchOut = srv.WS_GetPRM_KTNBranchById(binput, (long)item.KTN_ID, true, out modelUser.KTNBranch);
                 modelUser.Individual = new Individual();
+                modelUser.Individual.BranchName = modelUser.KTNBranch == null ? null : modelUser.KTNBranch.Name;
+
+                if (!String.IsNullOrEmpty(name))
+                {
+                    if (!modelUser.Individual.BranchName.ToLower().Contains(name.ToLower()))
+                    {
+                        continue;
+                    }
+                }
+
+                
                 modelUser.Individual.Username = item.Username;
 
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, item.Id, true, out modelUser.Person);
@@ -1610,9 +1668,8 @@ namespace Emsal.AdminUI.Controllers
                     modelUser.Individual.Fathername = modelUser.Person.FatherName;
                 }
 
-                //get the branch name
-                BaseOutput ktnbranchOut = srv.WS_GetPRM_KTNBranchById(binput, (long)item.KTN_ID, true, out modelUser.KTNBranch);
-                modelUser.Individual.BranchName = modelUser.KTNBranch == null ? null : modelUser.KTNBranch.Name;
+
+
 
                 modelUser.Individual.Email = item.Email;
                 modelUser.Individual.Id = item.Id;
