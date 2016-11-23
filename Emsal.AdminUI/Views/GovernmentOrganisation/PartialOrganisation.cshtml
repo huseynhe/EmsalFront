@@ -28,9 +28,9 @@
                             <th>
                                 Rəhbər Şəxsin Soyadı, adı, ata adı
                             </th>
-                            <th>
+                            @*<th>
                                 Region
-                            </th>
+                            </th>*@
                             <th>
                                 @Html.DisplayNameFor(model => model.UserName)
                             </th>
@@ -49,9 +49,9 @@
                                 <td>
                                     @item.ManagerSurname @item.ManagerName @item.ManagerFatherName
                                 </td>
-                                <td>
+                                @*<td>
                                     @item.FullAddress
-                                </td>
+                                </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.UserName)
                                 </td>
@@ -59,7 +59,7 @@
                                     @Html.DisplayFor(modelItem => item.Email)
                                 </td>
                                 <td>
-                                    <a href="/GovernmentOrganisation/EditChildOrganisation/?IdGov=@item.Id&NotChild=true" class="badge bg-light-blue">
+                                    <a href="/GovernmentOrganisation/EditOrganisation/?userId=@item.Id" class="badge bg-light-blue">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </a>
                                 </td>
