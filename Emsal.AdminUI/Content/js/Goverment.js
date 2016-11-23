@@ -115,3 +115,18 @@ function check() {
     }
     else {  firstRun (true)}
 }
+
+function SearchForProduct() {
+    var actionName = $("#actionName").val();
+
+    $.ajax({
+        url: '/GovernmentOrganisation/' + actionName + '?name=' + $("#pNameInput").val(),
+        type: 'GET',
+        success: function (result) {
+            $('#AjaxPaginationList').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
