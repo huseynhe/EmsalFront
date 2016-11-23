@@ -300,5 +300,6 @@ namespace Emsal.AdminUI.Models
 
 
         public long[] branchesIdArr { get; set; }
+        public string actionName { get; set; }
     }
 }
