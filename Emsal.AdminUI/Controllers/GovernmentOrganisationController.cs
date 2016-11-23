@@ -432,11 +432,14 @@ namespace Emsal.AdminUI.Controllers
 
             //get manager infos
             BaseOutput ManagerOut = srv.WS_GetPersonById(binput, (long)modelUser.ForeignOrganisation.manager_Id, true, out modelUser.Manager);
-            modelUser.ManagerName = modelUser.Manager.Name;
-            modelUser.Surname = modelUser.Manager.Surname;
-            modelUser.FatherName = modelUser.Manager.FatherName;
-            modelUser.Pin = modelUser.Manager.PinNumber;
-            modelUser.Birthday = String.Format("{0:d.M.yyyy}", (FromSecondToDate((long)modelUser.Manager.birtday).ToString()));
+            if (modelUser.Manager != null)
+            {
+                modelUser.ManagerName = modelUser.Manager.Name;
+                modelUser.Surname = modelUser.Manager.Surname;
+                modelUser.FatherName = modelUser.Manager.FatherName;
+                modelUser.Pin = modelUser.Manager.PinNumber;
+                modelUser.Birthday = String.Format("{0:d.M.yyyy}", (FromSecondToDate((long)modelUser.Manager.birtday).ToString()));
+            }
 
             //get communication informations of the manager
             BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelUser.CommunicationInformationsArray);
@@ -469,9 +472,12 @@ namespace Emsal.AdminUI.Controllers
                 if(com != null)
                 {
                     string b = com.communication;
-                    modelUser.WorkPhonePrefix = b.Remove(b.Length - 7);
+                    if (!String.IsNullOrEmpty(b))
+                    {
+                        modelUser.WorkPhonePrefix = b.Remove(b.Length - 7);
 
-                    modelUser.ManagerWorkPhone = b.Substring(modelUser.WorkPhonePrefix.Length, 7);
+                        modelUser.ManagerWorkPhone = b.Substring(modelUser.WorkPhonePrefix.Length, 7);
+                    }
                 }
                 
                 if (modelUser.ManagerWorkPhone == null)
@@ -1483,15 +1489,18 @@ namespace Emsal.AdminUI.Controllers
                           modelUser.GovernmentOrganisation.FullAddress += adminunit.Name + ",";
                         }
                     }
-                    modelUser.GovernmentOrganisation.FullAddress = modelUser.GovernmentOrganisation.FullAddress.Remove(modelUser.GovernmentOrganisation.FullAddress.Length - 1);
+                    if (modelUser.GovernmentOrganisation.FullAddress != null)
+                    {
+                        modelUser.GovernmentOrganisation.FullAddress = modelUser.GovernmentOrganisation.FullAddress.Remove(modelUser.GovernmentOrganisation.FullAddress.Length - 1);
+                    }
                 }
 
 
 
                 //get manager infos
-                if (modelUser.ForeignOrganisation.manager_Id != null)
+                if (item.Id != null)
                 {
-                    BaseOutput managerOut = srv.WS_GetPersonById(binput, (long)modelUser.ForeignOrganisation.manager_Id, true, out modelUser.Person);
+                    BaseOutput managerOut = srv.WS_GetPersonByUserId(binput, (long)item.Id, true, out modelUser.Person);
                     modelUser.GovernmentOrganisation.ManagerName = modelUser.Person.Name;
                     modelUser.GovernmentOrganisation.ManagerFatherName = modelUser.Person.FatherName;
                     modelUser.GovernmentOrganisation.ManagerSurname = modelUser.Person.Surname;
@@ -1501,7 +1510,7 @@ namespace Emsal.AdminUI.Controllers
                 modelUser.GovernmentOrganisationList.Add(modelUser.GovernmentOrganisation);
             }
 
-
+            
             modelUser.PagingOrganisation = modelUser.GovernmentOrganisationList.ToPagedList(pageNumber, pageSize);
 
             return Request.IsAjaxRequest()
