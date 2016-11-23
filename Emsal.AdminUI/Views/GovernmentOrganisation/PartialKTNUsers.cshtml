@@ -7,6 +7,8 @@
     Layout = "";
 }
 
+<script src="~/Content/js/Goverment.js"></script>
+
 <p>
 
 </p>
@@ -15,6 +17,16 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <input class="form-control" placeholder="Soyadı, Adı, Ata adına görə axtar" id="pNameInput" /><br />
+                        </div>
+
+                        <div class="col-lg-2">
+                            <button type="submit" class="btn btn-primary btn-sm" onclick="SearchForProduct()">Axtar</button>
+                        </div>
+                    </div>
+
                     <h3>KTN Şəxslər<a class="btn btn-primary pull-right" href="/GovernmentOrganisation/AddBRANCHUser/?type=ktn"><span class="glyphicon glyphicon-plus"></span> Əlavə et</a></h3>
                 </div>
                 <div class="box-body table-responsive">
@@ -70,6 +82,8 @@
                     Səhifə @(Model.PagingIndividual.PageCount < Model.PagingIndividual.PageNumber ? 0 : Model.PagingIndividual.PageNumber) (cəmi @Model.PagingIndividual.PageCount)
                     @Html.PagedListPager(Model.PagingIndividual, page => Url.Action("KTNUsers", new { page }))
                 </div>
+
+                @Html.HiddenFor(x => x.actionName);
             </div>
         </div>
     </div>

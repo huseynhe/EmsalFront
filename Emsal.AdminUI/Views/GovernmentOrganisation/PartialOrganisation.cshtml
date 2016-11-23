@@ -7,6 +7,8 @@
     Layout = "";
 }
 
+<script src="~/Content/js/Goverment.js"></script>
+
 <p>
 
 </p>
@@ -16,6 +18,17 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <input class="form-control" placeholder="Təşkilat adına görə axtar" id="pNameInput" /><br />
+                        </div>
+
+                        <div class="col-lg-2">
+                            <button type="submit" class="btn btn-primary btn-sm" onclick="SearchForProduct()">Axtar</button>
+                        </div>
+                    </div>
+
+
                     <h3>Hüquqi Şəxslər</h3>
                     @*<h3 class="box-title col-md-12">EnumCategory <a class="btn btn-primary pull-right" href="@Url.Action("Create","EnumCategory")"><span class="glyphicon glyphicon-plus"></span> Əlavə et</a></h3>*@
                 </div>
@@ -77,6 +90,8 @@
                     Səhifə @(Model.PagingOrganisation.PageCount < Model.PagingOrganisation.PageNumber ? 0 : Model.PagingOrganisation.PageNumber) (cəmi @Model.PagingOrganisation.PageCount)
                     @Html.PagedListPager(Model.PagingOrganisation, page => Url.Action("Organisations", new { page }))
                 </div>
+
+                @Html.HiddenFor(x => x.actionName);
             </div>
         </div>
     </div>
