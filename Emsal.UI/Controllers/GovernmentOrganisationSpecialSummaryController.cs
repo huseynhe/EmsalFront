@@ -39,7 +39,7 @@ namespace Emsal.UI.Controllers
             modelSpecial.DemandProduction = new tblDemand_Production();
             modelSpecial.ProductionControlList = new List<tblProductionControl>();
 
-            modelSpecial.actionName = (Request.Url.Segments[2].ToString());
+            modelSpecial.actionName = "Index";
 
             //get the informations of logged in user
             if (User != null && User.Identity.IsAuthenticated)
@@ -219,7 +219,7 @@ namespace Emsal.UI.Controllers
             modelSpecial.DemandProduction = new tblDemand_Production();
             modelSpecial.ProductionControlList = new List<tblProductionControl>();
 
-            modelSpecial.actionName = (Request.Url.Segments[2].ToString());
+            modelSpecial.actionName = "OnAirDemands";
 
             //get the informations of logged in user
 
@@ -430,7 +430,7 @@ namespace Emsal.UI.Controllers
             modelSpecial.DemandProduction = new tblDemand_Production();
             modelSpecial.ProductionControlList = new List<tblProductionControl>();
 
-            modelSpecial.actionName = (Request.Url.Segments[2].ToString());
+            modelSpecial.actionName = "ExpiredDemands";
 
             //get the information of the logged in user
 
@@ -610,7 +610,7 @@ namespace Emsal.UI.Controllers
             modelSpecial.DemandProduction = new tblDemand_Production();
             modelSpecial.ProductionControlList = new List<tblProductionControl>();
 
-            modelSpecial.actionName = (Request.Url.Segments[2].ToString());
+            modelSpecial.actionName = "RejectedDemands";
 
 
             //get the informations of the logged in user
