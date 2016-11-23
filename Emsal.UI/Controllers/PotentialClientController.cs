@@ -99,6 +99,79 @@ namespace Emsal.UI.Controllers
             }
         }
 
+
+        public ActionResult ProductCatalogForSale()
+        {
+            try
+            {
+                baseInput = new BaseInput();
+
+                modelPotentialProduction = new PotentialClientViewModel();
+
+                long? userId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        userId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelPotentialProduction.User);
+                baseInput.userName = modelPotentialProduction.User.Username;
+
+                BaseOutput bouput = srv.GetProductCatalogsWithParent(baseInput, out modelPotentialProduction.ProductCatalogDetailArray);
+
+                if (modelPotentialProduction.ProductCatalogDetailArray == null)
+                {
+                    modelPotentialProduction.ProductCatalogDetailList = new List<ProductCatalogDetail>();
+                }
+                else
+                {
+                    modelPotentialProduction.ProductCatalogDetailList = modelPotentialProduction.ProductCatalogDetailArray.Where(x => x.productCatalog.canBeOrder == 1).ToList();
+                }
+
+                return View(modelPotentialProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+        public string ProductCatalogForSaleAS(long prId)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+
+                modelPotentialProduction = new PotentialClientViewModel();
+
+                long? userId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        userId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelPotentialProduction.User);
+                baseInput.userName = modelPotentialProduction.User.Username;
+
+                BaseOutput gcl = srv.WS_GetProductCatalogListForID(baseInput, prId, true, out modelPotentialProduction.ProductCatalogArray);
+                modelPotentialProduction.ProductCatalogList = modelPotentialProduction.ProductCatalogArray.ToList();
+
+                return string.Join(",", modelPotentialProduction.ProductCatalogList.Select(x => x.Id)); ;
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message + ex.Source + ex.StackTrace;
+            }
+        }
+
         [HttpPost]
         public ActionResult Index(PotentialClientViewModel model, FormCollection collection)
         {
@@ -269,7 +342,7 @@ namespace Emsal.UI.Controllers
                 {
                     //Shekili saxlamaq ucun
 
-                    str = String.Format("{0:dd.MM.yyyy}", DateTime.ParseExact(bday, "yyyyMMdd", new CultureInfo("az-Latn-AZ")));
+                    //str = String.Format("{0:dd.MM.yyyy}", DateTime.ParseExact(bday, "yyyyMMdd", new CultureInfo("az-Latn-AZ")));
                     //string path = Server.MapPath("~/ContentProfile/personImage/") + "/" + str + "/";
                     string path = Server.MapPath("~/ContentProfile/personImage/");
 
@@ -840,7 +913,7 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult ProductCatalog(long pId = 0, long ppId = 0)
+        public ActionResult ProductCatalog(long pId = 0, long ppId = 0, string fpid = "")
         {
             try
             {
@@ -910,17 +983,30 @@ namespace Emsal.UI.Controllers
 
 
                 //if (modelPotentialProduction.ProductCatalogList.Count() == 0 && ppId>0)
-                if (ppId > 0)
+                if (ppId > 0 || fpid != "")
                 {
-                    BaseOutput gpp = srv.WS_GetPotential_ProductionById(baseInput, ppId, true, out modelPotentialProduction.PotentialProduction);
+                    if (fpid == "")
+                    {
+                        BaseOutput gpp = srv.WS_GetPotential_ProductionById(baseInput, ppId, true, out modelPotentialProduction.PotentialProduction);
 
-                    modelPotentialProduction.Id = modelPotentialProduction.PotentialProduction.Id;
-                    modelPotentialProduction.productId = (long)modelPotentialProduction.PotentialProduction.product_Id;
-                    modelPotentialProduction.description = modelPotentialProduction.PotentialProduction.description;
-                    modelPotentialProduction.size = (modelPotentialProduction.PotentialProduction.quantity.ToString()).Replace(',', '.');
-                    modelPotentialProduction.price = (modelPotentialProduction.PotentialProduction.unit_price.ToString()).Replace(',', '.');
-                    modelPotentialProduction.PotentialProduction.fullProductId = "0," + modelPotentialProduction.PotentialProduction.fullProductId;
-                    modelPotentialProduction.productIds = modelPotentialProduction.PotentialProduction.fullProductId.Split(',').Select(long.Parse).ToArray();
+                        modelPotentialProduction.Id = modelPotentialProduction.PotentialProduction.Id;
+                        modelPotentialProduction.productId = (long)modelPotentialProduction.PotentialProduction.product_Id;
+                        modelPotentialProduction.description = modelPotentialProduction.PotentialProduction.description;
+                        modelPotentialProduction.size = (modelPotentialProduction.PotentialProduction.quantity.ToString()).Replace(',', '.');
+                        modelPotentialProduction.price = (modelPotentialProduction.PotentialProduction.unit_price.ToString()).Replace(',', '.');
+                        modelPotentialProduction.PotentialProduction.fullProductId = "0," + modelPotentialProduction.PotentialProduction.fullProductId;
+                        modelPotentialProduction.productIds = modelPotentialProduction.PotentialProduction.fullProductId.Split(',').Select(long.Parse).ToArray();
+                    }
+                    else
+                    {
+                        modelPotentialProduction.PotentialProduction = new tblPotential_Production();
+                        modelPotentialProduction.productId = Int32.Parse(ppId.ToString());
+                        modelPotentialProduction.description = "";
+                        modelPotentialProduction.fpid = fpid;
+
+                        modelPotentialProduction.PotentialProduction.fullProductId = "0," + fpid;
+                        modelPotentialProduction.productIds = modelPotentialProduction.PotentialProduction.fullProductId.Split(',').Select(long.Parse).ToArray();
+                    }
 
                     modelPotentialProduction.ProductCatalogListFEA = new IList<tblProductCatalog>[modelPotentialProduction.productIds.Count()];
                     int s = 0;
