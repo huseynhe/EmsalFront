@@ -12,6 +12,8 @@ function GetProductCatalog(elem) {
             $('#productId').val(pId);
             $(elem).parent().parent().append(result);
             $('.select2').select2();
+
+            GetProductCatalogForSale();
         },
         error: function () {
 
@@ -19,6 +21,51 @@ function GetProductCatalog(elem) {
     });
 };
 
+$(document).ready(function () {
+    GetProductCatalogForSale();
+});
+
+function GetProductCatalogForSale() {
+    $.ajax({
+        url: '/PotentialClient/ProductCatalogForSale',
+        type: 'GET',
+        success: function (result) {
+            $('#productCatalogForSale').html(result);
+            $('.select2').select2();
+        },
+        error: function () {
+
+        }
+    });
+};
+
+function GetProductCat(prodId, fpid) {
+    $('#productId').val(prodId);
+    $.ajax({
+        url: '/PotentialClient/ProductCatalog?ppId=' + prodId + '&pId=' + prodId + '&fpid=' + fpid,
+        type: 'GET',
+        success: function (result) {
+            $('#profileProductCatalog').html(result);
+        },
+        error: function () {
+        }
+    });
+};
+
+function GetProductCatalogForSaleAS(elem) {
+    var prId = $(elem).val();
+
+    $.ajax({
+        url: '/PotentialClient/ProductCatalogForSaleAS?prId=' + prId,
+        type: 'GET',
+        success: function (result) {
+            GetProductCat(prId, result);
+        },
+        error: function () {
+
+        }
+    });
+};
 function GetAdminUnit(elem) {
     pId = $(elem).val();
     $(elem).parent().nextAll().remove();
