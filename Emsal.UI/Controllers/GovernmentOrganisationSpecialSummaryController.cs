@@ -39,6 +39,8 @@ namespace Emsal.UI.Controllers
             modelSpecial.DemandProduction = new tblDemand_Production();
             modelSpecial.ProductionControlList = new List<tblProductionControl>();
 
+            modelSpecial.actionName = (Request.Url.Segments[2].ToString());
+
             //get the informations of logged in user
             if (User != null && User.Identity.IsAuthenticated)
             {
@@ -74,7 +76,7 @@ namespace Emsal.UI.Controllers
                     foreach (var item in modelSpecial.DemandProductionList)
                     {
                         BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
-                        if (modelSpecial.ProductCatalog.ProductName.Contains(productName))
+                        if (modelSpecial.ProductCatalog.ProductName.ToLower().Contains(productName.ToLower()))
                         {
                             result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
                         }
@@ -96,7 +98,7 @@ namespace Emsal.UI.Controllers
                     foreach (var item in modelSpecial.DemandProductionList)
                     {
                         BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
-                        if (modelSpecial.ProductCatalog.ProductName.Contains(productName))
+                        if (modelSpecial.ProductCatalog.ProductName.ToLower().Contains(productName.ToLower()))
                         {
                             result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
                         }
@@ -260,7 +262,7 @@ namespace Emsal.UI.Controllers
                     foreach (var item in modelSpecial.DemandProductionList)
                     {
                         BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
-                        if (modelSpecial.ProductCatalog.ProductName.Contains(productName))
+                        if (modelSpecial.ProductCatalog.ProductName.ToLower().Contains(productName.ToLower()))
                         {
                             result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
                         }
@@ -282,7 +284,7 @@ namespace Emsal.UI.Controllers
                     foreach (var item in modelSpecial.DemandProductionList)
                     {
                         BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
-                        if (modelSpecial.ProductCatalog.ProductName.Contains(productName))
+                        if (modelSpecial.ProductCatalog.ProductName.ToLower().Contains(productName.ToLower()))
                         {
                             result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
                         }
@@ -428,6 +430,8 @@ namespace Emsal.UI.Controllers
             modelSpecial.DemandProduction = new tblDemand_Production();
             modelSpecial.ProductionControlList = new List<tblProductionControl>();
 
+            modelSpecial.actionName = (Request.Url.Segments[2].ToString());
+
             //get the information of the logged in user
 
             if (User != null && User.Identity.IsAuthenticated)
@@ -464,7 +468,7 @@ namespace Emsal.UI.Controllers
                     foreach (var item in modelSpecial.DemandProductionList)
                     {
                         BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
-                        if (modelSpecial.ProductCatalog.ProductName.Contains(productName))
+                        if (modelSpecial.ProductCatalog.ProductName.ToLower().Contains(productName.ToLower()))
                         {
                             result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
                         }
@@ -486,7 +490,7 @@ namespace Emsal.UI.Controllers
                     foreach (var item in modelSpecial.DemandProductionList)
                     {
                         BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
-                        if (modelSpecial.ProductCatalog.ProductName.Contains(productName))
+                        if (modelSpecial.ProductCatalog.ProductName.ToLower().Contains(productName.ToLower()))
                         {
                             result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
                         }
@@ -606,6 +610,8 @@ namespace Emsal.UI.Controllers
             modelSpecial.DemandProduction = new tblDemand_Production();
             modelSpecial.ProductionControlList = new List<tblProductionControl>();
 
+            modelSpecial.actionName = (Request.Url.Segments[2].ToString());
+
 
             //get the informations of the logged in user
 
@@ -646,7 +652,7 @@ namespace Emsal.UI.Controllers
                     foreach (var item in modelSpecial.DemandProductionList)
                     {
                         BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
-                        if (modelSpecial.ProductCatalog.ProductName.Contains(productName))
+                        if (modelSpecial.ProductCatalog.ProductName.ToLower().Contains(productName.ToLower()))
                         {
                             result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
                         }
@@ -668,7 +674,7 @@ namespace Emsal.UI.Controllers
                     foreach (var item in modelSpecial.DemandProductionList)
                     {
                         BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
-                        if (modelSpecial.ProductCatalog.ProductName.Contains(productName))
+                        if (modelSpecial.ProductCatalog.ProductName.ToLower().Contains(productName.ToLower()))
                         {
                             result.Add(modelSpecial.DemandProductionList.Single(x => x.Id == item.Id));
                         }
