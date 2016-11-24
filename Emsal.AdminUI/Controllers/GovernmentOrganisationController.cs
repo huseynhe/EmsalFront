@@ -17,7 +17,7 @@ using Emsal.WebInt.IAMAS;
 
 namespace Emsal.AdminUI.Controllers
 {
-    //[EmsalAdminAuthentication(AuthorizedAction = ActionName.admin)]
+    [EmsalAdminAuthentication(AuthorizedAction = ActionName.admin)]
 
     public class GovernmentOrganisationController : Controller
     {

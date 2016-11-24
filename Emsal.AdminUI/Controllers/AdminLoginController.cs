@@ -122,6 +122,8 @@ namespace Emsal.AdminUI.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index");
         }
+
+
     }
 
 }
