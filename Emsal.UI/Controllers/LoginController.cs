@@ -1,4 +1,5 @@
 ﻿using Emsal.UI.Models;
+using Emsal.Utility.CustomObjects;
 using Emsal.WebInt.EmsalSrv;
 using System;
 using System.Collections.Generic;
@@ -351,11 +352,12 @@ namespace Emsal.UI.Controllers
 
             //Get the user
 
-            BaseOutput userOUt = srv.WS_GetUserByUserName(binput, form.UserName, out modelUser.FutureUser);
+            BaseOutput userOUt = srv.WS_GetUserByUserEmail(binput, form.Email, out modelUser.FutureUser);
 
             if (modelUser.FutureUser != null)
             {
-                SendUserPassword(modelUser.FutureUser.Username, modelUser.FutureUser.Password, form.Email);
+                BaseOutput perOut = srv.WS_GetPersonByUserId(binput, (long)modelUser.FutureUser.Id,true, out modelUser.FuturePerson);
+                SendUserPassword(modelUser.FutureUser.Username, modelUser.FutureUser.Password, form.Email, modelUser.FuturePerson.Name, modelUser.FuturePerson.Surname);
                 TempData["sendUserInfo"]= "info";
             }
 
@@ -403,37 +405,32 @@ namespace Emsal.UI.Controllers
             return RedirectToAction("Index");
         }
 
-        public void SendUserPassword(string userName, string password, string email)
+        public void SendUserPassword(string userName, string password, string email, string name, string sName)
         {
             if (CheckForInternetConnection())
             {
                 MailMessage msg = new MailMessage();
-                msg.From = new MailAddress("ferid.heziyev@gmail.com", "tedaruk.az");
-                if (String.IsNullOrWhiteSpace(email) || !email.Contains("@") || !email.Contains(".com"))
-                {
-                    email = "ferid.heziyev@gmail.com";
-                }
-                msg.To.Add(email);
-                string fromPassword = "e1701895";
-                msg.Subject = "Giriş Məlumatlarınız";
 
-                msg.Body = "<p>İstifadəçi adınız:" + userName + "</p>" +
-                           "<p>Şifrənizi aşağıdakı linkdən dəyişdirin</p>" +
-                           "<p>http://localhost:56557/Login/ResetPassword/?username=" + userName + "</p>";
+                msg.To.Add(email);
+                msg.Subject = "Qeydiyyat";
+
+                msg.Body = "<p>Hörmətli " + name + " " + sName + "</p>" +
+                    "<p>Təqdim etdiyiniz məlumatlara əsasən, “Satınalan təşkilatların ərzaq məhsullarına tələbatı” portalında (tedaruk.az) qeydiyyatdan keçdiniz.</p>" +
+                    "<p>İstifadəçi adınız: " + userName + "</p>" +
+                    "<p>Şifrəniz :  " + password + "</p>";
 
                 msg.IsBodyHtml = true;
 
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.Credentials = new NetworkCredential(msg.From.Address, fromPassword);
-                smtp.Timeout = 20000;
 
-                TempData["onetime"] = "info";
 
-                smtp.Send(msg);
+                if (Mail.SendMail(msg))
+                {
+                    TempData["Message"] = "Email göndərildi.";
+                }
+                else
+                {
+                    TempData["Message"] = "Email göndərilmədi.";
+                }
             }
 
         }
