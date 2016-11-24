@@ -278,7 +278,7 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult UserInfo(int? page, int addressId = 0, long rId = 15, string sort = null, string name = null, string surname = null, string address = null, string products = null)
+        public ActionResult UserInfo(int? page, int addressId = 0, long rId = 0, string sort = null, string name = null, string surname = null, string address = null, string products = null)
         {
             try
             {
@@ -296,7 +296,7 @@ namespace Emsal.UI.Controllers
                 if (addressId == 0 && rId == 0 && sort == null && name == null && surname == null && address == null && products == null)
                 {
                     saddressId = 0;
-                    srId = 0;
+                    srId = 15;
                     ssort = null;
                     sname = null;
                     ssurname = null;
