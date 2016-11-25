@@ -68,6 +68,11 @@ namespace Emsal.AdminUI.Models
         public string unitPrice { get; set; }
 
         public int NPCount { get; set; }
+        public int DNPCount { get; set; }
         public string pname { get; set; }
+
+        [Display(Name = "Tələblərdə olan məhsullar")]
+        public bool isDemand { get; set; }
+
     }
 }
