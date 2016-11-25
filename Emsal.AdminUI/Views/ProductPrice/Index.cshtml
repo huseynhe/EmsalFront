@@ -1,17 +1,15 @@
 ﻿@model Emsal.AdminUI.Models.ProductPriceViewModel
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <section class="content">
     <div class="row">
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                   @if (Model.EnumValueYear != null)
-{
+                    @if (Model.EnumValueYear != null)
+                    {
                         <h3 class="box-title col-md-12">
                             Seçilmiş tarix: ( @Html.DisplayFor(mi => Model.EnumValueYear.description) - @Html.DisplayFor(mi => Model.EnumValueRub.description) )
 
@@ -19,27 +17,26 @@
                         </h3>
                     }
                 </div>
-
                 <div class="box-body">
-    @using (Html.BeginForm("Index", "ProductPrice", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.tst)
-
-        if (Model.EnumValueListYear != null && Model.EnumValueListRub != null)
-        {
-
-            <div class="form-group col-md-3">
-                @Html.LabelFor(model => model.year, htmlAttributes: new { @class = "control-label" })
-                <select name="year" required size="8" class="form-control unicase-form-control select">
-                    <option selected value="">Seçim edin</option>
-                    @foreach (var item in Model.EnumValueListYear)
+                    @using (Html.BeginForm("Index", "ProductPrice", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
-                        <option value="@item.Id">@item.description</option>
-                    }
-                </select>
-                <span data-valmsg-replace="true" data-valmsg-for="year" class="field-validation-valid text-danger"></span>
-            </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.tst)
+
+                        if (Model.EnumValueListYear != null && Model.EnumValueListRub != null)
+                        {
+
+                            <div class="form-group col-md-3">
+                                @Html.LabelFor(model => model.year, htmlAttributes: new { @class = "control-label" })
+                                <select name="year" required size="8" class="form-control unicase-form-control select">
+                                    <option selected value="">Seçim edin</option>
+                                    @foreach (var item in Model.EnumValueListYear)
+                    {
+                                        <option value="@item.Id">@item.description</option>
+                                    }
+                                </select>
+                                <span data-valmsg-replace="true" data-valmsg-for="year" class="field-validation-valid text-danger"></span>
+                            </div>
 
                             <div class="form-group col-md-3">
                                 @Html.LabelFor(model => model.rub, htmlAttributes: new { @class = "control-label" })
@@ -53,6 +50,14 @@
                                 <span data-valmsg-replace="true" data-valmsg-for="rub" class="field-validation-valid text-danger"></span>
                             </div>
 
+                            <div class="form-group col-md-3">
+                                <label for="startDate" class="control-label">&nbsp;</label>
+                                <div class="clearfix"></div>
+                                @Html.LabelFor(model => model.isDemand, htmlAttributes: new { @class = "control-label" })
+                                &nbsp;
+                                @Html.CheckBoxFor(model => model.isDemand, new { })
+                            </div>
+
                             <div class="col-md-3">
                                 <label for="startDate" class="control-label">&nbsp;</label>
                                 <div class="clearfix"></div>
@@ -61,67 +66,69 @@
                                 </button>
                             </div>
                             <br />
-        }
-        else
-        {
-            @*@Html.HiddenFor(model => model.startDate)
-                @Html.HiddenFor(model => model.endDate)*@
-        }
-        <div class="clearfix"></div>
 
-        if (Model.ProductPriceDetailListPaging.Count() > 0)
-        {
-            int i = 0;
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Məhsulun adı</th>
-                        <th>@Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label" })</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var itm in Model.ProductPriceDetailListPaging)
-                    {
-                        <tr>
-                            <td class="col-md-3">
-                                <span style="font-size:16px;" class="text-primary text-bold">
-                                    @itm.productName (@itm.productParentName)
-                                </span>
-                                <input hidden name="prodId[@i]" value="@itm.productID" /></td>
-                            <td class="col-md-2">                                 
-                                    <input type="number" step="0.01" min="0.001" value="@Model.price" required class="form-control" placeholder="məs: 4 və ya 0.3" name="price[@i]" id="price[@i]">
-                                    <span data-valmsg-replace="true" data-valmsg-for="price[@i]" class="field-validation-valid text-danger"></span>
-                            </td>
-                            <td class="col-md-7">
-                                &nbsp;
-                            </td>
-                        </tr>
-
-                        i = i + 1;
-                    }
-                    @Html.HiddenFor(model => model.year)
-                    @Html.HiddenFor(model => model.rub)
-                    </tbody>
-                </table>
-                    <div class="clearfix"></div>
-                    <input style="opacity:0;" name="approv" value="1">
-                    <div class="col-md-12">
-                        <label for="startDate" class="control-label">&nbsp;</label>
+                        }
+                        else
+                        {
+                            @*@Html.HiddenFor(model => model.startDate)
+                                @Html.HiddenFor(model => model.endDate)*@
+                        }
                         <div class="clearfix"></div>
-                        <button class="btn btn-primary active pull-right btn-lg" type="submit">
-                            <i class="glyphicon glyphicon-check"></i>&nbsp;Təsdiqlə
-                        </button>
-                    </div>
-                    <br />
-                    }
-                    else
+
+                        if (Model.ProductPriceDetailListPaging.Count() > 0)
+                        {
+                            int i = 0;
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Məhsulun adı</th>
+                                        <th>@Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label" })</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var itm in Model.ProductPriceDetailListPaging)
                     {
-                    <h3 class="">
-                        Heç bir qeyd tapılmadı
-                    </h3>
+                                        <tr>
+                                            <td class="col-md-3">
+                                                <span style="font-size:16px;" class="text-primary text-bold">
+                                                    @itm.productName (@itm.productParentName)
+                                                </span>
+                                                <input hidden name="prodId[@i]" value="@itm.productID" />
+                                            </td>
+                                            <td class="col-md-2">
+                                                <input type="number" step="0.01" min="0.001" value="@Model.price" required class="form-control" placeholder="məs: 4 və ya 0.3" name="price[@i]" id="price[@i]">
+                                                <span data-valmsg-replace="true" data-valmsg-for="price[@i]" class="field-validation-valid text-danger"></span>
+                                            </td>
+                                            <td class="col-md-7">
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+
+                                        i = i + 1;
+                                    }
+                                    @Html.HiddenFor(model => model.year)
+                                    @Html.HiddenFor(model => model.rub)
+                                </tbody>
+                            </table>
+                            <div class="clearfix"></div>
+                            <input style="opacity:0;" name="approv" value="1">
+                            <div class="col-md-12">
+                                <label for="startDate" class="control-label">&nbsp;</label>
+                                <div class="clearfix"></div>
+                                <button class="btn btn-primary active pull-right btn-lg" type="submit">
+                                    <i class="glyphicon glyphicon-check"></i>&nbsp;Təsdiqlə
+                                </button>
+                            </div>
+                            <br />
+                        }
+                        else
+                        {
+                            <h3 class="">
+                                Heç bir qeyd tapılmadı
+                            </h3>
+                        }
                     }
-                    }
-        </div>
+                </div>
             </div>
         </div>
     </div>

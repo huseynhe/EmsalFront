@@ -17,17 +17,35 @@
                         <h3 class="box-title col-md-12">
                             <span style="float: left; margin-right: 10px; margin-top: 3px;"><i class="glyphicon glyphicon-link"></i> Qiyməti daxil olunmamış məhsul sayı </span> 
                             
+                            <div class="col-md-4">
 
-@using (Html.BeginForm("Index", "ProductPrice", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
-                            <button style="border-radius:100%;" class="btn btn-danger btn-sm" type="submit">
-                                <b>@Model.NPCount</b> 
-                            </button>
-    
-    <input hidden name="year" value="@Model.year" />
-    <input hidden name="rub" value="@Model.rub" />
-}
+                                @using (Html.BeginForm("Index", "ProductPrice", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
 
+                                    <span>Ümumi - </span>
+                                    <button style="border-radius:100%;" class="btn btn-danger btn-sm" type="submit">
+                                        <b>@Model.NPCount</b>
+                                    </button>
+
+                                    <input hidden name="year" value="@Model.year" />
+                                    <input hidden name="rub" value="@Model.rub" />
+                                }
+                            </div>
+                            <div class="col-md-4">
+                                @using (Html.BeginForm("Index", "ProductPrice", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    <span>Tələblərdə olan məhsullar - </span>
+                                    <button style="border-radius:100%;" class="btn btn-danger btn-sm" type="submit">
+                                        <b>@Model.DNPCount</b>
+                                    </button>
+
+                                    <input hidden name="year" value="@Model.year" />
+                                    <input hidden name="rub" value="@Model.rub" />
+                                    @*@Html.CheckBoxFor(model => model.isDemand, new { @checked = true })*@
+                                    <input data-val="true" hidden checked id="isDemand" name="isDemand" value="true" type="checkbox">
+                                    @*<input hidden type="checkbox" checked="checked" name="isDemand"/>*@
+                                }
+                            </div>
                             </h3>
                         
                     }
