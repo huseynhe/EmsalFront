@@ -356,9 +356,9 @@ namespace Emsal.UI.Controllers
 
             if (modelUser.FutureUser != null)
             {
-                BaseOutput perOut = srv.WS_GetPersonByUserId(binput, (long)modelUser.FutureUser.Id,true, out modelUser.FuturePerson);
+                BaseOutput perOut = srv.WS_GetPersonByUserId(binput, (long)modelUser.FutureUser.Id, true, out modelUser.FuturePerson);
                 SendUserPassword(modelUser.FutureUser.Username, modelUser.FutureUser.Password, form.Email, modelUser.FuturePerson.Name, modelUser.FuturePerson.Surname);
-                TempData["sendUserInfo"]= "info";
+                TempData["sendUserInfo"] = "info";
             }
 
             return RedirectToAction("Index");
