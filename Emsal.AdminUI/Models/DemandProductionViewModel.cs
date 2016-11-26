@@ -28,6 +28,11 @@ namespace Emsal.AdminUI.Models
 
         public ProductionDetail ProductionDetail;
         public IList<ProductionDetail> ProductionDetailList { get; set; }
+
+
+        public ProductionDetail PagingProductionDetail;
+        public IList<ProductionDetail> PagingProductionDetailList { get; set; }
+
         public ProductionDetail[] ProductionDetailArray;
 
 
@@ -96,6 +101,10 @@ namespace Emsal.AdminUI.Models
         public tblConfirmationMessage[] ConfirmationMessageArray;
 
         public PagedList.IPagedList<ProductionDetail> Paging { get; set; }
+        public PagedList.IPagedList<long> PagingT { get; set; }
+        public long itemCount = 0;
+        public bool itemCountB = true;
+
         public PagedList.IPagedList<DemandProductionViewModel> DemandOfferPaging { get; set; }
         public PagedList.IPagedList<DemandOfferDetail> DemandOfferDetailPaging { get; set; }
 
@@ -106,7 +115,6 @@ namespace Emsal.AdminUI.Models
         public long userId { get; set; }
 
         public long totalSize = 0;
-
 
         public long Id { get; set; }
 
