@@ -49,7 +49,7 @@ namespace Emsal.AdminUI.Controllers
                 if (adminUnit != null)
                     adminUnit = StripTag.strSqlBlocker(adminUnit.ToLower());
 
-                int pageSize = 20;
+                int pageSize = 2;
                 int pageNumber = (page ?? 1);
 
                 if (productName == null && userInfo == null && adminUnit == null)
@@ -88,7 +88,7 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstatusEV, out modelDemandProduction.EnumValue);
 
-                BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.ProductionDetailArray);
+                BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId_OP(baseInput, modelDemandProduction.EnumValue.Id, true, pageNumber, true, pageSize, true, out modelDemandProduction.ProductionDetailArray);
 
                 if (modelDemandProduction.ProductionDetailArray == null)
                 {
@@ -96,26 +96,33 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelDemandProduction.EnumCategory.Id && x.foreignOrganization != null).ToList();
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.ToList();
+
+                    //modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelDemandProduction.EnumCategory.Id && x.foreignOrganization != null).ToList();
                 }
 
-                if (sproductName != null)
-                {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
-                }
+                //if (sproductName != null)
+                //{
+                //    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
+                //}
 
-                if (sadminUnit != null)
-                {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.foreignOrganization.name.ToLower().Contains(sadminUnit)).ToList();
-                }
+                //if (sadminUnit != null)
+                //{
+                //    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.foreignOrganization.name.ToLower().Contains(sadminUnit)).ToList();
+                //}
 
-                if (suserInfo != null)
-                {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
-                }
+                //if (suserInfo != null)
+                //{
+                //    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
+                //}
 
 
-                modelDemandProduction.Paging = modelDemandProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+                BaseOutput gdpc = srv.WS_GetDemandProductionDetailistForEValueId_OPC(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.itemCount, out  modelDemandProduction.itemCountB);
+
+                long[] aic = new long[modelDemandProduction.itemCount];
+
+                modelDemandProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
+
 
                 if (sstatusEV == "Yayinda" || sstatusEV == "yayinda")
                 {
@@ -125,7 +132,6 @@ namespace Emsal.AdminUI.Controllers
                 {
                     modelDemandProduction.isMain = 1;
                 }
-
 
                 modelDemandProduction.statusEV = sstatusEV;
                 modelDemandProduction.productName = sproductName;
@@ -1229,8 +1235,8 @@ namespace Emsal.AdminUI.Controllers
                         col = 1;
                         sheet.Cells[2, col++].Value = "S/N";
                         sheet.Cells[2, col++].Value = "Ərzaq məhsullarının adı və növü";
-                        sheet.Cells[2, col++].Value = "Ölçü vahidi";
                         sheet.Cells[2, col++].Value = "Tələbatın həcmi (miqdar)";
+                        sheet.Cells[2, col++].Value = "Ölçü vahidi";
                         sheet.Cells[2, col++].Value = "Qiymət (AZN)";
                         sheet.Cells[2, col++].Value = "Qeyd";
 
