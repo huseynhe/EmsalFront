@@ -49,7 +49,7 @@ namespace Emsal.AdminUI.Controllers
                 if (adminUnit != null)
                     adminUnit = StripTag.strSqlBlocker(adminUnit.ToLower());
 
-                int pageSize = 2;
+                int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
                 if (productName == null && userInfo == null && adminUnit == null)
