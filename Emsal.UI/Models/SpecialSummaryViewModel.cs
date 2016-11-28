@@ -360,15 +360,17 @@ namespace Emsal.UI.Models
 
         public long[] addressIds { get; set; }
 
-        public long countOffAirOffers { get; set; }
-        public long countAcceptedOffers { get; set; }
-        public long countOnAirOffers { get; set; }
-        public long countRejectedOffers { get; set; }
+        public long countNewOffAirOffers { get; set; }
+        public long countNewAcceptedOffers { get; set; }
+        public long countNewOnAirOffers { get; set; }
+        public long countNewRejectedOffers { get; set; }
 
         public string icraci { get; set; }
         public string fname { get; set; }
         public bool hideButton { get; set; }
 
         public string actionName { get; set; }
+        public string prductName { get; set; }
+        public int offerCount { get; set; }
     }
 }
