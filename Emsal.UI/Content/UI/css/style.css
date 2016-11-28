@@ -2,6 +2,32 @@ html, body, h1, h2, h3, h4, h5, h6, p, hr, ul, ol, li {
 	margin:0px;
 	padding:0px;
 }
+.useful_links {
+	width:100%;
+	padding:20px 0;
+}
+
+.useful_links h2 {
+	font-size:32px;
+	margin-top:30px;
+	margin-bottom:20px;
+} 
+
+
+.useful_links .list-group {
+	margin:0;
+}
+
+
+.useful_links .list-group .list-group-item {	
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: transparent;
+    border:none;
+	float:left;
+}
+
 
         .loader {
 	position: fixed;
@@ -17,10 +43,10 @@ html, body, h1, h2, h3, h4, h5, h6, p, hr, ul, ol, li {
 .list-group-item{
     text-align:left;
 }
-#menu-container
+/*#menu-container
 {
     min-height:900px !important;
-}
+}*/
 
 .pagination-container, .box-footer
 {
