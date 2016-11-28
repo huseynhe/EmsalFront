@@ -55,10 +55,10 @@ namespace Emsal.UI.Controllers
             List<products> productsList = new List<products>();
             productsList = getCountsOffProducts((long)UserId);
 
-            modelSpecial.countAcceptedOffers = productsList.Where(p => p.type == 1).Count();
-            modelSpecial.countOffAirOffers = productsList.Where(p => p.type == 3).Count();
-            modelSpecial.countOnAirOffers = productsList.Where(p => p.type == 2).Count();
-            modelSpecial.countRejectedOffers = productsList.Where(p => p.type == 4).Count();
+            modelSpecial.countNewAcceptedOffers = productsList.Where(p => p.type == 1).Count();
+            modelSpecial.countNewOffAirOffers = productsList.Where(p => p.type == 3).Count();
+            modelSpecial.countNewOnAirOffers = productsList.Where(p => p.type == 2).Count();
+            modelSpecial.countNewRejectedOffers = productsList.Where(p => p.type == 4).Count();
 
             BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.LoggedInUser);
 
@@ -286,10 +286,10 @@ namespace Emsal.UI.Controllers
             List<products> productsList = new List<products>();
             productsList = getCountsOffProducts((long)UserID);
 
-            modelSpecial.countAcceptedOffers = productsList.Where(p => p.type == 1).Count();
-            modelSpecial.countOffAirOffers = productsList.Where(p => p.type == 3).Count();
-            modelSpecial.countOnAirOffers = productsList.Where(p => p.type == 2).Count();
-            modelSpecial.countRejectedOffers = productsList.Where(p => p.type == 4).Count();
+            modelSpecial.countNewAcceptedOffers = productsList.Where(p => p.type == 1).Count();
+            modelSpecial.countNewOffAirOffers = productsList.Where(p => p.type == 3).Count();
+            modelSpecial.countNewOnAirOffers = productsList.Where(p => p.type == 2).Count();
+            modelSpecial.countNewRejectedOffers = productsList.Where(p => p.type == 4).Count();
 
             BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
             BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
@@ -491,10 +491,10 @@ namespace Emsal.UI.Controllers
                 List<products> productsList = new List<products>();
                 productsList = getCountsOffProducts((long)UserID);
 
-                modelSpecial.countAcceptedOffers = productsList.Where(p => p.type == 1).Count();
-                modelSpecial.countOffAirOffers = productsList.Where(p => p.type == 3).Count();
-                modelSpecial.countOnAirOffers = productsList.Where(p => p.type == 2).Count();
-                modelSpecial.countRejectedOffers = productsList.Where(p => p.type == 4).Count();
+                modelSpecial.countNewAcceptedOffers = productsList.Where(p => p.type == 1).Count();
+                modelSpecial.countNewOffAirOffers = productsList.Where(p => p.type == 3).Count();
+                modelSpecial.countNewOnAirOffers = productsList.Where(p => p.type == 2).Count();
+                modelSpecial.countNewRejectedOffers = productsList.Where(p => p.type == 4).Count();
 
                 BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);
@@ -698,10 +698,10 @@ namespace Emsal.UI.Controllers
                 List<products> productsList = new List<products>();
                 productsList = getCountsOffProducts((long)UserID);
 
-                modelSpecial.countAcceptedOffers = productsList.Where(p => p.type == 1).Count();
-                modelSpecial.countOffAirOffers = productsList.Where(p => p.type == 3).Count();
-                modelSpecial.countOnAirOffers = productsList.Where(p => p.type == 2).Count();
-                modelSpecial.countRejectedOffers = productsList.Where(p => p.type == 4).Count();
+                modelSpecial.countNewAcceptedOffers = productsList.Where(p => p.type == 1).Count();
+                modelSpecial.countNewOffAirOffers = productsList.Where(p => p.type == 3).Count();
+                modelSpecial.countNewOnAirOffers = productsList.Where(p => p.type == 2).Count();
+                modelSpecial.countNewRejectedOffers = productsList.Where(p => p.type == 4).Count();
 
                 BaseOutput LoggedInUserOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
                 BaseOutput personOut = srv.WS_GetPersonByUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.Person);

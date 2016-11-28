@@ -66,11 +66,12 @@ namespace Emsal.UI.Controllers
 
             BaseOutput demand = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
             modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.ToList();
+            modelSpecial.offerCount = modelSpecial.DemandProductionList.Count;
             modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToPagedList(pageNumber, pageSize);
 
-            if (page == null)
+            if (pageNumber == 1)
             {
-                if (!String.IsNullOrEmpty(productName))
+                if (!String.IsNullOrEmpty(productName) || modelSpecial.prductName != null)
                 {
                     List<tblDemand_Production> result = new List<tblDemand_Production>();
                     foreach (var item in modelSpecial.DemandProductionList)
@@ -84,6 +85,7 @@ namespace Emsal.UI.Controllers
                     modelSpecial.DemandProductionList = null;
                     modelSpecial.DemandProductionList = result;
                     modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToPagedList(pageNumber, pageSize);
+                    modelSpecial.offerCount = modelSpecial.DemandProductionList.Count;
                 }
                 else
                 {
@@ -106,6 +108,7 @@ namespace Emsal.UI.Controllers
                     modelSpecial.DemandProductionList = null;
                     modelSpecial.DemandProductionList = result;
                     modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToList().ToPagedList(pageNumber, pageSize);
+                    modelSpecial.offerCount = modelSpecial.DemandProductionList.Count;
                 }
                 else
                 {
@@ -202,6 +205,7 @@ namespace Emsal.UI.Controllers
             BaseOutput mesOut = srv.WS_GetNotReadComMessagesByToUserId(binput, modelSpecial.LoggedInUser.Id, true, out modelSpecial.NotReadComMessageArray);
             modelSpecial.ComMessageList = modelSpecial.NotReadComMessageArray == null ? null : modelSpecial.NotReadComMessageArray.ToList();
             modelSpecial.MessageCount = modelSpecial.ComMessageList == null ? 0 : modelSpecial.ComMessageList.Count();
+            modelSpecial.prductName = productName;
             //return View(modelSpecial);
 
             return Request.IsAjaxRequest()
@@ -251,10 +255,12 @@ namespace Emsal.UI.Controllers
 
             BaseOutput demand = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
             modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.ToList();
+            modelSpecial.offerCount = modelSpecial.DemandProductionList.Count;
             modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToPagedList(pageNumber, pageSize);
+
             //List<tblDemand_Production> name = null;
 
-            if (page == null)
+            if (pageNumber == 1)
             {
                 if (!String.IsNullOrEmpty(productName))
                 {
@@ -270,6 +276,7 @@ namespace Emsal.UI.Controllers
                     modelSpecial.DemandProductionList = null;
                     modelSpecial.DemandProductionList = result;
                     modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToPagedList(pageNumber, pageSize);
+                    modelSpecial.offerCount = modelSpecial.DemandProductionList.Count;
                 }
                 else
                 {
@@ -292,6 +299,7 @@ namespace Emsal.UI.Controllers
                     modelSpecial.DemandProductionList = null;
                     modelSpecial.DemandProductionList = result;
                     modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToList().ToPagedList(pageNumber, pageSize);
+                    modelSpecial.offerCount = modelSpecial.DemandProductionList.Count;
                 }
                 else
                 {
@@ -458,6 +466,7 @@ namespace Emsal.UI.Controllers
 
             BaseOutput demand = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
             modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.ToList();
+            modelSpecial.offerCount = modelSpecial.DemandProductionList.Count;
             modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToPagedList(pageNumber, pageSize);
 
             if (page == null)
@@ -476,6 +485,7 @@ namespace Emsal.UI.Controllers
                     modelSpecial.DemandProductionList = null;
                     modelSpecial.DemandProductionList = result;
                     modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToPagedList(pageNumber, pageSize);
+                    modelSpecial.offerCount = modelSpecial.DemandProductionList.Count;
                 }
                 else
                 {
@@ -498,6 +508,7 @@ namespace Emsal.UI.Controllers
                     modelSpecial.DemandProductionList = null;
                     modelSpecial.DemandProductionList = result;
                     modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToList().ToPagedList(pageNumber, pageSize);
+                    modelSpecial.offerCount = modelSpecial.DemandProductionList.Count;
                 }
                 else
                 {
@@ -641,6 +652,7 @@ namespace Emsal.UI.Controllers
 
             BaseOutput demand = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
             modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.ToList();
+            modelSpecial.offerCount = modelSpecial.DemandProductionList.Count;
             modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToPagedList(pageNumber, pageSize);
             //List<tblDemand_Production> name = null;
 
@@ -660,6 +672,7 @@ namespace Emsal.UI.Controllers
                     modelSpecial.DemandProductionList = null;
                     modelSpecial.DemandProductionList = result;
                     modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToPagedList(pageNumber, pageSize);
+                    modelSpecial.offerCount = modelSpecial.DemandProductionList.Count;
                 }
                 else
                 {
@@ -682,6 +695,7 @@ namespace Emsal.UI.Controllers
                     modelSpecial.DemandProductionList = null;
                     modelSpecial.DemandProductionList = result;
                     modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToList().ToPagedList(pageNumber, pageSize);
+                    modelSpecial.offerCount = modelSpecial.DemandProductionList.Count;
                 }
                 else
                 {

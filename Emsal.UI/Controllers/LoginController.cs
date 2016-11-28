@@ -347,6 +347,7 @@ namespace Emsal.UI.Controllers
         public ActionResult ForgetPassword(User form)
         {
             User modelUser = new User();
+            modelUser.FutureUser = new tblUser();
 
             BaseInput binput = new BaseInput();
 
@@ -357,6 +358,7 @@ namespace Emsal.UI.Controllers
             if (modelUser.FutureUser != null)
             {
                 BaseOutput perOut = srv.WS_GetPersonByUserId(binput, (long)modelUser.FutureUser.Id, true, out modelUser.FuturePerson);
+
                 SendUserPassword(modelUser.FutureUser.Username, modelUser.FutureUser.Password, form.Email, modelUser.FuturePerson.Name, modelUser.FuturePerson.Surname);
                 TempData["sendUserInfo"] = "info";
             }
@@ -375,7 +377,7 @@ namespace Emsal.UI.Controllers
             }
             else
             {
-                return HttpNotFound();
+                return Redirect("/Login");
 
             }
 
@@ -384,17 +386,24 @@ namespace Emsal.UI.Controllers
         [HttpPost]
         public ActionResult ResetPassword(User form)
         {
-            User modelUser = new User();
-            BaseInput binput = new BaseInput();
+            if (!String.IsNullOrEmpty(form.Password))
+            {
+                User modelUser = new User();
+                BaseInput binput = new BaseInput();
 
-            BaseOutput userOut = srv.WS_GetUserByUserName(binput, form.UserName, out modelUser.FutureUser);
-            modelUser.FutureUser.Password = BCrypt.Net.BCrypt.HashPassword(form.Password, 5);
+                BaseOutput userOut = srv.WS_GetUserByUserName(binput, form.UserName, out modelUser.FutureUser);
+                modelUser.FutureUser.Password = BCrypt.Net.BCrypt.HashPassword(form.Password, 5);
 
-            BaseOutput updateUser = srv.WS_UpdateUser(binput, modelUser.FutureUser, out modelUser.FutureUser);
+                BaseOutput updateUser = srv.WS_UpdateUser(binput, modelUser.FutureUser, out modelUser.FutureUser);
 
-            TempData.Clear();
-            TempData["passwordChanged"] = "info";
-            return Redirect("/Login");
+                TempData.Clear();
+                TempData["passwordChanged"] = "info";
+                return Redirect("/Login");
+            }
+            else
+            {
+                return Redirect("/Login");
+            }
         }
 
         public ActionResult Logout()
@@ -414,13 +423,18 @@ namespace Emsal.UI.Controllers
                 msg.To.Add(email);
                 msg.Subject = "Qeydiyyat";
 
-                msg.Body = "<p>Hörmətli " + name + " " + sName + "</p>" +
-                    "<p>Təqdim etdiyiniz məlumatlara əsasən, “Satınalan təşkilatların ərzaq məhsullarına tələbatı” portalında (tedaruk.az) qeydiyyatdan keçdiniz.</p>" +
-                    "<p>İstifadəçi adınız: " + userName + "</p>" +
-                    "<p>Şifrəniz :  " + password + "</p>";
+                msg.Body = "<p>İstifadəçi adınız:" + userName + "</p>" +
+                           "<p>Şifrənizi aşağıdakı linkdən dəyişdirin</p>" +
+                           "<p>http://www.tedaruk.az/Login/ResetPassword/?username=" + userName + "</p>";
+
+                //msg.Body = "<p>Hörmətli " + name + " " + sName + "</p>" +
+                //    "<p>Təqdim etdiyiniz məlumatlara əsasən, “Satınalan təşkilatların ərzaq məhsullarına tələbatı” portalında (tedaruk.az) qeydiyyatdan keçdiniz.</p>" +
+                //    "<p>İstifadəçi adınız: " + userName + "</p>" +
+                //    "<p>Şifrəniz :  " + password + "</p>";
 
                 msg.IsBodyHtml = true;
 
+                TempData["onetime"] = "info";
 
 
                 if (Mail.SendMail(msg))
