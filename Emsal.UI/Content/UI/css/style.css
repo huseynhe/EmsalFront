@@ -43,10 +43,10 @@ html, body, h1, h2, h3, h4, h5, h6, p, hr, ul, ol, li {
 .list-group-item{
     text-align:left;
 }
-/*#menu-container
+#menu-container
 {
-    min-height:900px !important;
-}*/
+    min-height:700px !important;
+}
 
 .pagination-container, .box-footer
 {
