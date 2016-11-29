@@ -173,7 +173,7 @@ namespace Emsal.AdminUI.Controllers
         }
 
 
-        public ActionResult AddChildOrganisation(long? UserId, long? parentId, long redirect)
+        public ActionResult AddChildOrganisation(long? UserId, long? parentId, long? redirect)
         {
             binput = new BaseInput();
 
@@ -199,7 +199,11 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput jobCatOut = srv.WS_GetEnumCategorysByName(binput, "İş-Təşkilat", out modelUser.EnumCategory);
             BaseOutput jobbOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
             modelUser.JobList = modelUser.EnumValueArray.ToList();
-            modelUser.RedirectToParent = redirect;
+
+            if (redirect > 0)
+            {
+                modelUser.RedirectToParent = (long)redirect;
+            }
 
             BaseOutput gecbn = srv.WS_GetEnumCategorysByName(binput, "mobilePhonePrefix", out modelUser.EnumCategory);
             BaseOutput gevbci = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
@@ -378,7 +382,7 @@ namespace Emsal.AdminUI.Controllers
             else
             {
                 TempData["ChildOrganisationExists"] = "Bu adda istifadəçi sistemdə mövcuddur.";
-                return RedirectToAction("AddChildOrganisation", new { parentId = form.ParentOrganisationId });
+                return RedirectToAction("AddChildOrganisation", new { parentId = form.ParentOrganisationId});
             }
 
         }
