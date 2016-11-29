@@ -1288,6 +1288,8 @@ namespace Emsal.UI.Controllers
             BaseOutput user = srv.WS_GetUserById(binput, (long)UserId, true, out modelProduction.User);
             BaseOutput person = srv.WS_GetPersonByUserId(binput, (long)UserId, true, out modelProduction.Person);
 
+            BaseOutput foreOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserId, true, out modelProduction.ForeignOrganization);
+            ViewBag.OrgName = modelProduction.ForeignOrganization.name;
 
             return View(modelProduction);
         }
