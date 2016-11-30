@@ -428,9 +428,12 @@ namespace Emsal.UI.Controllers
                         uId = modelUser.User.Id;
                         //LoginController lg = new LoginController();
                         //return lg.CreateTicket(1, "OfferProduction", modelUser.User, null);
-                        return RedirectToAction("CreateTicket", "Login",new { ticketNum = 1, route = "OfferProduction",  User = "", returnUrl = "", uId= uId });
+                        //return RedirectToAction("CreateTicket", "Login",new { ticketNum = 1, route = "OfferProduction",  User = "", returnUrl = "", uId = uId });
+                        //return RedirectToAction("CreateTicket", "Login", new { ticketNum = 1, route = "autoLogin", User = "", returnUrl = "", uId = uId });
                         //return CreateTicket(1, "AsanXidmetSpecial", modelUser.User, returnUrl);
                         //return RedirectToAction("Index", "OfferProduction");
+                        Session["pass"] = mdl.passWord;
+                        Session["uid"] = modelUser.User.Id;
                     }
                     return RedirectToAction("Index", "Login");
                 }
