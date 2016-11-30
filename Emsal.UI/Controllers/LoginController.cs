@@ -63,14 +63,39 @@ namespace Emsal.UI.Controllers
 
         public ActionResult Index(string uid = null, string type = null)
         {
-                      binput = new BaseInput();
+            binput = new BaseInput();
+            AuthLogin authLogin = new AuthLogin();
+            if (Session["pass"] != null && Session["uid"] != null)
+            {
+                string p = Session["pass"].ToString();
+                Session["pass"] = null;
+                long id = long.Parse(Session["uid"].ToString());
+                Session["uid"] = null;
+                modelUser = new UserViewModel();
+                BaseOutput userOut = srv.WS_GetUserById(binput, id, true,out modelUser.User);
 
-                      AuthLogin authLogin = new AuthLogin();
+                bool verify = BCrypt.Net.BCrypt.Verify(p, modelUser.User.Password);
 
+                if (verify)
+                {
+                    long uId = 0;
+                    uId = modelUser.User.Id;
+                    BaseOutput perOut = srv.WS_GetPersonByUserId(binput, id, true, out modelUser.Person);
+                    ViewBag.Name = modelUser.Person.Name;
+                    ViewBag.Surname = modelUser.Person.Surname;
+                    Session["auto"] = "true";
+                    return RedirectToAction("CreateTicket", "Login", new { ticketNum = 1, route = "autoLogin", User = "", returnUrl = "", uId = uId });
+                }
+                return View();
+            }
+            else
+            {
                 authLogin.uid = uid;
                 authLogin.type = type;
+                
 
                 return View(authLogin);
+            }
         }
 
         [HttpPost]

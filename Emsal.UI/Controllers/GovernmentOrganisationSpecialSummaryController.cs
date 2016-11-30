@@ -12,6 +12,7 @@ using PagedList;
 using System.Text.RegularExpressions;
 using Emsal.Utility.UtilityObjects;
 using Emsal.WebInt.IAMAS;
+using System.Net.Mail;
 
 namespace Emsal.UI.Controllers
 {
@@ -1556,7 +1557,7 @@ namespace Emsal.UI.Controllers
             BaseOutput eductationOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
             modelSpecial.EducationList = modelSpecial.EnumValueArray.ToList();
 
-            BaseOutput jobCatOut = srv.WS_GetEnumCategorysByName(binput, "İş-Təşkilat", out modelSpecial.EnumCategory);
+            BaseOutput jobCatOut = srv.WS_GetEnumCategorysByName(binput, "İş", out modelSpecial.EnumCategory);
             BaseOutput jobbOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelSpecial.EnumCategory.Id, true, out modelSpecial.EnumValueArray);
             modelSpecial.JobList = modelSpecial.EnumValueArray.ToList();
 
@@ -1600,171 +1601,231 @@ namespace Emsal.UI.Controllers
         [HttpPost]
         public ActionResult AddChildOrganisation(long? UserId,SpecialSummaryViewModel form)
         {
-            if (CheckExistence(form))
+            try
             {
-                binput = new BaseInput();
-                modelSpecial = new SpecialSummaryViewModel();
-
-                modelSpecial.User = new tblUser();
-                modelSpecial.UserRole = new tblUserRole();
-                modelSpecial.Address = new tblAddress();
-                modelSpecial.Organisation = new tblForeign_Organization();
-
-                modelSpecial.User.Username = form.UserName;
-                modelSpecial.User.Email = form.Email;
-                modelSpecial.User.Password = BCrypt.Net.BCrypt.HashPassword(form.Password, 5);
-                modelSpecial.User.Status = 1;
-
-                BaseOutput personEnumOut = srv.WS_GetEnumValueByName(binput, "legalPerson", out modelSpecial.EnumValue);
-                modelSpecial.User.userType_eV_ID = modelSpecial.EnumValue.Id;
-
-                modelSpecial.User.userType_eV_IDSpecified = true;
-                modelSpecial.User.StatusSpecified = true;
-
-
-                if (User != null && User.Identity.IsAuthenticated)
+                if (CheckExistence(form))
                 {
-                    FormsIdentity identity = (FormsIdentity)User.Identity;
-                    if (identity.Ticket.UserData.Length > 0)
+                    binput = new BaseInput();
+                    modelSpecial = new SpecialSummaryViewModel();
+
+                    modelSpecial.User = new tblUser();
+                    modelSpecial.UserRole = new tblUserRole();
+                    modelSpecial.Address = new tblAddress();
+                    modelSpecial.Organisation = new tblForeign_Organization();
+
+                    modelSpecial.User.Username = form.UserName;
+                    modelSpecial.User.Email = form.Email;
+                    modelSpecial.User.Password = BCrypt.Net.BCrypt.HashPassword(form.Password, 5);
+                    modelSpecial.User.Status = 1;
+
+                    BaseOutput personEnumOut = srv.WS_GetEnumValueByName(binput, "legalPerson", out modelSpecial.EnumValue);
+                    modelSpecial.User.userType_eV_ID = modelSpecial.EnumValue.Id;
+
+                    modelSpecial.User.userType_eV_IDSpecified = true;
+                    modelSpecial.User.StatusSpecified = true;
+
+
+                    if (User != null && User.Identity.IsAuthenticated)
                     {
-                        UserId = Int32.Parse(identity.Ticket.UserData);
+                        FormsIdentity identity = (FormsIdentity)User.Identity;
+                        if (identity.Ticket.UserData.Length > 0)
+                        {
+                            UserId = Int32.Parse(identity.Ticket.UserData);
+                        }
                     }
+                    BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.LoggedInUser);
+
+                    binput.userName = modelSpecial.LoggedInUser.Username;
+                    BaseOutput userOut = srv.WS_AddUser(binput, modelSpecial.User, out modelSpecial.User);
+
+
+                    //give roles to user
+                    BaseOutput usertypeProducerOut = srv.WS_GetRoleByName(binput, "governmentOrganisation", out modelSpecial.Role);
+
+                    modelSpecial.UserRole.RoleId = modelSpecial.Role.Id;
+                    modelSpecial.UserRole.RoleIdSpecified = true;
+                    modelSpecial.UserRole.UserId = modelSpecial.User.Id;
+                    modelSpecial.UserRole.UserIdSpecified = true;
+                    modelSpecial.UserRole.Status = 1;
+                    modelSpecial.UserRole.StatusSpecified = true;
+                    BaseOutput addUserRole = srv.WS_AddUserRole(binput, modelSpecial.UserRole, out modelSpecial.UserRole);
+
+
+                    //add address informations
+                    modelSpecial.Address.fullAddress = form.FullAddress;
+                    modelSpecial.Address.Status = 1;
+                    modelSpecial.Address.StatusSpecified = true;
+                    modelSpecial.Address.user_Id = modelSpecial.User.Id;
+                    modelSpecial.Address.user_IdSpecified = true;
+                    modelSpecial.Address.user_type_eV_IdSpecified = true;
+                    if (form.FullAddress != null)
+                    {
+                        modelSpecial.Address.adminUnit_Id = long.Parse(form.FullAddress);
+                    }
+
+                    modelSpecial.Address.adminUnit_IdSpecified = true;
+                    BaseOutput address = srv.WS_AddAddress(binput, modelSpecial.Address, out modelSpecial.Address);
+
+
+                    //add manager
+
+                    modelSpecial.Manager = new tblPerson();
+                    modelSpecial.Manager.Name = form.ManagerName;
+
+                    modelSpecial.Manager.PinNumber = form.Pin;
+                    modelSpecial.Manager.FatherName = form.FatherName;
+                    modelSpecial.Manager.Surname = form.Surname;
+                    modelSpecial.Manager.birtday = long.Parse(ConvertStringYearMonthDayFormatToTimestamp(form));
+                    modelSpecial.Manager.birtdaySpecified = true;
+                    modelSpecial.Manager.gender = form.Gender;
+
+                    BaseOutput educationEnum = srv.WS_GetEnumValueByName(binput, form.Education, out modelSpecial.EnumValue);
+                    modelSpecial.Manager.educationLevel_eV_Id = modelSpecial.EnumValue == null ? 0 : modelSpecial.EnumValue.Id;
+                    modelSpecial.Manager.educationLevel_eV_IdSpecified = true;
+
+                    BaseOutput jobEnum = srv.WS_GetEnumValueByName(binput, form.Job, out modelSpecial.EnumValue);
+                    modelSpecial.Manager.job_eV_Id = modelSpecial.EnumValue == null ? 0 : modelSpecial.EnumValue.Id;
+                    modelSpecial.Manager.job_eV_IdSpecified = true;
+
+                    modelSpecial.Manager.Status = 1;
+                    modelSpecial.Manager.StatusSpecified = true;
+
+
+                    BaseOutput managerOut = srv.WS_AddPerson(binput, modelSpecial.Manager, out modelSpecial.Manager);
+
+                    //add manager communication informations
+                    if (form.ManagerEmail != null)
+                    {
+                        modelSpecial.ComunicationInformations = new tblCommunication();
+                        BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "email", out modelSpecial.EnumValue);
+                        modelSpecial.ComunicationInformations.comType = (int)modelSpecial.EnumValue.Id;
+                        modelSpecial.ComunicationInformations.comTypeSpecified = true;
+                        modelSpecial.ComunicationInformations.communication = form.ManagerEmail;
+                        modelSpecial.ComunicationInformations.description = form.ManagerEmail;
+                        modelSpecial.ComunicationInformations.PersonId = modelSpecial.Manager.Id;
+                        modelSpecial.ComunicationInformations.PersonIdSpecified = true;
+                        modelSpecial.ComunicationInformations.priorty = 1;
+                        modelSpecial.ComunicationInformations.priortySpecified = true;
+
+                        BaseOutput comunicationOUtt = srv.WS_AddCommunication(binput, modelSpecial.ComunicationInformations, out modelSpecial.ComunicationInformations);
+                    }
+
+
+                    if (form.ManagerMobilePhone != null)
+                    {
+                        modelSpecial.ComunicationInformations = new tblCommunication();
+                        BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "mobilePhone", out modelSpecial.EnumValue);
+                        modelSpecial.ComunicationInformations.comType = (int)modelSpecial.EnumValue.Id;
+                        modelSpecial.ComunicationInformations.comTypeSpecified = true;
+                        modelSpecial.ComunicationInformations.communication = form.mobilePhonePrefix + form.ManagerMobilePhone;
+                        modelSpecial.ComunicationInformations.description = form.mobilePhonePrefix + form.ManagerMobilePhone;
+                        modelSpecial.ComunicationInformations.PersonId = modelSpecial.Manager.Id;
+                        modelSpecial.ComunicationInformations.PersonIdSpecified = true;
+                        modelSpecial.ComunicationInformations.priorty = 2;
+                        modelSpecial.ComunicationInformations.priortySpecified = true;
+                        BaseOutput comunicationOUt = srv.WS_AddCommunication(binput, modelSpecial.ComunicationInformations, out modelSpecial.ComunicationInformations);
+
+                    }
+
+                    if (form.ManagerWorkPhone != null)
+                    {
+                        modelSpecial.ComunicationInformations = new tblCommunication();
+                        BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelSpecial.EnumValue);
+                        modelSpecial.ComunicationInformations.comType = (int)modelSpecial.EnumValue.Id;
+                        modelSpecial.ComunicationInformations.comTypeSpecified = true;
+                        modelSpecial.ComunicationInformations.communication = form.WorkPhonePrefix + form.ManagerWorkPhone;
+                        modelSpecial.ComunicationInformations.description = form.WorkPhonePrefix + form.ManagerWorkPhone;
+                        modelSpecial.ComunicationInformations.PersonId = modelSpecial.Manager.Id;
+                        modelSpecial.ComunicationInformations.PersonIdSpecified = true;
+                        modelSpecial.ComunicationInformations.priorty = 1;
+                        modelSpecial.ComunicationInformations.priortySpecified = true;
+                        BaseOutput comunicationnOUtt = srv.WS_AddCommunication(binput, modelSpecial.ComunicationInformations, out modelSpecial.ComunicationInformations);
+
+                    }
+                    //add foreign organisation
+                    modelSpecial.Organisation.name = form.Name;
+                    modelSpecial.Organisation.Status = 1;
+
+                    modelSpecial.Organisation.address_Id = modelSpecial.Address.Id;
+                    modelSpecial.Organisation.address_IdSpecified = true;
+
+                    modelSpecial.Organisation.userId = modelSpecial.User.Id;
+                    modelSpecial.Organisation.userIdSpecified = true;
+
+                    modelSpecial.Organisation.voen = form.Voen;
+                    modelSpecial.Organisation.manager_Id = modelSpecial.Manager.Id;
+
+                    modelSpecial.Organisation.manager_IdSpecified = true;
+
+                    modelSpecial.Organisation.parent_Id = form.ParentOrganisationId;
+                    modelSpecial.Organisation.parent_IdSpecified = true;
+
+                    BaseOutput foreignOrganisationOut = srv.WS_AddForeign_Organization(binput, modelSpecial.Organisation, out modelSpecial.Organisation);
+
+                    MailMessage msg = new MailMessage();
+
+                    msg.To.Add(modelSpecial.User.Email);
+                    msg.Subject = "Qeydiyyat";
+
+                    msg.Body = "<p>Hörmətli " + modelSpecial.Manager.Name + " " + modelSpecial.Manager.Surname + "</p>" +
+                        "<p>Təqdim etdiyiniz məlumatlara əsasən, “Satınalan təşkilatların ərzaq məhsullarına tələbatı” portalında (tedaruk.az) qeydiyyatdan keçdiniz.</p>" +
+                        "<p>İstifadəçi adınız: " + modelSpecial.User.Username + "</p>" +
+                        "<p>Şifrəniz :  " + form.Password + "</p>";
+
+                    msg.IsBodyHtml = true;
+
+                    if (Mail.SendMail(msg))
+                    {
+                        TempData["Message"] = "Email göndərildi.";
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Email göndərilmədi.";
+                    }
+
+
+                    return RedirectToAction("Organisations");
                 }
-                BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.LoggedInUser);
-
-                binput.userName = modelSpecial.LoggedInUser.Username;
-                BaseOutput userOut = srv.WS_AddUser(binput, modelSpecial.User, out modelSpecial.User);
-
-
-                //give roles to user
-                BaseOutput usertypeProducerOut = srv.WS_GetRoleByName(binput, "governmentOrganisation", out modelSpecial.Role);
-
-                modelSpecial.UserRole.RoleId = modelSpecial.Role.Id;
-                modelSpecial.UserRole.RoleIdSpecified = true;
-                modelSpecial.UserRole.UserId = modelSpecial.User.Id;
-                modelSpecial.UserRole.UserIdSpecified = true;
-                modelSpecial.UserRole.Status = 1;
-                modelSpecial.UserRole.StatusSpecified = true;
-                BaseOutput addUserRole = srv.WS_AddUserRole(binput, modelSpecial.UserRole, out modelSpecial.UserRole);
-
-
-                //add address informations
-                modelSpecial.Address.fullAddress = form.FullAddress;
-                modelSpecial.Address.Status = 1;
-                modelSpecial.Address.StatusSpecified = true;
-                modelSpecial.Address.user_Id = modelSpecial.User.Id;
-                modelSpecial.Address.user_IdSpecified = true;
-                modelSpecial.Address.user_type_eV_IdSpecified = true;
-                modelSpecial.Address.adminUnit_Id = long.Parse(form.FullAddress);
-
-                modelSpecial.Address.adminUnit_IdSpecified = true;
-                BaseOutput address = srv.WS_AddAddress(binput, modelSpecial.Address, out modelSpecial.Address);
-
-
-                //add manager
-
-                modelSpecial.Manager = new tblPerson();
-                modelSpecial.Manager.Name = form.ManagerName;
-
-                modelSpecial.Manager.PinNumber = form.Pin;
-                modelSpecial.Manager.FatherName = form.FatherName;
-                modelSpecial.Manager.Surname = form.Surname;
-                modelSpecial.Manager.birtday = long.Parse(ConvertStringYearMonthDayFormatToTimestamp(form));
-                modelSpecial.Manager.birtdaySpecified = true;
-                modelSpecial.Manager.gender = form.Gender;
-
-                BaseOutput educationEnum = srv.WS_GetEnumValueByName(binput, form.Education, out modelSpecial.EnumValue);
-                modelSpecial.Manager.educationLevel_eV_Id = modelSpecial.EnumValue == null ? 0 : modelSpecial.EnumValue.Id;
-                modelSpecial.Manager.educationLevel_eV_IdSpecified = true;
-
-                BaseOutput jobEnum = srv.WS_GetEnumValueByName(binput, form.Job, out modelSpecial.EnumValue);
-                modelSpecial.Manager.job_eV_Id = modelSpecial.EnumValue == null ? 0 : modelSpecial.EnumValue.Id;
-                modelSpecial.Manager.job_eV_IdSpecified = true;
-
-                modelSpecial.Manager.Status = 1;
-                modelSpecial.Manager.StatusSpecified = true;
-
-
-                BaseOutput managerOut = srv.WS_AddPerson(binput, modelSpecial.Manager, out modelSpecial.Manager);
-
-                //add manager communication informations
-                if (form.ManagerEmail != null)
+                else
                 {
-                    modelSpecial.ComunicationInformations = new tblCommunication();
-                    BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "email", out modelSpecial.EnumValue);
-                    modelSpecial.ComunicationInformations.comType = (int)modelSpecial.EnumValue.Id;
-                    modelSpecial.ComunicationInformations.comTypeSpecified = true;
-                    modelSpecial.ComunicationInformations.communication = form.ManagerEmail;
-                    modelSpecial.ComunicationInformations.description = form.ManagerEmail;
-                    modelSpecial.ComunicationInformations.PersonId = modelSpecial.Manager.Id;
-                    modelSpecial.ComunicationInformations.PersonIdSpecified = true;
-                    modelSpecial.ComunicationInformations.priorty = 1;
-                    modelSpecial.ComunicationInformations.priortySpecified = true;
-
-                    BaseOutput comunicationOUtt = srv.WS_AddCommunication(binput, modelSpecial.ComunicationInformations, out modelSpecial.ComunicationInformations);
+                    TempData["ChildOrganisationExists"] = "Bu adda istifadəçi sistemdə mövcuddur.";
+                    return RedirectToAction("AddChildOrganisation", new { parentId = form.ParentOrganisationId });
                 }
-
-
-                if (form.ManagerMobilePhone != null)
-                {
-                    modelSpecial.ComunicationInformations = new tblCommunication();
-                    BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "mobilePhone", out modelSpecial.EnumValue);
-                    modelSpecial.ComunicationInformations.comType = (int)modelSpecial.EnumValue.Id;
-                    modelSpecial.ComunicationInformations.comTypeSpecified = true;
-                    modelSpecial.ComunicationInformations.communication = form.mobilePhonePrefix + form.ManagerMobilePhone;
-                    modelSpecial.ComunicationInformations.description = form.mobilePhonePrefix + form.ManagerMobilePhone;
-                    modelSpecial.ComunicationInformations.PersonId = modelSpecial.Manager.Id;
-                    modelSpecial.ComunicationInformations.PersonIdSpecified = true;
-                    modelSpecial.ComunicationInformations.priorty = 2;
-                    modelSpecial.ComunicationInformations.priortySpecified = true;
-                    BaseOutput comunicationOUt = srv.WS_AddCommunication(binput, modelSpecial.ComunicationInformations, out modelSpecial.ComunicationInformations);
-
-                }
-
-                if (form.ManagerWorkPhone != null)
-                {
-                    modelSpecial.ComunicationInformations = new tblCommunication();
-                    BaseOutput emailOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelSpecial.EnumValue);
-                    modelSpecial.ComunicationInformations.comType = (int)modelSpecial.EnumValue.Id;
-                    modelSpecial.ComunicationInformations.comTypeSpecified = true;
-                    modelSpecial.ComunicationInformations.communication = form.WorkPhonePrefix + form.ManagerWorkPhone;
-                    modelSpecial.ComunicationInformations.description = form.WorkPhonePrefix + form.ManagerWorkPhone;
-                    modelSpecial.ComunicationInformations.PersonId = modelSpecial.Manager.Id;
-                    modelSpecial.ComunicationInformations.PersonIdSpecified = true;
-                    modelSpecial.ComunicationInformations.priorty = 1;
-                    modelSpecial.ComunicationInformations.priortySpecified = true;
-                    BaseOutput comunicationnOUtt = srv.WS_AddCommunication(binput, modelSpecial.ComunicationInformations, out modelSpecial.ComunicationInformations);
-
-                }
-                //add foreign organisation
-                modelSpecial.Organisation.name = form.Name;
-                modelSpecial.Organisation.Status = 1;
-
-                modelSpecial.Organisation.address_Id = modelSpecial.Address.Id;
-                modelSpecial.Organisation.address_IdSpecified = true;
-
-                modelSpecial.Organisation.userId = modelSpecial.User.Id;
-                modelSpecial.Organisation.userIdSpecified = true;
-
-                modelSpecial.Organisation.voen = form.Voen;
-                modelSpecial.Organisation.manager_Id = modelSpecial.Manager.Id;
-
-                modelSpecial.Organisation.manager_IdSpecified = true;
-
-                modelSpecial.Organisation.parent_Id = form.ParentOrganisationId;
-                modelSpecial.Organisation.parent_IdSpecified = true;
-
-                BaseOutput foreignOrganisationOut = srv.WS_AddForeign_Organization(binput, modelSpecial.Organisation, out modelSpecial.Organisation);
-
-
-                return RedirectToAction("Organisations");
             }
-            else
+            catch (Exception ex)
             {
-                TempData["ChildOrganisationExists"] = "Bu adda istifadəçi sistemdə mövcuddur.";
-                return RedirectToAction("AddChildOrganisation", new { parentId = form.ParentOrganisationId });
-            }
-           
+                if (modelSpecial.User != null)
+                {
+                    BaseOutput userOut = srv.WS_DeleteUser(binput, modelSpecial.User);
+                }
+
+                if (modelSpecial.UserRole != null)
+                {
+                    BaseOutput addUserRole = srv.WS_DeleteUserRole(binput, modelSpecial.UserRole);
+                }
+
+                if (modelSpecial.Address != null)
+                {
+                    BaseOutput address = srv.WS_DeleteAddress(binput, modelSpecial.Address);
+                }
+
+                if (modelSpecial.Manager != null)
+                {
+                    BaseOutput managerOut = srv.WS_DeletePerson(binput, modelSpecial.Manager);
+                }
+
+                if (modelSpecial.Organisation != null)
+                {
+                    BaseOutput foreignOrganisationOut = srv.WS_DeleteForeign_Organization(binput, modelSpecial.Organisation);
+                }
+
+                if (modelSpecial.ComunicationInformations != null)
+                {
+                    BaseOutput comunicationnOUtt = srv.WS_DeleteCommunication(binput, modelSpecial.ComunicationInformations);
+                }
+              
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }                      
         }
 
 
