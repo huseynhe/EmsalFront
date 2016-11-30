@@ -143,27 +143,27 @@
                                         <li class="list-group-item">
                                             <a href="/SpecialSummary/OffAirOffers">Yayımdan çıxan təkliflər 
                                                 
-                                                    @if (Model.countOffAirOffers > 0)
+                                                    @if (Model.countNewOffAirOffers > 0)
                                                     {
-                                                        <span style="color:red"> (@Model.countOffAirOffers) </span>
+                                                        <span style="color:red"> (@Model.countNewOffAirOffers) </span>
                                                     }
                                                        
                                             </a>
                                       </li>
                                         <li class="list-group-item">
                                             <a href="/SpecialSummary/Index">Təsdiqlənən Təkliflər 
-                                                @if (Model.countAcceptedOffers > 0)
+                                                @if (Model.countNewAcceptedOffers > 0)
                                                 {
-                                                    <span style="color:red">(@Model.countAcceptedOffers) </span>
+                                                    <span style="color:red">(@Model.countNewAcceptedOffers) </span>
                                                 }
                                             </a>
                                         </li>
                                         <li class="list-group-item">
                                             <a href="/SpecialSummary/OnAirOffers">Təkliflər 
 
-                                                @if (Model.countOnAirOffers > 0)
+                                                @if (Model.countNewOnAirOffers > 0)
                                                 {
-                                                    <span style="color:red">(@Model.countOnAirOffers)</span>
+                                                    <span style="color:red">(@Model.countNewOnAirOffers)</span>
                                                 }
                                                 
                                             </a>
@@ -171,9 +171,9 @@
                                         <li class="list-group-item">
                                             <a href="/SpecialSummary/RejectedOffers">Yararsız Sayılan Təkliflər 
 
-                                                @if (Model.countRejectedOffers > 0)
+                                                @if (Model.countNewRejectedOffers > 0)
                                                 {
-                                                    <span style="color:red">(@Model.countRejectedOffers)</span>
+                                                    <span style="color:red">(@Model.countNewRejectedOffers)</span>
                                                 }
                                                 
                                             </a>
