@@ -63,15 +63,23 @@
                             <div class="register-suggest-only">
                                 <h2 class="text-bold">Qeydiyyatdan keçməmisiniz?</h2><br />
                                 <h4>Xüsusi xidmətlərimizdən faydalana bilmək üçün qeydiyyatdan keçin</h4><br /><br />
-                                @if (Model.uid != null && Model.type != null)
+
+                                @if (Model != null)
                                 {
+                                    if (Model.uid != null && Model.type != null)
+                                    {
                                     <a href="/SignUpOP?uid=@Model.uid&type=@Model.type" class="btn btn-default text-blue text-bold btn-lg">İndi qeydiyyatdan keç</a>
                                 }
                                 else
                                 {
                                     <a href="/SignUpOP" class="btn btn-default text-blue text-bold btn-lg">İndi qeydiyyatdan keç</a>
                                 }
-                                
+                                }
+                                else
+                                {
+                                    <a href="/SignUpOP" class="btn btn-default text-blue text-bold btn-lg">İndi qeydiyyatdan keç</a>
+                                }
+
                             </div>
                         </div>
                     </div>
@@ -90,16 +98,15 @@
                     </script>
                     <div id="myModal" class="modal fade" style="z-index:3000">
                         <div class="modal-dialog">
+                            <!-- Modal content-->
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title">Məlumat</h4>
-                                </div>
                                 <div class="modal-body">
-                                    <p style="color: black !important;font-size:14px" id="successMessage">İstifadəçi uğurlu bir şəkildə əlavə olundu</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                                    <p style="color: black !important;">Hörmətli  @ViewBag.Name @ViewBag.Surname !</p>
+                                    <p style="color: black !important;">Sizin qeydiyyatından keçmə prosesiniz tamamlanmışdır.</p>
+                                    <p style="color: black !important;">Qeydiyyatdan keçməyiniz haqqında məlumat qeydiyyat zamanı daxil etdiyniz elektron poçt ünvanınıza göndəriləcəkdir.</p>
+                                    <p style="color: black !important;">Kənd Təsərrüfatı Nazirliyi tərəfindən potensial istehsalçı  kimi tanınmağınız üçün istehsal etdyiniz məhsulun təklifini yerləşdirməlisiniz. </p>
+                                    <p style="color: black !important;"></p>
+                                    <p style="color: black !important;">Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi</p>
                                 </div>
                             </div>
                         </div>
@@ -156,3 +163,20 @@
                     </div>
                 }
 
+
+<script>
+    $(document).ready(function () {
+        @if (Session["auto"] != null)
+        {
+            <text>
+
+        window.setTimeout(function () {
+            window.location.href = '/OfferProduction/Index/';
+        }, 3500);
+
+        </text>
+
+            Session["auto"] = null;
+        }
+    });
+</script>
