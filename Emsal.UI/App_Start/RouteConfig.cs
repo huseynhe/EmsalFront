@@ -51,6 +51,12 @@ namespace Emsal.UI
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+            name: "autoLogin",
+        url: "Login/Index",
+        defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional }
+    );
         }
     }
 }
