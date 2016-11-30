@@ -14,6 +14,7 @@ using Emsal.AdminUI.Infrastructure;
 using System.Web.Security;
 using Emsal.Utility.UtilityObjects;
 using Emsal.WebInt.IAMAS;
+using Emsal.Utility.CustomObjects;
 
 namespace Emsal.AdminUI.Controllers
 {
@@ -375,6 +376,27 @@ namespace Emsal.AdminUI.Controllers
                 modelUser.ForeignOrganisation.parent_IdSpecified = true;
 
                 BaseOutput foreignOrganisationOut = srv.WS_AddForeign_Organization(binput, modelUser.ForeignOrganisation, out modelUser.ForeignOrganisation);
+
+                MailMessage msg = new MailMessage();
+
+                msg.To.Add(modelUser.User.Email);
+                msg.Subject = "Qeydiyyat";
+
+                msg.Body = "<p>Hörmətli " + modelUser.Manager.Name + " " + modelUser.Manager.Surname + "</p>" +
+                    "<p>Təqdim etdiyiniz məlumatlara əsasən, “Satınalan təşkilatların ərzaq məhsullarına tələbatı” portalında (tedaruk.az) qeydiyyatdan keçdiniz.</p>" +
+                    "<p>İstifadəçi adınız: " + modelUser.User.Username + "</p>" +
+                   "<p>Şifrəniz :  " + form.Password + "</p>";
+
+                msg.IsBodyHtml = true;
+
+                if (Mail.SendMail(msg))
+                {
+                    TempData["Message"] = "Email göndərildi.";
+                }
+                else
+                {
+                    TempData["Message"] = "Email göndərilmədi.";
+                }
 
 
                 return Redirect("/GovernmentOrganisation/ChildOrganisations/?orgId=" + form.RedirectToParent);
@@ -2126,6 +2148,27 @@ namespace Emsal.AdminUI.Controllers
 
             BaseOutput foreignOrganisationOut = srv.WS_AddForeign_Organization(binput, modelUser.ForeignOrganisation, out modelUser.ForeignOrganisation);
             TempData["GovSuccess"] = "info";
+
+            MailMessage msg = new MailMessage();
+
+            msg.To.Add(modelUser.User.Email);
+            msg.Subject = "Qeydiyyat";
+
+            msg.Body = "<p>Hörmətli " + modelUser.Manager.Name + " " + modelUser.Manager.Surname + "</p>" +
+                "<p>Təqdim etdiyiniz məlumatlara əsasən, “Satınalan təşkilatların ərzaq məhsullarına tələbatı” portalında (tedaruk.az) qeydiyyatdan keçdiniz.</p>" +
+                "<p>İstifadəçi adınız: " + modelUser.User.Username + "</p>" +
+               "<p>Şifrəniz :  " + form.Password + "</p>";
+
+            msg.IsBodyHtml = true;
+
+            if (Mail.SendMail(msg))
+            {
+                TempData["Message"] = "Email göndərildi.";
+            }
+            else
+            {
+                TempData["Message"] = "Email göndərilmədi.";
+            }
 
             return RedirectToAction("Index", "GovernmentOrganisation");
 
