@@ -96,7 +96,7 @@
                             $("#myModal").modal('show');
                         });
                     </script>
-                    <div id="myModal" class="modal fade" style="z-index:3000">
+                    <div id="myModal" class="modal fade" style="z-index:3000" data-backdrop="static" data-keyboard="false">
                         <div class="modal-dialog">
                             <!-- Modal content-->
                             <div class="modal-content">
@@ -107,6 +107,9 @@
                                     <p style="color: black !important;">Kənd Təsərrüfatı Nazirliyi tərəfindən potensial istehsalçı  kimi tanınmağınız üçün istehsal etdyiniz məhsulun təklifini yerləşdirməlisiniz. </p>
                                     <p style="color: black !important;"></p>
                                     <p style="color: black !important;">Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="Redirict()">Oxudum</button>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +134,7 @@
                                     <p id="successMessage">Şifrəniz sıfırlandı, elektron poçt ünvanınıza göndərilən linkdən yeni şifrənizi daxil edə bilərsiniz.</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">bağla</button>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +159,7 @@
                                     <p id="successMessage">Şifrəniz müvəffəqiyyətlə dəyişdirildi.</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">bağla</button>
                                 </div>
                             </div>
                         </div>
@@ -165,18 +168,15 @@
 
 
 <script>
-    $(document).ready(function () {
         @if (Session["auto"] != null)
         {
             <text>
-
-        window.setTimeout(function () {
-            window.location.href = '/OfferProduction/Index/';
-        }, 3500);
-
+    function Redirict() {
+        window.location.href = '/OfferProduction/Index/';
+    };
         </text>
 
             Session["auto"] = null;
         }
-    });
+
 </script>
