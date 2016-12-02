@@ -9,7 +9,13 @@
         return false;
     });
 
+    $("#currentPassword").click(function () {
+        $("#personalInfos").css("display", "none");
+        $("#personalEmail2").css("display", "none");
+        $("#currentPasswordBody").css("display", "none");
+        $("#personalPhoneMain").css("display", "block");
 
+   })
 
     $("#personalEmail").click(function () {
         $("#personalInfos").css("display", "none");
@@ -214,7 +220,7 @@
     
             $("#changePassword").click(function () {
                 $.ajax({
-                    url: "/Ordinary/CheckPassword",
+                    url: "/SpecialSummary/CheckPassword",
                     type: "Get",
                     data: { password: $("#oldPassword").val() },
                     success: function (result) {
@@ -222,7 +228,7 @@
                             if ($("#newPassword1").val() == $("#newPassword2").val()) {
                                 if ($("#newPassword1").val().length >= 8) {
                                     $.ajax({
-                                        url: "/Ordinary/ChangePassword",
+                                        url: "/SpecialSummary/ChangePassword",
                                         type: "Get",
                                         data: { password: $("#newPassword1").val()},
                                         success: function (item) {
@@ -263,7 +269,7 @@
 
             $("#updateEmailAction").click(function () {
                 $.ajax({
-                    url: "/Ordinary/UpdateEmail",
+                    url: "/SpecialSummary/UpdateEmail",
                     type: "Get",
                     data: {email: $("#updateEmail").val() },
                     success: function (data) {
@@ -281,7 +287,7 @@
     
             $("#changeDetails").on("click", function () {
                 $.ajax({
-                    url: "/Ordinary/UpdateUser",
+                    url: "/SpecialSummary/UpdateUser",
                     type: "Get",
                     data: { userName: $("#upUserName").val(), gender: $("#upGender").val(), educationId: $("#upEducation").val(), jobId: $("#upJobb").val() },
                     success: function (data) {
