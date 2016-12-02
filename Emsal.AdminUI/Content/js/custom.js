@@ -519,6 +519,48 @@ function DemandOfferProductionTotal(action, elem, value) {
     });
 }
 
+$(document).ready(function () {
+    $('#DemandProductionAmountOfEachProductClear').hide();
+});
+
+function DemandProductionAmountOfEachProduct(status) {
+
+    if (status == '2') {
+        $('#startDate').val('');
+        $('#endDate').val('');
+    }
+
+    var startDate = $('#startDate').val();
+    var endDate = $('#endDate').val();
+
+    if (status == '1')
+    {
+        if (startDate.length != '10' || endDate.length != '10') {
+            alert('Tarix daxil edilməyib');
+            return false;
+        }
+
+        $('#DemandProductionAmountOfEachProductSearch').hide();
+        $('#DemandProductionAmountOfEachProductClear').show();
+
+    } else if (status == '2')
+    {
+        $('#DemandProductionAmountOfEachProductSearch').show();
+        $('#DemandProductionAmountOfEachProductClear').hide();
+    }
+
+    $.ajax({
+        url: '/DemandProduction/DemandProductionAmountOfEachProduct?startDate=' + startDate + '&endDate=' + endDate,
+        type: 'GET',
+        success: function (result) {
+            $('#AjaxPaginationList').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
+
 function OfferProductionSearch(elem, value) {
     $.ajax({
         url: '/OfferProduction/Index?' + value + '=' + $(elem).val(),
