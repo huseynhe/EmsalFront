@@ -29,6 +29,8 @@ namespace Emsal.AdminUI.Controllers
         private static string suserInfo;
         private static string sadminUnit;
         private static string sstatusEV;
+        private static long sstartDate;
+        private static long sendDate;
 
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
@@ -1157,23 +1159,40 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
-        public ActionResult DemandProductionAmountOfEachProduct(int? page, string productName = null, bool excell = false)
+        public ActionResult DemandProductionAmountOfEachProduct(int? page, string productName = null, bool excell = false, string startDate=null, string endDate=null)
         {
             try
             {
                 if (productName != null)
                     productName = StripTag.strSqlBlocker(productName.ToLower());
+                if (startDate != null)
+                    startDate = StripTag.strSqlBlocker(startDate.ToLower());
+                if (endDate != null)
+                    endDate = StripTag.strSqlBlocker(endDate.ToLower());
 
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (productName == null)
+                if (productName == null && startDate==null && endDate==null)
                 {
                     sproductName = null;
+                    sstartDate = 0;
+                    sendDate = 0;
                 }
 
                 if (productName != null)
                     sproductName = productName;
+
+                if (!string.IsNullOrEmpty(startDate) && !string.IsNullOrEmpty(endDate))
+                {
+                    sstartDate = (Convert.ToDateTime(startDate)).getInt64ShortDate();
+                    sendDate = (Convert.ToDateTime(endDate)).getInt64ShortDate();
+                }
+                else
+                {
+                    sstartDate = 0;
+                    sendDate = 0;
+                }
 
                 baseInput = new BaseInput();
                 modelDemandProduction = new DemandProductionViewModel();
@@ -1193,6 +1212,11 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelDemandProduction.EnumCategory);
 
+                if(sstartDate>0 && sendDate>0)
+                {
+
+                }
+
                 BaseOutput gpp = srv.WS_GetDemandProductionAmountOfEachProduct(baseInput, out modelDemandProduction.DemandOfferDetailArray);
 
                 if (modelDemandProduction.DemandOfferDetailArray == null)
@@ -1211,6 +1235,7 @@ namespace Emsal.AdminUI.Controllers
 
                 modelDemandProduction.DemandOfferDetailPaging = modelDemandProduction.DemandOfferDetailList.ToPagedList(pageNumber, pageSize);
 
+                modelDemandProduction.itemCount = modelDemandProduction.DemandOfferDetailList.Count();
                 modelDemandProduction.productName = sproductName;
 
                 if (excell == true)
