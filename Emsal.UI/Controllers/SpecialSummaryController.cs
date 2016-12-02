@@ -1986,9 +1986,22 @@ namespace Emsal.UI.Controllers
                 BaseOutput foreOut = srv.WS_GetForeign_OrganizationByUserId(binput, Id, true, out modelUser.ForeignOrganisation);
                 modelUser.NameSurname = modelUser.Person == null ? modelUser.ForeignOrganisation.name : modelUser.Person.Name + ' ' + modelUser.Person.Surname;
 
+                if (modelUser.Person.educationLevel_eV_Id == null)
+                    modelUser.Person.educationLevel_eV_Id = 0;
+
                 BaseOutput educOut = srv.WS_GetEnumValueById(binput, (long)modelUser.Person.educationLevel_eV_Id, true, out modelUser.EducationEnumValue);
+
+                if (modelUser.EducationEnumValue == null)
+                    modelUser.EducationEnumValue = new tblEnumValue();
+
                 modelUser.EducationLevel = modelUser.EducationEnumValue.name;
+
+
+                if (modelUser.Person.job_eV_Id == null)
+                    modelUser.Person.job_eV_Id = 0;
                 BaseOutput jobOut = srv.WS_GetEnumValueById(binput, (long)modelUser.Person.job_eV_Id, true, out modelUser.JobEnumValue);
+                if (modelUser.JobEnumValue == null)
+                    modelUser.JobEnumValue = new tblEnumValue();
                 modelUser.job = modelUser.JobEnumValue.name;
             }
             catch (Exception err)
@@ -1997,6 +2010,8 @@ namespace Emsal.UI.Controllers
             }
             if (modelUser.Person != null)
             {
+                if (modelUser.Person.profilePicture == null)
+                    modelUser.Person.profilePicture = "1";
                 modelUser.Person.profilePicture = Convert.ToBase64String(StringExtension.StringToByteArray(modelUser.Person.profilePicture));
             }
             return Json(modelUser, JsonRequestBehavior.AllowGet);
@@ -2159,6 +2174,214 @@ namespace Emsal.UI.Controllers
             {
                 return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
+        }
+
+        public void UpdateEmail(string email, int? userId)
+        {
+            binput = new BaseInput();
+
+            modelSpecial = new SpecialSummaryViewModel();
+
+            modelSpecial.User = new tblUser();
+            modelSpecial.Person = new tblPerson();
+
+            if (User != null && User.Identity.IsAuthenticated)
+            {
+                FormsIdentity identity = (FormsIdentity)User.Identity;
+                if (identity.Ticket.UserData.Length > 0)
+                {
+                    userId = Int32.Parse(identity.Ticket.UserData);
+                }
+            }
+
+            try
+            {
+                BaseOutput userOutput = srv.WS_GetUserById(binput, (long)userId, true, out modelSpecial.User);
+
+                modelSpecial.User.Email = email;
+                BaseOutput pout = srv.WS_UpdateUser(binput, modelSpecial.User, out modelSpecial.User);
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.Message);
+            }
+
+        }
+
+        public string UpdateUser(
+          //string userName,
+          string gender = null,
+          int? educationId = null,
+          int? jobId = null,
+          string job = null,
+          int? userId = null,
+          int? personId = null,
+          string email = null,
+          int? userType = null,
+          bool IdSpecified = true
+          )
+        {
+            binput = new BaseInput();
+
+            modelSpecial = new SpecialSummaryViewModel();
+
+            modelSpecial.Person = new tblPerson();
+            modelSpecial.EnumCategory = new tblEnumCategory();
+
+            if (User != null && User.Identity.IsAuthenticated)
+            {
+                FormsIdentity identity = (FormsIdentity)User.Identity;
+                if (identity.Ticket.UserData.Length > 0)
+                {
+                    userId = Int32.Parse(identity.Ticket.UserData);
+                }
+            }
+
+            try
+            {
+                BaseOutput userOut = srv.WS_GetUserById(binput, (long)userId, true, out modelSpecial.User);
+                BaseOutput personOutPut = srv.WS_GetPersonByUserId(binput, (long)userId, true, out modelSpecial.Person);
+                personId = (int)modelSpecial.Person.Id;
+                //modelSpecial.User.Username = userName;
+                modelSpecial.User.Id = (long)userId;
+                modelSpecial.User.Status = 1;
+                //modelSpecial.User.Email = email;
+
+                modelSpecial.User.IdSpecified = true;
+                modelSpecial.User.StatusSpecified = true;
+
+                if (personId != null)
+                {
+                    modelSpecial.Person.Status = 1;
+                    modelSpecial.Person.gender = gender;
+                    modelSpecial.Person.Id = (long)personId;
+                    modelSpecial.Person.educationLevel_eV_Id = educationId;
+                    modelSpecial.Person.job_eV_Id = jobId;
+
+                    modelSpecial.Person.IdSpecified = true;
+                    modelSpecial.Person.StatusSpecified = true;
+                    modelSpecial.Person.birtdaySpecified = true;
+                    modelSpecial.Person.educationLevel_eV_IdSpecified = true;
+                    modelSpecial.Person.job_eV_IdSpecified = true;
+
+                }
+
+                BaseOutput pout = srv.WS_UpdateUser(binput, modelSpecial.User, out modelSpecial.User);
+                BaseOutput personOut = srv.WS_UpdatePerson(binput, modelSpecial.Person, out modelSpecial.Person);
+
+                //to redirect to governmentOrganisation or special summary controller
+                BaseOutput userRole = srv.WS_GetUserRolesByUserId(binput, modelSpecial.User.Id, true, out modelSpecial.UserRoleArray);
+                BaseOutput roleOut = srv.WS_GetRoleByName(binput, "governmentOrganisation", out modelSpecial.Role);
+                foreach (var item in modelSpecial.UserRoleArray)
+                {
+                    if (item.RoleId == modelSpecial.Role.Id)
+                    {
+                        return ActionName.governmentOrganisation;
+                    }
+                }
+
+                return ActionName.specialSummary;
+
+            }
+            catch (Exception err)
+            {
+                return "error";
+            }
+
+        }
+
+        public string CheckPassword(
+      int? userId,
+      string password,
+      bool IdSpecified = true)
+        {
+            binput = new BaseInput();
+
+            modelSpecial = new SpecialSummaryViewModel();
+
+            modelSpecial.User = new tblUser();
+
+            FormsIdentity identity = (FormsIdentity)User.Identity;
+            if (identity.Ticket.UserData.Length > 0)
+            {
+                userId = Int32.Parse(identity.Ticket.UserData);
+            }
+            modelSpecial.User.Id = (long)userId;
+
+            modelSpecial.User.IdSpecified = true;
+            modelSpecial.User.StatusSpecified = true;
+
+
+            BaseOutput userGet = srv.WS_GetUserById(binput, (long)userId, true, out modelSpecial.User);
+            if (password != null)
+            {
+                bool verify = BCrypt.Net.BCrypt.Verify(password, modelSpecial.User.Password);
+
+                if (verify)
+                {
+                    return "true";
+                }
+                else
+                {
+                    return "false";
+                }
+            }
+            else
+            {
+                return "false";
+            }
+        }
+
+
+        public string ChangePassword(
+            string userName,
+            string name,
+            string surname,
+            int? userId,
+            string email,
+            string password,
+            int? userType = null,
+            bool IdSpecified = true
+         )
+        {
+            binput = new BaseInput();
+
+            modelSpecial = new SpecialSummaryViewModel();
+
+
+
+            FormsIdentity identity = (FormsIdentity)User.Identity;
+            if (identity.Ticket.UserData.Length > 0)
+            {
+                userId = Int32.Parse(identity.Ticket.UserData);
+            }
+
+            try
+            {
+                BaseOutput userOutput = srv.WS_GetUserById(binput, (long)userId, true, out modelSpecial.User);
+                modelSpecial.User.Username = modelSpecial.User.Username;
+                modelSpecial.User.Id = modelSpecial.User.Id;
+                modelSpecial.User.Email = modelSpecial.User.Email;
+                modelSpecial.User.Password = BCrypt.Net.BCrypt.HashPassword(password, 5);
+                modelSpecial.User.IdSpecified = true;
+                BaseOutput pout = srv.WS_UpdateUser(binput, modelSpecial.User, out modelSpecial.User);
+
+                //to redirect to governmentOrganisation or special summary controller
+                BaseOutput userRole = srv.WS_GetUserRolesByUserId(binput, modelSpecial.User.Id, true, out modelSpecial.UserRoleArray);
+                foreach (var item in modelSpecial.UserRoleArray)
+                {
+                    if (item.RoleId == 12)
+                    {
+                        return ActionName.governmentOrganisation;
+                    }
+                }
+                return ActionName.specialSummary;
+            }
+            catch (Exception err)
+            {
+                return "hello";
+            }
+
         }
 
 
