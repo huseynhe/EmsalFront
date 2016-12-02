@@ -118,9 +118,9 @@
                     <li>
                         @if (Model.roleStatus == 1)
                         {
-                        <a href="/OfferProduction" class="btn btn-info active pull-right">
-                            <i class="glyphicon glyphicon-link" style="color:red"></i>&nbsp;Təklif yerləşdir*
-                        </a>
+                            <a href="/OfferProduction" class="btn btn-info active pull-right">
+                                <i class="glyphicon glyphicon-link" style="color:red"></i>&nbsp;Təklif yerləşdir*
+                            </a>
                         }
                     </li>
                 </ul>
@@ -141,17 +141,19 @@
                                 <div id="collapse1" class="panel-collapse collapse in">
                                     <ul class="list-group list-unstyled">
                                         <li class="list-group-item">
-                                            <a href="/SpecialSummary/OffAirOffers">Yayımdan çıxan təkliflər 
-                                                
-                                                    @if (Model.countNewOffAirOffers > 0)
-                                                    {
-                                                        <span style="color:red"> (@Model.countNewOffAirOffers) </span>
-                                                    }
-                                                       
+                                            <a href="/SpecialSummary/OffAirOffers">
+                                                Yayımdan çıxan təkliflər
+
+                                                @if (Model.countNewOffAirOffers > 0)
+                                                {
+                                                    <span style="color:red"> (@Model.countNewOffAirOffers) </span>
+                                                }
+
                                             </a>
-                                      </li>
+                                        </li>
                                         <li class="list-group-item">
-                                            <a href="/SpecialSummary/Index">Təsdiqlənən Təkliflər 
+                                            <a href="/SpecialSummary/Index">
+                                                Təsdiqlənən Təkliflər
                                                 @if (Model.countNewAcceptedOffers > 0)
                                                 {
                                                     <span style="color:red">(@Model.countNewAcceptedOffers) </span>
@@ -159,23 +161,25 @@
                                             </a>
                                         </li>
                                         <li class="list-group-item">
-                                            <a href="/SpecialSummary/OnAirOffers">Təkliflər 
+                                            <a href="/SpecialSummary/OnAirOffers">
+                                                Təkliflər
 
                                                 @if (Model.countNewOnAirOffers > 0)
                                                 {
                                                     <span style="color:red">(@Model.countNewOnAirOffers)</span>
                                                 }
-                                                
+
                                             </a>
                                         </li>
                                         <li class="list-group-item">
-                                            <a href="/SpecialSummary/RejectedOffers">Yararsız Sayılan Təkliflər 
+                                            <a href="/SpecialSummary/RejectedOffers">
+                                                Yararsız Sayılan Təkliflər
 
                                                 @if (Model.countNewRejectedOffers > 0)
                                                 {
                                                     <span style="color:red">(@Model.countNewRejectedOffers)</span>
                                                 }
-                                                
+
                                             </a>
                                         </li>
                                         @*<li class="list-group-item"><a data-toggle="collapse" id="reEditedOffers" href="">Yenidən Düzəldilmiş Təkliflər <span id="re_edited_offers_num"></span></a></li>*@
@@ -183,7 +187,7 @@
                                         {
                                             if (Model.UserRoleArray.ToList().Where(x => x.RoleId == 15).Count() > 0)
                                             {
-                                            <li class="list-group-item"><a href="/SpecialSummary/ConfirmedPotential">Potensial istehsalçı məhsulları</a></li>
+                                                <li class="list-group-item"><a href="/SpecialSummary/ConfirmedPotential">Potensial istehsalçı məhsulları</a></li>
                                             }
                                         }
                                         @*<a href="">Potensial istehsal məhsulları</a>*@
@@ -268,7 +272,7 @@
                                 <div class="col-lg-2">
                                     <img class="img-responsive thumbnail" id="picture" src="" />
                                 </div>
-                                
+
                             </div>
 
                             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#updatePerson">Şəxsi Məlumatlara Düzəliş Et</button>
@@ -285,27 +289,27 @@
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <label>İstifadəçi adı</label>
-                                                <input type="text" id="upUserName" class="form-control" value="@Model.LoggedInUser.Username"/><br />
+                                                <input type="text" id="upUserName" readonly class="form-control" value="@Model.LoggedInUser.Username" /><br />
                                             </div>
                                             <div class="form-group">
                                                 <label>Ad</label>
-                                                <input type="text" id="upName" class="form-control" readonly value="@Model.Person.Name"/><br />
+                                                <input type="text" id="upName" class="form-control" readonly value="@Model.Person.Name" /><br />
                                             </div>
                                             <div class="form-group">
                                                 <label>Soyad</label>
-                                                <input type="text" id="upSurname" class="form-control" readonly value="@Model.Person.Surname"/><br />
+                                                <input type="text" id="upSurname" class="form-control" readonly value="@Model.Person.Surname" /><br />
                                             </div>
                                             <div class="form-group">
                                                 <label>Doğum Tarixi</label>
-                                                <input id="upBirthDate" type="text" class="form-control" readonly value="@Model.Person.birtday"/><br />
+                                                <input id="upBirthDate" type="text" class="form-control" readonly value="@Model.Person.birtday" /><br />
                                             </div>
                                             <div class="form-group">
                                                 <label>Cinsi</label>
-                                                <input type="text" id="upGender" class="form-control" readonly value="@Model.Person.gender"/><br />
+                                                <input type="text" id="upGender" class="form-control" readonly value="@Model.Person.gender" /><br />
                                             </div>
                                             <div class="form-group">
                                                 <label>Təhsil</label>
-                                                <select id="upEducation" style="width:100%;" class="form-control" >
+                                                <select id="upEducation" style="width:100%;" class="form-control">
                                                     <script>
                                                         $.ajax({
                                                             url: "/SpecialSummary/GetEducation",
@@ -314,7 +318,8 @@
                                                                 data.map(function (item) {
                                                                     $("#upEducation").append('<option value =' + item.Id + '>' + item.name + '</option>');
 
-                                                                    $("#upEducation").val(@Model.Person.educationLevel_eV_Id).change();
+                                                                    $("#upEducation").val(@Model.Person.educationLevel_eV_Id);
+                                                                    @*$("#upEducation").val(@Model.Person.educationLevel_eV_Id).change();*@
                                                                 })
                                                             },
                                                             error: function (e) {
@@ -335,7 +340,7 @@
                                                                 data.map(function (item) {
                                                                     $("#upJobb").append('<option value =' + item.Id + '>' + item.name + '</option>');
 
-                                                                    $("#upJobb").val(@Model.Person.job_eV_Id).change();
+                                                                    @*$("#upJobb").val(@Model.Person.job_eV_Id).change();*@                                                                    $("#upJobb").val(@Model.Person.job_eV_Id);
                                                                 })
                                                             },
                                                             error: function (e) {
@@ -460,58 +465,58 @@
                                                         </div>
                                                     </div>
 
-                                                        <input type = "submit" class="btn btn-success" value="Davam Et" id="sendChildOrganisationInfo" />
+                                                    <input type="submit" class="btn btn-success" value="Davam Et" id="sendChildOrganisationInfo" />
                                                 }
-                                           
-                                        </div>
 
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="person_settings" id="currentPasswordBody" style="display:none">
+                                <h4 class="text-bold">E-mail</h4>
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <label>Mövcud Şifrə</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="password" class="form-control" id="oldPassword" /><br />
                                     </div>
                                 </div>
-
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <label>Yeni Şifrə</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="newPassword1" /><br />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <label>Yeni Şifrə Təkrar</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="newPassword2" /><br />
+                                    </div>
+                                </div><br /><br /><br />
+                                <div>
+                                    <h4 id="wrongPassword" style="color:red;"></h4>
+                                </div>
+                                <div class="form-group col-md-2 col-md-offset-5">
+                                    <br />
+                                    <button id="changePassword" class="btn btn-danger">Təsdiqlə</button>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="person_settings" id="currentPasswordBody" style="display:none">
-                            <h4 class="text-bold">E-mail</h4>
-                            <div class="form-group">
-                                <div class="col-md-3">
-                                    <label>Mövcud Şifrə</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <input type="password" class="form-control" id="oldPassword" /><br />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-3">
-                                    <label>Yeni Şifrə</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" id="newPassword1" /><br />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-3">
-                                    <label>Yeni Şifrə Təkrar</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" id="newPassword2" /><br />
-                                </div>
-                            </div><br /><br /><br />
-                            <div>
-                                <h4 id="wrongPassword" style="color:red;"></h4>
-                            </div>
-                            <div class="form-group col-md-2 col-md-offset-5">
-                                <br />
-                                <button id="changePassword" class="btn btn-danger">Təsdiqlə</button>
-                            </div>
-                        </div>
+
                     </div>
-
+                    <div class="clear-both"></div>
 
                 </div>
-                <div class="clear-both"></div>
-
-            </div>
 
                 <div id="contracts" role="tabpanel" class="tab-pane fade">
                     <table class="table table-bordered">
@@ -528,29 +533,31 @@
                             foreach (var cont in Model.ContractList)
                             {
                                 numb++;
-                            <tbody>
-                                <tr class="info text-center">
-                                    <td> @numb </td>
-                                    <td> @cont.documentRealName </td>
-                                    <td> (@Math.Round(((decimal)cont.documentSize / 1024) / 1024, 2)  mb)&nbsp;&nbsp; </td>
-                                    
-                                    <td><a target="_blank" href="/SpecialSummary/GetContractFile?fname=@cont.documentName">
+                                <tbody>
+                                    <tr class="info text-center">
+                                        <td> @numb </td>
+                                        <td> @cont.documentRealName </td>
+                                        <td> (@Math.Round(((decimal)cont.documentSize / 1024) / 1024, 2)  mb)&nbsp;&nbsp; </td>
+
+                                        <td>
+                                            <a target="_blank" href="/SpecialSummary/GetContractFile?fname=@cont.documentName">
                                                 <div style="cursor:pointer;" class="glyphicon glyphicon-eye-open text-primary"></div>
-                                    </a></td>
-                                </tr>
-                            </tbody>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
                             }
                         }
                     </table>
 
                 </div>
 
-        </div>
+            </div>
     </section>
 
 
 
-    @Html.Partial("~/Views/Home/Footer.cshtml")  
+    @Html.Partial("~/Views/Home/Footer.cshtml")
 
 
 </body>
