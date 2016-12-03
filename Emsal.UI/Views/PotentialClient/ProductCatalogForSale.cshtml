@@ -10,7 +10,7 @@
         <option value="0">Satılacaq məhsul üzrə axtar</option>
         @foreach (var item in Model.ProductCatalogDetailList)
         {
-            <option value="@item.productCatalog.Id">@item.productCatalog.ProductName (@item.productName)</option>
+            <option value="@item.productCatalog.Id">@item.productName (@item.productCatalog.ProductName)</option>
         }
     </select>
 </div>
