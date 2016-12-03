@@ -210,7 +210,14 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstatusEV, out modelDemandProduction.EnumValue);
 
-                BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.ProductionDetailArray);
+                if (excell == true)
+                {
+                    //BaseOutput gppe = srv.WS_GetDemandProductionDetailistForEValueId(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.ProductionDetailArray);
+                }
+                else
+                {
+                    BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId_OP(baseInput, modelDemandProduction.EnumValue.Id, true, pageNumber, true, pageSize, true, out modelDemandProduction.ProductionDetailArray);
+                }
 
                 if (modelDemandProduction.ProductionDetailArray == null)
                 {
@@ -218,40 +225,47 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelDemandProduction.EnumCategory.Id && x.foreignOrganization != null).ToList();
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.ToList();
                 }
 
-                if (sproductName != null)
-                {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
-                }
+                //if (sproductName != null)
+                //{
+                //    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
+                //}
 
-                if (sfullAddress != null)
-                {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.fullAddress.ToLower().Contains(sfullAddress) || x.addressDesc.ToLower().Contains(sfullAddress)).ToList();
-                }
-                if (sadminUnit != null)
-                {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.foreignOrganization.name.ToLower().Contains(sadminUnit)).ToList();
-                }
+                //if (sfullAddress != null)
+                //{
+                //    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.fullAddress.ToLower().Contains(sfullAddress) || x.addressDesc.ToLower().Contains(sfullAddress)).ToList();
+                //}
+                //if (sadminUnit != null)
+                //{
+                //    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.foreignOrganization.name.ToLower().Contains(sadminUnit)).ToList();
+                //}
 
-                if (suserInfo != null)
-                {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
-                }
+                //if (suserInfo != null)
+                //{
+                //    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
+                //}
 
 
-                modelDemandProduction.Paging = modelDemandProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+                //modelDemandProduction.Paging = modelDemandProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
 
-                foreach (var item in modelDemandProduction.Paging)
+                BaseOutput gdpc = srv.WS_GetDemandProductionDetailistForEValueId_OPC(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.itemCount, out  modelDemandProduction.itemCountB);
+
+                long[] aic = new long[modelDemandProduction.itemCount];
+
+                modelDemandProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
+
+
+                foreach (var item in modelDemandProduction.ProductionDetailList)
                 {
                     modelDemandProduction.currentPagePrice = modelDemandProduction.currentPagePrice + (item.quantity * item.productUnitPrice);
                 }
 
-                foreach (var item in modelDemandProduction.ProductionDetailList)
-                {
-                    modelDemandProduction.allPagePrice = modelDemandProduction.allPagePrice + (item.quantity * item.productUnitPrice);
-                }
+                //foreach (var item in modelDemandProduction.ProductionDetailList)
+                //{
+                //    modelDemandProduction.allPagePrice = modelDemandProduction.allPagePrice + (item.quantity * item.productUnitPrice);
+                //}
 
                 if (sstatusEV == "Yayinda" || sstatusEV == "yayinda")
                 {
@@ -310,65 +324,82 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Column(6).Width = 30;
                         sheet.Column(7).Width = 30;
 
-                        int rowIndex = 3;
-                        var ri = 1;
-                        foreach (var item in modelDemandProduction.ProductionDetailList)
+                            int rowIndex = 3;
+                            var ri = 1;
+
+
+                        pageSize = 100;
+                        long fc = modelDemandProduction.itemCount / pageSize;
+                        for (int i = 1; i <= fc; i++)
                         {
-                            var col2 = 1;
-                            sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                            sheet.Cells[rowIndex, col2++].Value = item.productName + " " + (item.productParentName);
-                            sheet.Cells[rowIndex, col2++].Value = item.quantity.ToString() + " " + item.enumValueName;
-                            sheet.Cells[rowIndex, col2++].Value = item.productUnitPrice.ToString();
-                            if (item.productionCalendarList.FirstOrDefault().TypeDescription != null)
+
+                            BaseOutput gppex = srv.WS_GetDemandProductionDetailistForEValueId_OP(baseInput, modelDemandProduction.EnumValue.Id, true, i, true, pageSize, true, out modelDemandProduction.ProductionDetailArray);
+
+                            if (modelDemandProduction.ProductionDetailArray == null)
                             {
-                                sheet.Cells[rowIndex, col2++].Value = item.productionCalendarList.FirstOrDefault().TypeDescription;
+                                modelDemandProduction.ProductionDetailList = new List<ProductionDetail>();
                             }
-                            if (item.foreignOrganization != null)
+                            else
                             {
-                                sheet.Cells[rowIndex, col2++].Value = item.foreignOrganization.name;
+                                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.ToList();
                             }
-
-                            sheet.Cells[rowIndex, col2++].Value = item.fullAddress + " " + (item.addressDesc);
-
-                            sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                            sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
-
-                            var col3 = 1;
-                            rowIndex++;
-                            sheet.Cells[rowIndex, col3++].Value = "tipi";
-                            sheet.Cells[rowIndex, col3++].Value = "il";
-                            sheet.Cells[rowIndex, col3++].Value = "rüb";
-                            sheet.Cells[rowIndex, col3++].Value = "gün, ay";
-                            sheet.Cells[rowIndex, col3++].Value = "saat";
-                            sheet.Cells[rowIndex, col3++].Value = "miqdar";
-                            sheet.Cells[rowIndex, col3++].Value = "miqdar (cəmi)";
-
-                            sheet.Row(rowIndex).Style.Font.Bold = true;
-                            sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                            sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                            decimal tquantity;
-                            string day = "-";
-                            foreach (var item2 in item.productionCalendarList)
+                            foreach (var item in modelDemandProduction.ProductionDetailList)
                             {
-                                if (item2.day!=0)
+                                var col2 = 1;
+                                sheet.Cells[rowIndex, col2++].Value = ri.ToString();
+                                sheet.Cells[rowIndex, col2++].Value = item.productName + " " + (item.productParentName);
+                                sheet.Cells[rowIndex, col2++].Value = item.quantity.ToString() + " " + item.enumValueName;
+                                sheet.Cells[rowIndex, col2++].Value = item.productUnitPrice.ToString();
+                                if (item.productionCalendarList.FirstOrDefault().TypeDescription != null)
                                 {
-                                    day = item2.day.ToString();
+                                    sheet.Cells[rowIndex, col2++].Value = item.productionCalendarList.FirstOrDefault().TypeDescription;
                                 }
-                                tquantity = (item2.quantity * item2.transportation_eV_Id);
-                                var col4 = 1;
-                                rowIndex++;
-                                sheet.Cells[rowIndex, col4++].Value = item2.TypeDescription;
-                                sheet.Cells[rowIndex, col4++].Value = item2.year;
-                                sheet.Cells[rowIndex, col4++].Value = item2.partOfyear;
-                                sheet.Cells[rowIndex, col4++].Value = day + " " + item2.MonthDescription;
-                                sheet.Cells[rowIndex, col4++].Value = item2.oclock + ":00";
-                                sheet.Cells[rowIndex, col4++].Value = item2.quantity;
-                                sheet.Cells[rowIndex, col4++].Value = tquantity;
-                            }
-                            rowIndex++;
-                            ri++;
-                        }
+                                if (item.foreignOrganization != null)
+                                {
+                                    sheet.Cells[rowIndex, col2++].Value = item.foreignOrganization.name;
+                                }
 
+                                sheet.Cells[rowIndex, col2++].Value = item.fullAddress + " " + (item.addressDesc);
+
+                                sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
+                                var col3 = 1;
+                                rowIndex++;
+                                sheet.Cells[rowIndex, col3++].Value = "tipi";
+                                sheet.Cells[rowIndex, col3++].Value = "il";
+                                sheet.Cells[rowIndex, col3++].Value = "rüb";
+                                sheet.Cells[rowIndex, col3++].Value = "gün, ay";
+                                sheet.Cells[rowIndex, col3++].Value = "saat";
+                                sheet.Cells[rowIndex, col3++].Value = "miqdar";
+                                sheet.Cells[rowIndex, col3++].Value = "miqdar (cəmi)";
+
+                                sheet.Row(rowIndex).Style.Font.Bold = true;
+                                sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                                decimal tquantity;
+                                string day = "-";
+                                foreach (var item2 in item.productionCalendarList)
+                                {
+                                    if (item2.day != 0)
+                                    {
+                                        day = item2.day.ToString();
+                                    }
+                                    tquantity = (item2.quantity * item2.transportation_eV_Id);
+                                    var col4 = 1;
+                                    rowIndex++;
+                                    sheet.Cells[rowIndex, col4++].Value = item2.TypeDescription;
+                                    sheet.Cells[rowIndex, col4++].Value = item2.year;
+                                    sheet.Cells[rowIndex, col4++].Value = item2.partOfyear;
+                                    sheet.Cells[rowIndex, col4++].Value = day + " " + item2.MonthDescription;
+                                    sheet.Cells[rowIndex, col4++].Value = item2.oclock + ":00";
+                                    sheet.Cells[rowIndex, col4++].Value = item2.quantity;
+                                    sheet.Cells[rowIndex, col4++].Value = tquantity;
+                                }
+                                rowIndex++;
+                                ri++;
+                            }
+                        }
                         sheet.Cells[1, 1, rowIndex - 1, 7].Style.Border.Left.Style = ExcelBorderStyle.Thin;
                         sheet.Cells[1, 1, rowIndex - 1, 7].Style.Border.Right.Style = ExcelBorderStyle.Thin;
                         sheet.Cells[1, 1, rowIndex - 1, 7].Style.Border.Top.Style = ExcelBorderStyle.Thin;

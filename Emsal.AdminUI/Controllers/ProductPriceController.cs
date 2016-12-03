@@ -115,19 +115,22 @@ namespace Emsal.AdminUI.Controllers
 
                     for (int i = 0; i < model.prodId.Count(); i++)
                     {
-                        model.ProductPrice = new tblProductPrice();
+                        if (model.price[i] != "")
+                        {
+                            model.ProductPrice = new tblProductPrice();
 
-                        model.ProductPrice.productId = model.prodId[i];
-                        model.ProductPrice.productIdSpecified = true;
-                        //model.ProductPrice.unit_price = Convert.ToDecimal(model.price[i]);
-                        model.ProductPrice.unit_price = Convert.ToDecimal(model.price[i].Replace('.', ','));
-                        model.ProductPrice.unit_priceSpecified = true;
-                        model.ProductPrice.year = Convert.ToInt64(model.EnumValueYear.name);
-                        model.ProductPrice.yearSpecified = true;
-                        model.ProductPrice.partOfYear = Convert.ToInt64(model.EnumValueRub.name);
-                        model.ProductPrice.partOfYearSpecified = true;
+                            model.ProductPrice.productId = model.prodId[i];
+                            model.ProductPrice.productIdSpecified = true;
+                            //model.ProductPrice.unit_price = Convert.ToDecimal(model.price[i]);
+                            model.ProductPrice.unit_price = Convert.ToDecimal(model.price[i].Replace('.', ','));
+                            model.ProductPrice.unit_priceSpecified = true;
+                            model.ProductPrice.year = Convert.ToInt64(model.EnumValueYear.name);
+                            model.ProductPrice.yearSpecified = true;
+                            model.ProductPrice.partOfYear = Convert.ToInt64(model.EnumValueRub.name);
+                            model.ProductPrice.partOfYearSpecified = true;
 
-                        BaseOutput app = srv.WS_AddProductPrice(baseInput, model.ProductPrice, out model.ProductPriceOUT);
+                            BaseOutput app = srv.WS_AddProductPrice(baseInput, model.ProductPrice, out model.ProductPriceOUT);
+                        }
                     }
 
                     return RedirectToAction("Approv", "ProductPrice", new { year = model.year, rub = model.rub });
