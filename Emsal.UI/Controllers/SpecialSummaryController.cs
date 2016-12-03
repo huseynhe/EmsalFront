@@ -183,7 +183,10 @@ namespace Emsal.UI.Controllers
                 //get the informations in the product calendar
                 modelSpecial.SpOffer.DemandCalendarList = new List<DemandCalendar>();
 
-                BaseOutput prodcuctCalendarOut = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
+                BaseOutput enval = srv.WS_GetEnumValueByName(binput, "Offer", out modelSpecial.EnumValue);
+
+                BaseOutput prodcuctCalendarOut = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, modelSpecial.EnumValue.Id,true, out modelSpecial.ProductionCalendarArray);
+
                 modelSpecial.ProductionCalendarArray = modelSpecial.ProductionCalendarArray.Where(x => x.Production_type_eV_Id == 3).ToArray();
                 foreach (var itemm in modelSpecial.ProductionCalendarArray)
                 {
@@ -365,7 +368,9 @@ namespace Emsal.UI.Controllers
                 //get the informations in the product calendar
                 modelSpecial.SpOffer.DemandCalendarList = new List<DemandCalendar>();
 
-                BaseOutput prodcuctCalendarOut = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
+                BaseOutput enval = srv.WS_GetEnumValueByName(binput, "Offer", out modelSpecial.EnumValue);
+
+                BaseOutput prodcuctCalendarOut = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, modelSpecial.EnumValue.Id,true, out modelSpecial.ProductionCalendarArray);
                 modelSpecial.ProductionCalendarArray = modelSpecial.ProductionCalendarArray.Where(x => x.Production_type_eV_Id == 3).ToArray();
                 foreach (var itemm in modelSpecial.ProductionCalendarArray)
                 {
@@ -572,7 +577,9 @@ namespace Emsal.UI.Controllers
                     //get the informations in the product calendar
                     modelSpecial.SpOffer.DemandCalendarList = new List<DemandCalendar>();
 
-                    BaseOutput prodcuctCalendarOut = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
+                    BaseOutput enval = srv.WS_GetEnumValueByName(binput, "Offer", out modelSpecial.EnumValue);
+
+                    BaseOutput prodcuctCalendarOut = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, modelSpecial.EnumValue.Id,true, out modelSpecial.ProductionCalendarArray);
                     modelSpecial.ProductionCalendarArray = modelSpecial.ProductionCalendarArray.Where(x => x.Production_type_eV_Id == 3).ToArray();
 
                     foreach (var itemm in modelSpecial.ProductionCalendarArray)
@@ -776,7 +783,9 @@ namespace Emsal.UI.Controllers
                     //get the informations in the product calendar
                     modelSpecial.SpOffer.DemandCalendarList = new List<DemandCalendar>();
 
-                    BaseOutput prodcuctCalendarOut = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
+                    BaseOutput enval = srv.WS_GetEnumValueByName(binput, "Offer", out modelSpecial.EnumValue);
+
+                    BaseOutput prodcuctCalendarOut = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, modelSpecial.EnumValue.Id,true, out modelSpecial.ProductionCalendarArray);
                     modelSpecial.ProductionCalendarArray = modelSpecial.ProductionCalendarArray.Where(x => x.Production_type_eV_Id == 3).ToArray();
 
                     foreach (var itemm in modelSpecial.ProductionCalendarArray)

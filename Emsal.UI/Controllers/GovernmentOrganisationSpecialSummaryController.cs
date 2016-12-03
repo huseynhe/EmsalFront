@@ -165,7 +165,7 @@ namespace Emsal.UI.Controllers
                 BaseOutput enval = srv.WS_GetEnumValueByName(binput, "Demand", out modelSpecial.EnumValue);
                 long envalId = modelSpecial.EnumValue.Id;
 
-                BaseOutput calendar = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
+                BaseOutput calendar = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, envalId,true, out modelSpecial.ProductionCalendarArray);
 
                 modelSpecial.OrgDemand.DemandCalendarList = new List<DemandCalendar>();
 
@@ -361,7 +361,7 @@ namespace Emsal.UI.Controllers
                     long envalIdl = modelSpecial.EnumValue.Id;
 
                     //BaseOutput calendar = srv.WS_GetProductionCalendarByProductionId(binput, (long)item.Id, true, envalIdl, true, out modelSpecial.ProductionCalendar);
-                    BaseOutput calendar = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
+                    BaseOutput calendar = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, envalIdl,true, out modelSpecial.ProductionCalendarArray);
 
                     modelSpecial.OrgDemand.DemandCalendarList = new List<DemandCalendar>();
                     var modelSpecials = modelSpecial.ProductionCalendarArray.OrderBy(x => x.year).ThenBy(x => x.months_eV_Id).ThenBy(x => x.day);
@@ -564,7 +564,7 @@ namespace Emsal.UI.Controllers
                 BaseOutput envall = srv.WS_GetEnumValueByName(binput, "Demand", out modelSpecial.EnumValue);
                 long envalIdl = modelSpecial.EnumValue.Id;
 
-                BaseOutput calendar = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
+                BaseOutput calendar = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, envalIdl,true, out modelSpecial.ProductionCalendarArray);
 
                 modelSpecial.OrgDemand.DemandCalendarList = new List<DemandCalendar>();
                 var modelSpecials = modelSpecial.ProductionCalendarArray.OrderBy(x => x.year).ThenBy(x => x.months_eV_Id).ThenBy(x => x.day);
@@ -751,7 +751,7 @@ namespace Emsal.UI.Controllers
                 BaseOutput enval = srv.WS_GetEnumValueByName(binput, "Demand", out modelSpecial.EnumValue);
                 long envalId = modelSpecial.EnumValue.Id;
 
-                BaseOutput calendar = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, out modelSpecial.ProductionCalendarArray);
+                BaseOutput calendar = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, envalId,true, out modelSpecial.ProductionCalendarArray);
 
                 modelSpecial.OrgDemand.DemandCalendarList = new List<DemandCalendar>();
                 var modelSpecials = modelSpecial.ProductionCalendarArray.OrderBy(x => x.year).ThenBy(x => x.months_eV_Id).ThenBy(x => x.day);

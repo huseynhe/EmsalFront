@@ -379,7 +379,7 @@ namespace Emsal.UI.Controllers
                     }
 
                     pitem.name = pitem.surname + " " + pitem.name;
-                    pitem.parentAdminUnitName = string.Join(", ", pitem.productCatalogDetailList.Select(x => x.productCatalog.ProductName + " (" + x.productName + ")"));
+                    pitem.parentAdminUnitName = string.Join(", ", pitem.productCatalogDetailList.Select(x => x.productName + " (" + x.productCatalog.ProductName + ")"));
 
                     //if (pv != (pitem.pinNumber + "" + pitem.voen))
                     //{
