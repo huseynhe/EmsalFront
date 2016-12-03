@@ -91,13 +91,13 @@
                                         <tr>
                                             <td class="col-md-3">
                                                 <span style="font-size:16px;" class="text-primary text-bold">
-                                                    @itm.productName (@itm.productParentName)
+                                                    @itm.productParentName (@itm.productName)
                                                 </span>
                                                 <input hidden name="prodId[@i]" value="@itm.productID" />
                                             </td>
                                             <td class="col-md-2">
-                                                <input type="number" step="0.01" min="0.001" value="@Model.price" required class="form-control" placeholder="məs: 4 və ya 0.3" name="price[@i]" id="price[@i]">
-                                                <span data-valmsg-replace="true" data-valmsg-for="price[@i]" class="field-validation-valid text-danger"></span>
+                                                <input type="number" step="0.01" min="0.001" value="@Model.price" class="form-control" placeholder="məs: 4 və ya 0.3" name="price[@i]" id="price[@i]">
+                                                @*<span data-valmsg-replace="true" data-valmsg-for="price[@i]" class="field-validation-valid text-danger"></span>*@
                                             </td>
                                             <td class="col-md-7">
                                                 &nbsp;
