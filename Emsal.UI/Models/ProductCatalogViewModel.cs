@@ -143,6 +143,8 @@ namespace Emsal.UI.Models
         public long rId { get; set; }
         public long rIdau { get; set; }
         public string sort { get; set; }
+        public string form { get; set; }
+        public string partial { get; set; }
         public string name { get; set; }
         public string surname { get; set; }
         public string address { get; set; }
