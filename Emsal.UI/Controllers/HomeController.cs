@@ -32,6 +32,7 @@ namespace Emsal.UI.Controllers
         private static string ssurname;
         private static string saddress;
         private static string sproducts;
+        private static string sform;
 
         //Bir defe calisdir Db yaratsin sonra comment et 
         //srv.WS_createDb();
@@ -241,13 +242,19 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult Announcement(int? page, int productId = 0)
+        public ActionResult Announcement(int? page, int productId = 0,string form=null)
         {
             try
             {
                 baseInput = new BaseInput();
+                string partial = "";
 
-                int pageSize = 24;
+                if (productId == 0)
+                {
+                    sform = form;
+                }
+
+                int pageSize = 36;
                 int pageNumber = (page ?? 1);
 
                 modelProductCatalog = new ProductCatalogViewModel();
@@ -267,8 +274,27 @@ namespace Emsal.UI.Controllers
 
                 modelProductCatalog.Paging = modelProductCatalog.AnnouncementDetailList.ToPagedList(pageNumber, pageSize);
 
+                if (sform == null)
+                {
+                    partial = "PartialAnnouncement";
+                }
+                else if (sform == "g")
+                {
+                    partial = "PartialAnnouncementG";
+                }
+                else if (sform == "gl")
+                {
+                    partial = "PartialAnnouncementGL";
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                modelProductCatalog.form = form;
+                modelProductCatalog.partial = partial;
+
                 return Request.IsAjaxRequest()
-                    ? (ActionResult)PartialView("PartialAnnouncement", modelProductCatalog)
+                    ? (ActionResult)PartialView(partial, modelProductCatalog)
                     : View(modelProductCatalog);
 
             }
