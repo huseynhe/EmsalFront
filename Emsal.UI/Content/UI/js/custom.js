@@ -208,9 +208,9 @@ function GetAdminUnit(elem) {
                 if (pId == 0) {
                     $('#puserMenu').html(result);
                 } else {
-                    GetUserInfoBy(pId, elem);
                     $(elem).parent().parent().append(result);
                 }
+                    GetUserInfoBy(pId, elem);
 
                 $('.select2').select2();
             },
