@@ -5,6 +5,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script>
+    $(document).ready(function () {
+        var href;
+        var pathname = window.location.pathname;
+        var search = window.location.search;
+
+        var curpathname = pathname + search;
+
+        jQuery('.bg').find('a').each(function () {
+            href = $(this).attr('href');
+            if (href == curpathname) {
+                $(this).addClass('active');
+            }
+        });
+    });
+</script>
 <style>
     .list-group {
         margin-bottom: 0;
@@ -16,6 +32,12 @@
         margin:0;
         padding:0;
     }
+
+    .active {
+        background-color: #428bca !important;
+        border-color: #357ebd !important;
+        color: #fff !important;
+    }
 </style>
 
 <div id="menu-container">
@@ -23,19 +45,37 @@
     <div class="content homepage" id="menu-1">
         <div class="container">
             <div class="right_below" id="center" style="padding-top:0px;">
-                <div class="elanlar">
-                    <div class="col-md-3" style="padding-left:0;">
-                        <div class="categoria_left_header">
-                            <h3 class="text-bold">KATEQORİYALAR</h3>
+                <div class="elanlar">                        
+                        <div class="col-md-3" style="padding-left:0;">
+
+                            <h3 class="text-bold" style="color:#fff;">ELANLARIN GÖRÜNÜŞÜ</h3>
+                            <hr style="margin:5px 0 5px 0;" />
+
+                            <div class="bg text-center">
+                                <a href="/Home/Announcement" class="btn btn-default" style="margin-bottom:5px;">
+                                    @*<span class="glyphicon glyphicon glyphicon-link"></span>*@ siyahı
+                                </a>
+                                <a href="/Home/Announcement?form=g" class="btn btn-default" style="margin-bottom:5px;">
+                                    qruplaşdırılmış
+                                </a>
+                                <a href="/Home/Announcement?form=gl" class="btn btn-default" style="margin-bottom:5px;">
+                                    cədvəl
+                                </a>
+                            </div>
+                            <div class="clearfix" style="margin-bottom:25px;"></div>
+                            
+
+                            <div class="categoria_left_header">
+                                <h3 class="text-bold">KATEQORİYALAR</h3>
+                            </div>
+                            @Html.Action("ProductCatalog", "Home", new { pId = 0 })
                         </div>
-                        @Html.Action("ProductCatalog", "Home", new { pId = 0 })
-                    </div>
-                    <div class="col-md-9" style="padding:0;">
-                        <div id="AjaxPaginationList">
-                            @Html.Partial("PartialAnnouncement")
+                        <div class="col-md-9" style="padding:0;">
+                            <div id="AjaxPaginationList">
+                                @Html.Partial(Model.partial)
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
