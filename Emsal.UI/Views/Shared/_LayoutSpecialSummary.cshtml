@@ -81,9 +81,9 @@
 
                 <div class="per_information">
                     <ul class="list-unstyled">
-                        <a href=""><li>Qısa məzmun</li></a>
-                        <a href=""><li>Təkliflər</li></a>
-                        <a href=""><li>Qeydiyyatım</li></a>
+                        <a href=""><li>Şəxsi kabinet</li></a>
+                        @*<a href=""><li>Təkliflər</li></a>
+                        <a href=""><li>Qeydiyyatım</li></a>*@
                         <a href="/Login/Logout"><li>Çıxış</li></a>
                     </ul>
                 </div>
@@ -140,10 +140,10 @@
                                 <div id="collapse1" class="panel-collapse collapse in">
                                     <ul class="list-group list-unstyled">
                                         @*<li class="list-group-item"><a data-toggle="collapse" id="newOrders" href="">Yeni Sifarişlərim <span id="new_order_num"></span></a></li>*@
-                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/Index">Təsdiqlənən Tələbatlarım <span id="approved_order_num"></span></a></li>
+                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/Index">Təsdiqlənən tələbatlarım <span id="approved_order_num"></span></a></li>
                                         <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/OnAirDemands">Tələbatlarım <span id="order_num"></span></a></li>
-                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/ExpiredDemands">Vaxtı Bitmiş Tələbatlarım <span id="expire_order_num"></span></a></li>
-                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/RejectedDemands">Yararsız Sayılan Tələbatlarım <span id="rejected_order_num"></span></a></li>
+                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/ExpiredDemands">Vaxtı bitmiş tələbatlarım <span id="expire_order_num"></span></a></li>
+                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/RejectedDemands">Yararsız sayılan tələbatlarım <span id="rejected_order_num"></span></a></li>
                                         @*<li class="list-group-item"><a data-toggle="collapse" id="reEditedOrders" href="">Yenidən Düzəldilmiş Sifarişlərim <span id="re_edited_order_num"></span></a></li>*@
                                         <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/NotSentYetOrders">Kənd Təsərrüfatı Nazirliyinə göndərilməmiş tələbatlarım <span id="not_sent_yet_order_num"></span></a></li>
 
@@ -173,7 +173,7 @@
                                 <div id="collapse2" class="panel-collapse collapse in">
                                     <ul class="list-group">
                                         <li class="list-group-item"><a data-toggle="collapse" href="" id="personalInfoButton">Şəxsi məlumatlar</a></li>
-                                        <li class="list-group-item"><a data-toggle="collapse" href="" id="personalEmail">E-mail</a></li>
+                                        <li class="list-group-item"><a data-toggle="collapse" href="" id="personalEmail">Elektron poçt</a></li>
                                         <li class="list-group-item"><a data-toggle="collapse" href="" id="currentPassword">Şifrəni dəyişdir</a></li>
                                         <li class="list-group-item"><a data-toggle="collapse" href="" >Qeydiyyatdan imtina</a></li>
                                     </ul>
@@ -198,15 +198,13 @@
 
                         </div>
                         <div class="person_settings" id="personalEmail2" style="display:none">
-                            <h4 class="text-bold">E-mail</h4>
+                            <h4 class="text-bold">Elektron poçt</h4>
                             <div class="white_fon">
                                 <p>
                                     <br />
-                                    Elanlarınız, və mesajlarınız ilə
-                                    əlaqəli vacib mesajların sizə çatacağından
-                                    əmin olabilmək üçün emailinizin düzgün qeyd olunduğundan emin olun.
+                                    Elanlarınız ilə əlaqəli vacib mesajların Sizə çatmasından əmin olmaq üçün elektron poçtunuzun düzgün qeyd olunduğundan əmin olun.
                                 </p><br />
-                                <p>Mövcud email adresiniz: <b><span id="currentEmail">@Model.LoggedInUser.Email</span></b></p><br />
+                                <p>Mövcud elektron poçt ünvanınız: <b><span id="currentEmail">@Model.LoggedInUser.Email</span></b></p><br />
 
                                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#EmailModal">Dəyişdir</button>
 
@@ -231,7 +229,7 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button id="updateEmailAction" class="btn btn-danger">Təsdiqlə</button>
+                                                <button id="updateEmailAction" class="btn btn-danger">Təsdiqləyin</button>
                                             </div>
                                         </div>
 
@@ -241,7 +239,7 @@
                         </div>
 
                         <div class="person_settings" id="currentPasswordBody" style="display:none">
-                            <h4 class="text-bold">E-mail</h4>
+                            <h4 class="text-bold">Elektron poçt</h4>
                             <div class="form-group">
                                 <div class="col-md-3">
                                     <label>Mövcud Şifrə</label>
@@ -271,7 +269,7 @@
                             </div>
                             <div class="form-group col-md-2 col-md-offset-5">
                                 <br />
-                                <button id="changePassword" class="btn btn-danger">Təsdiqlə</button>
+                                <button id="changePassword" class="btn btn-danger">Təsdiqləyin</button>
                             </div>
                         </div>
                     </div>
