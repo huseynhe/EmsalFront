@@ -218,6 +218,8 @@ function GetAdminUnit(elem) {
 
             }
         });
+    } else {
+        GetUserInfoBy(pId, elem);
     }
 }
 
