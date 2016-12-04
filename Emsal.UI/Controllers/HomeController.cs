@@ -272,16 +272,19 @@ namespace Emsal.UI.Controllers
                     modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailArray.ToList();
                 }
 
+                modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailList.OrderBy(x => x.parentName).ThenBy(x => x.announcementDetail.parentName).ThenBy(x => x.announcementDetail.announcement.product_name).ToList();
+
+
                 modelProductCatalog.Paging = modelProductCatalog.AnnouncementDetailList.ToPagedList(pageNumber, pageSize);
 
                 if (sform == null)
                 {
-                    partial = "PartialAnnouncement";
-                }
-                else if (sform == "g")
-                {
                     partial = "PartialAnnouncementG";
                 }
+                //else if (sform == "g")
+                //{
+                //    partial = "PartialAnnouncementG";
+                //}
                 else if (sform == "gl")
                 {
                     partial = "PartialAnnouncementGL";
@@ -330,7 +333,10 @@ namespace Emsal.UI.Controllers
                     sproducts = null;
                 }
 
-                 if (addressId > 0)
+                if (addressId == -1)
+                    addressId = 0;
+
+                 if (addressId >= 0)
                     saddressId = addressId;
                 if (rId > 0)
                     srId = rId;

@@ -81,7 +81,7 @@ namespace Emsal.UI.Controllers
                 BaseOutput educationId = srv.WS_GetEnumValuesByEnumCategoryId(baseInput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
                 modelUser.EnumValueEducationList = modelUser.EnumValueArray.ToList();
 
-                BaseOutput jobN = srv.WS_GetEnumCategorysByName(baseInput, "İş", out modelUser.EnumCategory);
+                BaseOutput jobN = srv.WS_GetEnumCategorysByName(baseInput, "fealiyyetsahesi", out modelUser.EnumCategory);
                 BaseOutput jobId = srv.WS_GetEnumValuesByEnumCategoryId(baseInput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
                 modelUser.EnumValueJobList = modelUser.EnumValueArray.ToList();
 

@@ -833,7 +833,7 @@ namespace Emsal.UI.Controllers
 
                         //modelOfferProduction.LProductionCalendarList = modelOfferProduction.LProductionCalendarArray.ToList();
 
-                        //modelOfferProduction.LProductionCalendarList = modelOfferProduction.LProductionCalendarList.Where(x => x.demand_Id == modelOfferProduction.LProductionCalendar.offer_Id).Where(x => x.Production_type_eV_Id == modelOfferProduction.LProductionCalendar.Production_type_eV_Id).Where(x => x.year == modelOfferProduction.LProductionCalendar.year).Where(x => x.months_eV_Id == modelOfferProduction.LProductionCalendar.months_eV_Id).Where(x => x.type_eV_Id == modelOfferProduction.LProductionCalendar.type_eV_Id).ToList();
+                        //modelOfferProduction.LProductionCalendarList = modelOfferProduction.LProductionCalendarList.Where(x => x.offer_Id == modelOfferProduction.LProductionCalendar.offer_Id).Where(x => x.Production_type_eV_Id == modelOfferProduction.LProductionCalendar.Production_type_eV_Id).Where(x => x.year == modelOfferProduction.LProductionCalendar.year).Where(x => x.months_eV_Id == modelOfferProduction.LProductionCalendar.months_eV_Id).Where(x => x.type_eV_Id == modelOfferProduction.LProductionCalendar.type_eV_Id).ToList();
 
                         if (modelOfferProduction.LNProductionCalendar == null)
                         {
