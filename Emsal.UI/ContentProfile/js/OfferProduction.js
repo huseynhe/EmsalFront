@@ -38,6 +38,7 @@ function GetProductCat(prodId, fpid) {
         type: 'GET',
         success: function (result) {
             $('#offerProductionProductCatalog').html(result);
+            $('#calendarMainDiv').show();
         },
         error: function () {
         }
