@@ -161,7 +161,7 @@ namespace Emsal.UI.Models
         [Display(Name = "Təhsil")]
         public string education { get; set; }
 
-        [Display(Name = "İş")]
+        [Display(Name = "Fəaliyyət sahəsi")]
         public string job { get; set; }
 
         [Display(Name = "Tədarükçünün tipi")]

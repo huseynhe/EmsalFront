@@ -192,7 +192,7 @@ namespace Emsal.UI.Models
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public int documentTypes { get; set; }
 
-        [Display(Name = "Daşınma qrafiki")]
+        [Display(Name = "Çatdırılma qrafiki")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         public long shippingSchedule { get; set; }
         [Display(Name = "Ay")]
