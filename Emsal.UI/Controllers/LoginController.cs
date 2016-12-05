@@ -73,6 +73,8 @@ namespace Emsal.UI.Controllers
                 Session["uid"] = null;
                 modelUser = new UserViewModel();
                 BaseOutput userOut = srv.WS_GetUserById(binput, id, true,out modelUser.User);
+                Session["email"] = null;
+                Session["email"] = modelUser.User.Email;
 
                 bool verify = BCrypt.Net.BCrypt.Verify(p, modelUser.User.Password);
 
@@ -81,8 +83,12 @@ namespace Emsal.UI.Controllers
                     long uId = 0;
                     uId = modelUser.User.Id;
                     BaseOutput perOut = srv.WS_GetPersonByUserId(binput, id, true, out modelUser.Person);
-                    ViewBag.Name = modelUser.Person.Name;
-                    ViewBag.Surname = modelUser.Person.Surname;
+                    Session["Name"] = null;
+                    Session["Name"] = modelUser.Person.Name;
+
+                    Session["Surname"] = null;
+                    Session["Surname"] = modelUser.Person.Surname;
+
                     Session["auto"] = "true";
                     return RedirectToAction("CreateTicket", "Login", new { ticketNum = 1, route = "autoLogin", User = "", returnUrl = "", uId = uId });
                 }
