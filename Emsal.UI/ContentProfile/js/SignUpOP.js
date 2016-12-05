@@ -108,7 +108,7 @@ function check() {
                     window.setTimeout(function () {
                         window.location.href = '/Login';
                     }, 1000);
-                    $('#formBody').show();
+                    $('#formBody').hide();
                 }
             } else {
 
@@ -159,8 +159,11 @@ function check() {
                     }
                     //$('#gender').attr('disabled', true);
                     //$("#birtday").attr('disabled', true);
+
+                    $('#formBody').show();
                 }
                 else {
+                    $('#formBody').hide();
                     $("#birtday").val(result.data.birtday);
 
                     $("#Name").attr('readonly', false);
@@ -172,7 +175,7 @@ function check() {
 
                 //}
 
-                $('#formBody').show();
+                
             }
             
         },
@@ -274,13 +277,13 @@ function GetAdminUnit(elem) {
 
                 $('#regionContainer').append(regCombo);
                 if (result.data.length > 0) {
-                    regCombo += "<div class='col-md-3'> <select required id='" + "adId" + result.data[0].parentId + "' name='adId[" + result.data[0].parentId + "]' onchange='GetAdminUnit(this)' class='form-control select2'>"
+                    regCombo += "<div class='col-md-3'> <select id='" + "adId" + result.data[0].parentId + "' name='adId[" + result.data[0].parentId + "]' onchange='GetAdminUnit(this)' class='form-control select2'>"
                     regCombo += " <option value=''>Seçim edin</option>"
                     for (var i = 0; i < result.data.length; i++) {
                         regCombo += " <option value='" + result.data[i].id + "'> " + result.data[i].name + " </option>"
                     }
                     regCombo += "</div> </select> "
-                    regCombo += "<span data-valmsg-replace='true' data-valmsg-for=adId[" + result.data[0].parentId + "]  class='field-validation-valid text-danger'></span>"
+                    //regCombo += "<span data-valmsg-replace='true' data-valmsg-for=adId[" + result.data[0].parentId + "]  class='field-validation-valid text-danger'></span>"
                     $('#regionContainer').append(regCombo);
                 }
 
