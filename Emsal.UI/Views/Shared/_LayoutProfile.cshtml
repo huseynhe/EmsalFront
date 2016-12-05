@@ -232,7 +232,7 @@
                         <h4 class="modal-title">Məlumat</h4>
                     </div>
                     <div class="modal-body">
-                        <p id="successMessage">@TempData["Success"]</p>
+                        <p id="successMessage">@Html.Raw(TempData["Success"])</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>

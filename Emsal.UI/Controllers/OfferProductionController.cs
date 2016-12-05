@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -63,8 +64,8 @@ namespace Emsal.UI.Controllers
 
                     modelOfferProduction.UserRole = modelOfferProduction.UserRoleArray.ToList().Where(x => x.RoleId == 15).FirstOrDefault();
 
-                    if (modelOfferProduction.UserRole != null)
-                        return RedirectToAction("Redirect", "Home");
+                    //if (modelOfferProduction.UserRole != null)
+                    //    return RedirectToAction("Redirect", "Home");
                 }
 
                 BaseOutput enumcat = srv.WS_GetEnumCategorysByName(baseInput, "shippingSchedule", out modelOfferProduction.EnumCategory);
@@ -209,6 +210,9 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput gcl = srv.WS_GetProductCatalogListForID(baseInput, prId, true, out modelOfferProduction.ProductCatalogArray);
                 modelOfferProduction.ProductCatalogList = modelOfferProduction.ProductCatalogArray.ToList();
+
+
+                //BaseOutput ga = srv.WS_GetAnnouncementBy(baseInput, prId, true, out modelOfferProduction.ProductCatalogArray);
 
                 return string.Join(",", modelOfferProduction.ProductCatalogList.Select(x => x.Id)); ;
 
@@ -881,7 +885,37 @@ namespace Emsal.UI.Controllers
                 //}
 
                 Session["documentGrupId"] = null;
-                TempData["Success"] = modelOfferProduction.messageSuccess;
+
+
+                BaseOutput person = srv.WS_GetPersonByUserId(baseInput, model.User.Id, true, out model.Person);
+               
+                string namesname = "";
+
+                if (model.Person != null)
+                {
+                    namesname = model.Person.Name + " " + model.Person.Surname;
+                }else
+                {
+                    namesname = model.User.Username;
+                }
+
+                string message = "<b>Hörmətli "+ namesname+ ",</b> <br/><br/> Sizin ərzaq məhsulu təklifiniz  portalda qeydiyyata alınmışdır.<br/> Potensial istehsalçı kimi təqdim etmək istədiyiniz ərzaq məhsulu barədə yerləşdirdiyiniz təkliflər haqqında məlumat 48 saat ərzində təsdiqlənərək portalın “Potensial istehsalçılar və satıcılar” və “Təkliflər” bölmələrində əks olunacaq və eyni zamanda  elektron poçt ünvanınıza bu barədə məlumat göndəriləcəkdir.<br/> <br/> İstehsalçıların və digər satıcıların (idxalçı) fəaliyyətinin və təqdim edilən təkliflərin monitorinqi, habelə həmin ərzaq məhsullarının satın alınması prosedurları Azərbaycan Respublikası Prezidentinin 2016-cı il 11 aprel tarixli 859 nömrəli Fərmanı ilə təsdiq edilmiş “Dövlət müəssisə və təşkilatları (idarələri) tərəfindən ərzaq məhsullarının mərkəzləşdirilmiş qaydada dövlət büdcəsinin vəsaitləri hesabına satın alınması Qaydası”na uğun olaraq həyata keçirləcəkdir.<br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+
+                try
+                {
+                    MailMessage msg = new MailMessage();
+
+                    msg.To.Add(model.User.Email);
+                    msg.Subject = "tedatuk.az";
+                    msg.Body = message;
+                    msg.IsBodyHtml = true;
+
+                    Mail.SendMail(msg);
+                }
+                catch { }
+
+
+                TempData["Success"] = message;
 
                 if (model.ppId > 0)
                 {
