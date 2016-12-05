@@ -277,7 +277,7 @@ namespace Emsal.AdminUI.Controllers
                 String yy = datevalue.Year.ToString();
 
                 string path = modelProductCatalog.fileDirectory;
-                string pathu = path.Replace("Emsal.AdminUI", "Emsal.UI");
+                //string pathu = path.Replace("Emsal.AdminUI", "Emsal.UI");
                 //string path = modelProductCatalog.fileDirectory + @"\" + yy + @"\" + mn + @"\" + dy;
 
                 if (!Directory.Exists(path))
@@ -309,7 +309,7 @@ namespace Emsal.AdminUI.Controllers
                         fileName = newFileName.ToString() + ext;
 
                         attachfile.SaveAs(Path.Combine(path, fileName));
-                        attachfile.SaveAs(Path.Combine(pathu, fileName));
+                        //attachfile.SaveAs(Path.Combine(pathu, fileName));
 
                         modelProductCatalog.ProductDocument = new tblProduct_Document();
                         BaseOutput enumval = srv.WS_GetEnumValueByName(baseInput, "potential", out modelProductCatalog.EnumValue);
