@@ -1,0 +1,69 @@
+﻿@model Emsal.UI.Models.ProductCatalogViewModel
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+    Model.prodAltName = "";
+    Model.prodName = "";
+    int i = 0;
+    
+    string oppName = "";
+}
+<h2 class="text-bold" style="text-align:center;">2017-ci il üçün satın alınması nəzərdə tutulan ərzaq məhsulları barədə ELANLAR</h2>
+<ul class="thumbnails list-unstyled list-inline">
+    @foreach (var item in Model.Paging)
+    {        
+        if (oppName != item.announcementDetail.parentName+item.parentName)
+        {
+            i = 0;
+            <li class="col-md-12">
+                <h3 class="text-bold" style="color: #fff; margin-bottom: 10px;">
+                    @item.announcementDetail.parentName@item.parentName
+                </h3>               
+            </li>
+        }
+        i = i + 1;
+        <li class="col-md-3">
+            <div class="thumbnail text-center" style="width:100%;height:260px;">
+                @if (item.productCatalogDocumentList.Count() > 0)
+                {
+                    <img style="width:100%;" class="img-responsive" src="@item.productCatalogDocumentList.FirstOrDefault().documentUrl@item.productCatalogDocumentList.FirstOrDefault().documentName" />
+                }
+                else
+                {
+                    <img style="width:auto;" src="~/Content/UI/images/noimage.png" />
+                }
+                <div class="caption">
+                    <h4 class="text-bold">@item.announcementDetail.announcement.product_name</h4>
+                    <h4 class="text-bold text-red">@item.announcementDetail.announcement.quantity @item.announcementDetail.announcement.quantity_type_Name</h4>
+                    <div style="position: absolute; bottom: 30px; float: left; width: calc(100% - 30px);">
+                        <a href="/Home/AnnouncementDetail/@item.announcementDetail.announcement.Id" class="btn btn-default text-bold f-left">Ətraflı</a>
+                        <button type="button" class="btn btn-primary text-white text-bold f-right">@item.announcementDetail.announcement.unit_price AZN</button>
+                    </div>
+                </div>
+            </div>
+        </li>
+        if (i == 4)
+        {
+            <div class="clearfix"></div>
+            i = 0;
+        }
+
+        oppName = item.announcementDetail.parentName + item.parentName;
+    }
+    @if (Model.Paging.Count() == 0)
+    {
+        <h5 class="text-center" style="color:#fff;">Qeyd tapılmadı</h5>
+    }
+</ul>
+
+<div class="navig">
+    <div class="clearfix"></div>
+    @if (Model.noPaged == 0)
+    {
+        <div class="box-footer clearfix" style="color:#fff;">
+            Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
+            @Html.PagedListPager(Model.Paging, page => Url.Action("Announcement", new { page, form = Model.form }))
+        </div>
+    }
+</div>

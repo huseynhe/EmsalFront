@@ -1,0 +1,77 @@
+﻿@model Emsal.UI.Models.ProductCatalogViewModel
+@using PagedList.Mvc;
+@using Emsal.Utility.CustomObjects;
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+    Model.prodAltName = "";
+    Model.prodName = "";
+    int i = 0;
+    
+    string oppName = "";
+}
+<h2 class="text-bold" style="text-align:center;">2017-ci il üçün satın alınması nəzərdə tutulan ərzaq məhsulları barədə ELANLAR</h2>
+
+<div class="thumbnail col-md-12">
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>
+                    Ərzaq məhsulunun adı və növü
+                </th>
+                <th>
+                    Ölçü vahidi
+                </th>
+                <th>Tələbatın həcmi</th>
+                <th>Qiyməti (AZN)</th>
+                <th>Tədarük olunacaq dövr</th>
+                <th class="text-center">Keçid</th>
+            </tr>
+            @foreach (var item in Model.Paging)
+            {
+                if (oppName != item.announcementDetail.parentName + item.parentName)
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-bold">
+                            @item.announcementDetail.parentName@item.parentName
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td class="col-md-3">
+                        @item.announcementDetail.announcement.product_name
+                    </td>
+                    <td class="col-md-1">
+                        @item.announcementDetail.announcement.quantity_type_Name
+                    </td>
+                    <td class="col-md-1">
+                        @item.announcementDetail.announcement.quantity
+                    </td>
+                    <td class="col-md-1">
+                        @item.announcementDetail.announcement.unit_price
+                    </td>
+                    <td class="col-md-1">                        
+                        @DatetimeExtension.toShortDate(((long)item.announcementDetail.announcement.endDate)).Year.ToString() - ci il
+                    </td>
+                    <td class="col-md-1" onclick="location.href = '/Home/AnnouncementDetail/@item.announcementDetail.announcement.Id'" style="cursor:pointer; vertical-align:middle;text-align:center;color:#428bca;">
+                        <i class="fa fa-info-circle fa-lg"></i>
+                    </td>
+                </tr>
+                oppName = item.announcementDetail.parentName + item.parentName;
+            }
+        </tbody>
+    </table>
+
+    <div class="navig">
+        <div class="clearfix"></div>
+        @if (Model.noPaged == 0)
+        {
+            <div class="box-footer clearfix" style="color:#fff;">
+                <div style="color:#000;">
+                    Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
+                </div>
+                @Html.PagedListPager(Model.Paging, page => Url.Action("Announcement", new { page, form = Model.form}))
+            </div>
+        }
+    </div>
+</div>
