@@ -28,9 +28,13 @@
                         }
                         <input hidden id="checkedList" />
                         <div class="table-responsive">
+                            <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
+                                <span class="badge " style="margin-top: -10px; float: right; margin-right: 15px;background:#D43F3A;">@Model.itemCount</span>
+                            </div>
+
                             <table class="table table-hover table-striped table-bordered">
                                 <tbody>
-                                    @foreach (var item in Model.Paging)
+                                    @foreach (var item in Model.ProductionDetailList)
                                     {
                                         <tr>
                                             @if (Model.isMain == 0)
@@ -134,8 +138,8 @@
                         </div>
                     </div>
                     <div class="box-footer clearfix">
-                        Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
-                        @Html.PagedListPager(Model.Paging, page => Url.Action("Index", new { page, statusEV = Model.statusEV, productName=Model.productName, userInfo=Model.userInfo }))
+                        Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
+                        @Html.PagedListPager(Model.PagingT, page => Url.Action("Index", new { page, statusEV = Model.statusEV, productName=Model.productName, userInfo=Model.userInfo }))
                     </div>
 
 
