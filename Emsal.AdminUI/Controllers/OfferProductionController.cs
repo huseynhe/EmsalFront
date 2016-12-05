@@ -83,21 +83,35 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstatusEV, out modelOfferProduction.EnumValue);
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId(baseInput, modelOfferProduction.EnumValue.Id, true, out modelOfferProduction.ProductionDetailArray);
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelOfferProduction.EnumValue.Id, true, pageNumber, true, pageSize, true, out modelOfferProduction.ProductionDetailArray);
 
-                modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelOfferProduction.EnumCategory.Id && x.person != null).ToList();
-
-                if (sproductName != null)
+                if (modelOfferProduction.ProductionDetailArray == null)
                 {
-                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
+                    modelOfferProduction.ProductionDetailList = new List<ProductionDetail>();
+                }
+                else
+                {
+                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.ToList();
                 }
 
-                if (suserInfo != null)
-                {
-                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
-                }
+                //if (sproductName != null)
+                //{
+                //    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
+                //}
 
-                modelOfferProduction.Paging = modelOfferProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+                //if (suserInfo != null)
+                //{
+                //    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
+                //}
+
+                //modelOfferProduction.Paging = modelOfferProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+
+                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForEValueId_OPC(baseInput, modelOfferProduction.EnumValue.Id, true, out modelOfferProduction.itemCount, out modelOfferProduction.itemCountB);
+
+                long[] aic = new long[modelOfferProduction.itemCount];
+
+                modelOfferProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
+
 
                 if (sstatusEV == "Yayinda" || sstatusEV == "yayinda")
                     modelOfferProduction.isMain = 0;
@@ -108,7 +122,6 @@ namespace Emsal.AdminUI.Controllers
                 modelOfferProduction.statusEV = sstatusEV;
                 modelOfferProduction.productName = sproductName;
                 modelOfferProduction.userInfo = suserInfo;
-                //return View(modelDemandProduction);
 
                 return Request.IsAjaxRequest()
                    ? (ActionResult)PartialView("PartialIndex", modelOfferProduction)
@@ -175,29 +188,42 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstatusEV, out modelOfferProduction.EnumValue);
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId(baseInput, modelOfferProduction.EnumValue.Id, true, out modelOfferProduction.ProductionDetailArray);
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelOfferProduction.EnumValue.Id, true, pageNumber, true, pageSize, true, out modelOfferProduction.ProductionDetailArray);
 
-                modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelOfferProduction.EnumCategory.Id && x.person != null).ToList();
-
-                if (sproductName != null)
+                if (modelOfferProduction.ProductionDetailArray == null)
                 {
-                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
+                    modelOfferProduction.ProductionDetailList = new List<ProductionDetail>();
+                }
+                else
+                {
+                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.ToList();
                 }
 
-                if (sfullAddress != null)
-                {
-                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailList.Where(x => x.fullAddress.ToLower().Contains(fullAddress)).ToList();
-                }
+                //if (sproductName != null)
+                //{
+                //    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
+                //}
 
-                if (suserInfo != null)
-                {
-                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo) || x.person.gender.ToLower().Contains(suserInfo) || x.personAdress.ToLower().Contains(suserInfo) || x.personAdressDesc.ToLower().Contains(suserInfo)).ToList();
-                }
+                //if (sfullAddress != null)
+                //{
+                //    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailList.Where(x => x.fullAddress.ToLower().Contains(fullAddress)).ToList();
+                //}
 
-                modelOfferProduction.Paging = modelOfferProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+                //if (suserInfo != null)
+                //{
+                //    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo) || x.person.gender.ToLower().Contains(suserInfo) || x.personAdress.ToLower().Contains(suserInfo) || x.personAdressDesc.ToLower().Contains(suserInfo)).ToList();
+                //}
+
+                //modelOfferProduction.Paging = modelOfferProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+
+                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForEValueId_OPC(baseInput, modelOfferProduction.EnumValue.Id, true, out modelOfferProduction.itemCount, out modelOfferProduction.itemCountB);
+
+                long[] aic = new long[modelOfferProduction.itemCount];
+
+                modelOfferProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
 
                 modelOfferProduction.allPagePrice = modelOfferProduction.ProductionDetailList.Sum(x => x.unitPrice);
-                modelOfferProduction.currentPagePrice = modelOfferProduction.Paging.Sum(x => x.unitPrice);
+                modelOfferProduction.currentPagePrice = modelOfferProduction.ProductionDetailList.Sum(x => x.unitPrice);
 
                 if (sstatusEV == "Yayinda" || sstatusEV == "yayinda")
                     modelOfferProduction.isMain = 0;
@@ -264,7 +290,10 @@ namespace Emsal.AdminUI.Controllers
                             sheet.Cells[rowIndex, col2++].Value = item.quantity.ToString() + " " + item.enumValueName;
                             sheet.Cells[rowIndex, col2++].Value = item.unitPrice.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.fullAddress;
-                            sheet.Cells[rowIndex, col2++].Value = item.person.Name + " " + item.person.Surname + " " + item.person.FatherName + " " + (item.person.gender) + " " + item.personAdress + " " + (item.personAdressDesc);
+                            if (item.person != null)
+                            {
+                                sheet.Cells[rowIndex, col2++].Value = item.person.Name + " " + item.person.Surname + " " + item.person.FatherName + " " + (item.person.gender) + " " + item.personAdress + " " + (item.personAdressDesc);
+                            }
 
 
                             sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
@@ -283,8 +312,8 @@ namespace Emsal.AdminUI.Controllers
                             sheet.Row(rowIndex).Style.Font.Bold = true;
                             sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                             sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                             decimal tquantity;
-                             string day = "-";
+                            decimal tquantity;
+                            string day = "-";
                             foreach (var item2 in item.productionCalendarList)
                             {
                                 if (item2.day != 0)
@@ -297,8 +326,8 @@ namespace Emsal.AdminUI.Controllers
                                 sheet.Cells[rowIndex, col4++].Value = item2.TypeDescription;
                                 sheet.Cells[rowIndex, col4++].Value = item2.year;
                                 sheet.Cells[rowIndex, col4++].Value = item2.partOfyear;
-                                sheet.Cells[rowIndex, col4++].Value = day+ " " + item2.MonthDescription;
-                                sheet.Cells[rowIndex, col4++].Value = item2.oclock+":00";
+                                sheet.Cells[rowIndex, col4++].Value = day + " " + item2.MonthDescription;
+                                sheet.Cells[rowIndex, col4++].Value = item2.oclock + ":00";
                                 sheet.Cells[rowIndex, col4++].Value = item2.quantity;
                                 sheet.Cells[rowIndex, col4++].Value = tquantity;
                             }
@@ -314,7 +343,7 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Cells[1, 1, rowIndex - 1, 7].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
 
-                        sheet.Cells[rowIndex + 1, 2].Value = "Toplam qiyməti: " + modelOfferProduction.allPagePrice+" azn";
+                        sheet.Cells[rowIndex + 1, 2].Value = "Toplam qiyməti: " + modelOfferProduction.allPagePrice + " azn";
                         sheet.Cells[rowIndex + 1, 2].Style.Font.Bold = true;
                         sheet.Cells[rowIndex + 1, 2].Style.WrapText = true;
 

@@ -119,7 +119,7 @@ namespace Emsal.AdminUI.Controllers
                 //}
 
 
-                BaseOutput gdpc = srv.WS_GetDemandProductionDetailistForEValueId_OPC(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.itemCount, out  modelDemandProduction.itemCountB);
+                BaseOutput gdpc = srv.WS_GetDemandProductionDetailistForEValueId_OPC(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
 
                 long[] aic = new long[modelDemandProduction.itemCount];
 
@@ -210,14 +210,8 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstatusEV, out modelDemandProduction.EnumValue);
 
-                if (excell == true)
-                {
-                    //BaseOutput gppe = srv.WS_GetDemandProductionDetailistForEValueId(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.ProductionDetailArray);
-                }
-                else
-                {
-                    BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId_OP(baseInput, modelDemandProduction.EnumValue.Id, true, pageNumber, true, pageSize, true, out modelDemandProduction.ProductionDetailArray);
-                }
+
+                BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId_OP(baseInput, modelDemandProduction.EnumValue.Id, true, pageNumber, true, pageSize, true, out modelDemandProduction.ProductionDetailArray);
 
                 if (modelDemandProduction.ProductionDetailArray == null)
                 {
@@ -250,7 +244,7 @@ namespace Emsal.AdminUI.Controllers
 
                 //modelDemandProduction.Paging = modelDemandProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
 
-                BaseOutput gdpc = srv.WS_GetDemandProductionDetailistForEValueId_OPC(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.itemCount, out  modelDemandProduction.itemCountB);
+                BaseOutput gdpc = srv.WS_GetDemandProductionDetailistForEValueId_OPC(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
 
                 long[] aic = new long[modelDemandProduction.itemCount];
 
@@ -262,10 +256,10 @@ namespace Emsal.AdminUI.Controllers
                     modelDemandProduction.currentPagePrice = modelDemandProduction.currentPagePrice + (item.quantity * item.productUnitPrice);
                 }
 
-                //foreach (var item in modelDemandProduction.ProductionDetailList)
-                //{
-                //    modelDemandProduction.allPagePrice = modelDemandProduction.allPagePrice + (item.quantity * item.productUnitPrice);
-                //}
+                foreach (var item in modelDemandProduction.ProductionDetailList)
+                {
+                    modelDemandProduction.allPagePrice = modelDemandProduction.allPagePrice + (item.quantity * item.productUnitPrice);
+                }
 
                 if (sstatusEV == "Yayinda" || sstatusEV == "yayinda")
                 {
@@ -324,82 +318,66 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Column(6).Width = 30;
                         sheet.Column(7).Width = 30;
 
-                            int rowIndex = 3;
-                            var ri = 1;
+                        int rowIndex = 3;
+                        var ri = 1;
 
-
-                        pageSize = 100;
-                        long fc = modelDemandProduction.itemCount / pageSize;
-                        for (int i = 1; i <= fc; i++)
+                        foreach (var item in modelDemandProduction.ProductionDetailList)
                         {
-
-                            BaseOutput gppex = srv.WS_GetDemandProductionDetailistForEValueId_OP(baseInput, modelDemandProduction.EnumValue.Id, true, i, true, pageSize, true, out modelDemandProduction.ProductionDetailArray);
-
-                            if (modelDemandProduction.ProductionDetailArray == null)
+                            var col2 = 1;
+                            sheet.Cells[rowIndex, col2++].Value = ri.ToString();
+                            sheet.Cells[rowIndex, col2++].Value = item.productName + " " + (item.productParentName);
+                            sheet.Cells[rowIndex, col2++].Value = item.quantity.ToString() + " " + item.enumValueName;
+                            sheet.Cells[rowIndex, col2++].Value = item.productUnitPrice.ToString();
+                            if (item.productionCalendarList.FirstOrDefault().TypeDescription != null)
                             {
-                                modelDemandProduction.ProductionDetailList = new List<ProductionDetail>();
+                                sheet.Cells[rowIndex, col2++].Value = item.productionCalendarList.FirstOrDefault().TypeDescription;
                             }
-                            else
+                            if (item.foreignOrganization != null)
                             {
-                                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.ToList();
+                                sheet.Cells[rowIndex, col2++].Value = item.foreignOrganization.name;
                             }
-                            foreach (var item in modelDemandProduction.ProductionDetailList)
+
+                            sheet.Cells[rowIndex, col2++].Value = item.fullAddress + " " + (item.addressDesc);
+
+                            sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                            sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
+                            var col3 = 1;
+                            rowIndex++;
+                            sheet.Cells[rowIndex, col3++].Value = "tipi";
+                            sheet.Cells[rowIndex, col3++].Value = "il";
+                            sheet.Cells[rowIndex, col3++].Value = "rüb";
+                            sheet.Cells[rowIndex, col3++].Value = "gün, ay";
+                            sheet.Cells[rowIndex, col3++].Value = "saat";
+                            sheet.Cells[rowIndex, col3++].Value = "miqdar";
+                            sheet.Cells[rowIndex, col3++].Value = "miqdar (cəmi)";
+
+                            sheet.Row(rowIndex).Style.Font.Bold = true;
+                            sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                            sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                            decimal tquantity;
+                            string day = "-";
+                            foreach (var item2 in item.productionCalendarList)
                             {
-                                var col2 = 1;
-                                sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                                sheet.Cells[rowIndex, col2++].Value = item.productName + " " + (item.productParentName);
-                                sheet.Cells[rowIndex, col2++].Value = item.quantity.ToString() + " " + item.enumValueName;
-                                sheet.Cells[rowIndex, col2++].Value = item.productUnitPrice.ToString();
-                                if (item.productionCalendarList.FirstOrDefault().TypeDescription != null)
+                                if (item2.day != 0)
                                 {
-                                    sheet.Cells[rowIndex, col2++].Value = item.productionCalendarList.FirstOrDefault().TypeDescription;
+                                    day = item2.day.ToString();
                                 }
-                                if (item.foreignOrganization != null)
-                                {
-                                    sheet.Cells[rowIndex, col2++].Value = item.foreignOrganization.name;
-                                }
-
-                                sheet.Cells[rowIndex, col2++].Value = item.fullAddress + " " + (item.addressDesc);
-
-                                sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
-
-                                var col3 = 1;
+                                tquantity = (item2.quantity * item2.transportation_eV_Id);
+                                var col4 = 1;
                                 rowIndex++;
-                                sheet.Cells[rowIndex, col3++].Value = "tipi";
-                                sheet.Cells[rowIndex, col3++].Value = "il";
-                                sheet.Cells[rowIndex, col3++].Value = "rüb";
-                                sheet.Cells[rowIndex, col3++].Value = "gün, ay";
-                                sheet.Cells[rowIndex, col3++].Value = "saat";
-                                sheet.Cells[rowIndex, col3++].Value = "miqdar";
-                                sheet.Cells[rowIndex, col3++].Value = "miqdar (cəmi)";
-
-                                sheet.Row(rowIndex).Style.Font.Bold = true;
-                                sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                                sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                                decimal tquantity;
-                                string day = "-";
-                                foreach (var item2 in item.productionCalendarList)
-                                {
-                                    if (item2.day != 0)
-                                    {
-                                        day = item2.day.ToString();
-                                    }
-                                    tquantity = (item2.quantity * item2.transportation_eV_Id);
-                                    var col4 = 1;
-                                    rowIndex++;
-                                    sheet.Cells[rowIndex, col4++].Value = item2.TypeDescription;
-                                    sheet.Cells[rowIndex, col4++].Value = item2.year;
-                                    sheet.Cells[rowIndex, col4++].Value = item2.partOfyear;
-                                    sheet.Cells[rowIndex, col4++].Value = day + " " + item2.MonthDescription;
-                                    sheet.Cells[rowIndex, col4++].Value = item2.oclock + ":00";
-                                    sheet.Cells[rowIndex, col4++].Value = item2.quantity;
-                                    sheet.Cells[rowIndex, col4++].Value = tquantity;
-                                }
-                                rowIndex++;
-                                ri++;
+                                sheet.Cells[rowIndex, col4++].Value = item2.TypeDescription;
+                                sheet.Cells[rowIndex, col4++].Value = item2.year;
+                                sheet.Cells[rowIndex, col4++].Value = item2.partOfyear;
+                                sheet.Cells[rowIndex, col4++].Value = day + " " + item2.MonthDescription;
+                                sheet.Cells[rowIndex, col4++].Value = item2.oclock + ":00";
+                                sheet.Cells[rowIndex, col4++].Value = item2.quantity;
+                                sheet.Cells[rowIndex, col4++].Value = tquantity;
                             }
+                            rowIndex++;
+                            ri++;
                         }
+
                         sheet.Cells[1, 1, rowIndex - 1, 7].Style.Border.Left.Style = ExcelBorderStyle.Thin;
                         sheet.Cells[1, 1, rowIndex - 1, 7].Style.Border.Right.Style = ExcelBorderStyle.Thin;
                         sheet.Cells[1, 1, rowIndex - 1, 7].Style.Border.Top.Style = ExcelBorderStyle.Thin;
@@ -879,18 +857,18 @@ namespace Emsal.AdminUI.Controllers
                         modelDemandProduction.DemandProductionVModel.productName = item.productName + " (" + item.productParentName + ")";
                     }
 
-                    if(item.type=="Demand")
+                    if (item.type == "Demand")
                     {
                         modelDemandProduction.DemandProductionVModel.totalDemand = item.offerDemand;
                     }
                     else if (item.type == "Offer")
                     {
-                        modelDemandProduction.DemandProductionVModel.totalOffer= item.offerDemand;
+                        modelDemandProduction.DemandProductionVModel.totalOffer = item.offerDemand;
                     }
 
                     modelDemandProduction.DemandProductionVModel.quantityType = item.kategoryName;
 
-                    if (oproductID!= item.productID)
+                    if (oproductID != item.productID)
                     {
                         modelDemandProduction.DemandProductionViewModelList.Add(modelDemandProduction.DemandProductionVModel);
                     }
@@ -955,7 +933,7 @@ namespace Emsal.AdminUI.Controllers
                         {
                             var col2 = 1;
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                            sheet.Cells[rowIndex, col2++].Value = item.productName ;
+                            sheet.Cells[rowIndex, col2++].Value = item.productName;
                             sheet.Cells[rowIndex, col2++].Value = item.quantityType;
                             sheet.Cells[rowIndex, col2++].Value = item.totalDemand;
                             sheet.Cells[rowIndex, col2++].Value = item.totalOffer;
@@ -1135,7 +1113,7 @@ namespace Emsal.AdminUI.Controllers
                         foreach (var item in modelDemandProduction.DemandProductionViewModelList)
                         {
                             var col2 = 1;
-                            if(oppName!=item.productParentName)
+                            if (oppName != item.productParentName)
                             {
                                 sheet.Cells[rowIndex, 1, rowIndex, 2].Merge = true;
                                 sheet.Cells[rowIndex, 1].Value = item.productParentName;
@@ -1145,7 +1123,7 @@ namespace Emsal.AdminUI.Controllers
 
                                 rowIndex++;
                             }
-                            
+
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.productName;
                             sheet.Cells[rowIndex, col2++].Value = item.quantityType;
@@ -1190,7 +1168,7 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
-        public ActionResult DemandProductionAmountOfEachProduct(int? page, string productName = null, bool excell = false, string startDate=null, string endDate=null)
+        public ActionResult DemandProductionAmountOfEachProduct(int? page, string productName = null, bool excell = false, string startDate = null, string endDate = null)
         {
             try
             {
@@ -1204,7 +1182,7 @@ namespace Emsal.AdminUI.Controllers
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (productName == null && startDate==null && endDate==null)
+                if (productName == null && startDate == null && endDate == null)
                 {
                     sproductName = null;
                     sstartDate = 0;
@@ -1243,7 +1221,7 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelDemandProduction.EnumCategory);
 
-                if(sstartDate>0 && sendDate>0)
+                if (sstartDate > 0 && sendDate > 0)
                 {
 
                 }
@@ -1257,7 +1235,7 @@ namespace Emsal.AdminUI.Controllers
                 else
                 {
                     modelDemandProduction.DemandOfferDetailList = modelDemandProduction.DemandOfferDetailArray.Where(x => x.enumKategoryID == modelDemandProduction.EnumCategory.Id).OrderBy(x => x.productParentName).ToList();
-                }         
+                }
 
                 if (sproductName != null)
                 {
@@ -1314,7 +1292,7 @@ namespace Emsal.AdminUI.Controllers
                         foreach (var item in modelDemandProduction.DemandOfferDetailList)
                         {
                             var col2 = 1;
-                            if(oppName!=item.productParentName)
+                            if (oppName != item.productParentName)
                             {
                                 sheet.Cells[rowIndex, 1, rowIndex, 2].Merge = true;
                                 sheet.Cells[rowIndex, 1].Value = item.productParentName;
@@ -1324,7 +1302,7 @@ namespace Emsal.AdminUI.Controllers
 
                                 rowIndex++;
                             }
-                            
+
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.productName;
                             sheet.Cells[rowIndex, col2++].Value = item.quantity;
