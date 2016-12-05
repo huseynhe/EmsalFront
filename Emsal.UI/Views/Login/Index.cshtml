@@ -96,16 +96,19 @@
                             $("#myModal").modal('show');
                         });
                     </script>
+
+                    
                     <div id="myModal" class="modal fade" style="z-index:3000" data-backdrop="static" data-keyboard="false">
                         <div class="modal-dialog">
                             <!-- Modal content-->
                             <div class="modal-content">
-                                <div class="modal-body">
-                                    <p style="color: black !important;">Hörmətli  @ViewBag.Name @ViewBag.Surname !</p>
+                                <div class="modal-body" style="font-size:14px !important">
+                                    <p style="color: black !important;">Hörmətli  <b> @Session["Name"] @Session["Surname"] </b> !</p>
                                     <p style="color: black !important;">Sizin qeydiyyatından keçmə prosesiniz tamamlanmışdır.</p>
-                                    <p style="color: black !important;">Qeydiyyatdan keçməyiniz haqqında məlumat qeydiyyat zamanı daxil etdiyniz elektron poçt ünvanınıza göndəriləcəkdir.</p>
+                                    <p style="color: black !important;">Qeydiyyatdan keçməyiniz haqqında məlumat <b>@Session["email"]</b> elektron poçt ünvanına göndəriləcəkdir.</p>
                                     <p style="color: black !important;">Kənd Təsərrüfatı Nazirliyi tərəfindən potensial istehsalçı  kimi tanınmağınız üçün istehsal etdyiniz məhsulun təklifini yerləşdirməlisiniz. </p>
                                     <p style="color: black !important;"></p>
+                                    <br />
                                     <p style="color: black !important;">Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi</p>
                                 </div>
                                 <div class="modal-footer">
