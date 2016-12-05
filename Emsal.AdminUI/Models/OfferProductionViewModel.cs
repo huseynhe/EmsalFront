@@ -97,9 +97,14 @@ namespace Emsal.AdminUI.Models
 
 
         public PagedList.IPagedList<ProductionDetail> Paging { get; set; }
+        public PagedList.IPagedList<long> PagingT { get; set; }
 
         public bool isPDF { get; set; }
         public long userId { get; set; }
+
+        public long itemCount = 0;
+        public bool itemCountB = true;
+
 
         public long totalSize = 0;
 
