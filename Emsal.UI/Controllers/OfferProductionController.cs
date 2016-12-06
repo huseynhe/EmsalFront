@@ -240,15 +240,14 @@ namespace Emsal.UI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelOfferProduction.User);
                 baseInput.userName = modelOfferProduction.User.Username;
 
-
                 BaseOutput ga = srv.WS_GetAnnouncementsByProductId(baseInput, prId, true, out modelOfferProduction.AnnouncementArray);
 
                 modelOfferProduction.AnnouncementList = modelOfferProduction.AnnouncementArray.ToList();
 
                 string up = null;
-                if(modelOfferProduction.AnnouncementList.Count>0)
+                if (modelOfferProduction.AnnouncementList.Count > 0)
                 {
-                    up = modelOfferProduction.AnnouncementList.FirstOrDefault().unit_price.ToString();
+                    up = modelOfferProduction.AnnouncementList.FirstOrDefault().unit_price.ToString()+" ("+ modelOfferProduction.AnnouncementList.FirstOrDefault().quantity_type_Name+ " / man)";
                 }
 
                 return up;

@@ -83,13 +83,13 @@ function GetProductCatalogForSaleAS(elem) {
 
 
 function GetAnnouncementBy(prId) {
-    $('#totalSize').html('');
+    $('#announcementPrice').html('');
     $.ajax({
         url: '/OfferProduction/AnnouncementBy?prId=' + prId,
         type: 'GET',
         success: function (result) {
             if (result != '') {
-                $('#announcementPrice').html('məhsulun elandakı qiyməti ' + result + ' AZN');
+                $('#announcementPrice').html('məhsulun elandakı qiyməti: ' + result);
             }
         },
         error: function () {
