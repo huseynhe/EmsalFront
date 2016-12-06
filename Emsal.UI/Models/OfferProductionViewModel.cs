@@ -53,6 +53,10 @@ namespace Emsal.UI.Models
         public tblProductCatalog[] ProductCatalogArrayPC;
         public IList<tblProductCatalog>[] ProductCatalogListFEA { get; set; }
 
+        public tblAnnouncement Announcement;
+        public IList<tblAnnouncement> AnnouncementList { get; set; }
+        public tblAnnouncement[] AnnouncementArray;
+
         public ProductCatalogDetail[] ProductCatalogDetailArray;
         public IList<ProductCatalogDetail> ProductCatalogDetailList { get; set; }
 

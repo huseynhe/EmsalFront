@@ -64,8 +64,8 @@ namespace Emsal.UI.Controllers
 
                     modelOfferProduction.UserRole = modelOfferProduction.UserRoleArray.ToList().Where(x => x.RoleId == 15).FirstOrDefault();
 
-                    //if (modelOfferProduction.UserRole != null)
-                    //    return RedirectToAction("Redirect", "Home");
+                    if (modelOfferProduction.UserRole != null)
+                        return RedirectToAction("Redirect", "Home");
                 }
 
                 BaseOutput enumcat = srv.WS_GetEnumCategorysByName(baseInput, "shippingSchedule", out modelOfferProduction.EnumCategory);
@@ -211,11 +211,47 @@ namespace Emsal.UI.Controllers
                 BaseOutput gcl = srv.WS_GetProductCatalogListForID(baseInput, prId, true, out modelOfferProduction.ProductCatalogArray);
                 modelOfferProduction.ProductCatalogList = modelOfferProduction.ProductCatalogArray.ToList();
 
-
-                //BaseOutput ga = srv.WS_GetAnnouncementBy(baseInput, prId, true, out modelOfferProduction.ProductCatalogArray);
-
                 return string.Join(",", modelOfferProduction.ProductCatalogList.Select(x => x.Id)); ;
 
+            }
+            catch (Exception ex)
+            {
+                return ex.Message + ex.Source + ex.StackTrace;
+            }
+        }
+
+        public string AnnouncementBy(long prId)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+
+                modelOfferProduction = new OfferProductionViewModel();
+
+                long? userId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        userId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelOfferProduction.User);
+                baseInput.userName = modelOfferProduction.User.Username;
+
+
+                BaseOutput ga = srv.WS_GetAnnouncementsByProductId(baseInput, prId, true, out modelOfferProduction.AnnouncementArray);
+
+                modelOfferProduction.AnnouncementList = modelOfferProduction.AnnouncementArray.ToList();
+
+                string up = null;
+                if(modelOfferProduction.AnnouncementList.Count>0)
+                {
+                    up = modelOfferProduction.AnnouncementList.FirstOrDefault().unit_price.ToString();
+                }
+
+                return up;
             }
             catch (Exception ex)
             {
