@@ -39,6 +39,8 @@ function GetProductCat(prodId, fpid) {
         success: function (result) {
             $('#offerProductionProductCatalog').html(result);
             $('#calendarMainDiv').show();
+
+            GetAnnouncementBy(pId);
         },
         error: function () {
         }
@@ -72,6 +74,23 @@ function GetProductCatalogForSaleAS(elem) {
         type: 'GET',
         success: function (result) {
             GetProductCat(prId, result);
+        },
+        error: function () {
+
+        }
+    });
+};
+
+
+function GetAnnouncementBy(prId) {
+    $('#totalSize').html('');
+    $.ajax({
+        url: '/OfferProduction/AnnouncementBy?prId=' + prId,
+        type: 'GET',
+        success: function (result) {
+            if (result != '') {
+                $('#announcementPrice').html('məhsulun elandakı qiyməti ' + result + ' AZN');
+            }
         },
         error: function () {
 
