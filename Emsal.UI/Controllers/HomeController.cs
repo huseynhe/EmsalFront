@@ -544,6 +544,7 @@ namespace Emsal.UI.Controllers
             }
         }
 
+
         public ActionResult Contact()
         {
             try
@@ -551,11 +552,10 @@ namespace Emsal.UI.Controllers
                 baseInput = new BaseInput();
                 modelContact = new ContactViewModel();
 
-                ViewBag.Recaptcha = ReCaptcha.GetHtml(ConfigurationManager.AppSettings["ReCaptcha:SiteKey"]);
-                ViewBag.publicKey = ConfigurationManager.AppSettings["ReCaptcha:SiteKey"];
+                //ViewBag.Recaptcha = ReCaptcha.GetHtml(ConfigurationManager.AppSettings["ReCaptcha:SiteKey"]);
+                //ViewBag.publicKey = ConfigurationManager.AppSettings["ReCaptcha:SiteKey"];
 
                 return View(modelContact);
-
             }
             catch (Exception ex)
             {

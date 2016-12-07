@@ -46,10 +46,10 @@ namespace Emsal.UI.Controllers
 
                 modelProductCatalog = new ProductCatalogViewModel();
 
-                BaseOutput bouput = srv.WS_GetProductCatalogsByParentId(baseInput, pId, true, out modelProductCatalog.ProductCatalogArray);
-                modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogArray.ToList();
+                //BaseOutput bouput = srv.WS_GetProductCatalogsByParentId(baseInput, pId, true, out modelProductCatalog.ProductCatalogArray);
+                //modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogArray.ToList();
 
-                    return View(modelProductCatalog);
+                    return View();
 
             }
             catch (Exception ex)
@@ -162,22 +162,19 @@ namespace Emsal.UI.Controllers
 
             modelProductCatalog.ProductionDetailList = new List<ProductionDetail>();
 
+
             modelProductCatalog.ProductCatalogListPC = new List<tblProductCatalog>();
+
+            long itemCount = 0;
+            bool itemCountB = true;
             foreach (tblProductCatalog itm in modelProductCatalog.ProductCatalogList)
             {
                 BaseOutput gpcbpid = srv.WS_GetProductCatalogsByParentId(baseInput, (int)itm.Id, true, out modelProductCatalog.ProductCatalogArrayPC);
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId(baseInput, (long)modelProductCatalog.EnumValue.Id, true, out modelProductCatalog.ProductionDetailArray);
-                if (modelProductCatalog.ProductionDetailArray != null)
-                {
-                    modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.Where(x => x.productId == itm.Id).ToList();
-                }
-                else
-                {
-                    modelProductCatalog.ProductionDetailList = new List<ProductionDetail>();
-                }
+                BaseOutput gpp = srv.WS_GetOffer_ProductionByProductIdandStateEVId(baseInput, (long)itm.Id, true, (long)modelProductCatalog.EnumValue.Id, true, out itemCount, out itemCountB);
 
-                itm.ProductDescription = modelProductCatalog.ProductionDetailList.Count().ToString();
+
+                itm.ProductDescription = itemCount.ToString();
 
                 if (modelProductCatalog.ProductCatalogArrayPC.ToList().Count == 0)
                 {
@@ -193,6 +190,8 @@ namespace Emsal.UI.Controllers
             }
             modelProductCatalog.ProductCatalogList = null;
             modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogListPC;
+
+
 
             //if (pId == 0)
             //{

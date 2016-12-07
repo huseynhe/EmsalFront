@@ -148,7 +148,6 @@ namespace Emsal.UI.Controllers
             }
         }
 
-
         public ActionResult ProductCatalogForSale()
         {
             try
