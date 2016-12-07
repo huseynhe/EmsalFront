@@ -84,6 +84,7 @@ namespace Emsal.AdminUI.Models
 
         public PagedList.IPagedList<ProductionDetail> PagingDetail { get; set; }
         public PagedList.IPagedList<tblPotential_Production> Paging { get; set; }
+        public PagedList.IPagedList<long> PagingT { get; set; }
 
 
         public bool isPDF { get; set; }
@@ -143,6 +144,8 @@ namespace Emsal.AdminUI.Models
         [Display(Name = "Seçilmiş məhsulları təsdiqləyin")]
         public bool confirmList { get; set; }
 
+        public long itemCount = 0;
+        public bool itemCountB = true;
 
         public int isMain { get; set; }
         public string statusEV { get; set; }

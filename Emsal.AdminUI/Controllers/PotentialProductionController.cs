@@ -73,21 +73,37 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstatusEV, out modelPotentialProduction.EnumValue);
 
-                BaseOutput gpp = srv.WS_GetPotensialProductionDetailistForEValueId(baseInput, modelPotentialProduction.EnumValue.Id, true, out modelPotentialProduction.ProductionDetailArray);
+                BaseOutput gpp = srv.WS_GetPotensialProductionDetailistForEValueId_OP(baseInput, modelPotentialProduction.EnumValue.Id, true, pageNumber, true, pageSize, true, out modelPotentialProduction.ProductionDetailArray);
 
-                modelPotentialProduction.ProductionDetailList = modelPotentialProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelPotentialProduction.EnumCategory.Id && x.person != null).ToList();
-
-                if (sproductName != null)
+                if (modelPotentialProduction.ProductionDetailArray == null)
                 {
-                    modelPotentialProduction.ProductionDetailList = modelPotentialProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
+                    modelPotentialProduction.ProductionDetailList = new List<ProductionDetail>();
+                }
+                else
+                {
+                    modelPotentialProduction.ProductionDetailList = modelPotentialProduction.ProductionDetailArray.ToList();
                 }
 
-                if (suserInfo != null)
-                {
-                    modelPotentialProduction.ProductionDetailList = modelPotentialProduction.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
-                }
+                //modelPotentialProduction.ProductionDetailList = modelPotentialProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelPotentialProduction.EnumCategory.Id && x.person != null).ToList();
 
-                modelPotentialProduction.PagingDetail = modelPotentialProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+                //if (sproductName != null)
+                //{
+                //    modelPotentialProduction.ProductionDetailList = modelPotentialProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
+                //}
+
+                //if (suserInfo != null)
+                //{
+                //    modelPotentialProduction.ProductionDetailList = modelPotentialProduction.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
+                //}
+
+                //modelPotentialProduction.PagingDetail = modelPotentialProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+
+
+                BaseOutput gppc = srv.WS_GetPotensialProductionDetailistForEValueId_OPC(baseInput, modelPotentialProduction.EnumValue.Id, true, out modelPotentialProduction.itemCount, out modelPotentialProduction.itemCountB);
+
+                long[] aic = new long[modelPotentialProduction.itemCount];
+
+                modelPotentialProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
 
                 if (sstatusEV == "Yayinda" || sstatusEV == "yayinda")
                     modelPotentialProduction.isMain = 0;

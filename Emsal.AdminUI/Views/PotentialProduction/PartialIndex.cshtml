@@ -29,7 +29,7 @@
                         <div class="table-responsive">
                             <table class="table table-hover table-striped table-bordered">
                                 <tbody>
-                                    @foreach (var item in Model.PagingDetail)
+                                    @foreach (var item in Model.ProductionDetailList)
                                     {
                                         <tr>
                                             @if (Model.isMain == 0)
@@ -88,8 +88,8 @@
                         </div>
                     </div>
                     <div class="box-footer clearfix">
-                        Səhifə @(Model.PagingDetail.PageCount < Model.PagingDetail.PageNumber ? 0 : Model.PagingDetail.PageNumber) (cəmi @Model.PagingDetail.PageCount)
-                        @Html.PagedListPager(Model.PagingDetail, page => Url.Action("Index", new { page, statusEV = Model.statusEV, productName=Model.productName, userInfo=Model.userInfo }))
+                        Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
+                        @Html.PagedListPager(Model.PagingT, page => Url.Action("Index", new { page, statusEV = Model.statusEV, productName=Model.productName, userInfo=Model.userInfo }))
                     </div>
 
 
