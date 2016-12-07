@@ -246,5 +246,82 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
+
+        public ActionResult Edit(int id)
+        {
+            try
+            {
+
+                baseInput = new BaseInput();
+
+                modelAnnouncement = new AnnouncementViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelAnnouncement.Admin);
+                baseInput.userName = modelAnnouncement.Admin.Username;
+
+                modelAnnouncement.EnumValue = new tblEnumValue();
+
+                BaseOutput bouput = srv.WS_GetAnnouncementById(baseInput, id, true, out modelAnnouncement.Announcement);
+
+                modelAnnouncement.Id = modelAnnouncement.Announcement.Id;
+                modelAnnouncement.productName = modelAnnouncement.Announcement.product_name;
+                modelAnnouncement.uPrice = (modelAnnouncement.Announcement.unit_price.ToString()).Replace(',', '.');  
+
+                return View(modelAnnouncement);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Edit(AnnouncementViewModel model, FormCollection collection)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out model.Admin);
+                baseInput.userName = model.Admin.Username;
+
+                modelAnnouncement = new AnnouncementViewModel();
+                modelAnnouncement.Announcement = new tblAnnouncement();
+
+                BaseOutput bouput = srv.WS_GetAnnouncementById(baseInput, model.Id, true, out modelAnnouncement.Announcement);
+
+                modelAnnouncement.Announcement.unit_price = Convert.ToDecimal(model.uPrice.Replace('.', ','));
+                modelAnnouncement.Announcement.unit_priceSpecified = true;
+
+                BaseOutput ecout = srv.WS_UpdateAnnouncement(baseInput, modelAnnouncement.Announcement, out modelAnnouncement.Announcement);
+
+                return RedirectToAction("Approv", "Announcement");
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
     }
 }
