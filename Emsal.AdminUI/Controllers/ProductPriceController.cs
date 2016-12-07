@@ -134,7 +134,6 @@ namespace Emsal.AdminUI.Controllers
                     }
 
                     return RedirectToAction("Approv", "ProductPrice", new { year = model.year, rub = model.rub });
-
                 }
                 else
                 {

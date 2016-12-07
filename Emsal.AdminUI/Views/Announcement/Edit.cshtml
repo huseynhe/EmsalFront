@@ -1,0 +1,38 @@
+﻿@model Emsal.AdminUI.Models.AnnouncementViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>&nbsp;</h2>
+
+<div class="col-md-6 col-md-offset-3">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">@Model.productName</h3>
+        </div>
+      @using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+           @Html.HiddenFor(model => model.Announcement.Id)
+
+            <div class="box-body">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.uPrice, htmlAttributes: new { @class = "control-label" })
+                        @*@Html.EditorFor(model => model.uPrice, new { htmlAttributes = new { @class = "form-control" } })*@
+                        <input step="0.01" min="0.001" required="" value="@Model.uPrice" class="form-control" placeholder="4 və ya 0.3" name="uPrice" id="uPrice" type="number">
+                        @Html.ValidationMessageFor(model => model.uPrice, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <input type="submit" value="Təsdiqləyin" class="btn btn-primary active" style="float:right;" />
+            </div>
+}
+    </div>
+</div>
