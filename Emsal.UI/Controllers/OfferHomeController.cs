@@ -117,10 +117,14 @@ namespace Emsal.UI.Controllers
 
                     if (sfv != null)
                     {
-                        modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailList.Where(x => x.voen.ToLower() == sfv).ToList();
+                        modelProductCatalog.ProductionDetailListFV = modelProductCatalog.ProductionDetailList.ToList();
 
-                        if(modelProductCatalog.ProductionDetailList==null)
+                        modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailListFV.Where(x => x.voen.ToLower() == sfv).ToList();
+
+                        if(modelProductCatalog.ProductionDetailList == null || modelProductCatalog.ProductionDetailList.Count == 0)
                         {
+                            modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailListFV.Where(x=>x.person!=null).ToList();
+                            
                             modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailList.Where(x => x.person.PinNumber.ToLower() == sfv).ToList();
                         }                        
                     }
