@@ -69,7 +69,10 @@
                         <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Əməliyyatlar <span class='caret'></span></button>
                         <ul class='dropdown-menu'>
                             <li><a href='/SpecialSummary/DeleteOfferProduction?Id=@item.ProductId'>sil</a></li>
+                            @if (item.monitoring_ev_id != 41)
+                            {
                             <li><a href='/OfferProduction/edit/@item.ProductId'>Düzəliş et</a></li>
+                            }
                             <li role='separator' class='divider'></li>
                             <li><a href=''>Qeyd</a></li>
                         </ul>
