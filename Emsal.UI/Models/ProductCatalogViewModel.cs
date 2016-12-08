@@ -56,6 +56,7 @@ namespace Emsal.UI.Models
 
         public ProductionDetail ProductionDetail;
         public IList<ProductionDetail> ProductionDetailList { get; set; }
+        public IList<ProductionDetail> ProductionDetailListFV { get; set; }
         public ProductionDetail[] ProductionDetailArray;
 
         public tblPotential_Production PotentialProduction;
