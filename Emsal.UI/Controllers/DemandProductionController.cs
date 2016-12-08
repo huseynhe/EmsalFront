@@ -954,6 +954,8 @@ namespace Emsal.UI.Controllers
                     modelDemandProduction.DemandProduction.address_Id = modelDemandProduction.ProductAddress.Id;
                     modelDemandProduction.DemandProduction.address_IdSpecified = true;
 
+                    modelDemandProduction.DemandProduction.isNew = 1;
+                    modelDemandProduction.DemandProduction.isNewSpecified = true;
 
                     BaseOutput app = srv.WS_AddDemand_Production(baseInput, modelDemandProduction.DemandProduction, out modelDemandProduction.DemandProduction);
 

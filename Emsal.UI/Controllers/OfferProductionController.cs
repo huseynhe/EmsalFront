@@ -814,6 +814,9 @@ namespace Emsal.UI.Controllers
                 modelOfferProduction.OfferProduction.productOrigin = model.productOriginId;
                 modelOfferProduction.OfferProduction.productOriginSpecified = true;
 
+                modelOfferProduction.OfferProduction.isNew = 1;
+                modelOfferProduction.OfferProduction.isNewSpecified = true;
+
                 BaseOutput app = srv.WS_AddOffer_Production(baseInput, modelOfferProduction.OfferProduction, out modelOfferProduction.OfferProduction);
 
                 if (model.price != null)
