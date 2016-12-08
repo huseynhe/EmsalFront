@@ -13,6 +13,7 @@ using System.IO;
 using WordDoc.Models;
 using Microsoft.Win32;
 using WebBarCodec.Core;
+using System.Net.Mail;
 
 namespace Emsal.UI.Controllers
 {
@@ -192,6 +193,40 @@ namespace Emsal.UI.Controllers
                         modelOfferMonitoring.ComMessage.Production_type_eV_IdSpecified = true;
 
                         BaseOutput acm = srv.WS_AddComMessage(baseInput, modelOfferMonitoring.ComMessage, out modelOfferMonitoring.ComMessage);
+
+
+                        try
+                        {
+                            string sn = "";
+                            string pr = "";
+                            BaseOutput muser = srv.WS_GetUserById(baseInput, (long)modelOfferMonitoring.OfferProduction.user_Id, true, out modelOfferMonitoring.User);
+
+                            BaseOutput person = srv.WS_GetPersonByUserId(baseInput, modelOfferMonitoring.User.Id, true, out modelOfferMonitoring.Person);
+
+                            BaseOutput product = srv.WS_GetProductCatalogsById(baseInput, (int)modelOfferMonitoring.OfferProduction.product_Id, true, out modelOfferMonitoring.ProductCatalog);
+
+                            if (modelOfferMonitoring.ProductCatalog != null)
+                            {
+                                pr = modelOfferMonitoring.ProductCatalog.ProductName;
+                            }
+
+                            if (modelOfferMonitoring.Person != null)
+                            {
+                                sn = modelOfferMonitoring.Person.Surname + " " + modelOfferMonitoring.Person.Name;
+                            }
+
+                            MailMessage msg = new MailMessage();
+
+                            msg.To.Add(modelOfferMonitoring.User.Email);
+                            msg.Subject = "Təklifin təsdiqi";
+
+                            msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalı vasitəsi ilə " + pr + " bağlı verdiyiniz təklif Ərzaq məhsullarının tədarükü və təchizatı Açıq Səhmdar Cəmiyyəti tərəfindən təsdiq etdilmişdir. Öz təklifinizi portalda təkliflər bölməsində yoxlaya bilərsiniz. <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+
+                            msg.IsBodyHtml = true;
+
+                            Mail.SendMail(msg);
+                        }
+                        catch { }
                     }
                 }
 
@@ -300,6 +335,52 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput acm = srv.WS_AddComMessage(baseInput, model.ComMessage, out model.ComMessage);
 
+
+                try
+                {
+                    modelOfferMonitoring = new OfferMonitoringViewModel();
+
+                    string sn = "";
+                    string pr = "";
+                    BaseOutput muser = srv.WS_GetUserById(baseInput, (long)model.OfferProduction.user_Id, true, out modelOfferMonitoring.User);
+
+                    BaseOutput person = srv.WS_GetPersonByUserId(baseInput, modelOfferMonitoring.User.Id, true, out modelOfferMonitoring.Person);
+
+                    BaseOutput product = srv.WS_GetProductCatalogsById(baseInput, (int)model.OfferProduction.product_Id, true, out modelOfferMonitoring.ProductCatalog);
+
+                    if (modelOfferMonitoring.ProductCatalog != null)
+                    {
+                        pr = modelOfferMonitoring.ProductCatalog.ProductName;
+                    }
+
+                    if (modelOfferMonitoring.Person != null)
+                    {
+                        sn = modelOfferMonitoring.Person.Surname + " " + modelOfferMonitoring.Person.Name;
+                    }
+
+                    MailMessage msg = new MailMessage();
+
+                    msg.To.Add(modelOfferMonitoring.User.Email);
+
+                    if (model.OfferProduction.monitoring_eV_Id == 41)
+                    {
+                        msg.Subject = "Təklifə imtina edilməsi";
+
+                        msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalı vasitəsi ilə " + pr + " bağlı verdiyiniz təklif Ərzaq məhsullarının tədarükü və təchizatı Açıq Səhmdar Cəmiyyəti tərəfindən imtina edilmişdir. Həmin təklifə şəxsi səhifənizdə <b>Yararsız sayılan təkliflər</b> bölməsinə daxil olaraq görə bilərsiniz.<br/>İmtinanın səbəbi: " + model.ComMessage.message + " <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+                    }
+                    else if (model.OfferProduction.monitoring_eV_Id == 10117)
+                    {
+                        msg.Subject = "Təklifə düzəliş edilməsi";
+
+                        msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalı vasitəsi ilə " + pr + " bağlı verdiyiniz təklif Ərzaq məhsullarının tədarükü və təchizatı Açıq Səhmdar Cəmiyyəti tərəfindən düzəliş üçün yenidən Sizə qaytarılmışdır. Həmin təklifə şəxsi səhifənizdə <b>Yararsız sayılan təkliflər</b> bölməsinə daxil olaraq düzəliş edə bilərsiniz.<br/>Düzəlişin səbəbi: " + model.ComMessage.message + " <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+                    }
+                    msg.IsBodyHtml = true;
+
+                    Mail.SendMail(msg);
+                }
+                catch { }
+
+
                 if (model.attachfiles != null)
                 {
                     baseInput = new BaseInput();
@@ -386,7 +467,7 @@ namespace Emsal.UI.Controllers
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (nameSurnameFathername == null && pin == null && isApprov==false && isSeller==false)
+                if (nameSurnameFathername == null && pin == null && isApprov == false && isSeller == false)
                 {
                     snameSurnameFathername = null;
                     spin = null;
@@ -441,9 +522,9 @@ namespace Emsal.UI.Controllers
                     modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.contractID > 0).ToList();
                 }
 
-                if(sisSeller==true)
+                if (sisSeller == true)
                 {
-                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.roleID==11).ToList();
+                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.roleID == 11).ToList();
                 }
                 else
                 {
@@ -809,7 +890,7 @@ namespace Emsal.UI.Controllers
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferMonitoring.EnumValue);
 
                 BaseOutput gpbuid = srv.WS_GetPersonById(baseInput, (long)modelOfferMonitoring.Contract.SupplierUserID, true, out modelOfferMonitoring.Person);
-                
+
                 BaseOutput fop = srv.WS_GetOffer_ProductionsByUserID(baseInput, (long)modelOfferMonitoring.Person.UserId, true, out modelOfferMonitoring.OfferProductionArray);
 
                 if (modelOfferMonitoring.OfferProductionArray != null)
@@ -821,7 +902,7 @@ namespace Emsal.UI.Controllers
                     modelOfferMonitoring.OfferProductionList = new List<tblOffer_Production>();
                 }
 
-                modelOfferMonitoring.OfferProductionList = modelOfferMonitoring.OfferProductionList.Where(x => x.contractId ==id).Where(x => x.monitoring_eV_Id == modelOfferMonitoring.EnumValue.Id).ToList();
+                modelOfferMonitoring.OfferProductionList = modelOfferMonitoring.OfferProductionList.Where(x => x.contractId == id).Where(x => x.monitoring_eV_Id == modelOfferMonitoring.EnumValue.Id).ToList();
 
                 foreach (var item in modelOfferMonitoring.OfferProductionList)
                 {

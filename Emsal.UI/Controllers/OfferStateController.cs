@@ -10,6 +10,7 @@ using PagedList;
 using Emsal.UI.Infrastructure;
 using Emsal.Utility.CustomObjects;
 using System.IO;
+using System.Net.Mail;
 
 namespace Emsal.UI.Controllers
 {
@@ -186,6 +187,42 @@ namespace Emsal.UI.Controllers
                         modelOfferState.ComMessage.Production_type_eV_IdSpecified = true;
 
                         BaseOutput acm = srv.WS_AddComMessage(baseInput, modelOfferState.ComMessage, out modelOfferState.ComMessage);
+
+
+
+                        try
+                        {
+                            string sn = "";
+                            string pr = "";
+                            BaseOutput muser = srv.WS_GetUserById(baseInput, (long)modelOfferState.OfferProduction.user_Id, true, out modelOfferState.User);
+
+                            BaseOutput person = srv.WS_GetPersonByUserId(baseInput, modelOfferState.User.Id, true, out modelOfferState.Person);
+
+                            BaseOutput product = srv.WS_GetProductCatalogsById(baseInput, (int)modelOfferState.OfferProduction.product_Id, true, out modelOfferState.ProductCatalog);
+
+                            if (modelOfferState.ProductCatalog != null)
+                            {
+                                pr = modelOfferState.ProductCatalog.ProductName;
+                            }
+
+                            if (modelOfferState.Person != null)
+                            {
+                                sn = modelOfferState.Person.Surname + " " + modelOfferState.Person.Name;
+                            }
+
+                            MailMessage msg = new MailMessage();
+
+                            msg.To.Add(modelOfferState.User.Email);
+                            msg.Subject = "Təklifin təsdiqi";
+
+                            msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalı vasitəsi ilə "+pr+ " bağlı verdiyiniz təklif Kənd Təsərrüfatı Nazirliyi tərəfindən təsdiq etdilmişdir. Öz təklifinizi portalda təkliflər bölməsində yoxlaya bilərsiniz. <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+
+                            msg.IsBodyHtml = true;
+
+                            Mail.SendMail(msg);
+                        }
+                        catch { }
+
                     }
                 }
 
@@ -282,6 +319,41 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput acm = srv.WS_AddComMessage(baseInput, model.ComMessage, out model.ComMessage);
 
+
+                try
+                {
+                    modelOfferState = new OfferStateViewModel();
+
+                    string sn = "";
+                    string pr = "";
+                    BaseOutput muser = srv.WS_GetUserById(baseInput, (long)model.OfferProduction.user_Id, true, out modelOfferState.User);
+
+                    BaseOutput person = srv.WS_GetPersonByUserId(baseInput, modelOfferState.User.Id, true, out modelOfferState.Person);
+
+                    BaseOutput product = srv.WS_GetProductCatalogsById(baseInput, (int)model.OfferProduction.product_Id, true, out modelOfferState.ProductCatalog);
+
+                    if (modelOfferState.ProductCatalog != null)
+                    {
+                        pr = modelOfferState.ProductCatalog.ProductName;
+                    }
+
+                    if (modelOfferState.Person != null)
+                    {
+                        sn = modelOfferState.Person.Surname + " " + modelOfferState.Person.Name;
+                    }
+
+                    MailMessage msg = new MailMessage();
+
+                    msg.To.Add(modelOfferState.User.Email);
+                    msg.Subject = "Təklifə düzəliş edilməsi";
+
+                    msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalı vasitəsi ilə " + pr + " bağlı verdiyiniz təklif Kənd Təsərrüfatı Nazirliyi tərəfindən düzəliş üçün yenidən Sizə qaytarılmışdır. Həmin təklifə şəxsi səhifənizdə <b>Yararsız sayılan təkliflər</b> bölməsinə daxil olaraq düzəliş edə bilərsiniz.<br/>Düzəlişin səbəbi: "+ model.ComMessage.message+" <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+
+                    msg.IsBodyHtml = true;
+
+                    Mail.SendMail(msg);
+                }
+                catch { }
 
 
                 if (model.attachfiles != null)

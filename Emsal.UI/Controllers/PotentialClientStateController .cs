@@ -9,6 +9,7 @@ using System.Web.Security;
 using PagedList;
 using Emsal.UI.Infrastructure;
 using Emsal.Utility.CustomObjects;
+using System.Net.Mail;
 
 namespace Emsal.UI.Controllers
 {
@@ -155,6 +156,32 @@ namespace Emsal.UI.Controllers
 
                         BaseOutput updateUserRole = srv.WS_UpdateUserRole(baseInput, modelPotentialClientState.UserRole, out modelPotentialClientState.UserRole);
 
+                       
+                        try
+                        {
+                            string sn = "";
+                            BaseOutput muser = srv.WS_GetUserById(baseInput, ids[i], true, out modelPotentialClientState.User);
+                            BaseOutput person = srv.WS_GetPersonByUserId(baseInput, ids[i], true, out modelPotentialClientState.Person);
+
+                            if (modelPotentialClientState.Person!=null)
+                            {
+                                sn = modelPotentialClientState.Person.Surname + " " + modelPotentialClientState.Person.Name;
+                            }
+
+                            MailMessage msg = new MailMessage();
+
+                            msg.To.Add(modelPotentialClientState.User.Email);
+                            msg.Subject = "Potensial istehsalçının təsdiqi";
+
+                            msg.Body = "<b>Hörmətli "+ sn + " </b><br/><br/> Siz Kənd Təsərrüfatı Nazirliyi tərəfindən <b>potensial istehsalçı</b> kimi təsdiq edildiniz.<br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+
+                            msg.IsBodyHtml = true;
+
+                            Mail.SendMail(msg);
+                        }
+                        catch { }
+
+
                         //BaseOutput gop = srv.WS_GetOffer_ProductionsByUserID(baseInput, ids[i], true, out modelPotentialClientState.Offer_ProductionArray);
 
                         //if (modelPotentialClientState.Offer_ProductionArray != null)
@@ -212,6 +239,31 @@ namespace Emsal.UI.Controllers
                 }
 
                 BaseOutput updateUserRole = srv.WS_UpdateUserRole(baseInput, modelPotentialClientState.UserRole, out modelPotentialClientState.UserRole);
+
+
+                try
+                {
+                    string sn = "";
+                    BaseOutput muser = srv.WS_GetUserById(baseInput, id, true, out modelPotentialClientState.User);
+                    BaseOutput person = srv.WS_GetPersonByUserId(baseInput, id, true, out modelPotentialClientState.Person);
+
+                    if (modelPotentialClientState.Person != null)
+                    {
+                        sn = modelPotentialClientState.Person.Surname + " " + modelPotentialClientState.Person.Name;
+                    }
+
+                    MailMessage msg = new MailMessage();
+
+                    msg.To.Add(modelPotentialClientState.User.Email);
+                    msg.Subject = "İdxalçının təsdiqi";
+
+                    msg.Body = "<b>Hörmətli " + sn + " </b><br/><br/> Siz <b>tedaruk.az</b> portalından <b>potensial istehsalçı</b> kimi qeydiyyatdan keçmişdiniz. Kənd Təsərrüfatı Nazirliyi Sizin müraciəti araşdırdıqdan sonra məlum oldu ki, Siz <b>potensial istehsalçı</b> deyilsiniz. Ona görə də, Kənd Təsərrüfatı Nazirliyi Sizi <b>idxalçı</b> kimi təsdiq etdi.<br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+
+                    msg.IsBodyHtml = true;
+
+                    Mail.SendMail(msg);
+                }
+                catch { }
 
 
                 return RedirectToAction("Index", "PotentialClientState");
