@@ -1105,12 +1105,27 @@ namespace Emsal.AdminUI.Controllers
         {
             Session["arrONum"] = null;
 
+            
+                
+
             binput = new BaseInput();
             Organisation modelUser = new Organisation();
 
             //update user
-            BaseOutput userOut = srv.WS_GetUserById(binput, userId, true, out modelUser.User);
 
+            BaseOutput userOut = srv.WS_GetUserById(binput, userId, true, out modelUser.User);
+            BaseOutput personOut = srv.WS_GetPersonByUserId(binput, userId, true, out modelUser.Person);
+            if (form.Status == 0)
+            {
+                BaseOutput userDelete = srv.WS_DeleteUser(binput, modelUser.User);
+
+                
+                BaseOutput personDelete = srv.WS_DeletePerson(binput, modelUser.Person);
+
+                return RedirectToAction("Individuals", "GovernmentOrganisation");
+            }
+
+            
             modelUser.User.Username = form.UserName;
             modelUser.User.Password = BCrypt.Net.BCrypt.HashPassword(form.Password, 5);
             modelUser.User.Email = form.Email;
@@ -1118,7 +1133,7 @@ namespace Emsal.AdminUI.Controllers
             modelUser.User.KTN_ID = form.KTNId;
             BaseOutput updateUserOut = srv.WS_UpdateUser(binput, modelUser.User, out modelUser.User);
 
-            BaseOutput personOut = srv.WS_GetPersonByUserId(binput, userId, true, out modelUser.Person);
+            //BaseOutput personOut = srv.WS_GetPersonByUserId(binput, userId, true, out modelUser.Person);
 
             //update address
             if (modelUser.Person.address_Id != null)
@@ -1164,7 +1179,7 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput communicationsOut = srv.WS_GetCommunications(binput, out modelUser.CommunicationInformationsArray);
             modelUser.CommunicationInformationsList = modelUser.CommunicationInformationsArray.Where(x => x.PersonId == modelUser.Person.Id).ToList();
 
-            foreach (var item in modelUser.CommunicationInformationsArray)
+            foreach (var item in modelUser.CommunicationInformationsList)
             {
                 if (item.comType == 10120)
                 {
@@ -1275,8 +1290,17 @@ namespace Emsal.AdminUI.Controllers
         {
             binput = new BaseInput();
             Organisation modelUser = new Organisation();
-
             BaseOutput organisationOut = srv.WS_GetForeign_OrganizationById(binput, organisationId, true, out modelUser.ForeignOrganisation);
+
+            if (form.Status == 0)
+            {
+                BaseOutput userOut = srv.WS_GetUserById(binput, userId, true, out modelUser.User);
+                BaseOutput userDeteleteOut = srv.WS_DeleteUser(binput, modelUser.User);
+                BaseOutput foreDeleteOut = srv.WS_DeleteForeign_Organization(binput, modelUser.ForeignOrganisation);
+
+                return RedirectToAction("Organisations", "GovernmentOrganisation");
+            }
+                    
 
             modelUser.ForeignOrganisation.name = form.Name;
             modelUser.ForeignOrganisation.voen = form.Voen;
@@ -1541,7 +1565,13 @@ namespace Emsal.AdminUI.Controllers
                     }
                 }
 
+                //if (modelUser.ForeignOrganisation == null)
+                //{
+                //    return null;
+                //}
+
                 modelUser.GovernmentOrganisation.OrganisationName = modelUser.ForeignOrganisation.name;
+
                 modelUser.GovernmentOrganisation.Email = item.Email;
                 modelUser.GovernmentOrganisation.Id = item.Id;
 
