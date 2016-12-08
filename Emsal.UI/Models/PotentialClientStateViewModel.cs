@@ -26,6 +26,8 @@ namespace Emsal.UI.Models
         public IList<tblUserRole> UserRoleList { get; set; }
         public tblUserRole[] UserRoleArray;
 
+        public tblPerson Person;
+
         public tblPotential_Production PotentialProduction;
         public IList<tblPotential_Production> PotentialProductionList { get; set; }
         public IList<tblPotential_Production> SelectedPotentialProductionList { get; set; }
