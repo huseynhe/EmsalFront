@@ -408,15 +408,21 @@ namespace Emsal.UI.Controllers
 
                     msg.IsBodyHtml = true;
 
-                    
+                    try
+                    {
 
-                    if (Mail.SendMail(msg))
-                    {
-                        TempData["Message"] = "Email göndərildi.";
+                        if (Mail.SendMail(msg))
+                        {
+                            TempData["Message"] = "Email göndərildi.";
+                        }
+                        else
+                        {
+                            TempData["Message"] = "Email göndərilmədi.";
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        TempData["Message"] = "Email göndərilmədi.";
+
                     }
 
                     TempData["personSignUp"] = "success";

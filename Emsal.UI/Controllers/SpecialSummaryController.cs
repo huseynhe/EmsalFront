@@ -602,10 +602,11 @@ namespace Emsal.UI.Controllers
                         modelSpecial.SpOffer.DemandCalendar.quantity = itemm.quantity != null ? itemm.quantity.ToString() : null;
                         modelSpecial.SpOffer.DemandCalendar.price = itemm.price.ToString();
 
-
+                        
                         modelSpecial.SpOffer.DemandCalendarList.Add(modelSpecial.SpOffer.DemandCalendar);
                     }
 
+                    modelSpecial.SpOffer.monitoring_ev_id = (long)item.monitoring_eV_Id;
                     modelSpecial.SpOfferList.Add(modelSpecial.SpOffer);
 
                     tblOffer_Production mtbl = new tblOffer_Production();
