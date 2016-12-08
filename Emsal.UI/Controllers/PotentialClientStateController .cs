@@ -173,7 +173,7 @@ namespace Emsal.UI.Controllers
                             msg.To.Add(modelPotentialClientState.User.Email);
                             msg.Subject = "Potensial istehsalçının təsdiqi";
 
-                            msg.Body = "<b>Hörmətli "+ sn + " </b><br/><br/> Siz Kənd Təsərrüfatı Nazirliyi tərəfindən <b>potensial istehsalçı</b> kimi təsdiq edildiniz.<br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+                            msg.Body = "<b>Hörmətli "+ sn + ", </b><br/><br/> Siz Kənd Təsərrüfatı Nazirliyi tərəfindən <b>potensial istehsalçı</b> kimi təsdiq edildiniz.<br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
 
                             msg.IsBodyHtml = true;
 
