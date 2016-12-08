@@ -56,6 +56,13 @@ namespace Emsal.AdminUI.Models
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         public string unitPrice { get; set; }
 
+
+        [Display(Name = "Qiyməti")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public string uPrice { get; set; }
+
+        public long Id { get; set; }
+
         [Display(Name = "Başlama tarixi")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
