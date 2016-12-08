@@ -207,7 +207,7 @@ namespace Emsal.UI.Controllers
                 {
                     BaseOutput gap = srv.WS_GetAnnouncementDetails(baseInput, out modelProductCatalog.AnnouncementDetailArray);
 
-                    modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailArray.Where(x => x.announcementDetail.announcement.product_name.ToLower().Contains(value) || x.parentName.ToLower().Contains(value)).ToList();
+                    modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailArray.Where(x => x.productName.ToLower().Contains(value) || x.parentName.ToLower().Contains(value)).ToList();
                 }
 
                 if (modelProductCatalog.AnnouncementDetailList != null)
@@ -272,7 +272,7 @@ namespace Emsal.UI.Controllers
                     modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailArray.ToList();
                 }
 
-                modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailList.OrderBy(x => x.parentName).ThenBy(x => x.announcementDetail.parentName).ThenBy(x => x.announcementDetail.announcement.product_name).ToList();
+                modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailList.OrderBy(x => x.parentName).ThenBy(x => x.productName).ToList();
 
 
                 modelProductCatalog.Paging = modelProductCatalog.AnnouncementDetailList.ToPagedList(pageNumber, pageSize);
