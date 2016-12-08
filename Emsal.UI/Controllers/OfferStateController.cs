@@ -215,7 +215,7 @@ namespace Emsal.UI.Controllers
                             msg.To.Add(modelOfferState.User.Email);
                             msg.Subject = "Təklifin təsdiqi";
 
-                            msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalı vasitəsi ilə "+pr+ " bağlı verdiyiniz təklif Kənd Təsərrüfatı Nazirliyi tərəfindən təsdiq etdilmişdir. Öz təklifinizi portalda təkliflər bölməsində yoxlaya bilərsiniz. <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+                            msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalında "+pr+ " məhsulu ilə bağlı verdiyiniz təklif Kənd Təsərrüfatı Nazirliyi tərəfindən təsdiq etdilmişdir. Öz təklifinizi portalda təkliflər bölməsində yoxlaya bilərsiniz. <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
 
                             msg.IsBodyHtml = true;
 
@@ -347,7 +347,7 @@ namespace Emsal.UI.Controllers
                     msg.To.Add(modelOfferState.User.Email);
                     msg.Subject = "Təklifə düzəliş edilməsi";
 
-                    msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalı vasitəsi ilə " + pr + " bağlı verdiyiniz təklif Kənd Təsərrüfatı Nazirliyi tərəfindən düzəliş üçün yenidən Sizə qaytarılmışdır. Həmin təklifə şəxsi səhifənizdə <b>Yararsız sayılan təkliflər</b> bölməsinə daxil olaraq düzəliş edə bilərsiniz.<br/>Düzəlişin səbəbi: "+ model.ComMessage.message+" <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+                    msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalında " + pr + " məhsulu ilə bağlı verdiyiniz təklif Kənd Təsərrüfatı Nazirliyi tərəfindən düzəliş üçün yenidən Sizə qaytarılmışdır. Həmin təklifə şəxsi səhifənizdə <b>Yararsız sayılan təkliflər</b> bölməsinə daxil olaraq düzəliş edə bilərsiniz.<br/>Düzəlişin səbəbi: " + model.ComMessage.message+" <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
 
                     msg.IsBodyHtml = true;
 
@@ -379,6 +379,7 @@ namespace Emsal.UI.Controllers
 
                     foreach (var attachfile in model.attachfiles)
                     {
+                        if (attachfile != null) { 
                         string fre = FileExtension.GetMimeType(attachfile.InputStream, attachfile.FileName);
 
                         if (attachfile != null && attachfile.ContentLength > 0 && attachfile.ContentLength <= modelOfferState.fileSize && modelOfferState.fileTypes.Contains(fre))
@@ -414,6 +415,7 @@ namespace Emsal.UI.Controllers
                             BaseOutput apd = srv.WS_AddComMessageAttachment(baseInput, modelOfferState.ComMessageAttachment, out modelOfferState.ComMessageAttachment);
                         }
                     }
+                }
                 }
 
 

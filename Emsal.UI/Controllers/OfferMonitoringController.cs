@@ -220,7 +220,7 @@ namespace Emsal.UI.Controllers
                             msg.To.Add(modelOfferMonitoring.User.Email);
                             msg.Subject = "Təklifin təsdiqi";
 
-                            msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalı vasitəsi ilə " + pr + " bağlı verdiyiniz təklif Ərzaq məhsullarının tədarükü və təchizatı Açıq Səhmdar Cəmiyyəti tərəfindən təsdiq etdilmişdir. Öz təklifinizi portalda təkliflər bölməsində yoxlaya bilərsiniz. <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+                            msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalında " + pr + " məhsulu ilə bağlı verdiyiniz təklif Ərzaq məhsullarının tədarükü və təchizatı Açıq Səhmdar Cəmiyyəti tərəfindən təsdiq etdilmişdir. Öz təklifinizi portalda təkliflər bölməsində yoxlaya bilərsiniz. <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
 
                             msg.IsBodyHtml = true;
 
@@ -366,13 +366,13 @@ namespace Emsal.UI.Controllers
                     {
                         msg.Subject = "Təklifə imtina edilməsi";
 
-                        msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalı vasitəsi ilə " + pr + " bağlı verdiyiniz təklif Ərzaq məhsullarının tədarükü və təchizatı Açıq Səhmdar Cəmiyyəti tərəfindən imtina edilmişdir. Həmin təklifə şəxsi səhifənizdə <b>Yararsız sayılan təkliflər</b> bölməsinə daxil olaraq görə bilərsiniz.<br/>İmtinanın səbəbi: " + model.ComMessage.message + " <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+                        msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalında " + pr + " məhsulu ilə bağlı verdiyiniz təklif Ərzaq məhsullarının tədarükü və təchizatı Açıq Səhmdar Cəmiyyəti tərəfindən imtina edilmişdir. Həmin təklifə şəxsi səhifənizdə <b>Yararsız sayılan təkliflər</b> bölməsinə daxil olaraq görə bilərsiniz.<br/>İmtinanın səbəbi: " + model.ComMessage.message + " <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
                     }
                     else if (model.OfferProduction.monitoring_eV_Id == 10117)
                     {
                         msg.Subject = "Təklifə düzəliş edilməsi";
 
-                        msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalı vasitəsi ilə " + pr + " bağlı verdiyiniz təklif Ərzaq məhsullarının tədarükü və təchizatı Açıq Səhmdar Cəmiyyəti tərəfindən düzəliş üçün yenidən Sizə qaytarılmışdır. Həmin təklifə şəxsi səhifənizdə <b>Yararsız sayılan təkliflər</b> bölməsinə daxil olaraq düzəliş edə bilərsiniz.<br/>Düzəlişin səbəbi: " + model.ComMessage.message + " <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+                        msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalında " + pr + " məhsulu ilə bağlı verdiyiniz təklif Ərzaq məhsullarının tədarükü və təchizatı Açıq Səhmdar Cəmiyyəti tərəfindən düzəliş üçün yenidən Sizə qaytarılmışdır. Həmin təklifə şəxsi səhifənizdə <b>Yararsız sayılan təkliflər</b> bölməsinə daxil olaraq düzəliş edə bilərsiniz.<br/>Düzəlişin səbəbi: " + model.ComMessage.message + " <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
                     }
                     msg.IsBodyHtml = true;
 
