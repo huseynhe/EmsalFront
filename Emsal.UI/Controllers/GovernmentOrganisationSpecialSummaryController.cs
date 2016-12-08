@@ -13,6 +13,8 @@ using System.Text.RegularExpressions;
 using Emsal.Utility.UtilityObjects;
 using Emsal.WebInt.IAMAS;
 using System.Net.Mail;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace Emsal.UI.Controllers
 {
@@ -30,7 +32,7 @@ namespace Emsal.UI.Controllers
         SpecialSummaryViewModel modelSpecial;
         List<tblDemand_Production> result;
 
-        public ActionResult Index(int? page, long? UserId, string productName = null)
+        public ActionResult Index(int? page, long? UserId, string productName = null, bool excell = false)
         {
             binput = new BaseInput();
             modelSpecial = new SpecialSummaryViewModel();
@@ -67,6 +69,14 @@ namespace Emsal.UI.Controllers
 
             BaseOutput demand = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
             modelSpecial.DemandProductionList = modelSpecial.DemandProductionArray.ToList();
+
+            if (excell)
+            {
+                ToExcel(modelSpecial);
+
+                return null;
+            }
+
             modelSpecial.offerCount = modelSpecial.DemandProductionList.Count;
             modelSpecial.PagingProduction = modelSpecial.DemandProductionList.ToPagedList(pageNumber, pageSize);
 
@@ -212,6 +222,81 @@ namespace Emsal.UI.Controllers
             return Request.IsAjaxRequest()
  ? (ActionResult)PartialView("PartialIndex", modelSpecial)
  : View(modelSpecial);
+        }
+
+        public void ToExcel(SpecialSummaryViewModel model)
+        {
+
+            using (var excelPackage = new ExcelPackage())
+            {
+                excelPackage.Workbook.Properties.Author = "tedaruk";
+                excelPackage.Workbook.Properties.Title = "tedaruk.az";
+
+                var sheet = excelPackage.Workbook.Worksheets.Add("sheet");
+                sheet.Name = "sheet";
+
+                var col = 1;
+                sheet.Cells[1, col++].Value = "Sıra №-si";
+                sheet.Row(1).Height = 50;
+                sheet.Row(1).Style.Font.Size = 12;
+                //sheet.Row(1).Style.Font.Bold = true;
+                sheet.Row(1).Style.WrapText = true;
+                sheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                sheet.PrinterSettings.Orientation = eOrientation.Landscape;
+                
+
+                sheet.Cells[1, col++].Value = "Ərzaq məhsullarının adı və səciyyəvi xüsusiyyətləri (növü, qablaşdırılması və s.)";
+                sheet.Cells[1, col++].Value = "Ölçü vahidi";
+                sheet.Cells[1, col++].Value = "Miqdarı";
+                sheet.Cells[1, col++].Value = "Təqdim olunacaq dövr";
+                sheet.Cells[1, col++].Value = "Təqdim olunacaq yer";
+
+                sheet.Column(1).Width = 11.43;
+                sheet.Column(2).Width = 29.86;
+                sheet.Column(3).Width = 22.86;
+                sheet.Column(4).Width = 9.57;
+                sheet.Column(5).Width = 12.71;
+                sheet.Column(6).Width = 16;
+                sheet.Column(7).Width = 19;
+
+                int index = 1;
+                int numb = 0;
+                foreach (var item in model.DemandProductionArray.ToList())
+                {
+                    index++;
+                    var col2 = 1;
+
+                    sheet.Cells[index, col2++].Value = numb++;
+                    
+                    BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out model.ProductCatalog);
+                    sheet.Cells[index, col2++].Value = model.ProductCatalog.ProductName;
+
+                    sheet.Cells[index, col2++].Value = "olchu vahidi";
+
+                    sheet.Cells[index, col2++].Value = model.DemandProduction.quantity;
+
+                    BaseOutput envall = srv.WS_GetEnumValueByName(binput, "Demand", out model.EnumValue);
+                    long envalIdl = model.EnumValue.Id;
+                    BaseOutput calendar = srv.WS_GetProductionCalendarProductionId2(binput, item.Id, true, envalIdl, true, out model.ProductionCalendarArray);
+
+                    string period = "";
+                    foreach (var cal in model.ProductionCalendarArray.ToList())
+                    {
+                        //period = period + cal.
+                    }
+                }
+
+                string fileName = Guid.NewGuid() + ".xls";
+
+                Response.ClearContent();
+                Response.BinaryWrite(excelPackage.GetAsByteArray());
+                Response.AddHeader("content-disposition", "attachment;filename=" + fileName);
+                Response.AppendCookie(new HttpCookie("fileDownloadToken", "1111"));
+                Response.ContentType = "application/excel";
+                Response.Flush();
+                Response.End();
+            }
         }
 
         public ActionResult OnAirDemands(int? page, long? UserID, string productName = null)
