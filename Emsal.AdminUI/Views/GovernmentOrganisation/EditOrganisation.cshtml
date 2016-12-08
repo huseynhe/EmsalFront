@@ -4,12 +4,37 @@
     Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
 }
 
-<div class="col-md-6 col-md-offset-3" style="margin-top:100px;box-shadow:1px 1px 2px 3px #ddd; background-color:white">
-    <br /><br /><br />
+@*<script>
+    function statusChanged() {
+        var status = $("#Status").val();
+        if (status == 1) {
+            $("#sendInfo").attr("id", "sendInfo");
+        }
+        else {
+            $("#sendInfo").removeAttr("id");
+        }
+    }
+</script>*@
 
-    <h3 style="text-align:center">İstifadəçi məlumatlarına düzəliş et</h3><br />
-    @using (Html.BeginForm("EditOrganisation", "GovernmentOrganisation", new { organisationId = Model.ForeignOrganisation == null ? 0: Model.ForeignOrganisation.Id, userId = Model.User == null ? 0: Model.User.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+<div class="col-md-6 col-md-offset-3" style="margin-top:100px;box-shadow:1px 1px 2px 3px #ddd; background-color:white">
+    
+
+
+    
+    @using (Html.BeginForm("EditOrganisation", "GovernmentOrganisation", new { organisationId = Model.ForeignOrganisation == null ? 0 : Model.ForeignOrganisation.Id, userId = Model.User == null ? 0 : Model.User.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
+        <h3 style="text-align:center">Status</h3>
+            <div class="row">
+                <div class="col-lg-3">
+                    <select class="form-control" name="Status" id="Status">
+                        <option value="1">Aktiv et</option>
+                        <option value="0">Passiv et</option>
+                    </select>
+                </div>
+            </div>
+            <br />
+
+            <h3 style="text-align:center">İstifadəçi məlumatlarına düzəliş et</h3><br />
         <div class="form-group">
             @Html.LabelFor(model => model.Name, new { @class = "labelEdit"})
             @Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "username" })
