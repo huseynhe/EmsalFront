@@ -399,12 +399,22 @@ namespace Emsal.UI.Controllers
 
                         modelOfferProduction.ProductCatalogControlList = modelOfferProduction.ProductCatalogControlArray.Where(x => x.Status == 1).Where(x => x.EnumCategoryId != modelOfferProduction.EnumCategory.Id).ToList();
 
-                        BaseOutput pcb = srv.WS_GetProductionControls(baseInput, out modelOfferProduction.ProductionControlArray);
+                        
                         if (opId > 0)
-                            modelOfferProduction.ProductionControlList = modelOfferProduction.ProductionControlArray.Where(x => x.Offer_Production_Id == opId).ToList();
+                        {
+                            BaseOutput pcb = srv.WS_GetProductionControlsByOfferProductionId(baseInput, opId,true, out modelOfferProduction.ProductionControlArray);
 
+                            modelOfferProduction.ProductionControlList = modelOfferProduction.ProductionControlArray.ToList();
+                            //modelOfferProduction.ProductionControlList = modelOfferProduction.ProductionControlArray.Where(x => x.Offer_Production_Id == opId).ToList();
+                        }
                         else if (ppId > 0)
-                            modelOfferProduction.ProductionControlList = modelOfferProduction.ProductionControlArray.Where(x => x.Potential_Production_Id == ppId).ToList();
+                        {
+                            BaseOutput ppcb = srv.WS_GetProductionControlsByPotentialProductionId(baseInput, ppId,true, out modelOfferProduction.ProductionControlArray);
+
+                            modelOfferProduction.ProductionControlList = modelOfferProduction.ProductionControlArray.ToList();
+
+                            //modelOfferProduction.ProductionControlList = modelOfferProduction.ProductionControlArray.Where(x => x.Potential_Production_Id == ppId).ToList();
+                        }
 
 
                         modelOfferProduction.productionControlEVIds = new long[modelOfferProduction.ProductionControlList.Count()];
