@@ -106,6 +106,12 @@
                                         pin: @item.person.PinNumber
                                     </span>
                                 }
+                                <div class="clearfix"></div>
+                               @foreach(var citem in item.personcomList)
+                               {
+                                   <span>tel: @citem.communication</span>
+                               }
+                                <span>e-poçt: @item.email</span>
                             </td>
                             @if (Model.isPDF == false)
                             {
