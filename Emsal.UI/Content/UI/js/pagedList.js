@@ -42,6 +42,8 @@ $(function() {
                 //ChangeUrl('index', url);
                 //$(elem).html(result);
                 $('#AjaxPaginationList').html(result);
+
+                window.scrollTo(0, 0);
             }
         });
         }
