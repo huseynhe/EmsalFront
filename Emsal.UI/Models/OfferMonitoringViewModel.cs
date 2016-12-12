@@ -33,6 +33,10 @@ namespace Emsal.UI.Models
         public IList<tblOffer_Production> OfferProductionList { get; set; }
         public tblOffer_Production[] OfferProductionArray;
 
+        public ProductCatalogDetail ProductCatalogDetail;
+        public IList<ProductCatalogDetail> ProductCatalogDetailList { get; set; }
+        public ProductCatalogDetail[] ProductCatalogDetailArray;
+
         public ProductionDetail ProductionDetail;
         public IList<ProductionDetail> ProductionDetailList { get; set; }
         public ProductionDetail[] ProductionDetailArray;
