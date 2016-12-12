@@ -39,18 +39,28 @@ $(document).ready(function () {
 });
 
 
+function OfferHomeSearch(elem, param) {
+    if (ri == 0 || ri == 2) {
 
-function OfferHomeSearch(elem, value) {
-    $.ajax({
-        url: '/OfferHome/OfferProduction?' + value + '=' + $(elem).val(),
-        type: 'GET',
-        success: function (result) {
-            $('#AjaxPaginationList').html(result);
-        },
-        error: function () {
+        var value = $(elem).val();
+        ri = 1;
 
-        }
-    });
+        $.ajax({
+            url: '/OfferHome/OfferProduction?' + param + '=' + $(elem).val(),
+            type: 'GET',
+            success: function (result) {
+                $('#AjaxPaginationList').html(result);
+
+                ri = 2;
+                if ($(elem).val() != value) {
+                    OfferHomeSearch(elem, param);
+                }
+            },
+            error: function () {
+
+            }
+        });
+    }
 }
 
 function OfferHomeSearchFV() {
@@ -320,22 +330,33 @@ function GetUserInfoBy(addressId, elem) {
     //}
 }
 
-function UserInfoSearch(elem, value)
+function UserInfoSearch(elem, param)
 {
     var au = $('select[name="adId[0]"]');
     GetAdminUnit(au);
     
-    $.ajax({
-        url: '/Home/UserInfo?' + value + '=' + $(elem).val(),
-        type: 'GET',
-        //data: { "pId": appId},
-        success: function (result) {
-            $(elem).parent().parent().parent().parent().parent().find('#AjaxPaginationList').html(result);
-        },
-        error: function () {
+    if (ri == 0 || ri == 2) {
 
-        }
-    });
+        var value = $(elem).val();
+        ri = 1;
+
+        $.ajax({
+            url: '/Home/UserInfo?' + param + '=' + $(elem).val(),
+            type: 'GET',
+            //data: { "pId": appId},
+            success: function (result) {
+                $(elem).parent().parent().parent().parent().parent().find('#AjaxPaginationList').html(result);
+
+                ri = 2;
+                if ($(elem).val() != value) {
+                    UserInfoSearch(elem, param);
+                }
+            },
+            error: function () {
+
+            }
+        });
+    }
 }
 
 var oldpId = 0;
@@ -389,21 +410,32 @@ function GetAnnouncement(productId) {
     });
 };
 
-function searchAnnouncement(elem) {
-    var value = $(elem).val();
 
-    $.ajax({
-        url: '/Home/SearchAnnouncement?value=' + value,
-        type: 'GET',
-        success: function (result) {
-            $('#searchAnnouncementResult').html(result);
-        },
-        error: function () {
+var ri = 0;
 
-        }
-    });
+function searchAnnouncement(elem) { 
+    if (ri == 0 || ri == 2) {
+
+        var value = $(elem).val();
+        ri = 1;
+
+            $.ajax({
+                url: '/Home/SearchAnnouncement?value=' + value,
+                type: 'GET',
+                success: function (result) {
+                    $('#searchAnnouncementResult').html(result);
+                    ri = 2;
+                    if ($(elem).val() != value)
+                    {
+                        searchAnnouncement(elem);
+                    }
+                },
+                error: function () {
+
+                }
+            });
+    }
 }
-
 
 
 
