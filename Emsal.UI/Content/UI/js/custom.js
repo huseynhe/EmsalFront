@@ -38,6 +38,7 @@ $(document).ready(function () {
     resetStaticVariables();
 });
 
+var ri = 0;
 
 function OfferHomeSearch(elem, param) {
     if (ri == 0 || ri == 2) {
@@ -410,8 +411,6 @@ function GetAnnouncement(productId) {
     });
 };
 
-
-var ri = 0;
 
 function searchAnnouncement(elem) { 
     if (ri == 0 || ri == 2) {
