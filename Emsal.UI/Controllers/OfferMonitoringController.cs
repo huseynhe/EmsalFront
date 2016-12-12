@@ -87,7 +87,15 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId(baseInput, (long)UserId, true, modelOfferMonitoring.EnumValue.Id, true, out modelOfferMonitoring.ProductionDetailArray);
 
-                modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailArray.Where(x => x.enumCategoryId == modelOfferMonitoring.EnumCategory.Id && x.person != null).ToList();
+
+                if (modelOfferMonitoring.ProductionDetailArray != null)
+                {
+                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailArray.Where(x => x.enumCategoryId == modelOfferMonitoring.EnumCategory.Id && x.person != null).ToList();
+                }
+                else
+                {
+                    modelOfferMonitoring.ProductionDetailList = new List<ProductionDetail>();
+                }
 
                 if (sproductName != null)
                 {
@@ -203,11 +211,11 @@ namespace Emsal.UI.Controllers
 
                             BaseOutput person = srv.WS_GetPersonByUserId(baseInput, modelOfferMonitoring.User.Id, true, out modelOfferMonitoring.Person);
 
-                            BaseOutput product = srv.WS_GetProductCatalogsById(baseInput, (int)modelOfferMonitoring.OfferProduction.product_Id, true, out modelOfferMonitoring.ProductCatalog);
+                            BaseOutput product = srv.WS_GetProductCatalogDetailsById(baseInput, (int)modelOfferMonitoring.OfferProduction.product_Id, true, out modelOfferMonitoring.ProductCatalogDetail);
 
-                            if (modelOfferMonitoring.ProductCatalog != null)
+                            if (modelOfferMonitoring.ProductCatalogDetail != null)
                             {
-                                pr = modelOfferMonitoring.ProductCatalog.ProductName;
+                                pr = modelOfferMonitoring.ProductCatalogDetail.productCatalog.ProductName + " (" + modelOfferMonitoring.ProductCatalogDetail.parentProductCatalog.ProductName + ")";
                             }
 
                             if (modelOfferMonitoring.Person != null)
@@ -346,11 +354,11 @@ namespace Emsal.UI.Controllers
 
                     BaseOutput person = srv.WS_GetPersonByUserId(baseInput, modelOfferMonitoring.User.Id, true, out modelOfferMonitoring.Person);
 
-                    BaseOutput product = srv.WS_GetProductCatalogsById(baseInput, (int)model.OfferProduction.product_Id, true, out modelOfferMonitoring.ProductCatalog);
+                    BaseOutput product = srv.WS_GetProductCatalogDetailsById(baseInput, (int)model.OfferProduction.product_Id, true, out modelOfferMonitoring.ProductCatalogDetail);
 
-                    if (modelOfferMonitoring.ProductCatalog != null)
+                    if (modelOfferMonitoring.ProductCatalogDetail != null)
                     {
-                        pr = modelOfferMonitoring.ProductCatalog.ProductName;
+                        pr = modelOfferMonitoring.ProductCatalogDetail.productCatalog.ProductName + " (" + modelOfferMonitoring.ProductCatalogDetail.parentProductCatalog.ProductName + ")";
                     }
 
                     if (modelOfferMonitoring.Person != null)

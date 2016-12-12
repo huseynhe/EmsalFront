@@ -198,11 +198,11 @@ namespace Emsal.UI.Controllers
 
                             BaseOutput person = srv.WS_GetPersonByUserId(baseInput, modelOfferState.User.Id, true, out modelOfferState.Person);
 
-                            BaseOutput product = srv.WS_GetProductCatalogsById(baseInput, (int)modelOfferState.OfferProduction.product_Id, true, out modelOfferState.ProductCatalog);
+                            BaseOutput product = srv.WS_GetProductCatalogDetailsById(baseInput, (int)modelOfferState.OfferProduction.product_Id, true, out modelOfferState.ProductCatalogDetail);
 
-                            if (modelOfferState.ProductCatalog != null)
+                            if (modelOfferState.ProductCatalogDetail != null)
                             {
-                                pr = modelOfferState.ProductCatalog.ProductName;
+                                pr = modelOfferState.ProductCatalogDetail.productCatalog.ProductName + " ("+ modelOfferState.ProductCatalogDetail.parentProductCatalog.ProductName+")";
                             }
 
                             if (modelOfferState.Person != null)
@@ -330,11 +330,11 @@ namespace Emsal.UI.Controllers
 
                     BaseOutput person = srv.WS_GetPersonByUserId(baseInput, modelOfferState.User.Id, true, out modelOfferState.Person);
 
-                    BaseOutput product = srv.WS_GetProductCatalogsById(baseInput, (int)model.OfferProduction.product_Id, true, out modelOfferState.ProductCatalog);
+                    BaseOutput product = srv.WS_GetProductCatalogDetailsById(baseInput, (int)model.OfferProduction.product_Id, true, out modelOfferState.ProductCatalogDetail);
 
-                    if (modelOfferState.ProductCatalog != null)
+                    if (modelOfferState.ProductCatalogDetail != null)
                     {
-                        pr = modelOfferState.ProductCatalog.ProductName;
+                        pr = modelOfferState.ProductCatalogDetail.productCatalog.ProductName + " (" + modelOfferState.ProductCatalogDetail.parentProductCatalog.ProductName + ")";
                     }
 
                     if (modelOfferState.Person != null)
