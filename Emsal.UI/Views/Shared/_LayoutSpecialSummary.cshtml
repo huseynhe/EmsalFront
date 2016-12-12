@@ -140,10 +140,36 @@
                                 <div id="collapse1" class="panel-collapse collapse in">
                                     <ul class="list-group list-unstyled">
                                         @*<li class="list-group-item"><a data-toggle="collapse" id="newOrders" href="">Yeni Sifarişlərim <span id="new_order_num"></span></a></li>*@
-                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/Index">Təsdiqlənən tələbatlarım <span id="approved_order_num"></span></a></li>
-                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/OnAirDemands">Tələbatlarım <span id="order_num"></span></a></li>
-                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/ExpiredDemands">Vaxtı bitmiş tələbatlarım <span id="expire_order_num"></span></a></li>
-                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/RejectedDemands">Yararsız sayılan tələbatlarım <span id="rejected_order_num"></span></a></li>
+                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/Index">Təsdiqlənən tələbatlarım 
+                                            @if (Model.countNewOffAirOffers > 0)
+                                            {
+                                                <span style="color:red"> (@Model.countNewOffAirOffers) </span>
+                                            }
+                                            <span id="approved_order_num"></span></a></li>
+                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/OnAirDemands">Tələbatlarım 
+                                            
+                                                                        @if (Model.countNewAcceptedOffers > 0)
+                                                                        {
+                                                                            <span style="color:red">(@Model.countNewAcceptedOffers) </span>
+                                                                        }
+
+                                            <span id="order_num"></span></a></li>
+                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/ExpiredDemands">Vaxtı bitmiş tələbatlarım 
+                                            
+                                            @if (Model.countNewOnAirOffers > 0)
+                                            {
+                                                <span style="color:red">(@Model.countNewOnAirOffers)</span>
+                                            }
+
+                                            <span id="expire_order_num"></span></a></li>
+                                        <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/RejectedDemands">Yararsız sayılan tələbatlarım 
+                                            
+                                            @if (Model.countNewRejectedOffers > 0)
+                                            {
+                                                <span style="color:red">(@Model.countNewRejectedOffers)</span>
+                                            }
+
+                                            <span id="rejected_order_num"></span></a></li>
                                         @*<li class="list-group-item"><a data-toggle="collapse" id="reEditedOrders" href="">Yenidən Düzəldilmiş Sifarişlərim <span id="re_edited_order_num"></span></a></li>*@
                                         <li class="list-group-item"><a href="/GovernmentOrganisationSpecialSummary/NotSentYetOrders">Kənd Təsərrüfatı Nazirliyinə göndərilməmiş tələbatlarım <span id="not_sent_yet_order_num"></span></a></li>
 
