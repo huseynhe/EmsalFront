@@ -38,9 +38,7 @@ namespace Emsal.UI.Controllers
             modelSpecial = new SpecialSummaryViewModel();
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "Tesdiqlenen", out modelSpecial.EnumValue);
-            modelSpecial.DemandProduction = new tblDemand_Production();
-            modelSpecial.ProductionControlList = new List<tblProductionControl>();
+
 
             modelSpecial.actionName = "Index";
 
@@ -53,6 +51,19 @@ namespace Emsal.UI.Controllers
                     UserId = Int32.Parse(identity.Ticket.UserData);
                 }
             }
+
+            List<products> productsList = new List<products>();
+            productsList = getCountsOffProducts((long)UserId);
+
+            modelSpecial.countNewAcceptedOffers = productsList.Where(p => p.type == 1).Count();
+            modelSpecial.countNewOffAirOffers = productsList.Where(p => p.type == 3).Count();
+            modelSpecial.countNewOnAirOffers = productsList.Where(p => p.type == 2).Count();
+            modelSpecial.countNewRejectedOffers = productsList.Where(p => p.type == 4).Count();
+
+            BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "Tesdiqlenen", out modelSpecial.EnumValue);
+            modelSpecial.DemandProduction = new tblDemand_Production();
+            modelSpecial.ProductionControlList = new List<tblProductionControl>();
+
             BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.LoggedInUser);
             modelSpecial.ForeignOrganisation = new tblForeign_Organization();
             BaseOutput nameOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserId, true, out modelSpecial.ForeignOrganisation);
@@ -305,9 +316,6 @@ namespace Emsal.UI.Controllers
             binput = new BaseInput();
             int pageNumber = (page ?? 1);
             int pageSize = 5;
-            BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "Yayinda", out modelSpecial.EnumValue);
-            modelSpecial.DemandProduction = new tblDemand_Production();
-            modelSpecial.ProductionControlList = new List<tblProductionControl>();
 
             modelSpecial.actionName = "OnAirDemands";
 
@@ -321,6 +329,20 @@ namespace Emsal.UI.Controllers
                     UserID = Int32.Parse(identity.Ticket.UserData);
                 }
             }
+
+            List<products> productsList = new List<products>();
+            productsList = getCountsOffProducts((long)UserID);
+
+            modelSpecial.countNewAcceptedOffers = productsList.Where(p => p.type == 1).Count();
+            modelSpecial.countNewOffAirOffers = productsList.Where(p => p.type == 3).Count();
+            modelSpecial.countNewOnAirOffers = productsList.Where(p => p.type == 2).Count();
+            modelSpecial.countNewRejectedOffers = productsList.Where(p => p.type == 4).Count();
+
+
+            BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "Yayinda", out modelSpecial.EnumValue);
+            modelSpecial.DemandProduction = new tblDemand_Production();
+            modelSpecial.ProductionControlList = new List<tblProductionControl>();
+
             BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
             //modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
 
@@ -520,9 +542,6 @@ namespace Emsal.UI.Controllers
             binput = new BaseInput();
             int pageNumber = (page ?? 1);
             int pageSize = 5;
-            BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "YayindaDeyil", out modelSpecial.EnumValue);
-            modelSpecial.DemandProduction = new tblDemand_Production();
-            modelSpecial.ProductionControlList = new List<tblProductionControl>();
 
             modelSpecial.actionName = "ExpiredDemands";
 
@@ -536,7 +555,21 @@ namespace Emsal.UI.Controllers
                     UserID = Int32.Parse(identity.Ticket.UserData);
                 }
             }
+
+            List<products> productsList = new List<products>();
+            productsList = getCountsOffProducts((long)UserID);
+
+            modelSpecial.countNewAcceptedOffers = productsList.Where(p => p.type == 1).Count();
+            modelSpecial.countNewOffAirOffers = productsList.Where(p => p.type == 3).Count();
+            modelSpecial.countNewOnAirOffers = productsList.Where(p => p.type == 2).Count();
+            modelSpecial.countNewRejectedOffers = productsList.Where(p => p.type == 4).Count();
+
             BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
+
+            BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "YayindaDeyil", out modelSpecial.EnumValue);
+            modelSpecial.DemandProduction = new tblDemand_Production();
+            modelSpecial.ProductionControlList = new List<tblProductionControl>();
+
             //modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
             modelSpecial.ForeignOrganisation = new tblForeign_Organization();
             BaseOutput nameOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
@@ -703,9 +736,6 @@ namespace Emsal.UI.Controllers
             binput = new BaseInput();
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "reject", out modelSpecial.EnumValue);
-            modelSpecial.DemandProduction = new tblDemand_Production();
-            modelSpecial.ProductionControlList = new List<tblProductionControl>();
 
             modelSpecial.actionName = "RejectedDemands";
 
@@ -720,7 +750,21 @@ namespace Emsal.UI.Controllers
                     UserID = Int32.Parse(identity.Ticket.UserData);
                 }
             }
+
+            List<products> productsList = new List<products>();
+            productsList = getCountsOffProducts((long)UserID);
+
+            modelSpecial.countNewAcceptedOffers = productsList.Where(p => p.type == 1).Count();
+            modelSpecial.countNewOffAirOffers = productsList.Where(p => p.type == 3).Count();
+            modelSpecial.countNewOnAirOffers = productsList.Where(p => p.type == 2).Count();
+            modelSpecial.countNewRejectedOffers = productsList.Where(p => p.type == 4).Count();
+
             BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserID, true, out modelSpecial.LoggedInUser);
+
+            BaseOutput enumVal = srv.WS_GetEnumValueByName(binput, "reject", out modelSpecial.EnumValue);
+            modelSpecial.DemandProduction = new tblDemand_Production();
+            modelSpecial.ProductionControlList = new List<tblProductionControl>();
+
             //modelSpecial.NameSurname = modelSpecial.LoggedInUser.Username;
             modelSpecial.ForeignOrganisation = new tblForeign_Organization();
             BaseOutput nameOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)UserID, true, out modelSpecial.ForeignOrganisation);
@@ -2552,6 +2596,93 @@ namespace Emsal.UI.Controllers
 
             }
             catch (Exception ex) { return null; }
+        }
+
+        public List<products> getCountsOffProducts(long userId)
+        {
+            binput = new BaseInput();
+            modelSpecial = new SpecialSummaryViewModel();
+            SpecialSummaryViewModel model = new SpecialSummaryViewModel();
+            modelSpecial.DemandProduction = new tblDemand_Production();
+            BaseOutput enumVal = null;
+            BaseOutput demandOutCount = null;
+            List<products> newDemand = new List<products>();
+            //type Tesdiqlenen = 1; Yayinda = 2; YayindaDeyil = 3; reject = 4;
+
+            modelSpecial.DemandProduction.user_Id = userId;
+            modelSpecial.DemandProduction.user_IdSpecified = true;
+            //begin
+
+            enumVal = srv.WS_GetEnumValueByName(binput, "Tesdiqlenen", out modelSpecial.EnumValue);
+            modelSpecial.DemandProduction.state_eV_Id = modelSpecial.EnumValue.Id;
+            modelSpecial.DemandProduction.state_eV_IdSpecified = true;
+            demandOutCount = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
+            if (model.DemandProductionArray != null)
+            {
+                model.DemandProductionList = model.DemandProductionArray.ToList();
+
+                foreach (var item in model.DemandProductionList)
+                {
+                    newDemand.Add(new products { id = item.Id, type = 1 });
+                }
+            }
+
+            //end 
+            //begin
+
+            enumVal = srv.WS_GetEnumValueByName(binput, "Yayinda", out modelSpecial.EnumValue);
+            modelSpecial.DemandProduction.state_eV_Id = modelSpecial.EnumValue.Id;
+            modelSpecial.DemandProduction.state_eV_IdSpecified = true;
+            demandOutCount = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
+
+            if (model.DemandProductionArray != null)
+            {
+                model.DemandProductionList = model.DemandProductionArray.ToList();
+
+                foreach (var item in model.DemandProductionList)
+                {
+                    newDemand.Add(new products { id = item.Id, type = 2 });
+                }
+            }
+
+            //end
+            //begin
+
+            enumVal = srv.WS_GetEnumValueByName(binput, "YayindaDeyil", out modelSpecial.EnumValue);
+            modelSpecial.DemandProduction.state_eV_Id = modelSpecial.EnumValue.Id;
+            modelSpecial.DemandProduction.state_eV_IdSpecified = true;
+            demandOutCount = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
+
+            if (model.DemandProductionArray != null)
+            {
+                model.DemandProductionList = model.DemandProductionArray.ToList();
+
+                foreach (var item in model.DemandProductionList)
+                {
+                    newDemand.Add(new products { id = item.Id, type = 3 });
+                }
+            }
+
+            //end
+            //begin
+
+            enumVal = srv.WS_GetEnumValueByName(binput, "reject", out modelSpecial.EnumValue);
+            modelSpecial.DemandProduction.state_eV_Id = modelSpecial.EnumValue.Id;
+            modelSpecial.DemandProduction.state_eV_IdSpecified = true;
+            demandOutCount = srv.WS_GetDemand_ProductionsByStateAndUserID(binput, modelSpecial.DemandProduction, out modelSpecial.DemandProductionArray);
+
+            if (model.DemandProductionArray != null)
+            {
+                model.DemandProductionList = model.DemandProductionArray.ToList();
+
+                foreach (var item in model.DemandProductionList)
+                {
+                    newDemand.Add(new products { id = item.Id, type = 4 });
+                }
+            }
+
+            //end
+            return newDemand;
         }
 
         public SpecialSummaryViewModel GetPhysicalPerson(string value, string type)
