@@ -95,6 +95,8 @@ namespace Emsal.UI.Models
         public IList<ProductionCalendarDetail> LProductionCalendarDetailList { get; set; }
         public ProductionCalendarDetail[] LProductionCalendarDetailArray;
 
+        public ProductionDetail[] ProductionDetailArray;
+
         public tblProduction_Document ProductionDocument;
         public IList<tblProduction_Document> ProductionDocumentList { get; set; }
         public tblProduction_Document[] ProductionDocumentArray;
