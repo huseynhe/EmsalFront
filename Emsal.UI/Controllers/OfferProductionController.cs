@@ -170,9 +170,6 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput bouput = srv.GetProductCatalogsWithParent(baseInput, out modelOfferProduction.ProductCatalogDetailArray);
 
-                BaseOutput bouputs = srv.WS_GetOfferProductionDetailistForUser(baseInput, modelOfferProduction.User.Id,true, out modelOfferProduction.ProductionDetailArray);
-
-
                 if (modelOfferProduction.ProductCatalogDetailArray == null)
                 {
                     modelOfferProduction.ProductCatalogDetailList = new List<ProductCatalogDetail>();
