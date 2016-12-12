@@ -332,8 +332,8 @@ function GetUserInfoBy(addressId, elem) {
 
 function UserInfoSearch(elem, param)
 {
-    var au = $('select[name="adId[0]"]');
-    GetAdminUnit(au);
+    //var au = $('select[name="adId[0]"]');
+    //GetAdminUnit(au);
     
     if (ri == 0 || ri == 2) {
 
