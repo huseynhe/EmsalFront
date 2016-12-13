@@ -186,6 +186,9 @@ namespace Emsal.UI.Controllers
                         modelOfferMonitoring.OfferProduction.monitoring_eV_Id = modelOfferMonitoring.EnumValueST.Id;
                         modelOfferMonitoring.OfferProduction.monitoring_eV_IdSpecified = true;
 
+                        modelOfferMonitoring.OfferProduction.isNew = 1;
+                        modelOfferMonitoring.OfferProduction.isNewSpecified = true;
+
                         BaseOutput ecout = srv.WS_UpdateOffer_Production(baseInput, modelOfferMonitoring.OfferProduction, out modelOfferMonitoring.OfferProduction);
 
                         modelOfferMonitoring.ComMessage = new tblComMessage();
@@ -325,6 +328,9 @@ namespace Emsal.UI.Controllers
 
                 model.OfferProduction.monitoring_eV_Id = model.EnumValueST.Id;
                 model.OfferProduction.monitoring_eV_IdSpecified = true;
+
+                model.OfferProduction.isNew = 1;
+                model.OfferProduction.isNewSpecified = true;
 
                 BaseOutput ecout = srv.WS_UpdateOffer_Production(baseInput, model.OfferProduction, out model.OfferProduction);
 
@@ -828,6 +834,9 @@ namespace Emsal.UI.Controllers
                             {
                                 item.contractId = modelOfferMonitoring.Contract.Id;
 
+                                item.isNew = 1;
+                                item.isNewSpecified = true;
+
                                 BaseOutput upop = srv.WS_UpdateOffer_Production(baseInput, item, out modelOfferMonitoring.OfferProduction);
                             }
                         }
@@ -915,6 +924,9 @@ namespace Emsal.UI.Controllers
                 foreach (var item in modelOfferMonitoring.OfferProductionList)
                 {
                     item.contractId = 0;
+
+                    item.isNew = 1;
+                    item.isNewSpecified = true;
 
                     BaseOutput upop = srv.WS_UpdateOffer_Production(baseInput, item, out modelOfferMonitoring.OfferProduction);
                 }

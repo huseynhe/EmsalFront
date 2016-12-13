@@ -1141,6 +1141,9 @@ namespace Emsal.UI.Controllers
                 modelOfferProduction.OfferProduction.productOrigin = model.productOriginId;
                 modelOfferProduction.OfferProduction.productOriginSpecified = true;
 
+                modelOfferProduction.OfferProduction.isNew = 1;
+                modelOfferProduction.OfferProduction.isNewSpecified = true;
+
                 BaseOutput app = srv.WS_UpdateOffer_Production(baseInput, modelOfferProduction.OfferProduction, out modelOfferProduction.OfferProduction);
 
                 BaseOutput gpabi = srv.WS_GetProductAddressById(baseInput, (long)modelOfferProduction.OfferProduction.productAddress_Id, true, out modelOfferProduction.ProductAddress);
@@ -1617,6 +1620,9 @@ namespace Emsal.UI.Controllers
 
                 modelOfferProduction.OfferProduction.quantity = qt;
                 modelOfferProduction.OfferProduction.quantitySpecified = true;
+
+                modelOfferProduction.OfferProduction.isNew = 1;
+                modelOfferProduction.OfferProduction.isNewSpecified = true;
 
                 BaseOutput appfc = srv.WS_UpdateOffer_Production(baseInput, modelOfferProduction.OfferProduction, out modelOfferProduction.OfferProduction);
 

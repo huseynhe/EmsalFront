@@ -807,6 +807,9 @@ namespace Emsal.UI.Controllers
                     modelDemandProduction.DemandProduction.state_eV_Id = modelDemandProduction.EnumValue.Id;
                     modelDemandProduction.DemandProduction.state_eV_IdSpecified = true;
 
+                    modelDemandProduction.DemandProduction.isNew = 1;
+                    modelDemandProduction.DemandProduction.isNewSpecified = true;
+
                     BaseOutput upp = srv.WS_UpdateDemand_ProductionForUserID(baseInput, modelDemandProduction.DemandProduction, out modelDemandProduction.DemandProductionArray);
 
 
@@ -1241,6 +1244,9 @@ namespace Emsal.UI.Controllers
 
                 modelDemandProduction.DemandProduction.fullProductId = string.Join(",", modelDemandProduction.ProductCatalogList.Select(x => x.Id));
 
+                modelDemandProduction.DemandProduction.isNew = 1;
+                modelDemandProduction.DemandProduction.isNewSpecified = true;
+
                 BaseOutput app = srv.WS_UpdateDemand_Production(baseInput, modelDemandProduction.DemandProduction, out modelDemandProduction.DemandProduction);
 
                 BaseOutput gpabi = srv.WS_GetProductAddressById(baseInput, (long)modelDemandProduction.DemandProduction.address_Id, true, out modelDemandProduction.ProductAddress);
@@ -1467,6 +1473,9 @@ namespace Emsal.UI.Controllers
 
                 modelDemandProduction.DemandProduction.quantity = qt;
                 modelDemandProduction.DemandProduction.quantitySpecified = true;
+
+                modelDemandProduction.DemandProduction.isNew = 1;
+                modelDemandProduction.DemandProduction.isNewSpecified = true;
 
                 BaseOutput udp = srv.WS_UpdateDemand_Production(baseInput, modelDemandProduction.DemandProduction, out modelDemandProduction.DemandProduction);
 
