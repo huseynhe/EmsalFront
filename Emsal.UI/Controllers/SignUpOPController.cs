@@ -248,11 +248,11 @@ namespace Emsal.UI.Controllers
                     modelUser.User.Password = BCrypt.Net.BCrypt.HashPassword(mdl.passWord, 5); ;
 
                     string enumtype = "";
-                    if (String.IsNullOrEmpty(mdl.voen))
+                    if (!String.IsNullOrEmpty(mdl.fin))
                     {
                         enumtype = "fizikişexs";
                     }
-                    else
+                    else if (!String.IsNullOrEmpty(mdl.voen))
                     {
                         enumtype = "legalPerson";
                     }
