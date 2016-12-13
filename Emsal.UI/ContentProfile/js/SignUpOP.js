@@ -18,7 +18,7 @@
 function PersonType() {
     var id = document.getElementById("personType").value;
     if (id == 1) {
-        $("#fin").val(null);
+        $("#voen").val('');
 
         $('#formBody').hide();
 
@@ -40,7 +40,7 @@ function PersonType() {
     }
 
     else if (id == 2) {
-        $("#voen").val(null);
+        $("#fin").val('');
 
         $('#formBody').hide();
 
