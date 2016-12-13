@@ -199,7 +199,7 @@ namespace Emsal.UI.Controllers
 
                 value = StripTag.strSqlBlocker(value.ToLower());
 
-                if (value == "")
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     modelProductCatalog.AnnouncementDetailList = null;
                 }
