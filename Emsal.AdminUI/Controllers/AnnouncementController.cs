@@ -114,7 +114,10 @@ namespace Emsal.AdminUI.Controllers
                 model.DemandProduction.endDate = ((DateTime)model.endDate).getInt64Date();
                 model.DemandProduction.endDateSpecified = true;
 
-                BaseOutput ap = srv.WS_UpdateDemand_ProductionForStartAndEndDate(baseInput, model.DemandProduction, out model.DemandProductionArray);
+                    model.DemandProduction.isNew = 1;
+                    model.DemandProduction.isNewSpecified = true;
+
+                    BaseOutput ap = srv.WS_UpdateDemand_ProductionForStartAndEndDate(baseInput, model.DemandProduction, out model.DemandProductionArray);
                 var i=0;
                 foreach (var item in model.DemanProductionGroupList)
                 {

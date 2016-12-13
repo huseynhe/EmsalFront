@@ -434,6 +434,9 @@ namespace Emsal.AdminUI.Controllers
                         modelOfferProduction.OfferProduction.state_eV_Id = modelOfferProduction.EnumValueST.Id;
                         modelOfferProduction.OfferProduction.state_eV_IdSpecified = true;
 
+                        modelOfferProduction.OfferProduction.isNew = 1;
+                        modelOfferProduction.OfferProduction.isNewSpecified = true;
+
                         BaseOutput ecout = srv.WS_UpdateOffer_Production(baseInput, modelOfferProduction.OfferProduction, out modelOfferProduction.OfferProduction);
 
                         modelOfferProduction.ComMessage = new tblComMessage();
@@ -529,6 +532,9 @@ namespace Emsal.AdminUI.Controllers
 
                 model.OfferProduction.state_eV_Id = model.EnumValueST.Id;
                 model.OfferProduction.state_eV_IdSpecified = true;
+
+                model.OfferProduction.isNew = 1;
+                model.OfferProduction.isNewSpecified = true;
 
                 BaseOutput ecout = srv.WS_UpdateOffer_Production(baseInput, model.OfferProduction, out model.OfferProduction);
 

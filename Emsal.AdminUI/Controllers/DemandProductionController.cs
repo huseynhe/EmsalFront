@@ -1379,6 +1379,9 @@ namespace Emsal.AdminUI.Controllers
                         modelDemandProduction.DemandProduction.state_eV_Id = modelDemandProduction.EnumValueST.Id;
                         modelDemandProduction.DemandProduction.state_eV_IdSpecified = true;
 
+                        modelDemandProduction.DemandProduction.isNew = 1;
+                        modelDemandProduction.DemandProduction.isNewSpecified = true;
+
                         BaseOutput ecout = srv.WS_UpdateDemand_Production(baseInput, modelDemandProduction.DemandProduction, out modelDemandProduction.DemandProduction);
 
                         modelDemandProduction.ComMessage = new tblComMessage();
@@ -1473,6 +1476,9 @@ namespace Emsal.AdminUI.Controllers
 
                 model.DemandProduction.state_eV_Id = model.EnumValueST.Id;
                 model.DemandProduction.state_eV_IdSpecified = true;
+
+                model.DemandProduction.isNew = 1;
+                model.DemandProduction.isNewSpecified = true;
 
                 BaseOutput ecout = srv.WS_UpdateDemand_Production(baseInput, model.DemandProduction, out model.DemandProduction);
 
