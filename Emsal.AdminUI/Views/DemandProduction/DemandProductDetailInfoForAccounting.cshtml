@@ -15,13 +15,34 @@
                     <h3 class="box-title">Hesabat - 3</h3>
                     <!-- /.box-tools -->
                 </div>
+
+                <div class="clearfix"></div>
+                <br />
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label>Başlanğıc tarix</label><br />
+                        <input id="startDate" class="text-box single-line" type="datetime">
+                    </div>
+                    <div class="col-md-2">
+                        <label>Son tarix</label><br />
+                        <input id="endDate" class="text-box single-line" type="datetime">
+                    </div>
+                    <div class="col-md-2">
+                        <label>&nbsp;</label><br />
+                        <div class="btn btn-primary" id="btnSearch" onclick="SearchTimePeriod('1', 'DemandProductDetailInfoForAccounting')"><span class="glyphicon glyphicon-search"></span> Axtar</div>
+                        <div class="btn btn-danger" id="btnClear" onclick="SearchTimePeriod('2', 'DemandProductDetailInfoForAccounting')"><span class="glyphicon glyphicon-remove"></span> İmtina</div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <br />
+
                 <table class="table table-hover table-striped table-bordered" style="margin-bottom:0;">
                     <tbody>
                         <tr>
-                            <th class="col-md-2">
+                            @*<th class="col-md-2">
                                 Təşkilatın adı<br />
                                 <input onkeyup="DemandProductDetailInfoForAccounting(this, 'adminUnit')" class="form-control" placeholder="axtar" />
-                            </th>
+                            </th>*@
                             <th class="col-md-2">
                                 Məhsulun adı<br />
                                 <input onkeyup="DemandProductDetailInfoForAccounting(this, 'productName')" class="form-control" placeholder="axtar" />
@@ -38,10 +59,10 @@
                             <th class="col-md-1">
                                 Dövrülük
                             </th>
-                            <th class="col-md-2">
+                            @*<th class="col-md-2">
                                 Çatdırılma ünvanı<br />
                                 <input onkeyup="DemandProductDetailInfoForAccounting(this, 'fullAddress')" class="form-control" placeholder="axtar" />
-                            </th>
+                            </th>*@
                         </tr>
                     </tbody>
                 </table>

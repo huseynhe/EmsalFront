@@ -520,10 +520,10 @@ function DemandOfferProductionTotal(action, elem, value) {
 }
 
 $(document).ready(function () {
-    $('#DemandProductionAmountOfEachProductClear').hide();
+    $('#btnClear').hide();
 });
 
-function DemandProductionAmountOfEachProduct(status) {
+function SearchTimePeriod(status, action) {
 
     if (status == '2') {
         $('#startDate').val('');
@@ -540,17 +540,17 @@ function DemandProductionAmountOfEachProduct(status) {
             return false;
         }
 
-        $('#DemandProductionAmountOfEachProductSearch').hide();
-        $('#DemandProductionAmountOfEachProductClear').show();
+        $('#btnSearch').hide();
+        $('#btnClear').show();
 
     } else if (status == '2')
     {
-        $('#DemandProductionAmountOfEachProductSearch').show();
-        $('#DemandProductionAmountOfEachProductClear').hide();
+        $('#btnSearch').show();
+        $('#btnClear').hide();
     }
 
     $.ajax({
-        url: '/DemandProduction/DemandProductionAmountOfEachProduct?startDate=' + startDate + '&endDate=' + endDate,
+        url: '/DemandProduction/'+action+'?startDate=' + startDate + '&endDate=' + endDate,
         type: 'GET',
         success: function (result) {
             $('#AjaxPaginationList').html(result);

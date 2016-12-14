@@ -5,10 +5,12 @@
     ViewBag.Title = "Index";
     Layout = "";
     decimal tquantity = 0;
+    var tname = "";
+    var otname = "";
 }
 
                <h4 class="text-danger text-center"> cari səhifə üçün qiymət: @Model.currentPagePrice azn - bütün qiymət: @Model.allPagePrice azn
-                   <a href="/DemandProduction/DemandProductDetailInfoForAccounting?statusEV=@Model.statusEV&productName=@Model.productName&adminUnit = @Model.adminUnit&fullAddress=@Model.fullAddress&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+                   <a href="/DemandProduction/DemandProductDetailInfoForAccounting?&productName=@Model.productName&startDate = @Model.startDate&endDate=@Model.endDate&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
                        Yüklə
                    </a>
@@ -18,12 +20,23 @@
                         <div class="table-responsive">
                             <table class="table table-hover table-striped table-bordered">
                                 <tbody>
-                                    @foreach (var item in Model.Paging)
+                                    @foreach (var item in Model.ProductionDetailList)
                                     {
+                                        tname = item.name;
+                                        if (tname != otname)
+                                        {
                                         <tr>
-                                            <td class="col-md-2">
-                                                @item.name
+                                            <td colspan="5" class="text-center">
+                                                @tname
+                                                <div class="clearfix"></div>
+                                                (@item.fullAddress (@item.addressDesc))
                                             </td>
+                                        </tr>
+                                        }
+                                        <tr>
+                                            @*<td class="col-md-2">
+                                                @item.name
+                                            </td>*@
                                             <td class="col-md-2">
                                                 @item.productParentName (@item.productName)
                                             </td>
@@ -42,16 +55,17 @@
                                                      <span>@item.productionCalendarList.FirstOrDefault().TypeDescription</span>
                                                 }
                                             </td>
-                                            <td class="col-md-2">
+                                            @*<td class="col-md-2">
                                                 @item.fullAddress (@item.addressDesc)
-                                            </td>
+                                            </td>*@
                                         </tr>
+                                        otname = tname;
                                     }
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="box-footer clearfix">
-                        Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
-                        @Html.PagedListPager(Model.Paging, page => Url.Action("DemandProductDetailInfoForAccounting", new { page, statusEV = Model.statusEV, productName = Model.productName, adminUnit = Model.adminUnit, fullAddress = Model.fullAddress }))
+                        Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
+                        @Html.PagedListPager(Model.PagingT, page => Url.Action("DemandProductDetailInfoForAccounting", new { page, productName = Model.productName, startDate = Model.startDate, endDate = Model.endDate }))
                     </div>

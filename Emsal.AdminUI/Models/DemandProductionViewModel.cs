@@ -171,6 +171,8 @@ namespace Emsal.AdminUI.Models
         public int isMain { get; set; }
         public string statusEV { get; set; }
         public string productName { get; set; }
+        public string startDate { get; set; }
+        public string endDate { get; set; }
         public string productParentName { get; set; }
         public string fullAddress { get; set; }
         public string userInfo { get; set; }
