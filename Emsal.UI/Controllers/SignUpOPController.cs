@@ -172,6 +172,11 @@ namespace Emsal.UI.Controllers
         {
             try
             {
+                if (ModelState.IsValid)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
                 modelUser = new UserViewModel();
                 baseInput = new BaseInput();
 
