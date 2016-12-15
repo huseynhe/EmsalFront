@@ -77,6 +77,7 @@ namespace Emsal.UI.Models
 
         [Required(ErrorMessage = "Ünvan xanası məcburidir.")]
         [Display(Name = "Ünvan")]
+        [RegularExpression (@"^[a-zA-Z0-9-ƏəÜüĞğÖöIıÇçŞşİi \, \. \\ \ ]+$", ErrorMessage = "Yanlış {0}.")]
         public string descAddress { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası məcburidir.")]
@@ -112,6 +113,7 @@ namespace Emsal.UI.Models
 
         [Display(Name = "İstifadəçi adı")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        [RegularExpression("^[a-zA-Z0-9_]{3,16}$", ErrorMessage ="Yanlış {0}.")]
         public string userName { get; set; }
 
         [Display(Name = "Şifrə")]
@@ -120,6 +122,7 @@ namespace Emsal.UI.Models
 
         [Display(Name = "E-poçt")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        [RegularExpression(@"[a-z0-9!#$%&' * +/=?^ _`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",ErrorMessage= "Yanlış {0}.")]
         public string eMail { get; set; }
 
         [Display(Name = "Şəxsin növü")]
@@ -128,18 +131,22 @@ namespace Emsal.UI.Models
 
         [Display(Name = "Mobil nömrə")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        [RegularExpression("^[0-9]+$", ErrorMessage = "Yanlış {0}.")]
         public string mNumber { get; set; }
 
         [Display(Name = "Ad")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        [RegularExpression(@"^[a-zA-Z-ƏəÜüĞğÖöIıÇçŞşİi]+$", ErrorMessage = "Yanlış {0}.")]
         public string Name { get; set; }
 
         [Display(Name = "Soyad")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        [RegularExpression(@"^[a-zA-Z-ƏəÜüĞğÖöIıÇçŞşİi]+$", ErrorMessage = "Yanlış {0}.")]
         public string Surname { get; set; }
 
         [Display(Name = "Ata adı")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        [RegularExpression(@"^[a-zA-Z-ƏəÜüĞğÖöIıÇçŞşİi]+$", ErrorMessage = "Yanlış {0}.")]
         public string FatherName { get; set; }
 
         [Display(Name = "Başlama tarixi")]
@@ -148,10 +155,12 @@ namespace Emsal.UI.Models
 
         [Display(Name = "FİN")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        [RegularExpression(@"^[a-zA-Z0-9_]{3,16}$", ErrorMessage = "Yanlış {0}.")]
         public string fin { get; set; }
 
         [Display(Name = "Vöen")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        [RegularExpression(@"^[a-zA-Z0-9_]{3,16}$", ErrorMessage = "Yanlış {0}.")]
         public string voen { get; set; }
 
         [Display(Name = "Cinsi")]
