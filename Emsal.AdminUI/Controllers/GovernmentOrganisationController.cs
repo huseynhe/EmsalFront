@@ -1115,12 +1115,23 @@ namespace Emsal.AdminUI.Controllers
 
             BaseOutput userOut = srv.WS_GetUserById(binput, userId, true, out modelUser.User);
             BaseOutput personOut = srv.WS_GetPersonByUserId(binput, userId, true, out modelUser.Person);
+            BaseOutput ComsOut = srv.WS_GetCommunicationByPersonId(binput, (long)modelUser.Person.Id, true, out modelUser.CommunicationInformationsArray);
             if (form.Status == 0)
             {
                 BaseOutput userDelete = srv.WS_DeleteUser(binput, modelUser.User);
 
                 
                 BaseOutput personDelete = srv.WS_DeletePerson(binput, modelUser.Person);
+
+                if (modelUser.CommunicationInformationsArray != null)
+                {
+                    foreach (var item in modelUser.CommunicationInformationsArray.ToList())
+                    {
+                        BaseOutput ComOut = srv.WS_GetCommunicationById(binput, (long)item.Id, true, out modelUser.ComunicationInformations);
+                        BaseOutput ComDelete = srv.WS_DeleteCommunication(binput, modelUser.ComunicationInformations);
+                    }
+                }
+                
 
                 return RedirectToAction("Individuals", "GovernmentOrganisation");
             }
@@ -1295,8 +1306,20 @@ namespace Emsal.AdminUI.Controllers
             if (form.Status == 0)
             {
                 BaseOutput userOut = srv.WS_GetUserById(binput, userId, true, out modelUser.User);
+                BaseOutput personOut = srv.WS_GetPersonByUserId(binput, userId, true, out modelUser.Person);
+
                 BaseOutput userDeteleteOut = srv.WS_DeleteUser(binput, modelUser.User);
                 BaseOutput foreDeleteOut = srv.WS_DeleteForeign_Organization(binput, modelUser.ForeignOrganisation);
+                
+                BaseOutput ComsOut = srv.WS_GetCommunicationByPersonId(binput, (long)modelUser.Person.Id, true, out modelUser.CommunicationInformationsArray);
+                if (modelUser.CommunicationInformationsArray != null)
+                {
+                    foreach (var item in modelUser.CommunicationInformationsArray.ToList())
+                    {
+                        BaseOutput ComOut = srv.WS_GetCommunicationById(binput, (long)item.Id, true, out modelUser.ComunicationInformations);
+                        BaseOutput ComDelete = srv.WS_DeleteCommunication(binput, modelUser.ComunicationInformations);
+                    }
+                }
 
                 return RedirectToAction("Organisations", "GovernmentOrganisation");
             }
