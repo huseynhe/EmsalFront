@@ -460,13 +460,10 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.ToList();
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.OrderBy(x => x.name).ToList();
                 }
 
-
-                modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.OrderBy(x => x.name).ToList();
-
-
+                
                 BaseOutput gdpc = srv.WS_GetDemandProductDetailInfoForAccounting_OPC(baseInput, modelDemandProduction.EnumValue.Id, true, year, true, rub, true, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
 
                 long[] aic = new long[modelDemandProduction.itemCount];

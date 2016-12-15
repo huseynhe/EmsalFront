@@ -197,7 +197,7 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.OrderBy(x=>x.fullAddress).ToList();
+                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.OrderBy(x=>x.fullAddress).ThenBy(x => x.person.Surname).ThenBy(x => x.person.Name).ThenBy(x => x.person.FatherName).ToList();
                 }
 
 
@@ -602,8 +602,7 @@ namespace Emsal.AdminUI.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
-
-
+        
         public ActionResult ProductCatalogForSale(string actionName)
         {
             try
