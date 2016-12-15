@@ -277,7 +277,7 @@ namespace Emsal.AdminUI.Controllers
                         foreach (var item in modelOfferProduction.ProductionDetailList)
                         {
                             var col2 = 1;
-                            pname = item.person.Name + " " + item.person.Surname + " " + item.person.FatherName;
+                            pname = item.person.Surname + " " + item.person.Name + " " + item.person.FatherName;
                             m = item.fullAddress;
 
                             if (m != om)
@@ -293,15 +293,39 @@ namespace Emsal.AdminUI.Controllers
                             }
 
                             if (pname != opname)
-                            {
+                            {    
                                 sheet.Cells[rowIndex, 1, rowIndex, 5].Merge = true;
-                                sheet.Cells[rowIndex, 1].Value = " S.A.A: " + pname + "\n Qeydiyyat ünvanı: " + item.personAdress + " " + (item.personAdressDesc) + "\n Bank rekvizitləri: ";
+
+                               //sheet.Cells[rowIndex, 1].Value = " S.A.A: " + pname + "\n Qeydiyyat ünvanı: " + item.personAdress + " " + (item.personAdressDesc) + "\n Bank rekvizitləri: ";
+
+
+
+                                sheet.Cells[rowIndex, 1].IsRichText = true;
+                                ExcelRichTextCollection rtfCollection = sheet.Cells[rowIndex, 1].RichText;
+                                ExcelRichText ert = rtfCollection.Add("S.A.A: ");
+                                ert.Bold = true;
+                                //ert.Color = System.Drawing.Color.Red;
+                                //ert.Italic = true;
+                                ert = rtfCollection.Add(pname+ "\n");
+                                ert.Bold = false;
+
+                                ert = rtfCollection.Add("Qeydiyyat ünvanı: ");
+                                ert.Bold = true;
+                                ert = rtfCollection.Add(item.personAdress + " " + (item.personAdressDesc) +"\n");
+                                ert.Bold = false;
+
+                                ert = rtfCollection.Add("Bank rekvizitləri: ");
+                                ert.Bold = true;
+
+                                //excelPackage.Save();
+
 
                                 sheet.Cells[rowIndex, 1, rowIndex, 5].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                                 sheet.Cells[rowIndex, 1, rowIndex, 5].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
 
                                 sheet.Row(rowIndex).Height = 50;
                                 sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+
                                 rowIndex++;
                             }
 
