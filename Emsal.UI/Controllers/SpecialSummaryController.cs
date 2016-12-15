@@ -138,6 +138,7 @@ namespace Emsal.UI.Controllers
             modelSpecial.ProductionControlList = new List<tblProductionControl>();
             modelSpecial.ProductDocumentList = new List<tblProduct_Document>();
             modelSpecial.SpOfferList = new List<SpecialSummaryPotentialAndOffer>();
+            string prName = "";
             foreach (var item in modelSpecial.OfferProductionList)
             {
                 modelSpecial.SpOffer = new SpecialSummaryPotentialAndOffer();
@@ -167,10 +168,20 @@ namespace Emsal.UI.Controllers
                 if (modelSpecial.ProductCatalog.ProductCatalogParentID > 0)
                 {
                     BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+
+                    if (modelSpecial.ProductCatalog != null)
+                    {
+                        //get the parent name of the product
+                        modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
+                    }
+                    else
+                    {
+                        modelSpecial.SpOffer.ParentName = prName;
+                    }
                 }
 
                 //get the parent name of the product
-                modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
+                //modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
 
                 //get the offered product quantity unit
                 BaseOutput productControlOut = srv.WS_GetProductionControlsByOfferProductionId(binput, item.Id, true, out modelSpecial.ProductionControlArray);
@@ -325,7 +336,7 @@ namespace Emsal.UI.Controllers
             ///////////////////////////////////////////////
 
             modelSpecial.SpOfferList = new List<SpecialSummaryPotentialAndOffer>();
-
+            string prName = "";
             foreach (var item in modelSpecial.OfferProductionList)
             {
                 modelSpecial.SpOffer = new SpecialSummaryPotentialAndOffer();
@@ -354,10 +365,20 @@ namespace Emsal.UI.Controllers
                 if (modelSpecial.ProductCatalog.ProductCatalogParentID > 0)
                 {
                     BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+
+                    if (modelSpecial.ProductCatalog != null)
+                    {
+                        //get the parent name of the product
+                        modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
+                    }
+                    else
+                    {
+                        modelSpecial.SpOffer.ParentName = prName;
+                    }
                 }
 
                 //get the parent name of the product
-                modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
+                //modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
 
                 //get the offered product quantity unit
                 BaseOutput productControlOut = srv.WS_GetProductionControlsByOfferProductionId(binput, item.Id, true, out modelSpecial.ProductionControlArray);
@@ -538,7 +559,7 @@ namespace Emsal.UI.Controllers
 
                 modelSpecial.OfferProductionList = modelSpecial.OfferProductionArray.Where(p => ((p.state_eV_Id == 41 && p.monitoring_eV_Id == 10118) ||( p.state_eV_Id == 2 && p.monitoring_eV_Id == 41) || (p.state_eV_Id == 2 && p.monitoring_eV_Id ==10117)) && p.state_eV_Id != 1) .ToList();
                 modelSpecial.SpOfferList = new List<SpecialSummaryPotentialAndOffer>();
-
+                string prName = "";
                 foreach (var item in modelSpecial.OfferProductionList)
                 {
                     BaseOutput productCatalogOut = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
@@ -567,10 +588,20 @@ namespace Emsal.UI.Controllers
                     if (modelSpecial.ProductCatalog.ProductCatalogParentID > 0)
                     {
                         BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+
+                        if (modelSpecial.ProductCatalog != null)
+                        {
+                            //get the parent name of the product
+                            modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
+                        }
+                        else
+                        {
+                            modelSpecial.SpOffer.ParentName = prName;
+                        }
                     }
 
                     //get the parent name of the product
-                    modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
+                    //modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
 
                     //get the offered product quantity unit
                     BaseOutput productControlOut = srv.WS_GetProductionControlsByOfferProductionId(binput, item.Id, true, out modelSpecial.ProductionControlArray);
@@ -747,7 +778,7 @@ namespace Emsal.UI.Controllers
                 ////////////////////////
 
                 modelSpecial.SpOfferList = new List<SpecialSummaryPotentialAndOffer>();
-
+                string prName = "";
                 foreach (var item in modelSpecial.OfferProductionList)
                 {
                     BaseOutput productCatalogOut = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
@@ -777,9 +808,16 @@ namespace Emsal.UI.Controllers
                     {
                         BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
 
+                        if (modelSpecial.ProductCatalog != null)
+                        {
+                            //get the parent name of the product
+                            modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
+                        }
+                        else
+                        {
+                            modelSpecial.SpOffer.ParentName = prName;
+                        }
                     }
-                    //get the parent name of the product
-                    modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
 
                     //get the offered product quantity unit
                     BaseOutput productControlOut = srv.WS_GetProductionControlsByOfferProductionId(binput, item.Id, true, out modelSpecial.ProductionControlArray);
@@ -1105,8 +1143,18 @@ namespace Emsal.UI.Controllers
                     if (modelSpecial.ProductCatalog.ProductCatalogParentID > 0)
                     {
                         BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+
+                        if (modelSpecial.ProductCatalog != null)
+                        {
+                            //get the parent name of the product
+                            modelSpecial.ProductCatalogList.Add(modelSpecial.ProductCatalog);
+                        }
+                        else
+                        {
+                            //modelSpecial.SpOffer.ParentName = prName;
+                        }
                     }
-                    modelSpecial.ProductCatalogList.Add(modelSpecial.ProductCatalog);
+                    
                 }
                 foreach (var item in modelSpecial.PotentialProductionList)
                 {
@@ -1963,8 +2011,17 @@ namespace Emsal.UI.Controllers
                     if (modelSpecial.ProductCatalog.ProductCatalogParentID > 0)
                     {
                         BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+
+                        if (modelSpecial.ProductCatalog != null)
+                        {
+                            //get the parent name of the product
+                            modelSpecial.ProductCatalogList.Add(modelSpecial.ProductCatalog);
+                        }
+                        else
+                        {
+                            //modelSpecial.SpOffer.ParentName = prName;
+                        }
                     }
-                    modelSpecial.ProductCatalogList.Add(modelSpecial.ProductCatalog);
                 }
 
                 foreach (var item in modelSpecial.OfferProductionList)
