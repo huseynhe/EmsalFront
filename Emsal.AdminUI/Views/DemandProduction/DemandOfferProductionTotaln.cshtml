@@ -1,12 +1,10 @@
 ﻿@model Emsal.AdminUI.Models.DemandProductionViewModel
 @*@using PagedList.Mvc;*@
 
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="content">
     <div class="row">
         <div class="col-md-12">
@@ -15,12 +13,38 @@
                     <h3 class="box-title">Ərzaq məhsullarının illik tələbatı və təklifi üzrə ümumi cədvəl</h3>
                     <!-- /.box-tools -->
                 </div>
+                <div class="clearfix"></div>
+                <br />
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label>Başlanğıc tarix</label><br />
+                        <input id="startDate" class="text-box single-line" type="datetime">
+                    </div>
+                    <div class="col-md-2">
+                        <label>Son tarix</label><br />
+                        <input id="endDate" class="text-box single-line" type="datetime">
+                    </div>
+                    <div class="col-md-2">
+                        <label>&nbsp;</label><br />
+                        <div class="btn btn-primary" id="btnSearch" onclick="SearchTimePeriod('1', 'DemandProduction', 'DemandOfferProductionTotaln')"><span class="glyphicon glyphicon-search"></span> Axtar</div>
+                        <div class="btn btn-danger" id="btnClear" onclick="SearchTimePeriod('2', 'DemandProduction', 'DemandOfferProductionTotaln')"><span class="glyphicon glyphicon-remove"></span> İmtina</div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>Məhsulun ünvanı</label><br />
+                        @Html.Action("AdminUnit", "DemandProduction", new { actionName = "DemandOfferProductionTotaln" })
+                    </div>
+
+                </div>
+                <div class="clearfix"></div>
+                <br />
                 <table class="table table-hover table-striped table-bordered" style="margin-bottom:0;">
                     <tbody>
                         <tr>
                             <th class="col-md-3">
-                                Ərzaq məhsullarının adı və növü<br />
-                                <input onkeyup="DemandOfferProductionTotal('DemandOfferProductionTotaln',this, 'productName')" class="form-control" placeholder="axtar" />
+                                Ərzaq məhsullarının adı və növü
+                                @*<br />
+                                    <input onkeyup="DemandOfferProductionTotal('DemandOfferProductionTotaln',this, 'productName')" class="form-control" placeholder="axtar" />*@
                             </th>
                             <th class="col-md-1">
                                 Ölçü vahidi
@@ -46,14 +70,10 @@
                 <div id="AjaxPaginationList">
                     @Html.Partial("PartialDemandOfferProductionTotaln")
                 </div>
-
             </div>
         </div>
     </div>
 </div>
-
 <script src="~/Content/js/pagedList.js"></script>
-
-
 
 

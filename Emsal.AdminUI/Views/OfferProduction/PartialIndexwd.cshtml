@@ -1,69 +1,114 @@
 ﻿@model Emsal.AdminUI.Models.OfferProductionViewModel
 @using PagedList.Mvc;
-
 @{
     ViewBag.Title = "Index";
     Layout = "";
     decimal tquantity = 0;
+    decimal tprice = 0;
+    string pname = "";
+    string opname = "";
+
+    string m = "";
+    string om = "";
 }
 
-
-                    <h4 class="text-danger text-center"> cari səhifə üçün qiymət: @Model.currentPagePrice azn - bütün qiymət: @Model.allPagePrice azn
-                        <a href="/OfferProduction/Indexwd?statusEV=@Model.statusEV&productName=@Model.productName&fullAddress=@Model.fullAddress&userInfo = @Model.userInfo&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
-                            <i class="fa fa-file-excel-o" aria-hidden="true"></i>
-                            Yüklə
-                        </a>
-    </h4>
-
+<h4 class="text-danger text-center">
+    cari səhifə üçün qiymət: @Model.currentPagePrice azn - bütün qiymət: @Model.allPagePrice azn
+    <a href="/OfferProduction/Indexwd?&addressId=@Model.addressId&startDate = @Model.startDate&endDate=@Model.endDate&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+        Yüklə
+    </a>
+</h4>
 <div class="clearfix"></div>
-<br/>
+<br />
+<div class="box-body no-padding">
+    <div class="table-responsive">
+        <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
+            <span class="badge " style="margin-top: -10px; float: right; margin-right: 15px;background:#D43F3A;">@Model.itemCount</span>
+        </div>
+        <table class="table table-bordered">
+            <tbody>
+    @foreach (var item in Model.ProductionDetailList)
+                {
+                    pname = item.person.Name + " " + item.person.Surname + " " + item.person.FatherName;
+                    m = item.fullAddress;
+                    if (m != om)
+                    {
+            <tr>
+                <td colspan="5" class="text-center" style="background:#f2f2f2;">
+                   @item.fullAddress
+                </td>
+            </tr>
+        }
 
-                    <div class="box-body no-padding">
-                        <div class="table-responsive">
-                            <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
-                                <span class="badge " style="margin-top: -10px; float: right; margin-right: 15px;background:#D43F3A;">@Model.itemCount</span>
-                            </div>
-                            <table class="table table-bordered">
-                                <tbody>
-                                    @foreach (var item in Model.ProductionDetailList)
-                                    {
-                                        <tr>
-                                            <td class="col-md-2">
-                                                @item.productParentName (@item.productName)
-                                            </td>
-                                            <td class="col-md-1">
-                                                @if (item.productionCalendarList.FirstOrDefault().TypeDescription != null)
-{
-    <span>@item.productionCalendarList.FirstOrDefault().TypeDescription</span>
-}
-                                            </td>
-                                            <td class="col-md-1">
-                                                @item.quantity @item.enumValueName
-                                            </td>
-                                            <td class="col-md-1">
-                                                @item.unitPrice AZN
-                                            </td>
-                                            <td class="col-md-2">
-                                                @item.fullAddress
-                                            </td>
-                                            <td class="col-md-2">
-@if (item.person != null) {
-                                                <span>@item.person.Name @item.person.Surname @item.person.FatherName (@item.person.gender)<br />
-                                                @item.personAdress (@item.personAdressDesc)</span>
-                                                }
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="box-footer clearfix">
-                        Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
-                        @Html.PagedListPager(Model.PagingT, page => Url.Action("Indexwd", new { page, statusEV = Model.statusEV, productName = Model.productName, fullAddress = Model.fullAddress, userInfo = Model.userInfo }))
-                    </div>
+        if (pname != opname)
+        {
+            <tr>
+                <td colspan="5" style="background:#f2f2f2;">
+                    S.A.A: @pname
+                    <div class="clearfix"></div>
+                    Qeydiyyat ünvanı: @item.personAdress (@item.personAdressDesc)
+                    <div class="clearfix"></div>
+                    Bank rekvizitləri: 
+                    </td>
+                </tr>
+                    }
+            <tr>
+                <td class="col-md-6">
+                    @item.productName (@item.productParentName)
+                </td>
+                <td class="col-md-3">
+                    @item.quantity @item.enumValueName
+                </td>
+                <td class="col-md-3">
+                    @item.unitPrice AZN
+                </td>
+            </tr>
 
-
+        if (item.productionCalendarList.Count() > 0)
+        {
+            <tr>
+                <td colspan="9" style="padding:0;">
+                    <table class="table" style="margin:0;">
+                        <tr>
+                            <th>dövrülük - gün, ay, il</th>
+                            <th>miqdar</th>
+                            <th>miqdar (cəmi)</th>
+                            <th>qiymət</th>
+                            <th>qiymət (cəmi)</th>
+                        </tr>
+                        @foreach (var itemc in item.productionCalendarList)
+                        {
+                            tquantity = (itemc.quantity * itemc.transportation_eV_Id);
+                            tprice = (itemc.price * tquantity);
+                            <tr>
+                                <td> 
+                                @if (itemc.TypeDescription != null)
+                                {
+                                    <span>@itemc.TypeDescription - </span>
+                                }
+                                @itemc.day @itemc.MonthDescription @itemc.year </td>
+                                <td> @itemc.quantity</td>
+                                <td> @tquantity</td>
+                                <td> @itemc.price</td>
+                                <td> @tprice</td>
+                            </tr>
+                        }
+                    </table>
+                </td>
+            </tr>
+        }
+        opname = pname;
+        om = m;
+    }
+        </tbody>
+        </table>
+    </div>
+</div>
+<div class="box-footer clearfix">
+    Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
+    @Html.PagedListPager(Model.PagingT, page => Url.Action("Indexwd", new { page, addressId = Model.addressId, startDate = Model.startDate, endDate = Model.endDate }))
+</div>
 
 <script>
     $(document).ready(function () {

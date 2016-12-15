@@ -480,9 +480,9 @@ function DemandProductionSearchwd(elem, value) {
     });
 }
 
-function DemandProductDetailInfoForAccounting(elem, value) {
+function StatisticsSearch(elem, controller, action, param) {
     $.ajax({
-        url: '/DemandProduction/DemandProductDetailInfoForAccounting?' + value + '=' + $(elem).val(),
+        url: '/'+controller+'/' + action + '?' + param + '=' + $(elem).val(),
         type: 'GET',
         success: function (result) {
             $('#AjaxPaginationList').html(result);
@@ -523,7 +523,7 @@ $(document).ready(function () {
     $('#btnClear').hide();
 });
 
-function SearchTimePeriod(status, action) {
+function SearchTimePeriod(status,controller, action) {
 
     if (status == '2') {
         $('#startDate').val('');
@@ -550,7 +550,7 @@ function SearchTimePeriod(status, action) {
     }
 
     $.ajax({
-        url: '/DemandProduction/'+action+'?startDate=' + startDate + '&endDate=' + endDate,
+        url: '/'+controller+'/'+action+'?startDate=' + startDate + '&endDate=' + endDate,
         type: 'GET',
         success: function (result) {
             $('#AjaxPaginationList').html(result);

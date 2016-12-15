@@ -15,29 +15,46 @@
                     <h3 class="box-title">Təklif olunan məhsullar</h3>
                     <!-- /.box-tools -->
                 </div>
+
+                <div class="clearfix"></div>
+                <br />
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label>Başlanğıc tarix</label><br />
+                        <input id="startDate" class="text-box single-line" type="datetime">
+                    </div>
+                    <div class="col-md-2">
+                        <label>Son tarix</label><br />
+                        <input id="endDate" class="text-box single-line" type="datetime">
+                    </div>
+                    <div class="col-md-2">
+                        <label>&nbsp;</label><br />
+                        <div class="btn btn-primary" id="btnSearch" onclick="SearchTimePeriod('1','OfferProduction', 'Indexwd')"><span class="glyphicon glyphicon-search"></span> Axtar</div>
+                        <div class="btn btn-danger" id="btnClear" onclick="SearchTimePeriod('2', 'OfferProduction', 'Indexwd')"><span class="glyphicon glyphicon-remove"></span> İmtina</div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>Məhsulun ünvanı</label><br />
+                     @Html.Action("AdminUnit", "OfferProduction", new { actionName = "Indexwd" })
+                    </div>
+
+                </div>
+                <div class="clearfix"></div>
+                <br />
+
+
                 <table class="table table-hover table-striped table-bordered" style="margin-bottom:0;">
                     <tbody>
                         <tr>
-                            <th class="col-md-2">
+                            <th class="col-md-6">
                                 Məhsulun adı<br />
-                                <input onkeyup="OfferProductionSearchwd(this, 'productName')" class="form-control" placeholder="axtar" />
+                                @*@Html.Action("ProductCatalogForSale", "OfferProduction", new { actionName = "Indexwd" })*@
                             </th>
-                            <th class="col-md-1">
-                                Dövrülük
-                            </th>
-                            <th class="col-md-1">
+                            <th class="col-md-3">
                                 Miqdarı (vahidi)
                             </th>
-                            <th class="col-md-1">
+                            <th class="col-md-3">
                                 @Html.DisplayNameFor(model => model.price)
-                            </th>
-                            <th class="col-md-2">
-                                Təklifin ünvanı - Mənşəyi<br />
-<input onkeyup="OfferProductionSearchwd(this, 'fullAddress')" class="form-control" placeholder="axtar" />
-                            </th>
-                            <th class="col-md-2">
-                                Təklif verənin soyadı, adı, atasının adı, ünvanı<br />
-                                <input onkeyup="OfferProductionSearchwd(this, 'userInfo')" class="form-control" placeholder="axtar" />
                             </th>
                         </tr>
                     </tbody>

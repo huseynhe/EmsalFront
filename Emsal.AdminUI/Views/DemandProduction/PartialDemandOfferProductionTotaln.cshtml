@@ -10,7 +10,7 @@
 }
 
                <h4 class="text-danger text-center"> &nbsp;
-                   <a href="/DemandProduction/DemandOfferProductionTotaln?productName=@Model.productName&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+                   <a href="/DemandProduction/DemandOfferProductionTotaln?addressId=@Model.addressId&startDate = @Model.startDate&endDate=@Model.endDate&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
                        Yüklə
                    </a>
@@ -61,5 +61,5 @@
                     </div>
                     <div class="box-footer clearfix">
                         Səhifə @(Model.DemandOfferPaging.PageCount < Model.DemandOfferPaging.PageNumber ? 0 : Model.DemandOfferPaging.PageNumber) (cəmi @Model.DemandOfferPaging.PageCount)
-                        @Html.PagedListPager(Model.DemandOfferPaging, page => Url.Action("DemandOfferProductionTotaln", new { page, productName = Model.productName }))
+                        @Html.PagedListPager(Model.DemandOfferPaging, page => Url.Action("DemandOfferProductionTotaln", new { page, addressId = Model.addressId, startDate = Model.startDate, endDate = Model.endDate }))
                     </div>

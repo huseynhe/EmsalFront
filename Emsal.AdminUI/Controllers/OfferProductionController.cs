@@ -29,6 +29,9 @@ namespace Emsal.AdminUI.Controllers
         private static string sfullAddress;
         private static string suserInfo;
         private static string sstatusEV;
+        private static long saddressId;
+        private static string sstartDate;
+        private static string sendDate;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
 
@@ -134,38 +137,36 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
-        public ActionResult Indexwd(int? page, string statusEV = null, string productName = null, string fullAddress = null, string userInfo = null, bool excell = false)
+        public ActionResult Indexwd(int? page, long addressId = 0, bool excell = false, string startDate = null, string endDate = null)
         {
             try
             {
-
-                if (statusEV != null)
-                    statusEV = StripTag.strSqlBlocker(statusEV.ToLower());
-                if (productName != null)
-                    productName = StripTag.strSqlBlocker(productName.ToLower());
-                if (fullAddress != null)
-                    fullAddress = StripTag.strSqlBlocker(fullAddress.ToLower());
-                if (userInfo != null)
-                    userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
-
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (productName == null && fullAddress == null && userInfo == null)
+                if (addressId == 0 && startDate == null && endDate == null)
                 {
-                    sproductName = null;
-                    sfullAddress = null;
-                    suserInfo = null;
+                    addressId = 0;
+                    sstartDate = null;
+                    sendDate = null;
                 }
 
-                if (productName != null)
-                    sproductName = productName;
-                if (fullAddress != null)
-                    sfullAddress = fullAddress;
-                if (userInfo != null)
-                    suserInfo = userInfo;
-                if (statusEV != null)
-                    sstatusEV = statusEV;
+                if (addressId > 0)
+                    saddressId = addressId;
+                
+                if (string.IsNullOrEmpty(startDate) && string.IsNullOrEmpty(endDate))
+                {
+                    sstartDate = null;
+                    sendDate = null;
+                }
+                else
+                {
+                    sstartDate = startDate;
+                    sendDate = endDate;
+                    //sstartDate = (Convert.ToDateTime(startDate)).getInt64ShortDate();
+                    //sendDate = (Convert.ToDateTime(endDate)).getInt64ShortDate();
+                }
+
 
                 baseInput = new BaseInput();
                 modelOfferProduction = new OfferProductionViewModel();
@@ -186,7 +187,7 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelOfferProduction.EnumCategory);
 
-                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstatusEV, out modelOfferProduction.EnumValue);
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferProduction.EnumValue);
 
                 BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelOfferProduction.EnumValue.Id, true, pageNumber, true, pageSize, true, out modelOfferProduction.ProductionDetailArray);
 
@@ -196,13 +197,9 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.ToList();
+                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.OrderBy(x=>x.fullAddress).ToList();
                 }
 
-                //if (sproductName != null)
-                //{
-                //    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
-                //}
 
                 //if (sfullAddress != null)
                 //{
@@ -229,11 +226,10 @@ namespace Emsal.AdminUI.Controllers
                     modelOfferProduction.isMain = 0;
                 else
                     modelOfferProduction.isMain = 1;
-
-                modelOfferProduction.statusEV = sstatusEV;
-                modelOfferProduction.productName = sproductName;
-                modelOfferProduction.fullAddress = sfullAddress;
-                modelOfferProduction.userInfo = suserInfo;
+                
+                modelOfferProduction.addressId = saddressId;
+                modelOfferProduction.startDate = sstartDate;
+                modelOfferProduction.endDate = sendDate;
                 //return View(modelDemandProduction);
 
                 if (excell == true)
@@ -251,68 +247,88 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Row(1).Style.Font.Size = 14;
                         sheet.Row(1).Style.Font.Bold = true;
                         sheet.Row(1).Style.WrapText = true;
-                        sheet.Cells[1, 1, 1, 7].Merge = true;
+                        sheet.Cells[1, 1, 1, 5].Merge = true;
                         sheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
                         col = 1;
                         sheet.Cells[2, col++].Value = "S/N";
                         sheet.Cells[2, col++].Value = "Məhsulun adı";
-                        sheet.Cells[2, col++].Value = "Dövrülük";
-                        sheet.Cells[2, col++].Value = "Miqdarı (vahidi)";
+                        sheet.Cells[2, col++].Value = "Miqdarı";
+                        sheet.Cells[2, col++].Value = "Vahidi";
                         sheet.Cells[2, col++].Value = "Qiyməti (AZN-lə)";
-                        sheet.Cells[2, col++].Value = "Təklifin ünvanı - Mənşəyi";
-                        sheet.Cells[2, col++].Value = "Təklif verənin soyadı, adı, atasının adı, ünvanı";
 
                         sheet.Row(2).Style.Font.Bold = true;
                         sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
-                        sheet.Column(1).Width = 6;
+                        sheet.Column(1).Width = 15;
                         sheet.Column(2).Width = 30;
-                        sheet.Column(3).Width = 9;
+                        sheet.Column(3).Width = 15;
                         sheet.Column(4).Width = 15;
-                        sheet.Column(5).Width = 9;
-                        sheet.Column(6).Width = 30;
-                        sheet.Column(7).Width = 50;
+                        sheet.Column(5).Width = 15;
 
                         int rowIndex = 3;
                         var ri = 1;
+                       string pname = "";
+                       string opname = "";
+                       string m = "";
+                       string om = "";
                         foreach (var item in modelOfferProduction.ProductionDetailList)
                         {
                             var col2 = 1;
+                            pname = item.person.Name + " " + item.person.Surname + " " + item.person.FatherName;
+                            m = item.fullAddress;
+
+                            if (m != om)
+                            {
+                                sheet.Cells[rowIndex, 1, rowIndex, 5].Merge = true;
+                                sheet.Cells[rowIndex, 1].Value =  m;
+
+                                sheet.Cells[rowIndex, 1, rowIndex, 5].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                sheet.Cells[rowIndex, 1, rowIndex, 5].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
+                                sheet.Row(rowIndex).Height = 20;
+                                rowIndex++;
+                            }
+
+                            if (pname != opname)
+                            {
+                                sheet.Cells[rowIndex, 1, rowIndex, 5].Merge = true;
+                                sheet.Cells[rowIndex, 1].Value = " S.A.A: " + pname + "\n Qeydiyyat ünvanı: " + item.personAdress + " " + (item.personAdressDesc) + "\n Bank rekvizitləri: ";
+
+                                sheet.Cells[rowIndex, 1, rowIndex, 5].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                sheet.Cells[rowIndex, 1, rowIndex, 5].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
+                                sheet.Row(rowIndex).Height = 50;
+                                sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                                rowIndex++;
+                            }
+
+
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                            sheet.Cells[rowIndex, col2++].Value = item.productName + " " + (item.productParentName);
-                            if (item.productionCalendarList.FirstOrDefault().TypeDescription != null)
-                            {
-                                sheet.Cells[rowIndex, col2++].Value = item.productionCalendarList.FirstOrDefault().TypeDescription;
-                            }
-                            sheet.Cells[rowIndex, col2++].Value = item.quantity.ToString() + " " + item.enumValueName;
+                            sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName+")";
+                            sheet.Cells[rowIndex, col2++].Value = item.quantity.ToString();
+                            sheet.Cells[rowIndex, col2++].Value = item.enumValueName;
                             sheet.Cells[rowIndex, col2++].Value = item.unitPrice.ToString();
-                            sheet.Cells[rowIndex, col2++].Value = item.fullAddress;
-                            if (item.person != null)
-                            {
-                                sheet.Cells[rowIndex, col2++].Value = item.person.Name + " " + item.person.Surname + " " + item.person.FatherName + " " + (item.person.gender) + " " + item.personAdress + " " + (item.personAdressDesc);
-                            }
 
 
-                            sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                            sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+                            //sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                            //sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
 
                             var col3 = 1;
                             rowIndex++;
-                            sheet.Cells[rowIndex, col3++].Value = "tipi";
-                            sheet.Cells[rowIndex, col3++].Value = "il";
-                            sheet.Cells[rowIndex, col3++].Value = "rüb";
-                            sheet.Cells[rowIndex, col3++].Value = "gün, ay";
-                            sheet.Cells[rowIndex, col3++].Value = "saat";
+                            sheet.Cells[rowIndex, col3++].Value = "dövrülük - gün, ay, il";
                             sheet.Cells[rowIndex, col3++].Value = "miqdar";
                             sheet.Cells[rowIndex, col3++].Value = "miqdar (cəmi)";
+                            sheet.Cells[rowIndex, col3++].Value = "qiymət";
+                            sheet.Cells[rowIndex, col3++].Value = "qiymət (cəmi)";
 
                             sheet.Row(rowIndex).Style.Font.Bold = true;
                             sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                             sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                             decimal tquantity;
+                            decimal tprice;
                             string day = "-";
                             foreach (var item2 in item.productionCalendarList)
                             {
@@ -321,26 +337,28 @@ namespace Emsal.AdminUI.Controllers
                                     day = item2.day.ToString();
                                 }
                                 tquantity = (item2.quantity * item2.transportation_eV_Id);
+                                tprice = (item2.price * tquantity);
                                 var col4 = 1;
                                 rowIndex++;
-                                sheet.Cells[rowIndex, col4++].Value = item2.TypeDescription;
-                                sheet.Cells[rowIndex, col4++].Value = item2.year;
-                                sheet.Cells[rowIndex, col4++].Value = item2.partOfyear;
-                                sheet.Cells[rowIndex, col4++].Value = day + " " + item2.MonthDescription;
-                                sheet.Cells[rowIndex, col4++].Value = item2.oclock + ":00";
+                                sheet.Cells[rowIndex, col4++].Value = item2.TypeDescription + " - " + day + " " + item2.MonthDescription + " " + item2.year;
                                 sheet.Cells[rowIndex, col4++].Value = item2.quantity;
                                 sheet.Cells[rowIndex, col4++].Value = tquantity;
+                                sheet.Cells[rowIndex, col4++].Value = item2.price;
+                                sheet.Cells[rowIndex, col4++].Value = tprice;
                             }
                             rowIndex++;
                             ri++;
+
+                            opname = pname;
+                            om = m;
                         }
 
-                        sheet.Cells[1, 1, rowIndex - 1, 7].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 7].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 7].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 7].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 7].Style.WrapText = true;
-                        sheet.Cells[1, 1, rowIndex - 1, 7].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                        sheet.Cells[1, 1, rowIndex - 1, 5].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 5].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 5].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 5].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 5].Style.WrapText = true;
+                        sheet.Cells[1, 1, rowIndex - 1, 5].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
 
                         sheet.Cells[rowIndex + 1, 2].Value = "Toplam qiyməti: " + modelOfferProduction.allPagePrice + " azn";
@@ -553,6 +571,86 @@ namespace Emsal.AdminUI.Controllers
                 BaseOutput acm = srv.WS_AddComMessage(baseInput, model.ComMessage, out model.ComMessage);
 
                 return RedirectToAction("Index", "OfferProduction", new { statusEV = model.EnumValueST.name });
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+
+        public ActionResult ProductCatalogForSale(string actionName)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+                modelOfferProduction = new OfferProductionViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferProduction.Admin);
+                baseInput.userName = modelOfferProduction.Admin.Username;
+
+                BaseOutput bouput = srv.GetProductCatalogsWithParent(baseInput, out modelOfferProduction.ProductCatalogDetailArray);
+
+                if (modelOfferProduction.ProductCatalogDetailArray == null)
+                {
+                    modelOfferProduction.ProductCatalogDetailList = new List<ProductCatalogDetail>();
+                }
+                else
+                {
+                    modelOfferProduction.ProductCatalogDetailList = modelOfferProduction.ProductCatalogDetailArray.Where(x => x.productCatalog.canBeOrder == 1).ToList();
+                }
+                modelOfferProduction.actionName = actionName;
+                return View(modelOfferProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+        public ActionResult AdminUnit(string actionName)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+                modelOfferProduction = new OfferProductionViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferProduction.Admin);
+                baseInput.userName = modelOfferProduction.Admin.Username;
+
+
+                BaseOutput bouput = srv.WS_GetAdminUnitsByParentId(baseInput,1,true, out modelOfferProduction.PRMAdminUnitArray);
+
+                if (modelOfferProduction.PRMAdminUnitArray == null)
+                {
+                    modelOfferProduction.PRMAdminUnitList = new List<tblPRM_AdminUnit>();
+                }
+                else
+                {
+                    modelOfferProduction.PRMAdminUnitList = modelOfferProduction.PRMAdminUnitArray.ToList();
+                }
+                modelOfferProduction.actionName = actionName;
+                return View(modelOfferProduction);
 
             }
             catch (Exception ex)

@@ -9,8 +9,8 @@
     var otname = "";
 }
 
-               <h4 class="text-danger text-center"> cari səhifə üçün qiymət: @Model.currentPagePrice azn - bütün qiymət: @Model.allPagePrice azn
-                   <a href="/DemandProduction/DemandProductDetailInfoForAccounting?&productName=@Model.productName&startDate = @Model.startDate&endDate=@Model.endDate&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+               <h4 class="text-danger text-center"> cari səhifə üçün qiymət: @Model.currentPagePrice azn - bütün qiymət: @Model.tPrice azn
+                   <a href="/DemandProduction/DemandProductDetailInfoForAccounting?productId=@Model.productId&startDate = @Model.startDate&endDate=@Model.endDate&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
                        Yüklə
                    </a>
@@ -37,19 +37,19 @@
                                             @*<td class="col-md-2">
                                                 @item.name
                                             </td>*@
-                                            <td class="col-md-2">
+                                            <td class="col-md-4">
                                                 @item.productParentName (@item.productName)
                                             </td>
-                                            <td class="col-md-1">
+                                            <td class="col-md-2">
                                                 @item.quantity @item.kategoryName
                                             </td>
-                                            <td class="col-md-1">
+                                            <td class="col-md-2">
                                                 @item.unitPrice azn
                                             </td>
-                                            <td class="col-md-1">
+                                            <td class="col-md-2">
                                                 @item.totalPrice azn
                                             </td>
-                                            <td class="col-md-1">
+                                            <td class="col-md-2">
                                                 @if (item.productionCalendarList!=null)
                                                 {
                                                      <span>@item.productionCalendarList.FirstOrDefault().TypeDescription</span>
@@ -67,5 +67,5 @@
                     </div>
                     <div class="box-footer clearfix">
                         Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
-                        @Html.PagedListPager(Model.PagingT, page => Url.Action("DemandProductDetailInfoForAccounting", new { page, productName = Model.productName, startDate = Model.startDate, endDate = Model.endDate }))
+                        @Html.PagedListPager(Model.PagingT, page => Url.Action("DemandProductDetailInfoForAccounting", new { page, productId = Model.productId, startDate = Model.startDate, endDate = Model.endDate }))
                     </div>

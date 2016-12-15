@@ -29,6 +29,8 @@ namespace Emsal.AdminUI.Models
         public ProductionDetail ProductionDetail;
         public IList<ProductionDetail> ProductionDetailList { get; set; }
 
+        public ProductCatalogDetail[] ProductCatalogDetailArray;
+        public IList<ProductCatalogDetail> ProductCatalogDetailList { get; set; }
 
         public ProductionDetail PagingProductionDetail;
         public IList<ProductionDetail> PagingProductionDetailList { get; set; }
@@ -105,6 +107,9 @@ namespace Emsal.AdminUI.Models
         public long itemCount = 0;
         public bool itemCountB = true;
 
+        public float tPrice = 0;
+        public bool tPriceSp = true;
+
         public PagedList.IPagedList<DemandProductionViewModel> DemandOfferPaging { get; set; }
         public PagedList.IPagedList<DemandOfferDetail> DemandOfferDetailPaging { get; set; }
 
@@ -141,7 +146,7 @@ namespace Emsal.AdminUI.Models
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public string size { get; set; }
 
-        public int productId { get; set; }
+        public long productId { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public int[] enumCat { get; set; }
@@ -153,7 +158,7 @@ namespace Emsal.AdminUI.Models
         public string descAddress { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası məcburidir.")]
-        public int addressId { get; set; }
+        public long addressId { get; set; }
 
         [Display(Name = "Sənəd növləri")]
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
@@ -171,6 +176,7 @@ namespace Emsal.AdminUI.Models
         public int isMain { get; set; }
         public string statusEV { get; set; }
         public string productName { get; set; }
+        public string parentProductName { get; set; }
         public string startDate { get; set; }
         public string endDate { get; set; }
         public string productParentName { get; set; }
@@ -189,6 +195,8 @@ namespace Emsal.AdminUI.Models
         public decimal totalOffer { get; set; }
         public decimal differenceDemandOffer { get; set; }
         public string quantityType { get; set; }
+
+        public string actionName  { get; set; }
     }
 
     public class DemandProductionExcell

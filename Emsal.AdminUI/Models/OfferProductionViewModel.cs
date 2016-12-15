@@ -34,6 +34,8 @@ namespace Emsal.AdminUI.Models
         public IList<tblDemand_Production> SelectedDemandProductionList { get; set; }
         public tblDemand_Production[] DemandProductionArray;
 
+        public ProductCatalogDetail[] ProductCatalogDetailArray;
+        public IList<ProductCatalogDetail> ProductCatalogDetailList { get; set; }
 
         public tblPotential_Production PotentialProduction;
         public IList<tblPotential_Production> PotentialProductionList { get; set; }
@@ -135,7 +137,7 @@ namespace Emsal.AdminUI.Models
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public string size { get; set; }
 
-        public int productId { get; set; }
+        public long productId { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public int[] enumCat { get; set; }
@@ -147,7 +149,10 @@ namespace Emsal.AdminUI.Models
         public string descAddress { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası məcburidir.")]
-        public int addressId { get; set; }
+        public long addressId { get; set; }
+
+        public string startDate { get; set; }
+        public string endDate { get; set; }
 
         [Display(Name = "Sənəd növləri")]
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
@@ -170,6 +175,7 @@ namespace Emsal.AdminUI.Models
 
         public decimal currentPagePrice { get; set; }
         public decimal allPagePrice { get; set; }
+        public string actionName { get; set; }
     }
 
     public class OfferProductionExcell
