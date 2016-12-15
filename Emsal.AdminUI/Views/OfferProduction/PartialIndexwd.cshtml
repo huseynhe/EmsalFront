@@ -30,7 +30,7 @@
             <tbody>
     @foreach (var item in Model.ProductionDetailList)
                 {
-                    pname = item.person.Name + " " + item.person.Surname + " " + item.person.FatherName;
+                    pname = item.person.Surname + " " + item.person.Name + " " + item.person.FatherName;
                     m = item.fullAddress;
                     if (m != om)
                     {
@@ -45,11 +45,11 @@
         {
             <tr>
                 <td colspan="5" style="background:#f2f2f2;">
-                    S.A.A: @pname
+                    <b>S.A.A:</b> @pname
                     <div class="clearfix"></div>
-                    Qeydiyyat ünvanı: @item.personAdress (@item.personAdressDesc)
+                    <b>Qeydiyyat ünvanı:</b> @item.personAdress (@item.personAdressDesc)
                     <div class="clearfix"></div>
-                    Bank rekvizitləri: 
+                    <b>Bank rekvizitləri:</b> 
                     </td>
                 </tr>
                     }
