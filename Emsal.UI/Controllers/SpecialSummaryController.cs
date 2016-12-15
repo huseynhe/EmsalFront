@@ -164,7 +164,10 @@ namespace Emsal.UI.Controllers
                 //get the profile picture of the offered product
                 modelSpecial.SpOffer.ProductProfilePicture = modelSpecial.ProductDocumentArray.Length == 0 ? null : modelSpecial.ProductDocumentArray.LastOrDefault().documentUrl + modelSpecial.ProductDocumentArray.LastOrDefault().documentName;
 
-                BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+                if (modelSpecial.ProductCatalog.ProductCatalogParentID > 0)
+                {
+                    BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+                }
 
                 //get the parent name of the product
                 modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
@@ -348,7 +351,10 @@ namespace Emsal.UI.Controllers
                 //get the profile picture of the offered product
                 modelSpecial.SpOffer.ProductProfilePicture = modelSpecial.ProductDocumentArray.Length == 0 ? null : modelSpecial.ProductDocumentArray.LastOrDefault().documentUrl + modelSpecial.ProductDocumentArray.LastOrDefault().documentName;
 
-                BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+                if (modelSpecial.ProductCatalog.ProductCatalogParentID > 0)
+                {
+                    BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+                }
 
                 //get the parent name of the product
                 modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
@@ -558,7 +564,10 @@ namespace Emsal.UI.Controllers
                     //get the profile picture of the offered product
                     modelSpecial.SpOffer.ProductProfilePicture = modelSpecial.ProductDocumentArray.Length == 0 ? null : modelSpecial.ProductDocumentArray.LastOrDefault().documentUrl + modelSpecial.ProductDocumentArray.LastOrDefault().documentName;
 
-                    BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+                    if (modelSpecial.ProductCatalog.ProductCatalogParentID > 0)
+                    {
+                        BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+                    }
 
                     //get the parent name of the product
                     modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
@@ -764,8 +773,11 @@ namespace Emsal.UI.Controllers
                     //get the profile picture of the offered product
                     modelSpecial.SpOffer.ProductProfilePicture = modelSpecial.ProductDocumentArray.Length == 0 ? null : modelSpecial.ProductDocumentArray.LastOrDefault().documentUrl + modelSpecial.ProductDocumentArray.LastOrDefault().documentName;
 
-                    BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+                    if (modelSpecial.ProductCatalog.ProductCatalogParentID > 0)
+                    {
+                        BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
 
+                    }
                     //get the parent name of the product
                     modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
 
@@ -929,6 +941,7 @@ namespace Emsal.UI.Controllers
             modelSpecial.SpOfferList = new List<SpecialSummaryPotentialAndOffer>();
             foreach (var item in modelSpecial.PotentialProductionList)
             {
+                string prName = "";
                 BaseOutput productCatalogOut = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
 
                 modelSpecial.SpOffer = new SpecialSummaryPotentialAndOffer();
@@ -937,6 +950,7 @@ namespace Emsal.UI.Controllers
 
                 //get the name of the offered product
                 modelSpecial.SpOffer.ProductName = modelSpecial.ProductCatalog.ProductName;
+                prName = modelSpecial.SpOffer.ProductName;
 
                 //get the endddate of the offered product
                 modelSpecial.SpOffer.ProductEndDate = item.endDate == null ? 0 : (long)item.endDate;
@@ -952,10 +966,22 @@ namespace Emsal.UI.Controllers
                 //get the profile picture of the offered product
                 modelSpecial.SpOffer.ProductProfilePicture = modelSpecial.ProductDocumentArray.Length == 0 ? null : modelSpecial.ProductDocumentArray.LastOrDefault().documentUrl + modelSpecial.ProductDocumentArray.LastOrDefault().documentName;
 
-                BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+                if (modelSpecial.ProductCatalog.ProductCatalogParentID > 0)
+                {
+                    BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
 
-                //get the parent name of the product
-                modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
+                    if (modelSpecial.ProductCatalog != null)
+                    {
+                        //get the parent name of the product
+                        modelSpecial.SpOffer.ParentName = modelSpecial.ProductCatalog.ProductName;
+                    }
+                    else
+                    {
+                        modelSpecial.SpOffer.ParentName = prName;
+                    }
+                }
+
+                
 
                 //get the offered product quantity unit
                 BaseOutput productControlOut = srv.WS_GetProductionControlsByPotentialProductionId(binput, item.Id, true, out modelSpecial.ProductionControlArray);
@@ -1076,7 +1102,10 @@ namespace Emsal.UI.Controllers
                     BaseOutput productCatalogOut = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
                     modelSpecial.ProductCatalogList.Add(modelSpecial.ProductCatalog);
 
-                    BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+                    if (modelSpecial.ProductCatalog.ProductCatalogParentID > 0)
+                    {
+                        BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+                    }
                     modelSpecial.ProductCatalogList.Add(modelSpecial.ProductCatalog);
                 }
                 foreach (var item in modelSpecial.PotentialProductionList)
@@ -1659,8 +1688,11 @@ namespace Emsal.UI.Controllers
 
             modelProduction.ProductName = modelProduction.ProductCatalog.ProductName;
 
-            //get product parent
-            BaseOutput parentOut = srv.WS_GetProductCatalogsById(binput, (int)modelProduction.ProductCatalog.ProductCatalogParentID, true, out modelProduction.ProductCatalog);
+            if (modelProduction.ProductCatalog.ProductCatalogParentID > 0)
+            {
+                //get product parent
+                BaseOutput parentOut = srv.WS_GetProductCatalogsById(binput, (int)modelProduction.ProductCatalog.ProductCatalogParentID, true, out modelProduction.ProductCatalog);
+            }
             //duz
             modelProduction.ProductParentName = modelProduction.ProductCatalog.ProductName;
 
@@ -1722,8 +1754,11 @@ namespace Emsal.UI.Controllers
 
             modelProduction.ProductName = modelProduction.ProductCatalog.ProductName;
 
-            //get product parent
-            BaseOutput parentOut = srv.WS_GetProductCatalogsById(binput, (int)modelProduction.ProductCatalog.ProductCatalogParentID, true, out modelProduction.ProductCatalog);
+            if (modelProduction.ProductCatalog.ProductCatalogParentID > 0)
+            {
+                //get product parent
+                BaseOutput parentOut = srv.WS_GetProductCatalogsById(binput, (int)modelProduction.ProductCatalog.ProductCatalogParentID, true, out modelProduction.ProductCatalog);
+            }
 
             modelProduction.ProductParentName = modelProduction.ProductCatalog.ProductName;
 
@@ -1924,7 +1959,11 @@ namespace Emsal.UI.Controllers
                 {
                     BaseOutput productCatalogOut = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
                     modelSpecial.ProductCatalogList.Add(modelSpecial.ProductCatalog);
-                    BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+
+                    if (modelSpecial.ProductCatalog.ProductCatalogParentID > 0)
+                    {
+                        BaseOutput productCatalogParentOut = srv.WS_GetProductCatalogsById(binput, (int)modelSpecial.ProductCatalog.ProductCatalogParentID, true, out modelSpecial.ProductCatalog);
+                    }
                     modelSpecial.ProductCatalogList.Add(modelSpecial.ProductCatalog);
                 }
 
