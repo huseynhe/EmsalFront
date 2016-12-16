@@ -5,14 +5,15 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+    
+    }
 
 <div class="content">
     <div class="row">
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title" style="width:100%;">Satıcılar üzrə təklif cədvəli (ətraflı) 
+                    <h3 class="box-title" style="width:100%;">@Model.eheader 
                     @if (Model.forma == "detail")
                     {
                     <a href="/OfferProduction/Indexwd?forma=default" class="btn btn-primary pull-right">

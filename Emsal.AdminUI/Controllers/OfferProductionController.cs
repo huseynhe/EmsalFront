@@ -236,10 +236,21 @@ namespace Emsal.AdminUI.Controllers
                 modelOfferProduction.startDate = sstartDate;
                 modelOfferProduction.endDate = sendDate;
                 modelOfferProduction.forma = sforma;
+
+                if (modelOfferProduction.forma == "detail")
+                {
+                    modelOfferProduction.eheader = "Satıcılar üzrə təklif cədvəli (ətraflı)";
+                }
+                else
+                {
+                    modelOfferProduction.eheader = "Satıcılar üzrə təklif cədvəli (ümumi)";
+                }
+
                 //return View(modelDemandProduction);
 
                 if (excell == true)
                 {
+
                     using (var excelPackage = new ExcelPackage())
                     {
                         excelPackage.Workbook.Properties.Author = "tedaruk";
@@ -248,7 +259,7 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Name = "Təklif";
 
                         var col = 1;
-                        sheet.Cells[1, col++].Value = "Satıcılar üzrə təklif cədvəli (ətraflı)";
+                        sheet.Cells[1, col++].Value = modelOfferProduction.eheader;
                         sheet.Row(1).Height = 50;
                         sheet.Row(1).Style.Font.Size = 14;
                         sheet.Row(1).Style.Font.Bold = true;

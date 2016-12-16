@@ -155,6 +155,7 @@ namespace Emsal.AdminUI.Models
         public string startDate { get; set; }
         public string endDate { get; set; }
         public string forma { get; set; }
+        public string eheader { get; set; }
 
         [Display(Name = "Sənəd növləri")]
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
