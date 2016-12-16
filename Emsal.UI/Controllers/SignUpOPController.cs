@@ -351,6 +351,10 @@ namespace Emsal.UI.Controllers
                                 orgRoles = "sellerPerson";
                             }
                         }
+                        else
+                        {
+                            orgRoles = "draftProducerPerson";
+                        }
                         BaseOutput role = srv.WS_GetRoleByName(baseInput, orgRoles, out modelUser.Role);
 
                         modelUser.UserRole.RoleId = modelUser.Role.Id;
