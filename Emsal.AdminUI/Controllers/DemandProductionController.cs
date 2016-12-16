@@ -284,7 +284,7 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
                         sheet.Column(1).Width = 10;
-                        sheet.Column(2).Width = 30;
+                        sheet.Column(2).Width = 35;
                         sheet.Column(3).Width = 15;
                         sheet.Column(4).Width = 15;
 
@@ -314,7 +314,7 @@ namespace Emsal.AdminUI.Controllers
                             }
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                            sheet.Cells[rowIndex, col2++].Value = item.productParentName + " (" + item.productName+")";
+                            sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
                             sheet.Cells[rowIndex, col2++].Value = item.quantity.ToString() + " " + item.enumValueName;
                             sheet.Cells[rowIndex, col2++].Value = item.productUnitPrice.ToString();
 
@@ -543,7 +543,7 @@ namespace Emsal.AdminUI.Controllers
                             }
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                            sheet.Cells[rowIndex, col2++].Value = item.productName + " " + (item.productParentName);
+                            sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName+")";
                             sheet.Cells[rowIndex, col2++].Value = item.quantity.ToString() + " " + item.kategoryName;
                             sheet.Cells[rowIndex, col2++].Value = item.unitPrice.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.totalPrice.ToString();
@@ -927,14 +927,14 @@ namespace Emsal.AdminUI.Controllers
                             ppname = item.parentProductName;
                             if (ppname != oppname)
                             {
-                                sheet.Cells[rowIndex, 1, rowIndex, 6].Merge = true;
+                                sheet.Cells[rowIndex, 1, rowIndex, 2].Merge = true;
+
                                 sheet.Cells[rowIndex, 1].Value = ppname;
 
                                 sheet.Cells[rowIndex, 1, rowIndex, 6].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                                 sheet.Cells[rowIndex, 1, rowIndex, 6].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
 
                                 sheet.Row(rowIndex).Height = 20;
-                                sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
                                 rowIndex++;
                             }
 
@@ -1146,6 +1146,8 @@ namespace Emsal.AdminUI.Controllers
 
                                 sheet.Cells[rowIndex, 1, rowIndex, 9].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                                 sheet.Cells[rowIndex, 1, rowIndex, 9].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
+                                sheet.Row(rowIndex).Height = 20;
 
                                 rowIndex++;
                             }

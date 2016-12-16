@@ -107,6 +107,7 @@ namespace Emsal.AdminUI.Models
         public long itemCount = 0;
         public bool itemCountB = true;
 
+        public string[] auArrName{ get; set; }
 
         public long totalSize = 0;
 

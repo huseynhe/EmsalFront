@@ -10,6 +10,7 @@
 
     string m = "";
     string om = "";
+    
 }
 
 <h4 class="text-danger text-center">
@@ -29,14 +30,15 @@
         <table class="table table-bordered">
             <tbody>
     @foreach (var item in Model.ProductionDetailList)
-                {
-                    pname = item.person.Surname + " " + item.person.Name + " " + item.person.FatherName;
-                    m = item.fullAddress;
-                    if (m != om)
-                    {
+    {
+        pname = item.person.Surname + " " + item.person.Name + " " + item.person.FatherName;
+        Model.auArrName = item.fullAddress.Split(',').ToArray();
+        m = Model.auArrName[1];
+        if (m != om)
+        {
             <tr>
-                <td colspan="5" class="text-center" style="background:#f2f2f2;">
-                   @item.fullAddress
+                <td colspan="4" class="text-center text-bold" style="background:#f2f2f2;">
+                    @m                   
                 </td>
             </tr>
         }
@@ -44,7 +46,7 @@
         if (pname != opname)
         {
             <tr>
-                <td colspan="5" style="background:#f2f2f2;">
+                <td colspan="4" style="background:#f2f2f2;">
                     <b>S.A.A:</b> @pname
                     <div class="clearfix"></div>
                     <b>Qeydiyyat ünvanı:</b> @item.personAdress (@item.personAdressDesc)
@@ -54,21 +56,24 @@
                 </tr>
                     }
             <tr>
-                <td class="col-md-6">
+                <td class="col-md-4">
                     @item.productName (@item.productParentName)
                 </td>
-                <td class="col-md-3">
+                <td class="col-md-2">
                     @item.quantity @item.enumValueName
                 </td>
-                <td class="col-md-3">
+                <td class="col-md-2">
                     @item.unitPrice AZN
+                </td>
+                <td class="col-md-4">
+                    @item.fullAddress
                 </td>
             </tr>
 
         if (item.productionCalendarList.Count() > 0)
         {
             <tr>
-                <td colspan="9" style="padding:0;">
+                <td colspan="4" style="padding:0;">
                     <table class="table" style="margin:0;">
                         <tr>
                             <th>dövrülük - gün, ay, il</th>
@@ -82,11 +87,11 @@
                             tquantity = (itemc.quantity * itemc.transportation_eV_Id);
                             tprice = (itemc.price * tquantity);
                             <tr>
-                                <td> 
-                                @if (itemc.TypeDescription != null)
-                                {
-                                    <span>@itemc.TypeDescription - </span>
-                                }
+                                <td>
+                                    @if (itemc.TypeDescription != null)
+                                    {
+                                        <span>@itemc.TypeDescription - </span>
+                                    }
                                 @itemc.day @itemc.MonthDescription @itemc.year </td>
                                 <td> @itemc.quantity</td>
                                 <td> @tquantity</td>

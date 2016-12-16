@@ -254,19 +254,19 @@ namespace Emsal.AdminUI.Controllers
                         col = 1;
                         sheet.Cells[2, col++].Value = "S/N";
                         sheet.Cells[2, col++].Value = "Məhsulun adı";
-                        sheet.Cells[2, col++].Value = "Miqdarı";
-                        sheet.Cells[2, col++].Value = "Vahidi";
+                        sheet.Cells[2, col++].Value = "Miqdarı (vahidi)";
                         sheet.Cells[2, col++].Value = "Qiyməti (AZN-lə)";
+                        sheet.Cells[2, col++].Value = "Təklifin ünvanı - Mənşəyi";
 
                         sheet.Row(2).Style.Font.Bold = true;
                         sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
                         sheet.Column(1).Width = 15;
-                        sheet.Column(2).Width = 30;
+                        sheet.Column(2).Width = 35;
                         sheet.Column(3).Width = 15;
                         sheet.Column(4).Width = 15;
-                        sheet.Column(5).Width = 15;
+                        sheet.Column(5).Width = 35;
 
                         int rowIndex = 3;
                         var ri = 1;
@@ -278,7 +278,9 @@ namespace Emsal.AdminUI.Controllers
                         {
                             var col2 = 1;
                             pname = item.person.Surname + " " + item.person.Name + " " + item.person.FatherName;
-                            m = item.fullAddress;
+
+                            modelOfferProduction.auArrName = item.fullAddress.Split(',').ToArray();
+                            m = modelOfferProduction.auArrName[1];
 
                             if (m != om)
                             {
@@ -289,6 +291,7 @@ namespace Emsal.AdminUI.Controllers
                                 sheet.Cells[rowIndex, 1, rowIndex, 5].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
 
                                 sheet.Row(rowIndex).Height = 20;
+                                sheet.Row(rowIndex).Style.Font.Bold = true;
                                 rowIndex++;
                             }
 
@@ -332,9 +335,9 @@ namespace Emsal.AdminUI.Controllers
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName+")";
-                            sheet.Cells[rowIndex, col2++].Value = item.quantity.ToString();
-                            sheet.Cells[rowIndex, col2++].Value = item.enumValueName;
+                            sheet.Cells[rowIndex, col2++].Value = item.quantity.ToString()+" ("+ item.enumValueName + ")";
                             sheet.Cells[rowIndex, col2++].Value = item.unitPrice.ToString();
+                            sheet.Cells[rowIndex, col2++].Value = item.fullAddress;
 
 
                             //sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;

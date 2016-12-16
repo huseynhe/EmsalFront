@@ -17,7 +17,7 @@
 </h4>
 <div class="box-body no-padding">
     <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table table-hover table-striped table-bordered">
             <tbody>
                 @foreach (var item in Model.DemandOfferPaging)
                 {
@@ -26,7 +26,7 @@
                     if (ppname != oppname)
                     {
                         <tr>
-                            <td colspan="5" style="background:#f2f2f2;">
+                            <td colspan="2" class="text-center text-bold">
                                 @ppname
                             </td>
                         </tr>
