@@ -32,6 +32,7 @@ namespace Emsal.AdminUI.Controllers
         private static long saddressId;
         private static string sstartDate;
         private static string sendDate;
+        private static string sforma;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
 
@@ -137,7 +138,7 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
-        public ActionResult Indexwd(int? page, long addressId = 0, bool excell = false, string startDate = null, string endDate = null)
+        public ActionResult Indexwd(int? page, long addressId = 0, bool excell = false, string startDate = null, string endDate = null, string forma=null)
         {
             try
             {
@@ -149,10 +150,14 @@ namespace Emsal.AdminUI.Controllers
                     addressId = 0;
                     sstartDate = null;
                     sendDate = null;
+                    sforma = "detail";
                 }
 
                 if (addressId > 0)
                     saddressId = addressId;
+
+                if (!string.IsNullOrEmpty(forma))
+                    sforma = forma;
                 
                 if (string.IsNullOrEmpty(startDate) && string.IsNullOrEmpty(endDate))
                 {
@@ -230,6 +235,7 @@ namespace Emsal.AdminUI.Controllers
                 modelOfferProduction.addressId = saddressId;
                 modelOfferProduction.startDate = sstartDate;
                 modelOfferProduction.endDate = sendDate;
+                modelOfferProduction.forma = sforma;
                 //return View(modelDemandProduction);
 
                 if (excell == true)
@@ -242,7 +248,7 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Name = "Təklif";
 
                         var col = 1;
-                        sheet.Cells[1, col++].Value = "Təklif olunan məhsullar";
+                        sheet.Cells[1, col++].Value = "Satıcılar üzrə təklif cədvəli (ətraflı)";
                         sheet.Row(1).Height = 50;
                         sheet.Row(1).Style.Font.Size = 14;
                         sheet.Row(1).Style.Font.Bold = true;
@@ -343,35 +349,38 @@ namespace Emsal.AdminUI.Controllers
                             //sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                             //sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
 
-                            var col3 = 1;
-                            rowIndex++;
-                            sheet.Cells[rowIndex, col3++].Value = "dövrülük - gün, ay, il";
-                            sheet.Cells[rowIndex, col3++].Value = "miqdar";
-                            sheet.Cells[rowIndex, col3++].Value = "miqdar (cəmi)";
-                            sheet.Cells[rowIndex, col3++].Value = "qiymət";
-                            sheet.Cells[rowIndex, col3++].Value = "qiymət (cəmi)";
-
-                            sheet.Row(rowIndex).Style.Font.Bold = true;
-                            sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                            sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                            decimal tquantity;
-                            decimal tprice;
-                            string day = "-";
-                            foreach (var item2 in item.productionCalendarList)
+                            if (modelOfferProduction.forma == "detail")
                             {
-                                if (item2.day != 0)
-                                {
-                                    day = item2.day.ToString();
-                                }
-                                tquantity = (item2.quantity * item2.transportation_eV_Id);
-                                tprice = (item2.price * tquantity);
-                                var col4 = 1;
+                                var col3 = 1;
                                 rowIndex++;
-                                sheet.Cells[rowIndex, col4++].Value = item2.TypeDescription + " - " + day + " " + item2.MonthDescription + " " + item2.year;
-                                sheet.Cells[rowIndex, col4++].Value = item2.quantity;
-                                sheet.Cells[rowIndex, col4++].Value = tquantity;
-                                sheet.Cells[rowIndex, col4++].Value = item2.price;
-                                sheet.Cells[rowIndex, col4++].Value = tprice;
+                                sheet.Cells[rowIndex, col3++].Value = "dövrülük - gün, ay, il";
+                                sheet.Cells[rowIndex, col3++].Value = "miqdar";
+                                sheet.Cells[rowIndex, col3++].Value = "miqdar (cəmi)";
+                                sheet.Cells[rowIndex, col3++].Value = "qiymət";
+                                sheet.Cells[rowIndex, col3++].Value = "qiymət (cəmi)";
+
+                                sheet.Row(rowIndex).Style.Font.Bold = true;
+                                sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                                decimal tquantity;
+                                decimal tprice;
+                                string day = "-";
+                                foreach (var item2 in item.productionCalendarList)
+                                {
+                                    if (item2.day != 0)
+                                    {
+                                        day = item2.day.ToString();
+                                    }
+                                    tquantity = (item2.quantity * item2.transportation_eV_Id);
+                                    tprice = (item2.price * tquantity);
+                                    var col4 = 1;
+                                    rowIndex++;
+                                    sheet.Cells[rowIndex, col4++].Value = item2.TypeDescription + " - " + day + " " + item2.MonthDescription + " " + item2.year;
+                                    sheet.Cells[rowIndex, col4++].Value = item2.quantity;
+                                    sheet.Cells[rowIndex, col4++].Value = tquantity;
+                                    sheet.Cells[rowIndex, col4++].Value = item2.price;
+                                    sheet.Cells[rowIndex, col4++].Value = tprice;
+                                }
                             }
                             rowIndex++;
                             ri++;

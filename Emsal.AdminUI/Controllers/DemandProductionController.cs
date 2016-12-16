@@ -264,7 +264,7 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Name = "Tələb";
 
                         var col = 1;
-                        sheet.Cells[1, col++].Value = "Tələb olunan məhsullar";
+                        sheet.Cells[1, col++].Value = "Satınalan təşkilatlar üzrə tələbat cədvəli (ətraflı)";
                         sheet.Row(1).Height = 50;
                         sheet.Row(1).Style.Font.Size = 14;
                         sheet.Row(1).Style.Font.Bold = true;
@@ -495,7 +495,7 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Name = "Tələb";
 
                         var col = 1;
-                        sheet.Cells[1, col++].Value = "Tələb olunan məhsullar";
+                        sheet.Cells[1, col++].Value = "Satınalan təşkilatlar üzrə tələbat cədvəli (ümumi)";
                         sheet.Row(1).Height = 50;
                         sheet.Row(1).Style.Font.Size = 14;
                         sheet.Row(1).Style.Font.Bold = true;
@@ -889,7 +889,7 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Name = "Tələb-Təklif";
 
                         var col = 1;
-                        sheet.Cells[1, col++].Value = "Ərzaq məhsullarının illik tələbatı və təklifi üzrə ümumi cədvəl";
+                        sheet.Cells[1, col++].Value = "Ərzaq məhsullarına olan tələbatın və təklifin müqayisəsi";
                         sheet.Row(1).Height = 50;
                         sheet.Row(1).Style.Font.Size = 14;
                         sheet.Row(1).Style.Font.Bold = true;

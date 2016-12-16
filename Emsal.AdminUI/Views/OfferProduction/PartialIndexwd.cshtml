@@ -15,7 +15,7 @@
 
 <h4 class="text-danger text-center">
     cari səhifə üçün qiymət: @Model.currentPagePrice azn - bütün qiymət: @Model.allPagePrice azn
-    <a href="/OfferProduction/Indexwd?&addressId=@Model.addressId&startDate = @Model.startDate&endDate=@Model.endDate&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+    <a href="/OfferProduction/Indexwd?&addressId=@Model.addressId&startDate = @Model.startDate&endDate=@Model.endDate&excell=true&forma=@Model.forma" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
         <i class="fa fa-file-excel-o" aria-hidden="true"></i>
         Yüklə
     </a>
@@ -70,8 +70,10 @@
                 </td>
             </tr>
 
-        if (item.productionCalendarList.Count() > 0)
+        if (Model.forma == "detail")
         {
+            if (item.productionCalendarList.Count() > 0)
+            {
             <tr>
                 <td colspan="4" style="padding:0;">
                     <table class="table" style="margin:0;">
@@ -102,7 +104,9 @@
                     </table>
                 </td>
             </tr>
+            }
         }
+
         opname = pname;
         om = m;
     }
@@ -112,7 +116,7 @@
 </div>
 <div class="box-footer clearfix">
     Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
-    @Html.PagedListPager(Model.PagingT, page => Url.Action("Indexwd", new { page, addressId = Model.addressId, startDate = Model.startDate, endDate = Model.endDate }))
+    @Html.PagedListPager(Model.PagingT, page => Url.Action("Indexwd", new { page, addressId = Model.addressId, startDate = Model.startDate, endDate = Model.endDate, forma=Model.forma }))
 </div>
 
 <script>
