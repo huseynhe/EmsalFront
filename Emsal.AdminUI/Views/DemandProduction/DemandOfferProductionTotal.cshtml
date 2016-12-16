@@ -19,7 +19,13 @@
                 <div class="clearfix"></div>
                 <br />
                 <div class="form-group">
+
                     <div class="col-md-2">
+                        <label>Məhsulun ünvanı</label><br />
+                        @Html.Action("AdminUnit", "DemandProduction", new { actionName = "DemandOfferProductionTotal" })
+                    </div>
+
+                    <div class="col-md-2 col-md-offset-1">
                         <label>Başlanğıc tarix</label><br />
                         <input id="startDate" class="text-box single-line" type="datetime">
                     </div>
@@ -33,10 +39,6 @@
                         <div class="btn btn-danger" id="btnClear" onclick="SearchTimePeriod('2', 'DemandProduction', 'DemandOfferProductionTotal')"><span class="glyphicon glyphicon-remove"></span> İmtina</div>
                     </div>
 
-                    <div class="col-md-2">
-                        <label>Məhsulun ünvanı</label><br />
-                        @Html.Action("AdminUnit", "DemandProduction", new { actionName = "DemandOfferProductionTotal" })
-                    </div>
 
                 </div>
                 <div class="clearfix"></div>
