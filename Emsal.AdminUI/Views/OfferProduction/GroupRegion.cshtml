@@ -1,0 +1,85 @@
+﻿@model Emsal.AdminUI.Models.OfferProductionViewModel
+@*@using PagedList.Mvc;*@
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+    }
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title" style="width:100%;">Regionlar üzrə təklif</h3>
+                </div>
+
+                <div class="clearfix"></div>
+                <br />
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label>Məhsulun ünvanı</label><br />
+                        @Html.Action("AdminUnit", "OfferProduction", new { actionName = "GroupRegion" })
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>İstifadəçinin növü</label><br />
+                        <select onchange="StatisticsSearch(this,'OfferProduction', 'GroupRegion', 'userType')" class="form-control select2" style="width:auto !important;">
+                            <option value="0">Seçim edin</option>
+
+                            <option value="15">Potensial istehsalçı</option>
+                            <option value="11">Satıcı</option>
+
+                        </select>
+                    </div>
+
+                    <div class="col-md-2 col-md-offset-1">
+                        <label>Başlanğıc tarix</label><br />
+                        <input id="startDate" class="text-box single-line" type="datetime">
+                    </div>
+                    <div class="col-md-2">
+                        <label>Son tarix</label><br />
+                        <input id="endDate" class="text-box single-line" type="datetime">
+                    </div>
+                    <div class="col-md-2">
+                        <label>&nbsp;</label><br />
+                        <div class="btn btn-primary" id="btnSearch" onclick="SearchTimePeriod('1', 'OfferProduction', 'GroupRegion')"><span class="glyphicon glyphicon-search"></span> Axtar</div>
+                        <div class="btn btn-danger" id="btnClear" onclick="SearchTimePeriod('2', 'OfferProduction', 'GroupRegion')"><span class="glyphicon glyphicon-remove"></span> İmtina</div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <br />
+
+
+                <table class="table table-hover table-striped table-bordered" style="margin-bottom:0;">
+                    <tbody>
+                        <tr>
+                            <th class="col-md-4">
+                                Məhsulun adı<br />
+                                @Html.Action("ProductCatalogForSale", "OfferProduction", new { actionName = "GroupRegion" })
+                            </th>
+                            <th class="col-md-2">
+                                Miqdarı (vahidi)
+                            </th>
+                            <th class="col-md-4">
+                                Təklifin ünvanı - Mənşəyi
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="AjaxPaginationList">
+                    @Html.Partial("PartialGroupRegion")
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/js/pagedList.js"></script>
+
+
+
+

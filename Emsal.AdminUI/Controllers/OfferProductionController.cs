@@ -30,6 +30,8 @@ namespace Emsal.AdminUI.Controllers
         private static string suserInfo;
         private static string sstatusEV;
         private static long saddressId;
+        private static long suserType;
+        private static long sproductId;
         private static string sstartDate;
         private static string sendDate;
         private static string sforma;
@@ -435,6 +437,205 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
+        public ActionResult GroupRegion(int? page, long addressId = 0, long productId = 0, bool excell = false, string startDate = null, string endDate = null, long userType = 0)
+        {
+            try
+            {
+                int pageSize = 20;
+                int pageNumber = (page ?? 1);
+
+                if (addressId == 0 && productId == 0 && startDate == null && endDate == null)
+                {
+                    addressId = 0;
+                    productId = 0;
+                    sstartDate = null;
+                    sendDate = null;
+                    suserType = 0;
+                }
+
+                if (addressId > 0)
+                    saddressId = addressId;
+                if (productId > 0)
+                    sproductId = productId;
+                if (userType > 0)
+                    suserType = userType;
+
+                if (string.IsNullOrEmpty(startDate) && string.IsNullOrEmpty(endDate))
+                {
+                    sstartDate = null;
+                    sendDate = null;
+                }
+                else
+                {
+                    sstartDate = startDate;
+                    sendDate = endDate;
+                    //sstartDate = (Convert.ToDateTime(startDate)).getInt64ShortDate();
+                    //sendDate = (Convert.ToDateTime(endDate)).getInt64ShortDate();
+                }
+
+
+                baseInput = new BaseInput();
+                modelOfferProduction = new OfferProductionViewModel();
+
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferProduction.Admin);
+                baseInput.userName = modelOfferProduction.Admin.Username;
+
+
+                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelOfferProduction.EnumCategory);
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferProduction.EnumValue);
+
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelOfferProduction.EnumValue.Id, true, pageNumber, true, pageSize, true, out modelOfferProduction.ProductionDetailArray);
+
+                if (modelOfferProduction.ProductionDetailArray == null)
+                {
+                    modelOfferProduction.ProductionDetailList = new List<ProductionDetail>();
+                }
+                else
+                {
+                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.OrderBy(x => x.fullAddress).ToList();
+                }
+
+                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForEValueId_OPC(baseInput, modelOfferProduction.EnumValue.Id, true, out modelOfferProduction.itemCount, out modelOfferProduction.itemCountB);
+
+                long[] aic = new long[modelOfferProduction.itemCount];
+
+                modelOfferProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
+
+                modelOfferProduction.allPagePrice = modelOfferProduction.ProductionDetailList.Sum(x => x.unitPrice);
+                modelOfferProduction.currentPagePrice = modelOfferProduction.ProductionDetailList.Sum(x => x.unitPrice);
+
+                if (sstatusEV == "Yayinda" || sstatusEV == "yayinda")
+                    modelOfferProduction.isMain = 0;
+                else
+                    modelOfferProduction.isMain = 1;
+
+                modelOfferProduction.addressId = saddressId;
+                modelOfferProduction.productId = sproductId;
+                modelOfferProduction.userType = suserType;
+                modelOfferProduction.startDate = sstartDate;
+                modelOfferProduction.endDate = sendDate;
+                modelOfferProduction.forma = sforma;
+
+                //return View(modelDemandProduction);
+
+                if (excell == true)
+                {
+
+                    using (var excelPackage = new ExcelPackage())
+                    {
+                        excelPackage.Workbook.Properties.Author = "tedaruk";
+                        excelPackage.Workbook.Properties.Title = "tedaruk.az";
+                        var sheet = excelPackage.Workbook.Worksheets.Add("Təklif");
+                        sheet.Name = "Təklif";
+
+                        var col = 1;
+                        sheet.Cells[1, col++].Value = "Regionlar üzrə təklif";
+                        sheet.Row(1).Height = 50;
+                        sheet.Row(1).Style.Font.Size = 14;
+                        sheet.Row(1).Style.Font.Bold = true;
+                        sheet.Row(1).Style.WrapText = true;
+                        sheet.Cells[1, 1, 1, 4].Merge = true;
+                        sheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        col = 1;
+                        sheet.Cells[2, col++].Value = "S/N";
+                        sheet.Cells[2, col++].Value = "Məhsulun adı";
+                        sheet.Cells[2, col++].Value = "Miqdarı (vahidi)";
+                        sheet.Cells[2, col++].Value = "Təklifin ünvanı - Mənşəyi";
+
+                        sheet.Row(2).Style.Font.Bold = true;
+                        sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                        sheet.Column(1).Width = 15;
+                        sheet.Column(2).Width = 35;
+                        sheet.Column(3).Width = 15;
+                        sheet.Column(4).Width = 35;
+
+                        int rowIndex = 3;
+                        var ri = 1;
+                        string m = "";
+                        string om = "";
+                        foreach (var item in modelOfferProduction.ProductionDetailList)
+                        {
+                            var col2 = 1;
+
+                            modelOfferProduction.auArrName = item.fullAddress.Split(',').ToArray();
+                            m = modelOfferProduction.auArrName[1];
+
+                            if (m != om)
+                            {
+                                sheet.Cells[rowIndex, 1, rowIndex, 4].Merge = true;
+                                sheet.Cells[rowIndex, 1].Value = m;
+
+                                sheet.Cells[rowIndex, 1, rowIndex, 4].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                sheet.Cells[rowIndex, 1, rowIndex, 4].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
+                                sheet.Row(rowIndex).Height = 20;
+                                sheet.Row(rowIndex).Style.Font.Bold = true;
+                                rowIndex++;
+                            }
+
+                            sheet.Cells[rowIndex, col2++].Value = ri.ToString();
+                            sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
+                            sheet.Cells[rowIndex, col2++].Value = item.quantity.ToString() + " (" + item.enumValueName + ")";
+                            sheet.Cells[rowIndex, col2++].Value = item.fullAddress;
+
+                            //sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                            //sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
+                            rowIndex++;
+                            ri++;
+
+                            om = m;
+                        }
+
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.WrapText = true;
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+
+                        sheet.Cells[rowIndex + 1, 2].Value = "Toplam qiyməti: " + modelOfferProduction.allPagePrice + " azn";
+                        sheet.Cells[rowIndex + 1, 2].Style.Font.Bold = true;
+                        sheet.Cells[rowIndex + 1, 2].Style.WrapText = true;
+
+                        string fileName = Guid.NewGuid() + ".xls";
+
+                        Response.ClearContent();
+                        Response.BinaryWrite(excelPackage.GetAsByteArray());
+                        Response.AddHeader("content-disposition", "attachment;filename=" + fileName);
+                        Response.AppendCookie(new HttpCookie("fileDownloadToken", "1111"));
+                        Response.ContentType = "application/excel";
+                        Response.Flush();
+                        Response.End();
+                    }
+                }
+
+                return Request.IsAjaxRequest()
+                   ? (ActionResult)PartialView("PartialGroupRegion", modelOfferProduction)
+                   : View(modelOfferProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
         public DataTable CustomTable(DataTable excelTable)
         {
             var table = new DataTable();
