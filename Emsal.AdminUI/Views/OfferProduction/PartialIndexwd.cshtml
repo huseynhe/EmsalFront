@@ -33,7 +33,19 @@
     {
         pname = item.person.Surname + " " + item.person.Name + " " + item.person.FatherName;
         Model.auArrName = item.fullAddress.Split(',').ToArray();
-        m = Model.auArrName[1];
+
+        if (Model.auArrName.Count() > 1)
+        {
+            m = Model.auArrName[1];
+        }
+        else if(Model.auArrName.Count() == 1)
+        {
+            m = Model.auArrName[0];
+        }
+        else
+        {
+            m = "";
+        }
         if (m != om)
         {
             <tr>

@@ -29,6 +29,10 @@ namespace Emsal.AdminUI.Models
         public IList<ProductionDetail> ProductionDetailList { get; set; }
         public ProductionDetail[] ProductionDetailArray;
 
+        public OfferProductionDetail OfferProductionDetail;
+        public IList<OfferProductionDetail> OfferProductionDetailList { get; set; }
+        public OfferProductionDetail[] OfferProductionDetailArray;
+
         public tblDemand_Production DemandProduction;
         public IList<tblDemand_Production> DemandProductionList { get; set; }
         public IList<tblDemand_Production> SelectedDemandProductionList { get; set; }
@@ -97,7 +101,7 @@ namespace Emsal.AdminUI.Models
         public OfferProductionExcell OfferProductionExcell;
         public IList<OfferProductionExcell> OfferProductionExcellList { get; set; }
 
-
+        public PagedList.IPagedList<OfferProductionDetail> OfferPaging { get; set; }
         public PagedList.IPagedList<ProductionDetail> Paging { get; set; }
         public PagedList.IPagedList<long> PagingT { get; set; }
 

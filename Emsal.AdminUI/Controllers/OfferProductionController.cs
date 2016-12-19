@@ -446,8 +446,8 @@ namespace Emsal.AdminUI.Controllers
 
                 if (addressId == 0 && productId == 0 && startDate == null && endDate == null)
                 {
-                    addressId = 0;
-                    productId = 0;
+                    saddressId = 0;
+                    sproductId = 0;
                     sstartDate = null;
                     sendDate = null;
                     suserType = 0;
@@ -495,25 +495,29 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferProduction.EnumValue);
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelOfferProduction.EnumValue.Id, true, pageNumber, true, pageSize, true, out modelOfferProduction.ProductionDetailArray);
+                BaseOutput gpp = srv.WS_GetOfferGroupedProductionDetailistForAccounting(baseInput, out modelOfferProduction.OfferProductionDetailArray);
 
-                if (modelOfferProduction.ProductionDetailArray == null)
+                if (modelOfferProduction.OfferProductionDetailArray == null)
                 {
-                    modelOfferProduction.ProductionDetailList = new List<ProductionDetail>();
+                    modelOfferProduction.OfferProductionDetailList = new List<OfferProductionDetail>();
                 }
                 else
                 {
-                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.OrderBy(x => x.fullAddress).ToList();
+                    modelOfferProduction.OfferProductionDetailList = modelOfferProduction.OfferProductionDetailArray.OrderBy(x => x.adminName).ToList();
                 }
 
-                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForEValueId_OPC(baseInput, modelOfferProduction.EnumValue.Id, true, out modelOfferProduction.itemCount, out modelOfferProduction.itemCountB);
+                if (sproductId > 0)
+                {
+                    modelOfferProduction.OfferProductionDetailList = modelOfferProduction.OfferProductionDetailList.Where(x => x.productID == sproductId).ToList();
+                }
 
-                long[] aic = new long[modelOfferProduction.itemCount];
+                if (saddressId > 0)
+                {
+                    modelOfferProduction.OfferProductionDetailList = modelOfferProduction.OfferProductionDetailList.Where(x => x.adminID == saddressId).ToList();
+                }
 
-                modelOfferProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
-
-                modelOfferProduction.allPagePrice = modelOfferProduction.ProductionDetailList.Sum(x => x.unitPrice);
-                modelOfferProduction.currentPagePrice = modelOfferProduction.ProductionDetailList.Sum(x => x.unitPrice);
+                modelOfferProduction.itemCount = modelOfferProduction.OfferProductionDetailList.Count();
+                modelOfferProduction.OfferPaging = modelOfferProduction.OfferProductionDetailList.ToList().ToPagedList(pageNumber, pageSize);
 
                 if (sstatusEV == "Yayinda" || sstatusEV == "yayinda")
                     modelOfferProduction.isMain = 0;
@@ -552,28 +556,27 @@ namespace Emsal.AdminUI.Controllers
                         col = 1;
                         sheet.Cells[2, col++].Value = "S/N";
                         sheet.Cells[2, col++].Value = "Məhsulun adı";
-                        sheet.Cells[2, col++].Value = "Miqdarı (vahidi)";
-                        sheet.Cells[2, col++].Value = "Təklifin ünvanı - Mənşəyi";
+                        sheet.Cells[2, col++].Value = "Miqdarı";
+                        sheet.Cells[2, col++].Value = "Ölçü vahidi";
 
                         sheet.Row(2).Style.Font.Bold = true;
                         sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
-                        sheet.Column(1).Width = 15;
-                        sheet.Column(2).Width = 35;
+                        sheet.Column(1).Width = 8;
+                        sheet.Column(2).Width = 40;
                         sheet.Column(3).Width = 15;
-                        sheet.Column(4).Width = 35;
+                        sheet.Column(4).Width = 15;
 
                         int rowIndex = 3;
                         var ri = 1;
                         string m = "";
                         string om = "";
-                        foreach (var item in modelOfferProduction.ProductionDetailList)
+                        foreach (var item in modelOfferProduction.OfferProductionDetailList)
                         {
                             var col2 = 1;
-
-                            modelOfferProduction.auArrName = item.fullAddress.Split(',').ToArray();
-                            m = modelOfferProduction.auArrName[1];
+                            
+                            m = item.adminName;
 
                             if (m != om)
                             {
@@ -590,11 +593,8 @@ namespace Emsal.AdminUI.Controllers
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
-                            sheet.Cells[rowIndex, col2++].Value = item.quantity.ToString() + " (" + item.enumValueName + ")";
-                            sheet.Cells[rowIndex, col2++].Value = item.fullAddress;
-
-                            //sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                            //sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+                            sheet.Cells[rowIndex, col2++].Value = item.totalQuantity.ToString() ;
+                            sheet.Cells[rowIndex, col2++].Value = item.quantityType;
 
                             rowIndex++;
                             ri++;
@@ -608,11 +608,6 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Cells[1, 1, rowIndex - 1, 4].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
                         sheet.Cells[1, 1, rowIndex - 1, 4].Style.WrapText = true;
                         sheet.Cells[1, 1, rowIndex - 1, 4].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-
-
-                        sheet.Cells[rowIndex + 1, 2].Value = "Toplam qiyməti: " + modelOfferProduction.allPagePrice + " azn";
-                        sheet.Cells[rowIndex + 1, 2].Style.Font.Bold = true;
-                        sheet.Cells[rowIndex + 1, 2].Style.WrapText = true;
 
                         string fileName = Guid.NewGuid() + ".xls";
 
@@ -636,6 +631,7 @@ namespace Emsal.AdminUI.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
+
         public DataTable CustomTable(DataTable excelTable)
         {
             var table = new DataTable();

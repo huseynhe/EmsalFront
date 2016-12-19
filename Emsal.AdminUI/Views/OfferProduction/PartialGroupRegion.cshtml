@@ -24,10 +24,9 @@
         </div>
         <table class="table table-bordered">
             <tbody>
-    @foreach (var item in Model.ProductionDetailList)
+    @foreach (var item in Model.OfferPaging)
     {
-        Model.auArrName = item.fullAddress.Split(',').ToArray();
-        m = Model.auArrName[1];
+        m = item.adminName;
         if (m != om)
         {
             <tr>
@@ -41,10 +40,10 @@
                     @item.productName (@item.productParentName)
                 </td>
                 <td class="col-md-2">
-                    @item.quantity @item.enumValueName
+                    @item.totalQuantity
                 </td>
-                <td class="col-md-4">
-                    @item.fullAddress
+                <td class="col-md-2">
+                    @item.quantityType
                 </td>
             </tr>
 
@@ -55,12 +54,6 @@
     </div>
 </div>
 <div class="box-footer clearfix">
-    Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
-    @Html.PagedListPager(Model.PagingT, page => Url.Action("GroupRegion", new { page, addressId = Model.addressId, startDate = Model.startDate, endDate = Model.endDate, productId = Model.productId, userType = Model.userType }))
+    Səhifə @(Model.OfferPaging.PageCount < Model.OfferPaging.PageNumber ? 0 : Model.OfferPaging.PageNumber) (cəmi @Model.OfferPaging.PageCount)
+    @Html.PagedListPager(Model.OfferPaging, page => Url.Action("GroupRegion", new { page, addressId = Model.addressId, startDate = Model.startDate, endDate = Model.endDate, productId = Model.productId, userType = Model.userType }))
 </div>
-
-<script>
-    $(document).ready(function () {
-        $('#chall').hide();
-    });
-</script>
