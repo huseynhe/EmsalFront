@@ -11,7 +11,7 @@ using Emsal.AdminUI.Infrastructure;
 
 namespace Emsal.AdminUI.Controllers
 {
-    //[EmsalAdminAuthentication(AuthorizedAction = ActionName.admin)]
+    [EmsalAdminAuthentication(AuthorizedAction = ActionName.admin)]
     public class EnumValueController : Controller
     {
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;

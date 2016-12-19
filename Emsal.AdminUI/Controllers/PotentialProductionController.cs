@@ -13,7 +13,7 @@ using Emsal.Utility.CustomObjects;
 
 namespace Emsal.AdminUI.Controllers
 {
-    //[EmsalAdminAuthentication(AuthorizedAction = ActionName.admin)]
+    [EmsalAdminAuthentication(AuthorizedAction = ActionName.admin)]
     public class PotentialProductionController : Controller
     {
         private BaseInput baseInput;
