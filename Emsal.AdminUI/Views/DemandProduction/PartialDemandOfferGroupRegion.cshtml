@@ -1,0 +1,59 @@
+﻿@model Emsal.AdminUI.Models.DemandProductionViewModel
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+    
+    string m = "";
+    string om = "";
+    
+}
+
+<h4 class="text-danger text-center">
+    <a href="/DemandProduction/DemandOfferGroupRegion?addressId=@Model.addressId&productId = @Model.productId&startDate = @Model.startDate&endDate=@Model.endDate&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+        Yüklə
+    </a>
+</h4>
+<div class="clearfix"></div>
+<br />
+<div class="box-body no-padding">
+    <div class="table-responsive">
+        <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
+            <span class="badge " style="margin-top: -10px; float: right; margin-right: 15px;background:#D43F3A;">@Model.itemCount</span>
+        </div>
+        <table class="table table-bordered">
+            <tbody>
+    @foreach (var item in Model.DemandOfferGroupRegionPaging)
+    {
+        m = item.adminName;
+        if (m != om)
+        {
+            <tr>
+                <td colspan="3" class="text-center text-bold" style="background:#f2f2f2;">
+                    @m                   
+                </td>
+            </tr>
+        }
+            <tr>
+                <td class="col-md-4">
+                    @item.productName (@item.productParentName)
+                </td>
+                <td class="col-md-2">
+                    @item.totalQuantity
+                </td>
+                <td class="col-md-2">
+                    @item.quantityType
+                </td>
+            </tr>
+
+        om = m;
+    }
+        </tbody>
+        </table>
+    </div>
+</div>
+<div class="box-footer clearfix">
+    Səhifə @(Model.DemandOfferGroupRegionPaging.PageCount < Model.DemandOfferGroupRegionPaging.PageNumber ? 0 : Model.DemandOfferGroupRegionPaging.PageNumber) (cəmi @Model.DemandOfferGroupRegionPaging.PageCount)
+    @Html.PagedListPager(Model.DemandOfferGroupRegionPaging, page => Url.Action("DemandOfferGroupRegion", new { page, addressId = Model.addressId, startDate = Model.startDate, endDate = Model.endDate, productId = Model.productId }))
+</div>
