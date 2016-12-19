@@ -10,7 +10,7 @@ using System.Web.Security;
 
 namespace Emsal.AdminUI.Controllers
 {
-    //[EmsalAdminAuthentication(AuthorizedAction = ActionName.admin)]
+    [EmsalAdminAuthentication(AuthorizedAction = ActionName.admin)]
     public class AdminUnitController : Controller
     {
         //
