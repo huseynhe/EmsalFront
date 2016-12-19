@@ -1484,7 +1484,7 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Name = "Təklif";
 
                         var col = 1;
-                        sheet.Cells[1, col++].Value = "Regionlar üzrə təklif";
+                        sheet.Cells[1, col++].Value = "Tələb və təklifin müqayisəsi (İstehsalçılara görə)";
                         sheet.Row(1).Height = 50;
                         sheet.Row(1).Style.Font.Size = 14;
                         sheet.Row(1).Style.Font.Bold = true;
