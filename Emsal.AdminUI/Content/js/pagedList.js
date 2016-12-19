@@ -34,7 +34,7 @@ $(function() {
         $.ajax({
             url: url,
             success: function(result) {
-                ChangeUrl('index', url);
+                //ChangeUrl('index', url);
                 $('#AjaxPaginationList').html(result);
             }
         });

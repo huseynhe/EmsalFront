@@ -299,9 +299,21 @@ namespace Emsal.AdminUI.Controllers
                             pname = item.person.Surname + " " + item.person.Name + " " + item.person.FatherName;
 
                             modelOfferProduction.auArrName = item.fullAddress.Split(',').ToArray();
-                            m = modelOfferProduction.auArrName[1];
 
-                            if (m != om)
+                            if(modelOfferProduction.auArrName.Count()>1)
+                            {
+                                m = modelOfferProduction.auArrName[1];
+                            }else if (modelOfferProduction.auArrName.Count() == 1)
+                            {
+                                m = modelOfferProduction.auArrName[0];
+                            }
+                            else
+                            {
+                                m = "";
+                            }
+
+
+                                if (m != om)
                             {
                                 sheet.Cells[rowIndex, 1, rowIndex, 5].Merge = true;
                                 sheet.Cells[rowIndex, 1].Value =  m;
@@ -437,14 +449,14 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
-        public ActionResult GroupRegion(int? page, long addressId = 0, long productId = 0, bool excell = false, string startDate = null, string endDate = null, long userType = 0)
+        public ActionResult GroupRegion(int? page, long addressId = -1, long productId = -1, bool excell = false, string startDate = null, string endDate = null, long userType = -1)
         {
             try
             {
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (addressId == 0 && productId == 0 && startDate == null && endDate == null)
+                if (addressId == -1 && userType == -1 && productId == -1 && startDate == null && endDate == null)
                 {
                     saddressId = 0;
                     sproductId = 0;
@@ -453,11 +465,11 @@ namespace Emsal.AdminUI.Controllers
                     suserType = 0;
                 }
 
-                if (addressId > 0)
+                if (addressId >= 0)
                     saddressId = addressId;
-                if (productId > 0)
+                if (productId >= 0)
                     sproductId = productId;
-                if (userType > 0)
+                if (userType >= 0)
                     suserType = userType;
 
                 if (string.IsNullOrEmpty(startDate) && string.IsNullOrEmpty(endDate))
@@ -495,7 +507,7 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferProduction.EnumValue);
 
-                BaseOutput gpp = srv.WS_GetOfferGroupedProductionDetailistForAccounting(baseInput, out modelOfferProduction.OfferProductionDetailArray);
+                BaseOutput gpp = srv.WS_GetOfferGroupedProductionDetailistForAccountingByRoleId(baseInput, suserType, true, out modelOfferProduction.OfferProductionDetailArray);
 
                 if (modelOfferProduction.OfferProductionDetailArray == null)
                 {
