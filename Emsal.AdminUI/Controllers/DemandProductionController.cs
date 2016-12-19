@@ -33,6 +33,7 @@ namespace Emsal.AdminUI.Controllers
         private static string sendDate;
         private static long sproductId;
         private static long saddressId;
+        private static long suserType;
 
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
@@ -1369,6 +1370,199 @@ namespace Emsal.AdminUI.Controllers
                 }
                 return Request.IsAjaxRequest()
                    ? (ActionResult)PartialView("PartialDemandProductionAmountOfEachProduct", modelDemandProduction)
+                   : View(modelDemandProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+        public ActionResult DemandOfferGroupRegion(int? page, long addressId = -1, long productId = -1, bool excell = false, string startDate = null, string endDate = null, long userType = -1)
+        {
+            try
+            {
+                int pageSize = 20;
+                int pageNumber = (page ?? 1);
+
+                if (addressId == -1 && userType == -1 && productId == -1 && startDate == null && endDate == null)
+                {
+                    saddressId = 0;
+                    sproductId = 0;
+                    sstartDate = null;
+                    sendDate = null;
+                    suserType = 0;
+                }
+
+                if (addressId >= 0)
+                    saddressId = addressId;
+                if (productId >= 0)
+                    sproductId = productId;
+                if (userType >= 0)
+                    suserType = userType;
+
+                if (string.IsNullOrEmpty(startDate) && string.IsNullOrEmpty(endDate))
+                {
+                    sstartDate = null;
+                    sendDate = null;
+                }
+                else
+                {
+                    sstartDate = startDate;
+                    sendDate = endDate;
+                    //sstartDate = (Convert.ToDateTime(startDate)).getInt64ShortDate();
+                    //sendDate = (Convert.ToDateTime(endDate)).getInt64ShortDate();
+                }
+
+
+                baseInput = new BaseInput();
+                modelDemandProduction = new DemandProductionViewModel();
+
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
+                baseInput.userName = modelDemandProduction.Admin.Username;
+
+
+                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelDemandProduction.EnumCategory);
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelDemandProduction.EnumValue);
+
+                BaseOutput gpp = srv.WS_GetOfferGroupedProductionDetailistForAccountingByRoleId(baseInput, suserType, true, out modelDemandProduction.OfferProductionDetailArray);
+
+                if (modelDemandProduction.OfferProductionDetailArray == null)
+                {
+                    modelDemandProduction.OfferProductionDetailList = new List<OfferProductionDetail>();
+                }
+                else
+                {
+                    modelDemandProduction.OfferProductionDetailList = modelDemandProduction.OfferProductionDetailArray.OrderBy(x => x.adminName).ToList();
+                }
+
+                if (sproductId > 0)
+                {
+                    modelDemandProduction.OfferProductionDetailList = modelDemandProduction.OfferProductionDetailList.Where(x => x.productID == sproductId).ToList();
+                }
+
+                if (saddressId > 0)
+                {
+                    modelDemandProduction.OfferProductionDetailList = modelDemandProduction.OfferProductionDetailList.Where(x => x.adminID == saddressId).ToList();
+                }
+
+                modelDemandProduction.itemCount = modelDemandProduction.OfferProductionDetailList.Count();
+                modelDemandProduction.DemandOfferGroupRegionPaging = modelDemandProduction.OfferProductionDetailList.ToList().ToPagedList(pageNumber, pageSize);
+
+                if (sstatusEV == "Yayinda" || sstatusEV == "yayinda")
+                    modelDemandProduction.isMain = 0;
+                else
+                    modelDemandProduction.isMain = 1;
+
+                modelDemandProduction.addressId = saddressId;
+                modelDemandProduction.productId = sproductId;
+                modelDemandProduction.startDate = sstartDate;
+                modelDemandProduction.endDate = sendDate;
+
+                //return View(modelDemandProduction);
+
+                if (excell == true)
+                {
+
+                    using (var excelPackage = new ExcelPackage())
+                    {
+                        excelPackage.Workbook.Properties.Author = "tedaruk";
+                        excelPackage.Workbook.Properties.Title = "tedaruk.az";
+                        var sheet = excelPackage.Workbook.Worksheets.Add("Təklif");
+                        sheet.Name = "Təklif";
+
+                        var col = 1;
+                        sheet.Cells[1, col++].Value = "Regionlar üzrə təklif";
+                        sheet.Row(1).Height = 50;
+                        sheet.Row(1).Style.Font.Size = 14;
+                        sheet.Row(1).Style.Font.Bold = true;
+                        sheet.Row(1).Style.WrapText = true;
+                        sheet.Cells[1, 1, 1, 4].Merge = true;
+                        sheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        col = 1;
+                        sheet.Cells[2, col++].Value = "S/N";
+                        sheet.Cells[2, col++].Value = "Məhsulun adı";
+                        sheet.Cells[2, col++].Value = "Miqdarı";
+                        sheet.Cells[2, col++].Value = "Ölçü vahidi";
+
+                        sheet.Row(2).Style.Font.Bold = true;
+                        sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                        sheet.Column(1).Width = 8;
+                        sheet.Column(2).Width = 40;
+                        sheet.Column(3).Width = 15;
+                        sheet.Column(4).Width = 15;
+
+                        int rowIndex = 3;
+                        var ri = 1;
+                        string m = "";
+                        string om = "";
+                        foreach (var item in modelDemandProduction.OfferProductionDetailList)
+                        {
+                            var col2 = 1;
+
+                            m = item.adminName;
+
+                            if (m != om)
+                            {
+                                sheet.Cells[rowIndex, 1, rowIndex, 4].Merge = true;
+                                sheet.Cells[rowIndex, 1].Value = m;
+
+                                sheet.Cells[rowIndex, 1, rowIndex, 4].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                sheet.Cells[rowIndex, 1, rowIndex, 4].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
+                                sheet.Row(rowIndex).Height = 20;
+                                sheet.Row(rowIndex).Style.Font.Bold = true;
+                                rowIndex++;
+                            }
+
+                            sheet.Cells[rowIndex, col2++].Value = ri.ToString();
+                            sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
+                            sheet.Cells[rowIndex, col2++].Value = item.totalQuantity.ToString();
+                            sheet.Cells[rowIndex, col2++].Value = item.quantityType;
+
+                            rowIndex++;
+                            ri++;
+
+                            om = m;
+                        }
+
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.WrapText = true;
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        string fileName = Guid.NewGuid() + ".xls";
+
+                        Response.ClearContent();
+                        Response.BinaryWrite(excelPackage.GetAsByteArray());
+                        Response.AddHeader("content-disposition", "attachment;filename=" + fileName);
+                        Response.AppendCookie(new HttpCookie("fileDownloadToken", "1111"));
+                        Response.ContentType = "application/excel";
+                        Response.Flush();
+                        Response.End();
+                    }
+                }
+
+                return Request.IsAjaxRequest()
+                   ? (ActionResult)PartialView("PartialDemandOfferGroupRegion", modelDemandProduction)
                    : View(modelDemandProduction);
 
             }

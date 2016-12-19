@@ -196,7 +196,13 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferProduction.EnumValue);
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelOfferProduction.EnumValue.Id, true, pageNumber, true, pageSize, true, out modelOfferProduction.ProductionDetailArray);
+                if (excell == true)
+                {
+                    pageNumber = 1;
+                    pageSize = 10000;
+                }
+
+                    BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelOfferProduction.EnumValue.Id, true, pageNumber, true, pageSize, true, out modelOfferProduction.ProductionDetailArray);
 
                 if (modelOfferProduction.ProductionDetailArray == null)
                 {
@@ -281,7 +287,7 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
-                        sheet.Column(1).Width = 15;
+                        sheet.Column(1).Width = 22;
                         sheet.Column(2).Width = 35;
                         sheet.Column(3).Width = 15;
                         sheet.Column(4).Width = 15;
@@ -507,7 +513,14 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferProduction.EnumValue);
 
-                BaseOutput gpp = srv.WS_GetOfferGroupedProductionDetailistForAccountingByRoleId(baseInput, suserType, true, out modelOfferProduction.OfferProductionDetailArray);
+                modelOfferProduction.OfferProductionDetailSearch = new OfferProductionDetailSearch();
+                modelOfferProduction.OfferProductionDetailSearch.state_eV_Id = modelOfferProduction.EnumValue.Id;
+               modelOfferProduction.OfferProductionDetailSearch.roleID = suserType;
+                modelOfferProduction.OfferProductionDetailSearch.adminID = saddressId;
+                modelOfferProduction.OfferProductionDetailSearch.productID = sproductId;
+
+                BaseOutput gpp = srv.WS_GetOfferGroupedProductionDetailistForAccountingBySearch(baseInput, modelOfferProduction.OfferProductionDetailSearch, out modelOfferProduction.OfferProductionDetailArray);
+
 
                 if (modelOfferProduction.OfferProductionDetailArray == null)
                 {
@@ -516,17 +529,7 @@ namespace Emsal.AdminUI.Controllers
                 else
                 {
                     modelOfferProduction.OfferProductionDetailList = modelOfferProduction.OfferProductionDetailArray.OrderBy(x => x.adminName).ToList();
-                }
-
-                if (sproductId > 0)
-                {
-                    modelOfferProduction.OfferProductionDetailList = modelOfferProduction.OfferProductionDetailList.Where(x => x.productID == sproductId).ToList();
-                }
-
-                if (saddressId > 0)
-                {
-                    modelOfferProduction.OfferProductionDetailList = modelOfferProduction.OfferProductionDetailList.Where(x => x.adminID == saddressId).ToList();
-                }
+                }              
 
                 modelOfferProduction.itemCount = modelOfferProduction.OfferProductionDetailList.Count();
                 modelOfferProduction.OfferPaging = modelOfferProduction.OfferProductionDetailList.ToList().ToPagedList(pageNumber, pageSize);
