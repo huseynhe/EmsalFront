@@ -59,6 +59,10 @@ namespace Emsal.AdminUI.Models
         public IList<tblEnumCategory> EnumCategoryList { get; set; }
         public tblEnumCategory[] EnumCategoryArray;
 
+        public OfferProductionDetail OfferProductionDetail;
+        public IList<OfferProductionDetail> OfferProductionDetailList { get; set; }
+        public OfferProductionDetail[] OfferProductionDetailArray;
+
         public tblEnumValue EnumValue;
         public tblEnumValue EnumValueST;
         public IList<tblEnumValue> EnumValueList { get; set; }
@@ -104,6 +108,7 @@ namespace Emsal.AdminUI.Models
 
         public PagedList.IPagedList<ProductionDetail> Paging { get; set; }
         public PagedList.IPagedList<long> PagingT { get; set; }
+        public PagedList.IPagedList<OfferProductionDetail> DemandOfferGroupRegionPaging { get; set; }
         public long itemCount = 0;
         public bool itemCountB = true;
 
