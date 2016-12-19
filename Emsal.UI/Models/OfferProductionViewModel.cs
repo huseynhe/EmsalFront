@@ -251,6 +251,7 @@ public int productId { get; set; }
         public string UnitPrice { get; set; }
         public long selectedPOriginId { get; set; }
         public int originStatus { get; set; }
+        public bool isPotential { get; set; }
         public string fpid { get; set; }
     }
 }

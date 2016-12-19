@@ -670,6 +670,15 @@ namespace Emsal.UI.Controllers
 
                 //fullAddressId = "";
 
+
+                BaseOutput userRole = srv.WS_GetUserRolesByUserId(baseInput, modelOfferProduction.User.Id, true, out modelOfferProduction.UserRoleArray);
+                modelOfferProduction.UserRole = modelOfferProduction.UserRoleArray.FirstOrDefault();
+
+                if (modelOfferProduction.UserRole.RoleId == 15 || modelOfferProduction.UserRole.RoleId == 24)
+                {
+                    modelOfferProduction.isPotential = true;
+                }
+
                 if (Session["arrONum"] == null)
                 {
                     Session["arrONum"] = modelOfferProduction.arrNum;

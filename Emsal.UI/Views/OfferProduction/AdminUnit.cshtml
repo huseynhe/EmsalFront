@@ -4,6 +4,8 @@
     ViewBag.Title = "ProductCatalog";
     Layout = "";
     long itempid = 0;
+
+    var rq = "";
 }
 
 @if (Model.PRMAdminUnitArrayFA != null)
@@ -21,8 +23,12 @@
     {
         if (Model.PRMAdminUnitArrayFA[i].Count() > 0)
         {
+            if(Model.PRMAdminUnitArrayFA[i].FirstOrDefault().ParentID==1)
+            {
+                rq = "required";
+            }
             <div class="form-group col-md-3">
-                <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+                <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2" @rq>
                     @if (Model.arrNum > 0)
                     {
                         <option value="">Seçim edin</option>
@@ -35,7 +41,10 @@
                         }
                         else
                         {
-                            <option value="@itm.Id">@itm.Name</option>
+                            if (Model.isPotential == false || Model.PRMAdminUnitList.FirstOrDefault().ParentID > 0)
+                            {
+                                <option value="@itm.Id">@itm.Name</option>
+                            }
                         }
                     }
                 </select>
@@ -53,14 +62,18 @@
             <input type="text" value="@Model.ProductAddress.addressDesc" name="descAddress" id="descAddress" placeholder="məs: Azadlıq prospekti 22, mənzil 33" class="form-control">
         </div>
     </div>
-    }
-    else
-    {
+                    }
+                    else
+                    {
 
-        if (Model.PRMAdminUnitList.Count > 0)
-        {
+                        if (Model.PRMAdminUnitList.Count > 0)
+                        {
+                            if (Model.PRMAdminUnitList.FirstOrDefault().ParentID == 1)
+                            {
+                                rq = "required";
+                            }
             <div class="form-group col-md-3">
-                <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2">
+                <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2" @rq>
                     @if (Model.arrNum > 0)
                     {
                         <option value="">Seçim edin</option>
@@ -73,7 +86,10 @@
                         }
                         else
                         {
+                            if (Model.isPotential == false || Model.PRMAdminUnitList.FirstOrDefault().ParentID>0)
+                            {
                             <option value="@item.Id">@item.Name</option>
+                            }
                         }
                     }
                 </select>
