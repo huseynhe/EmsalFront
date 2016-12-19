@@ -14,7 +14,7 @@ using Emsal.AdminUI.Infrastructure;
 
 namespace Emsal.AdminUI.Controllers
 {
-    //[EmsalAdminAuthentication(AuthorizedAction = ActionName.admin)]
+    [EmsalAdminAuthentication(AuthorizedAction = ActionName.admin)]
     public class ProductionDocumentController : Controller
     {
         private BaseInput baseInput;
