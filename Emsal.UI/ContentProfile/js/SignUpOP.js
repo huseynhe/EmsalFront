@@ -147,6 +147,7 @@ function check() {
                     for (var i = 0; i < res.length; i++) {
                         if (i == 0) {
                             $("#mainRegion").val(res[i]).change();
+                            $("#mainRegion").attr('disabled', true);
                         }
 
                     }
@@ -259,6 +260,7 @@ function GetAdminUnit(elem) {
     if (aId != "") {
         $('#addressId').val(aId);
     }
+
     $(elem).parent().nextAll().remove();
 
     //var valu = 0;
@@ -287,10 +289,9 @@ function GetAdminUnit(elem) {
             data: 'data',
             success: function (result) {
                 var regCombo = "";
-
                 $('#regionContainer').append(regCombo);
                 if (result.data.length > 0) {
-                    regCombo += "<div class='col-md-3'> <select id='" + "adId" + result.data[0].parentId + "' name='adId[" + result.data[0].parentId + "]' onchange='GetAdminUnit(this)' class='form-control select2'>"
+                    regCombo += "<div class='col-md-3'> <select id='" + "adId" + result.data[0].parentId + "' onchange='GetAdminUnit(this)' class='form-control select2'>"
                     regCombo += " <option value=''>Seçim edin</option>"
                     for (var i = 0; i < result.data.length; i++) {
                         regCombo += " <option value='" + result.data[i].id + "'> " + result.data[i].name + " </option>"
@@ -306,7 +307,27 @@ function GetAdminUnit(elem) {
                 //if (ai > 0) {
 
                 $("#adId" + res[ai] + "").val(res[ai + 1]).change();
+
+                if ($("#adId" + res[ai] + "").val() != '')
+                {                    
+                    $("#adId" + res[ai] + "").attr('disabled', true);
+                }
+
+
+                //if (result.data != null)
+                //{
+                //    $("#mainRegion").attr('disabled', true);
                 //}
+
+                //for ( y = 2; y < s; y++) {
+                //    y++;
+                //    alert(y);
+                //    alert(res[ai]);
+                //    $("#adId" + res[ai] + "").attr('disabled', true);
+                //}
+   
+                //}
+
                 ai = ai + 1;
 
                 $('.select2').select2();
@@ -329,7 +350,7 @@ function SaveChanges() {
 
     if ($('#signUpDiv').validate().form()) {
 
-        if (ri = 0) {
+        if (ri == 0) {
 
             ri = 1;
             $.ajax({
