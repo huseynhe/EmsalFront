@@ -29,7 +29,7 @@
         m = item.adminName;
         if (m != om)
         {
-            if (Model.productId > 0 && Model.addressId == 0)
+            if (Model.productId > 0)
             {
             }
             else
@@ -43,7 +43,7 @@
             }
             <tr>
                 <td class="col-md-4">
-                    @if (Model.productId > 0 && Model.addressId == 0)
+                    @if (Model.productId > 0)
                     {
                         <span>@m</span>
                     }

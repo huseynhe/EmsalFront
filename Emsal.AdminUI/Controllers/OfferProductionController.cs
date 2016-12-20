@@ -570,7 +570,7 @@ namespace Emsal.AdminUI.Controllers
 
                         col = 1;
                         sheet.Cells[2, col++].Value = "S/N";
-                        if (modelOfferProduction.productId > 0 && modelOfferProduction.addressId == 0)
+                        if (modelOfferProduction.productId > 0)
                         {
                             sheet.Cells[2, col++].Value = "Regionun adı";
                         }
@@ -602,7 +602,7 @@ namespace Emsal.AdminUI.Controllers
 
                             if (m != om)
                             {
-                                if (modelOfferProduction.productId > 0 && modelOfferProduction.addressId == 0)
+                                if (modelOfferProduction.productId > 0)
                                 {
                                 }
                                 else
@@ -620,7 +620,7 @@ namespace Emsal.AdminUI.Controllers
                             }
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                            if (modelOfferProduction.productId > 0 && modelOfferProduction.addressId == 0)
+                            if (modelOfferProduction.productId > 0)
                             {
                                 sheet.Cells[rowIndex, col2++].Value = m;
                             }
