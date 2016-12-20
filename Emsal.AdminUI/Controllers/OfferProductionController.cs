@@ -570,7 +570,14 @@ namespace Emsal.AdminUI.Controllers
 
                         col = 1;
                         sheet.Cells[2, col++].Value = "S/N";
-                        sheet.Cells[2, col++].Value = "Məhsulun adı";
+                        if (modelOfferProduction.productId > 0 && modelOfferProduction.addressId == 0)
+                        {
+                            sheet.Cells[2, col++].Value = "Regionun adı";
+                        }
+                        else
+                        {
+                            sheet.Cells[2, col++].Value = "Məhsulun adı";
+                        }
                         sheet.Cells[2, col++].Value = "Miqdarı";
                         sheet.Cells[2, col++].Value = "Ölçü vahidi";
 
@@ -595,19 +602,32 @@ namespace Emsal.AdminUI.Controllers
 
                             if (m != om)
                             {
-                                sheet.Cells[rowIndex, 1, rowIndex, 4].Merge = true;
-                                sheet.Cells[rowIndex, 1].Value = m;
+                                if (modelOfferProduction.productId > 0 && modelOfferProduction.addressId == 0)
+                                {
+                                }
+                                else
+                                {
+                                    sheet.Cells[rowIndex, 1, rowIndex, 4].Merge = true;
+                                    sheet.Cells[rowIndex, 1].Value = m;
 
-                                sheet.Cells[rowIndex, 1, rowIndex, 4].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                sheet.Cells[rowIndex, 1, rowIndex, 4].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+                                    sheet.Cells[rowIndex, 1, rowIndex, 4].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                    sheet.Cells[rowIndex, 1, rowIndex, 4].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
 
-                                sheet.Row(rowIndex).Height = 20;
-                                sheet.Row(rowIndex).Style.Font.Bold = true;
-                                rowIndex++;
+                                    sheet.Row(rowIndex).Height = 20;
+                                    sheet.Row(rowIndex).Style.Font.Bold = true;
+                                    rowIndex++;
+                                }
                             }
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                            sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
+                            if (modelOfferProduction.productId > 0 && modelOfferProduction.addressId == 0)
+                            {
+                                sheet.Cells[rowIndex, col2++].Value = m;
+                            }
+                            else
+                            {
+                                sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
+                            }
                             sheet.Cells[rowIndex, col2++].Value = item.totalQuantity.ToString() ;
                             sheet.Cells[rowIndex, col2++].Value = item.quantityType;
 

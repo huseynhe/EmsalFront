@@ -29,15 +29,28 @@
         m = item.adminName;
         if (m != om)
         {
+            if (Model.productId > 0 && Model.addressId == 0)
+            {
+            }
+            else
+            {
             <tr>
                 <td colspan="3" class="text-center text-bold" style="background:#f2f2f2;">
                     @m                   
                 </td>
             </tr>
-        }
+                }
+            }
             <tr>
                 <td class="col-md-4">
-                    @item.productName (@item.productParentName)
+                    @if (Model.productId > 0 && Model.addressId == 0)
+                    {
+                        <span>@m</span>
+                    }
+                    else
+                    {
+                        <span>@item.productName (@item.productParentName)</span>
+                    }
                 </td>
                 <td class="col-md-2">
                     @item.totalQuantity
