@@ -364,6 +364,7 @@ namespace Emsal.UI.Controllers
                         modelOfferProduction.description = "";
                         modelOfferProduction.fpid = fpid;
 
+
                         modelOfferProduction.productIds = ("0," + fpid).Split(',').Select(long.Parse).ToArray();
                     }
 

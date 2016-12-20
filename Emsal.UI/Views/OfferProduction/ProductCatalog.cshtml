@@ -4,15 +4,22 @@
     Layout = "";
     long enumVal = 0;
     string dis = "";
+    bool isPP=false;
 
     if (Model.opId == 0)
     {
         if (Model.fpid == null)
         {
+            isPP = true;
             dis = "disabled";
             <script>
                 getChooseFileTemplate(@Model.productId);
             </script>
+        }
+
+        if(Model.fpid != "")
+        {
+            dis = "disabled";
         }
     }
 }
@@ -122,7 +129,7 @@
 
 
     <div class="col-md-4">
-        @if (dis != "")
+        @if (isPP==true)
         {
             <input hidden id="osize" value="@Model.psize" />
             <label for="size" class="control-label">&nbsp;</label>
