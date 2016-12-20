@@ -15,6 +15,7 @@ using Emsal.WebInt.IAMAS;
 using System.Net.Mail;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using WordDoc.Models;
 
 namespace Emsal.UI.Controllers
 {
@@ -2796,6 +2797,78 @@ namespace Emsal.UI.Controllers
             }
             catch
             {
+            }
+        }
+
+        [WordDocument]
+        public ActionResult ContractForm(long pid, bool isContract)
+        {
+            try
+            {
+                modelSpecial = new SpecialSummaryViewModel();
+                binput = new BaseInput();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.User);
+                binput.userName = modelSpecial.User.Username;
+
+                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(binput, "olcuVahidi", out modelSpecial.EnumCategory);
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(binput, "Tesdiqlenen", out modelSpecial.EnumValue);
+
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId(binput, (long)UserId, true, modelSpecial.EnumValue.Id, true, out modelSpecial.ProductionDetailArray);
+
+                modelSpecial.ProductionDetailList = modelSpecial.ProductionDetailArray.Where(x => x.enumCategoryId == modelSpecial.EnumCategory.Id && x.person != null).ToList();
+
+                modelSpecial.ProductionDetailList = modelSpecial.ProductionDetailList.Where(x => x.person.Id == pid).ToList();
+
+                BaseOutput gpbui = srv.WS_GetPersonByUserId(binput, modelSpecial.User.Id, true, out modelSpecial.Person);
+
+                modelSpecial.icraci = modelSpecial.Person.Surname + " " + modelSpecial.Person.Name + " " + modelSpecial.Person.FatherName;
+
+                return View(modelSpecial);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+        public ActionResult GetContractFile(string fname)
+        {
+            try
+            {
+                modelSpecial = new SpecialSummaryViewModel();
+                binput = new BaseInput();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(binput, (long)UserId, true, out modelSpecial.User);
+                binput.userName = modelSpecial.User.Username;
+
+                modelSpecial.fname = fname;
+
+                return View(modelSpecial);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
 
