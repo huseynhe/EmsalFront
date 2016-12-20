@@ -69,6 +69,8 @@ function GetProductCatalogForSale() {
 function GetProductCatalogForSaleAS(elem) {
     var prId = $(elem).val();
 
+    $('#offerProductionProductCatalog').html('');
+
     $.ajax({
         url: '/OfferProduction/ProductCatalogForSaleAS?prId=' + prId,
         type: 'GET',
