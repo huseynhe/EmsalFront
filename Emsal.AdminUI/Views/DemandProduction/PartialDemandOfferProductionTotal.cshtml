@@ -1,5 +1,7 @@
 ﻿@model Emsal.AdminUI.Models.DemandProductionViewModel
 @using PagedList.Mvc;
+@using Emsal.Utility.CustomObjects;
+
 @{
     ViewBag.Title = "Index";
     Layout = "";
@@ -15,8 +17,14 @@
         Yüklə
     </a>
 </h4>
+<div class="clearfix"></div>
+<br />
 <div class="box-body no-padding">
     <div class="table-responsive">
+        <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
+            <span class="badge " style="margin-top: -10px; float: right; margin-right: 15px;background:#D43F3A;">@Model.itemCount</span>
+        </div>
+
         <table class="table table-hover table-striped table-bordered">
             <tbody>
                 @foreach (var item in Model.DemandOfferPaging)
@@ -39,13 +47,13 @@
                             @item.quantityType
                         </td>
                         <td class="col-md-1">
-                            @item.totalDemand
+                            @Custom.ConverPriceToStringDelZero((decimal)item.totalDemand)
                         </td>
                         <td class="col-md-1">
-                            @item.totalOffer
+                            @Custom.ConverPriceToStringDelZero((decimal)item.totalOffer)
                         </td>
                         <td class="col-md-1">
-                            @(item.totalDemand - item.totalOffer)
+                            @Custom.ConverPriceToStringDelZero((decimal)(item.totalDemand - item.totalOffer))
                         </td>
                     </tr>
                     oppname = ppname;

@@ -1,5 +1,7 @@
 ﻿@model Emsal.AdminUI.Models.OfferProductionViewModel
 @using PagedList.Mvc;
+@using Emsal.Utility.CustomObjects;
+
 @{
     ViewBag.Title = "Index";
     Layout = "";
@@ -53,7 +55,7 @@
                     }
                 </td>
                 <td class="col-md-2">
-                    @item.totalQuantity
+                    @Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity)
                 </td>
                 <td class="col-md-2">
                     @item.quantityType

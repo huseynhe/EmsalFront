@@ -372,8 +372,8 @@ namespace Emsal.AdminUI.Controllers
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName+")";
-                            sheet.Cells[rowIndex, col2++].Value = item.quantity.ToString()+" ("+ item.enumValueName + ")";
-                            sheet.Cells[rowIndex, col2++].Value = item.unitPrice.ToString();
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.quantity)+" ("+ item.enumValueName + ")";
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unitPrice);
                             sheet.Cells[rowIndex, col2++].Value = item.fullAddress;
 
 
@@ -407,10 +407,10 @@ namespace Emsal.AdminUI.Controllers
                                     var col4 = 1;
                                     rowIndex++;
                                     sheet.Cells[rowIndex, col4++].Value = item2.TypeDescription + " - " + day + " " + item2.MonthDescription + " " + item2.year;
-                                    sheet.Cells[rowIndex, col4++].Value = item2.quantity;
-                                    sheet.Cells[rowIndex, col4++].Value = tquantity;
-                                    sheet.Cells[rowIndex, col4++].Value = item2.price;
-                                    sheet.Cells[rowIndex, col4++].Value = tprice;
+                                    sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceToStringDelZero((decimal)item2.quantity);
+                                    sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
+                                    sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceToStringDelZero((decimal)item2.price);
+                                    sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceToStringDelZero((decimal)tprice);
                                 }
                             }
                             rowIndex++;
@@ -628,7 +628,7 @@ namespace Emsal.AdminUI.Controllers
                             {
                                 sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
                             }
-                            sheet.Cells[rowIndex, col2++].Value = item.totalQuantity.ToString() ;
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity);
                             sheet.Cells[rowIndex, col2++].Value = item.quantityType;
 
                             rowIndex++;

@@ -1,5 +1,6 @@
 ﻿@model Emsal.AdminUI.Models.DemandProductionViewModel
 @using PagedList.Mvc;
+@using Emsal.Utility.CustomObjects;
 
 @{
     ViewBag.Title = "Index";
@@ -41,13 +42,13 @@
                                                 @item.productName (@item.productParentName)
                                             </td>
                                             <td class="col-md-2">
-                                                @item.quantity @item.kategoryName
+                                                @Custom.ConverPriceToStringDelZero((decimal)item.quantity) @item.kategoryName
                                             </td>
                                             <td class="col-md-2">
-                                                @item.unitPrice azn
+                                                @Custom.ConverPriceToStringDelZero((decimal)item.unitPrice) azn
                                             </td>
                                             <td class="col-md-2">
-                                                @item.totalPrice azn
+                                                @Custom.ConverPriceToStringDelZero((decimal)item.totalPrice) azn
                                             </td>
                                             <td class="col-md-2">
                                                 @if (item.productionCalendarList!=null)

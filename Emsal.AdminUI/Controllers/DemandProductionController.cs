@@ -322,8 +322,8 @@ namespace Emsal.AdminUI.Controllers
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
-                            sheet.Cells[rowIndex, col2++].Value = item.quantity.ToString() + " " + item.enumValueName;
-                            sheet.Cells[rowIndex, col2++].Value = item.productUnitPrice.ToString();
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.quantity) + " " + item.enumValueName;
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.productUnitPrice);
 
                             sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                             sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
@@ -351,8 +351,8 @@ namespace Emsal.AdminUI.Controllers
                                 rowIndex++;
                                 sheet.Cells[rowIndex, col4++].Value = item2.TypeDescription;
                                 sheet.Cells[rowIndex, col4++].Value = day + " " + item2.MonthDescription + " " + item2.year;
-                                sheet.Cells[rowIndex, col4++].Value = item2.quantity;
-                                sheet.Cells[rowIndex, col4++].Value = tquantity;
+                                sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceToStringDelZero((decimal)item2.quantity);
+                                sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
                             }
                             rowIndex++;
                             ri++;
@@ -551,9 +551,9 @@ namespace Emsal.AdminUI.Controllers
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
-                            sheet.Cells[rowIndex, col2++].Value = item.quantity.ToString() + " " + item.kategoryName;
-                            sheet.Cells[rowIndex, col2++].Value = item.unitPrice.ToString();
-                            sheet.Cells[rowIndex, col2++].Value = item.totalPrice.ToString();
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.quantity) + " " + item.kategoryName;
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unitPrice);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalPrice);
                             if (item.productionCalendarList.FirstOrDefault().TypeDescription != null)
                             {
                                 sheet.Cells[rowIndex, col2++].Value = item.productionCalendarList.FirstOrDefault().TypeDescription;
@@ -880,6 +880,9 @@ namespace Emsal.AdminUI.Controllers
 
 
                 modelDemandProduction.DemandProductionViewModelList = modelDemandProduction.DemandProductionViewModelList.OrderBy(x => x.parentProductName).ToList();
+
+                modelDemandProduction.itemCount = modelDemandProduction.DemandProductionViewModelList.Count();
+
                 modelDemandProduction.DemandOfferPaging = modelDemandProduction.DemandProductionViewModelList.ToPagedList(pageNumber, pageSize);
 
                 modelDemandProduction.addressId = addressId;
@@ -948,9 +951,9 @@ namespace Emsal.AdminUI.Controllers
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.productName;
                             sheet.Cells[rowIndex, col2++].Value = item.quantityType;
-                            sheet.Cells[rowIndex, col2++].Value = item.totalDemand;
-                            sheet.Cells[rowIndex, col2++].Value = item.totalOffer;
-                            sheet.Cells[rowIndex, col2++].Value = (item.totalDemand - item.totalOffer).ToString();
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalDemand);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalOffer);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)(item.totalDemand - item.totalOffer));
 
                             rowIndex++;
                             ri++;
@@ -1089,6 +1092,7 @@ namespace Emsal.AdminUI.Controllers
                 }
 
 
+                modelDemandProduction.itemCount = modelDemandProduction.DemandProductionViewModelList.Count();
                 modelDemandProduction.DemandOfferPaging = modelDemandProduction.DemandProductionViewModelList.ToPagedList(pageNumber, pageSize);
 
                 modelDemandProduction.addressId = addressId;
@@ -1162,11 +1166,11 @@ namespace Emsal.AdminUI.Controllers
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.productName;
                             sheet.Cells[rowIndex, col2++].Value = item.quantityType;
-                            sheet.Cells[rowIndex, col2++].Value = item.totalDemand;
-                            sheet.Cells[rowIndex, col2++].Value = item.unitPrice;
-                            sheet.Cells[rowIndex, col2++].Value = item.totalPrice;
-                            sheet.Cells[rowIndex, col2++].Value = item.totalOffer;
-                            sheet.Cells[rowIndex, col2++].Value = (item.totalDemand - item.totalOffer).ToString();
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalDemand);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unitPrice);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalPrice);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalOffer);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)(item.totalDemand - item.totalOffer));
                             sheet.Cells[rowIndex, col2++].Value = "";
 
                             rowIndex++;
@@ -1340,9 +1344,9 @@ namespace Emsal.AdminUI.Controllers
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.productName;
-                            sheet.Cells[rowIndex, col2++].Value = item.quantity;
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.quantity);
                             sheet.Cells[rowIndex, col2++].Value = item.kategoryName;
-                            sheet.Cells[rowIndex, col2++].Value = item.unitPrice;
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unitPrice);
                             sheet.Cells[rowIndex, col2++].Value = "";
 
                             rowIndex++;
