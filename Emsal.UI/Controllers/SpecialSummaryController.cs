@@ -269,6 +269,10 @@ namespace Emsal.UI.Controllers
 
             modelSpecial.Birthday = String.Format("{0:d.M.yyyy}", (modelSpecial.Person.birtday).toShortDate());
 
+            modelSpecial.UserRole = new tblUserRole();
+            BaseOutput rolOut = srv.WS_GetUserRolesByUserId(binput, (long)UserId, true, out modelSpecial.UserRoleArray);
+            modelSpecial.UserRole = modelSpecial.UserRoleArray.Where(r => r.RoleId == 15).FirstOrDefault();
+
             return Request.IsAjaxRequest()
             ? (ActionResult)PartialView("PartialIndex", modelSpecial)
             : View(modelSpecial);
@@ -488,6 +492,9 @@ namespace Emsal.UI.Controllers
                     modelSpecial.roleStatus = 1;
             }
 
+            modelSpecial.UserRole = new tblUserRole();
+            BaseOutput rolOut = srv.WS_GetUserRolesByUserId(binput, (long)UserID, true, out modelSpecial.UserRoleArray);
+            modelSpecial.UserRole = modelSpecial.UserRoleArray.Where(r => r.RoleId == 15).FirstOrDefault();
 
             return PartialView(modelSpecial);
 
@@ -552,12 +559,12 @@ namespace Emsal.UI.Controllers
                 //modelSpecial.OfferProduction.Status =2;
                 //modelSpecial.OfferProduction.StatusSpecified = true;
 
-                BaseOutput offer = srv.WS_GetOffer_ProductionsByUserID(binput, (long)UserID, true ,out modelSpecial.OfferProductionArray);
+                BaseOutput offer = srv.WS_GetOffer_ProductionsByUserID(binput, (long)UserID, true, out modelSpecial.OfferProductionArray);
 
                 //////////////////////////////////////////////////
 
 
-                modelSpecial.OfferProductionList = modelSpecial.OfferProductionArray.Where(p => ((p.state_eV_Id == 41 && p.monitoring_eV_Id == 10118) ||( p.state_eV_Id == 2 && p.monitoring_eV_Id == 41) || (p.state_eV_Id == 2 && p.monitoring_eV_Id ==10117)) && p.state_eV_Id != 1) .ToList();
+                modelSpecial.OfferProductionList = modelSpecial.OfferProductionArray.Where(p => ((p.state_eV_Id == 41 && p.monitoring_eV_Id == 10118) || p.state_eV_Id == 41 ||( p.state_eV_Id == 2 && p.monitoring_eV_Id == 41) || (p.state_eV_Id == 2 && p.monitoring_eV_Id ==10117)) && p.state_eV_Id != 1) .ToList();
                 modelSpecial.SpOfferList = new List<SpecialSummaryPotentialAndOffer>();
                 string prName = "";
                 foreach (var item in modelSpecial.OfferProductionList)
@@ -710,6 +717,10 @@ namespace Emsal.UI.Controllers
                     if (modelSpecial.UserRole != null)
                         modelSpecial.roleStatus = 1;
                 }
+
+                modelSpecial.UserRole = new tblUserRole();
+                BaseOutput rolOut = srv.WS_GetUserRolesByUserId(binput, (long)UserID, true, out modelSpecial.UserRoleArray);
+                modelSpecial.UserRole = modelSpecial.UserRoleArray.Where(r => r.RoleId == 15).FirstOrDefault();
 
                 return PartialView(modelSpecial);
             }
@@ -924,6 +935,10 @@ namespace Emsal.UI.Controllers
                     if (modelSpecial.UserRole != null)
                         modelSpecial.roleStatus = 1;
                 }
+
+                modelSpecial.UserRole = new tblUserRole();
+                BaseOutput rolOut = srv.WS_GetUserRolesByUserId(binput, (long)UserID, true, out modelSpecial.UserRoleArray);
+                modelSpecial.UserRole = modelSpecial.UserRoleArray.Where(r => r.RoleId == 15).FirstOrDefault();
 
                 return PartialView(modelSpecial);
             }
@@ -1234,8 +1249,11 @@ namespace Emsal.UI.Controllers
                 binput = new BaseInput();
 
                 BaseOutput Offer = srv.WS_GetOffer_ProductionById(binput, Id, true, out modelSpecial.OfferProduction);
+                modelSpecial.OfferProduction.state_eV_Id = 1; //yayimda deyil
+                modelSpecial.OfferProduction.monitoring_eV_Id = 1; //yayimdadeyil
+                BaseOutput offerUodate = srv.WS_UpdateOffer_Production(binput, modelSpecial.OfferProduction, out modelSpecial.OfferProduction);
 
-                BaseOutput delet = srv.WS_DeleteOffer_Production(binput, modelSpecial.OfferProduction);
+                //BaseOutput delet = srv.WS_DeleteOffer_Production(binput, modelSpecial.OfferProduction);
 
 
                 //redirect to the page of the deleted offers type -- ex. redirect to on air offers if state_evıd of item is yayinda
