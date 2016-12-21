@@ -1,5 +1,6 @@
 ﻿
 @model Emsal.UI.Models.ProductCatalogViewModel
+@using Emsal.Utility.CustomObjects;
 
 @{
     ViewBag.Title = "ProductionCalendar";
@@ -36,28 +37,28 @@
                         <td> 
                             @if ((decimal)Math.Round(item.quantity, 2) > (int)item.quantity)
                             {
-                                @item.quantity
+                                @Custom.ConverPriceToStringDelZero((decimal)item.quantity)
                             }
                             else
                             {
                                 long qi = (int)Math.Round(item.quantity, 0);
-                                <span>@qi</span>
+                                <span>@Custom.ConverPriceToStringDelZero((decimal)qi)</span>
                             }
 
                          </td>
                         <td> 
                             @if ((decimal)Math.Round(tquantity, 2) > (int)tquantity)
                             {
-                                @tquantity
+                                @Custom.ConverPriceToStringDelZero((decimal)tquantity)
                             }
                             else
                             {
                                 long qi = (int)Math.Round(tquantity, 0);
-                                <span>@qi</span>
+                                <span>@Custom.ConverPriceToStringDelZero((decimal)qi)</span>
                             }
                         
                         </td>
-                        <td> @item.price</td>
+                        <td> @Custom.ConverPriceToStringDelZero((decimal)item.price)</td>
                     </tr>
                 }
             }

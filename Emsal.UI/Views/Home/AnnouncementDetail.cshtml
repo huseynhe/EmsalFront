@@ -1,4 +1,5 @@
 ﻿@model Emsal.UI.Models.ProductCatalogViewModel
+@using Emsal.Utility.CustomObjects;
 
 @{
     ViewBag.Title = "Detail";
@@ -26,7 +27,7 @@
                                 <div class='col-xs-12 col-sm-8 col-md-8'>
                                     <div class="product-info">
                                         <h1 class="name text-black nobackground"> <b>Məhsulun adı:</b> @Model.AnnouncementDetail.announcement.product_name (@Model.AnnouncementDetail.parentName)<br /><br />
-                                            <b>Tələbatın həcmi:</b> @Model.AnnouncementDetail.announcement.quantity @Model.AnnouncementDetail.announcement.quantity_type_Name</h1>
+                                            <b>Tələbatın həcmi:</b> @Custom.ConverPriceToStringDelZero((decimal)Model.AnnouncementDetail.announcement.quantity) @Model.AnnouncementDetail.announcement.quantity_type_Name</h1>
                                         <div class="clearfix"></div>
                                 <br />
                                         <h4 class="text-black nobackground">
@@ -47,7 +48,8 @@
 
                                                 <div class="col-sm-6">
                                                     <div class="price-box">
-                                                        <h4 class="text-black nobackground"><b>Qiymət: </b> @Model.AnnouncementDetail.announcement.unit_price  ( @Model.AnnouncementDetail.announcement.quantity_type_Name / man )</h4>
+                                                        <h4 class="text-black nobackground"><b>Qiymət: </b> 
+                                                        @Custom.ConverPriceToStringDelZero((decimal)Model.AnnouncementDetail.announcement.unit_price)  ( @Model.AnnouncementDetail.announcement.quantity_type_Name / man )</h4>
                                                     </div>
                                                 </div>
                                             </div>

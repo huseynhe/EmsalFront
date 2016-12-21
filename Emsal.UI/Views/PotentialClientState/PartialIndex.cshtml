@@ -51,6 +51,7 @@
                             </td>
                             <td class="col-md-3">
                                 @item.OrganisationName
+                                <div class="clearfix"></div>
                                 @item.name @item.surname @item.fatherName (@item.gender)
                             </td>
                             <td class="col-md-2">
@@ -58,6 +59,10 @@
                             </td>
                             <td class="col-md-3">
                                 @item.fullAddress (@item.personAdressDesc)
+                                <div class="clearfix"></div>
+                                e-poçt: @item.email
+                                <div class="clearfix"></div>
+                                tel: 
                             </td>
                             <td class="col-md-1 shsingle text-center">
                                 <a href="/PotentialClientState/Edit/@item.userID" class="badge bg-light-blue">

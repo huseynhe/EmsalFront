@@ -45,10 +45,10 @@
                         @item.announcement.quantity_type_Name
                     </td>
                     <td class="col-md-1">
-                        @item.announcement.quantity
+                        @Custom.ConverPriceToStringDelZero((decimal)item.announcement.quantity)
                     </td>
                     <td class="col-md-1">
-                        @item.announcement.unit_price
+                        @Custom.ConverPriceToStringDelZero((decimal)item.announcement.unit_price)
                     </td>
                     <td class="col-md-1">                        
                         @DatetimeExtension.toShortDate(((long)item.announcement.endDate)).Year.ToString() - ci il
