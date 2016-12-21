@@ -68,14 +68,17 @@
                         <div><span>Ümumi təklifin qiyməti: <span style="color:red"> <b> @item.ProductTotalPrice AZN </b> </span>  Təklifin bitmə tarixi: <span style="color:red"> <b> @endDate.Day/@endDate.Month/@endDate.Year </b> </span> Ümumi təklifin miqdarı: <span style="color:red"><b>@item.ProductQuantity @item.QuantityType </b></span> </span></div>
                     </div>
                     
-                    <div class='btn-group'>
-                        <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Əməliyyatlar <span class='caret'></span></button>
-                        <ul class='dropdown-menu'>
-                            <li><a href='/SpecialSummary/DeleteOfferProduction?Id=@item.ProductId'>sil</a></li>
-                            <li role='separator' class='divider'></li>
-                            <li><a href=''>Qeyd</a></li>
-                        </ul>
-                    </div>
+                    @if (Model.UserRole == null)
+                    {
+                        <div class='btn-group'>
+                            <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Əməliyyatlar <span class='caret'></span></button>
+                            <ul class='dropdown-menu'>
+                                <li><a href='/SpecialSummary/DeleteOfferProduction?Id=@item.ProductId'>Yayımdan çıxart</a></li>
+                                <li role='separator' class='divider'></li>
+                                <li><a href=''>Qeyd</a></li>
+                            </ul>
+                        </div>
+                    }
                 </div>
 
 
