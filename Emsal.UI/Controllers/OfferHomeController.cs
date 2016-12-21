@@ -123,7 +123,7 @@ namespace Emsal.UI.Controllers
 
                         if(modelProductCatalog.ProductionDetailList == null || modelProductCatalog.ProductionDetailList.Count == 0)
                         {
-                            modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailListFV.Where(x=>x.person!=null).ToList();
+                            modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailListFV.Where(x=>x.person!=null).Where(x=>x.person.PinNumber!=null).ToList();
                             
                             modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailList.Where(x => x.person.PinNumber.ToLower() == sfv).ToList();
                         }                        
