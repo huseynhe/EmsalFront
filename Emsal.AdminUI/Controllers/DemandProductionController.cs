@@ -953,7 +953,7 @@ namespace Emsal.AdminUI.Controllers
                             sheet.Cells[rowIndex, col2++].Value = item.quantityType;
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalDemand);
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalOffer);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)(item.totalDemand - item.totalOffer));
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)(item.totalOffer - item.totalDemand));
 
                             rowIndex++;
                             ri++;
@@ -1170,7 +1170,7 @@ namespace Emsal.AdminUI.Controllers
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unitPrice);
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalPrice);
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalOffer);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)(item.totalDemand - item.totalOffer));
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)(item.totalOffer - item.totalDemand));
                             sheet.Cells[rowIndex, col2++].Value = "";
 
                             rowIndex++;

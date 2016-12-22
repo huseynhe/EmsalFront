@@ -56,7 +56,7 @@
                                                 @Custom.ConverPriceToStringDelZero((decimal)item.totalOffer)
                                             </td>
                                             <td class="col-md-1">
-                                                @Custom.ConverPriceToStringDelZero((decimal)(item.totalDemand - item.totalOffer))
+                                                @Custom.ConverPriceToStringDelZero((decimal)(item.totalOffer - item.totalDemand))
                                             </td>
                                         </tr>
                                         oppName = item.productParentName;
