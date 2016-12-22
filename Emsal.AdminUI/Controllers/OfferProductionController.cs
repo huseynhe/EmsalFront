@@ -204,13 +204,15 @@ namespace Emsal.AdminUI.Controllers
 
                     BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelOfferProduction.EnumValue.Id, true, pageNumber, true, pageSize, true, out modelOfferProduction.ProductionDetailArray);
 
+                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.Where(x => x.person != null).ToList();
+
                 if (modelOfferProduction.ProductionDetailArray == null)
                 {
                     modelOfferProduction.ProductionDetailList = new List<ProductionDetail>();
                 }
                 else
                 {
-                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.OrderBy(x=>x.fullAddress).ThenBy(x => x.person.Surname).ThenBy(x => x.person.Name).ThenBy(x => x.person.FatherName).ToList();
+                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailList.OrderBy(x=>x.fullAddress).ThenBy(x => x.person.Surname).ThenBy(x => x.person.Name).ThenBy(x => x.person.FatherName).ToList();
                 }
 
 
@@ -299,6 +301,7 @@ namespace Emsal.AdminUI.Controllers
                        string opname = "";
                        string m = "";
                        string om = "";
+                        string on = "";
                         foreach (var item in modelOfferProduction.ProductionDetailList)
                         {
                             var col2 = 1;
@@ -339,19 +342,33 @@ namespace Emsal.AdminUI.Controllers
                                //sheet.Cells[rowIndex, 1].Value = " S.A.A: " + pname + "\n Qeydiyyat ünvanı: " + item.personAdress + " " + (item.personAdressDesc) + "\n Bank rekvizitləri: ";
 
 
-
                                 sheet.Cells[rowIndex, 1].IsRichText = true;
                                 ExcelRichTextCollection rtfCollection = sheet.Cells[rowIndex, 1].RichText;
                                 ExcelRichText ert = rtfCollection.Add("S.A.A: ");
                                 ert.Bold = true;
                                 //ert.Color = System.Drawing.Color.Red;
                                 //ert.Italic = true;
-                                ert = rtfCollection.Add(pname+ "\n");
+                                on = "";
+                                if (!string.IsNullOrEmpty(item.organizationName))
+                                {
+                                    on = item.organizationName + "\n";
+                                }
+                                ert = rtfCollection.Add(pname+ "\n"+ on);
                                 ert.Bold = false;
 
                                 ert = rtfCollection.Add("Qeydiyyat ünvanı: ");
                                 ert.Bold = true;
                                 ert = rtfCollection.Add(item.personAdress + " " + (item.personAdressDesc) +"\n");
+                                ert.Bold = false;
+
+                                ert = rtfCollection.Add("Telefon nömrəsi: ");
+                                ert.Bold = true;
+                                ert = rtfCollection.Add(item.communication + "\n");
+                                ert.Bold = false;
+
+                                ert = rtfCollection.Add("E-poçt: ");
+                                ert.Bold = true;
+                                ert = rtfCollection.Add(item.email + "\n");
                                 ert.Bold = false;
 
                                 ert = rtfCollection.Add("Bank rekvizitləri: ");
@@ -363,7 +380,7 @@ namespace Emsal.AdminUI.Controllers
                                 sheet.Cells[rowIndex, 1, rowIndex, 5].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                                 sheet.Cells[rowIndex, 1, rowIndex, 5].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
 
-                                sheet.Row(rowIndex).Height = 50;
+                                sheet.Row(rowIndex).Height = 90;
                                 sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
 
                                 rowIndex++;
