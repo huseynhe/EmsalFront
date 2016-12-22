@@ -38,6 +38,27 @@
                         @Html.Action("AdminUnit", "OfferProduction", new { actionName = "Indexwd" })
                     </div>
 
+                    <div class="col-md-2">
+                        <label>İstifadəçinin növü</label><br />
+                        <select onchange="StatisticsSearch(this, 'OfferProduction', 'Indexwd', 'userType')" class="form-control select2" style="width:auto !important;">
+                            <option value="0">Seçim edin</option>
+
+                            <option value="15">Potensial istehsalçı</option>
+                            <option value="11">Satıcı (İdxalçı)</option>
+
+                        </select>
+                    </div>
+
+                    <div class="col-md-1">
+                        <label>Hüquqi statusu</label><br />
+                        <select onchange="StatisticsSearch(this, 'OfferProduction', 'Indexwd', 'legalStatus')" class="form-control select2" style="width:auto !important;">
+                            <option value="0">Seçim edin</option>
+
+                            <option value="26">Fiziki şəxs</option>
+                            <option value="50">Hüquqi şəxs</option>
+
+                        </select>
+                    </div>
 
                     <div class="col-md-2 col-md-offset-1">
                         <label>Başlanğıc tarix</label><br />
