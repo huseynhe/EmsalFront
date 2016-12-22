@@ -1,5 +1,6 @@
 ﻿@model Emsal.AdminUI.Models.OfferProductionViewModel
 @using PagedList.Mvc;
+@using Emsal.Utility.CustomObjects;
 
 @{
     ViewBag.Title = "Index";
@@ -47,10 +48,10 @@
                                                 @item.productParentName (@item.productName)
                                             </td>
                                             <td class="col-md-1">
-                                                @item.quantity @item.enumValueName
+                                                @Custom.ConverPriceToStringDelZero((decimal)item.quantity) @item.enumValueName
                                             </td>
                                             <td class="col-md-1">
-                                                @item.unitPrice AZN
+                                                @Custom.ConverPriceToStringDelZero((decimal)item.unitPrice) AZN
                                             </td>
                                             <td class="col-md-2">
                                                 @item.description
@@ -116,8 +117,8 @@
                                                                 <td> @itemc.MonthDescription</td>
                                                                 <td> @itemc.day</td>
                                                                 <td> @itemc.oclock</td>
-                                                                <td> @itemc.quantity</td>
-                                                                <td> @tquantity</td>
+                                                                <td> @Custom.ConverPriceToStringDelZero((decimal)itemc.quantity)</td>
+                                                                <td> @Custom.ConverPriceToStringDelZero((decimal)tquantity)</td>
                                                             </tr>
                                                         }
                                                     </table>

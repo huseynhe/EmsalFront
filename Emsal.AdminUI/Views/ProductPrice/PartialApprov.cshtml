@@ -1,5 +1,7 @@
 ﻿@model Emsal.AdminUI.Models.ProductPriceViewModel
 @using PagedList.Mvc;
+@using Emsal.Utility.CustomObjects;
+
 
 @{
     ViewBag.Title = "Index";
@@ -17,7 +19,7 @@
                 @Html.DisplayFor(modelItem => item.productName) (@Html.DisplayFor(modelItem => item.productParentName))
             </td>
             <td class="col-md-1">
-                @Html.DisplayFor(modelItem => item.unit_price)
+                @Custom.ConverPriceToStringDelZero((decimal)item.unit_price)
             </td>
             <td class="col-md-1">
                 @Html.DisplayFor(modelItem => item.year)

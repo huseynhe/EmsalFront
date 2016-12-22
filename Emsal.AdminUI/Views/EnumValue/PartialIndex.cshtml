@@ -1,0 +1,38 @@
+﻿@*@model IEnumerable<Emsal.AdminUI.Models.EnumCategoryViewModel>*@
+@model Emsal.AdminUI.Models.EnumValueViewModel
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+}
+
+
+<table class="table table-bordered">
+    @foreach (var item in Model.Paging)
+    {
+        <tr>
+            <td class="col-md-3">
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td class="col-md-3">
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td class="col-md-1">
+                <a href="/EnumValue/Edit/@item.Id" class="badge bg-light-blue">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+            </td>
+            <td class="col-md-1">
+                <a href="/EnumValue/Delete/@item.Id" class="badge bg-red">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="box-footer clearfix">
+    Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
+    @Html.PagedListPager(Model.Paging, page => Url.Action("Index", new { page, name=Model.name }))
+</div>
+

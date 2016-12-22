@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using PagedList;
 using System.Web.Security;
 using Emsal.AdminUI.Infrastructure;
+using Emsal.Utility.CustomObjects;
 
 namespace Emsal.AdminUI.Controllers
 {
@@ -19,6 +20,8 @@ namespace Emsal.AdminUI.Controllers
         private EnumValueViewModel modelEnumValue;
 
         private BaseInput baseInput;
+        private static string sname;
+
         public ActionResult IndexBy(int enumCategoryId)
         {
             try { 
@@ -52,7 +55,7 @@ namespace Emsal.AdminUI.Controllers
             }
         }
    
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, string name = null)
         {
             try { 
 
@@ -63,8 +66,19 @@ namespace Emsal.AdminUI.Controllers
             
             modelEnumValue = new EnumValueViewModel();
 
+                if (name != null)
+                    name = StripTag.strSqlBlocker(name.ToLower());
 
-            long? UserId = null;
+                if (name == null)
+                {
+                    sname = null;
+                }
+
+                if (name != null)
+                    sname = name;
+
+
+                long? UserId = null;
             if (User != null && User.Identity.IsAuthenticated)
             {
                 FormsIdentity identity = (FormsIdentity)User.Identity;
@@ -80,10 +94,18 @@ namespace Emsal.AdminUI.Controllers
 
             modelEnumValue.EnumValueList = modelEnumValue.EnumValueArray.ToList();
 
-            modelEnumValue.Paging = modelEnumValue.EnumValueList.ToPagedList(pageNumber, pageSize);
+                if (sname != null)
+                {
+                    modelEnumValue.EnumValueList = modelEnumValue.EnumValueList.Where(x=>x.name.ToLower().Contains(sname)).ToList();
+                }
 
-            return View(modelEnumValue);
+                modelEnumValue.Paging = modelEnumValue.EnumValueList.ToPagedList(pageNumber, pageSize);
 
+                modelEnumValue.name = sname;
+
+                return Request.IsAjaxRequest()
+         ? (ActionResult)PartialView("PartialIndex", modelEnumValue)
+         : View(modelEnumValue);
             }
             catch (Exception ex)
             {

@@ -20,10 +20,10 @@
                                     @item.announcement.product_name (@item.parentName)
                                 </td>
                                 <td class="col-md-1">
-                                    @item.announcement.quantity @item.announcement.quantity_type_Name
+                                    @Custom.ConverPriceToStringDelZero((decimal)item.announcement.quantity) @item.announcement.quantity_type_Name
                                 </td>
                                 <td class="col-md-1">
-                                    @item.announcement.unit_price AZN
+                                    @Custom.ConverPriceToStringDelZero((decimal)item.announcement.unit_price) AZN
                                 </td>
                                 <td class="col-md-1">
                                     @item.announcement.description
