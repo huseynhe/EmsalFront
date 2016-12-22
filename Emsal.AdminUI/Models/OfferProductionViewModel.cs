@@ -147,6 +147,7 @@ namespace Emsal.AdminUI.Models
         public long productId { get; set; }
 
         public long userType { get; set; }
+        public long legalStatus { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public int[] enumCat { get; set; }

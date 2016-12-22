@@ -31,6 +31,7 @@ namespace Emsal.AdminUI.Controllers
         private static string sstatusEV;
         private static long saddressId;
         private static long suserType;
+        private static long slegalStatus;
         private static long sproductId;
         private static string sstartDate;
         private static string sendDate;
@@ -140,23 +141,29 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
-        public ActionResult Indexwd(int? page, long addressId = 0, bool excell = false, string startDate = null, string endDate = null, string forma=null)
+        public ActionResult Indexwd(int? page, long addressId = -1, bool excell = false, string startDate = null, string endDate = null, string forma=null, long userType = -1, long legalStatus = -1)
         {
             try
             {
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (addressId == 0 && startDate == null && endDate == null)
+                if (addressId == -1 && userType==-1 && legalStatus == -1 && startDate == null && endDate == null)
                 {
-                    addressId = 0;
+                    saddressId = 0;
+                    suserType = 0;
+                    slegalStatus = 0;
                     sstartDate = null;
                     sendDate = null;
                     sforma = "detail";
                 }
 
-                if (addressId > 0)
+                if (addressId >= 0)
                     saddressId = addressId;
+                if (userType >= 0)
+                    suserType = userType;
+                if (legalStatus >= 0)
+                    slegalStatus = legalStatus;
 
                 if (!string.IsNullOrEmpty(forma))
                     sforma = forma;
@@ -246,6 +253,8 @@ namespace Emsal.AdminUI.Controllers
                 modelOfferProduction.startDate = sstartDate;
                 modelOfferProduction.endDate = sendDate;
                 modelOfferProduction.forma = sforma;
+                modelOfferProduction.userType = suserType;
+                modelOfferProduction.legalStatus = slegalStatus;
 
                 if (modelOfferProduction.forma == "detail")
                 {
