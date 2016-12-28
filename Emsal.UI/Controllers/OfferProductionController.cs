@@ -65,8 +65,8 @@ namespace Emsal.UI.Controllers
 
                     modelOfferProduction.UserRole = modelOfferProduction.UserRoleArray.ToList().Where(x => x.RoleId == 15).FirstOrDefault();
 
-                    //if (modelOfferProduction.UserRole != null)
-                    //    return RedirectToAction("Redirect", "Home");
+                    if (modelOfferProduction.UserRole != null)
+                        return RedirectToAction("Redirect", "Home");
                 }
 
                 BaseOutput enumcat = srv.WS_GetEnumCategorysByName(baseInput, "shippingSchedule", out modelOfferProduction.EnumCategory);
