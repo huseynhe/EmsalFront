@@ -4,7 +4,7 @@
     Layout = "";
     long enumVal = 0;
     string dis = "";
-    bool isPP=false;
+    bool isPP = false;
 
     if (Model.opId == 0)
     {
@@ -17,7 +17,7 @@
             </script>
         }
 
-        if(Model.fpid != "")
+        if (Model.fpid != "")
         {
             dis = "disabled";
         }
@@ -46,7 +46,14 @@
                         }
                         else
                         {
-                            <option value="@item.Id">@item.ProductName</option>
+                            if (Model.oldPID.Contains(item.Id))
+                            {
+                                <option disabled style="color:#800000;" value="@item.Id">@item.ProductName</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Id">@item.ProductName</option>
+                            }
                         }
                     }
                 </select>
@@ -116,11 +123,11 @@
                 </select>
                 <span data-valmsg-replace="true" data-valmsg-for="enumVal[@{ @e }]" class="field-validation-valid text-danger"></span>
             </div>
-         </div>
-         <div class="col-md-8">
-             <label class="control-label" for="size">&nbsp;</label>
-             <h4 id="announcementPrice" class="text-danger"></h4>
-         </div>
+        </div>
+        <div class="col-md-8">
+            <label class="control-label" for="size">&nbsp;</label>
+            <h4 id="announcementPrice" class="text-danger"></h4>
+        </div>
             }
             e = e + 1;
         }
@@ -129,7 +136,7 @@
 
 
     <div class="col-md-4">
-        @if (isPP==true)
+        @if (isPP == true)
         {
             <input hidden id="osize" value="@Model.psize" />
             <label for="size" class="control-label">&nbsp;</label>
@@ -150,15 +157,22 @@
                 $('#calendarMainDiv').hide();
                 $('#getmonthresult').hide();
             </script>
-                                    <div class="form-group col-md-3">
-                                        <select name="prodId[@{ @Model.arrPNum }]" required onchange="GetProductCatalog(this)" size="8" class="form-control unicase-form-control select">
-                                            @foreach (var item in Model.ProductCatalogList)
+            <div class="form-group col-md-3">
+                <select name="prodId[@{ @Model.arrPNum }]" required onchange="GetProductCatalog(this)" size="8" class="form-control unicase-form-control select">
+                    @foreach (var item in Model.ProductCatalogList)
                     {
-                                                <option value="@item.Id">@item.ProductName</option>
-                                            }
-                                        </select>
-                                        <span data-valmsg-replace="true" data-valmsg-for="prodId[@{ @Model.arrPNum }]" class="field-validation-valid text-danger"></span>
-                                    </div>
+                        if (Model.oldPID.Contains(item.Id))
+                        {
+                        <option disabled style="color:#800000;" value="@item.Id">@item.ProductName</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@item.ProductName</option>
+                        }
+                    }
+                </select>
+                <span data-valmsg-replace="true" data-valmsg-for="prodId[@{ @Model.arrPNum }]" class="field-validation-valid text-danger"></span>
+            </div>
     }
     else
     {
@@ -166,7 +180,7 @@
             $('#calendarMainDiv').show();
             GetUnitofmeasurement(@Model.Id);
         </script>
-                        <div class="clearfix"></div>
+        <div class="clearfix"></div>
 
         int e = 0;
 

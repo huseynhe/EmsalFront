@@ -10,7 +10,14 @@
         <option value="0">Satılacaq məhsul üzrə axtar</option>
         @foreach (var item in Model.ProductCatalogDetailList)
         {
+            if (Model.oldPID.Contains(item.productCatalog.Id))
+            {
+                <option disabled value="@item.productCatalog.Id">@item.productName (@item.productCatalog.ProductName)</option>
+            }
+            else
+            {
             <option value="@item.productCatalog.Id">@item.productName (@item.productCatalog.ProductName)</option>
+            }
         }
     </select>
 </div>

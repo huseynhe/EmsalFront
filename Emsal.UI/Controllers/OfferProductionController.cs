@@ -21,6 +21,7 @@ namespace Emsal.UI.Controllers
 
         private static string fullAddressId = "";
         private BaseInput baseInput;
+        private static IList<long> soldPID;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
        // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
@@ -64,8 +65,8 @@ namespace Emsal.UI.Controllers
 
                     modelOfferProduction.UserRole = modelOfferProduction.UserRoleArray.ToList().Where(x => x.RoleId == 15).FirstOrDefault();
 
-                    if (modelOfferProduction.UserRole != null)
-                        return RedirectToAction("Redirect", "Home");
+                    //if (modelOfferProduction.UserRole != null)
+                    //    return RedirectToAction("Redirect", "Home");
                 }
 
                 BaseOutput enumcat = srv.WS_GetEnumCategorysByName(baseInput, "shippingSchedule", out modelOfferProduction.EnumCategory);
@@ -82,6 +83,19 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput eval = srv.WS_GetEnumValuesByEnumCategoryId(baseInput, modelOfferProduction.EnumCategory.Id, true, out modelOfferProduction.EnumValueArray);
                 modelOfferProduction.EnumValueMonthList = modelOfferProduction.EnumValueArray.ToList();
+
+
+                BaseOutput gop = srv.WS_GetOffer_ProductionsByUserID(baseInput, (long)userId, true, out modelOfferProduction.OfferProductionArray);
+                soldPID = new List<long>();
+                if (modelOfferProduction.OfferProductionArray != null)
+                {
+                    foreach (long item in modelOfferProduction.OfferProductionArray.Select(x => x.product_Id).ToList())
+                    {
+                        soldPID.Add(item);
+                    }
+                }
+
+                modelOfferProduction.oldPID = soldPID;
 
                 modelOfferProduction.fullAddressId = fullAddressId;
 
@@ -178,6 +192,10 @@ namespace Emsal.UI.Controllers
                 {
                     modelOfferProduction.ProductCatalogDetailList = modelOfferProduction.ProductCatalogDetailArray.Where(x => x.productCatalog.canBeOrder == 1).ToList();
                 }
+
+                modelOfferProduction.oldPID = new List<long>();
+                modelOfferProduction.oldPID = soldPID;
+
                 return View(modelOfferProduction);
 
             }
@@ -205,12 +223,12 @@ namespace Emsal.UI.Controllers
                     }
                 }
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelOfferProduction.User);
-                baseInput.userName = modelOfferProduction.User.Username;
+                baseInput.userName = modelOfferProduction.User.Username;                       
 
                 BaseOutput gcl = srv.WS_GetProductCatalogListForID(baseInput, prId, true, out modelOfferProduction.ProductCatalogArray);
                 modelOfferProduction.ProductCatalogList = modelOfferProduction.ProductCatalogArray.ToList();
 
-                return string.Join(",", modelOfferProduction.ProductCatalogList.Select(x => x.Id)); ;
+                return string.Join(",", modelOfferProduction.ProductCatalogList.Select(x => x.Id)); 
 
             }
             catch (Exception ex)
@@ -426,6 +444,8 @@ namespace Emsal.UI.Controllers
                     }
                 }
 
+                modelOfferProduction.oldPID = new List<long>();
+                modelOfferProduction.oldPID = soldPID;
 
                 modelOfferProduction.Id = pId;
                 return View(modelOfferProduction);

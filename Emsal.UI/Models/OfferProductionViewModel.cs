@@ -152,6 +152,7 @@ namespace Emsal.UI.Models
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public string[] size { get; set; }
 
+        public IList<long> oldPID { get; set; }
 
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         public long productOriginId { get; set; }
