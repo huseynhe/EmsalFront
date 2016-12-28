@@ -37,6 +37,7 @@ namespace Emsal.AdminUI.Models
 
         public ProductionDetail[] ProductionDetailArray;
 
+        public GetDemandProductionDetailistForEValueIdSearch GetDemandProductionDetailistForEValueIdSearch { get; set; }
 
         public DemandOfferDetail DemandOfferDetail;
         public IList<DemandOfferDetail> DemandOfferDetailList { get; set; }

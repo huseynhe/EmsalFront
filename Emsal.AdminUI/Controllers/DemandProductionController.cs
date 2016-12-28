@@ -93,7 +93,13 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstatusEV, out modelDemandProduction.EnumValue);
 
-                BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId_OP(baseInput, modelDemandProduction.EnumValue.Id, true, pageNumber, true, pageSize, true, out modelDemandProduction.ProductionDetailArray);
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch = new GetDemandProductionDetailistForEValueIdSearch();
+
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.state_eV_Id = modelDemandProduction.EnumValue.Id;
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.pageSize = pageSize;
+
+                BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId_OP(baseInput, modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch, out modelDemandProduction.ProductionDetailArray);
 
                 if (modelDemandProduction.ProductionDetailArray == null)
                 {
@@ -195,9 +201,15 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelDemandProduction.EnumValue);
 
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch = new GetDemandProductionDetailistForEValueIdSearch();
+
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.state_eV_Id = modelDemandProduction.EnumValue.Id;
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.pageSize = pageSize;
+
                 //if (excell == false)
                 //{
-                BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId_OP(baseInput, modelDemandProduction.EnumValue.Id, true, pageNumber, true, pageSize, true, out modelDemandProduction.ProductionDetailArray);
+                BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId_OP(baseInput, modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch, out modelDemandProduction.ProductionDetailArray);
                 //}
                 //else
                 //{
@@ -833,7 +845,7 @@ namespace Emsal.AdminUI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
                 baseInput.userName = modelDemandProduction.Admin.Username;
 
-                BaseOutput gpp = srv.WS_GetDemandOfferProductionTotal(baseInput, out modelDemandProduction.DemandOfferDetailArray);
+                BaseOutput gpp = srv.WS_GetDemandOfferProductionTotal(baseInput,saddressId,true, out modelDemandProduction.DemandOfferDetailArray);
 
                 if (modelDemandProduction.DemandOfferDetailArray == null)
                 {
@@ -1044,7 +1056,7 @@ namespace Emsal.AdminUI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
                 baseInput.userName = modelDemandProduction.Admin.Username;
 
-                BaseOutput gpp = srv.WS_GetDemandOfferProductionTotal(baseInput, out modelDemandProduction.DemandOfferDetailArray);
+                BaseOutput gpp = srv.WS_GetDemandOfferProductionTotal(baseInput,saddressId,true, out modelDemandProduction.DemandOfferDetailArray);
 
                 if (modelDemandProduction.DemandOfferDetailArray == null)
                 {
