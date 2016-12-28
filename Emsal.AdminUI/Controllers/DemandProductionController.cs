@@ -943,10 +943,23 @@ namespace Emsal.AdminUI.Controllers
                         var ri = 1;
                         string ppname = "";
                         string oppname = "";
+                        decimal dquantity = 0;
+                        string dsquantity = "";
+
                         foreach (var item in modelDemandProduction.DemandProductionViewModelList)
                         {
                             var col2 = 1;
                             ppname = item.parentProductName;
+                            dquantity=decimal.Parse(Custom.ConverPriceToStringDelZero((decimal)(item.totalOffer - item.totalDemand)));
+                            if(dquantity > 0)
+                            {
+                                dsquantity = "+" + dquantity.ToString();
+                            }
+                            else
+                            {
+                                dsquantity = dquantity.ToString();
+                            }
+
                             if (ppname != oppname)
                             {
                                 sheet.Cells[rowIndex, 1, rowIndex, 2].Merge = true;
@@ -965,7 +978,7 @@ namespace Emsal.AdminUI.Controllers
                             sheet.Cells[rowIndex, col2++].Value = item.quantityType;
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalDemand);
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalOffer);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)(item.totalOffer - item.totalDemand));
+                            sheet.Cells[rowIndex, col2++].Value = dsquantity;
 
                             rowIndex++;
                             ri++;

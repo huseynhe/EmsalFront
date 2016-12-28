@@ -5,10 +5,11 @@
 @{
     ViewBag.Title = "Index";
     Layout = "";
-    decimal tquantity = 0;
+    decimal dquantity = 0;
 
     string oppname = "";
     string ppname = "";
+
 }
 <h4 class="text-danger text-center">
     &nbsp;
@@ -28,11 +29,13 @@
         <table class="table table-hover table-striped table-bordered">
             <tbody>
                 @foreach (var item in Model.DemandOfferPaging)
-                {
-                    ppname = item.parentProductName;
+                        {
+                            ppname = item.parentProductName;
+                            dquantity =decimal.Parse(Custom.ConverPriceToStringDelZero((decimal)(item.totalOffer - item.totalDemand)));
 
-                    if (ppname != oppname)
-                    {
+
+                            if (ppname != oppname)
+                            {
                         <tr>
                             <td colspan="2" class="text-center text-bold">
                                 @ppname
@@ -53,7 +56,14 @@
                             @Custom.ConverPriceToStringDelZero((decimal)item.totalOffer)
                         </td>
                         <td class="col-md-1">
-                            @Custom.ConverPriceToStringDelZero((decimal)(item.totalOffer - item.totalDemand))
+                            @if (dquantity > 0)
+                            {
+                                <span>+@dquantity</span>
+                            }
+                            else
+                            {
+                                <span>@dquantity</span>
+                            }
                         </td>
                     </tr>
                     oppname = ppname;
