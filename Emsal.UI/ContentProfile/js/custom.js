@@ -7,6 +7,20 @@ $(document).ajaxComplete(function () {
 });
 
 
+function StatisticsSearch(elem, controller, action, param) {
+    $.ajax({
+        url: '/' + controller + '/' + action + '?' + param + '=' + $(elem).val(),
+        type: 'GET',
+        success: function (result) {
+            $('#AjaxPaginationList').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
+
+
 function resetStaticVariables() {
     var str = window.location.pathname;
     var res = str.split("/");

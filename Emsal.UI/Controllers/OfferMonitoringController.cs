@@ -24,6 +24,8 @@ namespace Emsal.UI.Controllers
         private BaseInput baseInput;
 
         private static string sproductName;
+        private static long sproductId;
+        private static long suserType;
         private static string suserInfo;
         private static string smonitoringStatusEV;
         private static string snameSurnameFathername;
@@ -36,33 +38,34 @@ namespace Emsal.UI.Controllers
 
         private OfferMonitoringViewModel modelOfferMonitoring;
 
-        public ActionResult Index(int? page, string monitoringStatusEV = null, string productName = null, string userInfo = null, bool pdf = false)
+        public ActionResult Index(int? page, string monitoringStatusEV = null, long productId = -1, long userType = -1, string userInfo = null, bool pdf = false)
         {
             try
             {
 
                 if (monitoringStatusEV != null)
                     monitoringStatusEV = StripTag.strSqlBlocker(monitoringStatusEV.ToLower());
-                if (productName != null)
-                    productName = StripTag.strSqlBlocker(productName.ToLower());
                 if (userInfo != null)
                     userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
 
                 int pageSize = 10;
                 int pageNumber = (page ?? 1);
 
-                if (productName == null && userInfo == null)
+                if (productId == -1 && userType == -1 && userInfo == null)
                 {
-                    sproductName = null;
+                    sproductId = 0;
                     suserInfo = null;
+                    suserType = 0;
                 }
 
-                if (productName != null)
-                    sproductName = productName;
+                if (productId >= 0)
+                    sproductId = productId;
                 if (userInfo != null)
                     suserInfo = userInfo;
                 if (monitoringStatusEV != null)
                     smonitoringStatusEV = monitoringStatusEV;
+                if (userType >= 0)
+                    suserType = userType;
 
                 baseInput = new BaseInput();
                 modelOfferMonitoring = new OfferMonitoringViewModel();
@@ -85,50 +88,50 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, smonitoringStatusEV, out modelOfferMonitoring.EnumValue);
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId(baseInput, (long)UserId, true, modelOfferMonitoring.EnumValue.Id, true, out modelOfferMonitoring.ProductionDetailArray);
+                if (pdf == true)
+                {
+                    pageNumber = 1;
+                    pageSize = 10000;
+                }
+
+                modelOfferMonitoring.OfferProductionDetailSearch = new OfferProductionDetailSearch();
+
+                modelOfferMonitoring.OfferProductionDetailSearch.monintoring_eV_Id = modelOfferMonitoring.EnumValue.Id;
+                modelOfferMonitoring.OfferProductionDetailSearch.page = pageNumber;
+                modelOfferMonitoring.OfferProductionDetailSearch.pageSize = pageSize;
+                modelOfferMonitoring.OfferProductionDetailSearch.userID = (long)UserId;
+                modelOfferMonitoring.OfferProductionDetailSearch.productID = sproductId;
+                modelOfferMonitoring.OfferProductionDetailSearch.roleID = suserType;
+                modelOfferMonitoring.OfferProductionDetailSearch.name = suserInfo;
+
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId_OP(baseInput, modelOfferMonitoring.OfferProductionDetailSearch, out modelOfferMonitoring.ProductionDetailArray);
 
 
                 if (modelOfferMonitoring.ProductionDetailArray != null)
                 {
-                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailArray.Where(x => x.enumCategoryId == modelOfferMonitoring.EnumCategory.Id && x.person != null).ToList();
+                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailArray.ToList();
                 }
                 else
                 {
                     modelOfferMonitoring.ProductionDetailList = new List<ProductionDetail>();
-                }
+                }               
 
-                if (sproductName != null)
-                {
-                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
-                }
+                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForMonitoringEVId_OPC(baseInput, modelOfferMonitoring.OfferProductionDetailSearch, out modelOfferMonitoring.itemCount, out modelOfferMonitoring.itemCountB);
 
-                if (suserInfo != null)
-                {
-                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
-                }
+                long[] aic = new long[modelOfferMonitoring.itemCount];
 
-                modelOfferMonitoring.isPDF = pdf;
-                modelOfferMonitoring.itemCount = modelOfferMonitoring.ProductionDetailList.Count();
-
-                if (modelOfferMonitoring.isPDF == true)
-                {
-                    modelOfferMonitoring.Paging = modelOfferMonitoring.ProductionDetailList.ToPagedList(1, 50000);
-                }
-                else
-                {
-                    modelOfferMonitoring.Paging = modelOfferMonitoring.ProductionDetailList.ToPagedList(pageNumber, pageSize);
-                }
+                modelOfferMonitoring.PagingT = aic.ToPagedList(pageNumber, pageSize);
 
                 if (smonitoringStatusEV == "new")
                     modelOfferMonitoring.isMain = 0;
                 else
                     modelOfferMonitoring.isMain = 1;
 
-
                 modelOfferMonitoring.monitoringStatusEV = smonitoringStatusEV;
-                modelOfferMonitoring.productName = sproductName;
+                modelOfferMonitoring.productId = sproductId;
                 modelOfferMonitoring.userInfo = suserInfo;
-                //return View(modelDemandProduction);
+                modelOfferMonitoring.userType = suserType;
+                modelOfferMonitoring.isPDF = pdf;
 
                 var gd = Guid.NewGuid();
 
@@ -499,7 +502,6 @@ namespace Emsal.UI.Controllers
                     sisSeller = isSeller;
                 }
 
-
                 baseInput = new BaseInput();
                 modelOfferMonitoring = new OfferMonitoringViewModel();
 
@@ -618,11 +620,24 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferMonitoring.EnumValue);
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId(baseInput, (long)UserId, true, modelOfferMonitoring.EnumValue.Id, true, out modelOfferMonitoring.ProductionDetailArray);
 
-                modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailArray.Where(x => x.enumCategoryId == modelOfferMonitoring.EnumCategory.Id && x.person != null).ToList();
+                modelOfferMonitoring.OfferProductionDetailSearch = new OfferProductionDetailSearch();
 
-                modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.person.Id == pid).ToList();
+                modelOfferMonitoring.OfferProductionDetailSearch.state_eV_Id = modelOfferMonitoring.EnumValue.Id;
+                modelOfferMonitoring.OfferProductionDetailSearch.page = 1;
+                modelOfferMonitoring.OfferProductionDetailSearch.pageSize = 50;
+                modelOfferMonitoring.OfferProductionDetailSearch.personID = pid;
+
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId_OP(baseInput, modelOfferMonitoring.OfferProductionDetailSearch, out modelOfferMonitoring.ProductionDetailArray);
+
+                if (modelOfferMonitoring.ProductionDetailArray != null)
+                {
+                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailArray.ToList();
+                }
+                else
+                {
+                    modelOfferMonitoring.ProductionDetailList = new List<ProductionDetail>();
+                }
 
                 BaseOutput gpbui = srv.WS_GetPersonByUserId(baseInput, modelOfferMonitoring.User.Id, true, out modelOfferMonitoring.Person);
 
@@ -935,6 +950,47 @@ namespace Emsal.UI.Controllers
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message + ex.Source + ex.StackTrace;
+            }
+        }
+
+
+        public ActionResult ProductCatalogForSale(string actionName)
+        {
+            try
+            {
+
+                baseInput = new BaseInput();
+                modelOfferMonitoring = new OfferMonitoringViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferMonitoring.User);
+                baseInput.userName = modelOfferMonitoring.User.Username;
+
+                BaseOutput bouput = srv.GetProductCatalogsWithParent(baseInput, out modelOfferMonitoring.ProductCatalogDetailArray);
+
+                if (modelOfferMonitoring.ProductCatalogDetailArray == null)
+                {
+                    modelOfferMonitoring.ProductCatalogDetailList = new List<ProductCatalogDetail>();
+                }
+                else
+                {
+                    modelOfferMonitoring.ProductCatalogDetailList = modelOfferMonitoring.ProductCatalogDetailArray.Where(x => x.productCatalog.canBeOrder == 1).ToList();
+                }
+
+                modelOfferMonitoring.actionName = actionName;
+                return View(modelOfferMonitoring);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
 

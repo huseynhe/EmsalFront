@@ -61,6 +61,8 @@ namespace Emsal.UI.Models
         public IList<tblEnumCategory> EnumCategoryList { get; set; }
         public tblEnumCategory[] EnumCategoryArray;
 
+        public OfferProductionDetailSearch OfferProductionDetailSearch;
+
         public tblEnumValue EnumValue;
         public tblEnumValue EnumValueST;
         public IList<tblEnumValue> EnumValueList { get; set; }
@@ -121,12 +123,14 @@ namespace Emsal.UI.Models
 
         public PagedList.IPagedList<ProductionDetail> Paging { get; set; }
         public PagedList.IPagedList<tblPerson> PagingPerson { get; set; }
+        public PagedList.IPagedList<long> PagingT { get; set; }
 
         public bool isPDF { get; set; }
         public long userId { get; set; }
 
         public long totalSize = 0;
 
+        public string actionName { get; set; }
 
         public long Id { get; set; }
 
@@ -154,7 +158,7 @@ namespace Emsal.UI.Models
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public string size { get; set; }
 
-        public int productId { get; set; }
+        public long productId { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public int[] enumCat { get; set; }
@@ -188,7 +192,9 @@ namespace Emsal.UI.Models
         public long monitoringStatusEVId { get; set; }
         public string productName { get; set; }
         public string userInfo { get; set; }
-        public int itemCount { get; set; }
+        public long userType { get; set; }
+        public long itemCount = 0;
+        public bool itemCountB = true;
 
         public string nameSurnameFathername { get; set; }
         public string icraci { get; set; }

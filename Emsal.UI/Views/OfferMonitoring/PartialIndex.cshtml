@@ -1,6 +1,5 @@
 ﻿@model Emsal.UI.Models.OfferMonitoringViewModel
 @using PagedList.Mvc;
-
 @{
     ViewBag.Title = "Index";
     if (Model.isPDF == true)
@@ -14,15 +13,13 @@
     decimal tquantity = 0;
 }
 
-
 @using (Html.BeginForm("Approv", "OfferMonitoring", FormMethod.Post))
 {
 
     <div class="box-body no-padding">
-
         @if (Model.isPDF == false)
         {
-            <a href="/OfferMonitoring?monitoringStatusEV = @Model.monitoringStatusEV&productName=@Model.productName&userInfo=@Model.userInfo&pdf=true" class="btn btn-warning active pull-right" style="margin-top: 3px; margin-bottom: 3px;">
+            <a href="/OfferMonitoring?monitoringStatusEV = @Model.monitoringStatusEV&productId=@Model.productId&userType=@Model.userType&userInfo=@Model.userInfo&pdf=true" class="btn btn-warning active pull-right" style="margin-top: 3px; margin-bottom: 3px;">
                 <i class="glyphicon glyphicon-save-file"></i>
                 Yüklə
             </a>
@@ -73,8 +70,7 @@
                             </th>
                         </tr>
                     }
-
-                    @foreach (var item in Model.Paging)
+                    @foreach (var item in Model.ProductionDetailList)
                     {
                         <tr>
                             @if (Model.isPDF == false)
@@ -103,19 +99,26 @@
                                 {
                                     <span>
                                         @item.person.Name @item.person.Surname @item.person.FatherName (@item.person.gender)<br />
-                                        pin: @item.person.PinNumber
+                                        pin: @item.person.PinNumber<br />
+                                        @item.organizationName
                                     </span>
                                 }
                                 <div class="clearfix"></div>
-                               @foreach(var citem in item.personcomList)
-                               {
-                                   <span>tel: @citem.communication</span>
-                               }
+                                @foreach (var citem in item.personcomList)
+                                {
+                                    <span>tel: @citem.communication</span>
+                                }
                                 <div class="clearfix"></div>
                                 <span>e-poçt: @item.email</span>
                             </td>
                             @if (Model.isPDF == false)
                             {
+                                <td class="col-md-2">
+                                    @if(item.personInformation!=null)
+                                    {
+                                        <span>@item.personInformation.roleDescription</span>
+                                    }
+                                </td>
                                 <td class="col-md-2">
                                     <table style="max-width:100%;">
                                         @foreach (var itm in item.productionDocumentList)
@@ -145,7 +148,7 @@
                         if (item.productionCalendarList.Count() > 0)
                         {
                             <tr>
-                                <td colspan="8" style="padding:0;">
+                                <td colspan="9" style="padding:0;">
                                     <table class="table" style="margin:0;">
                                         <tr>
                                             <th>tipi</th>
@@ -160,21 +163,21 @@
                                         @foreach (var itemc in item.productionCalendarList)
                                         {
                                             tquantity = (itemc.quantity * itemc.transportation_eV_Id);
-                                            <tr>
-                                                <td>
-                                                    @if (itemc.TypeDescription != null)
+                                        <tr>
+                                            <td>
+                                                @if (itemc.TypeDescription != null)
                                                     {
-                                                        <span>@itemc.TypeDescription</span>
+                                                    <span>@itemc.TypeDescription</span>
                                                     }
-                                                </td>
-                                                <td> @itemc.year</td>
-                                                <td> @itemc.partOfyear</td>
-                                                <td> @itemc.MonthDescription</td>
-                                                <td> @itemc.day</td>
-                                                <td> @itemc.oclock</td>
-                                                <td> @itemc.quantity</td>
-                                                <td> @tquantity</td>
-                                            </tr>
+                                            </td>
+                                            <td> @itemc.year</td>
+                                            <td> @itemc.partOfyear</td>
+                                            <td> @itemc.MonthDescription</td>
+                                            <td> @itemc.day</td>
+                                            <td> @itemc.oclock</td>
+                                            <td> @itemc.quantity</td>
+                                            <td> @tquantity</td>
+                                        </tr>
                                         }
                                     </table>
                                 </td>
@@ -183,7 +186,7 @@
                         if (item != Model.ProductionDetailList.LastOrDefault())
                         {
                             <tr>
-                                <td colspan="8" style="padding:0;background:#f2f2f2;">
+                                <td colspan="9" style="padding:0;background:#f2f2f2;">
                                     &nbsp;
                                 </td>
                             </tr>
@@ -196,14 +199,11 @@
     if (Model.isPDF == false)
     {
         <div class="box-footer clearfix">
-            Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
-            @Html.PagedListPager(Model.Paging, page => Url.Action("Index", new { page, monitoringStatusEV = Model.monitoringStatusEV, productName = Model.productName, userInfo = Model.userInfo }))
+            Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
+            @Html.PagedListPager(Model.PagingT, page => Url.Action("Index", new { page, monitoringStatusEV = Model.monitoringStatusEV, productId = Model.productId, userType = Model.userType, userInfo = Model.userInfo }))
         </div>
     }
 }
-
-
-
 
 
 <script>
@@ -211,7 +211,6 @@
         $('#chall').hide();
     });
 </script>
-
 
 @if (Model.isPDF == true)
 {

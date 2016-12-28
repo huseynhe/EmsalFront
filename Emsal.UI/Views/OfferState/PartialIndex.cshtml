@@ -32,7 +32,7 @@
             </div>
             <table class="table table-hover table-striped table-bordered">
                 <tbody>
-                    @foreach (var item in Model.Paging)
+                    @foreach (var item in Model.ProductionDetailList)
                     {
                         <tr>
                             @if (Model.isMain == 0)
@@ -43,6 +43,8 @@
                             }
                             <td class="col-md-2">
                                 @item.productParentName (@item.productName)
+                                <div class="clearfix"></div>
+                                @item.organizationName
                             </td>
                             <td class="col-md-1">
                                 @item.quantity @item.enumValueName
@@ -154,8 +156,8 @@
         </div>
     </div>
                     <div class="box-footer clearfix">
-                        Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
-                        @Html.PagedListPager(Model.Paging, page => Url.Action("Index", new { page, stateStatusEV = Model.stateStatusEV, productName = Model.productName, userInfo = Model.userInfo }))
+                        Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
+                        @Html.PagedListPager(Model.PagingT, page => Url.Action("Index", new { page, stateStatusEV = Model.stateStatusEV, productId = Model.productId, rId = Model.roleId, userInfo = Model.userInfo }))
                     </div>
 
 

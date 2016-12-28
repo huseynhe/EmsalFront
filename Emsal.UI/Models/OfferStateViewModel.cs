@@ -30,6 +30,8 @@ namespace Emsal.UI.Models
         public IList<tblOffer_Production> OfferProductionList { get; set; }
         public tblOffer_Production[] OfferProductionArray;
 
+        public OfferProductionDetailSearch OfferProductionDetailSearch;
+
         public ProductionDetail ProductionDetail;
         public IList<ProductionDetail> ProductionDetailList { get; set; }
         public ProductionDetail[] ProductionDetailArray;
@@ -106,6 +108,7 @@ namespace Emsal.UI.Models
         public tblConfirmationMessage[] ConfirmationMessageArray;
 
         public PagedList.IPagedList<ProductionDetail> Paging { get; set; }
+        public PagedList.IPagedList<long> PagingT { get; set; }
 
         public bool isPDF { get; set; }
         public long userId { get; set; }
@@ -114,6 +117,8 @@ namespace Emsal.UI.Models
 
 
         public long Id { get; set; }
+
+        public string actionName { get; set; }
 
         [Display(Name = "İmtinanın səbəbi")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
@@ -139,7 +144,8 @@ namespace Emsal.UI.Models
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public string size { get; set; }
 
-        public int productId { get; set; }
+        public long productId { get; set; }
+        public long roleId { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public int[] enumCat { get; set; }
@@ -174,8 +180,9 @@ namespace Emsal.UI.Models
         public string productName { get; set; }
         public string userInfo { get; set; }
 
-        public int itemCount { get; set; }
+        public long itemCount = 0;
+        public bool itemCountB = true;
 
-       public IList<HttpPostedFileBase> attachfiles { get; set; }
+        public IList<HttpPostedFileBase> attachfiles { get; set; }
     }
 }

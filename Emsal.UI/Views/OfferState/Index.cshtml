@@ -33,7 +33,8 @@
                             }
                             <th class="col-md-2">
                                 Məhsulun adı<br />
-                                <input onkeyup="OfferStateSearch(this, 'productName')" class="form-control" placeholder="axtar" />
+                                @Html.Action("ProductCatalogForSale", "OfferState", new { actionName = "Index" })
+                                @*<input onkeyup="OfferStateSearch(this, 'productName')" class="form-control" placeholder="axtar" />*@
                             </th>
                             <th class="col-md-1">
                                 Miqdarı (vahidi)

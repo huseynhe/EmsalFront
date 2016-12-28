@@ -20,6 +20,7 @@ namespace Emsal.UI.Controllers
     {
         private BaseInput baseInput;
 
+        private static long sproductId;
         private static string sproductName;
         private static string suserInfo;
         private static string sstateStatusEV;
@@ -31,14 +32,12 @@ namespace Emsal.UI.Controllers
         private OfferStateViewModel modelOfferState;
 
 
-        public ActionResult Index(int? page, string stateStatusEV = null, long rId = 0, string productName = null, string userInfo = null)
+        public ActionResult Index(int? page, string stateStatusEV = null, long rId = -1, long productId = -1, string userInfo = null)
         {
             try
             {
                 if (stateStatusEV != null)
                     stateStatusEV = StripTag.strSqlBlocker(stateStatusEV.ToLower());
-                if (productName != null)
-                    productName = StripTag.strSqlBlocker(productName.ToLower());
                 if (userInfo != null)
                     userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
 
@@ -46,20 +45,22 @@ namespace Emsal.UI.Controllers
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (productName == null && userInfo == null && rId==0)
+                if (productId == -1 && userInfo == null && rId==-1)
                 {
-                    sproductName = null;
+                    sproductId = 0;
                     suserInfo = null;
                     srId = 0;
                 }
 
-                if (productName != null)
-                    sproductName = productName;
+
+
+                if (productId >= 0)
+                    sproductId = productId;
                 if (userInfo != null)
                     suserInfo = userInfo;
                 if (stateStatusEV != null)
                     sstateStatusEV = stateStatusEV;
-                if (rId >0)
+                if (rId >=0)
                     srId = rId;
 
                 baseInput = new BaseInput();
@@ -83,35 +84,29 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstateStatusEV, out modelOfferState.EnumValue);
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForStateEVId(baseInput, (long)UserId, true, modelOfferState.EnumValue.Id, true, out modelOfferState.ProductionDetailArray);
+                modelOfferState.OfferProductionDetailSearch = new OfferProductionDetailSearch();
+                modelOfferState.OfferProductionDetailSearch.page = pageNumber;
+                modelOfferState.OfferProductionDetailSearch.pageSize = pageSize;
+                modelOfferState.OfferProductionDetailSearch.state_eV_Id = modelOfferState.EnumValue.Id;
+                modelOfferState.OfferProductionDetailSearch.userID = (long)UserId;
+                modelOfferState.OfferProductionDetailSearch.name = suserInfo;
+
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForStateEVId_OP(baseInput, modelOfferState.OfferProductionDetailSearch, out modelOfferState.ProductionDetailArray);
 
                 if (modelOfferState.ProductionDetailArray != null)
                 {
-                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailArray.Where(x => x.personInformation != null && x.enumCategoryId == modelOfferState.EnumCategory.Id).ToList();
+                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailArray.ToList();
                 }
                 else
                 {
                     modelOfferState.ProductionDetailList = new List<ProductionDetail>();
                 }
 
-                if (sproductName != null)
-                {
-                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
-                }
+                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForStateEVId_OPC(baseInput, modelOfferState.OfferProductionDetailSearch, out modelOfferState.itemCount, out modelOfferState.itemCountB);
 
-                if (suserInfo != null)
-                {
-                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.personInformation.Name.ToLower().Contains(suserInfo) || x.personInformation.Surname.ToLower().Contains(suserInfo) || x.personInformation.FatherName.ToLower().Contains(suserInfo)).ToList();
-                }
+                long[] aic = new long[modelOfferState.itemCount];
 
-                if (srId >0)
-                {
-                    modelOfferState.ProductionDetailList = modelOfferState.ProductionDetailList.Where(x => x.personInformation.roleId== srId).ToList();
-                }
-
-                modelOfferState.itemCount = modelOfferState.ProductionDetailList.Count();
-                modelOfferState.Paging = modelOfferState.ProductionDetailList.ToPagedList(pageNumber, pageSize);
-
+                modelOfferState.PagingT = aic.ToPagedList(pageNumber, pageSize);
 
                 if (sstateStatusEV == "Yayinda" || sstateStatusEV == "yayinda" || sstateStatusEV == "new")
                     modelOfferState.isMain = 0;
@@ -120,7 +115,8 @@ namespace Emsal.UI.Controllers
 
 
                 modelOfferState.stateStatusEV = sstateStatusEV;
-                modelOfferState.productName = sproductName;
+                modelOfferState.productId = sproductId;
+                modelOfferState.roleId = srId;
                 modelOfferState.userInfo = suserInfo;
                 //return View(modelDemandProduction);
 
@@ -427,6 +423,46 @@ namespace Emsal.UI.Controllers
 
                 return RedirectToAction("Index", "OfferState", new { stateStatusEV = model.EnumValueST.name });
 
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+        public ActionResult ProductCatalogForSale(string actionName)
+        {
+            try
+            {
+
+                baseInput = new BaseInput();
+                modelOfferState = new OfferStateViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferState.User);
+                baseInput.userName = modelOfferState.User.Username;
+
+                BaseOutput bouput = srv.GetProductCatalogsWithParent(baseInput, out modelOfferState.ProductCatalogDetailArray);
+
+                if (modelOfferState.ProductCatalogDetailArray == null)
+                {
+                    modelOfferState.ProductCatalogDetailList = new List<ProductCatalogDetail>();
+                }
+                else
+                {
+                    modelOfferState.ProductCatalogDetailList = modelOfferState.ProductCatalogDetailArray.Where(x => x.productCatalog.canBeOrder == 1).ToList();
+                }
+
+                modelOfferState.actionName = actionName;
+                return View(modelOfferState);
             }
             catch (Exception ex)
             {
