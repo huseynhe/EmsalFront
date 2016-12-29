@@ -32,8 +32,8 @@
                         }
 
                         </div>
-                        <div class="col-sm-2" style="border-left:1px solid #dfdfdf;">@item.announcement.quantity @item.announcement.quantity_type_Name</div>
-                        <div class="col-sm-3" style="border-left:1px solid #dfdfdf;">@item.announcement.unit_price AZN</div>
+                        <div class="col-sm-2" style="border-left:1px solid #dfdfdf;">@Custom.ConverPriceToStringDelZero((decimal)item.announcement.quantity) @item.announcement.quantity_type_Name</div>
+                        <div class="col-sm-3" style="border-left:1px solid #dfdfdf;">@Custom.ConverPriceToStringDelZero((decimal)item.announcement.unit_price) AZN</div>
                         <div class="clearfix"></div>
                     </a>
                 }

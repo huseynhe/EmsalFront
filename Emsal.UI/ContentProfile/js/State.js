@@ -42,18 +42,29 @@ function getCheckedList() {
     }
 };
 
+var ri = 0;
 
-function OfferStateSearch(elem, value) {
-    $.ajax({
-        url: '/OfferState/Index?' + value + '=' + $(elem).val(),
-        type: 'GET',
-        success: function (result) {
-            $('#AjaxPaginationList').html(result);
-        },
-        error: function () {
+function OfferStateSearch(elem, param) {
+    if (ri == 0 || ri == 2) {
+        var value = $(elem).val();
+        ri = 1;
 
-        }
-    });
+        $.ajax({
+            url: '/OfferState/Index?' + param + '=' + $(elem).val(),
+            type: 'GET',
+            success: function (result) {
+                $('#AjaxPaginationList').html(result);
+
+                ri = 2;
+                if ($(elem).val() != value) {
+                    OfferStateSearch(elem, param);
+                }
+            },
+            error: function () {
+
+            }
+        });
+    }
 }
 
 

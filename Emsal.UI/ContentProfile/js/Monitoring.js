@@ -42,18 +42,29 @@ function getCheckedList() {
     }
 };
 
+var ri = 0;
 
-function OfferMonitoringSearch(elem, value) {
-    $.ajax({
-        url: '/OfferMonitoring/Index?' + value + '=' + $(elem).val(),
-        type: 'GET',
-        success: function (result) {
-            $('#AjaxPaginationList').html(result);
-        },
-        error: function () {
+function OfferMonitoringSearch(elem, param) {
+    if (ri == 0 || ri == 2) {
+        var value = $(elem).val();
+        ri = 1;
 
-        }
-    });
+        $.ajax({
+            url: '/OfferMonitoring/Index?' + param + '=' + $(elem).val(),
+            type: 'GET',
+            success: function (result) {
+                $('#AjaxPaginationList').html(result);
+
+                ri = 2;
+                if ($(elem).val() != value) {
+                    OfferMonitoringSearch(elem, param);
+                }
+            },
+            error: function () {
+
+            }
+        });
+    }
 }
 
 function OfferMonitoringContractSearch(elem, value) {

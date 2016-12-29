@@ -45,7 +45,7 @@ namespace Emsal.UI.Controllers
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (productId == -1 && userInfo == null && rId==-1)
+                if (productId == -1 && string.IsNullOrEmpty(userInfo) && rId==-1)
                 {
                     sproductId = 0;
                     suserInfo = null;
@@ -90,8 +90,10 @@ namespace Emsal.UI.Controllers
                 modelOfferState.OfferProductionDetailSearch.state_eV_Id = modelOfferState.EnumValue.Id;
                 modelOfferState.OfferProductionDetailSearch.userID = (long)UserId;
                 modelOfferState.OfferProductionDetailSearch.name = suserInfo;
+                modelOfferState.OfferProductionDetailSearch.productID = sproductId;
+                modelOfferState.OfferProductionDetailSearch.roleID = srId;
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForStateEVId_OP(baseInput, modelOfferState.OfferProductionDetailSearch, out modelOfferState.ProductionDetailArray);
+            BaseOutput gpp = srv.WS_GetOfferProductionDetailistForStateEVId_OP(baseInput, modelOfferState.OfferProductionDetailSearch, out modelOfferState.ProductionDetailArray);
 
                 if (modelOfferState.ProductionDetailArray != null)
                 {

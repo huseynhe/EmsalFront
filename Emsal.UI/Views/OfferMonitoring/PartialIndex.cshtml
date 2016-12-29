@@ -1,5 +1,7 @@
 ﻿@model Emsal.UI.Models.OfferMonitoringViewModel
 @using PagedList.Mvc;
+@using Emsal.Utility.CustomObjects;
+
 @{
     ViewBag.Title = "Index";
     if (Model.isPDF == true)
@@ -68,6 +70,9 @@
                             <th class="col-md-2">
                                 İnfo
                             </th>
+                            <th class="col-md-2">
+                                İstifadəçinin növü
+                            </th>
                         </tr>
                     }
                     @foreach (var item in Model.ProductionDetailList)
@@ -86,20 +91,25 @@
                                 @item.productParentName (@item.productName)
                             </td>
                             <td class="col-md-1">
-                                @item.quantity @item.enumValueName
+                                @Custom.ConverPriceToStringDelZero((decimal)item.quantity) @item.enumValueName
                             </td>
                             <td class="col-md-1">
-                                @item.unitPrice AZN
+                                @Custom.ConverPriceToStringDelZero((decimal)item.unitPrice) AZN
                             </td>
                             <td class="col-md-2">
                                 @item.description
                             </td>
                             <td class="col-md-2">
-                                @if (item.person != null)
+                                @if (item.personInformation != null)
                                 {
                                     <span>
-                                        @item.person.Name @item.person.Surname @item.person.FatherName (@item.person.gender)<br />
-                                        pin: @item.person.PinNumber<br />
+                                        @item.personInformation.Name @item.personInformation.Surname @item.personInformation.FatherName (@item.personInformation.gender)<br />
+
+                                        @if (!string.IsNullOrEmpty(item.personInformation.PinNumber))
+                                        {
+                                            <b>fin: </b>@item.personInformation.PinNumber
+                                        }
+
                                         @item.organizationName
                                     </span>
                                 }
@@ -109,16 +119,17 @@
                                     <span>tel: @citem.communication</span>
                                 }
                                 <div class="clearfix"></div>
-                                <span>e-poçt: @item.email</span>
+                                <b>e-poçt:</b> @item.email
                             </td>
+                            <td class="col-md-2">
+                                @if (item.personInformation != null)
+                                {
+                                    <span>@item.personInformation.roleDescription</span>
+                                }
+                            </td>
+
                             @if (Model.isPDF == false)
                             {
-                                <td class="col-md-2">
-                                    @if(item.personInformation!=null)
-                                    {
-                                        <span>@item.personInformation.roleDescription</span>
-                                    }
-                                </td>
                                 <td class="col-md-2">
                                     <table style="max-width:100%;">
                                         @foreach (var itm in item.productionDocumentList)
@@ -151,7 +162,7 @@
                                 <td colspan="9" style="padding:0;">
                                     <table class="table" style="margin:0;">
                                         <tr>
-                                            <th>tipi</th>
+                                            <th>dövrülük</th>
                                             <th>il</th>
                                             <th>rüb</th>
                                             <th>ay</th>
@@ -175,8 +186,8 @@
                                             <td> @itemc.MonthDescription</td>
                                             <td> @itemc.day</td>
                                             <td> @itemc.oclock</td>
-                                            <td> @itemc.quantity</td>
-                                            <td> @tquantity</td>
+                                            <td> @Custom.ConverPriceToStringDelZero((decimal)itemc.quantity)</td>
+                                            <td> @Custom.ConverPriceToStringDelZero((decimal)tquantity)</td>
                                         </tr>
                                         }
                                     </table>

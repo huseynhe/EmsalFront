@@ -1,5 +1,7 @@
 ﻿@model Emsal.UI.Models.OfferStateViewModel
 @using PagedList.Mvc;
+@using Emsal.Utility.CustomObjects;
+
 @{
     ViewBag.Title = "Index";
     Layout = "";
@@ -43,11 +45,9 @@
                             }
                             <td class="col-md-2">
                                 @item.productParentName (@item.productName)
-                                <div class="clearfix"></div>
-                                @item.organizationName
                             </td>
                             <td class="col-md-1">
-                                @item.quantity @item.enumValueName
+                                @Custom.ConverPriceToStringDelZero((decimal)item.quantity) @item.enumValueName
                             </td>
                             <td class="col-md-1">
                                 @if (item.quantity != item.potentialProductQuantity)
@@ -58,10 +58,10 @@
                                 {
                                     color = "#000";
                                 }
-                                <span style="color:@color;">@item.potentialProductQuantity @item.enumValueName</span>
+                                <span style="color:@color;">@Custom.ConverPriceToStringDelZero((decimal)item.potentialProductQuantity) @item.enumValueName</span>
                             </td>
                             <td class="col-md-1">
-                                @item.unitPrice AZN
+                                @Custom.ConverPriceToStringDelZero((decimal)item.unitPrice) AZN
                             </td>
                             <td class="col-md-1">
                                 @item.description
@@ -71,8 +71,13 @@
                                 {
                                     <span>
                                         @item.personInformation.Name @item.personInformation.Surname @item.personInformation.FatherName (@item.personInformation.gender)<br />
-                                        pin: @item.personInformation.PinNumber
+                                        @if (!string.IsNullOrEmpty(item.personInformation.PinNumber))
+                                        {
+                                            <b>fin: </b>@item.personInformation.PinNumber
+                                        }
                                     </span>
+                                    <div class="clearfix"></div>
+                                    @item.organizationName
                                 }
                             </td>
                             <td class="col-md-1">
@@ -110,7 +115,7 @@
                                 <td colspan="10" style="padding:0;">
                                     <table class="table" style="margin:0;">
                                         <tr>
-                                            <th>tipi</th>
+                                            <th>dövrülük</th>
                                             <th>il</th>
                                             <th>rüb</th>
                                             <th>ay</th>
@@ -134,8 +139,8 @@
                                                 <td> @itemc.MonthDescription</td>
                                                 <td> @itemc.day</td>
                                                 <td> @itemc.oclock</td>
-                                                <td> @itemc.quantity</td>
-                                                <td> @tquantity</td>
+                                                <td> @Custom.ConverPriceToStringDelZero((decimal)itemc.quantity)</td>
+                                                <td> @Custom.ConverPriceToStringDelZero((decimal)tquantity)</td>
                                             </tr>
                                         }
                                     </table>
