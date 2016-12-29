@@ -144,12 +144,14 @@ function check() {
                     }
                     str = result.data.FullAddress;
                     res = str.split(",");
-                    for (var i = 0; i < res.length; i++) {
-                        if (i == 0) {
-                            $("#mainRegion").val(res[i]).change();
-                            $("#mainRegion").attr('disabled', true);
-                        }
+                    if (res != '') {
+                        for (var i = 0; i < res.length; i++) {
+                            if (i == 0) {
+                                $("#mainRegion").val(res[i]).change();
+                                $("#mainRegion").attr('disabled', true);
+                            }
 
+                        }
                     }
 
                     if (id == 2) {
