@@ -229,16 +229,16 @@
                                 }
 
                                 else {
-                                    $("#wrongPassword").html("Şifreniz 8 reqemden böyük olmalıdır");
+                                    $("#wrongPassword").html("Şifrəniz 8 reqemden böyük olmalıdır");
                                 }
                             }
                             else {
-                                $("#wrongPassword").html("Tekrar şifre yeni şifre ile eyni deyil");
+                                $("#wrongPassword").html("Tekrar şifrə yeni şifre ile eyni deyil");
                             }
 
                         }
                         else {
-                            $("#wrongPassword").html("Şifreniz möcud şifre ile eyni deyil");
+                            $("#wrongPassword").html("Şifrəniz möcud şifrə ile eyni deyil");
                         }
                     },
                     error: function (e) {

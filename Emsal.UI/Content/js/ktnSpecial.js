@@ -117,16 +117,16 @@
                         }
 
                         else {
-                            $("#wrongPassword").html("Şifreniz 8 reqemden böyük olmalıdır");
+                            $("#wrongPassword").html("Şifrəniz 8 rəqəmdən böyük olmalıdır");
                         }
                     }
                     else {
-                        $("#wrongPassword").html("Tekrar şifre yeni şifre ile eyni deyil");
+                        $("#wrongPassword").html("Təkrar şifrə yeni şifrə ile eyni deyil");
                     }
 
                 }
                 else {
-                    $("#wrongPassword").html("Şifreniz möcud şifre ile eyni deyil");
+                    $("#wrongPassword").html("Şifrəniz möcud şifrə ilə eyni deyil");
                 }
             },
             error: function (e) {
