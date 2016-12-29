@@ -45,7 +45,7 @@ namespace Emsal.UI.Controllers
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (productId == -1 && string.IsNullOrEmpty(userInfo) && rId==-1)
+                if (productId == -1 && userInfo == null && rId==-1)
                 {
                     sproductId = 0;
                     suserInfo = null;
