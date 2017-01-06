@@ -1,5 +1,5 @@
 ﻿@model Emsal.UI.Models.SpecialSummaryViewModel
-
+@using Emsal.Utility.CustomObjects;
 @{
     ViewBag.Title = "SentsMessages";
 }
@@ -60,7 +60,7 @@
                                 </a>
                             </p>
                             <p>
-                                Mesajın tarixi: @createdDate.Day.ToString()/@createdDate.Month.ToString()/@(createdDate.Year + 1950)
+                                Mesajın tarixi: @DatetimeExtension.toShortDate(message.createdDate).ToShortDateString()
                             </p>
                         </td>
                         <td class='text-right'>
