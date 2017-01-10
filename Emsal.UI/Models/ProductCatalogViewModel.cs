@@ -16,6 +16,10 @@ namespace Emsal.UI.Models
         public tblUser User;
         public tblPerson Person;
 
+        public ProductCatalogDetail ProductCatalogDetail;
+        public IList<ProductCatalogDetail> ProductCatalogDetailList { get; set; }
+        public ProductCatalogDetail[] ProductCatalogDetailArray;
+
         public tblProductCatalog ProductCatalog;
         public IList<tblProductCatalog> ProductCatalogList { get; set; }
         public IList<tblProductCatalog> ProductCatalogListPC { get; set; }
@@ -44,6 +48,9 @@ namespace Emsal.UI.Models
         public tblOffer_Production OfferProduction;
         public IList<tblOffer_Production> OfferProductionList { get; set; }
         public tblOffer_Production[] OfferProductionArray;
+
+
+        public OfferProductionDetailSearch OfferProductionDetailSearch;
 
         public tblDemand_Production DemandProduction;
         public IList<tblDemand_Production> DemandProductionList { get; set; }
@@ -110,6 +117,7 @@ namespace Emsal.UI.Models
 
         public PagedList.IPagedList<AnnouncementDetail> Paging { get; set; }
         public PagedList.IPagedList<ProductionDetail> PagingProduction { get; set; }
+        public PagedList.IPagedList<long> PagingT { get; set; }
 
         public PagedList.IPagedList<UserInfo> PagingUserInfo { get; set; }
 
@@ -125,6 +133,7 @@ namespace Emsal.UI.Models
         [Display(Name = "Qeyd")]
         public string description { get; set; }
 
+        public string actionName { get; set; }
 
         [Display(Name = "Status")]
         public bool Status { get; set; }
@@ -139,7 +148,9 @@ namespace Emsal.UI.Models
 
         public DateTime endDate { get; set; }
 
-        public int itemCount { get; set; }
+        public long itemCount = 0;
+        public bool itemCountB = true;
+
         public int addressId { get; set; }
         public long rId { get; set; }
         public long rIdau { get; set; }

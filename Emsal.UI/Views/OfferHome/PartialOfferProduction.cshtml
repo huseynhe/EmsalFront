@@ -20,7 +20,7 @@
 </div>
 <table class="table table-bordered ">
     <tbody>
-        @foreach (var item in Model.PagingProduction)
+        @foreach (var item in Model.ProductionDetailList)
         {
             <tr>
                 <td class="col-sm-1">
@@ -43,7 +43,7 @@
         }
     </tbody>
 </table>
-@if (Model.PagingProduction.Count() == 0)
+@if (Model.PagingT.Count() == 0)
 {
     <h5 class="text-center">Qeyd tapılmadı</h5>
 }
@@ -52,8 +52,8 @@
     @if (Model.noPaged == 0)
     {
         <div class="box-footer clearfix">
-            Səhifə @(Model.PagingProduction.PageCount < Model.PagingProduction.PageNumber ? 0 : Model.PagingProduction.PageNumber) (cəmi @Model.PagingProduction.PageCount)
-            @Html.PagedListPager(Model.PagingProduction, page => Url.Action("OfferProduction", new { page, productName = Model.pName, productId = Model.productId }))
+            Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
+            @Html.PagedListPager(Model.PagingT, page => Url.Action("OfferProduction", new { page, productId = Model.productId }))
         </div>
     }
 </div>

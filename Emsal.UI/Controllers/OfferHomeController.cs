@@ -59,30 +59,25 @@ namespace Emsal.UI.Controllers
         }
 
 
-        public ActionResult OfferProduction(int? page, int productId = 0, string productName = null, string fv = null)
+        public ActionResult OfferProduction(int? page, int productId = -1, string fv = null)
         {
             try
             {
-                if (productName != null)
-                    productName = StripTag.strSqlBlocker(productName.ToLower());
                 if (fv != null)
                     fv = StripTag.strSqlBlocker(fv.ToLower());
 
                 if (fv == "")
                     fv = null;
 
-                if (productName == null && fv == null && productId==0)
+                if (fv == null && productId== -1)
                 {
-                    sproductName = null;
                     sfv = null;
                     sproductId = 0;
                 }
-
-                if (productName != null)
-                    sproductName = productName;
+                
                 if (fv != null)
                     sfv = fv;
-                if (productId >0)
+                if (productId >= 0)
                     sproductId = productId;
 
                 baseInput = new BaseInput();
@@ -95,50 +90,38 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelProductCatalog.EnumValue);
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId(baseInput, (long)modelProductCatalog.EnumValue.Id, true, out modelProductCatalog.ProductionDetailArray);
+                modelProductCatalog.OfferProductionDetailSearch = new OfferProductionDetailSearch();
+
+                modelProductCatalog.OfferProductionDetailSearch.state_eV_Id = modelProductCatalog.EnumValue.Id;
+                modelProductCatalog.OfferProductionDetailSearch.page = pageNumber;
+                modelProductCatalog.OfferProductionDetailSearch.pageSize = pageSize;
+                modelProductCatalog.OfferProductionDetailSearch.productID = sproductId;
+                modelProductCatalog.OfferProductionDetailSearch.pinNumber = sfv;
+                modelProductCatalog.OfferProductionDetailSearch.voen = sfv;
+
+
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelProductCatalog.OfferProductionDetailSearch, out modelProductCatalog.ProductionDetailArray);
 
                 if (modelProductCatalog.ProductionDetailArray != null)
                 {
-                    if (sproductId > 0)
+                    if (sproductId > 0 || sfv!=null)
                     {
                         modelProductCatalog.noPaged = 1;
-
-                        modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.Where(x => x.productId == sproductId).ToList();
                     }
-                    else
-                    {
-                        modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.ToList();
-                    }
-
-                    if (sproductName != null)
-                    {
-                        modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
-                    }
-
-                    if (sfv != null)
-                    {
-                        modelProductCatalog.ProductionDetailListFV = modelProductCatalog.ProductionDetailList.ToList();
-
-                        modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailListFV.Where(x => x.voen.ToLower() == sfv).ToList();
-
-                        if(modelProductCatalog.ProductionDetailList == null || modelProductCatalog.ProductionDetailList.Count == 0)
-                        {
-                            modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailListFV.Where(x=>x.person!=null).Where(x=>x.person.PinNumber!=null).ToList();
-                            
-                            modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailList.Where(x => x.person.PinNumber.ToLower() == sfv).ToList();
-                        }                        
-                    }
-
+               
+                    modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.ToList();
                 }
                 else
                 {
                     modelProductCatalog.ProductionDetailList = new List<ProductionDetail>();
                 }
 
-                modelProductCatalog.itemCount = modelProductCatalog.ProductionDetailList.Count();
-                modelProductCatalog.PagingProduction = modelProductCatalog.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForEValueId_OPC(baseInput, modelProductCatalog.OfferProductionDetailSearch, out modelProductCatalog.itemCount, out modelProductCatalog.itemCountB);                
 
-                modelProductCatalog.pName = sproductName;
+                long[] aic = new long[modelProductCatalog.itemCount];
+
+                modelProductCatalog.PagingT = aic.ToPagedList(pageNumber, pageSize);
+
                 modelProductCatalog.fv = sfv;
                 modelProductCatalog.productId = sproductId;
 
@@ -331,6 +314,35 @@ namespace Emsal.UI.Controllers
 
                 return View(modelProductCatalog);
 
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+
+        public ActionResult ProductCatalogForSale(string actionName)
+        {
+            try
+            {
+
+                baseInput = new BaseInput();
+                modelProductCatalog = new ProductCatalogViewModel();
+
+                BaseOutput bouput = srv.GetProductCatalogsWithParent(baseInput, out modelProductCatalog.ProductCatalogDetailArray);
+
+                if (modelProductCatalog.ProductCatalogDetailArray == null)
+                {
+                    modelProductCatalog.ProductCatalogDetailList = new List<ProductCatalogDetail>();
+                }
+                else
+                {
+                    modelProductCatalog.ProductCatalogDetailList = modelProductCatalog.ProductCatalogDetailArray.Where(x => x.productCatalog.canBeOrder == 1).ToList();
+                }
+
+                modelProductCatalog.actionName = actionName;
+                return View(modelProductCatalog);
             }
             catch (Exception ex)
             {

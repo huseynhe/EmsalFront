@@ -24,8 +24,9 @@
                                     <tr>
                                         <th class="col-sm-1" style="text-align:center;">Şəkil</th>
                                         <th class="col-sm-6">
-                                            Məhsulun adı
-                                            <input onkeyup="OfferHomeSearch(this, 'productName')" class="form-control" placeholder="axtar" />
+                                            Məhsulun adı<br />
+                                            @Html.Action("ProductCatalogForSale", "OfferHome", new { actionName = "OfferProduction" })
+                                            @*<input onkeyup="OfferHomeSearch(this, 'productName')" class="form-control" placeholder="axtar" />*@
                                         </th>
                                         <th class="col-sm-2">Çəkisi (ölçü vahidi)</th>
                                         <th class="col-sm-2">Ümumi məbləğ</th>
