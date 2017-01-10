@@ -73,7 +73,13 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstatusEV, out modelPotentialProduction.EnumValue);
 
-                BaseOutput gpp = srv.WS_GetPotensialProductionDetailistForEValueId_OP(baseInput, modelPotentialProduction.EnumValue.Id, true, pageNumber, true, pageSize, true, out modelPotentialProduction.ProductionDetailArray);
+                modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch = new GetDemandProductionDetailistForEValueIdSearch();
+
+                modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch.state_eV_Id = modelPotentialProduction.EnumValue.Id;
+                modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
+                modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch.pageSize = pageSize;
+
+                BaseOutput gpp = srv.WS_GetPotensialProductionDetailistForEValueId_OP(baseInput, modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch, out modelPotentialProduction.ProductionDetailArray);
 
                 if (modelPotentialProduction.ProductionDetailArray == null)
                 {
@@ -99,7 +105,7 @@ namespace Emsal.AdminUI.Controllers
                 //modelPotentialProduction.PagingDetail = modelPotentialProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
 
 
-                BaseOutput gppc = srv.WS_GetPotensialProductionDetailistForEValueId_OPC(baseInput, modelPotentialProduction.EnumValue.Id, true, out modelPotentialProduction.itemCount, out modelPotentialProduction.itemCountB);
+                BaseOutput gppc = srv.WS_GetPotensialProductionDetailistForEValueId_OPC(baseInput, modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch, out modelPotentialProduction.itemCount, out modelPotentialProduction.itemCountB);
 
                 long[] aic = new long[modelPotentialProduction.itemCount];
 

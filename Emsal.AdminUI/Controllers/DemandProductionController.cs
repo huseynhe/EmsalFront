@@ -128,7 +128,7 @@ namespace Emsal.AdminUI.Controllers
                 //}
 
 
-                BaseOutput gdpc = srv.WS_GetDemandProductionDetailistForEValueId_OPC(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
+                BaseOutput gdpc = srv.WS_GetDemandProductionDetailistForEValueId_OPC(baseInput, modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
 
                 long[] aic = new long[modelDemandProduction.itemCount];
 
@@ -242,7 +242,7 @@ namespace Emsal.AdminUI.Controllers
 
                 //modelDemandProduction.Paging = modelDemandProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
 
-                BaseOutput gdpc = srv.WS_GetDemandProductionDetailistForEValueId_OPC(baseInput, modelDemandProduction.EnumValue.Id, true, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
+                BaseOutput gdpc = srv.WS_GetDemandProductionDetailistForEValueId_OPC(baseInput, modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
 
                 long[] aic = new long[modelDemandProduction.itemCount];
 
@@ -471,7 +471,13 @@ namespace Emsal.AdminUI.Controllers
                 long year = date.Year;
                 long rub = Int32.Parse(String.Format("{0}", (date.Month + 2) / 3));
 
-                BaseOutput gpp = srv.WS_GetDemandProductDetailInfoForAccounting_OP(baseInput, modelDemandProduction.EnumValue.Id, true, year, true, rub, true, pageNumber, true, pageSize, true, out modelDemandProduction.ProductionDetailArray);
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch = new GetDemandProductionDetailistForEValueIdSearch();
+
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.state_eV_Id = modelDemandProduction.EnumValue.Id;
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.pageSize = pageSize;
+
+                BaseOutput gpp = srv.WS_GetDemandProductDetailInfoForAccounting_OP(baseInput, modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch, year, true, rub, true, out modelDemandProduction.ProductionDetailArray);
 
                 if (modelDemandProduction.ProductionDetailArray == null)
                 {
@@ -483,14 +489,14 @@ namespace Emsal.AdminUI.Controllers
                 }
 
 
-                BaseOutput gdpc = srv.WS_GetDemandProductDetailInfoForAccounting_OPC(baseInput, modelDemandProduction.EnumValue.Id, true, year, true, rub, true, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
+                BaseOutput gdpc = srv.WS_GetDemandProductDetailInfoForAccounting_OPC(baseInput, modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch, year, true, rub, true, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
 
                 long[] aic = new long[modelDemandProduction.itemCount];
 
                 modelDemandProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
 
 
-                BaseOutput gdp = srv.WS_GetDemandProductDetailInfoForAccounting_OPP(baseInput, modelDemandProduction.EnumValue.Id, true, year, true, rub, true, out modelDemandProduction.tPrice, out modelDemandProduction.tPriceSp);
+                BaseOutput gdp = srv.WS_GetDemandProductDetailInfoForAccounting_OPP(baseInput, modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch, year, true, rub, true, out modelDemandProduction.tPrice, out modelDemandProduction.tPriceSp);
 
 
                 foreach (var item in modelDemandProduction.ProductionDetailList)

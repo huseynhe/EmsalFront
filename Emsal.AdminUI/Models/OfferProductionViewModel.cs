@@ -25,11 +25,11 @@ namespace Emsal.AdminUI.Models
         public IList<tblOffer_Production> OfferProductionList { get; set; }
         public tblOffer_Production[] OfferProductionArray;
 
+        public OfferProductionDetailSearch OfferProductionDetailSearch;
+
         public ProductionDetail ProductionDetail;
         public IList<ProductionDetail> ProductionDetailList { get; set; }
         public ProductionDetail[] ProductionDetailArray;
-
-        public OfferProductionDetailSearch OfferProductionDetailSearch;
 
         public OfferProductionDetail OfferProductionDetail;
         public IList<OfferProductionDetail> OfferProductionDetailList { get; set; }
