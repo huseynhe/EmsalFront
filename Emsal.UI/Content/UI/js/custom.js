@@ -189,17 +189,6 @@ function GetAdminUnit(elem) {
     $(elem).parent().nextAll().remove();
     pId = $(elem).val();
     var rId = $('#rId').val();
-
-    if(rId=='15')
-    {
-        $('#userListHeader').html('POTENSİAL İSTEHSALÇILAR');
-    }
-
-    else if (rId == '11')
-    {
-        $('#userListHeader').html('İDXALÇILAR');
-    }
-
     valu = 0;
     if (pId == '') {
         var name = $(elem).attr('name');
@@ -356,6 +345,14 @@ function UserInfoSearch(elem, param)
 
         var value = $(elem).val();
         ri = 1;
+
+        if (value == '15' && param=='rId') {
+            $('#userListHeader').html('POTENSİAL İSTEHSALÇILAR');
+        }
+
+        else if (value == '11' && param=='rId') {
+            $('#userListHeader').html('İDXALÇILAR');
+        }
 
         $.ajax({
             url: '/Home/UserInfo?' + param + '=' + $(elem).val(),
