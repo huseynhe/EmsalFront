@@ -137,7 +137,7 @@ jQuery(document).ready(function($){
 			$('.none-block1').css("display", "block");
 		}
 		
-	
+		$("a.active").unbind();
 
 });
 

@@ -6,9 +6,6 @@ $(document).ajaxComplete(function () {
     $(".loader").css("display", "none");
 });
 
-$("a.active").unbind();
-
-
 function StatisticsSearch(elem, controller, action, param) {
     $.ajax({
         url: '/' + controller + '/' + action + '?' + param + '=' + $(elem).val(),
