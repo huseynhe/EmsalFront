@@ -41,29 +41,27 @@ namespace Emsal.AdminUI.Controllers
 
         private OfferProductionViewModel modelOfferProduction;
 
-        public ActionResult Index(int? page, string statusEV = null, string productName = null, string userInfo = null)
+        public ActionResult Index(int? page, string statusEV = null, long productId = -1, string userInfo = null)
         {
             try
             {
 
                 if (statusEV != null)
                     statusEV = StripTag.strSqlBlocker(statusEV.ToLower());
-                if (productName != null)
-                    productName = StripTag.strSqlBlocker(productName.ToLower());
                 if (userInfo != null)
                     userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
 
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (productName == null && userInfo == null)
+                if (productId == -1 && userInfo == null)
                 {
-                    sproductName = null;
+                    sproductId = 0;
                     suserInfo = null;
                 }
 
-                if (productName != null)
-                    sproductName = productName;
+                if (productId >= 0)
+                    sproductId = productId;
                 if (userInfo != null)
                     suserInfo = userInfo;
                 if (statusEV != null)
@@ -95,6 +93,8 @@ namespace Emsal.AdminUI.Controllers
                 modelOfferProduction.OfferProductionDetailSearch.state_eV_Id = modelOfferProduction.EnumValue.Id;
                 modelOfferProduction.OfferProductionDetailSearch.page = pageNumber;
                 modelOfferProduction.OfferProductionDetailSearch.pageSize = pageSize;
+                modelOfferProduction.OfferProductionDetailSearch.productID = sproductId;
+                modelOfferProduction.OfferProductionDetailSearch.name = suserInfo;
 
                 BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelOfferProduction.OfferProductionDetailSearch, out modelOfferProduction.ProductionDetailArray);
 
@@ -133,7 +133,7 @@ namespace Emsal.AdminUI.Controllers
 
 
                 modelOfferProduction.statusEV = sstatusEV;
-                modelOfferProduction.productName = sproductName;
+                modelOfferProduction.productId = sproductId;
                 modelOfferProduction.userInfo = suserInfo;
 
                 return Request.IsAjaxRequest()

@@ -1,12 +1,10 @@
 ﻿@model Emsal.AdminUI.Models.DemandProductionViewModel
 @*@using PagedList.Mvc;*@
 
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="content">
     <div class="row">
         <div class="col-md-12">
@@ -24,7 +22,7 @@
                             }
                             <th class="col-md-3">
                                 Məhsulun adı<br />
-                                <input onkeyup="DemandProductionSearch(this, 'productName')" class="form-control" placeholder="axtar" />
+                                @Html.Action("ProductCatalogForSale", "DemandProduction", new { actionName = "Index" })
                             </th>
                             <th class="col-md-1">
                                 Miqdarı (vahidi)
@@ -33,12 +31,12 @@
                                 @Html.DisplayNameFor(model => model.price)
                             </th>
                             @*<th class="col-md-2">
-                                İnfo<br />
-<input onkeyup="DemandProductionSearch(this, 'userInfo')" class="form-control" placeholder="axtar" />
-                            </th>*@
+                                                                İnfo<br />
+                                <input onkeyup="DemandProductionSearch(this, 'userInfo')" class="form-control" placeholder="axtar" />
+                                                            </th>*@
                             <th class="col-md-1">
                                 Təşkilat<br />
-<input onkeyup="DemandProductionSearch(this, 'adminUnit')" class="form-control" placeholder="axtar" />
+                                <input onkeyup="DemandProductionSearch(this, 'adminUnit')" class="form-control" placeholder="axtar" />
                             </th>
                             <th class="col-md-2">
                                 Sənədlər
@@ -56,14 +54,10 @@
                 <div id="AjaxPaginationList">
                     @Html.Partial("PartialIndex")
                 </div>
-
             </div>
         </div>
     </div>
 </div>
-
 <script src="~/Content/js/pagedList.js"></script>
-
-
 
 

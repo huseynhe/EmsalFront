@@ -21,34 +21,33 @@ namespace Emsal.AdminUI.Controllers
         private static string sproductName;
         private static string suserInfo;
         private static string sstatusEV;
+        private static long sproductId;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
 
         private PotentialProductionViewModel modelPotentialProduction;
 
-        public ActionResult Index(int? page, string statusEV = null, string productName = null, string userInfo = null)
+        public ActionResult Index(int? page, string statusEV = null, long productId = -1, string userInfo = null)
         {
             try
             {
 
                 if (statusEV != null)
                     statusEV = StripTag.strSqlBlocker(statusEV.ToLower());
-                if (productName != null)
-                    productName = StripTag.strSqlBlocker(productName.ToLower());
                 if (userInfo != null)
                     userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
 
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (productName == null && userInfo == null)
+                if (productId == -1 && userInfo == null)
                 {
-                    sproductName = null;
+                    sproductId = 0;
                     suserInfo = null;
                 }
 
-                if (productName != null)
-                    sproductName = productName;
+                if (productId >= 0)
+                    sproductId = productId;
                 if (userInfo != null)
                     suserInfo = userInfo;
                 if (statusEV != null)
@@ -78,6 +77,8 @@ namespace Emsal.AdminUI.Controllers
                 modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch.state_eV_Id = modelPotentialProduction.EnumValue.Id;
                 modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
                 modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch.pageSize = pageSize;
+                modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch.prodcutID = sproductId;
+                modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch.person = suserInfo;
 
                 BaseOutput gpp = srv.WS_GetPotensialProductionDetailistForEValueId_OP(baseInput, modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch, out modelPotentialProduction.ProductionDetailArray);
 
@@ -273,6 +274,48 @@ namespace Emsal.AdminUI.Controllers
                 BaseOutput acm = srv.WS_AddComMessage(baseInput, model.ComMessage, out model.ComMessage);
 
                 return RedirectToAction("Index", "PotentialProduction", new { statusEV = model.EnumValueST.name });
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+
+        public ActionResult ProductCatalogForSale(string actionName)
+        {
+            try
+            {
+
+                baseInput = new BaseInput();
+                modelPotentialProduction = new PotentialProductionViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelPotentialProduction.Admin);
+                baseInput.userName = modelPotentialProduction.Admin.Username;
+
+                BaseOutput bouput = srv.GetProductCatalogsWithParent(baseInput, out modelPotentialProduction.ProductCatalogDetailArray);
+
+                if (modelPotentialProduction.ProductCatalogDetailArray == null)
+                {
+                    modelPotentialProduction.ProductCatalogDetailList = new List<ProductCatalogDetail>();
+                }
+                else
+                {
+                    modelPotentialProduction.ProductCatalogDetailList = modelPotentialProduction.ProductCatalogDetailArray.Where(x => x.productCatalog.canBeOrder == 1).ToList();
+                }
+
+                modelPotentialProduction.actionName = actionName;
+                return View(modelPotentialProduction);
 
             }
             catch (Exception ex)

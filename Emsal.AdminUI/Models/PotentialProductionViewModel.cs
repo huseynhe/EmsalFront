@@ -31,6 +31,10 @@ namespace Emsal.AdminUI.Models
         public IList<ProductionDetail> ProductionDetailList { get; set; }
         public ProductionDetail[] ProductionDetailArray;
 
+
+        public ProductCatalogDetail[] ProductCatalogDetailArray;
+        public IList<ProductCatalogDetail> ProductCatalogDetailList { get; set; }
+
         public tblProductCatalog ProductCatalog;
         public IList<tblProductCatalog> ProductCatalogList { get; set; }
         public tblProductCatalog[] ProductCatalogArray;
@@ -152,5 +156,7 @@ namespace Emsal.AdminUI.Models
         public string statusEV { get; set; }
         public string productName { get; set; }
         public string userInfo { get; set; }
+
+        public string actionName { get; set; }
     }
 }

@@ -40,15 +40,13 @@ namespace Emsal.AdminUI.Controllers
 
         private DemandProductionViewModel modelDemandProduction;
 
-        public ActionResult Index(int? page, string statusEV = null, string productName = null, string userInfo = null, string adminUnit = null)
+        public ActionResult Index(int? page, string statusEV = null, long productId = -1, string userInfo = null, string adminUnit = null)
         {
             try
             {
 
                 if (statusEV != null)
                     statusEV = StripTag.strSqlBlocker(statusEV.ToLower());
-                if (productName != null)
-                    productName = StripTag.strSqlBlocker(productName.ToLower());
                 if (userInfo != null)
                     userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
                 if (adminUnit != null)
@@ -57,15 +55,15 @@ namespace Emsal.AdminUI.Controllers
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (productName == null && userInfo == null && adminUnit == null)
+                if (productId == -1 && userInfo == null && adminUnit == null)
                 {
-                    sproductName = null;
+                    sproductId = 0;
                     suserInfo = null;
                     sadminUnit = null;
                 }
 
-                if (productName != null)
-                    sproductName = productName;
+                if (productId >= 0)
+                    sproductId = productId;
                 if (userInfo != null)
                     suserInfo = userInfo;
                 if (adminUnit != null)
@@ -98,6 +96,9 @@ namespace Emsal.AdminUI.Controllers
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.state_eV_Id = modelDemandProduction.EnumValue.Id;
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.pageSize = pageSize;
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.prodcutID = sproductId;
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.person = suserInfo;
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.organizationName = sadminUnit;
 
                 BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId_OP(baseInput, modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch, out modelDemandProduction.ProductionDetailArray);
 
@@ -145,7 +146,7 @@ namespace Emsal.AdminUI.Controllers
                 }
 
                 modelDemandProduction.statusEV = sstatusEV;
-                modelDemandProduction.productName = sproductName;
+                modelDemandProduction.productId = sproductId;
                 modelDemandProduction.userInfo = suserInfo;
                 modelDemandProduction.adminUnit = sadminUnit;
                 //return View(modelDemandProduction);
