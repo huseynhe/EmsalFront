@@ -49,7 +49,7 @@ namespace Emsal.UI.Controllers
                 //BaseOutput bouput = srv.WS_GetProductCatalogsByParentId(baseInput, pId, true, out modelProductCatalog.ProductCatalogArray);
                 //modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogArray.ToList();
 
-                    return View();
+                return View();
 
             }
             catch (Exception ex)
@@ -69,12 +69,12 @@ namespace Emsal.UI.Controllers
                 if (fv == "")
                     fv = null;
 
-                if (fv == null && productId== -1)
+                if (fv == null && productId == -1)
                 {
                     sfv = null;
                     sproductId = 0;
                 }
-                
+
                 if (fv != null)
                     sfv = fv;
                 if (productId >= 0)
@@ -100,23 +100,23 @@ namespace Emsal.UI.Controllers
                 modelProductCatalog.OfferProductionDetailSearch.voen = sfv;
 
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelProductCatalog.OfferProductionDetailSearch, out modelProductCatalog.ProductionDetailArray);
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP1(baseInput, modelProductCatalog.OfferProductionDetailSearch, out modelProductCatalog.GetOfferProductionDetailistForEValueIdArray);
 
-                if (modelProductCatalog.ProductionDetailArray != null)
+                if (modelProductCatalog.GetOfferProductionDetailistForEValueIdArray != null)
                 {
-                    if (sproductId > 0 || sfv!=null)
+                    if (sproductId > 0 || sfv != null)
                     {
                         modelProductCatalog.noPaged = 1;
                     }
-               
-                    modelProductCatalog.ProductionDetailList = modelProductCatalog.ProductionDetailArray.ToList();
+
+                    modelProductCatalog.GetOfferProductionDetailistForEValueIdList = modelProductCatalog.GetOfferProductionDetailistForEValueIdArray.ToList();
                 }
                 else
                 {
-                    modelProductCatalog.ProductionDetailList = new List<ProductionDetail>();
+                    modelProductCatalog.GetOfferProductionDetailistForEValueIdList = new List<GetOfferProductionDetailistForEValueId>();
                 }
 
-                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForEValueId_OPC(baseInput, modelProductCatalog.OfferProductionDetailSearch, out modelProductCatalog.itemCount, out modelProductCatalog.itemCountB);                
+                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForEValueId_OPC1(baseInput, modelProductCatalog.OfferProductionDetailSearch, out modelProductCatalog.itemCount, out modelProductCatalog.itemCountB);
 
                 long[] aic = new long[modelProductCatalog.itemCount];
 

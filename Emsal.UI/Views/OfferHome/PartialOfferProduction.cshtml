@@ -20,13 +20,13 @@
 </div>
 <table class="table table-bordered ">
     <tbody>
-        @foreach (var item in Model.ProductionDetailList)
+        @foreach (var item in Model.GetOfferProductionDetailistForEValueIdList)
         {
             <tr>
                 <td class="col-sm-1">
-                    @if (item.productDocumentList.Count() > 0)
+                    @if (!string.IsNullOrEmpty(item.documentName))
                 {
-                        <img style="margin:0;padding:0;" class="img-responsive thumbnail" src="@item.productDocumentList.FirstOrDefault().documentUrl@item.productDocumentList.FirstOrDefault().documentName" />
+                        <img style="margin:0;padding:0;" class="img-responsive thumbnail" src="@item.documentUrl@item.documentName" />
                     }
                     else
                     {
@@ -34,7 +34,7 @@
                     }
                 </td>
                 <td class="col-sm-6" style="vertical-align:middle;">@item.productName (@item.productParentName)</td>
-                <td class="col-sm-2" style="vertical-align:middle;">@Custom.ConverPriceToStringDelZero((decimal)item.quantity) @item.enumValueName</td>
+                <td class="col-sm-2" style="vertical-align:middle;">@Custom.ConverPriceToStringDelZero((decimal)item.quantity) @item.kategoryName</td>
                 <td class="col-sm-2" style="vertical-align:middle;">@Custom.ConverPriceToStringDelZero((decimal)item.unitPrice) AZN</td>
                 <td class="col-sm-1" onclick="location.href = '/OfferHome/OfferProductionDetail/@item.productionID'" style="cursor:pointer; vertical-align:middle;text-align:center;color:#428bca;">
                     <i class="fa fa-info-circle fa-lg"></i>

@@ -61,6 +61,9 @@ namespace Emsal.UI.Models
         public IList<AnnouncementDetail> AnnouncementDetailList { get; set; }
         public AnnouncementDetail[] AnnouncementDetailArray;
 
+        public IList<GetOfferProductionDetailistForEValueId> GetOfferProductionDetailistForEValueIdList { get; set; }
+        public GetOfferProductionDetailistForEValueId[] GetOfferProductionDetailistForEValueIdArray;
+
         public ProductionDetail ProductionDetail;
         public IList<ProductionDetail> ProductionDetailList { get; set; }
         public IList<ProductionDetail> ProductionDetailListFV { get; set; }

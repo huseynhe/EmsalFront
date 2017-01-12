@@ -85,7 +85,7 @@ namespace Emsal.UI.Controllers
                 modelOfferProduction.EnumValueMonthList = modelOfferProduction.EnumValueArray.ToList();
 
 
-                BaseOutput gop = srv.WS_GetOffer_ProductionsByUserID(baseInput, (long)userId, true, out modelOfferProduction.OfferProductionArray);
+                BaseOutput gop = srv.WS_GetOffer_ProductionsByUserID1(baseInput, (long)userId, true, out modelOfferProduction.OfferProductionArray);
                 soldPID = new List<long>();
                 if (modelOfferProduction.OfferProductionArray != null)
                 {
