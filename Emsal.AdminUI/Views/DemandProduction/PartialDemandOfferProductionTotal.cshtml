@@ -58,11 +58,11 @@
                         <td class="col-md-1">
                             @if (dquantity > 0)
                             {
-                                <span>+@dquantity</span>
+                                <span>+@Custom.ConverPriceToStringDelZero((decimal)dquantity)</span>
                             }
                             else
                             {
-                                <span>@dquantity</span>
+                                <span>@Custom.ConverPriceToStringDelZero((decimal)dquantity)</span>
                             }
                         </td>
                     </tr>

@@ -960,11 +960,11 @@ namespace Emsal.AdminUI.Controllers
                             dquantity=decimal.Parse(Custom.ConverPriceToStringDelZero((decimal)(item.totalOffer - item.totalDemand)));
                             if(dquantity > 0)
                             {
-                                dsquantity = "+" + dquantity.ToString();
+                                dsquantity = "+" + Custom.ConverPriceToStringDelZero((decimal)(dquantity));
                             }
                             else
                             {
-                                dsquantity = dquantity.ToString();
+                                dsquantity = Custom.ConverPriceToStringDelZero((decimal)(dquantity));
                             }
 
                             if (ppname != oppname)
