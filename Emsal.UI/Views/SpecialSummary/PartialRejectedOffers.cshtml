@@ -1,4 +1,6 @@
 ﻿@model Emsal.UI.Models.SpecialSummaryViewModel
+@using Emsal.Utility.CustomObjects;
+
 @{
     ViewBag.Title = "Offers";
 }
@@ -53,8 +55,8 @@
                                     <tr class="info text-center">
                                         <td>@itemmm.day @itemmm.month @itemmm.year</td>
                                         <td>@itemmm.ocklock</td>
-                                        <td>@itemmm.quantity @item.QuantityType</td>
-                                        <td>@itemmm.price AZN</td>
+                                        <td>@Custom.ConverPriceToStringDelZero(decimal.Parse(itemmm.quantity)) @item.QuantityType</td>
+                                        <td>@Custom.ConverPriceToStringDelZero(decimal.Parse(itemmm.price)) AZN</td>
                                         <td>@itemmm.shipmetType</td>
                                     </tr>
                                 </tbody>
@@ -62,7 +64,7 @@
 
                         </table>
 
-                        <div><span>Ümumi təklifin qiyməti: <span style="color:red"> <b> @item.ProductTotalPrice AZN </b> </span>  Təklifin bitmə tarixi: <span style="color:red"> <b> @endDate.Day/@endDate.Month/@endDate.Year </b> </span> Ümumi təklifin miqdarı: <span style="color:red"><b>@item.ProductQuantity @item.QuantityType </b></span> </span></div>
+                        <div><span>Ümumi təklifin qiyməti: <span style="color:red"> <b> @Custom.ConverPriceToStringDelZero((decimal)item.ProductTotalPrice) AZN </b> </span>  Təklifin bitmə tarixi: <span style="color:red"> <b> @endDate.Day/@endDate.Month/@endDate.Year </b> </span> Ümumi təklifin miqdarı: <span style="color:red"><b>@Custom.ConverPriceToStringDelZero((decimal)item.ProductQuantity) @item.QuantityType </b></span> </span></div>
                     </div>
 
                     @if (Model.UserRole == null)
