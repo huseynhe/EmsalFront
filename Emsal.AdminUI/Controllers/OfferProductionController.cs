@@ -220,6 +220,10 @@ namespace Emsal.AdminUI.Controllers
                 modelOfferProduction.OfferProductionDetailSearch.state_eV_Id = modelOfferProduction.EnumValue.Id;
                 modelOfferProduction.OfferProductionDetailSearch.page = pageNumber;
                 modelOfferProduction.OfferProductionDetailSearch.pageSize = pageSize;
+                modelOfferProduction.OfferProductionDetailSearch.roleID = suserType;
+                modelOfferProduction.OfferProductionDetailSearch.usertypeEvId = slegalStatus;
+                modelOfferProduction.OfferProductionDetailSearch.adminID = saddressId;
+
 
                 BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelOfferProduction.OfferProductionDetailSearch, out modelOfferProduction.ProductionDetailArray);
 
