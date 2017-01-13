@@ -21,7 +21,7 @@
         <span class="badge " style="margin-top: -10px; float: right;background:#D43F3A;">@Model.itemCount</span>
     </div>
     <table class="table table-hover table-striped table-bordered">
-        @foreach (var item in Model.PagingPerson)
+        @foreach (var item in Model.PersonDetailList)
         {
             <tbody>
                 <tr>
@@ -36,19 +36,19 @@
                         }
                     </td>
                     <td class="col-md-6">
-                        @item.Surname @item.Name @item.FatherName
+                        @item.SurName @item.Name @item.FatherName
                         <div class="clearfix"></div>
                     </td>
                     <td class="col-md-1">
                         @item.gender
                     </td>
                     <td class="col-md-2">
-                        @item.PinNumber
+                        @item.pinNumber
                     </td>
-                    <td onclick="location.href = '/OfferMonitoring/ContractForm?isContract=true&pId=@item.Id'" class="col-md-1 text-center" style="cursor:pointer;font-size:20px;">
+                    <td onclick="location.href = '/OfferMonitoring/ContractForm?isContract=true&pId=@item.personId'" class="col-md-1 text-center" style="cursor:pointer;font-size:20px;">
                         <span class="glyphicon glyphicon-save-file"></span>
                     </td>
-                        <td onclick="GetAttachFileTemp(this,@item.Id)" class="col-md-1 text-center" style="cursor:pointer;font-size:20px;">
+                        <td onclick="GetAttachFileTemp(this,@item.personId)" class="col-md-1 text-center" style="cursor:pointer;font-size:20px;">
                             <span class="glyphicon glyphicon-upload"></span>
                         </td>
 </tr>
@@ -63,8 +63,8 @@
 </div>
 
 <div class="box-footer clearfix">
-    Səhifə @(Model.PagingPerson.PageCount < Model.PagingPerson.PageNumber ? 0 : Model.PagingPerson.PageNumber) (cəmi @Model.PagingPerson.PageCount)
-    @Html.PagedListPager(Model.PagingPerson, page => Url.Action("Contract", new { page, nameSurnameFathername = Model.nameSurnameFathername, pin = Model.pin}))
+    Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
+    @Html.PagedListPager(Model.PagingT, page => Url.Action("Contract", new { page, nameSurnameFathername = Model.nameSurnameFathername, pin = Model.pin}))
 </div>
 
 

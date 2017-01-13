@@ -521,65 +521,44 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferMonitoring.EnumValue);
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId(baseInput, (long)UserId, true, modelOfferMonitoring.EnumValue.Id, true, out modelOfferMonitoring.ProductionDetailArray);
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch= new GetDemandProductionDetailistForEValueIdSearch();
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.monitoring_Ev_Id = modelOfferMonitoring.EnumValue.Id;
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.Name = snameSurnameFathername;
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.pinNumber = spin;
 
-                modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailArray.Where(x => x.enumCategoryId == modelOfferMonitoring.EnumCategory.Id && x.person != null).ToList();
-
-                modelOfferMonitoring.PersonList = new List<tblPerson>();
-                long opid = 0;
-                modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.OrderBy(x => x.person.Id).ToList();
-
-                if (sisApprov == false)
+                if (sisApprov == true)
                 {
-                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.contractID == 0 || x.contractID == null).ToList();
-                }
-                else
-                {
-                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.contractID > 0).ToList();
+                    modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.contractId = 0;
                 }
 
                 if (sisSeller == true)
                 {
-                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.roleID == 11).ToList();
+                    modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.roleID = 11;
                 }
                 else
                 {
-                    modelOfferMonitoring.ProductionDetailList = modelOfferMonitoring.ProductionDetailList.Where(x => x.roleID != 11).ToList();
+                    modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.roleID = 15;
                 }
 
-                foreach (var item in modelOfferMonitoring.ProductionDetailList)
+                BaseOutput gpp = srv.WS_GetUserDetailInfoForOffers_OP(baseInput, modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch, out modelOfferMonitoring.PersonDetailArray);
+                
+                
+                if(modelOfferMonitoring.PersonDetailArray!=null)
                 {
-                    if (opid != item.person.Id)
-                    {
-                        modelOfferMonitoring.Person = new tblPerson();
-
-                        modelOfferMonitoring.Person.Id = item.person.Id;
-                        modelOfferMonitoring.Person.Name = item.person.Name;
-                        modelOfferMonitoring.Person.Surname = item.person.Surname;
-                        modelOfferMonitoring.Person.FatherName = item.person.FatherName;
-                        modelOfferMonitoring.Person.gender = item.person.gender;
-                        modelOfferMonitoring.Person.PinNumber = item.person.PinNumber;
-                        modelOfferMonitoring.Person.profilePicture = item.person.profilePicture;
-
-                        modelOfferMonitoring.PersonList.Add(modelOfferMonitoring.Person);
-                    }
-
-                    opid = item.person.Id;
+                    modelOfferMonitoring.PersonDetailList = modelOfferMonitoring.PersonDetailArray.ToList();
                 }
-
-                if (snameSurnameFathername != null)
+                else
                 {
-                    modelOfferMonitoring.PersonList = modelOfferMonitoring.PersonList.Where(x => x.Name.ToLower().Contains(snameSurnameFathername) || x.Surname.ToLower().Contains(snameSurnameFathername) || x.FatherName.ToLower().Contains(snameSurnameFathername)).ToList();
+                    modelOfferMonitoring.PersonDetailList = new List<PersonDetail>();
                 }
 
-                if (spin != null)
-                {
-                    modelOfferMonitoring.PersonList = modelOfferMonitoring.PersonList.Where(x => x.PinNumber.ToLower().Contains(spin)).ToList();
-                }
+                BaseOutput gppc = srv.WS_GetUserDetailInfoForOffers_OPC(baseInput, modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch, out modelOfferMonitoring.itemCount, out modelOfferMonitoring.itemCountB);
 
-                modelOfferMonitoring.itemCount = modelOfferMonitoring.PersonList.Count();
 
-                modelOfferMonitoring.PagingPerson = modelOfferMonitoring.PersonList.ToPagedList(pageNumber, pageSize);
+                long[] aic = new long[modelOfferMonitoring.itemCount];
+
+                modelOfferMonitoring.PagingT = aic.ToPagedList(pageNumber, pageSize);
 
                 modelOfferMonitoring.nameSurnameFathername = snameSurnameFathername;
                 modelOfferMonitoring.pin = spin;

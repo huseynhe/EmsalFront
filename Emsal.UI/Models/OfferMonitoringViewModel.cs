@@ -96,9 +96,17 @@ namespace Emsal.UI.Models
         public IList<tblProductAddress> ProductAddressList { get; set; }
         public tblProductAddress[] ProductAddressArray;
 
+        public GetDemandProductionDetailistForEValueIdSearch GetDemandProductionDetailistForEValueIdSearch;
+        public IList<GetDemandProductionDetailistForEValueIdSearch> GetDemandProductionDetailistForEValueIdSearchList { get; set; }
+        public GetDemandProductionDetailistForEValueIdSearch[] GetDemandProductionDetailistForEValueIdSearchArray;
+
         public tblPerson Person;
         public IList<tblPerson> PersonList { get; set; }
         public tblPerson[] PersonArray;
+
+        public PersonDetail PersonDetail;
+        public IList<PersonDetail> PersonDetailList { get; set; }
+        public PersonDetail[] PersonDetailArray;
 
         public tblForeign_Organization Foreign_Organization;
         public IList<tblForeign_Organization> Foreign_OrganizationList { get; set; }
