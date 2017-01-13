@@ -97,7 +97,7 @@ namespace Emsal.AdminUI.Controllers
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.pageSize = pageSize;
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.prodcutID = sproductId;
-                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.person = suserInfo;
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.Name = suserInfo;
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.organizationName = sadminUnit;
 
                 BaseOutput gpp = srv.WS_GetDemandProductionDetailistForEValueId_OP(baseInput, modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch, out modelDemandProduction.ProductionDetailArray);
@@ -406,7 +406,7 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
-        public ActionResult DemandProductDetailInfoForAccounting(int? page, long productId = 0, bool excell = false, string startDate = null, string endDate = null)
+        public ActionResult DemandProductDetailInfoForAccounting(int? page, long productId = -1, bool excell = false, string startDate = null, string endDate = null)
         {
             try
             {
@@ -419,7 +419,7 @@ namespace Emsal.AdminUI.Controllers
                 int pageNumber = (page ?? 1);
 
 
-                if (productId == 0 && startDate == null && endDate == null)
+                if (productId == -1 && startDate == null && endDate == null)
                 {
                     sproductId = 0;
                     sstartDate = null;
@@ -427,7 +427,7 @@ namespace Emsal.AdminUI.Controllers
                 }
 
 
-                if (productId > 0)
+                if (productId >= 0)
                     sproductId = productId;
 
                 if (string.IsNullOrEmpty(startDate) && string.IsNullOrEmpty(endDate))
@@ -477,6 +477,7 @@ namespace Emsal.AdminUI.Controllers
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.state_eV_Id = modelDemandProduction.EnumValue.Id;
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.pageSize = pageSize;
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.prodcutID = sproductId;
 
                 BaseOutput gpp = srv.WS_GetDemandProductDetailInfoForAccounting_OP(baseInput, modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch, year, true, rub, true, out modelDemandProduction.ProductionDetailArray);
 

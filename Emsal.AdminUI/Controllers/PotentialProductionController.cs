@@ -78,7 +78,7 @@ namespace Emsal.AdminUI.Controllers
                 modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
                 modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch.pageSize = pageSize;
                 modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch.prodcutID = sproductId;
-                modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch.person = suserInfo;
+                modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch.Name = suserInfo;
 
                 BaseOutput gpp = srv.WS_GetPotensialProductionDetailistForEValueId_OP(baseInput, modelPotentialProduction.GetDemandProductionDetailistForEValueIdSearch, out modelPotentialProduction.ProductionDetailArray);
 
