@@ -394,6 +394,8 @@ namespace Emsal.UI.Controllers
                         modelUser.ForeignOrganisation.userIdSpecified = true;
                         modelUser.ForeignOrganisation.address_Id = adrrId;
                         modelUser.ForeignOrganisation.address_IdSpecified = true;
+                        modelUser.ForeignOrganisation.manager_Id = modelUser.Person.Id;
+                        modelUser.ForeignOrganisation.manager_IdSpecified = true;
 
                         if (mdl.ForeignOrganisation != null)
                         {
