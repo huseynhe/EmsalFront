@@ -294,7 +294,14 @@ function GetAdminUnit(elem) {
                 $('#regionContainer').append(regCombo);
                 if (result.data.length > 0) {
                     console.log(result)
-                    regCombo += "<div class='col-md-3'> <select required id='" + "adId" + result.data[0].parentId + "' name='" + "adId" + result.data[0].parentId + "' onchange='GetAdminUnit(this)' class='form-control unicase-form-control select select2'>"
+                    if (result.data[0].parentId == 1) {
+                        regCombo += "<div class='col-md-3'> <select required id='" + "adId" + result.data[0].parentId + "' name='" + "adId" + result.data[0].parentId + "' onchange='GetAdminUnit(this)' class='form-control unicase-form-control select select2'>"
+                    }
+                    else
+                    {
+                        regCombo += "<div class='col-md-3'> <select id='" + "adId" + result.data[0].parentId + "' name='" + "adId" + result.data[0].parentId + "' onchange='GetAdminUnit(this)' class='form-control unicase-form-control select select2'>"
+                    }
+                    
                     regCombo += " <option value=''>Seçim edin</option>"
                     for (var i = 0; i < result.data.length; i++) {
                         regCombo += " <option value='" + result.data[i].id + "'> " + result.data[i].name + " </option>"
