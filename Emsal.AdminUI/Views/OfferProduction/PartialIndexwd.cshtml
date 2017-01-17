@@ -67,7 +67,8 @@
                     <div class="clearfix"></div>
                     <b>Qeydiyyat ünvanı:</b> @item.personAdress (@item.personAdressDesc)
                     <div class="clearfix"></div>
-                    <b>Telefon nömrəsi:</b> @item.communication
+                    <b>Telefon nömrəsi:</b>
+                    @string.Join(", ", item.personcomList.Select(x=>x.communication))
                     <div class="clearfix"></div>
                     <b>E-poçt:</b> @item.email
                     <div class="clearfix"></div>

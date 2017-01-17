@@ -227,7 +227,7 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelOfferProduction.OfferProductionDetailSearch, out modelOfferProduction.ProductionDetailArray);
 
-                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.Where(x => x.person != null).ToList();
+                    //modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.Where(x => x.person != null).ToList();
 
                 if (modelOfferProduction.ProductionDetailArray == null)
                 {
