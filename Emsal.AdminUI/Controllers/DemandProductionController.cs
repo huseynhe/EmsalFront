@@ -112,23 +112,7 @@ namespace Emsal.AdminUI.Controllers
 
                     //modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelDemandProduction.EnumCategory.Id && x.foreignOrganization != null).ToList();
                 }
-
-                //if (sproductName != null)
-                //{
-                //    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
-                //}
-
-                //if (sadminUnit != null)
-                //{
-                //    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.foreignOrganization.name.ToLower().Contains(sadminUnit)).ToList();
-                //}
-
-                //if (suserInfo != null)
-                //{
-                //    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.person.Name.ToLower().Contains(suserInfo) || x.person.Surname.ToLower().Contains(suserInfo) || x.person.FatherName.ToLower().Contains(suserInfo)).ToList();
-                //}
-
-
+                
                 BaseOutput gdpc = srv.WS_GetDemandProductionDetailistForEValueId_OPC(baseInput, modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
 
                 long[] aic = new long[modelDemandProduction.itemCount];
