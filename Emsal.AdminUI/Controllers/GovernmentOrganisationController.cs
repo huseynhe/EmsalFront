@@ -1076,11 +1076,14 @@ namespace Emsal.AdminUI.Controllers
             modelUser.CommunicationInformationsList = modelUser.CommunicationInformationsArray.ToList();
             if (modelUser.CommunicationInformationsList != null)
             {
-                string a = modelUser.CommunicationInformationsList.FirstOrDefault().communication == null ? null : modelUser.CommunicationInformationsList.OrderByDescending(x => x.createdDate).FirstOrDefault().communication;
-                if (!String.IsNullOrEmpty(a))
+                if (modelUser.CommunicationInformationsList.Count != 0)
                 {
-                    modelUser.mobilePhonePrefix = a.Remove(a.Length - 7);
-                    modelUser.ManagerMobilePhone = a.Substring(modelUser.mobilePhonePrefix.Length, 7);
+                    string a = modelUser.CommunicationInformationsList.FirstOrDefault().communication == null ? null : modelUser.CommunicationInformationsList.OrderByDescending(x => x.createdDate).FirstOrDefault().communication;
+                    if (!String.IsNullOrEmpty(a))
+                    {
+                        modelUser.mobilePhonePrefix = a.Remove(a.Length - 7);
+                        modelUser.ManagerMobilePhone = a.Substring(modelUser.mobilePhonePrefix.Length, 7);
+                    }
                 }
             }
             BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
