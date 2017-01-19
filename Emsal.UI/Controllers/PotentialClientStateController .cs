@@ -73,7 +73,15 @@ namespace Emsal.UI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelPotentialClientState.User);
                 baseInput.userName = modelPotentialClientState.User.Username;
 
-                BaseOutput gpp = srv.WS_GetPersonalinformationByRoleId(baseInput, 24, true, modelPotentialClientState.User.Id, true, out modelPotentialClientState.UserInfoArray);
+
+                modelPotentialClientState.PotensialUserForAdminUnitIdList = new PotensialUserForAdminUnitIdList();
+
+                modelPotentialClientState.PotensialUserForAdminUnitIdList.page = pageNumber;
+                modelPotentialClientState.PotensialUserForAdminUnitIdList.pageSize = pageSize;
+                modelPotentialClientState.PotensialUserForAdminUnitIdList.roleID = 24;
+                modelPotentialClientState.PotensialUserForAdminUnitIdList.userID = modelPotentialClientState.User.Id;
+
+                BaseOutput gpp = srv.WS_GetPersonalinformationByRoleId(baseInput, modelPotentialClientState.PotensialUserForAdminUnitIdList, out modelPotentialClientState.UserInfoArray);
                                 
                 if (modelPotentialClientState.UserInfoArray != null)
                 {

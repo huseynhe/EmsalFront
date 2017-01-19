@@ -62,7 +62,7 @@
                                 <div class="clearfix"></div>
                                 <b>e-poçt:</b> @item.email
                                 <div class="clearfix"></div>
-                                <b>tel:</b> @item.phoneNumber
+                                <b>tel:</b> @string.Join(", ", item.personcomList.Select(x => x.communication).LastOrDefault())
                             </td>
                             <td class="col-md-1 shsingle text-center">
                                 <a href="/PotentialClientState/Edit/@item.userID" class="badge bg-light-blue">

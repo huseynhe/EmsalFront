@@ -102,7 +102,7 @@ namespace Emsal.UI.Models
 
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         [Display(Name = "Hüquqi şəxsin adı")]
-        [RegularExpression(@"^[a-zA-Z0-9-ƏəÜüĞğÖöIıÇçŞşİi \, \. \\ \ \""]+$", ErrorMessage = "Yanlış {0}.")]
+        [RegularExpression(@"^[a-zA-Z0-9-ƏəÜüĞğÖöIıÇçŞşİi \, \. \\ \ \ \) \(""]+$", ErrorMessage = "Yanlış {0}.")]
         public string legalPersonName { get; set; }
 
         public long ComMessageId { get; set; }

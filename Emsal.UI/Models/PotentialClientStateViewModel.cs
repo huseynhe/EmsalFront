@@ -28,6 +28,8 @@ namespace Emsal.UI.Models
 
         public tblPerson Person;
 
+        public PotensialUserForAdminUnitIdList PotensialUserForAdminUnitIdList;
+
         public tblPotential_Production PotentialProduction;
         public IList<tblPotential_Production> PotentialProductionList { get; set; }
         public IList<tblPotential_Production> SelectedPotentialProductionList { get; set; }
