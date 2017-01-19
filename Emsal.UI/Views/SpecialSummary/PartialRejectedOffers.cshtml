@@ -7,7 +7,6 @@
 @using PagedList.Mvc;
 
 @{
-    string productName = "";
     if (Model.OfferProductionList.Count == 0)
     {
         <div class='white_fon'>
@@ -67,8 +66,7 @@
                         <div><span>Ümumi təklifin qiyməti: <span style="color:red"> <b> @Custom.ConverPriceToStringDelZero((decimal)item.ProductTotalPrice) AZN </b> </span>  Təklifin bitmə tarixi: <span style="color:red"> <b> @endDate.Day/@endDate.Month/@endDate.Year </b> </span> Ümumi təklifin miqdarı: <span style="color:red"><b>@Custom.ConverPriceToStringDelZero((decimal)item.ProductQuantity) @item.QuantityType </b></span> </span></div>
                     </div>
 
-                    @if (Model.UserRole == null)
-                    {   
+                      
                     <div class='btn-group'>
                         <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Əməliyyatlar <span class='caret'></span></button>
                         <ul class='dropdown-menu'>
@@ -81,7 +79,7 @@
                             <li><a href=''>Qeyd</a></li>
                         </ul>
                     </div>
-                    }
+                    
                 </div>
 
 
@@ -93,5 +91,6 @@
             @Html.PagedListPager(Model.PagingRejectedOffer, page => Url.Action("RejectedOffers", "SpecialSummary", new { page }))
         </div>
 
-    }
+                            }
+                            @Html.HiddenFor(x => x.actionName);
 }

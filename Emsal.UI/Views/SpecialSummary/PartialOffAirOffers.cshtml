@@ -87,5 +87,6 @@
             @Html.PagedListPager(Model.PagingOffAirOffer, page => Url.Action("OffAirOffers", "SpecialSummary", new { page }))
         </div>
 
-    }
+                            }
+                            @Html.HiddenFor(x => x.actionName);
 }

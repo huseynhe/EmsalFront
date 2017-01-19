@@ -58,7 +58,7 @@
                                     <tr class="info text-center">
                                         <td>@itemmm.day @itemmm.month @itemmm.year</td>
                                         @*<td>@itemmm.ocklock</td>*@
-                                        <<td>@Custom.ConverPriceToStringDelZero(decimal.Parse(itemmm.quantity)) @item.QuantityType</td>
+                                        <td>@Custom.ConverPriceToStringDelZero(decimal.Parse(itemmm.quantity)) @item.QuantityType</td>
                                         <td>@Custom.ConverPriceToStringDelZero(decimal.Parse(itemmm.price)) AZN</td>
                                         <td>@itemmm.shipmetType</td>
                                     </tr>
@@ -93,4 +93,6 @@
                             </div>
 
                             }
+
+                            @Html.HiddenFor(x => x.actionName);
 }

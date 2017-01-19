@@ -4,12 +4,19 @@
     Layout = "~/Views/Shared/_SpecialSummaryLayout.cshtml";
 }
 
+<div class="row">
+    <div class="col-md-5">
+        <input class="form-control" placeholder="Məhsulun adına görə axtar" id="pNameInput" /><br />
+    </div>
 
+    <div class="col-lg-2">
+        <button type="submit" class="btn btn-primary btn-sm" onclick="SearchForProduct()">Axtar</button>
+    </div>
+</div>
 
 <div class="tesdiqlenen">
     <div class="mesajlar">
         <h4 class="text-bold">Təkliflər</h4><br />
-
         <div id="specialSummaryMain">
             @Html.Partial("PartialOnAirOffers")
         </div>
