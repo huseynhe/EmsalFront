@@ -16,7 +16,7 @@
 }
 
 <h4 class="text-danger text-center">
-    cari səhifə üçün qiymət: @Model.currentPagePrice azn - bütün qiymət: @Model.allPagePrice azn
+    cari səhifə üçün qiymət: @Custom.ConverPriceToStringDelZero((decimal)Model.currentPagePrice) azn @*- bütün qiymət: @Model.allPagePrice azn*@
     <a href="/OfferProduction/Indexwd?&addressId=@Model.addressId&startDate = @Model.startDate&endDate=@Model.endDate&excell=true&forma=@Model.forma&userType=@Model.userType&legalStatus=@Model.legalStatus" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
         <i class="fa fa-file-excel-o" aria-hidden="true"></i>
         Yüklə
@@ -68,7 +68,7 @@
                     <b>Qeydiyyat ünvanı:</b> @item.personAdress (@item.personAdressDesc)
                     <div class="clearfix"></div>
                     <b>Telefon nömrəsi:</b>
-                    @string.Join(", ", item.personcomList.Select(x=>x.communication))
+                    @string.Join(", ", item.personcomList.Select(x=>x.communication).LastOrDefault())
                     <div class="clearfix"></div>
                     <b>E-poçt:</b> @item.email
                     <div class="clearfix"></div>

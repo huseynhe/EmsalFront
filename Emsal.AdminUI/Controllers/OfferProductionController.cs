@@ -227,7 +227,7 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelOfferProduction.OfferProductionDetailSearch, out modelOfferProduction.ProductionDetailArray);
 
-                    //modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.Where(x => x.person != null).ToList();
+                modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.Where(x => x.person != null).ToList();
 
                 if (modelOfferProduction.ProductionDetailArray == null)
                 {
@@ -388,7 +388,7 @@ namespace Emsal.AdminUI.Controllers
 
                                 ert = rtfCollection.Add("Telefon nömrəsi: ");
                                 ert.Bold = true;
-                                ert = rtfCollection.Add(item.communication + "\n");
+                                ert = rtfCollection.Add(string.Join(", ", item.personcomList.Select(x => x.communication).LastOrDefault()) + "\n");
                                 ert.Bold = false;
 
                                 ert = rtfCollection.Add("E-poçt: ");
