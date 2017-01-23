@@ -26,10 +26,11 @@ namespace Emsal.UI.Controllers
         private BaseInput binput;
         SpecialSummaryViewModel modelSpecial;
         UserViewModel modelUser;
+        List<tblOffer_Production> result;
         //
         // GET: /SpecialSummary/
 
-        public ActionResult Index(int? page, long? UserId)
+        public ActionResult Index(int? page, long? UserId, string productName = null)
         {
             binput = new BaseInput();
 
@@ -39,7 +40,7 @@ namespace Emsal.UI.Controllers
             modelSpecial = new SpecialSummaryViewModel();
 
             modelSpecial.LoggedInUserInfos = new LoggedInUserInfos();
-
+            modelSpecial.actionName = "Index";
 
 
             //get the informations of logged in user
@@ -139,7 +140,28 @@ namespace Emsal.UI.Controllers
             modelSpecial.ProductDocumentList = new List<tblProduct_Document>();
             modelSpecial.SpOfferList = new List<SpecialSummaryPotentialAndOffer>();
             string prName = "";
-            foreach (var item in modelSpecial.OfferProductionList)
+
+            result = new List<tblOffer_Production>();
+            if (!String.IsNullOrEmpty(productName))
+            {
+                
+                foreach (var item in modelSpecial.OfferProductionList)
+                {
+                    BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
+                    if (modelSpecial.ProductCatalog.ProductName.ToLower().Contains(productName.ToLower()))
+                    {
+                        result.Add(modelSpecial.OfferProductionList.Single(x => x.Id == item.Id));
+                    }
+                }
+                modelSpecial.OfferProductionList = null;
+                modelSpecial.OfferProductionList = result;
+            }
+            else
+            {
+                result = modelSpecial.OfferProductionList as List<tblOffer_Production>;
+            }
+
+            foreach (var item in result)
             {
                 modelSpecial.SpOffer = new SpecialSummaryPotentialAndOffer();
                 BaseOutput productCatalogOut = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
@@ -278,11 +300,12 @@ namespace Emsal.UI.Controllers
             : View(modelSpecial);
         }
 
-        public ActionResult OnAirOffers(int? page, int? UserID)
+        public ActionResult OnAirOffers(int? page, int? UserID, string productName = null)
         {
             modelSpecial = new SpecialSummaryViewModel();
             binput = new BaseInput();
             modelSpecial.LoggedInUserInfos = new LoggedInUserInfos();
+            modelSpecial.actionName = "OnAirOffers";
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
@@ -341,7 +364,28 @@ namespace Emsal.UI.Controllers
 
             modelSpecial.SpOfferList = new List<SpecialSummaryPotentialAndOffer>();
             string prName = "";
-            foreach (var item in modelSpecial.OfferProductionList)
+
+            result = new List<tblOffer_Production>();
+            if (!String.IsNullOrEmpty(productName))
+            {
+
+                foreach (var item in modelSpecial.OfferProductionList)
+                {
+                    BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
+                    if (modelSpecial.ProductCatalog.ProductName.ToLower().Contains(productName.ToLower()))
+                    {
+                        result.Add(modelSpecial.OfferProductionList.Single(x => x.Id == item.Id));
+                    }
+                }
+                modelSpecial.OfferProductionList = null;
+                modelSpecial.OfferProductionList = result;
+            }
+            else
+            {
+                result = modelSpecial.OfferProductionList as List<tblOffer_Production>;
+            }
+
+            foreach (var item in result)
             {
                 modelSpecial.SpOffer = new SpecialSummaryPotentialAndOffer();
                 BaseOutput productCatalogOut = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
@@ -500,11 +544,12 @@ namespace Emsal.UI.Controllers
 
         }
 
-        public ActionResult RejectedOffers(int? page, int? UserID)
+        public ActionResult RejectedOffers(int? page, int? UserID, string productName = null)
         {
             modelSpecial = new SpecialSummaryViewModel();
             binput = new BaseInput();
             modelSpecial.LoggedInUserInfos = new LoggedInUserInfos();
+            modelSpecial.actionName = "RejectedOffers";
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
@@ -567,7 +612,28 @@ namespace Emsal.UI.Controllers
                 modelSpecial.OfferProductionList = modelSpecial.OfferProductionArray.Where(p => ((p.state_eV_Id == 41 && p.monitoring_eV_Id == 10118) || p.state_eV_Id == 41 ||( p.state_eV_Id == 2 && p.monitoring_eV_Id == 41) || (p.state_eV_Id == 2 && p.monitoring_eV_Id ==10117)) && p.state_eV_Id != 1) .ToList();
                 modelSpecial.SpOfferList = new List<SpecialSummaryPotentialAndOffer>();
                 string prName = "";
-                foreach (var item in modelSpecial.OfferProductionList)
+
+                result = new List<tblOffer_Production>();
+                if (!String.IsNullOrEmpty(productName))
+                {
+
+                    foreach (var item in modelSpecial.OfferProductionList)
+                    {
+                        BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
+                        if (modelSpecial.ProductCatalog.ProductName.ToLower().Contains(productName.ToLower()))
+                        {
+                            result.Add(modelSpecial.OfferProductionList.Single(x => x.Id == item.Id));
+                        }
+                    }
+                    modelSpecial.OfferProductionList = null;
+                    modelSpecial.OfferProductionList = result;
+                }
+                else
+                {
+                    result = modelSpecial.OfferProductionList as List<tblOffer_Production>;
+                }
+
+                foreach (var item in result)
                 {
                     BaseOutput productCatalogOut = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
 
@@ -730,11 +796,12 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult OffAirOffers(int? page, int? UserID)
+        public ActionResult OffAirOffers(int? page, int? UserID, string productName = null)
         {
             modelSpecial = new SpecialSummaryViewModel();
             binput = new BaseInput();
             modelSpecial.LoggedInUserInfos = new LoggedInUserInfos();
+            modelSpecial.actionName = "OffAirOffers";
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
@@ -790,6 +857,27 @@ namespace Emsal.UI.Controllers
 
                 modelSpecial.SpOfferList = new List<SpecialSummaryPotentialAndOffer>();
                 string prName = "";
+
+                result = new List<tblOffer_Production>();
+                if (!String.IsNullOrEmpty(productName))
+                {
+
+                    foreach (var item in modelSpecial.OfferProductionList)
+                    {
+                        BaseOutput product = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
+                        if (modelSpecial.ProductCatalog.ProductName.ToLower().Contains(productName.ToLower()))
+                        {
+                            result.Add(modelSpecial.OfferProductionList.Single(x => x.Id == item.Id));
+                        }
+                    }
+                    modelSpecial.OfferProductionList = null;
+                    modelSpecial.OfferProductionList = result;
+                }
+                else
+                {
+                    result = modelSpecial.OfferProductionList as List<tblOffer_Production>;
+                }
+
                 foreach (var item in modelSpecial.OfferProductionList)
                 {
                     BaseOutput productCatalogOut = srv.WS_GetProductCatalogsById(binput, (int)item.product_Id, true, out modelSpecial.ProductCatalog);
