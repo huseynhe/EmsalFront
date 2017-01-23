@@ -305,3 +305,19 @@
      
             })
 })
+
+function SearchForProduct() {
+    console.log($("#actionName"));
+    var actionName = $("#actionName").val();
+
+    $.ajax({
+        url: '/SpecialSummary/' + actionName + '?productName=' + $("#pNameInput").val(),
+        type: 'GET',
+        success: function (result) {
+            $('#specialSummaryMain').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
