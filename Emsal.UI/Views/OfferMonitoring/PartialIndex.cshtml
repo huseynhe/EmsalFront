@@ -103,20 +103,33 @@
                                 @if (item.personInformation != null)
                                 {
                                     <span>
-                                        @item.personInformation.Name @item.personInformation.Surname @item.personInformation.FatherName (@item.personInformation.gender)<br />
+                                        @item.personInformation.Name @item.personInformation.Surname @item.personInformation.FatherName
+
+                                        @if (!string.IsNullOrEmpty(item.personInformation.gender))
+                                        {
+                                            <span>
+                                                (@item.personInformation.gender)<br />
+                                            </span>
+                                        }
 
                                         @if (!string.IsNullOrEmpty(item.personInformation.PinNumber))
                                         {
-                                            <b>fin: </b>@item.personInformation.PinNumber
+                                            <b>FİN: </b>@item.personInformation.PinNumber
                                         }
 
                                         @item.organizationName
+
+                                        @if (!string.IsNullOrEmpty(item.voen))
+                                        {
+                                            <div class="clearfix"></div>
+                                            <b>VÖEN: </b>@item.voen
+                                        }
                                     </span>
                                 }
                                 <div class="clearfix"></div>
                                 @foreach (var citem in item.personcomList)
                                 {
-                                    <span>tel: @citem.communication</span>
+                                    <b>tel:</b> @citem.communication
                                 }
                                 <div class="clearfix"></div>
                                 <b>e-poçt:</b> @item.email
@@ -174,21 +187,21 @@
                                         @foreach (var itemc in item.productionCalendarList)
                                         {
                                             tquantity = (itemc.quantity * itemc.transportation_eV_Id);
-                                        <tr>
-                                            <td>
-                                                @if (itemc.TypeDescription != null)
+                                            <tr>
+                                                <td>
+                                                    @if (itemc.TypeDescription != null)
                                                     {
-                                                    <span>@itemc.TypeDescription</span>
+                                                        <span>@itemc.TypeDescription</span>
                                                     }
-                                            </td>
-                                            <td> @itemc.year</td>
-                                            <td> @itemc.partOfyear</td>
-                                            <td> @itemc.MonthDescription</td>
-                                            <td> @itemc.day</td>
-                                            <td> @itemc.oclock</td>
-                                            <td> @Custom.ConverPriceToStringDelZero((decimal)itemc.quantity)</td>
-                                            <td> @Custom.ConverPriceToStringDelZero((decimal)tquantity)</td>
-                                        </tr>
+                                                </td>
+                                                <td> @itemc.year</td>
+                                                <td> @itemc.partOfyear</td>
+                                                <td> @itemc.MonthDescription</td>
+                                                <td> @itemc.day</td>
+                                                <td> @itemc.oclock</td>
+                                                <td> @Custom.ConverPriceToStringDelZero((decimal)itemc.quantity)</td>
+                                                <td> @Custom.ConverPriceToStringDelZero((decimal)tquantity)</td>
+                                            </tr>
                                         }
                                     </table>
                                 </td>

@@ -527,11 +527,8 @@ namespace Emsal.UI.Controllers
                 modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.Name = snameSurnameFathername;
                 modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.pinNumber = spin;
                 modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.user_Id = modelOfferMonitoring.User.Id;
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.contractStatus = sisApprov;
 
-                if (sisApprov == true)
-                {
-                    modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.contractId = 0;
-                }
 
                 if (sisSeller == true)
                 {

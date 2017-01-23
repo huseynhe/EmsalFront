@@ -80,6 +80,8 @@ namespace Emsal.UI.Controllers
                 modelPotentialClientState.PotensialUserForAdminUnitIdList.pageSize = pageSize;
                 modelPotentialClientState.PotensialUserForAdminUnitIdList.roleID = 24;
                 modelPotentialClientState.PotensialUserForAdminUnitIdList.userID = modelPotentialClientState.User.Id;
+                modelPotentialClientState.PotensialUserForAdminUnitIdList.name = snameSurnameFathername;
+                modelPotentialClientState.PotensialUserForAdminUnitIdList.address = sfullAddress;
 
                 BaseOutput gpp = srv.WS_GetPersonalinformationByRoleId(baseInput, modelPotentialClientState.PotensialUserForAdminUnitIdList, out modelPotentialClientState.UserInfoArray);
                                 
@@ -92,20 +94,20 @@ namespace Emsal.UI.Controllers
                     modelPotentialClientState.UserInfoList = new List<UserInfo>();
                 }
 
-                if (snameSurnameFathername != null)
-                {
-                    modelPotentialClientState.UserInfoList = modelPotentialClientState.UserInfoList.Where(x => x.name.ToLower().Contains(snameSurnameFathername) || x.surname.ToLower().Contains(snameSurnameFathername) || x.fatherName.ToLower().Contains(snameSurnameFathername) || x.OrganisationName.ToLower().Contains(snameSurnameFathername)).ToList();
-                }
+                //if (snameSurnameFathername != null)
+                //{
+                //    modelPotentialClientState.UserInfoList = modelPotentialClientState.UserInfoList.Where(x => x.name.ToLower().Contains(snameSurnameFathername) || x.surname.ToLower().Contains(snameSurnameFathername) || x.fatherName.ToLower().Contains(snameSurnameFathername) || x.OrganisationName.ToLower().Contains(snameSurnameFathername)).ToList();
+                //}
 
                 if (spin != null)
                 {
                     modelPotentialClientState.UserInfoList = modelPotentialClientState.UserInfoList.Where(x =>x.pinNumber.ToLower().Contains(spin)).ToList();
                 }
 
-                if (sfullAddress != null)
-                {
-                    modelPotentialClientState.UserInfoList = modelPotentialClientState.UserInfoList.Where(x =>x.fullAddress.ToLower().Contains(sfullAddress) || x.personAdressDesc.ToLower().Contains(sfullAddress)).ToList();
-                }
+                //if (sfullAddress != null)
+                //{
+                //    modelPotentialClientState.UserInfoList = modelPotentialClientState.UserInfoList.Where(x =>x.fullAddress.ToLower().Contains(sfullAddress) || x.personAdressDesc.ToLower().Contains(sfullAddress)).ToList();
+                //}
                 modelPotentialClientState.itemCount = modelPotentialClientState.UserInfoList.Count();
                 modelPotentialClientState.PagingUserInfo = modelPotentialClientState.UserInfoList.ToPagedList(pageNumber, pageSize);
 
