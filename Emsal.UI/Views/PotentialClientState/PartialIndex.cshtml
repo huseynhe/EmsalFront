@@ -1,11 +1,9 @@
 ﻿@model Emsal.UI.Models.PotentialClientStateViewModel
 @using PagedList.Mvc;
-
 @{
     ViewBag.Title = "Index";
     Layout = "";
 }
-
 @using (Html.BeginForm("Approv", "PotentialClientState", FormMethod.Post))
 {
 
@@ -32,7 +30,7 @@
             </div>
             <table class="table table-hover table-striped table-bordered">
                 <tbody>
-                    @foreach (var item in Model.PagingUserInfo)
+                    @foreach (var item in Model.UserInfoList)
                     {
                         <tr>
                             @if (Model.isMain == 0)
@@ -44,9 +42,10 @@
                             <td class="col-md-1">
                                 @if (item.profilPicture != null)
                                 {
-                                    if (item.profilPicture != "") { 
-                                <img class="img-responsive thumbnail" style="margin:0;" id="picture" src="data:image/png;base64,@Convert.ToBase64String(Emsal.Utility.CustomObjects.StringExtension.StringToByteArray(item.profilPicture))" />
-                                }
+                                    if (item.profilPicture != "")
+                                    {
+                                        <img class="img-responsive thumbnail" style="margin:0;" id="picture" src="data:image/png;base64,@Convert.ToBase64String(Emsal.Utility.CustomObjects.StringExtension.StringToByteArray(item.profilPicture))" />
+                                    }
                                 }
                             </td>
                             <td class="col-md-3">
@@ -58,7 +57,11 @@
                                 @item.pinNumber @item.voen
                             </td>
                             <td class="col-md-3">
-                                @item.fullAddress (@item.personAdressDesc)
+                                @item.fullAddress
+                                @if (!string.IsNullOrEmpty(item.personAdressDesc))
+                                {
+                                    <span>(@item.personAdressDesc)</span>
+                                }
                                 <div class="clearfix"></div>
                                 <b>e-poçt:</b> @item.email
                                 <div class="clearfix"></div>
@@ -75,12 +78,11 @@
             </table>
         </div>
     </div>
-                    <div class="box-footer clearfix">
-                        Səhifə @(Model.PagingUserInfo.PageCount < Model.PagingUserInfo.PageNumber ? 0 : Model.PagingUserInfo.PageNumber) (cəmi @Model.PagingUserInfo.PageCount)
-                        @Html.PagedListPager(Model.PagingUserInfo, page => Url.Action("Index", new { page, nameSurnameFathername = Model.nameSurnameFathername, pin = Model.pin, fullAddress = Model.fullAddress }))
-                    </div>
+    <div class="box-footer clearfix">
+        Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
+        @Html.PagedListPager(Model.PagingT, page => Url.Action("Index", new { page, nameSurnameFathername = Model.nameSurnameFathername, pin = Model.pin, fullAddress = Model.fullAddress }))
+    </div>
 }
-
 
 <script>
     $(document).ready(function () {

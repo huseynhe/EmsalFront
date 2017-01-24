@@ -105,6 +105,10 @@ namespace Emsal.UI.Models
         public PagedList.IPagedList<tblPotential_Production> Paging { get; set; }
         public PagedList.IPagedList<UserInfo> PagingUserInfo { get; set; }
 
+        public PagedList.IPagedList<long> PagingT { get; set; }
+        public long itemCount = 0;
+        public bool itemCountB = true;
+
 
         public bool isPDF { get; set; }
         public long userId { get; set; }
@@ -177,7 +181,6 @@ namespace Emsal.UI.Models
         public string nameSurnameFathername { get; set; }
         public string pin { get; set; }
         public string fullAddress { get; set; }
-        public int itemCount { get; set; }
 
     }
 }
