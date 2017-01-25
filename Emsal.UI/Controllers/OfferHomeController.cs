@@ -330,7 +330,7 @@ namespace Emsal.UI.Controllers
                 baseInput = new BaseInput();
                 modelProductCatalog = new ProductCatalogViewModel();
 
-                BaseOutput bouput = srv.WS_GetOfferProducts(baseInput, out modelProductCatalog.OfferProductsArray);
+                BaseOutput bouput = srv.WS_GetOrderProducts(baseInput, out modelProductCatalog.OfferProductsArray);
 
                 if (modelProductCatalog.OfferProductsArray == null)
                 {
