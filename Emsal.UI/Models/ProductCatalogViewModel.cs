@@ -20,6 +20,9 @@ namespace Emsal.UI.Models
         public IList<ProductCatalogDetail> ProductCatalogDetailList { get; set; }
         public ProductCatalogDetail[] ProductCatalogDetailArray;
 
+        public IList<OfferProducts> OfferProductsList { get; set; }
+        public OfferProducts[] OfferProductsArray;
+
         public tblProductCatalog ProductCatalog;
         public IList<tblProductCatalog> ProductCatalogList { get; set; }
         public IList<tblProductCatalog> ProductCatalogListPC { get; set; }

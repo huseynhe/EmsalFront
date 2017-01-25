@@ -12,9 +12,9 @@
 
 <select onchange="StatisticsSearch(this,'OfferHome','@Model.actionName', 'productId')" class="form-control select2" style="width:auto !important;">
     <option value="0">Satılacaq məhsul üzrə axtar</option>
-    @foreach (var item in Model.ProductCatalogDetailList)
+    @foreach (var item in Model.OfferProductsList)
     {
-        <option value="@item.productCatalog.Id">@item.productCatalog.ProductName (@item.productName)</option>
+        <option value="@item.productID">@item.productName (@item.parentName)</option>
     }
 </select>
 

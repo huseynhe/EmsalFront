@@ -330,15 +330,15 @@ namespace Emsal.UI.Controllers
                 baseInput = new BaseInput();
                 modelProductCatalog = new ProductCatalogViewModel();
 
-                BaseOutput bouput = srv.GetProductCatalogsWithParent(baseInput, out modelProductCatalog.ProductCatalogDetailArray);
+                BaseOutput bouput = srv.WS_GetOfferProducts(baseInput, out modelProductCatalog.OfferProductsArray);
 
-                if (modelProductCatalog.ProductCatalogDetailArray == null)
+                if (modelProductCatalog.OfferProductsArray == null)
                 {
-                    modelProductCatalog.ProductCatalogDetailList = new List<ProductCatalogDetail>();
+                    modelProductCatalog.OfferProductsList = new List<OfferProducts>();
                 }
                 else
                 {
-                    modelProductCatalog.ProductCatalogDetailList = modelProductCatalog.ProductCatalogDetailArray.Where(x => x.productCatalog.canBeOrder == 1).ToList();
+                    modelProductCatalog.OfferProductsList = modelProductCatalog.OfferProductsArray.ToList();
                 }
 
                 modelProductCatalog.actionName = actionName;
