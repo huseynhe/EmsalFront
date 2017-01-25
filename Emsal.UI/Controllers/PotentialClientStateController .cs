@@ -83,6 +83,7 @@ namespace Emsal.UI.Controllers
                 modelPotentialClientState.PotensialUserForAdminUnitIdList.name = snameSurnameFathername;
                 modelPotentialClientState.PotensialUserForAdminUnitIdList.address = sfullAddress;
                 modelPotentialClientState.PotensialUserForAdminUnitIdList.pinNumber = spin;
+                modelPotentialClientState.PotensialUserForAdminUnitIdList.voen = spin;
 
                 BaseOutput gpp = srv.WS_GetPersonalinformationByRoleId(baseInput, modelPotentialClientState.PotensialUserForAdminUnitIdList, out modelPotentialClientState.UserInfoArray);
                                 
