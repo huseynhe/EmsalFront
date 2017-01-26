@@ -9,14 +9,27 @@
 <script src="~/ContentProfile/js/Monitoring.js"></script>
 
 <br />
+
+<div class="bs-callout bs-callout-info" style="float: left;">
+    <h4><i class="glyphicon glyphicon-info-sign"></i> 
+    
+    @if(Model.isApprov == false) {
+       <span>Müqavilələr</span>
+    }
+    else
+    {
+        <span>Təsdiqlənmiş müqavilələr</span>
+    }
+
+    </h4>
+</div>
+
 <div class="btn-group pull-right">
     <a class="btn btn-primary" href="/OfferMonitoring/Contract?isApprov=@Model.isApprov.ToString()">Potensial istehsalçılar</a>
     <a class="btn btn-primary" href="/OfferMonitoring/Contract?isApprov=@Model.isApprov.ToString()&isSeller=True">Satıcılar</a>
 </div>
 <div class="clearfix"></div>
 
-
-<br />
 <input type="text" id="personId"  hidden/>
 <div class="clearfix"></div>
 <br />

@@ -21,13 +21,15 @@
 }
 <script src="~/ContentProfile/js/PotentialClient.js"></script>
 
+<br />
+<div class="bs-callout bs-callout-info" style="float: left;">
+    <h4><i class="glyphicon glyphicon-info-sign"></i> Potensial İstehsalçı yarat</h4>
+</div>
 
 @using (Html.BeginForm("Index", "PotentialClient", FormMethod.Post,
                              new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-
-    <a href="#" class="add-classified-help">Qaydalar</a>
     <div class="clear-both"></div>
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     

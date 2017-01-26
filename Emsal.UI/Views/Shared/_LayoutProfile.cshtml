@@ -16,139 +16,31 @@
 
     <script src="~/ContentProfile/js/jquery-1.12.3.js"></script>
 
-    @*<script src='https://www.google.com/recaptcha/api.js?render=onload&hl=az'></script>*@
-
-    <!-- Bootstrap core CSS -->
-
-    @*<link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/Content/css/bootstrap-theme.css" rel="stylesheet">
-    <link href="~/Content/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-    <link href="~/Content/css/jumbotron.css" rel="stylesheet">*@
     <link href="~/Content/css/style.css" rel="stylesheet">
-
-    @*<link href="~/Content/css/owl.carousel.css" rel="stylesheet">
-    <link href="~/Content/css/owl.theme.css" rel="stylesheet">
-    <link href="~/Content/css//ihover.css" rel="stylesheet">
-    <link href="~/Content/css/js-image-slider.css" rel="stylesheet">
-    <link href="~/Content/css/ddmenu.css" rel="stylesheet">*@
-
-    <!-- Bootstrap core JS -->
-
-    @*<script src="~/Content/js/jquery-1.12.3.js"></script>
-    <script src="~/Content/js/bootstrap.min.js"></script>
-    <script src="~/Content/js/ie10-viewport-bug-workaround.js"></script>
-    <script src="~/Content/js/ie-emulation-modes-warning.js"></script>
-
-    <script src="~/Content/js/owl.carousel.js"></script>
-    <script src="~/Content/js/ddmenu.js"></script>
-    <script src="~/Content/js/jssor.slider.mini.js"></script>
-    <script src="~/Content/js/js-image-slider.js"></script>*@
-
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+        <nav class="navbar navbar-inverse navbar-fixed-top" style="background:#286090;">
             <div class="container">
+
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
                     <a class="navbar-brand" href="/Home/Index"><h3>tedaruk.az</h3></a>
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <form class="navbar-form navbar-right">
-                        @*<div class="input-group">
-                            <input type="text" class="form-control" placeholder="Axtar...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                                </button>
-                            </span>
-                        </div>*@
-                        <!--müesise ile bağlı melumatlar-->
-                        <div class="navbar_right_login navbar-form">
-                            @*<span><a href="">Ətraflı axtar</a></span>*@
-                            <a href="" id="user_inf">@Model.User.Username <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a>
-                        </div>
-                    </form>
-                </div><!--/.navbar-collapse -->
+                <h5>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
 
-                <div class="per_information">
-                    <ul class="list-unstyled">
-                        @{
-                            if (Model.UserRolesArray != null)
-                            {
-                                bool gov = false;
-                                foreach (var item in Model.UserRolesArray)
-                                {
-                                    if (item.RoleId == 12)
-                                    {
-                                        gov = true;
-                                    }
-                                }
-                                if (Model.User.userType_eV_ID == 50)
-                                {
-                                    if (gov)
-                                    {
-                                        <a href="/Login/Redirect"><li>Şəxsi Səhifə</li></a>
-                                    }
-                                    else
-                                    {
-                                        <a href="/Login/Redirect"><li>Şəxsi Səhifə</li></a>
-                                    }
-                                }
-                                else if (Model.User.userType_eV_ID == 26)
-                                {
-                                    <a href="/Login/Redirect"><li>Şəxsi Səhifə</li></a>
-                                }
-                                else if (Model.User.userType_eV_ID == 51)
-                                {
-                                    <a href="/Login/Redirect"><li>Şəxsi Səhifə</li></a>
-                                }
-                                else if (Model.User.userType_eV_ID == 52)
-                                {
-                                    <a href="/Login/Redirect"><li>Şəxsi Səhifə</li></a>
+                            <a href="#" class="dropdown-toggle" style="color:#fff;" data-toggle="dropdown">@Model.User.Username  <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a>
 
-                                }
-                                else
-                                {
-                                    <a href="/Login/Redirect"><li>Şəxsi Səhifə</li></a>
-                                }
-                            }
-                            else
-                            {
-                                if (Model.User.userType_eV_ID == 50)
-                                {
-                                    <a href="/Login/Redirect"><li>Şəxsi Səhifə</li></a>
-                                }
-                                else if (Model.User.userType_eV_ID == 26)
-                                {
-                                    <a href="/Login/Redirect"><li>Şəxsi Səhifə</li></a>
-                                }
-                                else if (Model.User.userType_eV_ID == 51)
-                                {
-                                    <a href="/Login/Redirect"><li>Şəxsi Səhifə</li></a>
-                                }
-                                else if (Model.User.userType_eV_ID == 52)
-                                {
-                                    <a href="/Login/Redirect"><li>Şəxsi Səhifə</li></a>
-
-                                }
-                                else
-                                {
-                                    <a href="/Login/Redirect"><li>Şəxsi Səhifə</li></a>
-                                }
-                            }
-
-                        }
-                        <a href="/Login/Logout"><li>Çıxış</li></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/Login/Redirect">Şəxsi Səhifə</a></li>
+                                <li><a href="/Login/Logout">Çıxış</a></li>
+                            </ul>
+                        </li>
                     </ul>
+                </h5>
 
 
-                </div>
                 <!--müesiseye gelen mesajlar-->
                 <div class="messages">
                     <ul class="list-unstyled">
