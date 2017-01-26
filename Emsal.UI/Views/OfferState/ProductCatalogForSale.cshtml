@@ -11,7 +11,7 @@
 </style>
 
 <select onchange="StatisticsSearch(this,'OfferState','@Model.actionName', 'productId')" class="form-control select2" style="width:auto !important;">
-    <option value="0">Satılacaq məhsul üzrə axtar</option>
+    <option value="0">Seçim edin</option>
     @foreach (var item in Model.ProductCatalogDetailList)
     {
         <option value="@item.productCatalog.Id">@item.productCatalog.ProductName (@item.productName)</option>

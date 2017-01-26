@@ -8,38 +8,30 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-
     <title>Ərzaq məhsullarının tədarükü və təchizatı</title>
-
     <link href="~/ContentProfile/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/ContentProfile/css/style.css" rel="stylesheet" />
-
     <script src="~/ContentProfile/js/jquery-1.12.3.js"></script>
-
     <link href="~/Content/css/style.css" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-inverse navbar-fixed-top" style="background:#286090;">
             <div class="container">
-
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/Home/Index"><h3>tedaruk.az</h3></a>
                 </div>
-                <h5>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
 
-                            <a href="#" class="dropdown-toggle" style="color:#fff;" data-toggle="dropdown">@Model.User.Username  <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a>
+                <ul class="nav navbar-nav navbar-right h5">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" style="color:#fff;" data-toggle="dropdown">@Model.User.Username  <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a>
 
-                            <ul class="dropdown-menu">
-                                <li><a href="/Login/Redirect">Şəxsi Səhifə</a></li>
-                                <li><a href="/Login/Logout">Çıxış</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </h5>
-
+                        <ul class="dropdown-menu">
+                            <li><a href="/Login/Redirect">Şəxsi səhifə</a></li>
+                            <li><a href="/Login/Logout">Çıxış</a></li>
+                        </ul>
+                    </li>
+                </ul>
 
                 <!--müesiseye gelen mesajlar-->
                 <div class="messages">
@@ -49,21 +41,16 @@
                     </ul>
                 </div>
 
-
             </div>
         </nav>
     </header>
-
     <section>
         <div class="loader"></div>
-
         <div class="container">
             @RenderBody()
         </div>
     </section>
-
     @Html.Partial("~/Views/Home/Footer.cshtml")
-
     <script>
         $("#user_inf").click(function () {
             $(".per_information").toggle();
@@ -71,9 +58,6 @@
         });
 
     </script>
-
-
-
 
 
     <script src="~/Content/js/bootstrap.min.js"></script>
@@ -86,7 +70,6 @@
     <script type="text/javascript">
         $('.select2').select2();
     </script>
-
     <link href="~/ContentProfile/css/datepicker.css" rel="stylesheet" />
     <script src="~/ContentProfile/js/bootstrap-datepicker.js"></script>
     <script>
@@ -109,9 +92,7 @@
     </script>
 
 
-
-
-    @if (TempData["Success"]!=null)
+    @if (TempData["Success"] != null)
     {
         <script type="text/javascript">
             $(document).ready(function () {
@@ -135,9 +116,8 @@
             </div>
         </div>
 
-        TempData["Success"]= null;
+        TempData["Success"] = null;
     }
-
 
     <div id="getImage" class="modal fade">
         <div class="modal-dialog" style="width: 60%; height: 90%;">
@@ -155,6 +135,5 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>
