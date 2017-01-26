@@ -1038,8 +1038,9 @@ namespace Emsal.UI.Controllers
 
                     modelPotentialProduction.ProductCatalogControlList = modelPotentialProduction.ProductCatalogControlArray.Where(x => x.Status == 1).Where(x => x.EnumCategoryId != modelPotentialProduction.EnumCategory.Id).ToList();
 
-                    BaseOutput pcb = srv.WS_GetProductionControls(baseInput, out modelPotentialProduction.ProductionControlArray);
-                    modelPotentialProduction.ProductionControlList = modelPotentialProduction.ProductionControlArray.Where(x => x.Potential_Production_Id == pId).ToList();
+                    BaseOutput pcb = srv.WS_GetProductionControlsByPotentialProductionId(baseInput, pId, true, out modelPotentialProduction.ProductionControlArray);
+
+                    modelPotentialProduction.ProductionControlList = modelPotentialProduction.ProductionControlArray.ToList();
 
                     modelPotentialProduction.productionControlEVIds = new long[modelPotentialProduction.ProductionControlList.Count()];
                     for (int t = 0; t < modelPotentialProduction.ProductionControlList.Count(); t++)
