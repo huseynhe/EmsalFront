@@ -11,15 +11,14 @@ using System.Web.Security;
 
 namespace Emsal.AdminUI.Controllers
 {
-    //[EmsalAdminAuthentication(AuthorizedAction = ActionName.admin)]
-
+    [EmsalAdminAuthentication(AuthorizedAction = ActionName.admin)]
     public class RoleManagementController : Controller
     {
         //
         // GET: /RoleManagement/
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
         private BaseInput binput;
-        public ActionResult Index(int? page, long?UserId)
+        public ActionResult Index(int? page, long?UserId, string name = null)
         {
             binput = new BaseInput();
 
@@ -38,9 +37,24 @@ namespace Emsal.AdminUI.Controllers
                 }
             }
             BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
-
+            
             BaseOutput bouput = srv.WS_GetUsers(binput, out modelUser.UserArray);
-            modelUser.UserList = modelUser.UserArray.Where(x=>x.Username!=null).ToList();
+            modelUser.UserList = modelUser.UserArray.Where(x => x.Username != null).ToList();
+            if (!String.IsNullOrEmpty(name))
+            {
+                List<tblUser> result = new List<tblUser>();
+                
+                foreach (var item in modelUser.UserList)
+                {
+                    if (item.Username.ToLower().Contains(name.ToLower()))
+                    {
+                        result.Add(item);
+                    }
+                }
+                modelUser.UserList = null;
+                modelUser.UserList = result;
+            }
+            
 
             modelUser.Paging = modelUser.UserList.ToPagedList(pageNumber, pageSize);
 
