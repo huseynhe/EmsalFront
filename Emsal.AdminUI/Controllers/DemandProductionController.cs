@@ -508,14 +508,14 @@ namespace Emsal.AdminUI.Controllers
 
                         sheet.Column(1).Width = 7;
                         //sheet.Column(2).Width = 30;
-                        sheet.Column(3).Width = 20;
+                        sheet.Column(2).Width = 20;
+                        sheet.Column(3).Width = 30;
                         sheet.Column(4).Width = 30;
-                        sheet.Column(5).Width = 30;
-                        sheet.Column(6).Width = 25;
-                        sheet.Column(7).Width = 10;
+                        sheet.Column(5).Width = 25;
+                        sheet.Column(6).Width = 10;
+                        sheet.Column(7).Width = 20;
                         sheet.Column(8).Width = 20;
                         sheet.Column(9).Width = 20;
-                        sheet.Column(10).Width = 20;
 
                         int rowIndex = 3;
                         var ri = 1;
