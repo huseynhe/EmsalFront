@@ -29,7 +29,7 @@ namespace Emsal.AdminUI.Controllers
         Emsal.WebInt.TaxesSRV.VOENDATA taxesService = null;
         private BaseInput binput;
         Organisation modelUser;
-        public ActionResult Index(int? page, long? UserId, string name=null)
+        public ActionResult Index(int? page, long? UserId, string name = null)
         {
             binput = new BaseInput();
 
@@ -49,7 +49,7 @@ namespace Emsal.AdminUI.Controllers
             //get roles by name gelecek bura
             BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
             //BaseOutput bouput = srv.WS_GetGovernmentOrganisations(binput, 12, true, out modelUser.UserArray);
-            BaseOutput bout  = srv.WS_GetForeign_Organizations(binput, out modelUser.ForeignOrganisationArray);
+            BaseOutput bout = srv.WS_GetForeign_Organizations(binput, out modelUser.ForeignOrganisationArray);
 
             modelUser.GovernmentOrganisationList = new List<GovOrAnyOrganisation>();
             modelUser.ForeignOrganisationArray = modelUser.ForeignOrganisationArray.Where(x => x.parent_Id == 0).ToArray();
@@ -62,7 +62,7 @@ namespace Emsal.AdminUI.Controllers
                 BaseOutput bout1 = srv.WS_GetUserRolesByUserId(binput, (long)item.userId, true, out modelUser.UserRolesArray);
                 modelUser.UserRolesArray = modelUser.UserRolesArray.Where(x => x.RoleId == 12).ToArray();
 
-                if  (modelUser.UserRolesArray.Count() == 0)
+                if (modelUser.UserRolesArray.Count() == 0)
                     continue;
 
                 modelUser.GovernmentOrganisation.UserName = modelUser.User.Username;
@@ -81,8 +81,8 @@ namespace Emsal.AdminUI.Controllers
                 modelUser.GovernmentOrganisation.OrganisationName = item.name.ToString();
                 modelUser.GovernmentOrganisation.Email = modelUser.User.Email;
                 modelUser.GovernmentOrganisation.Id = modelUser.User.Id;
-                
-                if(item.address_Id != null)
+
+                if (item.address_Id != null)
                 {
                     if (item.parent_Id != 0)
                         continue;
@@ -93,7 +93,7 @@ namespace Emsal.AdminUI.Controllers
 
                     foreach (var adminunit in modelUser.PRMAdminUnitArray)
                     {
-                        if(adminunit.Name != "Azərbaycan Respublikası")
+                        if (adminunit.Name != "Azərbaycan Respublikası")
                         {
                             modelUser.GovernmentOrganisation.FullAddress += adminunit.Name + ",";
                         }
@@ -118,7 +118,7 @@ namespace Emsal.AdminUI.Controllers
             binput = new BaseInput();
             modelUser = new Organisation();
 
-            if(orgId == 0)
+            if (orgId == 0)
             {
                 return Redirect("/GovernmentOrganisation/Index");
             }
@@ -131,11 +131,11 @@ namespace Emsal.AdminUI.Controllers
                 }
             }
             BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
-            if(orgUserId != null)
+            if (orgUserId != null)
             {
                 BaseOutput ForeignOrganisationOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)orgUserId, true, out modelUser.ParentOrganisation);
             }
-            if(orgId != null)
+            if (orgId != null)
             {
                 BaseOutput ForeignOrganissationOut = srv.WS_GetForeign_OrganizationById(binput, (long)orgId, true, out modelUser.ParentOrganisation);
 
@@ -404,7 +404,7 @@ namespace Emsal.AdminUI.Controllers
             else
             {
                 TempData["ChildOrganisationExists"] = "Bu adda istifadəçi sistemdə mövcuddur.";
-                return RedirectToAction("AddChildOrganisation", new { parentId = form.ParentOrganisationId});
+                return RedirectToAction("AddChildOrganisation", new { parentId = form.ParentOrganisationId });
             }
 
         }
@@ -427,13 +427,13 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.User);
 
 
-            modelUser.OrganisationId =  0;
+            modelUser.OrganisationId = 0;
             //get the orgaisation  that is going to be updated
             if (Id != null)
             {
                 BaseOutput organisationOut = srv.WS_GetForeign_OrganizationById(binput, (long)Id, true, out modelUser.ForeignOrganisation);
                 modelUser.OrganisationId = (long)Id;
-                    
+
             }
             if (IdGov != null)
             {
@@ -511,13 +511,13 @@ namespace Emsal.AdminUI.Controllers
             {
                 TempData["homePhone"] = "info";
             }
-          
-            if(modelUser.CommunicationInformationsList.Count != 0)
+
+            if (modelUser.CommunicationInformationsList.Count != 0)
             {
                 //get WorkPhone type enum value
                 BaseOutput workPhoneOut = srv.WS_GetEnumValueByName(binput, "workPhone", out modelUser.EnumValue);
                 tblCommunication com = modelUser.CommunicationInformationsList.Where(x => x.comType == modelUser.EnumValue.Id).FirstOrDefault();
-                if(com != null)
+                if (com != null)
                 {
                     string b = com.communication;
                     if (!String.IsNullOrEmpty(b))
@@ -527,7 +527,7 @@ namespace Emsal.AdminUI.Controllers
                         modelUser.ManagerWorkPhone = b.Substring(modelUser.WorkPhonePrefix.Length, 7);
                     }
                 }
-                
+
                 if (modelUser.ManagerWorkPhone == null)
                 {
                     TempData["workPhone"] = "info";
@@ -551,7 +551,7 @@ namespace Emsal.AdminUI.Controllers
                     TempData["mobilePhone"] = "info";
                 }
             }
-           
+
 
             //get the gender
             modelUser.Gender = modelUser.Manager.gender;
@@ -574,7 +574,7 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput workPhoneEnumsOut = srv.WS_GetEnumValuesByEnumCategoryId(binput, modelUser.EnumCategory.Id, true, out modelUser.EnumValueArray);
             modelUser.WorkPhonePrefixList = modelUser.EnumValueArray.ToList();
 
-            modelUser.NotChild = NotChild == null ? false: (bool)NotChild;
+            modelUser.NotChild = NotChild == null ? false : (bool)NotChild;
 
 
             return View("EditChildOrganisation", modelUser);
@@ -583,7 +583,7 @@ namespace Emsal.AdminUI.Controllers
         [HttpPost]
         public ActionResult EditChildOrganisation(long? UserId, Organisation form, long OrganisationId, bool? NotChild)
         {
-            
+
             binput = new BaseInput();
             modelUser = new Organisation();
 
@@ -796,7 +796,7 @@ namespace Emsal.AdminUI.Controllers
             }
             BaseOutput userOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
 
-            modelUser.RedirectToParent = redirect == null ? 0: (long)redirect;
+            modelUser.RedirectToParent = redirect == null ? 0 : (long)redirect;
 
             return View(modelUser);
         }
@@ -846,7 +846,7 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput deleteManager = srv.WS_DeletePerson(binput, modelUser.Manager);
 
 
-            return Redirect("/GovernmentOrganisation/ChildOrganisations?&orgId="+ redirect);
+            return Redirect("/GovernmentOrganisation/ChildOrganisations?&orgId=" + redirect);
         }
 
         public JsonResult GetThroughfaresByAdminUnitId(long Id)
@@ -865,7 +865,7 @@ namespace Emsal.AdminUI.Controllers
         {
             MailMessage msg = new MailMessage();
             msg.From = new MailAddress("ferid.heziyev@gmail.com", "tedaruk.az");
-            if (String.IsNullOrWhiteSpace(email) || !email.Contains("@") || !email.Contains(".com") )
+            if (String.IsNullOrWhiteSpace(email) || !email.Contains("@") || !email.Contains(".com"))
             {
                 email = "ferid.heziyev@gmail.com";
             }
@@ -909,7 +909,7 @@ namespace Emsal.AdminUI.Controllers
             }
             foreach (var item in modelUser.UserRolesArray)
             {
-                if(item.RoleId == modelUser.Role.Id)
+                if (item.RoleId == modelUser.Role.Id)
                 {
                     route = "gov";
                 }
@@ -918,14 +918,14 @@ namespace Emsal.AdminUI.Controllers
             }
             BaseOutput deleteForeignOrganisation = srv.WS_DeleteForeign_Organization(binput, modelUser.ForeignOrganisation);
             BaseOutput deleteUser = srv.WS_DeleteUser(binput, modelUser.User);
-            
-            
-            if(route == "gov")
+
+
+            if (route == "gov")
             {
                 TempData["govDeleted"] = "info";
                 return RedirectToAction("Index", "GovernmentOrganisation");
             }
-           else if(route == "org")
+            else if (route == "org")
             {
                 TempData["orgDeleted"] = "info";
                 return RedirectToAction("Organisations", "GovernmentOrganisation");
@@ -963,7 +963,7 @@ namespace Emsal.AdminUI.Controllers
                 TempData["indDeleted"] = "info";
                 return RedirectToAction("Individuals", "GovernmentOrganisation");
             }
-            else if(IsASC((long)modelUser.User.userType_eV_ID))
+            else if (IsASC((long)modelUser.User.userType_eV_ID))
             {
                 TempData["ascDeleted"] = "info";
                 return RedirectToAction("ASCUsers", "GovernmentOrganisation");
@@ -975,7 +975,7 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
-        public ActionResult Edit(long Id, long?UserId)
+        public ActionResult Edit(long Id, long? UserId)
         {
             binput = new BaseInput();
             Organisation modelUser = new Organisation();
@@ -983,7 +983,7 @@ namespace Emsal.AdminUI.Controllers
             modelUser.UserName = modelUser.User == null ? null : modelUser.User.Username;
             modelUser.Email = modelUser.User == null ? null : modelUser.User.Email;
             modelUser.Password = modelUser.User == null ? null : modelUser.User.Password;
-            
+
             if (User != null && User.Identity.IsAuthenticated)
             {
                 FormsIdentity identity = (FormsIdentity)User.Identity;
@@ -1015,7 +1015,7 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput updateUserOut = srv.WS_UpdateUser(binput, modelUser.User, out modelUser.User);
 
             BaseOutput individualTypeOut = srv.WS_GetEnumValueByName(binput, "fizikişexs", out modelUser.EnumValue);
-            long fiziki = modelUser.EnumValue.Id;    
+            long fiziki = modelUser.EnumValue.Id;
             BaseOutput ascOut = srv.WS_GetEnumValueByName(binput, "ASC", out modelUser.EnumValue);
             long asc = modelUser.EnumValue.Id;
             if (IsPerson((long)modelUser.User.userType_eV_ID) || IsASC((long)modelUser.User.userType_eV_ID) || IsKTN((long)modelUser.User.userType_eV_ID))
@@ -1029,7 +1029,7 @@ namespace Emsal.AdminUI.Controllers
 
         }
 
-        public ActionResult EditPerson(long userId, long?UserId)
+        public ActionResult EditPerson(long userId, long? UserId)
         {
             Session["arrONum"] = null;
             binput = new BaseInput();
@@ -1051,16 +1051,16 @@ namespace Emsal.AdminUI.Controllers
             modelUser.Name = modelUser.Person == null ? null : modelUser.Person.Name;
             modelUser.Surname = modelUser.Person == null ? null : modelUser.Person.Surname;
             modelUser.Gender = modelUser.Person == null ? null : modelUser.Person.gender;
-            modelUser.FatherName = modelUser.Person == null ? null :modelUser.Person.FatherName;
+            modelUser.FatherName = modelUser.Person == null ? null : modelUser.Person.FatherName;
             modelUser.Pin = modelUser.Person.PinNumber;
 
-            if(modelUser.Person.address_Id != null)
+            if (modelUser.Person.address_Id != null)
             {
                 BaseOutput addressOut = srv.WS_GetAddressById(binput, (long)modelUser.Person.address_Id, true, out modelUser.FutureAddress);
 
                 modelUser.AdminUnitId = (long)modelUser.FutureAddress.adminUnit_Id;
             }
-            
+
 
             if (User != null && User.Identity.IsAuthenticated)
             {
@@ -1108,8 +1108,8 @@ namespace Emsal.AdminUI.Controllers
         {
             Session["arrONum"] = null;
 
-            
-                
+
+
 
             binput = new BaseInput();
             Organisation modelUser = new Organisation();
@@ -1123,7 +1123,7 @@ namespace Emsal.AdminUI.Controllers
             {
                 BaseOutput userDelete = srv.WS_DeleteUser(binput, modelUser.User);
 
-                
+
                 BaseOutput personDelete = srv.WS_DeletePerson(binput, modelUser.Person);
 
                 if (modelUser.CommunicationInformationsArray != null)
@@ -1134,12 +1134,12 @@ namespace Emsal.AdminUI.Controllers
                         BaseOutput ComDelete = srv.WS_DeleteCommunication(binput, modelUser.ComunicationInformations);
                     }
                 }
-                
+
 
                 return RedirectToAction("Individuals", "GovernmentOrganisation");
             }
 
-            
+
             modelUser.User.Username = form.UserName;
             modelUser.User.Password = BCrypt.Net.BCrypt.HashPassword(form.Password, 5);
             modelUser.User.Email = form.Email;
@@ -1158,7 +1158,7 @@ namespace Emsal.AdminUI.Controllers
                 BaseOutput updateAddressOut = srv.WS_UpdateAddress(binput, modelUser.FutureAddress);
             }
 
-            if(modelUser.Person.address_Id == null)
+            if (modelUser.Person.address_Id == null)
             {
                 modelUser.FutureAddress = new tblAddress();
 
@@ -1175,7 +1175,7 @@ namespace Emsal.AdminUI.Controllers
             }
 
             //update person
-           
+
 
             modelUser.Person.Name = form.Name;
             modelUser.Person.Surname = form.Surname;
@@ -1295,7 +1295,7 @@ namespace Emsal.AdminUI.Controllers
             modelUser.FatherName = modelUser.Person == null ? null : modelUser.Person.FatherName;
 
             modelUser.GovernmentOrganisation = new GovOrAnyOrganisation();
-            BaseOutput foreOut = srv.WS_GetForeign_OrganizationByUserId(binput,(long) userId, true,out modelUser.ForeignOrganisation);
+            BaseOutput foreOut = srv.WS_GetForeign_OrganizationByUserId(binput, (long)userId, true, out modelUser.ForeignOrganisation);
             modelUser.GovernmentOrganisation.OrganisationName = modelUser.ForeignOrganisation.name;
             modelUser.Voen = modelUser.ForeignOrganisation.voen;
 
@@ -1534,7 +1534,7 @@ namespace Emsal.AdminUI.Controllers
 
         //    //    BaseOutput userDeteleteOut = srv.WS_DeleteUser(binput, modelUser.User);
         //    //    BaseOutput foreDeleteOut = srv.WS_DeleteForeign_Organization(binput, modelUser.ForeignOrganisation);
-                
+
         //    //    BaseOutput ComsOut = srv.WS_GetCommunicationByPersonId(binput, (long)modelUser.Person.Id, true, out modelUser.CommunicationInformationsArray);
         //    //    if (modelUser.CommunicationInformationsArray != null)
         //    //    {
@@ -1547,7 +1547,7 @@ namespace Emsal.AdminUI.Controllers
 
         //    //    return RedirectToAction("Organisations", "GovernmentOrganisation");
         //    //}
-                    
+
 
         //    //modelUser.ForeignOrganisation.name = form.Name;
         //    //modelUser.ForeignOrganisation.voen = form.Voen;
@@ -1558,7 +1558,7 @@ namespace Emsal.AdminUI.Controllers
         //}
 
 
-        public ActionResult EditAddress(long id, long userId, long?AdminId)
+        public ActionResult EditAddress(long id, long userId, long? AdminId)
         {
             Session["arrONum"] = null;
 
@@ -1588,7 +1588,7 @@ namespace Emsal.AdminUI.Controllers
             modelUser = new Organisation();
 
             BaseOutput userTypePut = srv.WS_GetEnumValueByName(binput, "ASC", out modelUser.EnumValue);
-            if(userType == modelUser.EnumValue.Id)
+            if (userType == modelUser.EnumValue.Id)
             {
                 return true;
             }
@@ -1646,23 +1646,23 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput userOut = srv.WS_GetUserById(binput, userId, true, out modelUser.User);
 
             BaseOutput userTypePut = srv.WS_GetEnumValueByName(binput, "fizikişexs", out modelUser.EnumValue);
-            
+
             BaseOutput roleOut = srv.WS_GetRoleByName(binput, "governmentOrganisation", out modelUser.Role);
             BaseOutput userRolesOut = srv.WS_GetUserRolesByUserId(binput, modelUser.User.Id, true, out modelUser.UserRolesArray);
 
             foreach (var item in modelUser.UserRolesArray)
             {
-                if(item.RoleId == modelUser.Role.Id)
+                if (item.RoleId == modelUser.Role.Id)
                 {
                     ifGov = true;
                 }
-            }    
-            
+            }
+
             if (IsPerson((long)modelUser.User.userType_eV_ID))
             {
                 return RedirectToAction("Individuals", "GovernmentOrganisation");
             }
-            else if (IsASC((long)modelUser.User.userType_eV_ID)){
+            else if (IsASC((long)modelUser.User.userType_eV_ID)) {
                 return RedirectToAction("ASCUsers", "GovernmentOrganisation");
             }
             else if (IsKTN((long)modelUser.User.userType_eV_ID))
@@ -1693,7 +1693,7 @@ namespace Emsal.AdminUI.Controllers
         //    return birthday;
         //}
 
-        public ActionResult Individuals(int? page, long?AdminId, string name=null)
+        public ActionResult Individuals(int? page, long? AdminId, string name = null)
         {
             binput = new BaseInput();
 
@@ -1738,7 +1738,7 @@ namespace Emsal.AdminUI.Controllers
                     modelUser.Individual.Surname = modelUser.Person.Surname;
                     modelUser.Individual.Fathername = modelUser.Person.FatherName;
 
-                    if(modelUser.Person.address_Id != null)
+                    if (modelUser.Person.address_Id != null)
                     {
                         BaseOutput addressout = srv.WS_GetAddressById(binput, (long)modelUser.Person.address_Id, true, out modelUser.FutureAddress);
                         BaseOutput fulladdressListOut = srv.WS_GetAdminUnitListForID(binput, (long)modelUser.FutureAddress.adminUnit_Id, true, out modelUser.PRMAdminUnitArray);
@@ -1755,23 +1755,23 @@ namespace Emsal.AdminUI.Controllers
                             modelUser.Individual.FullAddress = modelUser.Individual.FullAddress.Remove(modelUser.Individual.FullAddress.Length - 1);
                         }
                     }
-                    
+
                 }
-               
+
                 modelUser.Individual.Email = item.Email;
                 modelUser.Individual.Id = item.Id;
 
                 modelUser.IndividualList.Add(modelUser.Individual);
             }
-            
+
 
             modelUser.PagingIndividual = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
-            
+
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("PartialIndividuals", modelUser)
                 : View(modelUser);
         }
-        public ActionResult Organisations(int? page, long?AdminId, string name = null)
+        public ActionResult Organisations(int? page, long? AdminId, string name = null)
         {
             binput = new BaseInput();
 
@@ -1830,9 +1830,9 @@ namespace Emsal.AdminUI.Controllers
 
                     foreach (var adminunit in modelUser.PRMAdminUnitArray)
                     {
-                        if(adminunit.Name != "Azərbaycan Respublikası")
+                        if (adminunit.Name != "Azərbaycan Respublikası")
                         {
-                          modelUser.GovernmentOrganisation.FullAddress += adminunit.Name + ",";
+                            modelUser.GovernmentOrganisation.FullAddress += adminunit.Name + ",";
                         }
                     }
                     if (modelUser.GovernmentOrganisation.FullAddress != null)
@@ -1851,17 +1851,176 @@ namespace Emsal.AdminUI.Controllers
                     modelUser.GovernmentOrganisation.ManagerFatherName = modelUser.Person.FatherName;
                     modelUser.GovernmentOrganisation.ManagerSurname = modelUser.Person.Surname;
                 }
-               
+
 
                 modelUser.GovernmentOrganisationList.Add(modelUser.GovernmentOrganisation);
             }
 
-            
+
             modelUser.PagingOrganisation = modelUser.GovernmentOrganisationList.ToPagedList(pageNumber, pageSize);
 
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("PartialOrganisation", modelUser)
                 : View(modelUser);
+        }
+
+        public ActionResult Admins(int? page, long? AdminId)
+        {
+            binput = new BaseInput();
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            Organisation modelUser = new Organisation();
+            modelUser.actionName = "Admins";
+
+            if (User != null && User.Identity.IsAuthenticated)
+            {
+                FormsIdentity identity = (FormsIdentity)User.Identity;
+                if (identity.Ticket.UserData.Length > 0)
+                {
+                    AdminId = Int32.Parse(identity.Ticket.UserData);
+                }
+            }
+
+            BaseOutput adminOut = srv.WS_GetUserById(binput, (long)AdminId, true, out modelUser.Admin);
+            BaseOutput enumPersonOut = srv.WS_GetEnumValueByName(binput, "Admins", out modelUser.EnumValue);
+            BaseOutput bouput = srv.WS_GetUsersByUserType(binput, modelUser.EnumValue.Id, true, out modelUser.UserArray);
+
+            modelUser.IndividualList = new List<Individual>();
+            foreach (var item in modelUser.UserArray)
+            {
+                modelUser.Individual = new Individual();
+                modelUser.Individual.Username = item.Username;
+
+                BaseOutput personOut = srv.WS_GetPersonByUserId(binput, item.Id, true, out modelUser.Person);
+
+                //if (!String.IsNullOrEmpty(name))
+                //{
+                //    if (!modelUser.Person.Name.ToLower().Contains(name.ToLower()) && !modelUser.Person.Surname.ToLower().Contains(name.ToLower()) && !modelUser.Person.FatherName.ToLower().Contains(name.ToLower()))
+                //    {
+                //        continue;
+                //    }
+                //}
+
+                if (modelUser.Person != null)
+                {
+                    modelUser.Individual.Name = modelUser.Person.Name;
+                    modelUser.Individual.Surname = modelUser.Person.Surname;
+                    modelUser.Individual.Fathername = modelUser.Person.FatherName;
+
+                    if (modelUser.Person.address_Id != null)
+                    {
+                        BaseOutput addressout = srv.WS_GetAddressById(binput, (long)modelUser.Person.address_Id, true, out modelUser.FutureAddress);
+                        BaseOutput fulladdressListOut = srv.WS_GetAdminUnitListForID(binput, (long)modelUser.FutureAddress.adminUnit_Id, true, out modelUser.PRMAdminUnitArray);
+
+                        foreach (var adminunit in modelUser.PRMAdminUnitArray)
+                        {
+                            if (adminunit.Name != "Azərbaycan Respublikası")
+                            {
+                                modelUser.Individual.FullAddress += adminunit.Name + ",";
+                            }
+                        }
+                        if (modelUser.Individual.FullAddress != null)
+                        {
+                            modelUser.Individual.FullAddress = modelUser.Individual.FullAddress.Remove(modelUser.Individual.FullAddress.Length - 1);
+                        }
+                    }
+
+                }
+
+                modelUser.Individual.Email = item.Email;
+                modelUser.Individual.Id = item.Id;
+
+                modelUser.IndividualList.Add(modelUser.Individual);
+            }
+
+
+            modelUser.PagingIndividual = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
+
+            return Request.IsAjaxRequest()
+                ? (ActionResult)PartialView("PartialAdmins", modelUser)
+                : View(modelUser);
+        }
+
+        public ActionResult AddAdmin(long id = 0)
+        {
+            long AdminId = 0;
+            if (User != null && User.Identity.IsAuthenticated)
+            {
+                FormsIdentity identity = (FormsIdentity)User.Identity;
+                if (identity.Ticket.UserData.Length > 0)
+                {
+                    AdminId = Int32.Parse(identity.Ticket.UserData);
+                }
+            }
+
+            Organisation model = new Organisation();
+            if (id > 0)
+            {
+                model.User = new tblUser();
+                BaseOutput userOut = srv.WS_GetUserById(binput, id, true,out model.User);
+                model.UserName = model.User.Username;
+                model.Email = model.User.Email;
+            }
+            BaseOutput adminOut = srv.WS_GetUserById(binput, (long)AdminId, true, out model.Admin);
+            return View(model);
+        }
+
+        public ActionResult DeleteAdmin(long id)
+        {
+            binput = new BaseInput();
+            Organisation model = new Organisation();
+            model.User = new tblUser();
+            BaseOutput userOut = srv.WS_GetUserById(binput, id, true, out model.User);
+            BaseOutput deleteUser = srv.WS_DeleteUser(binput, model.User);
+            model.UserRole = new tblUserRole();
+            BaseOutput userRoleOut = srv.WS_GetUserRolesByUserId(binput, id, true, out model.UserRolesArray);
+
+            foreach (tblUserRole item in model.UserRolesArray)
+            {
+                BaseOutput deleteRole = srv.WS_DeleteUserRole(binput, item);
+            }
+
+            return Redirect("/GovernmentOrganisation/Admins");
+        }
+
+        [HttpPost]
+        public ActionResult AddAdmin(Organisation mdl)
+        {
+            Organisation model = new Organisation();
+            binput = new BaseInput();
+            model.User = new tblUser();
+            model.EnumValue = new tblEnumValue();
+            BaseOutput enumPersonOut = srv.WS_GetEnumValueByName(binput, "Admins", out model.EnumValue);
+            model.User.Username = mdl.UserName;
+            model.User.userType_eV_ID = model.EnumValue.Id;
+            model.User.userType_eV_IDSpecified = true;
+            model.User.Email = mdl.Email;
+            model.User.Password = BCrypt.Net.BCrypt.HashPassword(mdl.Password);
+
+            if (mdl.ID == null)
+            {
+                BaseOutput insertUser = srv.WS_AddUser(binput, model.User, out model.User);
+                model.Role = new tblRole();
+                model.UserRole = new tblUserRole();
+                BaseOutput usertypeProducerOut = srv.WS_GetRoleByName(binput, "admin", out model.Role);
+
+                model.UserRole.RoleId = model.Role.Id;
+                model.UserRole.RoleIdSpecified = true;
+                model.UserRole.UserId = model.User.Id;
+                model.UserRole.UserIdSpecified = true;
+                model.UserRole.Status = 1;
+                model.UserRole.StatusSpecified = true;
+                BaseOutput addUserRole = srv.WS_AddUserRole(binput, model.UserRole, out model.UserRole);
+            }
+            else
+            {
+                model.User.Id = long.Parse(mdl.ID);
+                model.User.IdSpecified = true;
+                BaseOutput updateUser = srv.WS_UpdateUser(binput, model.User, out model.User);
+            }
+
+            return Redirect("/GovernmentOrganisation/Admins");
         }
 
         public ActionResult ASCUsers(int? page, long? AdminId)
