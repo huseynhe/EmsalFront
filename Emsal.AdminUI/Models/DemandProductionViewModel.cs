@@ -127,6 +127,8 @@ namespace Emsal.AdminUI.Models
         public DemandProductionExcell DemandProductionExcell;
         public IList<DemandProductionExcell> DemandProductionExcellList { get; set; }
 
+        public string[] auArrName { get; set; }
+
         public bool isPDF { get; set; }
         public long userId { get; set; }
 

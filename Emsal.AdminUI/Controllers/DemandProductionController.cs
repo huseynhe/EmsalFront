@@ -435,11 +435,11 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelDemandProduction.EnumValue);
 
-                //if (excell == true)
-                //{
-                //    pageNumber = 1;
-                //    pageSize = 30000;
-                //}
+                if (excell == true)
+                {
+                    //pageNumber = 1;
+                    //pageSize = 30000;
+                }
 
 
                 modelDemandProduction.DemandForegnOrganization = new DemandForegnOrganization();
@@ -506,9 +506,9 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
-                        sheet.Column(1).Width = 10;
+                        sheet.Column(1).Width = 7;
                         sheet.Column(2).Width = 30;
-                        sheet.Column(3).Width = 30;
+                        sheet.Column(3).Width = 20;
                         sheet.Column(4).Width = 30;
                         sheet.Column(5).Width = 30;
                         sheet.Column(6).Width = 25;
@@ -520,7 +520,6 @@ namespace Emsal.AdminUI.Controllers
                         int rowIndex = 3;
                         var ri = 1;
                         string auname = "";
-                        string oauname = "";
                         decimal tquantity = 0;
 
                         foreach (var item in modelDemandProduction.OrganizationDetailList)
@@ -528,19 +527,40 @@ namespace Emsal.AdminUI.Controllers
                             var col2 = 1;
                             tquantity = item.quantity * item.unit_price;
 
+                            modelDemandProduction.auArrName = item.fullAddress.Split(',').ToArray();
+
+                            if (modelDemandProduction.auArrName.Count() > 1)
+                            {
+                                auname = modelDemandProduction.auArrName[1];
+                            }
+                            else if (modelDemandProduction.auArrName.Count() == 1)
+                            {
+                                auname = modelDemandProduction.auArrName[0];
+                            }
+                            else
+                            {
+                                auname = "";
+                            }
+
+
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.adminName1;
-                            sheet.Cells[rowIndex, col2++].Value = item.adminName1;
+                            sheet.Cells[rowIndex, col2++].Value = auname;
 
                             sheet.Cells[rowIndex, col2++].IsRichText = true;
                             col2--;
                             ExcelRichTextCollection rtfCollection = sheet.Cells[rowIndex, col2++].RichText;
-                            ExcelRichText ert = rtfCollection.Add(item.managerName + "" + item.managerSurname + "\n");
+                            ExcelRichText ert = rtfCollection.Add(item.managerSurname + " " + item.managerName + " " + item.fatherName + "\n");
                             ert.Bold = false;
 
                             ert = rtfCollection.Add("VÖEN: ");
                             ert.Bold = true;
                             ert = rtfCollection.Add(item.voen + "\n");
+                            ert.Bold = false;
+
+                            ert = rtfCollection.Add("FİN: ");
+                            ert.Bold = true;
+                            ert = rtfCollection.Add(item.pinNumber + "\n");
                             ert.Bold = false;
 
                             sheet.Cells[rowIndex, col2++].Value = item.organizationName;
@@ -550,15 +570,11 @@ namespace Emsal.AdminUI.Controllers
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unit_price);
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
 
-
-                            sheet.Row(rowIndex).Style.Font.Bold = true;
-                            sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                            //sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                             sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                     
                             rowIndex++;
                             ri++;
-
-                            oauname = auname;
                         }
 
                         sheet.Cells[1, 1, rowIndex - 1, 10].Style.Border.Left.Style = ExcelBorderStyle.Thin;
