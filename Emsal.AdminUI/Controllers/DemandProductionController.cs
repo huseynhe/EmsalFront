@@ -437,8 +437,8 @@ namespace Emsal.AdminUI.Controllers
 
                 if (excell == true)
                 {
-                    //pageNumber = 1;
-                    //pageSize = 30000;
+                    pageNumber = 1;
+                    pageSize = 30000;
                 }
 
 
@@ -486,13 +486,13 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Row(1).Style.Font.Size = 14;
                         sheet.Row(1).Style.Font.Bold = true;
                         sheet.Row(1).Style.WrapText = true;
-                        sheet.Cells[1, 1, 1, 10].Merge = true;
+                        sheet.Cells[1, 1, 1, 9].Merge = true;
                         sheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
                         col = 1;
                         sheet.Cells[2, col++].Value = "S/N";
-                        sheet.Cells[2, col++].Value = "Bölgə";
+                        //sheet.Cells[2, col++].Value = "Bölgə";
                         sheet.Cells[2, col++].Value = "Şəhər";
                         sheet.Cells[2, col++].Value = "Vöen";
                         sheet.Cells[2, col++].Value = "Müəssisə";
@@ -507,7 +507,7 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
                         sheet.Column(1).Width = 7;
-                        sheet.Column(2).Width = 30;
+                        //sheet.Column(2).Width = 30;
                         sheet.Column(3).Width = 20;
                         sheet.Column(4).Width = 30;
                         sheet.Column(5).Width = 30;
@@ -544,7 +544,7 @@ namespace Emsal.AdminUI.Controllers
 
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                            sheet.Cells[rowIndex, col2++].Value = item.adminName1;
+                            //sheet.Cells[rowIndex, col2++].Value = item.adminName1;
                             sheet.Cells[rowIndex, col2++].Value = auname;
 
                             sheet.Cells[rowIndex, col2++].IsRichText = true;
@@ -577,12 +577,12 @@ namespace Emsal.AdminUI.Controllers
                             ri++;
                         }
 
-                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.WrapText = true;
-                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.WrapText = true;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
                         string fileName = Guid.NewGuid() + ".xls";
 
