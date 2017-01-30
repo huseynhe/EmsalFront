@@ -572,7 +572,7 @@ namespace Emsal.UI.Controllers
                 {
                 MailMessage msg = new MailMessage();
 
-                msg.To.Add("tedaruk@agro.gov.az");
+                msg.To.Add("mail@tedaruk.gov.az");
                 msg.Subject = "Müraciət göndər";
 
                 msg.Body = "<p>Ad, soyad, ata adı: " + model.nameSurnameFathername + "</p>" +
