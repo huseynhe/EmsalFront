@@ -188,6 +188,12 @@ namespace Emsal.AdminUI.Controllers
 
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch = new GetDemandProductionDetailistForEValueIdSearch();
 
+                if (excell == true)
+                {
+                    pageNumber = 1;
+                    pageSize = 10000;
+                }
+
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.state_eV_Id = modelDemandProduction.EnumValue.Id;
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.pageSize = pageSize;
@@ -382,6 +388,199 @@ namespace Emsal.AdminUI.Controllers
                 }
                 return Request.IsAjaxRequest()
                    ? (ActionResult)PartialView("PartialIndexwd", modelDemandProduction)
+                   : View(modelDemandProduction);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+
+        public ActionResult DemandByForganistion(int? page, bool excell = false, string startDate = null, string endDate = null)
+        {
+            try
+            {
+                int pageSize = 20;
+                int pageNumber = (page ?? 1);
+
+                if (string.IsNullOrEmpty(startDate) && string.IsNullOrEmpty(endDate))
+                {
+                    sstartDate = null;
+                    sendDate = null;
+                }
+                else
+                {
+                    sstartDate = startDate;
+                    sendDate = endDate;
+                }
+
+                baseInput = new BaseInput();
+                modelDemandProduction = new DemandProductionViewModel();
+
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
+                baseInput.userName = modelDemandProduction.Admin.Username;
+
+                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelDemandProduction.EnumCategory);
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelDemandProduction.EnumValue);
+
+                //if (excell == true)
+                //{
+                //    pageNumber = 1;
+                //    pageSize = 30000;
+                //}
+
+
+                modelDemandProduction.DemandForegnOrganization = new DemandForegnOrganization();
+                
+                modelDemandProduction.DemandForegnOrganization.page = pageNumber;
+                modelDemandProduction.DemandForegnOrganization.page_size = pageSize;
+                modelDemandProduction.DemandForegnOrganization.year = 2016;
+                modelDemandProduction.DemandForegnOrganization.partOfyear = 4;
+
+               BaseOutput gpp = srv.WS_GetDemandByForganistion_OP(baseInput, modelDemandProduction.DemandForegnOrganization, out modelDemandProduction.OrganizationDetailArray);
+
+
+                if (modelDemandProduction.OrganizationDetailArray == null)
+                {
+                    modelDemandProduction.OrganizationDetailList = new List<OrganizationDetail>();
+                }
+                else
+                {
+                    modelDemandProduction.OrganizationDetailList = modelDemandProduction.OrganizationDetailArray.ToList();
+                }
+
+                BaseOutput gdpc = srv.WS_GetDemandByForganistion_OPC(baseInput, 2016, true, 4, true, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
+
+                long[] aic = new long[modelDemandProduction.itemCount];
+
+                modelDemandProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
+
+
+                modelDemandProduction.startDate = sstartDate;
+                modelDemandProduction.endDate = sendDate;
+
+                if (excell == true)
+                {
+                    using (var excelPackage = new ExcelPackage())
+                    {
+                        excelPackage.Workbook.Properties.Author = "tedaruk";
+                        excelPackage.Workbook.Properties.Title = "tedaruk.az";
+                        var sheet = excelPackage.Workbook.Worksheets.Add("Tələb");
+                        sheet.Name = "Tələb";
+
+                        var col = 1;
+                        sheet.Cells[1, col++].Value = "Proqnoz";
+                        sheet.Row(1).Height = 50;
+                        sheet.Row(1).Style.Font.Size = 14;
+                        sheet.Row(1).Style.Font.Bold = true;
+                        sheet.Row(1).Style.WrapText = true;
+                        sheet.Cells[1, 1, 1, 10].Merge = true;
+                        sheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        col = 1;
+                        sheet.Cells[2, col++].Value = "S/N";
+                        sheet.Cells[2, col++].Value = "Bölgə";
+                        sheet.Cells[2, col++].Value = "Şəhər";
+                        sheet.Cells[2, col++].Value = "Vöen";
+                        sheet.Cells[2, col++].Value = "Müəssisə";
+                        sheet.Cells[2, col++].Value = "Ərzaq məhsullarının adı, növü və spesifikasiyasi";
+                        sheet.Cells[2, col++].Value = "Ölçü vahidi";
+                        sheet.Cells[2, col++].Value = "Miqdar";
+                        sheet.Cells[2, col++].Value = "Vahidin qiyməti, AZN";
+                        sheet.Cells[2, col++].Value = "Ümumi dəyəri, AZN";
+
+                        sheet.Row(2).Style.Font.Bold = true;
+                        sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                        sheet.Column(1).Width = 10;
+                        sheet.Column(2).Width = 30;
+                        sheet.Column(3).Width = 30;
+                        sheet.Column(4).Width = 30;
+                        sheet.Column(5).Width = 30;
+                        sheet.Column(6).Width = 25;
+                        sheet.Column(7).Width = 10;
+                        sheet.Column(8).Width = 20;
+                        sheet.Column(9).Width = 20;
+                        sheet.Column(10).Width = 20;
+
+                        int rowIndex = 3;
+                        var ri = 1;
+                        string auname = "";
+                        string oauname = "";
+                        decimal tquantity = 0;
+
+                        foreach (var item in modelDemandProduction.OrganizationDetailList)
+                        {
+                            var col2 = 1;
+                            tquantity = item.quantity * item.unit_price;
+
+                            sheet.Cells[rowIndex, col2++].Value = ri.ToString();
+                            sheet.Cells[rowIndex, col2++].Value = item.adminName1;
+                            sheet.Cells[rowIndex, col2++].Value = item.adminName1;
+
+                            sheet.Cells[rowIndex, col2++].IsRichText = true;
+                            col2--;
+                            ExcelRichTextCollection rtfCollection = sheet.Cells[rowIndex, col2++].RichText;
+                            ExcelRichText ert = rtfCollection.Add(item.managerName + "" + item.managerSurname + "\n");
+                            ert.Bold = false;
+
+                            ert = rtfCollection.Add("VÖEN: ");
+                            ert.Bold = true;
+                            ert = rtfCollection.Add(item.voen + "\n");
+                            ert.Bold = false;
+
+                            sheet.Cells[rowIndex, col2++].Value = item.organizationName;
+                            sheet.Cells[rowIndex, col2++].Value = item.prodcutName + " (" + item.parentProductName + ")";
+                            sheet.Cells[rowIndex, col2++].Value = item.unitOfMeasurement;
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.quantity);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unit_price);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
+
+
+                            sheet.Row(rowIndex).Style.Font.Bold = true;
+                            sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                            sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    
+                            rowIndex++;
+                            ri++;
+
+                            oauname = auname;
+                        }
+
+                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.WrapText = true;
+                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        string fileName = Guid.NewGuid() + ".xls";
+
+                        Response.ClearContent();
+                        Response.BinaryWrite(excelPackage.GetAsByteArray());
+                        Response.AddHeader("content-disposition", "attachment;filename=" + fileName);
+                        Response.AppendCookie(new HttpCookie("fileDownloadToken", "1111"));
+                        Response.ContentType = "application/excel";
+                        Response.Flush();
+                        Response.End();
+                    }
+                }
+                return Request.IsAjaxRequest()
+                   ? (ActionResult)PartialView("PartialDemandByForganistion", modelDemandProduction)
                    : View(modelDemandProduction);
             }
             catch (Exception ex)

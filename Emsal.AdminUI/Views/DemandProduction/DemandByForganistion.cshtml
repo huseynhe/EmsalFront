@@ -1,0 +1,67 @@
+﻿@model Emsal.AdminUI.Models.DemandProductionViewModel
+@*@using PagedList.Mvc;*@
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Satınalan təşkilatlar üzrə tələbat cədvəli (ətraflı)</h3>
+                    <!-- /.box-tools -->
+                </div>
+                <div class="clearfix"></div>
+                <br />
+
+                <table class="table table-hover table-striped table-bordered" style="margin-bottom:0;">
+                    <tbody>
+                        <tr>
+                            <th class="col-md-1">
+                                Bölgə
+                            </th>
+                            <th class="col-md-1">
+                                Şəhər
+                            </th>
+                            <th class="col-md-1">
+                                Vöen
+                            </th>
+                            <th class="col-md-1">
+                                Müəssisə
+                            </th>
+                            <th class="col-md-1">
+                                Ərzaq məhsullarının adı, növü və spesifikasiyasi
+                            </th>
+                            <th class="col-md-1">
+                                Ölçü vahidi
+                            </th>
+                            <th class="col-md-1">
+                                Miqdar
+                            </th>
+                            <th class="col-md-1">
+                                Vahidin qiyməti, AZN
+                            </th>
+                            <th class="col-md-1">
+                                Ümumi dəyəri, AZN
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="AjaxPaginationList">
+                    @Html.Partial("PartialDemandByForganistion")
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/js/pagedList.js"></script>
+
+
+
+
