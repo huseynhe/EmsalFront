@@ -32,6 +32,9 @@ namespace Emsal.AdminUI.Controllers
         private static string sstartDate;
         private static string sendDate;
         private static long sproductId;
+        private static long seconomicZoneId;
+        private static long sorganisationId;
+        private static long syear;
         private static long saddressId;
         private static long suserType;
 
@@ -397,12 +400,40 @@ namespace Emsal.AdminUI.Controllers
         }
 
 
-        public ActionResult DemandByForganistion(int? page, bool excell = false, string startDate = null, string endDate = null)
+        public ActionResult DemandByForganistion(int? page, bool excell = false, string startDate = null, string endDate = null, long economicZoneId = -1, long addressId = -1,  long organisationId = -1,long productId = -1,long year = -1)
         {
             try
             {
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
+
+                if (economicZoneId == -1 && addressId == -1 && organisationId == -1 && productId == -1 && year == -1 && startDate == null && endDate == null)
+                {
+                    seconomicZoneId = 0;
+                    saddressId = 0;
+                    sorganisationId = 0;
+                    sproductId = 0;
+                    syear = 0;
+                    sstartDate = null;
+                    sendDate = null;
+                }
+
+                if (economicZoneId >= 0)
+                {
+                    seconomicZoneId = economicZoneId;
+                    saddressId = 0;
+                }
+                if (addressId >= 0)
+                {
+                    saddressId = addressId;
+                    sorganisationId = 0;
+                }
+                if (organisationId >= 0)
+                    sorganisationId = organisationId;
+                if (productId >= 0)
+                    sproductId = productId;
+                if (year >= 0)
+                    syear = year;
 
                 if (string.IsNullOrEmpty(startDate) && string.IsNullOrEmpty(endDate))
                 {
@@ -414,6 +445,7 @@ namespace Emsal.AdminUI.Controllers
                     sstartDate = startDate;
                     sendDate = endDate;
                 }
+
 
                 baseInput = new BaseInput();
                 modelDemandProduction = new DemandProductionViewModel();
@@ -446,7 +478,7 @@ namespace Emsal.AdminUI.Controllers
                 
                 modelDemandProduction.DemandForegnOrganization.page = pageNumber;
                 modelDemandProduction.DemandForegnOrganization.page_size = pageSize;
-                modelDemandProduction.DemandForegnOrganization.year = 2016;
+                modelDemandProduction.DemandForegnOrganization.year = syear;
                 modelDemandProduction.DemandForegnOrganization.partOfyear = 4;
 
                BaseOutput gpp = srv.WS_GetDemandByForganistion_OP(baseInput, modelDemandProduction.DemandForegnOrganization, out modelDemandProduction.OrganizationDetailArray);
@@ -461,13 +493,17 @@ namespace Emsal.AdminUI.Controllers
                     modelDemandProduction.OrganizationDetailList = modelDemandProduction.OrganizationDetailArray.ToList();
                 }
 
-                BaseOutput gdpc = srv.WS_GetDemandByForganistion_OPC(baseInput, 2016, true, 4, true, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
+                BaseOutput gdpc = srv.WS_GetDemandByForganistion_OPC(baseInput, syear, true, 4, true, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
 
                 long[] aic = new long[modelDemandProduction.itemCount];
 
                 modelDemandProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
 
-
+                modelDemandProduction.economicZoneId = seconomicZoneId;
+                modelDemandProduction.addressId = saddressId;
+                modelDemandProduction.organisationId = sorganisationId;
+                modelDemandProduction.productId = sproductId;
+                modelDemandProduction.year = syear;
                 modelDemandProduction.startDate = sstartDate;
                 modelDemandProduction.endDate = sendDate;
 
@@ -2011,7 +2047,56 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
-        public ActionResult AdminUnit(string actionName)
+        public ActionResult AdminUnit(string actionName, long economicZoneId=0)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+                modelDemandProduction = new DemandProductionViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
+                baseInput.userName = modelDemandProduction.Admin.Username;
+
+
+                if (economicZoneId == 0)
+                {
+                    BaseOutput bouput = srv.WS_GetAdminUnitsByParentId(baseInput, 1, true, out modelDemandProduction.PRMAdminUnitArray);
+                }
+                else
+                {
+                    BaseOutput bouput = srv.WS_GetAdminUnitsByParentId(baseInput,  (int)economicZoneId, true, out modelDemandProduction.PRMAdminUnitArray);
+                }                
+
+
+                if (modelDemandProduction.PRMAdminUnitArray == null)
+                {
+                    modelDemandProduction.PRMAdminUnitList = new List<tblPRM_AdminUnit>();
+                }
+                else
+                {
+                    modelDemandProduction.PRMAdminUnitList = modelDemandProduction.PRMAdminUnitArray.ToList();
+                }
+                modelDemandProduction.actionName = actionName;
+                return View(modelDemandProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+
+        public ActionResult EconomicZone(string actionName)
         {
             try
             {
@@ -2033,6 +2118,7 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput bouput = srv.WS_GetAdminUnitsByParentId(baseInput, 1, true, out modelDemandProduction.PRMAdminUnitArray);
 
+
                 if (modelDemandProduction.PRMAdminUnitArray == null)
                 {
                     modelDemandProduction.PRMAdminUnitList = new List<tblPRM_AdminUnit>();
@@ -2042,6 +2128,87 @@ namespace Emsal.AdminUI.Controllers
                     modelDemandProduction.PRMAdminUnitList = modelDemandProduction.PRMAdminUnitArray.ToList();
                 }
                 modelDemandProduction.actionName = actionName;
+                return View(modelDemandProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+
+        public ActionResult Organisation(string actionName, long adminUnitId=0)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+                modelDemandProduction = new DemandProductionViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
+                baseInput.userName = modelDemandProduction.Admin.Username;
+
+
+                BaseOutput bouput = srv.WS_GetGovermentOrganisatinByAdminID(baseInput, adminUnitId, true, out modelDemandProduction.ForeignOrganizationArray);
+
+
+                if (modelDemandProduction.ForeignOrganizationArray == null)
+                {
+                    modelDemandProduction.ForeignOrganizationList = new List<ForeignOrganization>();
+                }
+                else
+                {
+                    modelDemandProduction.ForeignOrganizationList = modelDemandProduction.ForeignOrganizationArray.ToList();
+                }
+                modelDemandProduction.actionName = actionName;
+                return View(modelDemandProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+
+        public ActionResult Year(string actionName)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+                modelDemandProduction = new DemandProductionViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
+                baseInput.userName = modelDemandProduction.Admin.Username;
+
+
+
+                BaseOutput ecy = srv.WS_GetEnumCategorysByName(baseInput, "year", out modelDemandProduction.EnumCategoryYear);
+
+                BaseOutput evyf = srv.WS_GetEnumValuesByEnumCategoryId(baseInput, modelDemandProduction.EnumCategoryYear.Id, true, out modelDemandProduction.EnumValueArrayYear);
+                modelDemandProduction.EnumValueListYear = modelDemandProduction.EnumValueArrayYear.ToList();
+
+
+                modelDemandProduction.actionName = actionName;
+
                 return View(modelDemandProduction);
 
             }

@@ -1,0 +1,21 @@
+﻿@model Emsal.AdminUI.Models.DemandProductionViewModel
+@{
+    ViewBag.Title = "ProductCatalog";
+    Layout = "";
+}
+<style>
+    .select2 {
+        width: 100% !important;
+    }
+</style>
+
+<select id="year" onchange="StatisticsSearch(this,'DemandProduction', '@Model.actionName', 'year')" class="form-control select2" style="width:auto !important;">
+    <option value="0">İl üzrə axtar</option>
+    @foreach (var item in Model.EnumValueListYear)
+    {
+        <option value="@item.name">@item.description</option>
+    }
+</select>
+
+
+

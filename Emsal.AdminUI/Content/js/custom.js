@@ -480,19 +480,6 @@ function DemandProductionSearchwd(elem, value) {
     });
 }
 
-function StatisticsSearch(elem, controller, action, param) {
-    $.ajax({
-        url: '/'+controller+'/' + action + '?' + param + '=' + $(elem).val(),
-        type: 'GET',
-        success: function (result) {
-            $('#AjaxPaginationList').html(result);
-        },
-        error: function () {
-
-        }
-    });
-}
-
 function DemandProductsForAccounting(elem, value) {
     $.ajax({
         url: '/DemandProduction/DemandProductsForAccounting?' + value + '=' + $(elem).val(),
@@ -532,6 +519,7 @@ function SearchTimePeriod(status,controller, action) {
 
     var startDate = $('#startDate').val();
     var endDate = $('#endDate').val();
+    var yvp = '';
 
     if (status == '1')
     {
@@ -543,14 +531,26 @@ function SearchTimePeriod(status,controller, action) {
         $('#btnSearch').hide();
         $('#btnClear').show();
 
+        $('#divYear').hide();
+
+        if (controller == "DemandProduction" && action == "DemandByForganistion") {
+        yvp = '&year=0';
+        }
+
     } else if (status == '2')
     {
         $('#btnSearch').show();
         $('#btnClear').hide();
+
+        $('#divYear').show();
+        
+        if (controller == "DemandProduction" && action == "DemandByForganistion") {
+            yvp = '&year=' + $('#year').val();
+        }
     }
 
     $.ajax({
-        url: '/'+controller+'/'+action+'?startDate=' + startDate + '&endDate=' + endDate,
+        url: '/' + controller + '/' + action + '?startDate=' + startDate + '&endDate=' + endDate + yvp,
         type: 'GET',
         success: function (result) {
             $('#AjaxPaginationList').html(result);
@@ -652,6 +652,11 @@ function GetProductCatalog(elem) {
     }
 }
 
+function CallSelect2()
+{
+    $('.select2').select2();
+}
+
 function DemandOfferProduct(auid) {
     $.ajax({
         url: '/Report/DemandOfferProduct?prodId=' + auid,
@@ -665,4 +670,65 @@ function DemandOfferProduct(auid) {
     });
 }
 
+
+function GetAdminUnit(actionName, economicZoneId) {
+    $.ajax({
+        url: '/DemandProduction/AdminUnit?actionName=' + actionName + '&economicZoneId=' + economicZoneId,
+        type: 'GET',
+        success: function (result) {
+            $('#adminUnit').html(result);
+
+            CallSelect2();
+        },
+        error: function () {
+
+        }
+    });
+}
+
+
+
+function GetOrganisation(actionName, adminUnitId) {
+    $.ajax({
+        url: '/DemandProduction/Organisation?actionName=' + actionName + '&adminUnitId=' + adminUnitId,
+        type: 'GET',
+        success: function (result) {
+            $('#organisation').html(result);
+
+            CallSelect2();
+        },
+        error: function () {
+
+        }
+    });
+}
+
+
+
+function StatisticsSearch(elem, controller, action, param) {
+
+    var elemVal=$(elem).val();
+
+    if (controller == "DemandProduction" && action == "DemandByForganistion" && param == "economicZoneId")
+    {
+        GetAdminUnit(action, elemVal);
+        GetOrganisation(action, 0)
+    }
+
+    if (controller == "DemandProduction" && action == "DemandByForganistion" && param == "addressId")
+    {
+        GetOrganisation(action, elemVal)
+    }
+
+    $.ajax({
+        url: '/' + controller + '/' + action + '?' + param + '=' + elemVal,
+        type: 'GET',
+        success: function (result) {
+            $('#AjaxPaginationList').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
 

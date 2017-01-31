@@ -48,6 +48,10 @@ namespace Emsal.AdminUI.Models
         public IList<DemandOfferDetail> DemandOfferDetailList { get; set; }
         public DemandOfferDetail[] DemandOfferDetailArray;
 
+        public ForeignOrganization ForeignOrganization;
+        public IList<ForeignOrganization> ForeignOrganizationList { get; set; }
+        public ForeignOrganization[] ForeignOrganizationArray;
+
         public DemandProductionViewModel DemandProductionVModel { get; set; }
         public IList<DemandProductionViewModel> DemandProductionViewModelList { get; set; }
 
@@ -115,6 +119,11 @@ namespace Emsal.AdminUI.Models
         public PagedList.IPagedList<ProductionDetail> Paging { get; set; }
         public PagedList.IPagedList<long> PagingT { get; set; }
         public PagedList.IPagedList<OfferProductionDetail> DemandOfferGroupRegionPaging { get; set; }
+
+        public tblEnumCategory EnumCategoryYear;
+        public IList<tblEnumValue> EnumValueListYear { get; set; }
+        public tblEnumValue[] EnumValueArrayYear;
+
         public long itemCount = 0;
         public bool itemCountB = true;
 
@@ -160,6 +169,9 @@ namespace Emsal.AdminUI.Models
         public string size { get; set; }
 
         public long productId { get; set; }
+        public long economicZoneId { get; set; }
+        public long organisationId { get; set; }
+        public long year { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public int[] enumCat { get; set; }
