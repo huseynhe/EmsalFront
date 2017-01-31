@@ -2584,8 +2584,9 @@ namespace Emsal.AdminUI.Controllers
 
             BaseOutput foreignOrganisationOut = srv.WS_AddForeign_Organization(binput, modelUser.ForeignOrganisation, out modelUser.ForeignOrganisation);
             TempData["GovSuccess"] = "info";
-
-            MailMessage msg = new MailMessage();
+            try
+            {
+                MailMessage msg = new MailMessage();
 
             msg.To.Add(modelUser.User.Email);
             msg.Subject = "Qeydiyyat";
@@ -2597,13 +2598,19 @@ namespace Emsal.AdminUI.Controllers
 
             msg.IsBodyHtml = true;
 
-            if (Mail.SendMail(msg))
-            {
-                TempData["Message"] = "Email göndərildi.";
+            
+                if (Mail.SendMail(msg))
+                {
+                    TempData["Message"] = "Email göndərildi.";
+                }
+                else
+                {
+                    TempData["Message"] = "Email göndərilmədi.";
+                }
             }
-            else
+            catch(Exception ex)
             {
-                TempData["Message"] = "Email göndərilmədi.";
+
             }
 
             return RedirectToAction("Index", "GovernmentOrganisation");
