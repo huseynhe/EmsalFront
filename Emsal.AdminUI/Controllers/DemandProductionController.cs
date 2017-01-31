@@ -470,16 +470,18 @@ namespace Emsal.AdminUI.Controllers
                 if (excell == true)
                 {
                     pageNumber = 1;
-                    pageSize = 30000;
+                    pageSize = 30;
                 }
-
 
                 modelDemandProduction.DemandForegnOrganization = new DemandForegnOrganization();
                 
                 modelDemandProduction.DemandForegnOrganization.page = pageNumber;
                 modelDemandProduction.DemandForegnOrganization.page_size = pageSize;
+                modelDemandProduction.DemandForegnOrganization.regionId = seconomicZoneId;
+                modelDemandProduction.DemandForegnOrganization.addressID = saddressId;
+                modelDemandProduction.DemandForegnOrganization.organizationID = sorganisationId;
+                modelDemandProduction.DemandForegnOrganization.productID = sproductId;
                 modelDemandProduction.DemandForegnOrganization.year = syear;
-                modelDemandProduction.DemandForegnOrganization.partOfyear = 4;
 
                BaseOutput gpp = srv.WS_GetDemandByForganistion_OP(baseInput, modelDemandProduction.DemandForegnOrganization, out modelDemandProduction.OrganizationDetailArray);
 
@@ -493,7 +495,7 @@ namespace Emsal.AdminUI.Controllers
                     modelDemandProduction.OrganizationDetailList = modelDemandProduction.OrganizationDetailArray.ToList();
                 }
 
-                BaseOutput gdpc = srv.WS_GetDemandByForganistion_OPC(baseInput, syear, true, 4, true, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
+                BaseOutput gdpc = srv.WS_GetDemandByForganistion_OPC(baseInput, modelDemandProduction.DemandForegnOrganization, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
 
                 long[] aic = new long[modelDemandProduction.itemCount];
 
@@ -522,13 +524,13 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Row(1).Style.Font.Size = 14;
                         sheet.Row(1).Style.Font.Bold = true;
                         sheet.Row(1).Style.WrapText = true;
-                        sheet.Cells[1, 1, 1, 9].Merge = true;
+                        sheet.Cells[1, 1, 1, 10].Merge = true;
                         sheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
                         col = 1;
                         sheet.Cells[2, col++].Value = "S/N";
-                        //sheet.Cells[2, col++].Value = "Bölgə";
+                        sheet.Cells[2, col++].Value = "Bölgə";
                         sheet.Cells[2, col++].Value = "Şəhər";
                         sheet.Cells[2, col++].Value = "Vöen";
                         sheet.Cells[2, col++].Value = "Müəssisə";
@@ -543,15 +545,15 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
                         sheet.Column(1).Width = 7;
-                        //sheet.Column(2).Width = 30;
-                        sheet.Column(2).Width = 20;
-                        sheet.Column(3).Width = 30;
+                        sheet.Column(2).Width = 30;
+                        sheet.Column(3).Width = 20;
                         sheet.Column(4).Width = 30;
-                        sheet.Column(5).Width = 25;
-                        sheet.Column(6).Width = 10;
-                        sheet.Column(7).Width = 20;
+                        sheet.Column(5).Width = 30;
+                        sheet.Column(6).Width = 25;
+                        sheet.Column(7).Width = 10;
                         sheet.Column(8).Width = 20;
                         sheet.Column(9).Width = 20;
+                        sheet.Column(10).Width = 20;
 
                         int rowIndex = 3;
                         var ri = 1;
@@ -580,7 +582,7 @@ namespace Emsal.AdminUI.Controllers
 
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                            //sheet.Cells[rowIndex, col2++].Value = item.adminName1;
+                            sheet.Cells[rowIndex, col2++].Value = item.regionName;
                             sheet.Cells[rowIndex, col2++].Value = auname;
 
                             sheet.Cells[rowIndex, col2++].IsRichText = true;
@@ -596,7 +598,7 @@ namespace Emsal.AdminUI.Controllers
 
                             ert = rtfCollection.Add("FİN: ");
                             ert.Bold = true;
-                            ert = rtfCollection.Add(item.pinNumber + "\n");
+                            ert = rtfCollection.Add(item.pinNumber);
                             ert.Bold = false;
 
                             sheet.Cells[rowIndex, col2++].Value = item.organizationName;
@@ -613,12 +615,12 @@ namespace Emsal.AdminUI.Controllers
                             ri++;
                         }
 
-                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.WrapText = true;
-                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.WrapText = true;
+                        sheet.Cells[1, 1, rowIndex - 1, 10].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
                         string fileName = Guid.NewGuid() + ".xls";
 
