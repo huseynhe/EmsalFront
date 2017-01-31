@@ -10,7 +10,7 @@
 </style>
 
 <select onchange="StatisticsSearch(this,'DemandProduction', '@Model.actionName', 'economicZoneId')" class="form-control select2" style="width:auto !important;">
-    <option value="0">İqdisadi zona üzrə axtar</option>
+    <option value="0">Bölgə üzrə axtar</option>
     @foreach (var item in Model.PRMAdminUnitList)
     {
         <option value="@item.Id">@item.Name</option>

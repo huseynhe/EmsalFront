@@ -172,6 +172,8 @@ namespace Emsal.AdminUI.Models
         public long economicZoneId { get; set; }
         public long organisationId { get; set; }
         public long year { get; set; }
+        public string addressIdString { get; set; }
+        public long[] addressIdList { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public int[] enumCat { get; set; }

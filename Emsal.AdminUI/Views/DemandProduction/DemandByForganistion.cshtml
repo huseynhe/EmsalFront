@@ -22,19 +22,19 @@
                         @Html.Action("Year", "DemandProduction", new { actionName = "DemandByForganistion" })
                     </div>
 
-                    <div class="col-md-3">
-                        <label>İqdisadi zona</label><br />
+                    <div class="col-md-2">
+                        <label>Bölgə</label><br />
                         @Html.Action("EconomicZone", "DemandProduction", new { actionName = "DemandByForganistion" })
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <label>Məhsulun ünvanı</label><br />
                         <div id="adminUnit">
                             @Html.Action("AdminUnit", "DemandProduction", new { actionName = "DemandByForganistion" })
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label>Təşkilat</label><br />
                         <div  id="organisation">
                             @Html.Action("Organisation", "DemandProduction", new { actionName = "DemandByForganistion" })

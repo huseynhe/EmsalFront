@@ -32,6 +32,7 @@ namespace Emsal.AdminUI.Controllers
         private static string sstartDate;
         private static string sendDate;
         private static long sproductId;
+        private static string saddressIdString;
         private static long seconomicZoneId;
         private static long sorganisationId;
         private static long syear;
@@ -400,17 +401,17 @@ namespace Emsal.AdminUI.Controllers
         }
 
 
-        public ActionResult DemandByForganistion(int? page, bool excell = false, string startDate = null, string endDate = null, long economicZoneId = -1, long addressId = -1,  long organisationId = -1,long productId = -1,long year = -1)
+        public ActionResult DemandByForganistion(int? page, bool excell = false, string startDate = null, string endDate = null, long economicZoneId = -1, string addressId = null,  long organisationId = -1,long productId = -1,long year = -1)
         {
             try
             {
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (economicZoneId == -1 && addressId == -1 && organisationId == -1 && productId == -1 && year == -1 && startDate == null && endDate == null)
+                if (economicZoneId == -1 && addressId == null && organisationId == -1 && productId == -1 && year == -1 && startDate == null && endDate == null)
                 {
                     seconomicZoneId = 0;
-                    saddressId = 0;
+                    saddressIdString = null;
                     sorganisationId = 0;
                     sproductId = 0;
                     syear = 0;
@@ -423,9 +424,9 @@ namespace Emsal.AdminUI.Controllers
                     seconomicZoneId = economicZoneId;
                     saddressId = 0;
                 }
-                if (addressId >= 0)
+                if (addressId !=null)
                 {
-                    saddressId = addressId;
+                    saddressIdString = addressId;
                     sorganisationId = 0;
                 }
                 if (organisationId >= 0)
@@ -445,7 +446,6 @@ namespace Emsal.AdminUI.Controllers
                     sstartDate = startDate;
                     sendDate = endDate;
                 }
-
 
                 baseInput = new BaseInput();
                 modelDemandProduction = new DemandProductionViewModel();
@@ -472,6 +472,12 @@ namespace Emsal.AdminUI.Controllers
                     pageNumber = 1;
                     pageSize = 30;
                 }
+
+                if (saddressIdString != null)
+                {
+                    modelDemandProduction.addressIdList = saddressIdString.Split(',').Select(long.Parse).ToArray();
+                }
+
 
                 modelDemandProduction.DemandForegnOrganization = new DemandForegnOrganization();
                 
@@ -502,7 +508,7 @@ namespace Emsal.AdminUI.Controllers
                 modelDemandProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
 
                 modelDemandProduction.economicZoneId = seconomicZoneId;
-                modelDemandProduction.addressId = saddressId;
+                modelDemandProduction.addressIdString = saddressIdString;
                 modelDemandProduction.organisationId = sorganisationId;
                 modelDemandProduction.productId = sproductId;
                 modelDemandProduction.year = syear;

@@ -9,7 +9,7 @@
     string auname = "";
 }
 <h4 class="text-danger text-center">
-    <a href="/DemandProduction/DemandByForganistion?economicZoneId=@Model.economicZoneId&addressId=@Model.addressId&organisationId=@Model.organisationId&productId=@Model.productId&year=@Model.year&startDate = @Model.startDate&endDate=@Model.endDate&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+    <a href="/DemandProduction/DemandByForganistion?economicZoneId=@Model.economicZoneId&addressId=@Model.addressIdString&organisationId=@Model.organisationId&productId=@Model.productId&year=@Model.year&startDate = @Model.startDate&endDate=@Model.endDate&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
         <i class="fa fa-file-excel-o" aria-hidden="true"></i>
         Yüklə
     </a>
@@ -82,7 +82,7 @@
 </div>
 <div class="box-footer clearfix">
     Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
-    @Html.PagedListPager(Model.PagingT, page => Url.Action("DemandByForganistion", new { page, economicZoneId=Model.economicZoneId, addressId=Model.addressId, organisationId=Model.organisationId, productId=Model.productId, year=Model.year, startDate = Model.startDate, endDate = Model.endDate }))
+    @Html.PagedListPager(Model.PagingT, page => Url.Action("DemandByForganistion", new { page, economicZoneId=Model.economicZoneId, addressId=Model.addressIdString, organisationId=Model.organisationId, productId = Model.productId, year=Model.year, startDate = Model.startDate, endDate = Model.endDate }))
 </div>
 
 
