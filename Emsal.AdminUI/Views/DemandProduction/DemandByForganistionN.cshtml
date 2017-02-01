@@ -1,0 +1,83 @@
+﻿@model Emsal.AdminUI.Models.DemandProductionViewModel
+@*@using PagedList.Mvc;*@
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Mehsul uzre teleb ve teklifler</h3>
+                    <!-- /.box-tools -->
+                </div>
+                <div class="clearfix"></div>
+                <br />
+
+                <div class="form-group">
+
+                    <div class="col-md-2">
+                        <label>Məhsulun adı</label><br />
+                        @Html.Action("ProductCatalogForSale", "DemandProduction", new { actionName = "DemandByForganistionN" })
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>İstifadəçinin növü</label><br />
+                        <select onchange="StatisticsSearch(this, 'DemandProduction', 'DemandByForganistionN', 'userType')" class="form-control select2" style="width:auto !important;">
+                            <option value="0">Seçim edin</option>
+
+                            <option value="15">Potensial istehsalçı</option>
+                            <option value="11">Satıcı (İdxalçı)</option>
+
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>FİN | VÖEN</label><br />
+                        <input onkeyup="StatisticsSearch(this, 'DemandProduction', 'DemandByForganistionN', 'finVoen')" class="form-control" placeholder="axtar" />
+                    </div>
+
+                </div>
+
+
+                <div class="clearfix"></div>
+                <br />
+                <table class="table table-hover table-striped table-bordered" style="margin-bottom:0;">
+                    <tbody>
+                        <tr>
+                            <th class="col-md-1">
+                                Ərzaq məhsullarının adı və növü
+                            </th>
+                            <th class="col-md-1">
+                                Tələbatın həcmi (miqdar)
+                            </th>
+                            <th class="col-md-1">
+                                Ölçü vahidi
+                            </th>
+                            <th class="col-md-1">
+                                Qiymət (AZN)
+                            </th>
+                            <th class="col-md-1">
+                                Cəm (AZN-lə)
+                            </th>
+                            <th class="col-md-1">
+                                Satıcı və ya istehsalçının adı
+                            </th>
+                            <th class="col-md-1">
+                                Satıcı və ya istehsalçının VÖEN-i
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="AjaxPaginationList">
+                    @Html.Partial("PartialDemandByForganistionN")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/pagedList.js"></script>
+
+

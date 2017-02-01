@@ -38,6 +38,7 @@ namespace Emsal.AdminUI.Controllers
         private static long syear;
         private static long saddressId;
         private static long suserType;
+        private static string sfinVoen;
 
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
@@ -470,10 +471,10 @@ namespace Emsal.AdminUI.Controllers
                 if (excell == true)
                 {
                     pageNumber = 1;
-                    pageSize = 30;
+                    pageSize = 30000;
                 }
 
-                if (saddressIdString != null)
+                if (!string.IsNullOrEmpty(saddressIdString))
                 {
                     modelDemandProduction.addressIdList = saddressIdString.Split(',').Select(long.Parse).ToArray();
                 }
@@ -648,6 +649,216 @@ namespace Emsal.AdminUI.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
+
+
+        public ActionResult DemandByForganistionN(int? page, bool excell = false, long productId = -1, long userType = -1, string finVoen = null)
+        {
+            try
+            {
+                int pageSize = 20;
+                int pageNumber = (page ?? 1);
+
+                if (productId == -1 && userType == -1 && finVoen == null)
+                {
+                    sproductId = 0;
+                    suserType = 0;
+                    sfinVoen = null;
+                }
+                
+                if (productId >= 0)
+                    sproductId = productId;
+                if (userType >= 0)
+                    suserType = userType;
+                if (finVoen != null)
+                    sfinVoen = finVoen;
+
+                baseInput = new BaseInput();
+                modelDemandProduction = new DemandProductionViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
+                baseInput.userName = modelDemandProduction.Admin.Username;
+
+                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelDemandProduction.EnumCategory);
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelDemandProduction.EnumValue);
+
+                if (excell == true)
+                {
+                    pageNumber = 1;
+                    pageSize = 30;
+                }
+
+                modelDemandProduction.DemandForegnOrganization = new DemandForegnOrganization();
+
+                modelDemandProduction.DemandForegnOrganization.page = pageNumber;
+                modelDemandProduction.DemandForegnOrganization.page_size = pageSize;
+                modelDemandProduction.DemandForegnOrganization.year = 2016;
+
+                BaseOutput gpp = srv.WS_GetDemandByForganistion_OP(baseInput, modelDemandProduction.DemandForegnOrganization, out modelDemandProduction.OrganizationDetailArray);
+
+
+                if (modelDemandProduction.OrganizationDetailArray == null)
+                {
+                    modelDemandProduction.OrganizationDetailList = new List<OrganizationDetail>();
+                }
+                else
+                {
+                    modelDemandProduction.OrganizationDetailList = modelDemandProduction.OrganizationDetailArray.ToList();
+                }
+
+                BaseOutput gdpc = srv.WS_GetDemandByForganistion_OPC(baseInput, modelDemandProduction.DemandForegnOrganization, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
+
+                long[] aic = new long[modelDemandProduction.itemCount];
+
+                modelDemandProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
+                
+                modelDemandProduction.productId = sproductId;
+                modelDemandProduction.userType = suserType;
+                modelDemandProduction.finVoen = sfinVoen;
+
+                if (excell == true)
+                {
+                    using (var excelPackage = new ExcelPackage())
+                    {
+                        excelPackage.Workbook.Properties.Author = "tedaruk";
+                        excelPackage.Workbook.Properties.Title = "tedaruk.az";
+                        var sheet = excelPackage.Workbook.Worksheets.Add("Tələb");
+                        sheet.Name = "Tələb";
+
+                        var col = 1;
+                        sheet.Cells[1, col++].Value = "Mehsul uzre teleb ve teklifler";
+                        sheet.Row(1).Height = 50;
+                        sheet.Row(1).Style.Font.Size = 14;
+                        sheet.Row(1).Style.Font.Bold = true;
+                        sheet.Row(1).Style.WrapText = true;
+                        sheet.Cells[1, 1, 1, 15].Merge = true;
+                        sheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        col = 1;
+                        sheet.Cells[2, col++].Value = "S/N";
+                        sheet.Cells[2, col++].Value = "Ərzaq məhsullarının adı və növü";
+                        sheet.Cells[2, col++].Value = "Tələbatın həcmi (miqdar)";
+                        sheet.Cells[2, col++].Value = "Ölçü vahidi";
+                        sheet.Cells[2, col++].Value = "Qiymət (AZN)";
+                        sheet.Cells[2, col++].Value = "Cəm (AZN-lə)";
+                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçının adı";
+                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçının VÖEN-i";
+                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçı ilə alqı-satqı müqaviləsinin tarixi və nömrəsi";
+                        sheet.Cells[2, col++].Value = "Müqavilə üzrə malın qiyməti";
+                        sheet.Cells[2, col++].Value = "Müqavilə üzrə malın həcmi (miqdarı)";
+                        sheet.Cells[2, col++].Value = "Ölçü vahidi";
+                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçının nümayəndəsinin adı və əlaqə vasitəsi";
+                        sheet.Cells[2, col++].Value = "Tədarükçünün növü (istehsalçı, satıcı və ya idxalçı)";
+                        sheet.Cells[2, col++].Value = "Tədarükçünün hansı növ vergi ödəyicisi olması (ƏDV, sadələşdirilmiş K/T məhsulu istehsalçısı )";
+
+                        sheet.Row(2).Style.Font.Bold = true;
+                        sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                        sheet.Column(1).Width = 7;
+                        sheet.Column(2).Width = 20;
+                        sheet.Column(3).Width = 20;
+                        sheet.Column(4).Width = 20;
+                        sheet.Column(5).Width = 20;
+                        sheet.Column(6).Width = 20;
+                        sheet.Column(7).Width = 20;
+                        sheet.Column(8).Width = 20;
+                        sheet.Column(9).Width = 20;
+                        sheet.Column(10).Width = 20;
+                        sheet.Column(11).Width = 20;
+                        sheet.Column(12).Width = 20;
+                        sheet.Column(13).Width = 20;
+                        sheet.Column(14).Width = 20;
+                        sheet.Column(15).Width = 20;
+
+                        int rowIndex = 3;
+                        var ri = 1;
+                        string auname = "";
+                        decimal tquantity = 0;
+
+                        foreach (var item in modelDemandProduction.OrganizationDetailList)
+                        {
+                            var col2 = 1;
+                            tquantity = item.quantity * item.unit_price;
+
+                            modelDemandProduction.auArrName = item.fullAddress.Split(',').ToArray();
+
+                            if (modelDemandProduction.auArrName.Count() > 1)
+                            {
+                                auname = modelDemandProduction.auArrName[1];
+                            }
+                            else if (modelDemandProduction.auArrName.Count() == 1)
+                            {
+                                auname = modelDemandProduction.auArrName[0];
+                            }
+                            else
+                            {
+                                auname = "";
+                            }
+
+
+                            sheet.Cells[rowIndex, col2++].Value = ri.ToString();
+                            sheet.Cells[rowIndex, col2++].Value = item.regionName;
+                            sheet.Cells[rowIndex, col2++].Value = auname;
+
+                            sheet.Cells[rowIndex, col2++].Value = item.organizationName;
+                            sheet.Cells[rowIndex, col2++].Value = item.prodcutName + " (" + item.parentProductName + ")";
+                            sheet.Cells[rowIndex, col2++].Value = item.unitOfMeasurement;
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.quantity);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unit_price);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
+                            
+                            sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                            rowIndex++;
+                            ri++;
+                        }
+
+                        sheet.Cells[1, 1, rowIndex - 1, 15].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 15].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 15].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 15].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 15].Style.WrapText = true;
+                        sheet.Cells[1, 1, rowIndex - 1, 15].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        string fileName = Guid.NewGuid() + ".xls";
+
+                        Response.ClearContent();
+                        Response.BinaryWrite(excelPackage.GetAsByteArray());
+                        Response.AddHeader("content-disposition", "attachment;filename=" + fileName);
+                        Response.AppendCookie(new HttpCookie("fileDownloadToken", "1111"));
+                        Response.ContentType = "application/excel";
+                        Response.Flush();
+                        Response.End();
+                    }
+                }
+                return Request.IsAjaxRequest()
+                   ? (ActionResult)PartialView("PartialDemandByForganistionN", modelDemandProduction)
+                   : View(modelDemandProduction);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
 
         public ActionResult DemandProductDetailInfoForAccounting(int? page, long productId = -1, bool excell = false, string startDate = null, string endDate = null)
         {
@@ -2146,7 +2357,7 @@ namespace Emsal.AdminUI.Controllers
         }
 
 
-        public ActionResult Organisation(string actionName, long adminUnitId=0)
+        public ActionResult Organisation(string actionName, string adminUnitId=null)
         {
             try
             {
@@ -2166,7 +2377,13 @@ namespace Emsal.AdminUI.Controllers
                 baseInput.userName = modelDemandProduction.Admin.Username;
 
 
-                BaseOutput bouput = srv.WS_GetGovermentOrganisatinByAdminID(baseInput, adminUnitId, true, out modelDemandProduction.ForeignOrganizationArray);
+                if (!string.IsNullOrEmpty(saddressIdString))
+                {
+                    modelDemandProduction.addressIdList = adminUnitId.Split(',').Select(long.Parse).ToArray();
+                }
+
+
+                BaseOutput bouput = srv.WS_GetGovermentOrganisatinByAdminID(baseInput, 1, true, out modelDemandProduction.ForeignOrganizationArray);
 
 
                 if (modelDemandProduction.ForeignOrganizationArray == null)

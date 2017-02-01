@@ -172,6 +172,8 @@ namespace Emsal.AdminUI.Models
         public long economicZoneId { get; set; }
         public long organisationId { get; set; }
         public long year { get; set; }
+        public long userType { get; set; }
+        public string finVoen { get; set; }
         public string addressIdString { get; set; }
         public long[] addressIdList { get; set; }
 
