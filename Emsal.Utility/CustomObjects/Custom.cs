@@ -17,7 +17,9 @@ namespace Emsal.Utility.CustomObjects
 
             //Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator = ".";
 
-            str = string.Format(Thread.CurrentThread.CurrentCulture = new CultureInfo("de-DE"), "{0:#,##0.000}", pr).TrimEnd('0', '.').TrimEnd(',');
+            //str = string.Format(Thread.CurrentThread.CurrentCulture = new CultureInfo("de-DE"), "{0:#,##0.000}", pr).TrimEnd('0', '.').TrimEnd(',');
+
+            str = string.Format(Thread.CurrentThread.CurrentCulture = new CultureInfo("az-Latn-AZ"), "{0:#,##0.000}", pr).TrimEnd('0', '.').TrimEnd(',');
 
             return str;
         }
