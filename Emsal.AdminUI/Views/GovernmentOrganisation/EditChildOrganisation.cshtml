@@ -20,7 +20,7 @@
             @Html.HiddenFor(model => model.OrganisationId)
             @Html.HiddenFor(model => model.RedirectToParent)
             @Html.HiddenFor(model => model.NotChild)
-            @Html.HiddenFor(model => model.FullAddress)
+            @Html.HiddenFor(model => model.AdminUnitId)
 
             <div class="well" style="margin:8px; font-size:11px">
                 <div class="row">
@@ -84,6 +84,7 @@
                         url: '/GovernmentOrganisation/AdminUnit?pId=0&adminUnitId=@Model.AdminUnitId',
                         type: 'GET',
                         success: function (result) {
+                            $('#AdminUnitId').val(@Model.AdminUnitId);
                             $('#AdminUnit').html(result);
 
                             //$("select[name='adId[0]']").change();
@@ -333,23 +334,26 @@
 <script>
         function GetAdminUnit(elem) {
             pId = $(elem).val();
+            $('#AdminUnitId').val(pId);
+            alert($('#AdminUnitId').val());
             $(elem).parent().nextAll().remove();
-
             if (pId > 0) {
                 $.ajax({
                     url: '/GovernmentOrganisation/AdminUnit?pId=' + pId,
                     type: 'GET',
                     //data: { "pId": appId},
                     success: function (result) {
+                        console.log(pId);
+
                         $('#addressId').val(pId);
                         $(elem).parent().parent().append(result);
 
-                        $("#FullAddress").val(pId);
+
 
                         $('.select2').select2();
                     },
                     error: function () {
-
+                        console.log('error')
                     }
                 });
             }

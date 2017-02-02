@@ -616,12 +616,22 @@ namespace Emsal.AdminUI.Controllers
 
             //update address
             BaseOutput addressOUT = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
-            modelUser.FutureAddress.fullAddress = form.FullAddress;
-            modelUser.FutureAddress.addressDesc = form.descAddress;
-            if (!String.IsNullOrEmpty(form.FullAddress))
+
+            if (form.AdminUnitId > 0)
             {
-                modelUser.FutureAddress.adminUnit_Id = long.Parse(form.FullAddress);
+                BaseOutput galf = srv.WS_GetAdminUnitListForID(binput, (long)(form.AdminUnitId), true, out modelUser.PRMAdminUnitArray);
+
+
+                modelUser.PRMAdminUnitList = modelUser.PRMAdminUnitArray.ToList();
+                //modelUser.Address.fullAddress = string.Join(",", modelUser.PRMAdminUnitList.Select(x => x.Name));
+
+                modelUser.FutureAddress.fullAddress = string.Join(",", modelUser.PRMAdminUnitList.Select(x => x.Name));
             }
+            modelUser.FutureAddress.addressDesc = form.descAddress;
+            //if (!String.IsNullOrEmpty(form.FullAddress))
+            //{
+            //    modelUser.FutureAddress.adminUnit_Id = long.Parse(form.FullAddress);
+            //}
             BaseOutput address = srv.WS_UpdateAddress(binput, modelUser.FutureAddress);
 
 
@@ -2347,7 +2357,7 @@ namespace Emsal.AdminUI.Controllers
                 modelUser.arrNum = (int)Session["arrONum"] + 1;
                 Session["arrONum"] = modelUser.arrNum;
             }
-
+            modelUser.AdminUnitId = pId;
             return View(modelUser);
         }
 
