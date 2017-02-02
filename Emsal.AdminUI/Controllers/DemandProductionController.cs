@@ -117,7 +117,7 @@ namespace Emsal.AdminUI.Controllers
 
                     //modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelDemandProduction.EnumCategory.Id && x.foreignOrganization != null).ToList();
                 }
-                
+
                 BaseOutput gdpc = srv.WS_GetDemandProductionDetailistForEValueId_OPC(baseInput, modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
 
                 long[] aic = new long[modelDemandProduction.itemCount];
@@ -402,7 +402,7 @@ namespace Emsal.AdminUI.Controllers
         }
 
 
-        public ActionResult DemandByForganistion(int? page, bool excell = false, string startDate = null, string endDate = null, long economicZoneId = -1, string addressId = null,  long organisationId = -1,long productId = -1,long year = -1)
+        public ActionResult DemandByForganistion(int? page, bool excell = false, string startDate = null, string endDate = null, long economicZoneId = -1, string addressId = null, long organisationId = -1, long productId = -1, long year = -1)
         {
             try
             {
@@ -425,7 +425,7 @@ namespace Emsal.AdminUI.Controllers
                     seconomicZoneId = economicZoneId;
                     saddressId = 0;
                 }
-                if (addressId !=null)
+                if (addressId != null)
                 {
                     saddressIdString = addressId;
                     sorganisationId = 0;
@@ -471,7 +471,7 @@ namespace Emsal.AdminUI.Controllers
                 if (excell == true)
                 {
                     pageNumber = 1;
-                    pageSize = 30000;
+                    pageSize = 1000000;
                 }
 
                 if (!string.IsNullOrEmpty(saddressIdString))
@@ -481,7 +481,7 @@ namespace Emsal.AdminUI.Controllers
 
 
                 modelDemandProduction.DemandForegnOrganization = new DemandForegnOrganization();
-                
+
                 modelDemandProduction.DemandForegnOrganization.page = pageNumber;
                 modelDemandProduction.DemandForegnOrganization.page_size = pageSize;
                 modelDemandProduction.DemandForegnOrganization.regionId = seconomicZoneId;
@@ -490,7 +490,7 @@ namespace Emsal.AdminUI.Controllers
                 modelDemandProduction.DemandForegnOrganization.productID = sproductId;
                 modelDemandProduction.DemandForegnOrganization.year = syear;
 
-               BaseOutput gpp = srv.WS_GetDemandByForganistion_OP(baseInput, modelDemandProduction.DemandForegnOrganization, out modelDemandProduction.OrganizationDetailArray);
+                BaseOutput gpp = srv.WS_GetDemandByForganistion_OP(baseInput, modelDemandProduction.DemandForegnOrganization, out modelDemandProduction.OrganizationDetailArray);
 
 
                 if (modelDemandProduction.OrganizationDetailArray == null)
@@ -590,7 +590,7 @@ namespace Emsal.AdminUI.Controllers
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.regionName;
-                            sheet.Cells[rowIndex, col2++].Value = auname;
+                            sheet.Cells[rowIndex, col2++].Value = item.adminName;
 
                             sheet.Cells[rowIndex, col2++].IsRichText = true;
                             col2--;
@@ -617,7 +617,7 @@ namespace Emsal.AdminUI.Controllers
 
                             //sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                             sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                    
+
                             rowIndex++;
                             ri++;
                         }
@@ -651,7 +651,7 @@ namespace Emsal.AdminUI.Controllers
         }
 
 
-        public ActionResult DemandByForganistionN(int? page, bool excell = false, long productId = -1, long userType = -1, string finVoen = null)
+        public ActionResult TotalDemandOffers(int? page, bool excell = false, long productId = -1, long userType = -1, string finVoen = null)
         {
             try
             {
@@ -664,7 +664,7 @@ namespace Emsal.AdminUI.Controllers
                     suserType = 0;
                     sfinVoen = null;
                 }
-                
+
                 if (productId >= 0)
                     sproductId = productId;
                 if (userType >= 0)
@@ -695,33 +695,34 @@ namespace Emsal.AdminUI.Controllers
                 if (excell == true)
                 {
                     pageNumber = 1;
-                    pageSize = 30;
+                    pageSize = 1000000;
                 }
 
-                modelDemandProduction.DemandForegnOrganization = new DemandForegnOrganization();
+                modelDemandProduction.DemandOfferProductsSearch = new DemandOfferProductsSearch();
 
-                modelDemandProduction.DemandForegnOrganization.page = pageNumber;
-                modelDemandProduction.DemandForegnOrganization.page_size = pageSize;
-                modelDemandProduction.DemandForegnOrganization.year = 2016;
+                modelDemandProduction.DemandOfferProductsSearch.productId = sproductId;
+                modelDemandProduction.DemandOfferProductsSearch.roleID = suserType;
+                modelDemandProduction.DemandOfferProductsSearch.pinNumber = sfinVoen;
+                modelDemandProduction.DemandOfferProductsSearch.voen = sfinVoen;
 
-                BaseOutput gpp = srv.WS_GetDemandByForganistion_OP(baseInput, modelDemandProduction.DemandForegnOrganization, out modelDemandProduction.OrganizationDetailArray);
+                BaseOutput gpp = srv.WS_GetTotalDemandOffers(baseInput, pageNumber, true, pageSize, true, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.DemanProductionGroupArray);
 
 
-                if (modelDemandProduction.OrganizationDetailArray == null)
+                if (modelDemandProduction.DemanProductionGroupArray == null)
                 {
-                    modelDemandProduction.OrganizationDetailList = new List<OrganizationDetail>();
+                    modelDemandProduction.DemanProductionGroupList = new List<DemanProductionGroup>();
                 }
                 else
                 {
-                    modelDemandProduction.OrganizationDetailList = modelDemandProduction.OrganizationDetailArray.ToList();
+                    modelDemandProduction.DemanProductionGroupList = modelDemandProduction.DemanProductionGroupArray.ToList();
                 }
 
-                BaseOutput gdpc = srv.WS_GetDemandByForganistion_OPC(baseInput, modelDemandProduction.DemandForegnOrganization, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
+                BaseOutput gdpc = srv.WS_GetTotalDemandOffers_OPC(baseInput, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
 
                 long[] aic = new long[modelDemandProduction.itemCount];
 
                 modelDemandProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
-                
+
                 modelDemandProduction.productId = sproductId;
                 modelDemandProduction.userType = suserType;
                 modelDemandProduction.finVoen = sfinVoen;
@@ -767,12 +768,12 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
                         sheet.Column(1).Width = 7;
-                        sheet.Column(2).Width = 20;
+                        sheet.Column(2).Width = 30;
                         sheet.Column(3).Width = 20;
                         sheet.Column(4).Width = 20;
                         sheet.Column(5).Width = 20;
                         sheet.Column(6).Width = 20;
-                        sheet.Column(7).Width = 20;
+                        sheet.Column(7).Width = 30;
                         sheet.Column(8).Width = 20;
                         sheet.Column(9).Width = 20;
                         sheet.Column(10).Width = 20;
@@ -784,51 +785,71 @@ namespace Emsal.AdminUI.Controllers
 
                         int rowIndex = 3;
                         var ri = 1;
-                        string auname = "";
-                        decimal tquantity = 0;
 
-                        foreach (var item in modelDemandProduction.OrganizationDetailList)
+                        string pname = "";
+                        string opname = "";
+
+                        long i = 0;
+
+                        foreach (var item in modelDemandProduction.DemanProductionGroupList)
                         {
                             var col2 = 1;
-                            tquantity = item.quantity * item.unit_price;
 
-                            modelDemandProduction.auArrName = item.fullAddress.Split(',').ToArray();
-
-                            if (modelDemandProduction.auArrName.Count() > 1)
+                            pname = item.productName + item.productParentName;
+                            if (opname != pname)
                             {
-                                auname = modelDemandProduction.auArrName[1];
+                                i = 0;
                             }
-                            else if (modelDemandProduction.auArrName.Count() == 1)
+
+                            sheet.Cells[rowIndex, col2++].Value = ri.ToString();
+                            sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity);
+                            sheet.Cells[rowIndex, col2++].Value = item.enumValueName;
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unitPrice);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalQuantityPrice);
+
+                            if (item.offerProductsList.Count() > 0)
                             {
-                                auname = modelDemandProduction.auArrName[0];
+                                sheet.Cells[rowIndex, col2++].Value = item.offerProductsList[i].personName + " " + item.offerProductsList[i].surname + " " + item.offerProductsList[i].fatherName;
                             }
                             else
                             {
-                                auname = "";
+                                sheet.Cells[rowIndex, col2++].Value = "";
                             }
 
 
-                            sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                            sheet.Cells[rowIndex, col2++].Value = item.regionName;
-                            sheet.Cells[rowIndex, col2++].Value = auname;
+                            sheet.Cells[rowIndex, col2++].IsRichText = true;
+                            col2--;
+                            ExcelRichTextCollection rtfCollection = sheet.Cells[rowIndex, col2++].RichText;
+                            ExcelRichText ert;
 
-                            sheet.Cells[rowIndex, col2++].Value = item.organizationName;
-                            sheet.Cells[rowIndex, col2++].Value = item.prodcutName + " (" + item.parentProductName + ")";
-                            sheet.Cells[rowIndex, col2++].Value = item.unitOfMeasurement;
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.quantity);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unit_price);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
-                            
+                            if (item.offerProductsList.Count() > 0)
+                            {
+                                if (!string.IsNullOrWhiteSpace(item.offerProductsList[i].pinNumber))
+                                {
+                                    ert = rtfCollection.Add("FİN: ");
+                                    ert.Bold = true;
+                                    ert = rtfCollection.Add(item.offerProductsList[i].pinNumber + "\n");
+                                    ert.Bold = false;
+                                }
+
+                                if (!string.IsNullOrWhiteSpace(item.offerProductsList[i].voen))
+                                {
+                                    ert = rtfCollection.Add("VÖEN: ");
+                                    ert.Bold = true;
+                                    ert = rtfCollection.Add(item.offerProductsList[i].voen);
+                                    ert.Bold = false;
+                                }
+                            }
+
                             sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
                             rowIndex++;
                             ri++;
+
+
+                            opname = pname;
+                            i = i + 1;
                         }
 
                         sheet.Cells[1, 1, rowIndex - 1, 15].Style.Border.Left.Style = ExcelBorderStyle.Thin;
@@ -849,8 +870,9 @@ namespace Emsal.AdminUI.Controllers
                         Response.End();
                     }
                 }
+
                 return Request.IsAjaxRequest()
-                   ? (ActionResult)PartialView("PartialDemandByForganistionN", modelDemandProduction)
+                   ? (ActionResult)PartialView("PartialTotalDemandOffers", modelDemandProduction)
                    : View(modelDemandProduction);
             }
             catch (Exception ex)
@@ -1307,7 +1329,7 @@ namespace Emsal.AdminUI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
                 baseInput.userName = modelDemandProduction.Admin.Username;
 
-                BaseOutput gpp = srv.WS_GetDemandOfferProductionTotal(baseInput,saddressId,true, out modelDemandProduction.DemandOfferDetailArray);
+                BaseOutput gpp = srv.WS_GetDemandOfferProductionTotal(baseInput, saddressId, true, out modelDemandProduction.DemandOfferDetailArray);
 
                 if (modelDemandProduction.DemandOfferDetailArray == null)
                 {
@@ -1412,8 +1434,8 @@ namespace Emsal.AdminUI.Controllers
                         {
                             var col2 = 1;
                             ppname = item.parentProductName;
-                            dquantity=decimal.Parse(Custom.ConverPriceToStringDelZero((decimal)(item.totalOffer - item.totalDemand)));
-                            if(dquantity > 0)
+                            dquantity = decimal.Parse(Custom.ConverPriceToStringDelZero((decimal)(item.totalOffer - item.totalDemand)));
+                            if (dquantity > 0)
                             {
                                 dsquantity = "+" + Custom.ConverPriceToStringDelZero((decimal)(dquantity));
                             }
@@ -1531,7 +1553,7 @@ namespace Emsal.AdminUI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
                 baseInput.userName = modelDemandProduction.Admin.Username;
 
-                BaseOutput gpp = srv.WS_GetDemandOfferProductionTotal(baseInput,saddressId,true, out modelDemandProduction.DemandOfferDetailArray);
+                BaseOutput gpp = srv.WS_GetDemandOfferProductionTotal(baseInput, saddressId, true, out modelDemandProduction.DemandOfferDetailArray);
 
                 if (modelDemandProduction.DemandOfferDetailArray == null)
                 {
@@ -2266,7 +2288,7 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
-        public ActionResult AdminUnit(string actionName, long economicZoneId=0)
+        public ActionResult AdminUnit(string actionName, long economicZoneId = 0)
         {
             try
             {
@@ -2292,8 +2314,8 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    BaseOutput bouput = srv.WS_GetAdminUnitsByParentId(baseInput,  (int)economicZoneId, true, out modelDemandProduction.PRMAdminUnitArray);
-                }                
+                    BaseOutput bouput = srv.WS_GetAdminUnitsByParentId(baseInput, (int)economicZoneId, true, out modelDemandProduction.PRMAdminUnitArray);
+                }
 
 
                 if (modelDemandProduction.PRMAdminUnitArray == null)
@@ -2357,7 +2379,7 @@ namespace Emsal.AdminUI.Controllers
         }
 
 
-        public ActionResult Organisation(string actionName, string adminUnitId=null)
+        public ActionResult Organisation(string actionName, string adminUnitId = null)
         {
             try
             {
