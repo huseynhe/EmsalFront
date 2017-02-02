@@ -38,14 +38,23 @@
                     <td class="col-md-6">
                         @item.SurName @item.Name @item.FatherName
                         <div class="clearfix"></div>
+                        @item.organizationName
                     </td>
                     <td class="col-md-1">
                         @item.gender
                     </td>
                     <td class="col-md-2">
-                        @item.pinNumber
+                        @if (!string.IsNullOrEmpty(item.pinNumber))
+                        {
+                       <b>FİN: </b> @item.pinNumber
+                        }
+                        <div class="clearfix"></div>
+                        @if (!string.IsNullOrEmpty(item.voen))
+                        {
+                        <b>VÖEN: </b> @item.voen
+                        }
                     </td>
-                    <td onclick="location.href = '/OfferMonitoring/ContractForm?isContract=true&pId=@item.personId'" class="col-md-1 text-center" style="cursor:pointer;font-size:20px;">
+                    <td onclick="location.href = '/OfferMonitoring/ContractForm?isContract=true&pid=@item.personId'" class="col-md-1 text-center" style="cursor:pointer;font-size:20px;">
                         <span class="glyphicon glyphicon-save-file"></span>
                     </td>
                         <td onclick="GetAttachFileTemp(this,@item.personId)" class="col-md-1 text-center" style="cursor:pointer;font-size:20px;">

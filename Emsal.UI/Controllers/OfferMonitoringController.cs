@@ -524,8 +524,10 @@ namespace Emsal.UI.Controllers
                 modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch= new GetDemandProductionDetailistForEValueIdSearch();
                 modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.monitoring_Ev_Id = modelOfferMonitoring.EnumValue.Id;
                 modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.pageSize = pageSize;
                 modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.Name = snameSurnameFathername;
                 modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.pinNumber = spin;
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.voen = spin;
                 modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.user_Id = modelOfferMonitoring.User.Id;
                 modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.contractStatus = sisApprov;
 
@@ -600,7 +602,7 @@ namespace Emsal.UI.Controllers
 
                 modelOfferMonitoring.OfferProductionDetailSearch = new OfferProductionDetailSearch();
 
-                modelOfferMonitoring.OfferProductionDetailSearch.state_eV_Id = modelOfferMonitoring.EnumValue.Id;
+                modelOfferMonitoring.OfferProductionDetailSearch.monintoring_eV_Id = modelOfferMonitoring.EnumValue.Id;
                 modelOfferMonitoring.OfferProductionDetailSearch.page = 1;
                 modelOfferMonitoring.OfferProductionDetailSearch.pageSize = 50;
                 modelOfferMonitoring.OfferProductionDetailSearch.personID = pid;
@@ -680,7 +682,7 @@ namespace Emsal.UI.Controllers
                     foreach (string file in files)
                     {
                         FileInfo fi = new FileInfo(file);
-                        if (fi.LastAccessTime < DateTime.Now.AddHours(-1))
+                        if (fi.LastAccessTime < DateTime.Now.AddMinutes(-5))
                             fi.Delete();
                     }
 

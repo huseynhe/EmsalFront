@@ -1,4 +1,5 @@
 ﻿@model Emsal.UI.Models.OfferMonitoringViewModel
+@using Emsal.Utility.CustomObjects;
 
 
 @{
@@ -863,7 +864,7 @@ RU'>
                 &#351;&#601;xsind&#601;
                 bir t&#601;r&#601;fd&#601;n v&#601; &#601;rzaq m&#601;hsullar&#305;n&#305;n
                 istehsal&ccedil;&#305;s&#305; v&#601; ya sat&#305;c&#305;s&#305;
-               @Model.ProductionDetailList.FirstOrDefault().person.Surname @Model.ProductionDetailList.FirstOrDefault().person.Name @Model.ProductionDetailList.FirstOrDefault().person.FatherName (bundan sonra - &#304;cra&ccedil;&#305;),<o:p></o:p>
+               @Model.ProductionDetailList.FirstOrDefault().surname @Model.ProductionDetailList.FirstOrDefault().name @Model.ProductionDetailList.FirstOrDefault().fatherName (bundan sonra - &#304;cra&ccedil;&#305;),<o:p></o:p>
             </span>
         </p>
 
@@ -2112,7 +2113,7 @@ RU'><o:p></o:p></span>
                                 &quot;&#399;rzaq
                                 m&#601;hsullar&#305;n&#305;n t&#601;dar&uuml;k&uuml; v&#601;
                                 t&#601;chizat&#305;&quot; A&ccedil;&#305;q S&#601;hmdar C&#601;miyy&#601;ti
-                                il&#601; @Model.ProductionDetailList.FirstOrDefault().person.Surname @Model.ProductionDetailList.FirstOrDefault().person.Name @Model.ProductionDetailList.FirstOrDefault().person.FatherName (@Model.ProductionDetailList.FirstOrDefault().userType)   @Model.ProductionDetailList.FirstOrDefault().organizationName aras&#305;nda
+                                il&#601; @Model.ProductionDetailList.FirstOrDefault().surname @Model.ProductionDetailList.FirstOrDefault().name @Model.ProductionDetailList.FirstOrDefault().fatherName (@Model.ProductionDetailList.FirstOrDefault().userType)   @Model.ProductionDetailList.FirstOrDefault().organizationName aras&#305;nda
                                 ba&#287;lan&#305;lm&#305;&#351;
                             </span>
                         </b><span style='font-size:9.0pt;
@@ -2296,7 +2297,7 @@ RU'><o:p></o:p></span>
                                 <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
     auto'>
                                     <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
-    mso-fareast-language:RU'><o:p>@item.quantity</o:p></span>
+    mso-fareast-language:RU'><o:p>@Custom.ConverPriceToStringDelZero((decimal)item.quantity)</o:p></span>
                                 </p>
                             </td>
                             <td width=66 style='width:49.6pt;border-top:none;border-left:none;
@@ -2316,7 +2317,7 @@ RU'><o:p></o:p></span>
                                 <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:
     auto'>
                                     <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";
-    mso-fareast-language:RU'><o:p>@item.unitPrice</o:p></span>
+    mso-fareast-language:RU'><o:p>@Custom.ConverPriceToStringDelZero((decimal)item.unitPrice)</o:p></span>
                                 </p>
                             </td>
                             <td width=76 style='width:2.0cm;border-top:none;border-left:none;
@@ -2355,9 +2356,9 @@ RU'><o:p></o:p></span>
                     <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
                         <span style='font-size:9.0pt;mso-fareast-font-family:"Times New Roman";mso-fareast-language:
   RU'>
-                            C&#601;mi &nbsp; @totalPrice &nbsp; azn<br>
-                            &#399;DV &nbsp; @edv &nbsp; azn<br>
-                            &Uuml;mumi m&#601;bl&#601;&#287; &nbsp; @(totalPrice+edv) &nbsp; azn<o:p></o:p>
+                            C&#601;mi &nbsp; @Custom.ConverPriceToStringDelZero((decimal)totalPrice) &nbsp; azn<br>
+                            &#399;DV &nbsp; @Custom.ConverPriceToStringDelZero((decimal)edv) &nbsp; azn<br>
+                            &Uuml;mumi m&#601;bl&#601;&#287; &nbsp; @Custom.ConverPriceToStringDelZero((decimal)(totalPrice+edv)) &nbsp; azn<o:p></o:p>
                         </span>
                     </p>
                     <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'>
