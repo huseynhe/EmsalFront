@@ -5,7 +5,6 @@
 @{
     ViewBag.Title = "Index";
     Layout = "";
-    decimal tquantity = 0;
     string pname = "";
     string opname = "";
     long i = 0;
@@ -26,52 +25,45 @@
             <tbody>
                 @foreach (var item in Model.DemanProductionGroupList)
                 {
-                    pname = item.productName + item.productParentName;
-                    if(opname!=pname)
+                    foreach (var itemo in item.offerProductsList)
                     {
-                        i = 0;
-                    }
-                    <tr>
-                        <td class="col-md-1">
-                            @item.productName (@item.productParentName)
-                        </td>
-                        <td class="col-md-1">
-                            @Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity)
-                        </td>
-                        <td class="col-md-1">
-                            @item.enumValueName
-                        </td>
-                        <td class="col-md-1">
-                            @Custom.ConverPriceToStringDelZero((decimal)item.unitPrice)
-                        </td>
-                        <td class="col-md-1">
-                            @Custom.ConverPriceToStringDelZero((decimal)item.totalQuantityPrice)
-                        </td>
-                        <td class="col-md-1">
-                            @if (item.offerProductsList.Count() > 0)
-                            {
-                                <span>@item.offerProductsList[i].personName @item.offerProductsList[i].surname @item.offerProductsList[i].fatherName 
-                            <div class="clearfix"></div>
-                            @item.offerProductsList[i].organizationName</span>
-                            }
-                        </td>
-                        <td class="col-md-1">
-                            @if (item.offerProductsList.Count() > 0)
-                            {
-                                if (!string.IsNullOrWhiteSpace(item.offerProductsList[i].pinNumber))
+                        <tr>
+                            <td class="col-md-1">
+                                @item.productName (@item.productParentName)
+                            </td>
+                            <td class="col-md-1">
+                                @Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity)
+                            </td>
+                            <td class="col-md-1">
+                                @item.enumValueName
+                            </td>
+                            <td class="col-md-1">
+                                @Custom.ConverPriceToStringDelZero((decimal)item.unitPrice)
+                            </td>
+                            <td class="col-md-1">
+                                @Custom.ConverPriceToStringDelZero((decimal)item.totalQuantityPrice)
+                            </td>
+                            <td class="col-md-1">
+                                <span>
+                                    @itemo.personName @itemo.surname @itemo.fatherName
+                                    <div class="clearfix"></div>
+                                    @itemo.organizationName
+                                </span>
+
+                            </td>
+                            <td class="col-md-1">
+                                @if (!string.IsNullOrWhiteSpace(itemo.pinNumber))
                                 {
-                                   <b>FİN: </b>@item.offerProductsList[i].pinNumber
+                                    <b>FİN: </b>@itemo.pinNumber
                                     <div class="clearfix"></div>
                                 }
-                                if (!string.IsNullOrWhiteSpace(item.offerProductsList[i].voen))
+                                @if (!string.IsNullOrWhiteSpace(itemo.voen))
                                 {
-                                    <b>VÖEN: </b>@item.offerProductsList[i].voen
+                                    <b>VÖEN: </b>@itemo.voen
                                 }
-                            }
-                        </td>
-                    </tr>
-                    opname = pname;
-                    i = i + 1;
+                            </td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>
