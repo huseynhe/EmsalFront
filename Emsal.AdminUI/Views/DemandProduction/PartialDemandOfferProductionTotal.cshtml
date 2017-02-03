@@ -32,7 +32,7 @@
                         {
                             ppname = item.parentProductName;
 
-                            dquantity =Decimal.Parse(Custom.ConverPriceToStringDelZero((decimal)(item.totalOffer - item.totalDemand)));
+                            dquantity =decimal.Parse(Custom.ConverPriceToStringDelZero((decimal)(item.totalOffer - item.totalDemand)));
 
 
                             if (ppname != oppname)
