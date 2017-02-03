@@ -49,12 +49,16 @@
                         </td>
                         <td class="col-md-2">
                             @item.managerSurname @item.managerName @item.fatherName
-                            @*<div class="clearfix"></div>
-                            @item.fullAddress*@
                             <div class="clearfix"></div>
-                            <b>VÖEN:</b> @item.voen
+                            @if (!string.IsNullOrEmpty(item.pinNumber))
+                            {
+                                <b>FİN:</b> @item.pinNumber
+                            }
                             <div class="clearfix"></div>
-                            <b>FİN:</b> @item.pinNumber
+                            @if (!string.IsNullOrEmpty(item.voen))
+                            {
+                                <b>VÖEN:</b> @item.voen
+                            }
                         </td>
                         <td class="col-md-1">
                             @item.organizationName
@@ -82,7 +86,7 @@
 </div>
 <div class="box-footer clearfix">
     Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
-    @Html.PagedListPager(Model.PagingT, page => Url.Action("DemandByForganistion", new { page, economicZoneId=Model.economicZoneId, addressId=Model.addressIdString, organisationId=Model.organisationId, productId = Model.productId, year=Model.year, startDate = Model.startDate, endDate = Model.endDate }))
+    @Html.PagedListPager(Model.PagingT, page => Url.Action("DemandByForganistion", new { page, economicZoneId = Model.economicZoneId, addressId = Model.addressIdString, organisationId = Model.organisationId, productId = Model.productId, year = Model.year, startDate = Model.startDate, endDate = Model.endDate }))
 </div>
 
 

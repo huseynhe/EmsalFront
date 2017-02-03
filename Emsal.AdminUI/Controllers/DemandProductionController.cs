@@ -16,6 +16,7 @@ using System.Web.UI;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.Drawing;
+using System.Globalization;
 
 namespace Emsal.AdminUI.Controllers
 {
@@ -598,15 +599,28 @@ namespace Emsal.AdminUI.Controllers
                             ExcelRichText ert = rtfCollection.Add(item.managerSurname + " " + item.managerName + " " + item.fatherName + "\n");
                             ert.Bold = false;
 
-                            ert = rtfCollection.Add("VÖEN: ");
-                            ert.Bold = true;
-                            ert = rtfCollection.Add(item.voen + "\n");
-                            ert.Bold = false;
+                            if (!string.IsNullOrEmpty(item.pinNumber.Trim()))
+                            {
+                                ert = rtfCollection.Add("FİN: ");
+                                ert.Bold = true;
+                                ert = rtfCollection.Add(item.pinNumber);
+                                ert.Bold = false;
+                            }
 
-                            ert = rtfCollection.Add("FİN: ");
-                            ert.Bold = true;
-                            ert = rtfCollection.Add(item.pinNumber);
-                            ert.Bold = false;
+                            if (!string.IsNullOrEmpty(item.voen.Trim()))
+                            {
+                                if (!string.IsNullOrEmpty(item.pinNumber.Trim()))
+                                {
+                                    ert = rtfCollection.Add("\n");
+                                    ert.Bold = false;
+                                }
+
+                                ert = rtfCollection.Add("VÖEN: ");
+                                ert.Bold = true;
+                                ert = rtfCollection.Add(item.voen);
+                                ert.Bold = false;
+                            }
+
 
                             sheet.Cells[rowIndex, col2++].Value = item.organizationName;
                             sheet.Cells[rowIndex, col2++].Value = item.prodcutName + " (" + item.parentProductName + ")";
@@ -773,7 +787,7 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Column(4).Width = 20;
                         sheet.Column(5).Width = 20;
                         sheet.Column(6).Width = 20;
-                        sheet.Column(7).Width = 30;
+                        sheet.Column(7).Width = 40;
                         sheet.Column(8).Width = 20;
                         sheet.Column(9).Width = 20;
                         sheet.Column(10).Width = 20;
@@ -785,20 +799,42 @@ namespace Emsal.AdminUI.Controllers
 
                         int rowIndex = 3;
                         var ri = 1;
+                        string orgName = "";
+
+                        modelDemandProduction.DemanProductionGroupList = modelDemandProduction.DemanProductionGroupList.OrderBy(x => x.productParentName).ToList();
 
                         foreach (var item in modelDemandProduction.DemanProductionGroupList)
                         {
                             foreach (var itemo in item.offerProductsList)
                             {
                             var col2 = 1;
+                                orgName = "";
+
                                 sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                                 sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
                                 sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity);
+
+                                //NumberFormatInfo nfi = new CultureInfo("az-Latn-AZ").NumberFormat;
+
+                                //nfi.NumberGroupSeparator = " ";
+                                //sheet.Cells[rowIndex, col2++].Value = double.Parse("23 232 323.54", nfi);
+
+
+                                //sheet.Cells[rowIndex, col2++].Value = decimal.Parse("5 454 500.85", new NumberFormatInfo() { NumberGroupSeparator = " " });
+
+                                //sheet.Cells[rowIndex, col2++].Value = "5 454 500.85";                               
+
+
                                 sheet.Cells[rowIndex, col2++].Value = item.enumValueName;
                                 sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unitPrice);
                                 sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalQuantityPrice);
 
-                                sheet.Cells[rowIndex, col2++].Value = itemo.personName + " " + itemo.surname + " " + itemo.fatherName;
+                                if (!string.IsNullOrEmpty(itemo.voen.Trim()))
+                                {
+                                    orgName = "\n" + itemo.organizationName;
+                                }
+
+                                sheet.Cells[rowIndex, col2++].Value = itemo.personName + " " + itemo.surname + " " + itemo.fatherName+ orgName;
 
 
                                 sheet.Cells[rowIndex, col2++].IsRichText = true;
@@ -806,7 +842,7 @@ namespace Emsal.AdminUI.Controllers
                                 ExcelRichTextCollection rtfCollection = sheet.Cells[rowIndex, col2++].RichText;
                                 ExcelRichText ert;
 
-                                if (!string.IsNullOrWhiteSpace(itemo.pinNumber))
+                                if (!string.IsNullOrEmpty(itemo.pinNumber.Trim()))
                                 {
                                     ert = rtfCollection.Add("FİN: ");
                                     ert.Bold = true;
@@ -814,9 +850,9 @@ namespace Emsal.AdminUI.Controllers
                                     ert.Bold = false;
                                 }
 
-                                if (!string.IsNullOrWhiteSpace(itemo.voen))
+                                if (!string.IsNullOrEmpty(itemo.voen.Trim()))
                                 {
-                                    if (!string.IsNullOrWhiteSpace(itemo.pinNumber))
+                                    if (!string.IsNullOrEmpty(itemo.pinNumber.Trim()))
                                     {
                                         ert = rtfCollection.Add("\n");
                                         ert.Bold = false;
@@ -827,9 +863,20 @@ namespace Emsal.AdminUI.Controllers
                                     ert = rtfCollection.Add(itemo.voen);
                                     ert.Bold = false;
                                 }
-                            sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
-                            rowIndex++;
+                                sheet.Cells[rowIndex, col2++].Value = "";
+                                sheet.Cells[rowIndex, col2++].Value = "";
+                                sheet.Cells[rowIndex, col2++].Value = "";
+                                sheet.Cells[rowIndex, col2++].Value = "";
+
+                                sheet.Cells[rowIndex, col2++].Value = string.Join(", ", itemo.comList.Select(x => x.communication));
+                                sheet.Cells[rowIndex, col2++].Value = itemo.roledesc;
+
+                                sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                                
+                                //sheet.Row(rowIndex).Style.Numberformat.Format = "0:#,##0.000000";
+
+                                rowIndex++;
                             ri++;
                             }
                         }
@@ -1423,7 +1470,7 @@ namespace Emsal.AdminUI.Controllers
                             }
                             else
                             {
-                                dsquantity = Custom.ConverPriceToStringDelZero((decimal)(dquantity));
+                                dsquantity = Custom.ConverPriceToStringDelZero((decimal)(dquantity)).ToString() ;
                             }
 
                             if (ppname != oppname)

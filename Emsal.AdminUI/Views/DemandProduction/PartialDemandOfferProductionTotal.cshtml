@@ -31,7 +31,8 @@
                 @foreach (var item in Model.DemandOfferPaging)
                         {
                             ppname = item.parentProductName;
-                            dquantity =decimal.Parse(Custom.ConverPriceToStringDelZero((decimal)(item.totalOffer - item.totalDemand)));
+
+                            dquantity =Decimal.Parse(Custom.ConverPriceToStringDelZero((decimal)(item.totalOffer - item.totalDemand)));
 
 
                             if (ppname != oppname)
