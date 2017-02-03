@@ -626,11 +626,12 @@ namespace Emsal.AdminUI.Controllers
                 //modelUser.Address.fullAddress = string.Join(",", modelUser.PRMAdminUnitList.Select(x => x.Name));
 
                 modelUser.FutureAddress.fullAddress = string.Join(",", modelUser.PRMAdminUnitList.Select(x => x.Name));
+                modelUser.FutureAddress.adminUnit_Id = form.AdminUnitId;
             }
             modelUser.FutureAddress.addressDesc = form.descAddress;
             //if (!String.IsNullOrEmpty(form.FullAddress))
             //{
-            //    modelUser.FutureAddress.adminUnit_Id = long.Parse(form.FullAddress);
+                
             //}
             BaseOutput address = srv.WS_UpdateAddress(binput, modelUser.FutureAddress);
 
