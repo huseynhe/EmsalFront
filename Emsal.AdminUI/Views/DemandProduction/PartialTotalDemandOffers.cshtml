@@ -5,8 +5,8 @@
 @{
     ViewBag.Title = "Index";
     Layout = "";
-    string pname = "";
-    string opname = "";
+    string oppname = "";
+    string ppname = "";
     long i = 0;
 }
 <h4 class="text-danger text-center">
@@ -27,9 +27,19 @@
                 {
                     foreach (var itemo in item.offerProductsList)
                     {
+                        ppname = item.productParentName;
+                        
+                             if (ppname != oppname)
+                            {
+                        <tr>
+                            <td colspan="4" class="text-center text-bold">
+                                @ppname
+                            </td>
+                        </tr>
+                    }
                         <tr>
                             <td class="col-md-1">
-                                @item.productName (@item.productParentName)
+                                @item.productName
                             </td>
                             <td class="col-md-1">
                                 @Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity)
@@ -66,6 +76,7 @@
                                 @itemo.roledesc
                             </td>
                         </tr>
+                        oppname = ppname;
                     }
                 }
             </tbody>

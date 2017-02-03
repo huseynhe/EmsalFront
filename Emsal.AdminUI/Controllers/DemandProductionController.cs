@@ -728,7 +728,7 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    modelDemandProduction.DemanProductionGroupList = modelDemandProduction.DemanProductionGroupArray.ToList();
+                    modelDemandProduction.DemanProductionGroupList = modelDemandProduction.DemanProductionGroupArray.OrderBy(x => x.productParentName).ToList();
                 }
 
                 BaseOutput gdpc = srv.WS_GetTotalDemandOffers_OPC(baseInput, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
@@ -800,18 +800,32 @@ namespace Emsal.AdminUI.Controllers
                         int rowIndex = 3;
                         var ri = 1;
                         string orgName = "";
-
-                        modelDemandProduction.DemanProductionGroupList = modelDemandProduction.DemanProductionGroupList.OrderBy(x => x.productParentName).ToList();
+                        string ppname = "";
+                        string oppname = "";
 
                         foreach (var item in modelDemandProduction.DemanProductionGroupList)
                         {
                             foreach (var itemo in item.offerProductsList)
                             {
+                                ppname = item.productParentName;
                             var col2 = 1;
                                 orgName = "";
 
+                                if (ppname != oppname)
+                                {
+                                    sheet.Cells[rowIndex, 1, rowIndex, 4].Merge = true;
+
+                                    sheet.Cells[rowIndex, 1].Value = ppname;
+
+                                    sheet.Cells[rowIndex, 1, rowIndex, 15].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                    sheet.Cells[rowIndex, 1, rowIndex, 15].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
+                                    sheet.Row(rowIndex).Height = 20;
+                                    rowIndex++;
+                                }
+
                                 sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                                sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
+                                sheet.Cells[rowIndex, col2++].Value = item.productName;
                                 sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity);
 
                                 //NumberFormatInfo nfi = new CultureInfo("az-Latn-AZ").NumberFormat;
@@ -869,7 +883,7 @@ namespace Emsal.AdminUI.Controllers
                                 sheet.Cells[rowIndex, col2++].Value = "";
                                 sheet.Cells[rowIndex, col2++].Value = "";
 
-                                sheet.Cells[rowIndex, col2++].Value = string.Join(", ", itemo.comList.Select(x => x.communication));
+                                sheet.Cells[rowIndex, col2++].Value = string.Join(", ", itemo.comList.Select(x => x.communication).LastOrDefault());
                                 sheet.Cells[rowIndex, col2++].Value = itemo.roledesc;
 
                                 sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
@@ -878,6 +892,8 @@ namespace Emsal.AdminUI.Controllers
 
                                 rowIndex++;
                             ri++;
+
+                            oppname = ppname;
                             }
                         }
 
