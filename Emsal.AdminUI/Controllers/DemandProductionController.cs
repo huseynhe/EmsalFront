@@ -737,7 +737,7 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Name = "Tələb";
 
                         var col = 1;
-                        sheet.Cells[1, col++].Value = "Mehsul uzre teleb ve teklifler";
+                        sheet.Cells[1, col++].Value = "Məhsul üzrə tələb və təkliflər";
                         sheet.Row(1).Height = 50;
                         sheet.Row(1).Style.Font.Size = 14;
                         sheet.Row(1).Style.Font.Bold = true;
@@ -786,70 +786,52 @@ namespace Emsal.AdminUI.Controllers
                         int rowIndex = 3;
                         var ri = 1;
 
-                        string pname = "";
-                        string opname = "";
-
-                        long i = 0;
-
                         foreach (var item in modelDemandProduction.DemanProductionGroupList)
                         {
+                            foreach (var itemo in item.offerProductsList)
+                            {
                             var col2 = 1;
+                                sheet.Cells[rowIndex, col2++].Value = ri.ToString();
+                                sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity);
+                                sheet.Cells[rowIndex, col2++].Value = item.enumValueName;
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unitPrice);
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalQuantityPrice);
 
-                            pname = item.productName + item.productParentName;
-                            if (opname != pname)
-                            {
-                                i = 0;
-                            }
-
-                            sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                            sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity);
-                            sheet.Cells[rowIndex, col2++].Value = item.enumValueName;
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unitPrice);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalQuantityPrice);
-
-                            if (item.offerProductsList.Count() > 0)
-                            {
-                                sheet.Cells[rowIndex, col2++].Value = item.offerProductsList[i].personName + " " + item.offerProductsList[i].surname + " " + item.offerProductsList[i].fatherName;
-                            }
-                            else
-                            {
-                                sheet.Cells[rowIndex, col2++].Value = "";
-                            }
+                                sheet.Cells[rowIndex, col2++].Value = itemo.personName + " " + itemo.surname + " " + itemo.fatherName;
 
 
-                            sheet.Cells[rowIndex, col2++].IsRichText = true;
-                            col2--;
-                            ExcelRichTextCollection rtfCollection = sheet.Cells[rowIndex, col2++].RichText;
-                            ExcelRichText ert;
+                                sheet.Cells[rowIndex, col2++].IsRichText = true;
+                                col2--;
+                                ExcelRichTextCollection rtfCollection = sheet.Cells[rowIndex, col2++].RichText;
+                                ExcelRichText ert;
 
-                            if (item.offerProductsList.Count() > 0)
-                            {
-                                if (!string.IsNullOrWhiteSpace(item.offerProductsList[i].pinNumber))
+                                if (!string.IsNullOrWhiteSpace(itemo.pinNumber))
                                 {
                                     ert = rtfCollection.Add("FİN: ");
                                     ert.Bold = true;
-                                    ert = rtfCollection.Add(item.offerProductsList[i].pinNumber + "\n");
+                                    ert = rtfCollection.Add(itemo.pinNumber);
                                     ert.Bold = false;
                                 }
 
-                                if (!string.IsNullOrWhiteSpace(item.offerProductsList[i].voen))
+                                if (!string.IsNullOrWhiteSpace(itemo.voen))
                                 {
+                                    if (!string.IsNullOrWhiteSpace(itemo.pinNumber))
+                                    {
+                                        ert = rtfCollection.Add("\n");
+                                        ert.Bold = false;
+                                    }
+
                                     ert = rtfCollection.Add("VÖEN: ");
                                     ert.Bold = true;
-                                    ert = rtfCollection.Add(item.offerProductsList[i].voen);
+                                    ert = rtfCollection.Add(itemo.voen);
                                     ert.Bold = false;
                                 }
-                            }
-
                             sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
                             rowIndex++;
                             ri++;
-
-
-                            opname = pname;
-                            i = i + 1;
+                            }
                         }
 
                         sheet.Cells[1, 1, rowIndex - 1, 15].Style.Border.Left.Style = ExcelBorderStyle.Thin;
