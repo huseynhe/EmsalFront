@@ -7,7 +7,6 @@
     Layout = "";
     string oppname = "";
     string ppname = "";
-    long i = 0;
 }
 <h4 class="text-danger text-center">
     <a href="/DemandProduction/TotalDemandOffers?productId=@Model.productId&userType=@Model.userType&finVoen=@Model.finVoen&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
@@ -28,15 +27,15 @@
                     foreach (var itemo in item.offerProductsList)
                     {
                         ppname = item.productParentName;
-                        
-                             if (ppname != oppname)
-                            {
-                        <tr>
-                            <td colspan="4" class="text-center text-bold">
-                                @ppname
-                            </td>
-                        </tr>
-                    }
+
+                        if (ppname != oppname)
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center text-bold">
+                                    @ppname
+                                </td>
+                            </tr>
+                        }
                         <tr>
                             <td class="col-md-1">
                                 @item.productName
@@ -70,13 +69,22 @@
                                 }
                             </td>
                             <td class="col-md-1">
-                               @string.Join(", ", itemo.comList.Select(x => x.communication))
+                                @Custom.ConverPriceToStringDelZero((decimal)itemo.totalQuantityPrice)
+                            </td>
+                            <td class="col-md-1">
+                                @Custom.ConverPriceToStringDelZero((decimal)itemo.quantity)
+                            </td>
+                            <td class="col-md-1">
+                                @itemo.enumValueName
+                            </td>
+                            <td class="col-md-1">
+                                @string.Join(", ", itemo.comList.Select(x => x.communication).LastOrDefault())
                             </td>
                             <td class="col-md-1">
                                 @itemo.roledesc
                             </td>
                         </tr>
-                        oppname = ppname;
+                                oppname = ppname;
                     }
                 }
             </tbody>

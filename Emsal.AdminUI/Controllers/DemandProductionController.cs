@@ -879,9 +879,9 @@ namespace Emsal.AdminUI.Controllers
                                 }
 
                                 sheet.Cells[rowIndex, col2++].Value = "";
-                                sheet.Cells[rowIndex, col2++].Value = "";
-                                sheet.Cells[rowIndex, col2++].Value = "";
-                                sheet.Cells[rowIndex, col2++].Value = "";
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)itemo.totalQuantityPrice);
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)itemo.quantity);
+                                sheet.Cells[rowIndex, col2++].Value = itemo.enumValueName;
 
                                 sheet.Cells[rowIndex, col2++].Value = string.Join(", ", itemo.comList.Select(x => x.communication).LastOrDefault());
                                 sheet.Cells[rowIndex, col2++].Value = itemo.roledesc;
