@@ -17,17 +17,11 @@
     @if (Model.isPDF == false)
     {
         <div class="col-md-6">
-            <input id="SelectedProductsSearchPN" class="form-control" placeholder="Məhsulun adına görə axtar" />
+            @Html.Action("ProductCatalogForSale", "DemandProduction", new { actionName = "SelectedProducts" })
         </div>
-        <div class="col-md-6" style="padding:0;">
-            <div class="btn btn-primary" onclick="SelectedProductsSearch('productName')">
-                <i class="glyphicon glyphicon-search"></i>&nbsp;axtar
-            </div>
-            </div>
             <div class="clearfix"></div>
             <br />
     }
-            <div class="clearfix"></div>
             <div class="col-md-12">
                 <div id="AjaxPaginationList">
                     @Html.Partial("PartialSelectedProducts")

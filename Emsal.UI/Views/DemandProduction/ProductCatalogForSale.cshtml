@@ -4,8 +4,9 @@
     Layout = "";
 }
 
-
-<div class="form-group col-md-6">
+@if (Model.actionName == null)
+{
+<div class="col-md-6">
     <select onchange="GetProductCatalogForSaleAS(this)" class="form-control unicase-form-control select select2">
         <option value="0">Satılacaq məhsul üzrə axtar</option>
         @foreach (var item in Model.ProductCatalogDetailList)
@@ -15,3 +16,18 @@
     </select>
 </div>
 
+<div class="clearfix"></div>
+            <br />
+
+}
+else
+{
+
+<select onchange="StatisticsSearch(this,'DemandProduction','@Model.actionName', 'productId')" class="form-control select2" style="width:auto !important;">
+    <option value="0">Satılacaq məhsul üzrə axtar</option>
+    @foreach (var item in Model.ProductCatalogDetailList)
+    {
+        <option value="@item.productCatalog.Id">@item.productCatalog.ProductName (@item.productName)</option>
+    }
+</select>
+}

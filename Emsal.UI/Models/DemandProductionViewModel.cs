@@ -109,6 +109,8 @@ namespace Emsal.UI.Models
         public IList<ProductionDetail> ProductionDetailList { get; set; }
         public ProductionDetail[] ProductionDetailArray;
 
+        public DemandProductionDetailistForUser DemandProductionDetailistForUser;
+
         public SelectedProduct SelectedProduct;
         public IList<SelectedProduct> SelectedProductList { get; set; }
         public SelectedProduct[] SelectedProductArray;
@@ -124,6 +126,7 @@ namespace Emsal.UI.Models
         public ProductionCalendarDetail[] LProductionCalendarDetailArray;
 
         public PagedList.IPagedList<ProductionDetail> Paging { get; set; }
+        public PagedList.IPagedList<long> PagingT { get; set; }
 
         public string[] selectedMonth { get; set; }
 
@@ -131,8 +134,8 @@ namespace Emsal.UI.Models
         public bool noButton { get; set; }
         public long userId { get; set; }
         public string fullAddressId = "";
-        
 
+        public string actionName { get; set; }
         public long totalSize = 0;
 
 
@@ -144,8 +147,10 @@ namespace Emsal.UI.Models
         public long[] productAddressIdsn { get; set; }
 
         public long[] productionControlEVIds { get; set; }
+        
+        public long itemCount = 0;
+        public bool itemCountB = true;
 
-        public int itemCount { get; set; }
 
         //[Display(Name = "Başlıq")]
         //[Required(ErrorMessage = "{0} xanası məcburidir.")]
@@ -166,7 +171,7 @@ namespace Emsal.UI.Models
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public string[] size { get; set; }
 
-        public int productId { get; set; }
+        public long productId { get; set; }
         public string fpid { get; set; }
         public long[] productIds { get; set; }
 

@@ -21,6 +21,7 @@ namespace Emsal.UI.Controllers
         private static string sfullProductId = "";
         private static string srurl = "";
         private static string sproductName;
+        private static long sproductId;
         private BaseInput baseInput;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
@@ -66,7 +67,7 @@ namespace Emsal.UI.Controllers
                 if (modelDemandProduction.DemandProductionArrayM != null)
                 {
                     modelDemandProduction.DemandProductionListM = modelDemandProduction.DemandProductionArrayM.Where(x => x.grup_Id != null).ToList();
-                    
+
                     if (modelDemandProduction.DemandProductionListM.Count() > 0)
                     {
                         return RedirectToAction("Redirect", "Login");
@@ -95,47 +96,6 @@ namespace Emsal.UI.Controllers
                     Guid dg = Guid.NewGuid();
                     Session["documentGrupId"] = dg;
                     this.Session.Timeout = 20;
-                }
-
-                return View(modelDemandProduction);
-
-            }
-            catch (Exception ex)
-            {
-                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
-            }
-        }
-
-
-        public ActionResult ProductCatalogForSale()
-        {
-            try
-            {
-                baseInput = new BaseInput();
-
-                modelDemandProduction = new DemandProductionViewModel();
-
-                long? userId = null;
-                if (User != null && User.Identity.IsAuthenticated)
-                {
-                    FormsIdentity identity = (FormsIdentity)User.Identity;
-                    if (identity.Ticket.UserData.Length > 0)
-                    {
-                        userId = Int32.Parse(identity.Ticket.UserData);
-                    }
-                }
-                BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelDemandProduction.User);
-                baseInput.userName = modelDemandProduction.User.Username;
-
-                BaseOutput bouput = srv.GetProductCatalogsWithParent(baseInput, out modelDemandProduction.ProductCatalogDetailArray);
-
-                if (modelDemandProduction.ProductCatalogDetailArray == null)
-                {
-                    modelDemandProduction.ProductCatalogDetailList = new List<ProductCatalogDetail>();
-                }
-                else
-                {
-                    modelDemandProduction.ProductCatalogDetailList = modelDemandProduction.ProductCatalogDetailArray.Where(x => x.productCatalog.canBeOrder == 1).ToList();
                 }
 
                 return View(modelDemandProduction);
@@ -1559,7 +1519,7 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult SelectedProducts(int? page, bool pdf = false, bool noButton = true, string productName = null, string rurl=null)
+        public ActionResult SelectedProducts(int? page, bool pdf = false, bool noButton = true, long productId = -1, string rurl=null)
         {
             try
             {
@@ -1568,19 +1528,16 @@ namespace Emsal.UI.Controllers
 
                 baseInput = new BaseInput();
                 modelDemandProduction = new DemandProductionViewModel();
-
-                if (productName != null)
-                    productName = StripTag.strSqlBlocker(productName.ToLower());
-
-                if (productName == null)
+                
+                if (productId == -1)
                 {
-                    sproductName = null;
+                    sproductId = 0;
                 }
 
                 if (rurl != null)
                     srurl = rurl;
-                if (productName != null)
-                    sproductName = productName;
+                if (productId >= 0)
+                    sproductId = productId;
 
                 long? userId = null;
                 if (User != null && User.Identity.IsAuthenticated)
@@ -1596,35 +1553,47 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelDemandProduction.EnumCategory);
 
-                BaseOutput gpd = srv.WS_GetDemandProductionDetailistForUser(baseInput, (long)userId, true, out modelDemandProduction.ProductionDetailArray);
+                if (modelDemandProduction.isPDF == true)
+                {
+                    pageNumber = 1;
+                    pageSize = 1000000;
+                }
+
+
+                modelDemandProduction.DemandProductionDetailistForUser = new DemandProductionDetailistForUser();
+                modelDemandProduction.DemandProductionDetailistForUser.page_num = pageNumber;
+                modelDemandProduction.DemandProductionDetailistForUser.page_size = pageSize;
+                modelDemandProduction.DemandProductionDetailistForUser.userID = (long)userId;
+                modelDemandProduction.DemandProductionDetailistForUser.productID = sproductId;
+
+                BaseOutput gpd = srv.WS_GetDemandProductionDetailistForUser_OP(baseInput, modelDemandProduction.DemandProductionDetailistForUser, out modelDemandProduction.ProductionDetailArray);
 
                 if (modelDemandProduction.ProductionDetailArray != null)
                 {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.Where(x => x.enumCategoryId == modelDemandProduction.EnumCategory.Id).ToList();
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.ToList();
                 }
                 else
                 {
                     modelDemandProduction.ProductionDetailList = new List<ProductionDetail>();
                 }
 
-                if (sproductName != null)
-                {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailList.Where(x => x.productName.ToLower().Contains(sproductName) || x.productParentName.ToLower().Contains(sproductName)).ToList();
-                }
+
+                BaseOutput gdpc = srv.WS_GetDemandProductionDetailistForUser_OPC(baseInput, modelDemandProduction.DemandProductionDetailistForUser, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
+
+                long[] aic = new long[modelDemandProduction.itemCount];
+
+                modelDemandProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
 
                 modelDemandProduction.isPDF = pdf;
                 modelDemandProduction.userId = (long)userId;
                 modelDemandProduction.noButton = noButton;
-                modelDemandProduction.ProductName = sproductName;
+                modelDemandProduction.productId = sproductId;
                 modelDemandProduction.rurl = srurl;
 
                 var gd = Guid.NewGuid();
 
-                modelDemandProduction.itemCount = modelDemandProduction.ProductionDetailList.Count();
-
                 if (modelDemandProduction.isPDF == true)
                 {
-                    modelDemandProduction.Paging = modelDemandProduction.ProductionDetailList.ToPagedList(1, 50000);
                     return new Rotativa.PartialViewAsPdf(modelDemandProduction) { FileName = gd + ".pdf" };
                 }
                 else
@@ -1634,6 +1603,47 @@ namespace Emsal.UI.Controllers
          ? (ActionResult)PartialView("PartialSelectedProducts", modelDemandProduction)
          : View(modelDemandProduction);
                 }
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+        public ActionResult ProductCatalogForSale(string actionName)
+        {
+            try
+            {
+
+                baseInput = new BaseInput();
+                modelDemandProduction = new DemandProductionViewModel();
+
+                long? userId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        userId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelDemandProduction.User);
+                baseInput.userName = modelDemandProduction.User.Username;
+
+                BaseOutput bouput = srv.GetProductCatalogsWithParent(baseInput, out modelDemandProduction.ProductCatalogDetailArray);
+
+                if (modelDemandProduction.ProductCatalogDetailArray == null)
+                {
+                    modelDemandProduction.ProductCatalogDetailList = new List<ProductCatalogDetail>();
+                }
+                else
+                {
+                    modelDemandProduction.ProductCatalogDetailList = modelDemandProduction.ProductCatalogDetailArray.Where(x => x.productCatalog.canBeOrder == 1).ToList();
+                }
+
+                modelDemandProduction.actionName = actionName;
+                return View(modelDemandProduction);
 
             }
             catch (Exception ex)

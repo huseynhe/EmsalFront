@@ -8,8 +8,15 @@ $(document).ajaxComplete(function () {
 
 
 function StatisticsSearch(elem, controller, action, param) {
+
+    var nb='';
+    if (controller == 'DemandProduction' && action=='SelectedProducts' && param=='productId')
+    {
+        nb='&noButton=false';
+    }
+
     $.ajax({
-        url: '/' + controller + '/' + action + '?' + param + '=' + $(elem).val(),
+        url: '/' + controller + '/' + action + '?' + param + '=' + $(elem).val()+nb,
         type: 'GET',
         success: function (result) {
             $('#AjaxPaginationList').html(result);
