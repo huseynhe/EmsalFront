@@ -331,8 +331,8 @@ namespace Emsal.AdminUI.Controllers
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.quantity) + " " + item.enumValueName;
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.productUnitPrice);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.quantity) + " " + item.enumValueName;
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.productUnitPrice);
 
                             sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                             sheet.Cells[rowIndex, 1, rowIndex, col2 - 1].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
@@ -360,8 +360,8 @@ namespace Emsal.AdminUI.Controllers
                                 rowIndex++;
                                 sheet.Cells[rowIndex, col4++].Value = item2.TypeDescription;
                                 sheet.Cells[rowIndex, col4++].Value = day + " " + item2.MonthDescription + " " + item2.year;
-                                sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceToStringDelZero((decimal)item2.quantity);
-                                sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
+                                sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceDelZero((decimal)item2.quantity);
+                                sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceDelZero((decimal)tquantity);
                             }
                             rowIndex++;
                             ri++;
@@ -625,9 +625,9 @@ namespace Emsal.AdminUI.Controllers
                             sheet.Cells[rowIndex, col2++].Value = item.organizationName;
                             sheet.Cells[rowIndex, col2++].Value = item.prodcutName + " (" + item.parentProductName + ")";
                             sheet.Cells[rowIndex, col2++].Value = item.unitOfMeasurement;
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.quantity);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unit_price);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.quantity);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unit_price);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)tquantity);
 
                             //sheet.Row(rowIndex).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                             sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
@@ -826,7 +826,7 @@ namespace Emsal.AdminUI.Controllers
 
                                 sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                                 sheet.Cells[rowIndex, col2++].Value = item.productName;
-                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity);
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalQuantity);
 
                                 //NumberFormatInfo nfi = new CultureInfo("az-Latn-AZ").NumberFormat;
 
@@ -840,8 +840,8 @@ namespace Emsal.AdminUI.Controllers
 
 
                                 sheet.Cells[rowIndex, col2++].Value = item.enumValueName;
-                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unitPrice);
-                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalQuantityPrice);
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unitPrice);
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalQuantityPrice);
 
                                 if (!string.IsNullOrEmpty(itemo.voen.Trim()))
                                 {
@@ -879,8 +879,8 @@ namespace Emsal.AdminUI.Controllers
                                 }
 
                                 sheet.Cells[rowIndex, col2++].Value = "";
-                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)itemo.totalQuantityPrice);
-                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)itemo.quantity);
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)itemo.totalQuantityPrice);
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)itemo.quantity);
                                 sheet.Cells[rowIndex, col2++].Value = itemo.enumValueName;
 
                                 sheet.Cells[rowIndex, col2++].Value = string.Join(", ", itemo.comList.Select(x => x.communication).LastOrDefault());
@@ -926,6 +926,258 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
+        public ActionResult TotalDemandOffersn(int? page, bool excell = false, long productId = -1, long userType = -1, string finVoen = null)
+        {
+            try
+            {
+                int pageSize = 20;
+                int pageNumber = (page ?? 1);
+
+                if (productId == -1 && userType == -1 && finVoen == null)
+                {
+                    sproductId = 0;
+                    suserType = 0;
+                    sfinVoen = null;
+                }
+
+                if (productId >= 0)
+                    sproductId = productId;
+                if (userType >= 0)
+                    suserType = userType;
+                if (finVoen != null)
+                    sfinVoen = finVoen;
+
+                baseInput = new BaseInput();
+                modelDemandProduction = new DemandProductionViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
+                baseInput.userName = modelDemandProduction.Admin.Username;
+
+                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelDemandProduction.EnumCategory);
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelDemandProduction.EnumValue);
+
+                if (excell == true)
+                {
+                    pageNumber = 1;
+                    pageSize = 1000000;
+                }
+
+                modelDemandProduction.DemandOfferProductsSearch = new DemandOfferProductsSearch();
+
+                modelDemandProduction.DemandOfferProductsSearch.productId = sproductId;
+                modelDemandProduction.DemandOfferProductsSearch.roleID = suserType;
+                modelDemandProduction.DemandOfferProductsSearch.pinNumber = sfinVoen;
+                modelDemandProduction.DemandOfferProductsSearch.voen = sfinVoen;
+
+                BaseOutput gpp = srv.WS_GetTotalDemandOffers(baseInput, pageNumber, true, pageSize, true, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.DemanProductionGroupArray);
+
+
+                if (modelDemandProduction.DemanProductionGroupArray == null)
+                {
+                    modelDemandProduction.DemanProductionGroupList = new List<DemanProductionGroup>();
+                }
+                else
+                {
+                    modelDemandProduction.DemanProductionGroupList = modelDemandProduction.DemanProductionGroupArray.OrderBy(x => x.productParentName).ToList();
+                }
+
+                BaseOutput gdpc = srv.WS_GetTotalDemandOffers_OPC(baseInput, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
+
+                long[] aic = new long[modelDemandProduction.itemCount];
+
+                modelDemandProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
+
+                modelDemandProduction.productId = sproductId;
+                modelDemandProduction.userType = suserType;
+                modelDemandProduction.finVoen = sfinVoen;
+
+                if (excell == true)
+                {
+                    using (var excelPackage = new ExcelPackage())
+                    {
+                        excelPackage.Workbook.Properties.Author = "tedaruk";
+                        excelPackage.Workbook.Properties.Title = "tedaruk.az";
+                        var sheet = excelPackage.Workbook.Worksheets.Add("Tələb");
+                        sheet.Name = "Tələb";
+
+                        var col = 1;
+                        sheet.Cells[1, col++].Value = "Məhsul üzrə tələb və təkliflər";
+                        sheet.Row(1).Height = 50;
+                        sheet.Row(1).Style.Font.Size = 14;
+                        sheet.Row(1).Style.Font.Bold = true;
+                        sheet.Row(1).Style.WrapText = true;
+                        sheet.Cells[1, 1, 1, 16].Merge = true;
+                        sheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        col = 1;
+                        sheet.Cells[2, col++].Value = "S/N";
+                        sheet.Cells[2, col++].Value = "Ərzaq məhsullarının adı";
+                        sheet.Cells[2, col++].Value = "Ərzaq məhsullarının adı və növü";
+                        sheet.Cells[2, col++].Value = "Tələbatın həcmi (miqdar)";
+                        sheet.Cells[2, col++].Value = "Ölçü vahidi";
+                        sheet.Cells[2, col++].Value = "Qiymət (AZN)";
+                        sheet.Cells[2, col++].Value = "Cəmi (Manatla)";
+                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçının adı";
+                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçının VÖEN-i";
+                        sheet.Cells[2, col++].Value = "Malın təklif edilən qiyməti";
+                        sheet.Cells[2, col++].Value = "Malın həcmi (miqdarı)";
+                        sheet.Cells[2, col++].Value = "Ümumi dəyər (manatla)";
+                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçının nümayəndəsinin adı";
+                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçının nümayəndəsinin əlaqə vasitəsi";
+                        sheet.Cells[2, col++].Value = "Tədarükçünün növü (istehsalçı, satıcı və ya idxalçı)";
+                        sheet.Cells[2, col++].Value = "Tədarükçünün hansı növ vergi ödəyicisi olması (ƏDV, sadələşdirilmiş K/T məhsulu istehsalçısı )";
+
+                        sheet.Row(2).Style.Font.Bold = true;
+                        sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Cells[2, 1, 2, 16].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        sheet.Cells[2, 1, 2, 16].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
+                        sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                        sheet.Column(1).Width = 7;
+                        sheet.Column(2).Width = 30;
+                        sheet.Column(3).Width = 20;
+                        sheet.Column(4).Width = 20;
+                        sheet.Column(5).Width = 20;
+                        sheet.Column(6).Width = 20;
+                        sheet.Column(7).Width = 20;
+                        sheet.Column(8).Width = 30;
+                        sheet.Column(9).Width = 20;
+                        sheet.Column(10).Width = 20;
+                        sheet.Column(11).Width = 20;
+                        sheet.Column(12).Width = 20;
+                        sheet.Column(13).Width = 30;
+                        sheet.Column(14).Width = 20;
+                        sheet.Column(15).Width = 20;
+                        sheet.Column(16).Width = 20;
+
+                        int rowIndex = 3;
+                        var ri = 1;
+
+                        foreach (var item in modelDemandProduction.DemanProductionGroupList)
+                        {
+                            foreach (var itemo in item.offerProductsList)
+                            {
+                                var col2 = 1;
+
+                                sheet.Cells[rowIndex, col2++].Value = ri.ToString();
+                                sheet.Cells[rowIndex, col2++].Value = item.productParentName;
+                                sheet.Cells[rowIndex, col2++].Value = item.productName;
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalQuantity);
+
+                                //NumberFormatInfo nfi = new CultureInfo("az-Latn-AZ").NumberFormat;
+
+                                //nfi.NumberGroupSeparator = " ";
+                                //sheet.Cells[rowIndex, col2++].Value = double.Parse("23 232 323.54", nfi);
+
+
+                                //sheet.Cells[rowIndex, col2++].Value = decimal.Parse("5 454 500.85", new NumberFormatInfo() { NumberGroupSeparator = " " });
+
+                                //sheet.Cells[rowIndex, col2++].Value = "5 454 500.85";                               
+
+
+                                sheet.Cells[rowIndex, col2++].Value = item.enumValueName;
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unitPrice);
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalQuantityPrice);
+
+                                if (!string.IsNullOrEmpty(itemo.voen.Trim()))
+                                {
+                                    sheet.Cells[rowIndex, col2++].Value = itemo.organizationName;
+                                }
+                                else
+                                {
+                                sheet.Cells[rowIndex, col2++].Value = itemo.personName + " " + itemo.surname + " " + itemo.fatherName;
+                                }
+
+
+                                sheet.Cells[rowIndex, col2++].IsRichText = true;
+                                col2--;
+                                ExcelRichTextCollection rtfCollection = sheet.Cells[rowIndex, col2++].RichText;
+                                ExcelRichText ert;
+
+                                if (!string.IsNullOrEmpty(itemo.pinNumber.Trim()))
+                                {
+                                    ert = rtfCollection.Add("FİN: ");
+                                    ert.Bold = true;
+                                    ert = rtfCollection.Add(itemo.pinNumber);
+                                    ert.Bold = false;
+                                }
+
+                                if (!string.IsNullOrEmpty(itemo.voen.Trim()))
+                                {
+                                    if (!string.IsNullOrEmpty(itemo.pinNumber.Trim()))
+                                    {
+                                        ert = rtfCollection.Add("\n");
+                                        ert.Bold = false;
+                                    }
+
+                                    ert = rtfCollection.Add("VÖEN: ");
+                                    ert.Bold = true;
+                                    ert = rtfCollection.Add(itemo.voen);
+                                    ert.Bold = false;
+                                }
+
+                                sheet.Cells[rowIndex, col2++].Value = "";
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)itemo.quantity);
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)itemo.totalQuantityPrice);
+
+                                sheet.Cells[rowIndex, col2++].Value = itemo.personName + " " + itemo.surname + " " + itemo.fatherName;
+
+                                sheet.Cells[rowIndex, col2++].Value = string.Join(", ", itemo.comList.Select(x => x.communication).LastOrDefault());
+                                sheet.Cells[rowIndex, col2++].Value = itemo.roledesc;
+
+                                sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                                //sheet.Row(rowIndex).Style.Numberformat.Format = "0:#,##0.000000";
+
+                                sheet.Cells[rowIndex, 8, rowIndex, 16].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                sheet.Cells[rowIndex, 8, rowIndex, 16].Style.Fill.BackgroundColor.SetColor(Color.Yellow);
+
+                                rowIndex++;
+                                ri++;
+                            }
+                        }
+
+                        sheet.Cells[1, 1, rowIndex - 1, 16].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 16].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 16].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 16].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 16].Style.WrapText = true;
+                        sheet.Cells[1, 1, rowIndex - 1, 16].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        string fileName = Guid.NewGuid() + ".xls";
+
+                        Response.ClearContent();
+                        Response.BinaryWrite(excelPackage.GetAsByteArray());
+                        Response.AddHeader("content-disposition", "attachment;filename=" + fileName);
+                        Response.AppendCookie(new HttpCookie("fileDownloadToken", "1111"));
+                        Response.ContentType = "application/excel";
+                        Response.Flush();
+                        Response.End();
+                    }
+                }
+
+                return Request.IsAjaxRequest()
+                   ? (ActionResult)PartialView("PartialTotalDemandOffersn", modelDemandProduction)
+                   : View(modelDemandProduction);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
 
         public ActionResult DemandProductDetailInfoForAccounting(int? page, long productId = -1, bool excell = false, string startDate = null, string endDate = null)
         {
@@ -1092,9 +1344,9 @@ namespace Emsal.AdminUI.Controllers
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.quantity) + " " + item.kategoryName;
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unitPrice);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalPrice);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.quantity) + " " + item.kategoryName;
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unitPrice);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalPrice);
                             if (item.productionCalendarList.FirstOrDefault().TypeDescription != null)
                             {
                                 sheet.Cells[rowIndex, col2++].Value = item.productionCalendarList.FirstOrDefault().TypeDescription;
@@ -1479,14 +1731,14 @@ namespace Emsal.AdminUI.Controllers
                         {
                             var col2 = 1;
                             ppname = item.parentProductName;
-                            dquantity = decimal.Parse(Custom.ConverPriceToStringDelZero((decimal)(item.totalOffer - item.totalDemand)));
+                            dquantity = Custom.ConverPriceDelZero((decimal)(item.totalOffer - item.totalDemand));
                             if (dquantity > 0)
                             {
-                                dsquantity = "+" + Custom.ConverPriceToStringDelZero((decimal)(dquantity));
+                                dsquantity = "+" + Custom.ConverPriceDelZero((decimal)(dquantity));
                             }
                             else
                             {
-                                dsquantity = Custom.ConverPriceToStringDelZero((decimal)(dquantity)).ToString() ;
+                                dsquantity = Custom.ConverPriceDelZero((decimal)(dquantity)).ToString() ;
                             }
 
                             if (ppname != oppname)
@@ -1505,8 +1757,8 @@ namespace Emsal.AdminUI.Controllers
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.productName;
                             sheet.Cells[rowIndex, col2++].Value = item.quantityType;
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalDemand);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalOffer);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalDemand);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalOffer);
                             sheet.Cells[rowIndex, col2++].Value = dsquantity;
 
                             rowIndex++;
@@ -1720,11 +1972,11 @@ namespace Emsal.AdminUI.Controllers
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.productName;
                             sheet.Cells[rowIndex, col2++].Value = item.quantityType;
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalDemand);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unitPrice);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalPrice);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalOffer);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)(item.totalOffer - item.totalDemand));
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalDemand);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unitPrice);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalPrice);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalOffer);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)(item.totalOffer - item.totalDemand));
                             sheet.Cells[rowIndex, col2++].Value = "";
 
                             rowIndex++;
@@ -1898,9 +2150,9 @@ namespace Emsal.AdminUI.Controllers
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.productName;
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.quantity);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.quantity);
                             sheet.Cells[rowIndex, col2++].Value = item.kategoryName;
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unitPrice);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unitPrice);
                             sheet.Cells[rowIndex, col2++].Value = "";
 
                             rowIndex++;
@@ -2359,7 +2611,7 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    BaseOutput bouput = srv.WS_GetAdminUnitsByParentId(baseInput, (int)economicZoneId, true, out modelDemandProduction.PRMAdminUnitArray);
+                    BaseOutput bouput = srv.WS_GetPRM_AdminUnitRegionByAddressId(baseInput, (int)economicZoneId, true, out modelDemandProduction.PRMAdminUnitArray);
                 }
 
 
@@ -2402,8 +2654,7 @@ namespace Emsal.AdminUI.Controllers
                 baseInput.userName = modelDemandProduction.Admin.Username;
 
 
-                BaseOutput bouput = srv.WS_GetAdminUnitsByParentId(baseInput, 1, true, out modelDemandProduction.PRMAdminUnitArray);
-
+                BaseOutput bouput = srv.WS_GetPRM_AdminUnitRegionList(baseInput,0,true, out modelDemandProduction.PRMAdminUnitArray);
 
                 if (modelDemandProduction.PRMAdminUnitArray == null)
                 {

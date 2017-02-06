@@ -103,6 +103,10 @@ namespace Emsal.AdminUI.Models
         public IList<tblPRM_AdminUnit> PRMAdminUnitList { get; set; }
         public tblPRM_AdminUnit[] PRMAdminUnitArray;
 
+        public AdminUnitRegion AdminUnitRegion;
+        public IList<AdminUnitRegion> AdminUnitRegionList { get; set; }
+        public AdminUnitRegion[] AdminUnitRegionArray;
+
         public tblProductAddress ProductAddress;
         public IList<tblProductAddress> ProductAddressList { get; set; }
         public tblProductAddress[] ProductAddressArray;
