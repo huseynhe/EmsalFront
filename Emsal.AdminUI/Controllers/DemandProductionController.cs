@@ -2652,17 +2652,16 @@ namespace Emsal.AdminUI.Controllers
                 }
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
                 baseInput.userName = modelDemandProduction.Admin.Username;
+                
+                BaseOutput bouput = srv.WS_GetPRM_AdminUnitRegionList(baseInput, out modelDemandProduction.AdminUnitRegionArray);
 
-
-                BaseOutput bouput = srv.WS_GetPRM_AdminUnitRegionList(baseInput,0,true, out modelDemandProduction.PRMAdminUnitArray);
-
-                if (modelDemandProduction.PRMAdminUnitArray == null)
+                if (modelDemandProduction.AdminUnitRegionArray == null)
                 {
-                    modelDemandProduction.PRMAdminUnitList = new List<tblPRM_AdminUnit>();
+                    modelDemandProduction.AdminUnitRegionList = new List<AdminUnitRegion>();
                 }
                 else
                 {
-                    modelDemandProduction.PRMAdminUnitList = modelDemandProduction.PRMAdminUnitArray.ToList();
+                    modelDemandProduction.AdminUnitRegionList = modelDemandProduction.AdminUnitRegionArray.ToList();
                 }
                 modelDemandProduction.actionName = actionName;
                 return View(modelDemandProduction);
