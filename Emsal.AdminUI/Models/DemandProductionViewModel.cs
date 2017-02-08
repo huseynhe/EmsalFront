@@ -32,6 +32,7 @@ namespace Emsal.AdminUI.Models
         public OrganizationDetail[] OrganizationDetailArray;
         public IList<OrganizationDetail> OrganizationDetailList { get; set; }
 
+        public DemanProductionGroup DemanProductionGroup { get; set; }
         public DemanProductionGroup[] DemanProductionGroupArray;
         public IList<DemanProductionGroup> DemanProductionGroupList { get; set; }
 
