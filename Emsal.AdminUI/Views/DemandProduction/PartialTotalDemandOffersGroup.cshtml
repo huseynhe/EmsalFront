@@ -21,7 +21,7 @@
         <ul class="thumbnails list-unstyled list-inline">
             @foreach (var item in Model.DemanProductionGroupList)
             {
-                if (item.offerProductsList!=null)
+                if (item.offerProductsList.Count()>0)
                 {
                     if (oppname != item.productParentName)
                     {

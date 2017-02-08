@@ -1183,7 +1183,7 @@ namespace Emsal.AdminUI.Controllers
         {
             try
             {
-                int pageSize = 20;
+                int pageSize = 36;
                 int pageNumber = (page ?? 1);
 
                 if (productId == -1 && userType == -1 && finVoen == null)

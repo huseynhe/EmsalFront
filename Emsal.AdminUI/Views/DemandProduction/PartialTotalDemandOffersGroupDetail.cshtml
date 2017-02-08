@@ -56,7 +56,7 @@
             <table class="table table-hover table-striped table-bordered">
                 <tbody>
                     <tr>
-                        <th class="col-md-1">
+                        <th class="col-md-2">
                             Satıcı və ya istehsalçının adı
                         </th>
                         <th class="col-md-1">
@@ -71,7 +71,7 @@
                         <th class="col-md-1">
                             Ümumi dəyər (manatla)
                         </th>
-                        <th class="col-md-1">
+                        <th class="col-md-2">
                             Satıcı və ya istehsalçının nümayəndəsinin adı
                         </th>
                         <th class="col-md-1">
@@ -85,7 +85,7 @@
                     @foreach (var itemo in Model.DemanProductionGroup.offerProductsList)
                     {
                         <tr>
-                            <td class="col-md-1">
+                            <td class="col-md-2">
                                 @if (!string.IsNullOrEmpty(itemo.voen.Trim()))
                                 {
                                     <span>@itemo.organizationName</span>
@@ -116,7 +116,7 @@
                             <td class="col-md-1">
                                 @Custom.ConverPriceToStringDelZero((decimal)itemo.totalQuantityPrice)
                             </td>
-                            <td class="col-md-1">
+                            <td class="col-md-2">
                                 @itemo.personName @itemo.surname @itemo.fatherName
                             </td>
                             <td class="col-md-1">
