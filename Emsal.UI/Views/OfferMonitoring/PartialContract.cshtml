@@ -1,6 +1,5 @@
 ﻿@model Emsal.UI.Models.OfferMonitoringViewModel
 @using PagedList.Mvc;
-
 @{
     ViewBag.Title = "Index";
     if (Model.isPDF == true)
@@ -12,9 +11,8 @@
         Layout = "";
     }
     decimal tquantity = 0;
+    string icn = "glyphicon-download";
 }
-
-
 
 <div class="box-body no-padding">
     <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
@@ -26,7 +24,6 @@
             <tbody>
                 <tr>
                     <td class="col-md-1">
-
                         @if (item.profilePicture != null)
                         {
                             if (item.profilePicture != "")
@@ -46,21 +43,25 @@
                     <td class="col-md-2">
                         @if (!string.IsNullOrEmpty(item.pinNumber))
                         {
-                       <b>FİN: </b> @item.pinNumber
+                            <b>FİN: </b> @item.pinNumber
                         }
                         <div class="clearfix"></div>
                         @if (!string.IsNullOrEmpty(item.voen))
                         {
-                        <b>VÖEN: </b> @item.voen
+                            <b>VÖEN: </b> @item.voen
                         }
                     </td>
-                    <td onclick="location.href = '/OfferMonitoring/ContractForm?isContract=true&pid=@item.personId'" class="col-md-1 text-center" style="cursor:pointer;font-size:20px;">
-                        <span class="glyphicon glyphicon-save-file"></span>
-                    </td>
-                        <td onclick="GetAttachFileTemp(this,@item.personId)" class="col-md-1 text-center" style="cursor:pointer;font-size:20px;">
-                            <span class="glyphicon glyphicon-upload"></span>
+                    @if (Model.isApprov == false)
+                    {
+                        icn = "glyphicon-upload";
+                        <td onclick="location.href = '/OfferMonitoring/ContractForm?isContract=true&pid=@item.personId'" class="col-md-1 text-center" style="cursor:pointer;font-size:20px;">
+                            <span class="glyphicon glyphicon-save-file"></span>
                         </td>
-</tr>
+                    }
+                    <td onclick="GetAttachFileTemp(this,@item.personId)" class="col-md-1 text-center" style="cursor:pointer;font-size:20px;">
+                        <span class="glyphicon @icn"></span>
+                    </td>
+                </tr>
                 <tr>
                     <td colspan="7" style="padding:0;">
                         <div class="attachFileField"></div>
@@ -70,10 +71,7 @@
         }
     </table>
 </div>
-
 <div class="box-footer clearfix">
     Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
-    @Html.PagedListPager(Model.PagingT, page => Url.Action("Contract", new { page, nameSurnameFathername = Model.nameSurnameFathername, pin = Model.pin}))
+    @Html.PagedListPager(Model.PagingT, page => Url.Action("Contract", new { page, nameSurnameFathername = Model.nameSurnameFathername, pin = Model.pin }))
 </div>
-
-
