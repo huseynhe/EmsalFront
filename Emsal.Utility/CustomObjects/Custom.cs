@@ -21,7 +21,9 @@ namespace Emsal.Utility.CustomObjects
 
             //str = string.Format(Thread.CurrentThread.CurrentCulture = new CultureInfo("de-DE"), "{0:#,##0.000}", pr).TrimEnd('0', '.').TrimEnd(',');
 
-            str = string.Format(Thread.CurrentThread.CurrentCulture = new CultureInfo("az-Latn-AZ"), "{0:#,##0.000000}", pr).TrimEnd('0', '.').TrimEnd(',');
+            str = string.Format(Thread.CurrentThread.CurrentCulture = new CultureInfo("az-Latn-AZ"), "{0:#,##0.000000000}", pr).TrimEnd('0', '.').TrimEnd(',');
+
+            //str = string.Format(Thread.CurrentThread.CurrentCulture = new CultureInfo("az-Latn-AZ"), "{0:#,##0.000000000}", pr).TrimEnd('0', ',').TrimEnd('.');
 
             //str = str.Replace(",", ".");
 
