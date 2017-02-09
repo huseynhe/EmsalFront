@@ -21,6 +21,7 @@ namespace Emsal.UI.Models
         public const string PotentialClientMonitoring = "potentialClientMonitoring";
         public const string PotentialClientState = "potentialClientState";
         public const string addChildOrganisation = "addChildOrganisation";
+        public const string paAdmin = "paAdmin";
 
 
     }
