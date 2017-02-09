@@ -129,12 +129,20 @@ namespace Emsal.UI.Models
         public IList<tblComMessageAttachment> ComMessageAttachmentList { get; set; }
         public tblComMessageAttachment[] ComMessageAttachmentArray;
 
+        public DemanProductionGroup DemanProductionGroup { get; set; }
+        public DemanProductionGroup[] DemanProductionGroupArray;
+        public IList<DemanProductionGroup> DemanProductionGroupList { get; set; }
+
+        public DemandOfferProductsSearch DemandOfferProductsSearch { get; set; }
+
         public PagedList.IPagedList<ProductionDetail> Paging { get; set; }
         public PagedList.IPagedList<tblPerson> PagingPerson { get; set; }
         public PagedList.IPagedList<long> PagingT { get; set; }
 
         public bool isPDF { get; set; }
         public long userId { get; set; }
+
+        public string finVoen { get; set; }
 
         public long totalSize = 0;
 
