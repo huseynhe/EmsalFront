@@ -3,6 +3,11 @@ html, body, h1, h2, h3, h4, h5, h6, p, hr, ul, ol, li {
 	padding:0px;
 }
 
+#center .thumbnail > img
+{
+    height: 110px;
+margin-bottom: 10px;
+}
 .loader {
 	position: fixed;
 	left: 0px;
