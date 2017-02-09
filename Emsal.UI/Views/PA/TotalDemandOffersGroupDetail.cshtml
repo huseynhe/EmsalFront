@@ -1,0 +1,27 @@
+﻿@model Emsal.UI.Models.OfferMonitoringViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary" style="padding:30px;">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Məhsul üzrə təkliflər</h3>
+                    <!-- /.box-tools -->
+                </div>
+                <div class="clearfix"></div>
+                <br />
+
+                <div id="AjaxPaginationList">
+                    @Html.Partial("PartialTotalDemandOffersGroupDetail")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/pagedList.js"></script>
+
+
