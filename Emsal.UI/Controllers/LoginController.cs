@@ -133,6 +133,7 @@ namespace Emsal.UI.Controllers
                             //bool ifAdmin = false;
                             bool ifAsan = false;
                             bool ifKTN = false;
+                            bool ifPa = false;
 
                             BaseOutput roleOut = srv.WS_GetRoleByName(binput, "admin", out modelUser.Role);
                             long adminRoleID = modelUser.Role.Id;
@@ -146,6 +147,9 @@ namespace Emsal.UI.Controllers
 
                             BaseOutput ktnRoleOut = srv.WS_GetRoleByName(binput, "ktnUser", out modelUser.Role);
                             long ktnRoleID = modelUser.Role.Id;
+
+                            BaseOutput PARoleOut = srv.WS_GetRoleByName(binput, "PA", out modelUser.Role);
+                            long PARoleID = modelUser.Role.Id;
 
                             BaseOutput authUserRolesOut = srv.WS_GetUserRolesByUserId(binput, modelUser.User.Id, true, out modelUser.UserRoleArray);
 
@@ -166,6 +170,10 @@ namespace Emsal.UI.Controllers
                                 else if(item.RoleId == ktnRoleID)
                                 {
                                     ifKTN = true;
+                                }
+                                else if (item.RoleId == PARoleID)
+                                {
+                                    ifPa = true;
                                 }
                             }
                             //if (ifAdmin)
@@ -189,6 +197,10 @@ namespace Emsal.UI.Controllers
                                 else if (ifKTN)
                                 {
                                     return CreateTicket(1, "KTNSpecial", modelUser.User, returnUrl);
+                                }
+                                else if (ifPa)
+                                {
+                                    return CreateTicket(1, "PA", modelUser.User, returnUrl);
                                 }
                                 else if (modelUser.EnumValue.name == "legalPerson")
                                 {
@@ -275,6 +287,7 @@ namespace Emsal.UI.Controllers
                             //bool ifAdmin = false;
                             bool ifAsan = false;
                             bool ifKTN = false;
+                            bool ifPa = false;
 
                             BaseOutput roleOut = srv.WS_GetRoleByName(binput, "admin", out modelUser.Role);
                             long adminRoleID = modelUser.Role.Id;
@@ -288,6 +301,9 @@ namespace Emsal.UI.Controllers
 
                             BaseOutput ktnRoleOut = srv.WS_GetRoleByName(binput, "ktnUser", out modelUser.Role);
                             long ktnRoleID = modelUser.Role.Id;
+
+                            BaseOutput paRoleOut = srv.WS_GetRoleByName(binput, "PA", out modelUser.Role);
+                            long paRoleID = modelUser.Role.Id;
 
                             BaseOutput authUserRolesOut = srv.WS_GetUserRolesByUserId(binput, modelUser.User.Id, true, out modelUser.UserRoleArray);
 
@@ -308,6 +324,10 @@ namespace Emsal.UI.Controllers
                                 else if (item.RoleId == ktnRoleID)
                                 {
                                     ifKTN = true;
+                                }
+                                else if (item.RoleId == paRoleID)
+                                {
+                                    ifPa = true;
                                 }
                             }
                             //if (ifAdmin)
@@ -331,6 +351,10 @@ namespace Emsal.UI.Controllers
                                 else if (ifKTN)
                                 {
                                     return CreateTicket(1, "KTNSpecial", modelUser.User, "");
+                                }
+                                else if (ifPa)
+                                {
+                                    return CreateTicket(1, "PA", modelUser.User, "");
                                 }
                                 else if (modelUser.EnumValue.name == "legalPerson")
                                 {
