@@ -45,7 +45,11 @@ namespace Emsal.UI
         url: "OfferProduction/Index",
         defaults: new { controller = "OfferProduction", action = "Index", id = UrlParameter.Optional }
     );
-
+            routes.MapRoute(
+        name: "PA",
+        url: "PA/TotalDemandOffersGroup",
+        defaults: new { controller = "PA", action = "TotalDemandOffersGroup", id = UrlParameter.Optional }
+    );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
