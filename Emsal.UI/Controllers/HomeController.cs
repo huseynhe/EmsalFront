@@ -353,12 +353,11 @@ namespace Emsal.UI.Controllers
                 int pageNumber = (page ?? 1);
 
                 modelProductCatalog = new ProductCatalogViewModel();
-                
-
 
                 modelProductCatalog.PotensialUserForAdminUnitIdList = new PotensialUserForAdminUnitIdList();
                 modelProductCatalog.PotensialUserForAdminUnitIdList.page = pageNumber;
                 modelProductCatalog.PotensialUserForAdminUnitIdList.pageSize = pageSize;
+
                 modelProductCatalog.PotensialUserForAdminUnitIdList.roleID = srId;
                 modelProductCatalog.PotensialUserForAdminUnitIdList.name = sname;
                 modelProductCatalog.PotensialUserForAdminUnitIdList.adminUnitID = saddressId;
@@ -409,14 +408,6 @@ namespace Emsal.UI.Controllers
                 {
                     modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoList.OrderByDescending(x => x.name).ToList();
                 }
-                else if (ssort == "surname asc")
-                {
-                    modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoList.OrderBy(x => x.surname).ToList();
-                }
-                else if (ssort == "surname desc")
-                {
-                    modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoList.OrderByDescending(x => x.surname).ToList();
-                }
                 else if (ssort == "address asc")
                 {
                     modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoList.OrderBy(x => x.adminUnitName).ToList();
@@ -426,13 +417,12 @@ namespace Emsal.UI.Controllers
                     modelProductCatalog.UserInfoList = modelProductCatalog.UserInfoList.OrderByDescending(x => x.adminUnitName).ToList();
                 }
 
-
                 modelProductCatalog.addressId = saddressId;
                 modelProductCatalog.rId = srId;
-                modelProductCatalog.sort = ssort;
                 modelProductCatalog.name = sname;
                 modelProductCatalog.address = saddress;
                 modelProductCatalog.productId = sproductId;
+                modelProductCatalog.sort = ssort;
 
                 BaseOutput gdpc = srv.WS_GetPotensialUserList_OPC(baseInput, modelProductCatalog.PotensialUserForAdminUnitIdList, out modelProductCatalog.itemCount, out modelProductCatalog.itemCountB);
 

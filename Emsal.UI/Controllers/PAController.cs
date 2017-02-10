@@ -346,7 +346,7 @@ namespace Emsal.UI.Controllers
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)itemo.totalQuantityPrice);
 
                             sheet.Cells[rowIndex, col2++].Value = "";
-                            sheet.Cells[rowIndex, col2++].Value = "";
+                            sheet.Cells[rowIndex, col2++].Value = itemo.roledesc;
                             sheet.Cells[rowIndex, col2++].Value = "";
 
                             sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;

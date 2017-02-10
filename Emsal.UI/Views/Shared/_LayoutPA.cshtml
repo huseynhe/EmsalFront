@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>Ərzaq məhsullarının tədarükü və təchizatı</title>
+    <link href="~/ContentProfile/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/ContentProfile/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/ContentProfile/css/style.css" rel="stylesheet" />
+    <script src="~/ContentProfile/js/jquery-1.12.3.js"></script>
+    <link href="~/Content/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top" style="background:#286090;">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/Home/Index"><h3>tedaruk.az</h3></a>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right h5">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" style="color:#fff;" data-toggle="dropdown">@Model.User.Username  <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a>
+
+                        <ul class="dropdown-menu">
+                            <li><a href="/Login/Redirect">Şəxsi səhifə</a></li>
+                            <li><a href="/Login/Logout">Çıxış</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!--müesiseye gelen mesajlar-->
+                <div class="messages">
+                    <ul class="list-unstyled">
+                        <li id="SentMessages" style="cursor:pointer"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Göndərilən Məktublar</li>
+                        <li id="Inbox" style="cursor:pointer"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Gələn Məktublar</li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+    <section>
+        <div class="loader"></div>
+        <div style="width:90% !important;margin-left:5%;">
+            @RenderBody()
+        </div>
+    </section>
+    @Html.Partial("~/Views/Home/Footer.cshtml")
+    <script>
+        $("#user_inf").click(function () {
+            $(".per_information").toggle();
+            return false;
+        });
+
+    </script>
+
+
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/jquery.validate.js"></script>
+    <script src="~/Content/js/jquery.validate.unobtrusive.js"></script>
+    <script src="~/ContentProfile/js/emsal.js"></script>
+    <script src="~/ContentProfile/js/custom.js"></script>
+    <link href="~/ContentProfile/css/select2.min.css" rel="stylesheet" />
+    <script src="~/ContentProfile/js/select2.min.js"></script>
+    <script type="text/javascript">
+        $('.select2').select2();
+    </script>
+    <link href="~/ContentProfile/css/datepicker.css" rel="stylesheet" />
+    <script src="~/ContentProfile/js/bootstrap-datepicker.js"></script>
+    <script>
+        $().ready(function () {
+
+            $(' .datepicker, input[type=datetime]').datepicker({
+                format: 'dd.mm.yyyy',
+                autoclose: true,
+                "setDate": new Date()
+            })
+            .attr('readonly', 'readonly')
+            .on('changeDate', function (ev) {
+                (ev.viewMode == 'days') ? $(this).datepicker('hide') : '';
+            });
+            //.on('changeDate', function (e) {
+            //    $(this).datepicker('hide');
+            //});
+
+        });
+    </script>
+
+
+    @if (TempData["Success"] != null)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#myModal").modal('show');
+            });
+        </script>
+        <div id="myModal" class="modal fade" style="z-index:3000">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Məlumat</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p id="successMessage">@Html.Raw(TempData["Success"])</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        TempData["Success"] = null;
+    }
+
+    <div id="getImage" class="modal fade">
+        <div class="modal-dialog" style="width: 60%; height: 90%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Fayl</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="getImageMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

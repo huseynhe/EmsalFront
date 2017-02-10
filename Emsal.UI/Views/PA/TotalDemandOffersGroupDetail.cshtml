@@ -3,7 +3,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+    Layout = "~/Views/Shared/_LayoutPA.cshtml";
 }
 <div class="content">
     <div class="row">
@@ -19,9 +19,9 @@
                 <div class="box-body no-padding">
 
                     <div class='thumbnail col-sm-12 col-md-12' style="padding: 20px;">
-                        <div class="col-xs-12 col-sm-3 col-md-3">
+                        <div class="col-xs-12 col-sm-4 col-md-4">
                             @if (!string.IsNullOrEmpty(Model.DemanProductionGroup.documentUrl))
-            {
+                            {
                                 <img style="padding:0;" class="img-responsive thumbnail" src="@Model.DemanProductionGroup.documentUrl@Model.DemanProductionGroup.documentName" />
                             }
                             else
@@ -29,7 +29,7 @@
                                 <img class="img-responsive thumbnail" src="~/Content/img/noimage.png" />
                             }
                         </div>
-                        <div class='col-xs-12 col-sm-9 col-md-9'>
+                        <div class='col-xs-12 col-sm-8 col-md-8'>
                             <div class="product-info">
                                 <h4 class="name text-black nobackground" style="margin-top:0;">
                                     <b>Məhsulun adı:</b> @Model.DemanProductionGroup.productName (@Model.DemanProductionGroup.productParentName)
@@ -61,12 +61,12 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <label>Aylar</label><br />
-                                @Html.Action("Month", "PA", new { actionName = "TotalDemandOffersGroup", id=Model.monthEVId })
+                                @Html.Action("Month", "PA", new { actionName = "TotalDemandOffersGroup", id = Model.monthEVId })
                             </div>
 
                             <div class="col-md-3">
                                 <label>İstifadəçinin növü</label><br />
-                                @Html.Action("UserType", "PA", new { actionName = "TotalDemandOffersGroup", id=Model.userTypeId })
+                                @Html.Action("UserType", "PA", new { actionName = "TotalDemandOffersGroup", id = Model.userTypeId })
                             </div>
 
                             <div class="col-md-3">

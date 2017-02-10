@@ -21,20 +21,29 @@
     <tbody>
         @foreach (var item in Model.PagingUserInfo)
         {
-              if (item.pinNumber != "")
-                    {
-                  link="/Login?uid="+item.userID+"&type=1";  
-                  icon="glyphicon glyphicon-user";               
-                    }
-                    else if (item.voen != "")
-                    {
-                        link = "/Login?uid=" + item.userID + "&type=2";
-                        icon = "fa fa-building-o";
-                    }
-                   
+            var sd = item.fullAddress.Split(',').ToArray();
+            if (sd.Length > 1)
+            {
+                item.adminUnitName = sd[1];
+            }
+            else
+            {
+                item.adminUnitName = sd[0];
+            }
+
+            if (item.pinNumber != "")
+            {
+                link="/Login?uid="+item.userID+"&type=1";
+                icon="glyphicon glyphicon-user";
+            }
+            else if (item.voen != "")
+            {
+                link = "/Login?uid=" + item.userID + "&type=2";
+                icon = "fa fa-building-o";
+            }
+
             <tr onclick="location.href = '@link'" style="cursor:pointer;" class="tr">
                 <td class="col-sm-4 text-black">@item.name</td>
-                @*<td class="col-sm-2">@item.surname</td>*@
                 <td class="col-sm-2 text-black">@item.adminUnitName</td>
                 <td class="col-sm-5 text-black">@item.parentAdminUnitName</td>
                 <td class="col-sm-1 text-center">

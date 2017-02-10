@@ -33,15 +33,15 @@
                         </li>
                     }
                     i = i + 1;
-                    <li class="col-md-3">
-                        <div class="thumbnail text-center" style="width:100%;height:280px;">
+                    <li class="col-md-2">
+                        <div class="thumbnail text-center" style="width:100%;height:310px;">
                             @if (!string.IsNullOrEmpty(item.documentUrl))
                             {
-                                <img style="width:100%;" class="img-responsive" src="@item.documentUrl@item.documentName" />
+                                <img style="width:100%;height:140px;" class="img-responsive" src="@item.documentUrl@item.documentName" />
                             }
                             else
                             {
-                                <img class="img-responsive" style="width:auto;" src="~/Content/UI/images/noimage.png" />
+                                <img class="img-responsive" style="width:auto;height:140px;" src="~/Content/UI/images/noimage.png" />
                             }
                             <div class="caption">
                                 <h4 class="text-bold">@item.productName</h4>
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     </li>
-                    if (i == 4)
+                    if (i == 6)
                     {
                         <div class="clearfix"></div>
                         i = 0;

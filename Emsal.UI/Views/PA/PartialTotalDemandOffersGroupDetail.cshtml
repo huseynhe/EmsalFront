@@ -23,6 +23,24 @@
     <table class="table table-hover table-striped table-bordered">
         <tbody>
             <tr>
+                <th class="col-md-1">
+                    Ərzaq məhsullarının adı
+                </th>
+                <th class="col-md-1">
+                    Ərzaq məhsullarının növü
+                </th>
+                <th class="col-md-1">
+                    Tələbatın həcmi (miqdar)
+                </th>
+                <th class="col-md-1">
+                    Ölçü vahidi
+                </th>
+                <th class="col-md-1">
+                    Qiymət (AZN)
+                </th>
+                <th class="col-md-1">
+                    Cəmi (AZN)
+                </th>
                 <th class="col-md-2">
                     Satıcı və ya istehsalçının adı
                 </th>
@@ -30,25 +48,68 @@
                     Satıcı və ya istehsalçının VÖEN-i
                 </th>
                 <th class="col-md-1">
-                    Ölçü vahidi
+                    Satıcı və ya istehsalçı ilə alqı-satqı müqaviləsinin tarixi və nömrəsi
                 </th>
                 <th class="col-md-1">
                     Malın təklif edilən qiyməti (manatla)
                 </th>
                 <th class="col-md-1">
+                    Müqavilə üzrə malın qiyməti
+                </th>
+                <th class="col-md-1">
+                    Təchizat qiyməti (manatla)
+                </th>
+                <th class="col-md-1">
+                    Təchizat əlavəsi (faizlə)
+                </th>
+                <th class="col-md-1">
                     Təklifin həcmi (miqdarı)
+                </th>
+                <th class="col-md-1">
+                    Müqavilə üzrə malın həcmi (miqdarı)
                 </th>
                 <th class="col-md-1">
                     Təklifin ümumi dəyəri (manatla)
                 </th>
                 <th class="col-md-1">
-                    Tədarükçünün növü (istehsalçı, satıcı və ya idxalçı)
+                    Müqavilənin ümumi dəyəri (manatla)
+                </th>
+                <th class="col-md-1">
+                    Tədarükçünün növü (istehsalçı satıcı və ya idxalçı)
+                </th>
+                <th class="col-md-1">
+                    Tədarükçünün hansı növ vergi ödəyicisi olması (ƏDV, sadələşdirilmiş K/T məhsulu istehsalçısı)
                 </th>
             </tr>
 
             @foreach (var itemo in Model.DemanOfferProductionList)
             {
                 <tr>
+
+                    <td class="col-md-1">
+                        @Model.DemanProductionGroup.productParentName
+                    </td>
+
+                    <td class="col-md-1">
+                        @Model.DemanProductionGroup.productName
+                    </td>
+
+                    <td class="col-md-1">
+                        @Custom.ConverPriceDelZero((decimal)Model.DemanProductionGroup.totalQuantity)
+                    </td>
+
+                    <td class="col-md-1">
+                        @Model.DemanProductionGroup.enumValueName
+                    </td>
+
+                    <td class="col-md-1">
+                        @Custom.ConverPriceDelZero((decimal)Model.DemanProductionGroup.unitPrice)
+                    </td>
+
+                    <td class="col-md-1">
+                        @Custom.ConverPriceDelZero((decimal)Model.DemanProductionGroup.totalQuantityPrice)
+                    </td>
+
                     <td class="col-md-2">
                         <span>@itemo.personName @itemo.surname @itemo.fatherName</span>
                         <div class="clearfix"></div>
@@ -69,21 +130,25 @@
 
                         }
                     </td>
-                    <td class="col-md-1">
-                        @itemo.enumValueName
-                    </td>
+                    <td class="col-md-1"></td>
                     <td class="col-md-1">
                         @Custom.ConverPriceToStringDelZero((decimal)itemo.unit_price)
                     </td>
+                    <td class="col-md-1"></td>
+                    <td class="col-md-1"></td>
+                    <td class="col-md-1"></td>
                     <td class="col-md-1">
                         @Custom.ConverPriceToStringDelZero((decimal)itemo.quantity)
                     </td>
+                    <td class="col-md-1"></td>
                     <td class="col-md-1">
                         @Custom.ConverPriceToStringDelZero((decimal)itemo.totalQuantityPrice)
                     </td>
+                    <td class="col-md-1"></td>
                     <td class="col-md-1">
                         @itemo.roledesc
                     </td>
+                    <td class="col-md-1"></td>
                 </tr>
             }
         </tbody>
