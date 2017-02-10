@@ -7,7 +7,14 @@ $(document).ajaxComplete(function () {
 });
 
 
+var ri = 0;
+
 function StatisticsSearch(elem, controller, action, param) {
+
+    if (ri == 0 || ri == 2) {
+
+        var value = $(elem).val();
+        ri = 1;
 
     var nb='';
     if (controller == 'DemandProduction' && action=='SelectedProducts' && param=='productId')
@@ -20,11 +27,17 @@ function StatisticsSearch(elem, controller, action, param) {
         type: 'GET',
         success: function (result) {
             $('#AjaxPaginationList').html(result);
+
+            ri = 2;
+            if ($(elem).val() != value) {
+                StatisticsSearch(elem, controller, action, param);
+            }
         },
         error: function () {
 
         }
     });
+    }
 }
 
 
