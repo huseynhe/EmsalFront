@@ -382,6 +382,7 @@ function SaveChanges() {
                         //if (result.data.length > 0) {
                         if (result.err != "") {
                             document.getElementById("warningDiv").style.display = "block";
+                            ri = 0;
                         }
 
                         if (result.suc != "") {
