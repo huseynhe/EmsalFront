@@ -33,16 +33,13 @@
                     Ölçü vahidi
                 </th>
                 <th class="col-md-1">
-                    Malın həcmi (miqdarı)
+                    Malın təklif edilən qiyməti (manatla)
                 </th>
                 <th class="col-md-1">
-                    Ümumi dəyər (manatla)
-                </th>
-                <th class="col-md-2">
-                    Satıcı və ya istehsalçının nümayəndəsinin adı
+                    Təklifin həcmi (miqdarı)
                 </th>
                 <th class="col-md-1">
-                    Satıcı və ya istehsalçının nümayəndəsinin əlaqə vasitəsi
+                    Təklifin ümumi dəyəri (manatla)
                 </th>
                 <th class="col-md-1">
                     Tədarükçünün növü (istehsalçı, satıcı və ya idxalçı)
@@ -53,14 +50,12 @@
             {
                 <tr>
                     <td class="col-md-2">
-                        @if (!string.IsNullOrEmpty(itemo.voen.Trim()))
-                        {
-                            <span>@itemo.organizationName</span>
-                        }
-                        else
-                        {
-                            <span>@itemo.personName @itemo.surname @itemo.fatherName</span>
-                        }
+                        <span>@itemo.personName @itemo.surname @itemo.fatherName</span>
+                        <div class="clearfix"></div>
+                        <span>@itemo.organizationName</span>
+
+                        <div class="clearfix"></div>
+                        @string.Join(", ", itemo.comList.Select(x => x.communication).LastOrDefault())
                     </td>
                     <td class="col-md-1">
                         @if (!string.IsNullOrEmpty(itemo.pinNumber.Trim()))
@@ -78,16 +73,13 @@
                         @itemo.enumValueName
                     </td>
                     <td class="col-md-1">
+                        @Custom.ConverPriceToStringDelZero((decimal)itemo.unit_price)
+                    </td>
+                    <td class="col-md-1">
                         @Custom.ConverPriceToStringDelZero((decimal)itemo.quantity)
                     </td>
                     <td class="col-md-1">
                         @Custom.ConverPriceToStringDelZero((decimal)itemo.totalQuantityPrice)
-                    </td>
-                    <td class="col-md-2">
-                        @itemo.personName @itemo.surname @itemo.fatherName
-                    </td>
-                    <td class="col-md-1">
-                        @string.Join(", ", itemo.comList.Select(x => x.communication).LastOrDefault())
                     </td>
                     <td class="col-md-1">
                         @itemo.roledesc

@@ -64,8 +64,10 @@
                                         <input onkeyup="UserInfoSearch(this, 'address')" class="form-control" placeholder="axtar" />
                                     </td>
                                     <td class="col-sm-5 text-black text-bold"><div style="float:left;">İstehsal etdiyi məhsullar</div>
-                                    <br />
-                                        <input onkeyup="UserInfoSearch(this, 'products')" class="form-control" placeholder="axtar" />
+                                        <br />
+                                        @Html.Action("ProductCatalogForSale", "Home", new { actionName = "UserInfo" })
+                                    @*<br />
+                                        <input onkeyup="UserInfoSearch(this, 'products')" class="form-control" placeholder="axtar" />*@
                                     </td>
                                     <td class="col-sm-1 text-center text-black text-bold">Tipi</td>
                                 </tr>

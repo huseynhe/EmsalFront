@@ -48,8 +48,8 @@
 
 <div class="clearfix"></div>
 <div class="box-footer clearfix text-black">
-    Səhifə @(Model.PagingUserInfo.PageCount < Model.PagingUserInfo.PageNumber ? 0 : Model.PagingUserInfo.PageNumber) (cəmi @Model.PagingUserInfo.PageCount)
-    @Html.PagedListPager(Model.PagingUserInfo, page => Url.Action("UserInfo", new { page, addressId=Model.addressId, rId = Model.rId, sort = Model.sort, name=Model.name, address = Model.address, products = Model.products }))
+    Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
+    @Html.PagedListPager(Model.PagingT, page => Url.Action("UserInfo", new { page, addressId=Model.addressId, rId = Model.rId, sort = Model.sort, name=Model.name, address = Model.address, productproductIds = Model.productId }))
 </div>
 
 
