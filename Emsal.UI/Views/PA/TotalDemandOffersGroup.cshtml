@@ -15,31 +15,32 @@
                 <div class="clearfix"></div>
                 <br />
 
-                <div class="form-group">
-
-                    <div class="col-md-2">
+                <div class="row">
+                    <div class="col-md-3">
                         <label>Məhsulun adı</label><br />
                         @Html.Action("ProductCatalogForSale", "PA", new { actionName = "TotalDemandOffersGroup" })
                     </div>
 
-                    <div class="col-md-2">
-                        <label>İstifadəçinin növü</label><br />
-                        <select onchange="StatisticsSearch(this, 'PA', 'TotalDemandOffersGroup', 'userType')" class="form-control select2" style="width:auto !important;">
-                            <option value="0">Seçim edin</option>
-
-                            <option value="15">Potensial istehsalçı</option>
-                            <option value="11">Satıcı (İdxalçı)</option>
-
-                        </select>
+                    <div class="col-md-3">
+                        <label>Aylar</label><br />
+                        @Html.Action("Month", "PA", new { actionName = "TotalDemandOffersGroup" })
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
+                        <label>İstifadəçinin növü</label><br />
+                        @Html.Action("UserType", "PA", new { actionName = "TotalDemandOffersGroup" })
+                    </div>
+
+                    <div class="col-md-3">
                         <label>FİN | VÖEN</label><br />
                         <input onkeyup="StatisticsSearch(this, 'PA', 'TotalDemandOffersGroup', 'finVoen')" class="form-control" placeholder="axtar" />
                     </div>
-
                 </div>
 
+                <div class="clearfix"></div>
+                <br/>
+                <hr />
+                <br />
                 <div id="AjaxPaginationList">
                     @Html.Partial("PartialTotalDemandOffersGroup")
                 </div>

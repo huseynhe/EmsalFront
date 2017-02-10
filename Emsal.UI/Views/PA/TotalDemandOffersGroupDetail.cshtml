@@ -1,4 +1,5 @@
 ﻿@model Emsal.UI.Models.OfferMonitoringViewModel
+@using Emsal.Utility.CustomObjects;
 
 @{
     ViewBag.Title = "Index";
@@ -15,8 +16,74 @@
                 <div class="clearfix"></div>
                 <br />
 
-                <div id="AjaxPaginationList">
-                    @Html.Partial("PartialTotalDemandOffersGroupDetail")
+                <div class="box-body no-padding">
+
+                    <div class='thumbnail col-sm-12 col-md-12' style="padding: 20px;">
+                        <div class="col-xs-12 col-sm-3 col-md-3">
+                            @if (!string.IsNullOrEmpty(Model.DemanProductionGroup.documentUrl))
+            {
+                                <img style="padding:0;" class="img-responsive thumbnail" src="@Model.DemanProductionGroup.documentUrl@Model.DemanProductionGroup.documentName" />
+                            }
+                            else
+                            {
+                                <img class="img-responsive thumbnail" src="~/Content/img/noimage.png" />
+                            }
+                        </div>
+                        <div class='col-xs-12 col-sm-9 col-md-9'>
+                            <div class="product-info">
+                                <h4 class="name text-black nobackground" style="margin-top:0;">
+                                    <b>Məhsulun adı:</b> @Model.DemanProductionGroup.productName (@Model.DemanProductionGroup.productParentName)
+                                    <br /><br />
+                                    <b>Tələbatın həcmi: </b>@Custom.ConverPriceToStringDelZero((decimal)Model.DemanProductionGroup.totalQuantity) @Model.DemanProductionGroup.enumValueName
+                                </h4>
+                                <div class="clearfix"></div>
+                                <br />
+                                <h5 class="text-black nobackground">
+                                    <span><b>Qiymət (AZN): </b> @Custom.ConverPriceToStringDelZero((decimal)Model.DemanProductionGroup.unitPrice)</span>
+                                    <span class="clearfix"></span><br />
+                                    <span><b>Cəmi (Manatla): </b> @Custom.ConverPriceToStringDelZero((decimal)Model.DemanProductionGroup.totalQuantityPrice)</span>
+                                </h5><br />
+
+                                <h5 class="name text-black nobackground">
+                                    <b>Təklifin həcmi: </b>@Custom.ConverPriceToStringDelZero((decimal)Model.DemanProductionGroup.offerProducts.FirstOrDefault().totalQuantity)
+                                    <span class="clearfix"></span><br />
+                                    <span><b>Cəmi (Manatla): </b> @Custom.ConverPriceToStringDelZero((decimal)Model.DemanProductionGroup.offerProducts.FirstOrDefault().totalPrice) </span>
+                                </h5>
+
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <br />
+                        <hr />
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Aylar</label><br />
+                                @Html.Action("Month", "PA", new { actionName = "TotalDemandOffersGroup", id=Model.monthEVId })
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>İstifadəçinin növü</label><br />
+                                @Html.Action("UserType", "PA", new { actionName = "TotalDemandOffersGroup", id=Model.userTypeId })
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>FİN | VÖEN</label><br />
+                                <input value="@Model.finVoen" onkeyup="StatisticsSearch(this, 'PA', 'TotalDemandOffersGroup', 'finVoen')" class="form-control" placeholder="axtar" />
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <br />
+                        <hr />
+                        <br />
+
+                        <div id="AjaxPaginationList">
+                            @Html.Partial("PartialTotalDemandOffersGroupDetail")
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

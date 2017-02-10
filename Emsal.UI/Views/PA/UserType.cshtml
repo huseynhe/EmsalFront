@@ -1,0 +1,34 @@
+﻿@model Emsal.UI.Models.OfferMonitoringViewModel
+
+@{
+    ViewBag.Title = "ProductCatalog";
+    Layout = "";
+}
+<style>
+    .select2 {
+        width: 100% !important;
+    }
+</style>
+
+<select onchange="StatisticsSearch(this, 'PA', '@Model.actionName', 'userTypeId')" class="form-control select2" style="width:auto !important;">
+    <option value="0">Seçim edin</option>
+    @if (Model.userTypeId == 15)
+    {
+        <option selected value="15">Potensial istehsalçı</option>
+    }
+    else
+    {
+        <option value="15">Potensial istehsalçı</option>
+    }
+   
+    @if (Model.userTypeId == 11)
+    {
+        <option selected value="11">Satıcı (İdxalçı)</option>
+    }
+    else
+    {
+    <option value="11">Satıcı (İdxalçı)</option>
+    }
+</select>
+
+

@@ -1,0 +1,29 @@
+﻿@model Emsal.UI.Models.OfferMonitoringViewModel
+
+@{
+    ViewBag.Title = "ProductCatalog";
+    Layout = "";
+}
+<style>
+    .select2 {
+        width: 100% !important;
+    }
+</style>
+
+<select onchange="StatisticsSearch(this,'PA','@Model.actionName', 'monthEVId')" class="form-control select2" style="width:auto !important;">
+    <option value="0">Aylar üzrə axtar</option>
+    @foreach (var item in Model.EnumValueMonthList)
+    {
+        if (item.Id == Model.monthEVId)
+        {
+        <option selected value="@item.Id">@item.description</option>
+        }
+        else
+        {
+            <option value="@item.Id">@item.description</option>
+        }
+    }
+</select>
+
+
+
