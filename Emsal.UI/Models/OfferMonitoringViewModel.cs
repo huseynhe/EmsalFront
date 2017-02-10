@@ -133,11 +133,19 @@ namespace Emsal.UI.Models
         public DemanProductionGroup[] DemanProductionGroupArray;
         public IList<DemanProductionGroup> DemanProductionGroupList { get; set; }
 
+        public DemanOfferProduction DemanOfferProduction { get; set; }
+        public DemanOfferProduction[] DemanOfferProductionArray;
+        public IList<DemanOfferProduction> DemanOfferProductionList { get; set; }
+
         public DemandOfferProductsSearch DemandOfferProductsSearch { get; set; }
 
         public PagedList.IPagedList<ProductionDetail> Paging { get; set; }
         public PagedList.IPagedList<tblPerson> PagingPerson { get; set; }
         public PagedList.IPagedList<long> PagingT { get; set; }
+
+        public tblEnumCategory EnumCategoryMonth;
+        
+        public tblEnumValue[] EnumValueMonthArray;
 
         public bool isPDF { get; set; }
         public long userId { get; set; }
@@ -209,6 +217,8 @@ namespace Emsal.UI.Models
         public string productName { get; set; }
         public string userInfo { get; set; }
         public long userType { get; set; }
+        public long userTypeId { get; set; }
+        public long monthEVId { get; set; }
         public long itemCount = 0;
         public bool itemCountB = true;
 
