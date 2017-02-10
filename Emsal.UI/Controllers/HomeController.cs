@@ -264,19 +264,32 @@ namespace Emsal.UI.Controllers
                 if (productId > 0)
                 {
                     modelProductCatalog.noPaged = 1;
-                    BaseOutput gai = srv.WS_GetAnnouncementDetailsByProductId(baseInput, productId, true, out modelProductCatalog.AnnouncementDetailArray);
-                    modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailArray.ToList();
+                    BaseOutput gadp = srv.WS_GetAnnouncementDetailsByProductId_OP(baseInput, pageNumber, true, pageSize, true, productId, true, out modelProductCatalog.AnnouncementDetailArray);
+
+
+                    BaseOutput gadpc = srv.WS_GetAnnouncementDetailsByProductId_OPC(baseInput, productId, true, out modelProductCatalog.itemCount, out modelProductCatalog.itemCountB);
                 }
                 else
                 {
-                    BaseOutput gap = srv.WS_GetAnnouncementDetails(baseInput, out modelProductCatalog.AnnouncementDetailArray);
-                    modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailArray.ToList();
+                    BaseOutput gadp = srv.WS_GetAnnouncementDetails_OP(baseInput,pageNumber, true,pageSize, true, out modelProductCatalog.AnnouncementDetailArray);
+
+                    BaseOutput gadpc = srv.WS_GetAnnouncementDetails_OPC(baseInput, productId, true, out modelProductCatalog.itemCount, out modelProductCatalog.itemCountB);
                 }
+
+                if (modelProductCatalog.AnnouncementDetailArray == null)
+                {
+                    modelProductCatalog.AnnouncementDetailList = new List<AnnouncementDetail>();
+                }else
+                {
+                    modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailArray.ToList();
+                }               
 
                 modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailList.OrderBy(x => x.parentName).ThenBy(x => x.productName).ToList();
 
 
-                modelProductCatalog.Paging = modelProductCatalog.AnnouncementDetailList.ToPagedList(pageNumber, pageSize);
+                long[] aic = new long[modelProductCatalog.itemCount];
+
+                modelProductCatalog.PagingT = aic.ToPagedList(pageNumber, pageSize);
 
                 if (sform == null)
                 {
@@ -324,8 +337,7 @@ namespace Emsal.UI.Controllers
                     saddressId = 0;
                     srId = 15;
                     ssort = null;
-                    //sname = null;
-                    sname = "";
+                    sname = null;
                     saddress = null;
                     sproductId = 0;
                 }
@@ -724,5 +736,32 @@ namespace Emsal.UI.Controllers
             }
         }
 
+        public ActionResult ProductCatalogForSaleOffer(string actionName)
+        {
+            try
+            {
+
+                baseInput = new BaseInput();
+                modelProductCatalog = new ProductCatalogViewModel();
+
+                BaseOutput bouput = srv.WS_GetProductCatalogsOffer(baseInput, out modelProductCatalog.ProductCatalogDetailArray);
+
+                if (modelProductCatalog.ProductCatalogDetailArray == null)
+                {
+                    modelProductCatalog.ProductCatalogDetailList = new List<ProductCatalogDetail>();
+                }
+                else
+                {
+                    modelProductCatalog.ProductCatalogDetailList = modelProductCatalog.ProductCatalogDetailArray.Where(x => x.productCatalog.canBeOrder == 1).ToList();
+                }
+
+                modelProductCatalog.actionName = actionName;
+                return View(modelProductCatalog);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
     }
 }

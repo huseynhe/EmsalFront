@@ -7,19 +7,21 @@
 }
 <div class="content">
     <div class="row">
-        <div class="col-md-12">
-            <div class="box box-primary" style="padding:30px;">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Məhsul üzrə təkliflər</h3>
-                    <!-- /.box-tools -->
+            <div class="box box-primary">
+
+                <br />
+                <div class="bs-callout bs-callout-info">
+                    <h3>
+                        <i class="glyphicon glyphicon-info-sign"></i> Məhsul üzrə təkliflər
+                    </h3>
                 </div>
+
                 <div class="clearfix"></div>
                 <br />
 
                 <div class="box-body no-padding">
-
                     <div class='thumbnail col-sm-12 col-md-12' style="padding: 20px;">
-                        <div class="col-xs-12 col-sm-4 col-md-4">
+                        <div class="col-xs-12 col-sm-3 col-md-3">
                             @if (!string.IsNullOrEmpty(Model.DemanProductionGroup.documentUrl))
                             {
                                 <img style="padding:0;" class="img-responsive thumbnail" src="@Model.DemanProductionGroup.documentUrl@Model.DemanProductionGroup.documentName" />
@@ -29,7 +31,7 @@
                                 <img class="img-responsive thumbnail" src="~/Content/img/noimage.png" />
                             }
                         </div>
-                        <div class='col-xs-12 col-sm-8 col-md-8'>
+                        <div class='col-xs-12 col-sm-9 col-md-9'>
                             <div class="product-info">
                                 <h4 class="name text-black nobackground" style="margin-top:0;">
                                     <b>Məhsulun adı:</b> @Model.DemanProductionGroup.productName (@Model.DemanProductionGroup.productParentName)
@@ -86,7 +88,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 </div>
 <script src="~/Content/js/pagedList.js"></script>

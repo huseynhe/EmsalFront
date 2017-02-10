@@ -104,10 +104,10 @@ namespace Emsal.UI.Controllers
 
                 if (modelProductCatalog.GetOfferProductionDetailistForEValueIdArray != null)
                 {
-                    if (sproductId > 0 || sfv != null)
-                    {
-                        modelProductCatalog.noPaged = 1;
-                    }
+                    //if (sproductId > 0 || sfv != null)
+                    //{
+                    //    modelProductCatalog.noPaged = 1;
+                    //}
 
                     modelProductCatalog.GetOfferProductionDetailistForEValueIdList = modelProductCatalog.GetOfferProductionDetailistForEValueIdArray.ToList();
                 }

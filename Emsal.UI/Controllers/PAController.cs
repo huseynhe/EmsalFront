@@ -450,6 +450,45 @@ namespace Emsal.UI.Controllers
             }
         }
 
+        public ActionResult ProductCatalogForSaleDemand(string actionName)
+        {
+            try
+            {
+
+                baseInput = new BaseInput();
+                modelOfferMonitoring = new OfferMonitoringViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferMonitoring.User);
+                baseInput.userName = modelOfferMonitoring.User.Username;
+
+                BaseOutput bouput = srv.WS_GetProductCatalogsDemand(baseInput, out modelOfferMonitoring.ProductCatalogDetailArray);
+
+                if (modelOfferMonitoring.ProductCatalogDetailArray == null)
+                {
+                    modelOfferMonitoring.ProductCatalogDetailList = new List<ProductCatalogDetail>();
+                }
+                else
+                {
+                    modelOfferMonitoring.ProductCatalogDetailList = modelOfferMonitoring.ProductCatalogDetailArray.Where(x => x.productCatalog.canBeOrder == 1).ToList();
+                }
+
+                modelOfferMonitoring.actionName = actionName;
+                return View(modelOfferMonitoring);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
 
         public ActionResult Month(string actionName, long id = 0)
         {
@@ -504,6 +543,17 @@ namespace Emsal.UI.Controllers
                 }
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferMonitoring.User);
                 baseInput.userName = modelOfferMonitoring.User.Username;
+
+                BaseOutput bouput = srv.WS_GetRoles1(baseInput, out modelOfferMonitoring.RoleArray);
+
+                if (modelOfferMonitoring.RoleArray == null)
+                {
+                    modelOfferMonitoring.RoleList = new List<tblRole>();
+                }
+                else
+                {
+                    modelOfferMonitoring.RoleList = modelOfferMonitoring.RoleArray.ToList();
+                }
 
                 modelOfferMonitoring.actionName = actionName;
                 modelOfferMonitoring.userTypeId = id;

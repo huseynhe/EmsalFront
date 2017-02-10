@@ -1,0 +1,22 @@
+﻿@model Emsal.UI.Models.OfferMonitoringViewModel
+
+@{
+    ViewBag.Title = "ProductCatalog";
+    Layout = "";
+}
+<style>
+    .select2 {
+        width: 100% !important;
+    }
+</style>
+
+<select onchange="StatisticsSearch(this,'PA','@Model.actionName', 'productId')" class="form-control select2" style="width:auto !important;">
+    <option value="0">Satılacaq məhsul üzrə axtar</option>
+    @foreach (var item in Model.ProductCatalogDetailList)
+    {
+        <option value="@item.productCatalog.Id">@item.productCatalog.ProductName (@item.productName)</option>
+    }
+</select>
+
+
+

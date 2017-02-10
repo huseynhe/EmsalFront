@@ -5,49 +5,49 @@
     Layout = "~/Views/Shared/_LayoutPA.cshtml";
 }
 <div class="content" id="center">
+    <br />
+    <div class="bs-callout bs-callout-info">
+        <h3>
+            <i class="glyphicon glyphicon-info-sign"></i> Məhsul üzrə tələb və təkliflər
+        </h3>
+    </div>
+
+    <div class="clearfix"></div>
+    <br />
+
     <div class="row">
+        <div class="col-md-3">
+            <label>Məhsulun adı</label><br />
+            @Html.Action("ProductCatalogForSaleDemand", "PA", new { actionName = "TotalDemandOffersGroup" })
+        </div>
+
+        <div class="col-md-3">
+            <label>Aylar</label><br />
+            @Html.Action("Month", "PA", new { actionName = "TotalDemandOffersGroup" })
+        </div>
+
+        <div class="col-md-3">
+            <label>İstifadəçinin növü</label><br />
+            @Html.Action("UserType", "PA", new { actionName = "TotalDemandOffersGroup" })
+        </div>
+
+        <div class="col-md-3">
+            <label>FİN | VÖEN</label><br />
+            <input onkeyup="StatisticsSearch(this, 'PA', 'TotalDemandOffersGroup', 'finVoen')" class="form-control" placeholder="axtar" />
+        </div>
+
         <div class="col-md-12">
-            <div class="box box-primary" style="padding:30px;">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Məhsul üzrə tələb və təkliflər</h3>
-                    <!-- /.box-tools -->
-                </div>
-                <div class="clearfix"></div>
-                <br />
-
-                <div class="row">
-                    <div class="col-md-3">
-                        <label>Məhsulun adı</label><br />
-                        @Html.Action("ProductCatalogForSale", "PA", new { actionName = "TotalDemandOffersGroup" })
-                    </div>
-
-                    <div class="col-md-3">
-                        <label>Aylar</label><br />
-                        @Html.Action("Month", "PA", new { actionName = "TotalDemandOffersGroup" })
-                    </div>
-
-                    <div class="col-md-3">
-                        <label>İstifadəçinin növü</label><br />
-                        @Html.Action("UserType", "PA", new { actionName = "TotalDemandOffersGroup" })
-                    </div>
-
-                    <div class="col-md-3">
-                        <label>FİN | VÖEN</label><br />
-                        <input onkeyup="StatisticsSearch(this, 'PA', 'TotalDemandOffersGroup', 'finVoen')" class="form-control" placeholder="axtar" />
-                    </div>
-                </div>
-
-                <div class="clearfix"></div>
-                <br/>
-                <hr />
-                <br />
-                <div id="AjaxPaginationList">
-                    @Html.Partial("PartialTotalDemandOffersGroup")
-                </div>
+            <div class="clearfix"></div>
+            <br />
+            <hr />
+            <br />
+            <div id="AjaxPaginationList">
+                @Html.Partial("PartialTotalDemandOffersGroup")
             </div>
         </div>
     </div>
 </div>
+
 <script src="~/Content/js/pagedList.js"></script>
 
 

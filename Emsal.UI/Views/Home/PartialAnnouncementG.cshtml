@@ -13,7 +13,7 @@
 }
 <h2 class="text-bold" style="text-align:center;">2017-ci il üçün satın alınması nəzərdə tutulan ərzaq məhsulları barədə ELANLAR</h2>
 <ul class="thumbnails list-unstyled list-inline">
-    @foreach (var item in Model.Paging)
+    @foreach (var item in Model.AnnouncementDetailList)
     {        
         if (oppName != item.parentName)
         {
@@ -53,7 +53,7 @@
 
         oppName = item.parentName;
     }
-    @if (Model.Paging.Count() == 0)
+    @if (Model.AnnouncementDetailList.Count() == 0)
     {
         <h5 class="text-center" style="color:#fff;">Qeyd tapılmadı</h5>
     }
@@ -64,8 +64,8 @@
     @if (Model.noPaged == 0)
     {
         <div class="box-footer clearfix" style="color:#fff;">
-            Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
-            @Html.PagedListPager(Model.Paging, page => Url.Action("Announcement", new { page, form = Model.form }))
+            Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
+            @Html.PagedListPager(Model.PagingT, page => Url.Action("Announcement", new { page, form = Model.form }))
         </div>
     }
 </div>

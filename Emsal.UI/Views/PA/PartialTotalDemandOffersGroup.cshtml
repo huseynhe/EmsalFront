@@ -11,17 +11,17 @@
 }
 
 <div class="clearfix"></div><br />
+
+<span class="badge " style="margin-top: -20px; float: right;background:#D43F3A;">@Model.itemCount</span>
+<div class="clearfix"></div>
+
 <div class="box-body no-padding">
     <div class="table-responsive">
-        <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
-            <span class="badge " style="margin-top: -20px; float: right; margin-right: 50px;background:#D43F3A;">@Model.itemCount</span>
-        </div>
-        <div class="clearfix"></div>
 
         <ul class="thumbnails list-unstyled list-inline">
             @foreach (var item in Model.DemanProductionGroupList)
             {
-                if (item.offerProducts.Count()>0)
+                if (item.offerProducts.Count() > 0)
                 {
                     if (oppname != item.productParentName)
                     {
@@ -45,9 +45,10 @@
                             }
                             <div class="caption">
                                 <h4 class="text-bold">@item.productName</h4>
-                                <h4 class="text-bold text-red"> @Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity) @item.enumValueName
-                                <span class="clearfix"></span>
-                                @Custom.ConverPriceToStringDelZero((decimal)item.offerProducts.FirstOrDefault().totalQuantity)
+                                <h4 class="text-bold text-red">
+                                    @Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity) @item.enumValueName
+                                    <span class="clearfix"></span>
+                                    @Custom.ConverPriceToStringDelZero((decimal)item.offerProducts.FirstOrDefault().totalQuantity)
                                 </h4>
                                 <div style="position: absolute; bottom: 30px; float: left; width: calc(100% - 30px);">
                                     <a target="_blank" href="/PA/TotalDemandOffersGroupDetail?productId=@item.productId&userTypeId=@Model.userTypeId&finVoen=@Model.finVoen&monthEVId=@Model.monthEVId" class="btn btn-default text-bold f-left">Ətraflı</a>
@@ -71,6 +72,6 @@
 </div>
 <div class="box-footer clearfix">
     Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
-    @Html.PagedListPager(Model.PagingT, page => Url.Action("TotalDemandOffersGroup", new { page, productId = Model.productId, userTypeId = Model.userTypeId, finVoen = Model.finVoen , monthEVId =Model.monthEVId}))
+    @Html.PagedListPager(Model.PagingT, page => Url.Action("TotalDemandOffersGroup", new { page, productId = Model.productId, userTypeId = Model.userTypeId, finVoen = Model.finVoen, monthEVId = Model.monthEVId }))
 </div>
 

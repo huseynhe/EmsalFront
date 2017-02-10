@@ -12,22 +12,16 @@
 
 <select onchange="StatisticsSearch(this, 'PA', '@Model.actionName', 'userTypeId')" class="form-control select2" style="width:auto !important;">
     <option value="0">Seçim edin</option>
-    @if (Model.userTypeId == 15)
+    @foreach (var item in Model.RoleList)
     {
-        <option selected value="15">Potensial istehsalçı</option>
-    }
-    else
-    {
-        <option value="15">Potensial istehsalçı</option>
-    }
-   
-    @if (Model.userTypeId == 11)
-    {
-        <option selected value="11">Satıcı (İdxalçı)</option>
-    }
-    else
-    {
-    <option value="11">Satıcı (İdxalçı)</option>
+        if (item.Id == Model.userTypeId)
+        {
+            <option selected value="@item.Id">@item.Description</option>
+        }
+        else
+        {
+            <option value="@item.Id">@item.Description</option>
+        }
     }
 </select>
 

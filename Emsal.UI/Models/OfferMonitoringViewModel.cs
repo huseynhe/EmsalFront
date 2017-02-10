@@ -37,6 +37,10 @@ namespace Emsal.UI.Models
         public IList<ProductCatalogDetail> ProductCatalogDetailList { get; set; }
         public ProductCatalogDetail[] ProductCatalogDetailArray;
 
+        public tblRole Role;
+        public IList<tblRole> RoleList { get; set; }
+        public tblRole[] RoleArray;
+
         public ProductionDetail ProductionDetail;
         public IList<ProductionDetail> ProductionDetailList { get; set; }
         public ProductionDetail[] ProductionDetailArray;
