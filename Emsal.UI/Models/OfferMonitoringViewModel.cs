@@ -250,22 +250,18 @@ namespace Emsal.UI.Models
 
         [Display(Name = "Müqavilə üzrə malın qiyməti")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
-        [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public decimal paContractProductPrice { get; set; }
 
         [Display(Name = "Təchizat qiyməti (manatla)")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
-        [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public decimal paContractPrice { get; set; }
 
         [Display(Name = "Müqavilə üzrə malın həcmi")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
-        [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public decimal paContractProductQuantity { get; set; }
 
         [Display(Name = "Müqavilənin ümumi dəyəri (manatla)")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
-        [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
         public decimal paContractAllPrice { get; set; }
 
         [Display(Name = "Qeyd")]
