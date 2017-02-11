@@ -1,0 +1,89 @@
+﻿@model Emsal.UI.Models.OfferMonitoringViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+<h2>&nbsp;</h2>
+<div class="row">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            @*<h3 class="box-title">----</h3>*@
+        </div>
+        @using (Html.BeginForm("Edit", "OfferMonitoring", FormMethod.Post,
+                                             new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="clear-both"></div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+
+            <div class="box-body">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.paContractDate, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.paContractDate, new { @class = "form-control", required = "required" })
+                        @Html.ValidationMessageFor(model => model.paContractDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.paContractNumber, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.paContractNumber, new { @class = "form-control", required = "required" })
+                        @Html.ValidationMessageFor(model => model.paContractNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.paContractProductPrice, htmlAttributes: new { @class = "control-label" })
+                        @*@Html.EditorFor(model => model.paContractProductPrice, new { @class = "form-control", required = "required", htmlAttributes = new { @type = "number" } })*@
+                        <input required type="number" step="0.01" min="0.001" class="form-control" placeholder="məs: 4 və ya 0.3" name="paContractProductPrice" id="paContractProductPrice">
+                        @Html.ValidationMessageFor(model => model.paContractProductPrice, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.paContractPrice, htmlAttributes: new { @class = "control-label" })
+                        <input required type="number" step="0.01" min="0.001" class="form-control" placeholder="məs: 4 və ya 0.3" name="paContractPrice" id="paContractPrice">
+                        @Html.ValidationMessageFor(model => model.paContractPrice, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.paContractProductQuantity, htmlAttributes: new { @class = "control-label" })
+                        <input required type="number" step="0.01" min="0.001" class="form-control" placeholder="məs: 4 və ya 0.3" name="paContractProductQuantity" id="paContractProductQuantity">
+                        @Html.ValidationMessageFor(model => model.paContractProductQuantity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.paContractAllPrice, htmlAttributes: new { @class = "control-label" })
+                        <input required type="number" step="0.01" min="0.001" class="form-control" placeholder="məs: 4 və ya 0.3" name="paContractAllPrice" id="paContractAllPrice">
+                        @Html.ValidationMessageFor(model => model.paContractAllPrice, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.paContractNote, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextAreaFor(model => model.paContractNote, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.paContractNote, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="box-footer">
+                <input type="submit" value="Təsdiqləyin" class="btn btn-primary active" style="float:right;" />
+            </div>
+
+        }
+    </div>
+</div>
+<br />
+

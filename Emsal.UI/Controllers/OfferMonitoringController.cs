@@ -32,13 +32,14 @@ namespace Emsal.UI.Controllers
         private static string spin;
         private static bool sisApprov;
         private static bool sisSeller;
+        private static bool sisPa;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
         // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
 
         private OfferMonitoringViewModel modelOfferMonitoring;
 
-        public ActionResult Index(int? page, string monitoringStatusEV = null, long productId = -1, long userType = -1, string userInfo = null, bool pdf = false)
+        public ActionResult Index(int? page, string monitoringStatusEV = null, long productId = -1, long userType = -1, string userInfo = null, bool pdf = false, bool isPa=false)
         {
             try
             {
@@ -56,6 +57,7 @@ namespace Emsal.UI.Controllers
                     sproductId = 0;
                     suserInfo = null;
                     suserType = 0;
+                    sisPa = false;
                 }
 
                 if (productId >= 0)
@@ -66,6 +68,9 @@ namespace Emsal.UI.Controllers
                     smonitoringStatusEV = monitoringStatusEV;
                 if (userType >= 0)
                     suserType = userType;
+
+                if(isPa==true)
+                sisPa = isPa;
 
                 baseInput = new BaseInput();
                 modelOfferMonitoring = new OfferMonitoringViewModel();
@@ -128,6 +133,7 @@ namespace Emsal.UI.Controllers
                     modelOfferMonitoring.isMain = 1;
 
                 modelOfferMonitoring.monitoringStatusEV = smonitoringStatusEV;
+                modelOfferMonitoring.isPa = sisPa;
                 modelOfferMonitoring.productId = sproductId;
                 modelOfferMonitoring.userInfo = suserInfo;
                 modelOfferMonitoring.userType = suserType;
@@ -464,6 +470,115 @@ namespace Emsal.UI.Controllers
 
 
                 return RedirectToAction("Index", "OfferMonitoring", new { monitoringStatusEV = model.EnumValueST.name });
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+
+        public ActionResult EditPA(int id)
+        {
+            try
+            {
+
+                baseInput = new BaseInput();
+                modelOfferMonitoring = new OfferMonitoringViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferMonitoring.User);
+                baseInput.userName = modelOfferMonitoring.User.Username;
+
+                BaseOutput bouput = srv.WS_GetOffer_ProductionById(baseInput, id, true, out modelOfferMonitoring.OfferProduction);
+
+                modelOfferMonitoring.Id = modelOfferMonitoring.OfferProduction.Id;
+
+                BaseOutput enumcat = srv.WS_GetEnumCategorysByName(baseInput, "State", out modelOfferMonitoring.EnumCategory);
+
+                BaseOutput enumval = srv.WS_GetEnumValuesByEnumCategoryId(baseInput, modelOfferMonitoring.EnumCategory.Id, true, out modelOfferMonitoring.EnumValueArray);
+                modelOfferMonitoring.EnumValueList = modelOfferMonitoring.EnumValueArray.ToList();
+
+                return View(modelOfferMonitoring);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditPA(OfferMonitoringViewModel model, FormCollection collection)
+        {
+            try
+            {
+
+                baseInput = new BaseInput();
+
+                model.ConfirmationMessage = new tblConfirmationMessage();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out model.User);
+                baseInput.userName = model.User.Username;
+
+                model.ConfirmationMessage.Message = model.message;
+
+                BaseOutput pout = srv.WS_SendConfirmationMessageNew(baseInput, model.ConfirmationMessage, out model.ConfirmationMessage);
+
+
+                model.OfferProduction = new tblOffer_Production();
+
+                BaseOutput bouput = srv.WS_GetOffer_ProductionById(baseInput, model.Id, true, out model.OfferProduction);
+
+                BaseOutput envalyd = srv.WS_GetEnumValueById(baseInput, model.monitoringStatusEVId, true, out model.EnumValueST);
+
+                //BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "reedited", out model.EnumValueST);
+
+
+                model.OfferProduction.monitoring_eV_Id = model.EnumValueST.Id;
+                model.OfferProduction.monitoring_eV_IdSpecified = true;
+
+                model.OfferProduction.isNew = 1;
+                model.OfferProduction.isNewSpecified = true;
+
+                BaseOutput ecout = srv.WS_UpdateOffer_Production(baseInput, model.OfferProduction, out model.OfferProduction);
+
+                model.ComMessage = new tblComMessage();
+                model.ComMessage.message = model.message;
+                model.ComMessage.fromUserID = (long)UserId;
+                model.ComMessage.fromUserIDSpecified = true;
+                model.ComMessage.toUserID = model.OfferProduction.user_Id;
+                model.ComMessage.toUserIDSpecified = true;
+                model.ComMessage.Production_Id = model.OfferProduction.Id;
+                model.ComMessage.Production_IdSpecified = true;
+
+                BaseOutput enumval = srv.WS_GetEnumValueByName(baseInput, "offer", out model.EnumValue);
+                model.ComMessage.Production_type_eV_Id = model.EnumValue.Id;
+                model.ComMessage.Production_type_eV_IdSpecified = true;
+
+                BaseOutput acm = srv.WS_AddComMessage(baseInput, model.ComMessage, out model.ComMessage); 
+
+
+                return RedirectToAction("Index", "OfferMonitoring", new { monitoringStatusEV = model.EnumValueST.name, isPa=true });
 
             }
             catch (Exception ex)

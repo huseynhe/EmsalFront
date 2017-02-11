@@ -215,6 +215,7 @@ namespace Emsal.UI.Models
 
         public int isMain { get; set; }
         public string monitoringStatusEV { get; set; }
+        public bool isPa { get; set; }
 
         [Display(Name = "Səbəb")]
         public long monitoringStatusEVId { get; set; }
@@ -234,5 +235,40 @@ namespace Emsal.UI.Models
         public string fname { get; set; }
         public bool isApprov { get; set; }
         public bool isSeller { get; set; }
+
+
+
+
+        [Display(Name = "Müqavilənin tarixi")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public virtual DateTime? paContractDate { get; set; }
+
+        [Display(Name = "Müqavilənin nömrəsi")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public string paContractNumber { get; set; }
+
+        [Display(Name = "Müqavilə üzrə malın qiyməti")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
+        public decimal paContractProductPrice { get; set; }
+
+        [Display(Name = "Təchizat qiyməti (manatla)")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
+        public decimal paContractPrice { get; set; }
+
+        [Display(Name = "Müqavilə üzrə malın həcmi")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
+        public decimal paContractProductQuantity { get; set; }
+
+        [Display(Name = "Müqavilənin ümumi dəyəri (manatla)")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        [Range(1, int.MaxValue, ErrorMessage = "{0} xanası minimum {1} olmalıdır.")]
+        public decimal paContractAllPrice { get; set; }
+
+        [Display(Name = "Qeyd")]
+        public string paContractNote { get; set; }
     }
 }

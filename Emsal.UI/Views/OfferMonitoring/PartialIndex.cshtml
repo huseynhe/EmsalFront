@@ -167,9 +167,17 @@
                                         </a>
                                     </td>
                                 }
+                                if (Model.isPa == true)
+                                {
+                                    <td class="col-md-1 shsingle text-center">
+                                        <a href="/OfferMonitoring/EditPA/@item.productionID" class="badge bg-light-blue">
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </a>
+                                    </td>
+                                }
                             }
                         </tr>
-                        if (item.productionCalendarList.Count() > 0)
+                        if (item.productionCalendarList.Count() > 0 && Model.isPa==false)
                         {
                             <tr>
                                 <td colspan="9" style="padding:0;">
@@ -207,7 +215,7 @@
                                 </td>
                             </tr>
                         }
-                        if (item != Model.ProductionDetailList.LastOrDefault())
+                        if (item != Model.ProductionDetailList.LastOrDefault() && Model.isPa == false)
                         {
                             <tr>
                                 <td colspan="9" style="padding:0;background:#f2f2f2;">
@@ -224,7 +232,7 @@
     {
         <div class="box-footer clearfix">
             Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
-            @Html.PagedListPager(Model.PagingT, page => Url.Action("Index", new { page, monitoringStatusEV = Model.monitoringStatusEV, productId = Model.productId, userType = Model.userType, userInfo = Model.userInfo }))
+            @Html.PagedListPager(Model.PagingT, page => Url.Action("Index", new { page, monitoringStatusEV = Model.monitoringStatusEV, productId = Model.productId, userType = Model.userType, userInfo = Model.userInfo, isPa=Model.isPa }))
         </div>
     }
 }

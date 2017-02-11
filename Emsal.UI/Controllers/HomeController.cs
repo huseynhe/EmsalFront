@@ -35,32 +35,7 @@ namespace Emsal.UI.Controllers
         private static long sproductId;
         private static string sform;
 
-        //Bir defe calisdir Db yaratsin sonra comment et 
-        //srv.WS_createDb();
-
-        //tblProductCatalog pCatalog = new tblProductCatalog();
-
-        //pCatalog = new tblProductCatalog
-        //{
-        //    ProductName = "Mehsul",
-        //    ProductDescription = "Mehsul Catalogu",
-        //    ProductCatalogParentID = 0,
-        //    canBeOrder = 0,
-
-        //};
-        //BaseOutput pout = srv.WS_AddProductCatalog(pCatalog);
-
-        //tblProductCatalog[] pCatalogArray;
-
-        //BaseOutput bouput = srv.WS_GetProductCatalogs(out pCatalogArray);
-        //return View(pCatalogArray.ToList());
-
-
-        //
-        // GET: /Home/
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
-       // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
-        //Emsal.WebInt.EmsalSrv.EmsalService taxessrv = Emsal.WebInt.EmsalService.taxesService;
 
         private ProductCatalogViewModel modelProductCatalog;
         private ContactViewModel modelContact;
@@ -73,19 +48,8 @@ namespace Emsal.UI.Controllers
                 string hostAddress = Request.UserHostAddress;     
                 string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
                 string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-
-                //srv.WS_createDb();
-
-                //SingleServiceControl srvcontrol = new SingleServiceControl();
-                //tblPerson person ;
-                //getPersonalInfoByPinNewResponseResponse iamasPerson;
-
-                //int control = srvcontrol.getPersonInfoByPin("", out person, out iamasPerson);
-
+                
                 baseInput = new BaseInput();
-
-                //baseInput.TransactionId = Int64.Parse(IOUtil.GetFunctionRequestID());
-                //baseInput.ChannelId = ChannelEnum.Emsal.ToString();
 
                 modelProductCatalog = new ProductCatalogViewModel();
 
@@ -110,8 +74,6 @@ namespace Emsal.UI.Controllers
                 {
                     Session["musername"] = null;
                 }
-                //BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelProductCatalog.User);
-                //BaseOutput person = srv.WS_GetPersonByUserId(baseInput, (long)userId, true, out modelProductCatalog.Person);
 
                 BaseOutput bouput = srv.WS_GetProductCatalogsByParentId(baseInput, pId, true, out modelProductCatalog.ProductCatalogArray);
                 if (modelProductCatalog.ProductCatalogArray != null)
