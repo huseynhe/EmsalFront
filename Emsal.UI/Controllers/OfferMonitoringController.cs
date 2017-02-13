@@ -39,7 +39,7 @@ namespace Emsal.UI.Controllers
 
         private OfferMonitoringViewModel modelOfferMonitoring;
 
-        public ActionResult Index(int? page, string monitoringStatusEV = null, long productId = -1, long userType = -1, string userInfo = null, bool pdf = false, bool isPa=false)
+        public ActionResult Index(int? page, string monitoringStatusEV = null, long productId = -1, long userType = -1, string userInfo = null, bool pdf = false, bool isPa = false)
         {
             try
             {
@@ -69,8 +69,8 @@ namespace Emsal.UI.Controllers
                 if (userType >= 0)
                     suserType = userType;
 
-                if(isPa==true)
-                sisPa = isPa;
+                if (isPa == true)
+                    sisPa = isPa;
 
                 baseInput = new BaseInput();
                 modelOfferMonitoring = new OfferMonitoringViewModel();
@@ -119,7 +119,7 @@ namespace Emsal.UI.Controllers
                 else
                 {
                     modelOfferMonitoring.ProductionDetailList = new List<ProductionDetail>();
-                }               
+                }
 
                 BaseOutput gppc = srv.WS_GetOfferProductionDetailistForMonitoringEVId_OPC(baseInput, modelOfferMonitoring.OfferProductionDetailSearch, out modelOfferMonitoring.itemCount, out modelOfferMonitoring.itemCountB);
 
@@ -157,7 +157,6 @@ namespace Emsal.UI.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
-
 
         [HttpPost]
         public ActionResult Approv(int[] ids)
@@ -479,7 +478,7 @@ namespace Emsal.UI.Controllers
         }
 
 
-        public ActionResult EditPA(int id)
+        public ActionResult EditPA(long id)
         {
             try
             {
@@ -499,17 +498,28 @@ namespace Emsal.UI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferMonitoring.User);
                 baseInput.userName = modelOfferMonitoring.User.Username;
 
-                BaseOutput bouput = srv.WS_GetOffer_ProductionById(baseInput, id, true, out modelOfferMonitoring.OfferProduction);
+                BaseOutput bouput = srv.WS_GettblContractDetailTempByOfferId(baseInput, id, true, out modelOfferMonitoring.ContractDetailTempArray);
 
-                modelOfferMonitoring.Id = modelOfferMonitoring.OfferProduction.Id;
+                if (modelOfferMonitoring.ContractDetailTempArray.Count()>0)
+                {
+                    modelOfferMonitoring.ContractDetailTemp = modelOfferMonitoring.ContractDetailTempArray.FirstOrDefault();
 
-                BaseOutput enumcat = srv.WS_GetEnumCategorysByName(baseInput, "State", out modelOfferMonitoring.EnumCategory);
-
-                BaseOutput enumval = srv.WS_GetEnumValuesByEnumCategoryId(baseInput, modelOfferMonitoring.EnumCategory.Id, true, out modelOfferMonitoring.EnumValueArray);
-                modelOfferMonitoring.EnumValueList = modelOfferMonitoring.EnumValueArray.ToList();
+                    modelOfferMonitoring.paContractOfferId = (long)modelOfferMonitoring.ContractDetailTemp.offerID;
+                    modelOfferMonitoring.paContractDate = DatetimeExtension.toShortDate(modelOfferMonitoring.ContractDetailTemp.ContractDate);
+                    modelOfferMonitoring.paContractNumber = modelOfferMonitoring.ContractDetailTemp.ContractNumber_;
+                    modelOfferMonitoring.paContractProductPrice = (modelOfferMonitoring.ContractDetailTemp.product_unit_price.ToString()).Replace(',', '.');
+                    modelOfferMonitoring.paContractPrice = (modelOfferMonitoring.ContractDetailTemp.product_asc_price.ToString()).Replace(',', '.');
+                    modelOfferMonitoring.paContractProductQuantity = (modelOfferMonitoring.ContractDetailTemp.product_total_count.ToString()).Replace(',', '.');
+                    modelOfferMonitoring.paContractAllPrice = (modelOfferMonitoring.ContractDetailTemp.product_total_price.ToString()).Replace(',', '.'); 
+                    modelOfferMonitoring.paContractNote = modelOfferMonitoring.ContractDetailTemp.description;
+                }
+                else
+                {
+                    modelOfferMonitoring.ContractDetailTemp = new tblContractDetailTemp();
+                    modelOfferMonitoring.paContractOfferId = id;
+                }
 
                 return View(modelOfferMonitoring);
-
             }
             catch (Exception ex)
             {
@@ -522,7 +532,6 @@ namespace Emsal.UI.Controllers
         {
             try
             {
-
                 baseInput = new BaseInput();
 
                 model.ConfirmationMessage = new tblConfirmationMessage();
@@ -540,45 +549,47 @@ namespace Emsal.UI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out model.User);
                 baseInput.userName = model.User.Username;
 
-                model.ConfirmationMessage.Message = model.message;
+                BaseOutput bouput = srv.WS_GettblContractDetailTempByOfferId(baseInput, model.paContractOfferId, true, out model.ContractDetailTempArray);
 
-                BaseOutput pout = srv.WS_SendConfirmationMessageNew(baseInput, model.ConfirmationMessage, out model.ConfirmationMessage);
+                if (model.ContractDetailTempArray.Count() > 0)
+                {
+                    model.ContractDetailTemp = model.ContractDetailTempArray.FirstOrDefault();
+                }
+                else
+                {
+                    model.ContractDetailTemp = new tblContractDetailTemp();
+
+                    model.ContractDetailTemp.offerID = model.paContractOfferId;
+                    model.ContractDetailTemp.offerIDSpecified = true;
+                }
+
+                model.ContractDetailTemp.ContractDate = ((DateTime)model.paContractDate).getInt64Date();
+                model.ContractDetailTemp.ContractDateSpecified = true;
+                model.ContractDetailTemp.ContractNumber_ = StripTag.strSqlBlocker(model.paContractNumber);
+                model.ContractDetailTemp.product_unit_price = Convert.ToDecimal(model.paContractProductPrice.Replace('.', ','));
+                model.ContractDetailTemp.product_unit_priceSpecified = true;
+                model.ContractDetailTemp.product_asc_price = Convert.ToDecimal(model.paContractPrice.Replace('.', ','));
+                model.ContractDetailTemp.product_asc_priceSpecified = true;
+                model.ContractDetailTemp.product_total_count = Convert.ToDecimal(model.paContractProductQuantity.Replace('.', ','));
+                model.ContractDetailTemp.product_total_countSpecified = true;
+                model.ContractDetailTemp.product_total_price = Convert.ToDecimal(model.paContractAllPrice.Replace('.', ','));
+                model.ContractDetailTemp.product_total_priceSpecified = true;
+                if (model.paContractNote != null)
+                {
+                    model.ContractDetailTemp.description = StripTag.strSqlBlocker(model.paContractNote);
+                }
+
+                if (model.ContractDetailTempArray.Count() > 0)
+                {
+                    BaseOutput acm = srv.WS_UpdatetblContractDetailTemp(baseInput, model.ContractDetailTemp, out model.ContractDetailTemp);
+                }
+                else
+                {
+                    BaseOutput acm = srv.WS_AddtblContractDetailTemp(baseInput, model.ContractDetailTemp, out model.ContractDetailTemp);
+                }
 
 
-                model.OfferProduction = new tblOffer_Production();
-
-                BaseOutput bouput = srv.WS_GetOffer_ProductionById(baseInput, model.Id, true, out model.OfferProduction);
-
-                BaseOutput envalyd = srv.WS_GetEnumValueById(baseInput, model.monitoringStatusEVId, true, out model.EnumValueST);
-
-                //BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "reedited", out model.EnumValueST);
-
-
-                model.OfferProduction.monitoring_eV_Id = model.EnumValueST.Id;
-                model.OfferProduction.monitoring_eV_IdSpecified = true;
-
-                model.OfferProduction.isNew = 1;
-                model.OfferProduction.isNewSpecified = true;
-
-                BaseOutput ecout = srv.WS_UpdateOffer_Production(baseInput, model.OfferProduction, out model.OfferProduction);
-
-                model.ComMessage = new tblComMessage();
-                model.ComMessage.message = model.message;
-                model.ComMessage.fromUserID = (long)UserId;
-                model.ComMessage.fromUserIDSpecified = true;
-                model.ComMessage.toUserID = model.OfferProduction.user_Id;
-                model.ComMessage.toUserIDSpecified = true;
-                model.ComMessage.Production_Id = model.OfferProduction.Id;
-                model.ComMessage.Production_IdSpecified = true;
-
-                BaseOutput enumval = srv.WS_GetEnumValueByName(baseInput, "offer", out model.EnumValue);
-                model.ComMessage.Production_type_eV_Id = model.EnumValue.Id;
-                model.ComMessage.Production_type_eV_IdSpecified = true;
-
-                BaseOutput acm = srv.WS_AddComMessage(baseInput, model.ComMessage, out model.ComMessage); 
-
-
-                return RedirectToAction("Index", "OfferMonitoring", new { monitoringStatusEV = model.EnumValueST.name, isPa=true });
+                return RedirectToAction("Index", "OfferMonitoring", new { monitoringStatusEV = "Tesdiqlenen", isPa = true });
 
             }
             catch (Exception ex)
@@ -636,7 +647,7 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferMonitoring.EnumValue);
 
-                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch= new GetDemandProductionDetailistForEValueIdSearch();
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch = new GetDemandProductionDetailistForEValueIdSearch();
                 modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.monitoring_Ev_Id = modelOfferMonitoring.EnumValue.Id;
                 modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
                 modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.pageSize = pageSize;
@@ -657,9 +668,9 @@ namespace Emsal.UI.Controllers
                 }
 
                 BaseOutput gpp = srv.WS_GetUserDetailInfoForOffers_OP(baseInput, modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch, out modelOfferMonitoring.PersonDetailArray);
-                
-                
-                if(modelOfferMonitoring.PersonDetailArray!=null)
+
+
+                if (modelOfferMonitoring.PersonDetailArray != null)
                 {
                     modelOfferMonitoring.PersonDetailList = modelOfferMonitoring.PersonDetailArray.ToList();
                 }

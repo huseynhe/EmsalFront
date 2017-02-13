@@ -235,7 +235,7 @@ namespace Emsal.UI.Controllers
                 {
                     BaseOutput gadp = srv.WS_GetAnnouncementDetails_OP(baseInput,pageNumber, true,pageSize, true, out modelProductCatalog.AnnouncementDetailArray);
 
-                    BaseOutput gadpc = srv.WS_GetAnnouncementDetails_OPC(baseInput, productId, true, out modelProductCatalog.itemCount, out modelProductCatalog.itemCountB);
+                    BaseOutput gadpc = srv.WS_GetAnnouncementDetails_OPC(baseInput, out modelProductCatalog.itemCount, out modelProductCatalog.itemCountB);
                 }
 
                 if (modelProductCatalog.AnnouncementDetailArray == null)

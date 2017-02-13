@@ -76,9 +76,17 @@
                             <th class="col-md-2">
                                 Sənədlər
                             </th>
+                            @if (Model.isPa == true)
+                            {
+                                <th class="col-md-1 shsingle text-center">Müqavilə nömrəsi</th>
+                            }
                             @if (Model.isMain == 0)
                             {
                                 <th class="col-md-1 shsingle text-center">imtina</th>
+                            }
+                            @if (Model.isPa == true)
+                            {
+                                <th class="col-md-1 shsingle text-center">Əlavə et | redaktə et</th>
                             }
                         </tr>
                     </tbody>

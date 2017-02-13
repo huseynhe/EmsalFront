@@ -33,6 +33,10 @@ namespace Emsal.UI.Models
         public IList<tblOffer_Production> OfferProductionList { get; set; }
         public tblOffer_Production[] OfferProductionArray;
 
+        public tblContractDetailTemp ContractDetailTemp;
+        public IList<tblContractDetailTemp> ContractDetailTempList { get; set; }
+        public tblContractDetailTemp[] ContractDetailTempArray;
+
         public ProductCatalogDetail ProductCatalogDetail;
         public IList<ProductCatalogDetail> ProductCatalogDetailList { get; set; }
         public ProductCatalogDetail[] ProductCatalogDetailArray;
@@ -238,7 +242,7 @@ namespace Emsal.UI.Models
 
 
 
-
+        public long paContractOfferId { get; set; }
         [Display(Name = "Müqavilənin tarixi")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
@@ -250,19 +254,19 @@ namespace Emsal.UI.Models
 
         [Display(Name = "Müqavilə üzrə malın qiyməti")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
-        public decimal paContractProductPrice { get; set; }
+        public string paContractProductPrice { get; set; }
 
         [Display(Name = "Təchizat qiyməti (manatla)")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
-        public decimal paContractPrice { get; set; }
+        public string paContractPrice { get; set; }
 
         [Display(Name = "Müqavilə üzrə malın həcmi")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
-        public decimal paContractProductQuantity { get; set; }
+        public string paContractProductQuantity { get; set; }
 
         [Display(Name = "Müqavilənin ümumi dəyəri (manatla)")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
-        public decimal paContractAllPrice { get; set; }
+        public string paContractAllPrice { get; set; }
 
         [Display(Name = "Qeyd")]
         public string paContractNote { get; set; }

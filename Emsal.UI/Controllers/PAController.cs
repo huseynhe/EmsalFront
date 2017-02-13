@@ -37,7 +37,7 @@ namespace Emsal.UI.Controllers
         private OfferMonitoringViewModel modelOfferMonitoring;
 
 
-        public ActionResult TotalDemandOffersGroup(int? page, long productId = -1, long userTypeId = -1, long monthEVId = -1, string finVoen = null)
+        public ActionResult TotalDemandOffersGroup(int? page, long productId = -1, long userTypeId = -1, long monthEVId = -1, string finVoen = null, bool excell = false)
         {
             try
             {
@@ -76,17 +76,30 @@ namespace Emsal.UI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferMonitoring.User);
                 baseInput.userName = modelOfferMonitoring.User.Username;
 
+                if (excell == true)
+                {
+                    pageNumber = 1;
+                    pageSize = 1000000;
+                }
+
                 modelOfferMonitoring.DemandOfferProductsSearch = new DemandOfferProductsSearch();
 
-                modelOfferMonitoring.DemandOfferProductsSearch.productId = sproductId;
-                modelOfferMonitoring.DemandOfferProductsSearch.productIdSpecified = true;
+                modelOfferMonitoring.DemandOfferProductsSearch.page = pageNumber;
+                modelOfferMonitoring.DemandOfferProductsSearch.page_size = pageSize;
+              modelOfferMonitoring.DemandOfferProductsSearch.productId = sproductId;
                 modelOfferMonitoring.DemandOfferProductsSearch.monthID = smonthEVId;
                 modelOfferMonitoring.DemandOfferProductsSearch.roleID = suserTypeId;
                 modelOfferMonitoring.DemandOfferProductsSearch.pinNumber = sfinVoen;
                 modelOfferMonitoring.DemandOfferProductsSearch.voen = sfinVoen;
 
-                BaseOutput gpp = srv.WS_GetTotalDemandOffers1(baseInput, pageNumber, true, pageSize, true, modelOfferMonitoring.DemandOfferProductsSearch, out modelOfferMonitoring.DemanProductionGroupArray);
-
+                if (excell == false)
+                {
+                    BaseOutput gpp = srv.WS_GetTotalDemandOffersPA(baseInput, modelOfferMonitoring.DemandOfferProductsSearch, out modelOfferMonitoring.DemanProductionGroupArray);
+                }
+                else if(excell == true)
+                {
+                    BaseOutput gpp = srv.WS_GetTotalDemandOffers(baseInput, pageNumber, true, pageSize, true, modelOfferMonitoring.DemandOfferProductsSearch, out modelOfferMonitoring.DemanProductionGroupArray);
+                }
 
                 if (modelOfferMonitoring.DemanProductionGroupArray == null)
                 {
@@ -94,7 +107,7 @@ namespace Emsal.UI.Controllers
                 }
                 else
                 {
-                    modelOfferMonitoring.DemanProductionGroupList = modelOfferMonitoring.DemanProductionGroupArray.OrderBy(x => x.productParentName).ToList();
+                    modelOfferMonitoring.DemanProductionGroupList = modelOfferMonitoring.DemanProductionGroupArray.OrderBy(x => x.productParentName).ThenBy(x=>x.productName).ToList();
                 }
 
                 BaseOutput gdpc = srv.WS_GetTotalDemandOffers_OPC(baseInput, modelOfferMonitoring.DemandOfferProductsSearch, out modelOfferMonitoring.itemCount, out modelOfferMonitoring.itemCountB);
@@ -107,6 +120,173 @@ namespace Emsal.UI.Controllers
                 modelOfferMonitoring.userTypeId = suserTypeId;
                 modelOfferMonitoring.monthEVId = smonthEVId;
                 modelOfferMonitoring.finVoen = sfinVoen;
+
+
+                if (excell == true)
+                {
+                    using (var excelPackage = new ExcelPackage())
+                    {
+                        excelPackage.Workbook.Properties.Author = "tedaruk";
+                        excelPackage.Workbook.Properties.Title = "tedaruk.az";
+                        var sheet = excelPackage.Workbook.Worksheets.Add("Tələb");
+                        sheet.Name = "Tələb";
+
+                        var col = 1;
+                        sheet.Cells[1, col++].Value = "Məhsul üzrə tələb və təkliflər";
+                        sheet.Row(1).Height = 50;
+                        sheet.Row(1).Style.Font.Size = 14;
+                        sheet.Row(1).Style.Font.Bold = true;
+                        sheet.Row(1).Style.WrapText = true;
+                        sheet.Cells[1, 1, 1, 20].Merge = true;
+                        sheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        col = 1;
+                        sheet.Cells[2, col++].Value = "S/N";
+                        sheet.Cells[2, col++].Value = "Ərzaq məhsullarının adı";
+                        sheet.Cells[2, col++].Value = "Ərzaq məhsullarının növü";
+                        sheet.Cells[2, col++].Value = "Tələbatın həcmi (miqdar)";
+                        sheet.Cells[2, col++].Value = "Ölçü vahidi";
+                        sheet.Cells[2, col++].Value = "Qiymət (AZN)";
+                        sheet.Cells[2, col++].Value = "Cəmi (AZN)";
+                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçının adı";
+                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçının VÖEN-i";
+                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçı ilə alqı-satqı müqaviləsinin tarixi və nömrəsi";
+                        sheet.Cells[2, col++].Value = "Malın təklif edilən qiyməti (manatla)";
+                        sheet.Cells[2, col++].Value = "Müqavilə üzrə malın qiyməti";
+                        sheet.Cells[2, col++].Value = "Təchizat qiyməti (manatla)";
+                        sheet.Cells[2, col++].Value = "Təchizat əlavəsi (faizlə)";
+                        sheet.Cells[2, col++].Value = "Təklifin həcmi (miqdarı)";
+                        sheet.Cells[2, col++].Value = "Müqavilə üzrə malın həcmi (miqdarı)";
+                        sheet.Cells[2, col++].Value = "Təklifin ümumi dəyəri (manatla)";
+                        sheet.Cells[2, col++].Value = "Müqavilənin ümumi dəyəri (manatla)";
+                        sheet.Cells[2, col++].Value = "Tədarükçünün növü (istehsalçı satıcı və ya idxalçı)";
+                        sheet.Cells[2, col++].Value = "Tədarükçünün hansı növ vergi ödəyicisi olması (ƏDV, sadələşdirilmiş K/T məhsulu istehsalçısı)";
+
+                        sheet.Row(2).Style.Font.Bold = true;
+                        sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Cells[2, 1, 2, 20].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        sheet.Cells[2, 1, 2, 20].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
+                        sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                        sheet.Column(1).Width = 7;
+                        sheet.Column(2).Width = 30;
+                        sheet.Column(3).Width = 20;
+                        sheet.Column(4).Width = 20;
+                        sheet.Column(5).Width = 20;
+                        sheet.Column(6).Width = 20;
+                        sheet.Column(7).Width = 20;
+                        sheet.Column(8).Width = 30;
+                        sheet.Column(9).Width = 20;
+                        sheet.Column(10).Width = 20;
+                        sheet.Column(11).Width = 20;
+                        sheet.Column(12).Width = 20;
+                        sheet.Column(13).Width = 30;
+                        sheet.Column(14).Width = 20;
+                        sheet.Column(15).Width = 20;
+                        sheet.Column(16).Width = 20;
+                        sheet.Column(17).Width = 20;
+                        sheet.Column(18).Width = 20;
+                        sheet.Column(19).Width = 20;
+                        sheet.Column(20).Width = 20;
+
+                        int rowIndex = 3;
+                        var ri = 1;
+                        string orgName = "";
+
+                        modelOfferMonitoring.DemanOfferProductionList = modelOfferMonitoring.DemanOfferProductionList.OrderBy(x => x.unit_price).ToList();
+
+                        foreach (var item in modelOfferMonitoring.DemanProductionGroupList)
+                        {
+                            foreach (var itemo in item.offerProductsList)
+                            {
+                                var col2 = 1;
+
+                                sheet.Cells[rowIndex, col2++].Value = ri.ToString();
+                                sheet.Cells[rowIndex, col2++].Value = item.productParentName; ;
+                                sheet.Cells[rowIndex, col2++].Value = item.productName;
+                                sheet.Cells[rowIndex, col2++].Value = @Custom.ConverPriceDelZero((decimal)item.totalQuantity);
+
+                                sheet.Cells[rowIndex, col2++].Value = item.enumValueName;
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unitPrice);
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalQuantityPrice);
+
+                                if (!string.IsNullOrEmpty(itemo.organizationName.Trim()))
+                                {
+                                    orgName = "\n" + itemo.organizationName;
+                                }
+
+                                sheet.Cells[rowIndex, col2++].Value = itemo.personName + " " + itemo.surname + " " + itemo.fatherName + orgName + "\n" + string.Join(", ", itemo.comList.Select(x => x.communication).LastOrDefault());
+
+                                sheet.Cells[rowIndex, col2++].IsRichText = true;
+                                col2--;
+                                ExcelRichTextCollection rtfCollection = sheet.Cells[rowIndex, col2++].RichText;
+                                ExcelRichText ert;
+
+                                if (!string.IsNullOrEmpty(itemo.pinNumber.Trim()))
+                                {
+                                    ert = rtfCollection.Add("FİN: ");
+                                    ert.Bold = true;
+                                    ert = rtfCollection.Add(itemo.pinNumber);
+                                    ert.Bold = false;
+                                }
+
+                                if (!string.IsNullOrEmpty(itemo.voen.Trim()))
+                                {
+                                    if (!string.IsNullOrEmpty(itemo.pinNumber.Trim()))
+                                    {
+                                        ert = rtfCollection.Add("\n");
+                                        ert.Bold = false;
+                                    }
+
+                                    ert = rtfCollection.Add("VÖEN: ");
+                                    ert.Bold = true;
+                                    ert = rtfCollection.Add(itemo.voen);
+                                    ert.Bold = false;
+                                }
+
+                                sheet.Cells[rowIndex, col2++].Value = "";
+
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)(itemo.unit_price));
+
+                                sheet.Cells[rowIndex, col2++].Value = "";
+                                sheet.Cells[rowIndex, col2++].Value = "";
+                                sheet.Cells[rowIndex, col2++].Value = "";
+
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)itemo.quantity);
+                                sheet.Cells[rowIndex, col2++].Value = "";
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)itemo.totalQuantityPrice);
+
+                                sheet.Cells[rowIndex, col2++].Value = "";
+                                sheet.Cells[rowIndex, col2++].Value = itemo.roledesc;
+                                sheet.Cells[rowIndex, col2++].Value = "";
+
+                                sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                                rowIndex++;
+                                ri++;
+                            }
+                        }
+
+                        sheet.Cells[1, 1, rowIndex - 1, 20].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 20].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 20].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 20].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 20].Style.WrapText = true;
+                        sheet.Cells[1, 1, rowIndex - 1, 20].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        string fileName = Guid.NewGuid() + ".xls";
+
+                        Response.ClearContent();
+                        Response.BinaryWrite(excelPackage.GetAsByteArray());
+                        Response.AddHeader("content-disposition", "attachment;filename=" + fileName);
+                        Response.AppendCookie(new HttpCookie("fileDownloadToken", "1111"));
+                        Response.ContentType = "application/excel";
+                        Response.Flush();
+                        Response.End();
+                    }
+                }
 
                 return Request.IsAjaxRequest()
                    ? (ActionResult)PartialView("PartialTotalDemandOffersGroup", modelOfferMonitoring)
@@ -159,24 +339,12 @@ namespace Emsal.UI.Controllers
 
                 modelOfferMonitoring.DemandOfferProductsSearch = new DemandOfferProductsSearch();
 
-                modelOfferMonitoring.DemandOfferProductsSearch.productId = sproductId;
-                modelOfferMonitoring.DemandOfferProductsSearch.productIdSpecified = true;
-                modelOfferMonitoring.DemandOfferProductsSearch.monthID = smonthEVId;
-
-                BaseOutput gpp = srv.WS_GetTotalDemandOffers1(baseInput, pageNumber, true, pageSize, true, modelOfferMonitoring.DemandOfferProductsSearch, out modelOfferMonitoring.DemanProductionGroupArray);
-
                 modelOfferMonitoring.DemandOfferProductsSearch.page = pageNumber;
                 modelOfferMonitoring.DemandOfferProductsSearch.page_size = pageSize;
-                modelOfferMonitoring.DemandOfferProductsSearch.roleID = suserTypeId;
-                modelOfferMonitoring.DemandOfferProductsSearch.pinNumber = sfinVoen;
-                modelOfferMonitoring.DemandOfferProductsSearch.voen = sfinVoen;
-                if (excell == true)
-                {
-                    pageNumber = 1;
-                    pageSize = 1000000;
-                }
+                modelOfferMonitoring.DemandOfferProductsSearch.productId = sproductId;
+                modelOfferMonitoring.DemandOfferProductsSearch.monthID = smonthEVId;
 
-                BaseOutput dtop = srv.WS_GetTotalOffersbyProductID(baseInput, sproductId, true, modelOfferMonitoring.DemandOfferProductsSearch, out modelOfferMonitoring.DemanOfferProductionArray);
+                BaseOutput gpp = srv.WS_GetTotalDemandOffersPA(baseInput, modelOfferMonitoring.DemandOfferProductsSearch, out modelOfferMonitoring.DemanProductionGroupArray);
 
                 if (modelOfferMonitoring.DemanProductionGroupArray == null)
                 {
@@ -186,6 +354,19 @@ namespace Emsal.UI.Controllers
                 {
                     modelOfferMonitoring.DemanProductionGroup = modelOfferMonitoring.DemanProductionGroupArray.FirstOrDefault();
                 }
+
+                
+                modelOfferMonitoring.DemandOfferProductsSearch.roleID = suserTypeId;
+                modelOfferMonitoring.DemandOfferProductsSearch.pinNumber = sfinVoen;
+                modelOfferMonitoring.DemandOfferProductsSearch.voen = sfinVoen;
+
+                if (excell == true)
+                {
+                    pageNumber = 1;
+                    pageSize = 1000000;
+                }
+
+                BaseOutput dtop = srv.WS_GetTotalOffersbyProductID(baseInput, sproductId, true, modelOfferMonitoring.DemandOfferProductsSearch, out modelOfferMonitoring.DemanOfferProductionArray);
 
 
                 if (modelOfferMonitoring.DemanOfferProductionArray == null)

@@ -47,9 +47,9 @@
                                 </h5><br />
 
                                 <h5 class="name text-black nobackground">
-                                    <b>Təklifin həcmi: </b>@Custom.ConverPriceToStringDelZero((decimal)Model.DemanProductionGroup.offerProducts.FirstOrDefault().totalQuantity)
+                                    <b>Təklifin həcmi: </b>@Custom.ConverPriceToStringDelZero((decimal)Model.DemanProductionGroup.totalOfferQuantity)
                                     <span class="clearfix"></span><br />
-                                    <span><b>Cəmi (Manatla): </b> @Custom.ConverPriceToStringDelZero((decimal)Model.DemanProductionGroup.offerProducts.FirstOrDefault().totalPrice) </span>
+                                    <span><b>Cəmi (Manatla): </b> @Custom.ConverPriceToStringDelZero((decimal)Model.DemanProductionGroup.pri) </span>
                                 </h5>
 
                             </div>
@@ -63,17 +63,17 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <label>Aylar</label><br />
-                                @Html.Action("Month", "PA", new { actionName = "TotalDemandOffersGroup", id = Model.monthEVId })
+                                @Html.Action("Month", "PA", new { actionName = "TotalDemandOffersGroupDetail", id = Model.monthEVId })
                             </div>
 
                             <div class="col-md-3">
                                 <label>İstifadəçinin növü</label><br />
-                                @Html.Action("UserType", "PA", new { actionName = "TotalDemandOffersGroup", id = Model.userTypeId })
+                                @Html.Action("UserType", "PA", new { actionName = "TotalDemandOffersGroupDetail", id = Model.userTypeId })
                             </div>
 
                             <div class="col-md-3">
                                 <label>FİN | VÖEN</label><br />
-                                <input value="@Model.finVoen" onkeyup="StatisticsSearch(this, 'PA', 'TotalDemandOffersGroup', 'finVoen')" class="form-control" placeholder="axtar" />
+                                <input value="@Model.finVoen" onkeyup="StatisticsSearch(this, 'PA', 'TotalDemandOffersGroupDetail', 'finVoen')" class="form-control" placeholder="axtar" />
                             </div>
                         </div>
 

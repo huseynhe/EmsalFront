@@ -127,10 +127,7 @@
                                     </span>
                                 }
                                 <div class="clearfix"></div>
-                                @foreach (var citem in item.personcomList)
-                                {
-                                    <b>tel:</b> @citem.communication
-                                }
+                                <b>tel:</b> @item.personcomList.LastOrDefault().communication
                                 <div class="clearfix"></div>
                                 <b>e-poçt:</b> @item.email
                             </td>
@@ -159,6 +156,12 @@
                                         }
                                     </table>
                                 </td>
+                                if (Model.isPa == true)
+                                {
+                                <td class="col-md-1">
+                                    @item.ContractNumber
+                                </td>
+                                }
                                 if (Model.isMain == 0)
                                 {
                                     <td class="col-md-1 shsingle text-center">
