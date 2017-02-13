@@ -10,10 +10,10 @@ namespace Emsal.Utility.CustomObjects
 {
     public static class Custom
     {
-        public static string ConverPriceToStringDelZero(decimal pr)
+        public static string ConverPriceToStringDelZero(decimal? pr)
         {
             string str = "";
-
+ 
             //str = pr.ToString("G29");
             //return Decimal.Parse(str);
 
