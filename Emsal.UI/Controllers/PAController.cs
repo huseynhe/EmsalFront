@@ -385,6 +385,7 @@ namespace Emsal.UI.Controllers
 
                 modelOfferMonitoring.PagingT = aic.ToPagedList(pageNumber, pageSize);
 
+                modelOfferMonitoring.ContractDetailTemp = new tblContractDetailTemp();
                 modelOfferMonitoring.productId = sproductId;
                 modelOfferMonitoring.userTypeId = suserTypeId;
                 modelOfferMonitoring.monthEVId = smonthEVId;

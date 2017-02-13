@@ -84,6 +84,10 @@
 
             @foreach (var itemo in Model.DemanOfferProductionList)
             {
+                if (itemo.contractTempList.Count() > 0)
+                {
+                    Model.ContractDetailTemp = itemo.contractTempList.FirstOrDefault();
+                }
                 <tr>
 
                     <td class="col-md-1">
@@ -130,21 +134,36 @@
 
                         }
                     </td>
-                    <td class="col-md-1"></td>
+                    <td class="col-md-1">
+                        @DatetimeExtension.toShortDate(Model.ContractDetailTemp.ContractDate).ToShortDateString()
+                        <div class="clearfix"></div>
+                        <hr />
+                        @Model.ContractDetailTemp.ContractNumber_
+                    </td>
                     <td class="col-md-1">
                         @Custom.ConverPriceToStringDelZero((decimal)itemo.unit_price)
                     </td>
-                    <td class="col-md-1"></td>
-                    <td class="col-md-1"></td>
-                    <td class="col-md-1"></td>
+                    <td class="col-md-1">
+                        @Custom.ConverPriceToStringDelZero(Model.ContractDetailTemp.product_unit_price)
+                    </td>
+                    <td class="col-md-1">
+                        @Custom.ConverPriceToStringDelZero(Model.ContractDetailTemp.product_asc_price)
+                    </td>
+                    <td class="col-md-1">
+                        faiz
+                    </td>
                     <td class="col-md-1">
                         @Custom.ConverPriceToStringDelZero((decimal)itemo.quantity)
                     </td>
-                    <td class="col-md-1"></td>
+                    <td class="col-md-1">
+                        @Custom.ConverPriceToStringDelZero(Model.ContractDetailTemp.product_total_count)
+                    </td>
                     <td class="col-md-1">
                         @Custom.ConverPriceToStringDelZero((decimal)itemo.totalQuantityPrice)
                     </td>
-                    <td class="col-md-1"></td>
+                    <td class="col-md-1">
+                        @Custom.ConverPriceToStringDelZero(Model.ContractDetailTemp.product_total_price)
+                    </td>
                     <td class="col-md-1">
                         @itemo.roledesc
                     </td>
