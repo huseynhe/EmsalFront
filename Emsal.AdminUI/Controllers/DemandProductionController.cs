@@ -808,7 +808,7 @@ namespace Emsal.AdminUI.Controllers
                             foreach (var itemo in item.offerProductsList)
                             {
                                 ppname = item.productParentName;
-                            var col2 = 1;
+                                var col2 = 1;
                                 orgName = "";
 
                                 if (ppname != oppname)
@@ -848,7 +848,7 @@ namespace Emsal.AdminUI.Controllers
                                     orgName = "\n" + itemo.organizationName;
                                 }
 
-                                sheet.Cells[rowIndex, col2++].Value = itemo.personName + " " + itemo.surname + " " + itemo.fatherName+ orgName;
+                                sheet.Cells[rowIndex, col2++].Value = itemo.personName + " " + itemo.surname + " " + itemo.fatherName + orgName;
 
 
                                 sheet.Cells[rowIndex, col2++].IsRichText = true;
@@ -887,13 +887,13 @@ namespace Emsal.AdminUI.Controllers
                                 sheet.Cells[rowIndex, col2++].Value = itemo.roledesc;
 
                                 sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                                
+
                                 //sheet.Row(rowIndex).Style.Numberformat.Format = "0:#,##0.000000";
 
                                 rowIndex++;
-                            ri++;
+                                ri++;
 
-                            oppname = ppname;
+                                oppname = ppname;
                             }
                         }
 
@@ -989,7 +989,7 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    modelDemandProduction.DemanProductionGroupList = modelDemandProduction.DemanProductionGroupArray.OrderBy(x => x.productParentName).ToList();
+                    modelDemandProduction.DemanProductionGroupList = modelDemandProduction.DemanProductionGroupArray.OrderBy(x => x.productParentName).ThenBy(x => x.productName).ToList();
                 }
 
                 BaseOutput gdpc = srv.WS_GetTotalDemandOffers_OPC(baseInput, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
@@ -1098,7 +1098,7 @@ namespace Emsal.AdminUI.Controllers
                                 }
                                 else
                                 {
-                                sheet.Cells[rowIndex, col2++].Value = itemo.personName + " " + itemo.surname + " " + itemo.fatherName;
+                                    sheet.Cells[rowIndex, col2++].Value = itemo.personName + " " + itemo.surname + " " + itemo.fatherName;
                                 }
 
 
@@ -1738,7 +1738,7 @@ namespace Emsal.AdminUI.Controllers
                             }
                             else
                             {
-                                dsquantity = Custom.ConverPriceDelZero((decimal)(dquantity)).ToString() ;
+                                dsquantity = Custom.ConverPriceDelZero((decimal)(dquantity)).ToString();
                             }
 
                             if (ppname != oppname)
@@ -2652,7 +2652,7 @@ namespace Emsal.AdminUI.Controllers
                 }
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
                 baseInput.userName = modelDemandProduction.Admin.Username;
-                
+
                 BaseOutput bouput = srv.WS_GetPRM_AdminUnitRegionList(baseInput, out modelDemandProduction.AdminUnitRegionArray);
 
                 if (modelDemandProduction.AdminUnitRegionArray == null)
