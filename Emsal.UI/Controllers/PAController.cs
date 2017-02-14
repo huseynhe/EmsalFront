@@ -37,6 +37,17 @@ namespace Emsal.UI.Controllers
         private OfferMonitoringViewModel modelOfferMonitoring;
 
 
+       private static long[] sproductIdArray = {
+            334, //1-ci növ buğda unundan bişirilmiş ağ çörək
+            335, //2-ci növ buğda unundan bişirilmiş ağ çörək
+            343, //1-ci növ buğda unu
+            344, //2-ci növ buğda unu
+            346, //Doğranmış zülalsız buğda çörəyi
+            347, //Çovdar çörəyi
+            363 //Toyuq əti
+        };
+
+
         public ActionResult TotalDemandOffersGroup(int? page, long productId = -1, long userTypeId = -1, long monthEVId = -1, string finVoen = null, bool excell = false)
         {
             try
@@ -321,17 +332,23 @@ namespace Emsal.UI.Controllers
 
                                 sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
+                                //if (sproductIdArray.Contains(itemo.productId))
+                                //{
+                                //    sheet.Row(rowIndex).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                //    sheet.Row(rowIndex).Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+                                //}
+
                                 rowIndex++;
                                 ri++;
                             }
                         }
 
-                        sheet.Cells[1, 1, rowIndex - 1, 20].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 20].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 20].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 20].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 20].Style.WrapText = true;
-                        sheet.Cells[1, 1, rowIndex - 1, 20].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                        sheet.Cells[1, 1, rowIndex - 1, 21].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 21].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 21].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 21].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 21].Style.WrapText = true;
+                        sheet.Cells[1, 1, rowIndex - 1, 21].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
                         string fileName = Guid.NewGuid() + ".xls";
 
@@ -450,6 +467,7 @@ namespace Emsal.UI.Controllers
                 modelOfferMonitoring.monthEVId = smonthEVId;
                 modelOfferMonitoring.finVoen = sfinVoen;
 
+                modelOfferMonitoring.productIdArray = sproductIdArray;
 
 
                 if (excell == true)

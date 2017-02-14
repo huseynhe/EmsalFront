@@ -7,6 +7,7 @@
     Layout = "";
     string faiz = "";
     string manat = "";
+    string productContainStyle = "";
 }
 
 <h4 class="text-danger text-center">
@@ -24,83 +25,89 @@
 
     <table class="table table-hover table-striped table-bordered">
         <tbody>
-    <tr>
-        <th class="col-md-1">
-            Ərzaq məhsullarının adı
-        </th>
-        <th class="col-md-1">
-            Ərzaq məhsullarının növü
-        </th>
-        <th class="col-md-1">
-            Tələbatın həcmi (miqdar)
-        </th>
-        <th class="col-md-1">
-            Ölçü vahidi
-        </th>
-        <th class="col-md-1">
-            Qiymət (AZN)
-        </th>
-        <th class="col-md-1">
-            Cəmi (AZN)
-        </th>
-        <th class="col-md-2">
-            Satıcı və ya istehsalçının adı
-        </th>
-        <th class="col-md-1">
-            Satıcı və ya istehsalçının VÖEN-i
-        </th>
-        <th class="col-md-1">
-            Satıcı və ya istehsalçı ilə alqı-satqı müqaviləsinin tarixi və nömrəsi
-        </th>
-        <th class="col-md-1">
-            Malın təklif edilən qiyməti (manatla)
-        </th>
-        <th class="col-md-1">
-            Müqavilə üzrə malın qiyməti
-        </th>
-        <th class="col-md-1">
-            Təchizat qiyməti (manatla)
-        </th>
-        <th class="col-md-1">
-            Ticarət əlavəsi (manatla)
-        </th>
-        <th class="col-md-1">
-            Ticarət əlavəsi (faizlə)
-        </th>
-        <th class="col-md-1">
-            Təklifin həcmi (miqdarı)
-        </th>
-        <th class="col-md-1">
-            Müqavilə üzrə malın həcmi (miqdarı)
-        </th>
-        <th class="col-md-1">
-            Təklifin ümumi dəyəri (manatla)
-        </th>
-        <th class="col-md-1">
-            Müqavilənin ümumi dəyəri (manatla)
-        </th>
-        <th class="col-md-1">
-            Tədarükçünün növü (istehsalçı satıcı və ya idxalçı)
-        </th>
-        <th class="col-md-1">
-            Tədarükçünün hansı növ vergi ödəyicisi olması (ƏDV, sadələşdirilmiş K/T məhsulu istehsalçısı)
-        </th>
-    </tr>
+            <tr>
+                <th class="col-md-1">
+                    Ərzaq məhsullarının adı
+                </th>
+                <th class="col-md-1">
+                    Ərzaq məhsullarının növü
+                </th>
+                <th class="col-md-1">
+                    Tələbatın həcmi (miqdar)
+                </th>
+                <th class="col-md-1">
+                    Ölçü vahidi
+                </th>
+                <th class="col-md-1">
+                    Qiymət (AZN)
+                </th>
+                <th class="col-md-1">
+                    Cəmi (AZN)
+                </th>
+                <th class="col-md-2">
+                    Satıcı və ya istehsalçının adı
+                </th>
+                <th class="col-md-1">
+                    Satıcı və ya istehsalçının VÖEN-i
+                </th>
+                <th class="col-md-1">
+                    Satıcı və ya istehsalçı ilə alqı-satqı müqaviləsinin tarixi və nömrəsi
+                </th>
+                <th class="col-md-1">
+                    Malın təklif edilən qiyməti (manatla)
+                </th>
+                <th class="col-md-1">
+                    Müqavilə üzrə malın qiyməti
+                </th>
+                <th class="col-md-1">
+                    Təchizat qiyməti (manatla)
+                </th>
+                <th class="col-md-1">
+                    Ticarət əlavəsi (manatla)
+                </th>
+                <th class="col-md-1">
+                    Ticarət əlavəsi (faizlə)
+                </th>
+                <th class="col-md-1">
+                    Təklifin həcmi (miqdarı)
+                </th>
+                <th class="col-md-1">
+                    Müqavilə üzrə malın həcmi (miqdarı)
+                </th>
+                <th class="col-md-1">
+                    Təklifin ümumi dəyəri (manatla)
+                </th>
+                <th class="col-md-1">
+                    Müqavilənin ümumi dəyəri (manatla)
+                </th>
+                <th class="col-md-1">
+                    Tədarükçünün növü (istehsalçı satıcı və ya idxalçı)
+                </th>
+                <th class="col-md-1">
+                    Tədarükçünün hansı növ vergi ödəyicisi olması (ƏDV, sadələşdirilmiş K/T məhsulu istehsalçısı)
+                </th>
+            </tr>
 
-    @foreach (var itemo in Model.DemanOfferProductionList)
-    {
-        Model.ContractDetailTemp = new Emsal.WebInt.EmsalSrv.tblContractDetailTemp();
-        manat = "";
-        faiz = "";
+            @foreach (var itemo in Model.DemanOfferProductionList)
+            {
+                Model.ContractDetailTemp = new Emsal.WebInt.EmsalSrv.tblContractDetailTemp();
+                manat = "";
+                faiz = "";
+                productContainStyle = "";
 
-        if (itemo.contractTempList.Count() > 0)
-        {
-            Model.ContractDetailTemp = itemo.contractTempList.FirstOrDefault();
+                if(Model.productIdArray.Contains(itemo.productId))
+                {
+                    productContainStyle = "danger";
+                }
 
-            manat = Custom.ConverPriceToStringDelZero((Model.ContractDetailTemp.product_asc_price - Model.ContractDetailTemp.product_unit_price));
-            faiz = Custom.ConverPriceToStringDelZero(((Model.ContractDetailTemp.product_asc_price - Model.ContractDetailTemp.product_unit_price)*100)/ Model.ContractDetailTemp.product_unit_price);
-        }
-                <tr>
+                if (itemo.contractTempList.Count() > 0)
+                {
+                    Model.ContractDetailTemp = itemo.contractTempList.FirstOrDefault();
+
+                    manat = Custom.ConverPriceToStringDelZero((Model.ContractDetailTemp.product_asc_price - Model.ContractDetailTemp.product_unit_price));
+                    faiz = Custom.ConverPriceToStringDelZero(((Model.ContractDetailTemp.product_asc_price - Model.ContractDetailTemp.product_unit_price) * 100) / Model.ContractDetailTemp.product_unit_price);
+                }
+                <tr class="@productContainStyle">
 
                     <td class="col-md-1">
                         @Model.DemanProductionGroup.productParentName
@@ -149,10 +156,10 @@
                     <td class="col-md-1">
                         @if (!string.IsNullOrEmpty(Model.ContractDetailTemp.ContractNumber_))
                         {
-                        @DatetimeExtension.toShortDate(Model.ContractDetailTemp.ContractDate).ToShortDateString()
-                        <div class="clearfix"></div>
-                        <hr />
-                        @Model.ContractDetailTemp.ContractNumber_
+                            @DatetimeExtension.toShortDate(Model.ContractDetailTemp.ContractDate).ToShortDateString()
+                            <div class="clearfix"></div>
+                            <hr />
+                            @Model.ContractDetailTemp.ContractNumber_
                         }
                     </td>
                     <td class="col-md-1">

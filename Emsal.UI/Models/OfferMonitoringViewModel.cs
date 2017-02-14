@@ -270,5 +270,9 @@ namespace Emsal.UI.Models
 
         [Display(Name = "Qeyd")]
         public string paContractNote { get; set; }
+
+
+
+        public long[] productIdArray { get; set; }
     }
 }
