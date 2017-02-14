@@ -7,7 +7,6 @@
     Layout = "";
     string faiz = "";
     string manat = "";
-    string productContainStyle = "";
 }
 
 <h4 class="text-danger text-center">
@@ -93,12 +92,6 @@
                 Model.ContractDetailTemp = new Emsal.WebInt.EmsalSrv.tblContractDetailTemp();
                 manat = "";
                 faiz = "";
-                productContainStyle = "";
-
-                if(Model.productIdArray.Contains(itemo.productId))
-                {
-                    productContainStyle = "danger";
-                }
 
                 if (itemo.contractTempList.Count() > 0)
                 {
@@ -107,8 +100,7 @@
                     manat = Custom.ConverPriceToStringDelZero((Model.ContractDetailTemp.product_asc_price - Model.ContractDetailTemp.product_unit_price));
                     faiz = Custom.ConverPriceToStringDelZero(((Model.ContractDetailTemp.product_asc_price - Model.ContractDetailTemp.product_unit_price) * 100) / Model.ContractDetailTemp.product_unit_price);
                 }
-                <tr class="@productContainStyle">
-
+                <tr>
                     <td class="col-md-1">
                         @Model.DemanProductionGroup.productParentName
                     </td>

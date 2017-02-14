@@ -332,11 +332,11 @@ namespace Emsal.UI.Controllers
 
                                 sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
-                                //if (sproductIdArray.Contains(itemo.productId))
-                                //{
-                                //    sheet.Row(rowIndex).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                //    sheet.Row(rowIndex).Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
-                                //}
+                                if (sproductIdArray.Contains(itemo.productId))
+                                {
+                                    sheet.Row(rowIndex).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                    sheet.Row(rowIndex).Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+                                }
 
                                 rowIndex++;
                                 ri++;
@@ -349,6 +349,13 @@ namespace Emsal.UI.Controllers
                         sheet.Cells[1, 1, rowIndex - 1, 21].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
                         sheet.Cells[1, 1, rowIndex - 1, 21].Style.WrapText = true;
                         sheet.Cells[1, 1, rowIndex - 1, 21].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+
+                        sheet.Cells[rowIndex + 1, 2,rowIndex + 1, 4].Merge = true;
+
+                        sheet.Cells[rowIndex + 1, 2].Value = "Qeyd: ƏDV şamil edilməyən məhsullar rəngli xanalarda göstərilib";
+                        sheet.Cells[rowIndex + 1, 2].Style.Font.Bold = true;
+                        sheet.Cells[rowIndex + 1, 2].Style.WrapText = true;
 
                         string fileName = Guid.NewGuid() + ".xls";
 
