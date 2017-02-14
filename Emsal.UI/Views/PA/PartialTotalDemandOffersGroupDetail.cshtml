@@ -10,7 +10,7 @@
 }
 
 <h4 class="text-danger text-center">
-    <a href="/PA/TotalDemandOffersGroupDetail?productId=@Model.productId&userTypeId=@Model.userTypeId&monthEVId=@Model.monthEVId&finVoen=@Model.finVoen&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+    <a href="/PA/TotalDemandOffersGroupDetail?productId=@Model.productId&userTypeId=@Model.userTypeId&monthEVId=@Model.monthEVId&fin=@Model.fin&voen=@Model.voen&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
         <i class="fa fa-file-excel-o" aria-hidden="true"></i>
         Yüklə
     </a>
@@ -193,5 +193,5 @@
 
 <div class="box-footer clearfix">
     Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
-    @Html.PagedListPager(Model.PagingT, page => Url.Action("TotalDemandOffersGroupDetail", new { page, productId = Model.productId, userTypeId = Model.userTypeId, finVoen = Model.finVoen, monthEVId = Model.monthEVId }))
+    @Html.PagedListPager(Model.PagingT, page => Url.Action("TotalDemandOffersGroupDetail", new { page, productId = Model.productId, userTypeId = Model.userTypeId, fin = Model.fin, voen = Model.voen, monthEVId = Model.monthEVId }))
 </div>

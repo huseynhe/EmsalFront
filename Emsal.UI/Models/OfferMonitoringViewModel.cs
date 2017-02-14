@@ -160,6 +160,9 @@ namespace Emsal.UI.Models
 
         public string finVoen { get; set; }
 
+        public string fin { get; set; }
+        public string voen { get; set; }
+
         public long totalSize = 0;
 
         public string actionName { get; set; }

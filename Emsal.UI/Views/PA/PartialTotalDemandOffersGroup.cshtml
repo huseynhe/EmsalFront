@@ -14,7 +14,7 @@
 <div class="clearfix"></div><br />
 
 <h4 class="text-danger text-center">
-    <a href="/PA/TotalDemandOffersGroup?productId=@Model.productId&userTypeId=@Model.userTypeId&monthEVId=@Model.monthEVId&finVoen=@Model.finVoen&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+    <a href="/PA/TotalDemandOffersGroup?productId=@Model.productId&userTypeId=@Model.userTypeId&monthEVId=@Model.monthEVId&fin=@Model.fin&voen=@Model.voen&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
         <i class="fa fa-file-excel-o" aria-hidden="true"></i>
         Yüklə
     </a>
@@ -46,14 +46,14 @@
                     }
                     i = i + 1;
                     <li class="col-md-2">
-                        <div class="thumbnail text-center" style="width:100%;height:310px;">
+                        <div class="thumbnail text-center" style="width:100%;height:330px;">
                             @if (!string.IsNullOrEmpty(item.documentUrl))
                             {
-                                <img style="width:100%;height:140px;" class="img-responsive" src="@item.documentUrl@item.documentName" />
+                                <img style="width:100%;height:160px;" class="img-responsive" src="@item.documentUrl@item.documentName" />
                             }
                             else
                             {
-                                <img class="img-responsive" style="width:auto;height:140px;" src="~/Content/UI/images/noimage.png" />
+                                <img class="img-responsive" style="width:auto;height:160px;" src="~/Content/UI/images/noimage.png" />
                             }
                             <div class="caption">
                                 <h4 class="text-bold">@item.productName</h4>
@@ -63,7 +63,7 @@
                                     @Custom.ConverPriceToStringDelZero((decimal)item.totalOfferQuantity)
                                 </h4>
                                 <div style="position: absolute; bottom: 30px; float: left; width: calc(100% - 30px);">
-                                    <a target="_blank" href="/PA/TotalDemandOffersGroupDetail?productId=@item.productId&userTypeId=@Model.userTypeId&finVoen=@Model.finVoen&monthEVId=@Model.monthEVId" class="btn btn-default text-bold f-left">Ətraflı</a>
+                                    <a target="_blank" href="/PA/TotalDemandOffersGroupDetail?productId=@item.productId&userTypeId=@Model.userTypeId&fin=@Model.fin&voen=@Model.voen&monthEVId=@Model.monthEVId" class="btn btn-default text-bold f-left">Ətraflı</a>
                                     <button type="button" class="btn btn-primary text-white text-bold f-right">@Custom.ConverPriceToStringDelZero((decimal)item.unitPrice) AZN</button>
                                 </div>
                             </div>
@@ -84,6 +84,6 @@
 </div>
 <div class="box-footer clearfix">
     Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
-    @Html.PagedListPager(Model.PagingT, page => Url.Action("TotalDemandOffersGroup", new { page, productId = Model.productId, userTypeId = Model.userTypeId, finVoen = Model.finVoen, monthEVId = Model.monthEVId }))
+    @Html.PagedListPager(Model.PagingT, page => Url.Action("TotalDemandOffersGroup", new { page, productId = Model.productId, userTypeId = Model.userTypeId, fin = Model.fin, voen = Model.voen, monthEVId = Model.monthEVId }))
 </div>
 

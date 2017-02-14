@@ -30,7 +30,8 @@ namespace Emsal.UI.Controllers
         private static long sproductId;
         private static long suserTypeId;
         private static long smonthEVId;
-        private static string sfinVoen;
+        private static string sfin;
+        private static string svoen;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
 
@@ -48,19 +49,20 @@ namespace Emsal.UI.Controllers
         };
 
 
-        public ActionResult TotalDemandOffersGroup(int? page, long productId = -1, long userTypeId = -1, long monthEVId = -1, string finVoen = null, bool excell = false)
+        public ActionResult TotalDemandOffersGroup(int? page, long productId = -1, long userTypeId = -1, long monthEVId = -1, string fin = null, string voen = null, bool excell = false)
         {
             try
             {
                 int pageSize = 36;
                 int pageNumber = (page ?? 1);
 
-                if (productId == -1 && userTypeId == -1 && finVoen == null)
+                if (productId == -1 && userTypeId == -1 && fin == null && voen == null)
                 {
                     sproductId = 0;
                     suserTypeId = 0;
                     smonthEVId = 0;
-                    sfinVoen = null;
+                    sfin = null;
+                    svoen = null;
                 }
 
                 if (productId >= 0)
@@ -69,8 +71,10 @@ namespace Emsal.UI.Controllers
                     suserTypeId = userTypeId;
                 if (monthEVId >= 0)
                     smonthEVId = monthEVId;
-                if (finVoen != null)
-                    sfinVoen = finVoen;
+                if (fin != null)
+                    sfin = fin;
+                if (voen != null)
+                    svoen = voen;
 
                 baseInput = new BaseInput();
                 modelOfferMonitoring = new OfferMonitoringViewModel();
@@ -100,8 +104,8 @@ namespace Emsal.UI.Controllers
               modelOfferMonitoring.DemandOfferProductsSearch.productId = sproductId;
                 modelOfferMonitoring.DemandOfferProductsSearch.monthID = smonthEVId;
                 modelOfferMonitoring.DemandOfferProductsSearch.roleID = suserTypeId;
-                modelOfferMonitoring.DemandOfferProductsSearch.pinNumber = sfinVoen;
-                modelOfferMonitoring.DemandOfferProductsSearch.voen = sfinVoen;
+                modelOfferMonitoring.DemandOfferProductsSearch.pinNumber = sfin;
+                modelOfferMonitoring.DemandOfferProductsSearch.voen = svoen;
 
                 if (excell == false)
                 {
@@ -130,7 +134,8 @@ namespace Emsal.UI.Controllers
                 modelOfferMonitoring.productId = sproductId;
                 modelOfferMonitoring.userTypeId = suserTypeId;
                 modelOfferMonitoring.monthEVId = smonthEVId;
-                modelOfferMonitoring.finVoen = sfinVoen;
+                modelOfferMonitoring.fin = sfin;
+                modelOfferMonitoring.voen = svoen;
 
 
                 if (excell == true)
@@ -379,19 +384,19 @@ namespace Emsal.UI.Controllers
             }
         }
 
-
-        public ActionResult TotalDemandOffersGroupDetail(int? page, bool excell = false, long productId = 0, long userTypeId = -1, long monthEVId = -1, string finVoen = null)
+        public ActionResult TotalDemandOffersGroupDetail(int? page, bool excell = false, long productId = 0, long userTypeId = -1, long monthEVId = -1, string fin = null, string voen = null)
         {
             try
             {
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (userTypeId == -1 && monthEVId == -1 && finVoen == null)
+                if (userTypeId == -1 && monthEVId == -1 && fin == null && voen == null)
                 {
                     suserTypeId = 0;
                     smonthEVId = 0;
-                    sfinVoen = null;
+                    sfin = null;
+                    svoen = null;
                 }
 
                 if (productId > 0)
@@ -400,8 +405,10 @@ namespace Emsal.UI.Controllers
                     suserTypeId = userTypeId;
                 if (monthEVId >= 0)
                     smonthEVId = monthEVId;
-                if (finVoen != null)
-                    sfinVoen = finVoen;
+                if (fin != null)
+                    sfin = fin;
+                if (voen != null)
+                    svoen = voen;
 
                 baseInput = new BaseInput();
                 modelOfferMonitoring = new OfferMonitoringViewModel();
@@ -447,8 +454,8 @@ namespace Emsal.UI.Controllers
                 modelOfferMonitoring.DemandOfferProductsSearch.page_size = pageSize;
 
                 modelOfferMonitoring.DemandOfferProductsSearch.roleID = suserTypeId;
-                modelOfferMonitoring.DemandOfferProductsSearch.pinNumber = sfinVoen;
-                modelOfferMonitoring.DemandOfferProductsSearch.voen = sfinVoen;
+                modelOfferMonitoring.DemandOfferProductsSearch.pinNumber = sfin;
+                modelOfferMonitoring.DemandOfferProductsSearch.voen = svoen;
 
                 BaseOutput dtop = srv.WS_GetTotalOffersbyProductID(baseInput, sproductId, true, modelOfferMonitoring.DemandOfferProductsSearch, out modelOfferMonitoring.DemanOfferProductionArray);
 
@@ -472,7 +479,8 @@ namespace Emsal.UI.Controllers
                 modelOfferMonitoring.productId = sproductId;
                 modelOfferMonitoring.userTypeId = suserTypeId;
                 modelOfferMonitoring.monthEVId = smonthEVId;
-                modelOfferMonitoring.finVoen = sfinVoen;
+                modelOfferMonitoring.fin = sfin;
+                modelOfferMonitoring.voen = svoen;
 
                 modelOfferMonitoring.productIdArray = sproductIdArray;
 

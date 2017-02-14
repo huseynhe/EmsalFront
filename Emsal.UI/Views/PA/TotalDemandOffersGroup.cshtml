@@ -26,14 +26,19 @@
             @Html.Action("Month", "PA", new { actionName = "TotalDemandOffersGroup" })
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label>İstifadəçinin növü</label><br />
             @Html.Action("UserType", "PA", new { actionName = "TotalDemandOffersGroup" })
         </div>
 
-        <div class="col-md-3">
-            <label>FİN | VÖEN</label><br />
-            <input onkeyup="StatisticsSearch(this, 'PA', 'TotalDemandOffersGroup', 'finVoen')" class="form-control" placeholder="axtar" />
+        <div class="col-md-2">
+            <label>FİN</label><br />
+            <input onkeyup="StatisticsSearch(this, 'PA', 'TotalDemandOffersGroup', 'fin')" class="form-control" placeholder="axtar" />
+        </div>
+
+        <div class="col-md-2">
+            <label>VÖEN</label><br />
+            <input onkeyup="StatisticsSearch(this, 'PA', 'TotalDemandOffersGroup', 'voen')" class="form-control" placeholder="axtar" />
         </div>
 
         <div class="col-md-12">

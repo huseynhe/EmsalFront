@@ -71,10 +71,16 @@
                                 @Html.Action("UserType", "PA", new { actionName = "TotalDemandOffersGroupDetail", id = Model.userTypeId })
                             </div>
 
-                            <div class="col-md-3">
-                                <label>FİN | VÖEN</label><br />
-                                <input value="@Model.finVoen" onkeyup="StatisticsSearch(this, 'PA', 'TotalDemandOffersGroupDetail', 'finVoen')" class="form-control" placeholder="axtar" />
+                            <div class="col-md-2">
+                                <label>FİN</label><br />
+                                <input value="@Model.fin" onkeyup="StatisticsSearch(this, 'PA', 'TotalDemandOffersGroupDetail', 'fin')" class="form-control" placeholder="axtar" />
                             </div>
+
+                            <div class="col-md-2">
+                                <label>VÖEN</label><br />
+                                <input value="@Model.voen" onkeyup="StatisticsSearch(this, 'PA', 'TotalDemandOffersGroupDetail', 'voen')" class="form-control" placeholder="axtar" />
+                            </div>
+
                         </div>
 
                         <div class="clearfix"></div>
