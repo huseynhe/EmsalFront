@@ -35,6 +35,7 @@ namespace Emsal.UI.Controllers
         private UserViewModel modelUser;
         tblPRM_AdminUnit tblAdminUnit;
         Emsal.WebInt.TaxesSRV.VOENDATA taxesService = null;
+        Emsal.WebInt.TaxesSRV.VOENINFO voenInfo = null;
 
 
 
@@ -250,7 +251,20 @@ namespace Emsal.UI.Controllers
 
                     modelUser.User.Username = mdl.userName;
                     modelUser.User.Email = mdl.eMail;
-                    modelUser.User.Password = BCrypt.Net.BCrypt.HashPassword(mdl.passWord, 5); ;
+                    modelUser.User.Password = BCrypt.Net.BCrypt.HashPassword(mdl.passWord, 5);
+                    
+                    if (!String.IsNullOrEmpty(mdl.voen))
+                    {
+                        voenInfo = taxessrv.getTaxesTypeInfoByVoen(mdl.voen);
+                        modelUser.User.TaxexType = short.Parse(voenInfo.RESULT.ToString());
+                        modelUser.User.TaxexTypeSpecified = true;
+                    }
+
+                    if (!String.IsNullOrEmpty(mdl.fin))
+                    {
+                        modelUser.User.TaxexType = 3; // Teyin edilmiyib
+                        modelUser.User.TaxexTypeSpecified = true;
+                    }
 
                     string enumtype = "";
                     if (!String.IsNullOrEmpty(mdl.fin))
