@@ -48,7 +48,6 @@ namespace Emsal.UI.Controllers
             363 //Toyuq əti
         };
 
-
         public ActionResult TotalDemandOffersGroup(int? page, long productId = -1, long userTypeId = -1, long monthEVId = -1, string fin = null, string voen = null, bool excell = false)
         {
             try
