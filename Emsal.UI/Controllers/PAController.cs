@@ -332,7 +332,7 @@ namespace Emsal.UI.Controllers
                                 }
 
                                 sheet.Cells[rowIndex, col2++].Value = itemo.roledesc;
-                                sheet.Cells[rowIndex, col2++].Value = "";
+                                sheet.Cells[rowIndex, col2++].Value = itemo.taxesType;
 
                                 sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
@@ -677,7 +677,7 @@ namespace Emsal.UI.Controllers
                             }
 
                             sheet.Cells[rowIndex, col2++].Value = itemo.roledesc;
-                            sheet.Cells[rowIndex, col2++].Value = "";
+                            sheet.Cells[rowIndex, col2++].Value = itemo.taxesType;
 
                             sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
