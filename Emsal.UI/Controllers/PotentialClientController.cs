@@ -31,6 +31,9 @@ namespace Emsal.UI.Controllers
         private static string voen = "";
         private BaseInput baseInput;
 
+        Emsal.WebInt.TaxesSRV.BasicHttpBinding_ITaxesIntegrationService taxessrv = Emsal.WebInt.EmsalService.taxesService;
+        Emsal.WebInt.TaxesSRV.VOENINFO voenInfo = null;
+
         [AllowAnonymous]
         public void ResetStaticVariables()
         {
@@ -207,14 +210,14 @@ namespace Emsal.UI.Controllers
                 if (model.FIN != null)
                     model.FIN = model.FIN.ToUpper();
 
-                if (model.VOEN != "" && model.VOEN != null)
+                if (!string.IsNullOrEmpty(model.VOEN))
                 {
                     fh = "legalPerson";
                     BaseOutput gfo = srv.WS_GetForeign_OrganizationByVoen(baseInput, model.VOEN, out modelPotentialProduction.ForeignOrganization);
                     voen = model.VOEN;
                     fin = "";
                 }
-                else if (model.FIN != "" && model.FIN != null)
+                else if (!string.IsNullOrEmpty(model.FIN))
                 {
                     fh = "fizikişexs";
                     BaseOutput gp = srv.WS_GetPersonByPinNumber(baseInput, model.FIN, out modelPotentialProduction.Person);
@@ -243,6 +246,13 @@ namespace Emsal.UI.Controllers
 
                     modelPotentialProduction.User.userType_eV_ID = modelPotentialProduction.EnumValue.Id;
                     modelPotentialProduction.User.userType_eV_IDSpecified = true;
+
+                    if (!string.IsNullOrEmpty(model.VOEN))
+                    {
+                        voenInfo = taxessrv.getTaxesTypeInfoByVoen(model.VOEN);
+                        modelPotentialProduction.User.TaxexType = short.Parse(voenInfo.RESULT.ToString());
+                        modelPotentialProduction.User.TaxexTypeSpecified = true;
+                    }
 
                     BaseOutput apu = srv.WS_AddUser(baseInput, modelPotentialProduction.User, out modelPotentialProduction.User);
 
