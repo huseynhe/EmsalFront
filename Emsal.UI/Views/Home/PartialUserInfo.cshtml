@@ -19,7 +19,7 @@
 </div>
 <table class="table table-bordered">
     <tbody>
-        @foreach (var item in Model.PagingUserInfo)
+        @foreach (var item in Model.UserInfoList)
         {
             var sd = item.fullAddress.Split(',').ToArray();
             if (sd.Length > 1)

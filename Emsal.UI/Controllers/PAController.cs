@@ -55,6 +55,9 @@ namespace Emsal.UI.Controllers
                 int pageSize = 36;
                 int pageNumber = (page ?? 1);
 
+                fin = StripTag.strSqlBlocker(fin.ToLower());
+                voen = StripTag.strSqlBlocker(voen.ToLower());
+
                 if (productId == -1 && userTypeId == -1 && fin == null && voen == null)
                 {
                     sproductId = 0;
@@ -389,6 +392,9 @@ namespace Emsal.UI.Controllers
             {
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
+
+                fin = StripTag.strSqlBlocker(fin.ToLower());
+                voen = StripTag.strSqlBlocker(voen.ToLower());
 
                 if (userTypeId == -1 && monthEVId == -1 && fin == null && voen == null)
                 {

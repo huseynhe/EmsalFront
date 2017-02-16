@@ -39,16 +39,16 @@ namespace Emsal.UI.Controllers
 
         private ProductCatalogViewModel modelProductCatalog;
         private ContactViewModel modelContact;
-        
+
 
         public ActionResult Index(int pId = 0)
         {
             try
             {
-                string hostAddress = Request.UserHostAddress;     
+                string hostAddress = Request.UserHostAddress;
                 string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
                 string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-                
+
                 baseInput = new BaseInput();
 
                 modelProductCatalog = new ProductCatalogViewModel();
@@ -101,7 +101,7 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult AdminUnit(int pId = 0, long rId=0)
+        public ActionResult AdminUnit(int pId = 0, long rId = 0)
         {
             try
             {
@@ -153,14 +153,19 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult SearchAnnouncement(string value)
+        public ActionResult SearchAnnouncement(int? page, string value)
         {
             try
             {
 
+                baseInput = new BaseInput();
+                int pageSize = 50;
+                int pageNumber = (page ?? 1);
+
                 modelProductCatalog = new ProductCatalogViewModel();
 
                 value = StripTag.strSqlBlocker(value.ToLower());
+
 
                 if (string.IsNullOrWhiteSpace(value))
                 {
@@ -168,14 +173,20 @@ namespace Emsal.UI.Controllers
                 }
                 else
                 {
-                    BaseOutput gap = srv.WS_GetAnnouncementDetails(baseInput, out modelProductCatalog.AnnouncementDetailArray);
+                    modelProductCatalog.OfferProductionDetailSearch = new OfferProductionDetailSearch();
+                    modelProductCatalog.OfferProductionDetailSearch.page = pageNumber;
+                    modelProductCatalog.OfferProductionDetailSearch.pageSize = pageSize;
+                    modelProductCatalog.OfferProductionDetailSearch.productName = value;
 
-                    modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailArray.Where(x => x.productName.ToLower().Contains(value) || x.parentName.ToLower().Contains(value)).ToList();
+                    BaseOutput gap = srv.WS_GetAnnouncementDetails_Search(baseInput, modelProductCatalog.OfferProductionDetailSearch, out modelProductCatalog.AnnouncementDetailArray);
+
+                    BaseOutput gapc = srv.WS_GetAnnouncementDetails_Search_OPC(baseInput, modelProductCatalog.OfferProductionDetailSearch, out modelProductCatalog.itemCount, out modelProductCatalog.itemCountB);
+
                 }
 
-                if (modelProductCatalog.AnnouncementDetailList != null)
+                if(modelProductCatalog.AnnouncementDetailArray!=null)
                 {
-                    modelProductCatalog.itemCount = modelProductCatalog.AnnouncementDetailList.Count();
+                    modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailArray.ToList();
                 }
 
                 return View(modelProductCatalog);
@@ -205,7 +216,7 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult Announcement(int? page, int productId = 0,string form=null)
+        public ActionResult Announcement(int? page, int productId = 0, string form = null)
         {
             try
             {
@@ -226,14 +237,14 @@ namespace Emsal.UI.Controllers
                 if (productId > 0)
                 {
                     modelProductCatalog.noPaged = 1;
-                    BaseOutput gadp = srv.WS_GetAnnouncementDetailsByProductId_OP(baseInput, pageNumber, true, pageSize, true, productId, true, out modelProductCatalog.AnnouncementDetailArray);
+                    BaseOutput gadp = srv.WS_GetAnnouncementDetailsByProductId_OP(baseInput, productId, true,  pageNumber, true, pageSize,  true, out modelProductCatalog.AnnouncementDetailArray);
 
 
                     BaseOutput gadpc = srv.WS_GetAnnouncementDetailsByProductId_OPC(baseInput, productId, true, out modelProductCatalog.itemCount, out modelProductCatalog.itemCountB);
                 }
                 else
                 {
-                    BaseOutput gadp = srv.WS_GetAnnouncementDetails_OP(baseInput,pageNumber, true,pageSize, true, out modelProductCatalog.AnnouncementDetailArray);
+                    BaseOutput gadp = srv.WS_GetAnnouncementDetails_OP(baseInput, pageNumber, true, pageSize, true, out modelProductCatalog.AnnouncementDetailArray);
 
                     BaseOutput gadpc = srv.WS_GetAnnouncementDetails_OPC(baseInput, out modelProductCatalog.itemCount, out modelProductCatalog.itemCountB);
                 }
@@ -241,10 +252,11 @@ namespace Emsal.UI.Controllers
                 if (modelProductCatalog.AnnouncementDetailArray == null)
                 {
                     modelProductCatalog.AnnouncementDetailList = new List<AnnouncementDetail>();
-                }else
+                }
+                else
                 {
                     modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailArray.ToList();
-                }               
+                }
 
                 modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailList.OrderBy(x => x.parentName).ThenBy(x => x.productName).ToList();
 
@@ -307,7 +319,7 @@ namespace Emsal.UI.Controllers
                 if (addressId == -1)
                     addressId = 0;
 
-                 if (addressId >= 0)
+                if (addressId >= 0)
                     saddressId = addressId;
                 if (rId > 0)
                     srId = rId;
@@ -338,9 +350,9 @@ namespace Emsal.UI.Controllers
                 modelProductCatalog.PotensialUserForAdminUnitIdList.address = saddress;
                 modelProductCatalog.PotensialUserForAdminUnitIdList.productID = sproductId;
 
-                
+
                 BaseOutput ui = srv.WS_GetPotensialUserList_OP(baseInput, modelProductCatalog.PotensialUserForAdminUnitIdList, out modelProductCatalog.UserInfoArray);
-             
+
 
                 if (modelProductCatalog.UserInfoArray != null)
                 {
@@ -350,7 +362,7 @@ namespace Emsal.UI.Controllers
                 {
                     modelProductCatalog.UserInfoList = new List<UserInfo>();
                 }
-                
+
 
                 modelProductCatalog.UserInfoListP = new List<UserInfo>();
                 foreach (var pitem in modelProductCatalog.UserInfoList)
@@ -402,9 +414,7 @@ namespace Emsal.UI.Controllers
 
                 long[] aic = new long[modelProductCatalog.itemCount];
 
-                modelProductCatalog.PagingT = aic.ToPagedList(pageNumber, pageSize);               
-
-                modelProductCatalog.PagingUserInfo = modelProductCatalog.UserInfoList.ToPagedList(pageNumber, pageSize);
+                modelProductCatalog.PagingT = aic.ToPagedList(pageNumber, pageSize);
 
                 return Request.IsAjaxRequest()
                     ? (ActionResult)PartialView("PartialUserInfo", modelProductCatalog)
@@ -461,7 +471,7 @@ namespace Emsal.UI.Controllers
                 //else
                 //{
                 modelProductCatalog.pId = pId;
-                    return View(modelProductCatalog);
+                return View(modelProductCatalog);
                 //}
 
             }
@@ -497,20 +507,20 @@ namespace Emsal.UI.Controllers
             {
                 if (ReCaptcha.Validate(ConfigurationManager.AppSettings["ReCaptcha:SecretKey"]))
                 {
-                MailMessage msg = new MailMessage();
+                    MailMessage msg = new MailMessage();
 
-                msg.To.Add("mail@tedaruk.gov.az");
-                msg.Subject = "Müraciət göndər";
+                    msg.To.Add("mail@tedaruk.gov.az");
+                    msg.Subject = "Müraciət göndər";
 
-                msg.Body = "<p>Ad, soyad, ata adı: " + model.nameSurnameFathername + "</p>" +
-                    "<p>E-poçt: " + model.mail + "</p>" +
-                    "<p>Telefon: " + model.phone + "</p>" +
-                    "<p>Müraciətin məzmunu:  " + model.appealBody + "</p>";
+                    msg.Body = "<p>Ad, soyad, ata adı: " + model.nameSurnameFathername + "</p>" +
+                        "<p>E-poçt: " + model.mail + "</p>" +
+                        "<p>Telefon: " + model.phone + "</p>" +
+                        "<p>Müraciətin məzmunu:  " + model.appealBody + "</p>";
 
-                msg.IsBodyHtml = true;
+                    msg.IsBodyHtml = true;
 
-                Mail.SendMail(msg);
-                TempData["Message"] = "Müraciətiniz göndərildi.";
+                    Mail.SendMail(msg);
+                    TempData["Message"] = "Müraciətiniz göndərildi.";
 
                     return RedirectToAction("Contact", "Home");
                 }

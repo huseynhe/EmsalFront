@@ -24,7 +24,7 @@ namespace Emsal.UI.Controllers
         private static IList<long> soldPID;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
-       // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
+        // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
 
         private OfferProductionViewModel modelOfferProduction;
 
@@ -85,14 +85,18 @@ namespace Emsal.UI.Controllers
                 modelOfferProduction.EnumValueMonthList = modelOfferProduction.EnumValueArray.ToList();
 
 
-                BaseOutput gop = srv.WS_GetOffer_ProductionsByUserID1(baseInput, (long)userId, true, out modelOfferProduction.OfferProductionArray);
-                soldPID = new List<long>();
-                if (modelOfferProduction.OfferProductionArray != null)
+                BaseOutput gop = srv.WS_GetProductCatalogsOfferWitoutTypeOfEV(baseInput, (long)userId, true, out modelOfferProduction.ProductCatalogArray);
+
+                if (modelOfferProduction.ProductCatalogArray != null)
                 {
-                    foreach (long item in modelOfferProduction.OfferProductionArray.Select(x => x.product_Id).ToList())
-                    {
-                        soldPID.Add(item);
-                    }
+                    soldPID = new List<long>(modelOfferProduction.ProductCatalogArray.Count());
+
+                    soldPID = modelOfferProduction.ProductCatalogArray.Select(x => x.Id).ToList();
+
+                    //foreach (long item in modelOfferProduction.ProductCatalogArray.Select(x => x.product_Id).ToList())
+                    //{
+                    //    soldPID.Add(item);
+                    //}
                 }
 
                 modelOfferProduction.oldPID = soldPID;
@@ -137,7 +141,7 @@ namespace Emsal.UI.Controllers
                 baseInput.userName = modelOfferProduction.User.Username;
 
                 BaseOutput gpo = srv.WS_GetAdminUnitsByParentId(baseInput, 0, true, out modelOfferProduction.PRMAdminUnitArray);
-                modelOfferProduction.PRMAdminUnitList = modelOfferProduction.PRMAdminUnitArray.OrderBy(x=>x.Name).ToList();
+                modelOfferProduction.PRMAdminUnitList = modelOfferProduction.PRMAdminUnitArray.OrderBy(x => x.Name).ToList();
 
                 if (selectedPOriginId > 0)
                 {
@@ -223,12 +227,12 @@ namespace Emsal.UI.Controllers
                     }
                 }
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelOfferProduction.User);
-                baseInput.userName = modelOfferProduction.User.Username;                       
+                baseInput.userName = modelOfferProduction.User.Username;
 
                 BaseOutput gcl = srv.WS_GetProductCatalogListForID(baseInput, prId, true, out modelOfferProduction.ProductCatalogArray);
                 modelOfferProduction.ProductCatalogList = modelOfferProduction.ProductCatalogArray.ToList();
 
-                return string.Join(",", modelOfferProduction.ProductCatalogList.Select(x => x.Id)); 
+                return string.Join(",", modelOfferProduction.ProductCatalogList.Select(x => x.Id));
 
             }
             catch (Exception ex)
@@ -264,7 +268,7 @@ namespace Emsal.UI.Controllers
                 string up = null;
                 if (modelOfferProduction.AnnouncementList.Count > 0)
                 {
-                    up = modelOfferProduction.AnnouncementList.FirstOrDefault().unit_price.ToString()+" ("+ modelOfferProduction.AnnouncementList.FirstOrDefault().quantity_type_Name+ " / man)";
+                    up = modelOfferProduction.AnnouncementList.FirstOrDefault().unit_price.ToString() + " (" + modelOfferProduction.AnnouncementList.FirstOrDefault().quantity_type_Name + " / man)";
                 }
 
                 return up;
@@ -343,7 +347,7 @@ namespace Emsal.UI.Controllers
                 }
 
 
-                if (ppId > 0 || opId>0 || fpid!="")
+                if (ppId > 0 || opId > 0 || fpid != "")
                 {
                     if (fpid == "")
                     {
@@ -418,17 +422,17 @@ namespace Emsal.UI.Controllers
 
                         modelOfferProduction.ProductCatalogControlList = modelOfferProduction.ProductCatalogControlArray.Where(x => x.Status == 1).Where(x => x.EnumCategoryId != modelOfferProduction.EnumCategory.Id).ToList();
 
-                        
+
                         if (opId > 0)
                         {
-                            BaseOutput pcb = srv.WS_GetProductionControlsByOfferProductionId(baseInput, opId,true, out modelOfferProduction.ProductionControlArray);
+                            BaseOutput pcb = srv.WS_GetProductionControlsByOfferProductionId(baseInput, opId, true, out modelOfferProduction.ProductionControlArray);
 
                             modelOfferProduction.ProductionControlList = modelOfferProduction.ProductionControlArray.ToList();
                             //modelOfferProduction.ProductionControlList = modelOfferProduction.ProductionControlArray.Where(x => x.Offer_Production_Id == opId).ToList();
                         }
                         else if (ppId > 0)
                         {
-                            BaseOutput ppcb = srv.WS_GetProductionControlsByPotentialProductionId(baseInput, ppId,true, out modelOfferProduction.ProductionControlArray);
+                            BaseOutput ppcb = srv.WS_GetProductionControlsByPotentialProductionId(baseInput, ppId, true, out modelOfferProduction.ProductionControlArray);
 
                             modelOfferProduction.ProductionControlList = modelOfferProduction.ProductionControlArray.ToList();
 
@@ -652,12 +656,12 @@ namespace Emsal.UI.Controllers
                             s = s + 1;
                         }
 
-                    if (modelOfferProduction.PRMAdminUnitArrayFA[s - 1].Count() > 0)
-                    {
-                        modelOfferProduction.productAddressIds = (modelOfferProduction.ProductAddress.fullAddressId + ",0").Split(',').Select(long.Parse).ToArray();
-                    }
+                        if (modelOfferProduction.PRMAdminUnitArrayFA[s - 1].Count() > 0)
+                        {
+                            modelOfferProduction.productAddressIds = (modelOfferProduction.ProductAddress.fullAddressId + ",0").Split(',').Select(long.Parse).ToArray();
+                        }
 
-                    //modelOfferProduction.ProductAddress = new tblProductAddress();
+                        //modelOfferProduction.ProductAddress = new tblProductAddress();
                     }
                 }
 
@@ -798,7 +802,7 @@ namespace Emsal.UI.Controllers
                 BaseOutput userRole = srv.WS_GetUserRolesByUserId(baseInput, model.User.Id, true, out model.UserRoleArray);
                 model.UserRole = model.UserRoleArray.FirstOrDefault();
 
-                if (model.ppId > 0 || model.UserRole.RoleId==11)
+                if (model.ppId > 0 || model.UserRole.RoleId == 11)
                 {
                     status = "Yayinda";
                 }
@@ -965,18 +969,19 @@ namespace Emsal.UI.Controllers
 
 
                 BaseOutput person = srv.WS_GetPersonByUserId(baseInput, model.User.Id, true, out model.Person);
-               
+
                 string namesname = "";
 
                 if (model.Person != null)
                 {
                     namesname = model.Person.Name + " " + model.Person.Surname;
-                }else
+                }
+                else
                 {
                     namesname = model.User.Username;
                 }
 
-                string message = "<b>Hörmətli "+ namesname+ ",</b> <br/><br/> Sizin ərzaq məhsulu təklifiniz  portalda qeydiyyata alınmışdır.<br/> Potensial istehsalçı kimi təqdim etmək istədiyiniz ərzaq məhsulu barədə yerləşdirdiyiniz təkliflər haqqında məlumat 48 saat ərzində təsdiqlənərək portalın “Potensial istehsalçılar və satıcılar” və “Təkliflər” bölmələrində əks olunacaq və eyni zamanda  elektron poçt ünvanınıza bu barədə məlumat göndəriləcəkdir.<br/> <br/> İstehsalçıların və digər satıcıların (idxalçı) fəaliyyətinin və təqdim edilən təkliflərin monitorinqi, habelə həmin ərzaq məhsullarının satın alınması prosedurları Azərbaycan Respublikası Prezidentinin 2016-cı il 11 aprel tarixli 859 nömrəli Fərmanı ilə təsdiq edilmiş “Dövlət müəssisə və təşkilatları (idarələri) tərəfindən ərzaq məhsullarının mərkəzləşdirilmiş qaydada dövlət büdcəsinin vəsaitləri hesabına satın alınması Qaydası”na uğun olaraq həyata keçirləcəkdir.<br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+                string message = "<b>Hörmətli " + namesname + ",</b> <br/><br/> Sizin ərzaq məhsulu təklifiniz  portalda qeydiyyata alınmışdır.<br/> Potensial istehsalçı kimi təqdim etmək istədiyiniz ərzaq məhsulu barədə yerləşdirdiyiniz təkliflər haqqında məlumat 48 saat ərzində təsdiqlənərək portalın “Potensial istehsalçılar və satıcılar” və “Təkliflər” bölmələrində əks olunacaq və eyni zamanda  elektron poçt ünvanınıza bu barədə məlumat göndəriləcəkdir.<br/> <br/> İstehsalçıların və digər satıcıların (idxalçı) fəaliyyətinin və təqdim edilən təkliflərin monitorinqi, habelə həmin ərzaq məhsullarının satın alınması prosedurları Azərbaycan Respublikası Prezidentinin 2016-cı il 11 aprel tarixli 859 nömrəli Fərmanı ilə təsdiq edilmiş “Dövlət müəssisə və təşkilatları (idarələri) tərəfindən ərzaq məhsullarının mərkəzləşdirilmiş qaydada dövlət büdcəsinin vəsaitləri hesabına satın alınması Qaydası”na uğun olaraq həyata keçirləcəkdir.<br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
 
                 try
                 {
@@ -1152,12 +1157,12 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput envalyo = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferProduction.EnumValueo);
 
-                if(modelOfferProduction.EnumValueo.Id!=modelOfferProduction.OfferProduction.state_eV_Id)
+                if (modelOfferProduction.EnumValueo.Id != modelOfferProduction.OfferProduction.state_eV_Id)
                 {
                     BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Yayinda", out modelOfferProduction.EnumValue);
                     modelOfferProduction.OfferProduction.state_eV_Id = modelOfferProduction.EnumValue.Id;
                     modelOfferProduction.OfferProduction.state_eV_IdSpecified = true;
-                }    
+                }
 
                 BaseOutput envalydn = srv.WS_GetEnumValueByName(baseInput, "new", out modelOfferProduction.EnumValue);
                 modelOfferProduction.OfferProduction.monitoring_eV_Id = modelOfferProduction.EnumValue.Id;
