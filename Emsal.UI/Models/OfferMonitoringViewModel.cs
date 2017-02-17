@@ -137,6 +137,7 @@ namespace Emsal.UI.Models
         public IList<tblComMessageAttachment> ComMessageAttachmentList { get; set; }
         public tblComMessageAttachment[] ComMessageAttachmentArray;
 
+        
         public DemanProductionGroup DemanProductionGroup { get; set; }
         public DemanProductionGroup[] DemanProductionGroupArray;
         public IList<DemanProductionGroup> DemanProductionGroupList { get; set; }

@@ -104,6 +104,13 @@
     }
     else
     {
+        if (e == 0)
+        {
+            <div class="col-md-12">
+                <label class="control-label" for="size">&nbsp;</label>
+                <h4 id="announcementPrice" class="text-danger"></h4>
+            </div>
+        }
         <div class="col-md-4">
             <div class="form-group">
                 <label class="control-label" for="size">@item.description</label>
@@ -123,10 +130,6 @@
                 </select>
                 <span data-valmsg-replace="true" data-valmsg-for="enumVal[@{ @e }]" class="field-validation-valid text-danger"></span>
             </div>
-        </div>
-        <div class="col-md-8">
-            <label class="control-label" for="size">&nbsp;</label>
-            <h4 id="announcementPrice" class="text-danger"></h4>
         </div>
             }
             e = e + 1;
@@ -163,7 +166,7 @@
                     {
                         if (Model.oldPID.Contains(item.Id))
                         {
-                        <option disabled style="color:#800000;background:#f2dede;">@item.ProductName</option>
+                            <option disabled style="color:#800000;background:#f2dede;">@item.ProductName</option>
                         }
                         else
                         {

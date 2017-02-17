@@ -38,7 +38,7 @@ namespace Emsal.UI.Controllers
         private OfferMonitoringViewModel modelOfferMonitoring;
 
 
-       private static long[] sproductIdArray = {
+        private static long[] sproductIdArray = {
             334, //1-ci növ buğda unundan bişirilmiş ağ çörək
             335, //2-ci növ buğda unundan bişirilmiş ağ çörək
             343, //1-ci növ buğda unu
@@ -55,8 +55,10 @@ namespace Emsal.UI.Controllers
                 int pageSize = 36;
                 int pageNumber = (page ?? 1);
 
-                fin = StripTag.strSqlBlocker(fin.ToLower());
-                voen = StripTag.strSqlBlocker(voen.ToLower());
+                if (fin != null)
+                    fin = StripTag.strSqlBlocker(fin.ToLower());
+                if (voen != null)
+                    voen = StripTag.strSqlBlocker(voen.ToLower());
 
                 if (productId == -1 && userTypeId == -1 && fin == null && voen == null)
                 {
@@ -103,7 +105,7 @@ namespace Emsal.UI.Controllers
 
                 modelOfferMonitoring.DemandOfferProductsSearch.page = pageNumber;
                 modelOfferMonitoring.DemandOfferProductsSearch.page_size = pageSize;
-              modelOfferMonitoring.DemandOfferProductsSearch.productId = sproductId;
+                modelOfferMonitoring.DemandOfferProductsSearch.productId = sproductId;
                 modelOfferMonitoring.DemandOfferProductsSearch.monthID = smonthEVId;
                 modelOfferMonitoring.DemandOfferProductsSearch.roleID = suserTypeId;
                 modelOfferMonitoring.DemandOfferProductsSearch.pinNumber = sfin;
@@ -113,7 +115,7 @@ namespace Emsal.UI.Controllers
                 {
                     BaseOutput gpp = srv.WS_GetTotalDemandOffersPA(baseInput, modelOfferMonitoring.DemandOfferProductsSearch, out modelOfferMonitoring.DemanProductionGroupArray);
                 }
-                else if(excell == true)
+                else if (excell == true)
                 {
                     BaseOutput gpp = srv.WS_GetTotalDemandOffers(baseInput, pageNumber, true, pageSize, true, modelOfferMonitoring.DemandOfferProductsSearch, out modelOfferMonitoring.DemanProductionGroupArray);
                 }
@@ -124,7 +126,7 @@ namespace Emsal.UI.Controllers
                 }
                 else
                 {
-                    modelOfferMonitoring.DemanProductionGroupList = modelOfferMonitoring.DemanProductionGroupArray.OrderBy(x => x.productParentName).ThenBy(x=>x.productName).ToList();
+                    modelOfferMonitoring.DemanProductionGroupList = modelOfferMonitoring.DemanProductionGroupArray.OrderBy(x => x.productParentName).ThenBy(x => x.productName).ToList();
                 }
 
                 BaseOutput gdpc = srv.WS_GetTotalDemandOffers_OPC(baseInput, modelOfferMonitoring.DemandOfferProductsSearch, out modelOfferMonitoring.itemCount, out modelOfferMonitoring.itemCountB);
@@ -220,9 +222,27 @@ namespace Emsal.UI.Controllers
 
                         foreach (var item in modelOfferMonitoring.DemanProductionGroupList)
                         {
+                            var col2 = 0;
+                            if (item.offerProductsList.Count() == 0)
+                            {
+                                col2 = 1;
+                                sheet.Cells[rowIndex, col2++].Value = ri.ToString();
+                                sheet.Cells[rowIndex, col2++].Value = item.productParentName; ;
+                                sheet.Cells[rowIndex, col2++].Value = item.productName;
+                                sheet.Cells[rowIndex, col2++].Value = @Custom.ConverPriceDelZero((decimal)item.totalQuantity);
+
+                                sheet.Cells[rowIndex, col2++].Value = item.enumValueName;
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unitPrice);
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalQuantityPrice);
+
+                                sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                                rowIndex++;
+                                ri++;
+                            }
                             foreach (var itemo in item.offerProductsList)
                             {
-                                var col2 = 1;
+                                col2 = 1;
                                 contractNumber = "";
                                 orgName = "";
                                 manat = "";
@@ -358,7 +378,7 @@ namespace Emsal.UI.Controllers
                         sheet.Cells[1, 1, rowIndex - 1, 21].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
 
-                        sheet.Cells[rowIndex + 1, 2,rowIndex + 1, 4].Merge = true;
+                        sheet.Cells[rowIndex + 1, 2, rowIndex + 1, 4].Merge = true;
 
                         sheet.Cells[rowIndex + 1, 2].Value = "Qeyd: ƏDV şamil edilməyən məhsullar rəngli xanalarda göstərilib";
                         sheet.Cells[rowIndex + 1, 2].Style.Font.Bold = true;
@@ -480,7 +500,7 @@ namespace Emsal.UI.Controllers
                 long[] aic = new long[modelOfferMonitoring.itemCount];
 
                 modelOfferMonitoring.PagingT = aic.ToPagedList(pageNumber, pageSize);
-                
+
                 modelOfferMonitoring.productId = sproductId;
                 modelOfferMonitoring.userTypeId = suserTypeId;
                 modelOfferMonitoring.monthEVId = smonthEVId;
@@ -566,26 +586,13 @@ namespace Emsal.UI.Controllers
                         string orgName = "";
                         string contractNumber = "";
                         string faiz = "";
-                        string manat = "";                        
+                        string manat = "";
 
-                        foreach (var itemo in modelOfferMonitoring.DemanOfferProductionList)
+                        var col2 = 0;
+
+                        if (modelOfferMonitoring.DemanOfferProductionList.Count() == 0)
                         {
-                            var col2 = 1;
-                            contractNumber = "";
-                            orgName = "";
-                            manat = "";
-                            faiz = "";
-                            modelOfferMonitoring.ContractDetailTemp = new tblContractDetailTemp();
-
-                            if (itemo.contractTempList.Count() > 0)
-                            {
-                                modelOfferMonitoring.ContractDetailTemp = itemo.contractTempList.FirstOrDefault();
-
-                                manat = (modelOfferMonitoring.ContractDetailTemp.product_asc_price - modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
-
-                                faiz = (((modelOfferMonitoring.ContractDetailTemp.product_asc_price - modelOfferMonitoring.ContractDetailTemp.product_unit_price) * 100) / modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
-                            }
-
+                            col2 = 1;
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = modelOfferMonitoring.DemanProductionGroup.productParentName;
@@ -596,103 +603,138 @@ namespace Emsal.UI.Controllers
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.DemanProductionGroup.unitPrice);
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.DemanProductionGroup.totalQuantityPrice);
 
-                            if (!string.IsNullOrEmpty(itemo.organizationName.Trim()))
-                            {
-                                orgName = "\n" + itemo.organizationName;
-                            }
-
-                            sheet.Cells[rowIndex, col2++].Value = itemo.personName + " " + itemo.surname + " " + itemo.fatherName + orgName + "\n" + string.Join(", ", itemo.comList.Select(x => x.communication).LastOrDefault());
-
-                            sheet.Cells[rowIndex, col2++].IsRichText = true;
-                            col2--;
-                            ExcelRichTextCollection rtfCollection = sheet.Cells[rowIndex, col2++].RichText;
-                            ExcelRichText ert;
-
-                            if (!string.IsNullOrEmpty(itemo.pinNumber.Trim()))
-                            {
-                                ert = rtfCollection.Add("FİN: ");
-                                ert.Bold = true;
-                                ert = rtfCollection.Add(itemo.pinNumber);
-                                ert.Bold = false;
-                            }
-
-                            if (!string.IsNullOrEmpty(itemo.voen.Trim()))
-                            {
-                                if (!string.IsNullOrEmpty(itemo.pinNumber.Trim()))
-                                {
-                                    ert = rtfCollection.Add("\n");
-                                    ert.Bold = false;
-                                }
-
-                                ert = rtfCollection.Add("VÖEN: ");
-                                ert.Bold = true;
-                                ert = rtfCollection.Add(itemo.voen);
-                                ert.Bold = false;
-                            }
-                            if (!string.IsNullOrEmpty(modelOfferMonitoring.ContractDetailTemp.ContractNumber_))
-                            {
-                                contractNumber = DatetimeExtension.toShortDate(modelOfferMonitoring.ContractDetailTemp.ContractDate).ToShortDateString()+ "\n"+ modelOfferMonitoring.ContractDetailTemp.ContractNumber_;
-                            }
-
-                            sheet.Cells[rowIndex, col2++].Value = contractNumber;
-
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)(itemo.unit_price));
-
-                            if (modelOfferMonitoring.ContractDetailTemp.product_unit_price != null)
-                            {
-                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_unit_price);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_asc_price); 
-                            }
-                            else
-                            {
-                                sheet.Cells[rowIndex, col2++].Value = "";
-                                sheet.Cells[rowIndex, col2++].Value = "";
-                            }
-
-                            if (!string.IsNullOrEmpty(manat))
-                            {
-                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero(decimal.Parse(manat));
-                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero(decimal.Parse(faiz));
-                            }
-                            else
-                            {
-                                sheet.Cells[rowIndex, col2++].Value = "";
-                                sheet.Cells[rowIndex, col2++].Value = "";
-                            }
-
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)itemo.quantity);
-
-                            if (modelOfferMonitoring.ContractDetailTemp.product_total_count != null)
-                            {
-                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_total_count);
-                            }
-                            else
-                            {
-                                sheet.Cells[rowIndex, col2++].Value = "";
-                            }
-
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)itemo.totalQuantityPrice);
-
-                            if (modelOfferMonitoring.ContractDetailTemp.product_total_price != null)
-                            {
-                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_total_price);
-                            }
-                            else
-                            {
-                                sheet.Cells[rowIndex, col2++].Value = "";
-                            }
-
-                            sheet.Cells[rowIndex, col2++].Value = itemo.roledesc;
-                            sheet.Cells[rowIndex, col2++].Value = itemo.taxesType;
-
                             sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-
-                            //sheet.Row(rowIndex).Style.Numberformat.Format = "0:#,##0.000000";
 
                             rowIndex++;
                             ri++;
                         }
+                        else
+                        {
+                            foreach (var itemo in modelOfferMonitoring.DemanOfferProductionList)
+                            {
+                                col2 = 1;
+                                contractNumber = "";
+                                orgName = "";
+                                manat = "";
+                                faiz = "";
+                                modelOfferMonitoring.ContractDetailTemp = new tblContractDetailTemp();
 
+                                if (itemo.contractTempList.Count() > 0)
+                                {
+                                    modelOfferMonitoring.ContractDetailTemp = itemo.contractTempList.FirstOrDefault();
+
+                                    manat = (modelOfferMonitoring.ContractDetailTemp.product_asc_price - modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
+
+                                    faiz = (((modelOfferMonitoring.ContractDetailTemp.product_asc_price - modelOfferMonitoring.ContractDetailTemp.product_unit_price) * 100) / modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
+                                }
+
+
+                                sheet.Cells[rowIndex, col2++].Value = ri.ToString();
+                                sheet.Cells[rowIndex, col2++].Value = modelOfferMonitoring.DemanProductionGroup.productParentName;
+                                sheet.Cells[rowIndex, col2++].Value = modelOfferMonitoring.DemanProductionGroup.productName;
+                                sheet.Cells[rowIndex, col2++].Value = @Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.DemanProductionGroup.totalQuantity);
+
+                                sheet.Cells[rowIndex, col2++].Value = modelOfferMonitoring.DemanProductionGroup.enumValueName;
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.DemanProductionGroup.unitPrice);
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.DemanProductionGroup.totalQuantityPrice);
+
+                                if (!string.IsNullOrEmpty(itemo.organizationName.Trim()))
+                                {
+                                    orgName = "\n" + itemo.organizationName;
+                                }
+
+                                sheet.Cells[rowIndex, col2++].Value = itemo.personName + " " + itemo.surname + " " + itemo.fatherName + orgName + "\n" + string.Join(", ", itemo.comList.Select(x => x.communication).LastOrDefault());
+
+                                sheet.Cells[rowIndex, col2++].IsRichText = true;
+                                col2--;
+                                ExcelRichTextCollection rtfCollection = sheet.Cells[rowIndex, col2++].RichText;
+                                ExcelRichText ert;
+
+                                if (!string.IsNullOrEmpty(itemo.pinNumber.Trim()))
+                                {
+                                    ert = rtfCollection.Add("FİN: ");
+                                    ert.Bold = true;
+                                    ert = rtfCollection.Add(itemo.pinNumber);
+                                    ert.Bold = false;
+                                }
+
+                                if (!string.IsNullOrEmpty(itemo.voen.Trim()))
+                                {
+                                    if (!string.IsNullOrEmpty(itemo.pinNumber.Trim()))
+                                    {
+                                        ert = rtfCollection.Add("\n");
+                                        ert.Bold = false;
+                                    }
+
+                                    ert = rtfCollection.Add("VÖEN: ");
+                                    ert.Bold = true;
+                                    ert = rtfCollection.Add(itemo.voen);
+                                    ert.Bold = false;
+                                }
+                                if (!string.IsNullOrEmpty(modelOfferMonitoring.ContractDetailTemp.ContractNumber_))
+                                {
+                                    contractNumber = DatetimeExtension.toShortDate(modelOfferMonitoring.ContractDetailTemp.ContractDate).ToShortDateString() + "\n" + modelOfferMonitoring.ContractDetailTemp.ContractNumber_;
+                                }
+
+                                sheet.Cells[rowIndex, col2++].Value = contractNumber;
+
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)(itemo.unit_price));
+
+                                if (modelOfferMonitoring.ContractDetailTemp.product_unit_price != null)
+                                {
+                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_unit_price);
+                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_asc_price);
+                                }
+                                else
+                                {
+                                    sheet.Cells[rowIndex, col2++].Value = "";
+                                    sheet.Cells[rowIndex, col2++].Value = "";
+                                }
+
+                                if (!string.IsNullOrEmpty(manat))
+                                {
+                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero(decimal.Parse(manat));
+                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero(decimal.Parse(faiz));
+                                }
+                                else
+                                {
+                                    sheet.Cells[rowIndex, col2++].Value = "";
+                                    sheet.Cells[rowIndex, col2++].Value = "";
+                                }
+
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)itemo.quantity);
+
+                                if (modelOfferMonitoring.ContractDetailTemp.product_total_count != null)
+                                {
+                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_total_count);
+                                }
+                                else
+                                {
+                                    sheet.Cells[rowIndex, col2++].Value = "";
+                                }
+
+                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)itemo.totalQuantityPrice);
+
+                                if (modelOfferMonitoring.ContractDetailTemp.product_total_price != null)
+                                {
+                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_total_price);
+                                }
+                                else
+                                {
+                                    sheet.Cells[rowIndex, col2++].Value = "";
+                                }
+
+                                sheet.Cells[rowIndex, col2++].Value = itemo.roledesc;
+                                sheet.Cells[rowIndex, col2++].Value = itemo.taxesType;
+
+                                sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                                //sheet.Row(rowIndex).Style.Numberformat.Format = "0:#,##0.000000";
+
+                                rowIndex++;
+                                ri++;
+                            }
+                        }
                         //var col21 = 1;
 
                         //string s = "158 490 005.88";
@@ -707,7 +749,7 @@ namespace Emsal.UI.Controllers
                         //sheet.Cells[rowIndex, col21++].Value = double.Parse("23 232 323.54", nfi);
 
                         //sheet.Cells[rowIndex, col21++].Value = decimal.Parse("5 454 500.0", new NumberFormatInfo() { NumberGroupSeparator = " " });
-                        
+
                         //sheet.Cells[rowIndex, col21++].Value = 54554500;
                         //sheet.Cells[rowIndex, col21++].Value = 54554500.8500500;
 
