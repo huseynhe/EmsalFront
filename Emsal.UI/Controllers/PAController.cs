@@ -240,6 +240,12 @@ namespace Emsal.UI.Controllers
                                 rowIndex++;
                                 ri++;
                             }
+
+                            if (item.offerProductsList.Count() > 0)
+                            {
+                                item.offerProductsList = item.offerProductsList.OrderBy(x => x.unit_price).ToArray();
+                            }
+
                             foreach (var itemo in item.offerProductsList)
                             {
                                 col2 = 1;
@@ -247,6 +253,7 @@ namespace Emsal.UI.Controllers
                                 orgName = "";
                                 manat = "";
                                 faiz = "";
+
                                 modelOfferMonitoring.ContractDetailTemp = new tblContractDetailTemp();
 
                                 if (itemo.contractTempList.Count() > 0)
