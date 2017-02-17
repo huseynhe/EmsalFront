@@ -184,6 +184,8 @@ namespace Emsal.AdminUI.Models
         public long year { get; set; }
         public long userType { get; set; }
         public string finVoen { get; set; }
+        public string fin { get; set; }
+        public string voen { get; set; }
         public string addressIdString { get; set; }
         public long[] addressIdList { get; set; }
 

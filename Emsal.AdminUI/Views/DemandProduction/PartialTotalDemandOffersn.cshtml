@@ -7,7 +7,7 @@
     Layout = "";
 }
 <h4 class="text-danger text-center">
-    <a href="/DemandProduction/TotalDemandOffersn?productId=@Model.productId&userType=@Model.userType&finVoen=@Model.finVoen&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+    <a href="/DemandProduction/TotalDemandOffersn?productId=@Model.productId&userType=@Model.userType&fin=@Model.fin&voen=@Model.voen&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
         <i class="fa fa-file-excel-o" aria-hidden="true"></i>
         Yüklə
     </a>
@@ -88,7 +88,7 @@
 </div>
 <div class="box-footer clearfix">
     Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
-    @Html.PagedListPager(Model.PagingT, page => Url.Action("TotalDemandOffersn", new { page, productId = Model.productId, userType = Model.userType, finVoen = Model.finVoen }))
+    @Html.PagedListPager(Model.PagingT, page => Url.Action("TotalDemandOffersn", new { page, productId = Model.productId, userType = Model.userType, fin = Model.fin, voen = Model.voen }))
 </div>
 
 

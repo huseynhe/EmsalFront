@@ -39,7 +39,8 @@ namespace Emsal.AdminUI.Controllers
         private static long syear;
         private static long saddressId;
         private static long suserType;
-        private static string sfinVoen;
+        private static string sfin;
+        private static string svoen;
 
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
@@ -665,26 +666,34 @@ namespace Emsal.AdminUI.Controllers
         }
 
 
-        public ActionResult TotalDemandOffers(int? page, bool excell = false, long productId = -1, long userType = -1, string finVoen = null)
+        public ActionResult TotalDemandOffers(int? page, bool excell = false, long productId = -1, long userType = -1, string fin = null, string voen = null)
         {
             try
             {
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (productId == -1 && userType == -1 && finVoen == null)
+                if (fin != null)
+                    fin = StripTag.strSqlBlocker(fin.ToLower());
+                if (voen != null)
+                    voen = StripTag.strSqlBlocker(voen.ToLower());
+
+                if (productId == -1 && userType == -1 && fin == null && voen == null)
                 {
                     sproductId = 0;
                     suserType = 0;
-                    sfinVoen = null;
+                    sfin = null;
+                    svoen = null;
                 }
 
                 if (productId >= 0)
                     sproductId = productId;
                 if (userType >= 0)
                     suserType = userType;
-                if (finVoen != null)
-                    sfinVoen = finVoen;
+                if (fin != null)
+                    sfin = fin;
+                if (voen != null)
+                    svoen = voen;
 
                 baseInput = new BaseInput();
                 modelDemandProduction = new DemandProductionViewModel();
@@ -714,10 +723,12 @@ namespace Emsal.AdminUI.Controllers
 
                 modelDemandProduction.DemandOfferProductsSearch = new DemandOfferProductsSearch();
 
+                modelDemandProduction.DemandOfferProductsSearch.page = pageNumber;
+                modelDemandProduction.DemandOfferProductsSearch.page_size = pageSize;
                 modelDemandProduction.DemandOfferProductsSearch.productId = sproductId;
                 modelDemandProduction.DemandOfferProductsSearch.roleID = suserType;
-                modelDemandProduction.DemandOfferProductsSearch.pinNumber = sfinVoen;
-                modelDemandProduction.DemandOfferProductsSearch.voen = sfinVoen;
+                modelDemandProduction.DemandOfferProductsSearch.pinNumber = sfin;
+                modelDemandProduction.DemandOfferProductsSearch.voen = svoen;
 
                 BaseOutput gpp = srv.WS_GetTotalDemandOffers(baseInput, pageNumber, true, pageSize, true, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.DemanProductionGroupArray);
 
@@ -728,7 +739,7 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    modelDemandProduction.DemanProductionGroupList = modelDemandProduction.DemanProductionGroupArray.OrderBy(x => x.productParentName).ToList();
+                    modelDemandProduction.DemanProductionGroupList = modelDemandProduction.DemanProductionGroupArray.OrderBy(x => x.productParentName).ThenBy(x => x.productName).ToList();
                 }
 
                 BaseOutput gdpc = srv.WS_GetTotalDemandOffers_OPC(baseInput, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
@@ -739,7 +750,8 @@ namespace Emsal.AdminUI.Controllers
 
                 modelDemandProduction.productId = sproductId;
                 modelDemandProduction.userType = suserType;
-                modelDemandProduction.finVoen = sfinVoen;
+                modelDemandProduction.fin = sfin;
+                modelDemandProduction.voen = svoen;
 
                 if (excell == true)
                 {
@@ -926,26 +938,34 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
-        public ActionResult TotalDemandOffersn(int? page, bool excell = false, long productId = -1, long userType = -1, string finVoen = null)
+        public ActionResult TotalDemandOffersn(int? page, bool excell = false, long productId = -1, long userType = -1, string fin = null, string voen = null)
         {
             try
             {
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (productId == -1 && userType == -1 && finVoen == null)
+                if (fin != null)
+                    fin = StripTag.strSqlBlocker(fin.ToLower());
+                if (voen != null)
+                    voen = StripTag.strSqlBlocker(voen.ToLower());
+
+                if (productId == -1 && userType == -1 && fin == null && voen == null)
                 {
                     sproductId = 0;
                     suserType = 0;
-                    sfinVoen = null;
+                    sfin = null;
+                    svoen = null;
                 }
 
                 if (productId >= 0)
                     sproductId = productId;
                 if (userType >= 0)
                     suserType = userType;
-                if (finVoen != null)
-                    sfinVoen = finVoen;
+                if (fin != null)
+                    sfin = fin;
+                if (voen != null)
+                    svoen = voen;
 
                 baseInput = new BaseInput();
                 modelDemandProduction = new DemandProductionViewModel();
@@ -975,10 +995,13 @@ namespace Emsal.AdminUI.Controllers
 
                 modelDemandProduction.DemandOfferProductsSearch = new DemandOfferProductsSearch();
 
+                modelDemandProduction.DemandOfferProductsSearch.page = pageNumber;
+                modelDemandProduction.DemandOfferProductsSearch.page_size = pageSize;
+
                 modelDemandProduction.DemandOfferProductsSearch.productId = sproductId;
                 modelDemandProduction.DemandOfferProductsSearch.roleID = suserType;
-                modelDemandProduction.DemandOfferProductsSearch.pinNumber = sfinVoen;
-                modelDemandProduction.DemandOfferProductsSearch.voen = sfinVoen;
+                modelDemandProduction.DemandOfferProductsSearch.pinNumber = sfin;
+                modelDemandProduction.DemandOfferProductsSearch.voen = svoen;
 
                 BaseOutput gpp = srv.WS_GetTotalDemandOffers(baseInput, pageNumber, true, pageSize, true, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.DemanProductionGroupArray);
 
@@ -1000,7 +1023,8 @@ namespace Emsal.AdminUI.Controllers
 
                 modelDemandProduction.productId = sproductId;
                 modelDemandProduction.userType = suserType;
-                modelDemandProduction.finVoen = sfinVoen;
+                modelDemandProduction.fin = sfin;
+                modelDemandProduction.voen = svoen;
 
                 if (excell == true)
                 {
