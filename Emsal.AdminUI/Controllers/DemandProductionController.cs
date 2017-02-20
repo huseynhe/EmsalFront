@@ -730,7 +730,7 @@ namespace Emsal.AdminUI.Controllers
                 modelDemandProduction.DemandOfferProductsSearch.pinNumber = sfin;
                 modelDemandProduction.DemandOfferProductsSearch.voen = svoen;
 
-                BaseOutput gpp = srv.WS_GetTotalDemandOffers(baseInput, pageNumber, true, pageSize, true, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.DemanProductionGroupArray);
+                BaseOutput gpp = srv.WS_GetTotalDemandOffers(baseInput, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.DemanProductionGroupArray);
 
 
                 if (modelDemandProduction.DemanProductionGroupArray == null)
@@ -1003,7 +1003,7 @@ namespace Emsal.AdminUI.Controllers
                 modelDemandProduction.DemandOfferProductsSearch.pinNumber = sfin;
                 modelDemandProduction.DemandOfferProductsSearch.voen = svoen;
 
-                BaseOutput gpp = srv.WS_GetTotalDemandOffers(baseInput, pageNumber, true, pageSize, true, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.DemanProductionGroupArray);
+                BaseOutput gpp = srv.WS_GetTotalDemandOffers(baseInput, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.DemanProductionGroupArray);
 
 
                 if (modelDemandProduction.DemanProductionGroupArray == null)
