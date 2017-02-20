@@ -879,8 +879,11 @@ namespace Emsal.UI.Controllers
                         }
                         else
                         {
-                            BaseOutput pcb = srv.WS_GetProductionControls(baseInput, out modelPotentialProduction.ProductionControlArray);
-                            modelPotentialProduction.ProductionControlList = modelPotentialProduction.ProductionControlArray.Where(x => x.Potential_Production_Id == modelPotentialProduction.PotentialProduction.Id).ToList();
+                            BaseOutput pcb = srv.WS_GetProductionControlsByPotentialProductionId(baseInput, modelPotentialProduction.PotentialProduction.Id,true, out modelPotentialProduction.ProductionControlArray);
+                            modelPotentialProduction.ProductionControlList = modelPotentialProduction.ProductionControlArray.ToList();
+
+                            //BaseOutput pcb = srv.WS_GetProductionControls(baseInput, out modelPotentialProduction.ProductionControlArray);
+                            //modelPotentialProduction.ProductionControlList = modelPotentialProduction.ProductionControlArray.Where(x => x.Potential_Production_Id == modelPotentialProduction.PotentialProduction.Id).ToList();
 
                             if (ecv == 0)
                             {
@@ -1088,11 +1091,11 @@ namespace Emsal.UI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelPotentialProduction.User);
                 baseInput.userName = modelPotentialProduction.User.Username;
 
-                BaseOutput bouput = srv.WS_GetPRM_AdminUnits(baseInput, out modelPotentialProduction.PRMAdminUnitArray);
-                modelPotentialProduction.PRMAdminUnitList = modelPotentialProduction.PRMAdminUnitArray.Where(x => x.ParentID == pId).ToList();
+                //BaseOutput bouput = srv.WS_GetPRM_AdminUnits(baseInput, out modelPotentialProduction.PRMAdminUnitArray);
+                //modelPotentialProduction.PRMAdminUnitList = modelPotentialProduction.PRMAdminUnitArray.Where(x => x.ParentID == pId).ToList();
 
-                //BaseOutput bouputs = srv.WS_GetAdminUnitsByParentId(baseInput,pId, true, out modelPotentialProduction.PRMAdminUnitArray);
-                //modelPotentialProduction.PRMAdminUnitList = modelPotentialProduction.PRMAdminUnitArray.ToList();
+                BaseOutput bouputs = srv.WS_GetAdminUnitsByParentId(baseInput, (int)pId, true, out modelPotentialProduction.PRMAdminUnitArray);
+                modelPotentialProduction.PRMAdminUnitList = modelPotentialProduction.PRMAdminUnitArray.ToList();
 
 
                 modelPotentialProduction.productAddressIds = null;
@@ -1416,15 +1419,15 @@ namespace Emsal.UI.Controllers
 
                 string grup_Id = Session["documentGrupId"].ToString();
 
-                BaseOutput gpbu = srv.WS_GetProductionDocuments(baseInput, out modelPotentialProduction.ProductionDocumentArray);
+                BaseOutput gpbu = srv.WS_GetProductionDocumentsByGroupId(baseInput, grup_Id, out modelPotentialProduction.ProductionDocumentArray);
 
                 if (PId > 0)
                 {
-                    modelPotentialProduction.ProductionDocumentList = modelPotentialProduction.ProductionDocumentArray.Where(x => x.Potential_Production_Id == PId || x.grup_Id == grup_Id).ToList();
+                    modelPotentialProduction.ProductionDocumentList = modelPotentialProduction.ProductionDocumentArray.Where(x => x.Potential_Production_Id == PId).ToList();
                 }
                 else
                 {
-                    modelPotentialProduction.ProductionDocumentList = modelPotentialProduction.ProductionDocumentArray.Where(x => x.grup_Id == grup_Id).ToList();
+                    modelPotentialProduction.ProductionDocumentList = modelPotentialProduction.ProductionDocumentArray.ToList();
                 }
 
                 return View(modelPotentialProduction);

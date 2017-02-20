@@ -27,6 +27,10 @@
             {
                 rq = "required";
             }
+            else
+            {
+                rq = "";
+            }
             <div class="form-group col-md-3">
                 <select name="adId[@{ @Model.arrNum }]" onchange="GetAdminUnit(this)" class="form-control unicase-form-control select select2" @rq>
                     @if (Model.arrNum > 0)
@@ -41,7 +45,7 @@
                         }
                         else
                         {
-                            if (Model.isPotential == false || Model.PRMAdminUnitList.FirstOrDefault().ParentID > 0)
+                            if (Model.isPotential == false || itm.ParentID > 0)
                             {
                                 <option value="@itm.Id">@itm.Name</option>
                             }
