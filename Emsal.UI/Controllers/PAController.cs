@@ -117,7 +117,7 @@ namespace Emsal.UI.Controllers
                 }
                 else if (excell == true)
                 {
-                    BaseOutput gpp = srv.WS_GetTotalDemandOffers(baseInput, pageNumber, true, pageSize, true, modelOfferMonitoring.DemandOfferProductsSearch, out modelOfferMonitoring.DemanProductionGroupArray);
+                    BaseOutput gpp = srv.WS_GetTotalDemandOffers(baseInput, modelOfferMonitoring.DemandOfferProductsSearch, out modelOfferMonitoring.DemanProductionGroupArray);
                 }
 
                 if (modelOfferMonitoring.DemanProductionGroupArray == null)
