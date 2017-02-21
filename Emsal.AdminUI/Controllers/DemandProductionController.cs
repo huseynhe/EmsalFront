@@ -476,11 +476,6 @@ namespace Emsal.AdminUI.Controllers
                     pageSize = 1000000;
                 }
 
-                if (!string.IsNullOrEmpty(saddressIdString))
-                {
-                    modelDemandProduction.addressIdList = saddressIdString.Split(',').Select(long.Parse).ToArray();
-                }
-
 
                 modelDemandProduction.DemandForegnOrganization = new DemandForegnOrganization();
 
@@ -491,6 +486,7 @@ namespace Emsal.AdminUI.Controllers
                 modelDemandProduction.DemandForegnOrganization.organizationID = sorganisationId;
                 modelDemandProduction.DemandForegnOrganization.productID = sproductId;
                 modelDemandProduction.DemandForegnOrganization.year = syear;
+                modelDemandProduction.DemandForegnOrganization.listAdminID = saddressIdString;
 
                 BaseOutput gpp = srv.WS_GetDemandByForganistion_OP(baseInput, modelDemandProduction.DemandForegnOrganization, out modelDemandProduction.OrganizationDetailArray);
 
@@ -2718,10 +2714,10 @@ namespace Emsal.AdminUI.Controllers
                 baseInput.userName = modelDemandProduction.Admin.Username;
 
 
-                if (!string.IsNullOrEmpty(saddressIdString))
-                {
-                    modelDemandProduction.addressIdList = adminUnitId.Split(',').Select(long.Parse).ToArray();
-                }
+                //if (!string.IsNullOrEmpty(saddressIdString))
+                //{
+                //    modelDemandProduction.addressIdList = adminUnitId.Split(',').Select(long.Parse).ToArray();
+                //}
 
 
                 BaseOutput bouput = srv.WS_GetGovermentOrganisatinByAdminID(baseInput, 1, true, out modelDemandProduction.ForeignOrganizationArray);
