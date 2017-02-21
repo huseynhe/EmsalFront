@@ -36,6 +36,8 @@ $(function() {
             success: function(result) {
                // ChangeUrl('index', url);
                 $('#AjaxPaginationList').html(result);
+
+                window.scrollTo(0, 0);
             }
         });
     });
