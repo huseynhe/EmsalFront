@@ -2714,13 +2714,7 @@ namespace Emsal.AdminUI.Controllers
                 baseInput.userName = modelDemandProduction.Admin.Username;
 
 
-                //if (!string.IsNullOrEmpty(saddressIdString))
-                //{
-                //    modelDemandProduction.addressIdList = adminUnitId.Split(',').Select(long.Parse).ToArray();
-                //}
-
-
-                BaseOutput bouput = srv.WS_GetGovermentOrganisatinByAdminID(baseInput, 1, true, out modelDemandProduction.ForeignOrganizationArray);
+                BaseOutput bouput = srv.WS_GetGovermentOrganisatinByAdminID(baseInput, adminUnitId, out modelDemandProduction.ForeignOrganizationArray);
 
 
                 if (modelDemandProduction.ForeignOrganizationArray == null)
