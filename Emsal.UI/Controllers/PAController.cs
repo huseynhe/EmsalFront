@@ -420,8 +420,10 @@ namespace Emsal.UI.Controllers
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                fin = StripTag.strSqlBlocker(fin.ToLower());
-                voen = StripTag.strSqlBlocker(voen.ToLower());
+                if (fin != null)
+                    fin = StripTag.strSqlBlocker(fin.ToLower());
+                if (voen != null)
+                    voen = StripTag.strSqlBlocker(voen.ToLower());
 
                 if (userTypeId == -1 && monthEVId == -1 && fin == null && voen == null)
                 {
