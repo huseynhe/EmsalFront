@@ -106,8 +106,8 @@
                 {
                     Model.ContractDetailTemp = itemo.contractTempList.FirstOrDefault();
 
-                    manat = Custom.ConverPriceToStringDelZero((Model.ContractDetailTemp.product_asc_price - Model.ContractDetailTemp.product_unit_price));
-                    faiz = Custom.ConverPriceToStringDelZero(((Model.ContractDetailTemp.product_asc_price - Model.ContractDetailTemp.product_unit_price) * 100) / Model.ContractDetailTemp.product_unit_price);
+                    manat = Custom.ConverPriceToStringDelZero((((Model.ContractDetailTemp.product_asc_price * 82) / 100) - ((Model.ContractDetailTemp.product_unit_price * 82) / 100)));
+                    faiz = Custom.ConverPriceToStringDelZero(((((Model.ContractDetailTemp.product_asc_price * 82) / 100) - ((Model.ContractDetailTemp.product_unit_price * 82) / 100)) * 100) / ((Model.ContractDetailTemp.product_unit_price * 82) / 100));
                 }
                 <tr>
                     <td class="col-md-1">

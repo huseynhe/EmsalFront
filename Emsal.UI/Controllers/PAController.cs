@@ -162,35 +162,48 @@ namespace Emsal.UI.Controllers
                         sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
                         col = 1;
-                        sheet.Cells[2, col++].Value = "S/N";
-                        sheet.Cells[2, col++].Value = "Ərzaq məhsullarının adı";
-                        sheet.Cells[2, col++].Value = "Malın kodu";
-                        sheet.Cells[2, col++].Value = "Ərzaq məhsullarının növü";
-                        sheet.Cells[2, col++].Value = "Tələbatın həcmi (miqdar)";
-                        sheet.Cells[2, col++].Value = "Ölçü vahidi";
-                        sheet.Cells[2, col++].Value = "Qiymət (AZN)";
-                        sheet.Cells[2, col++].Value = "Cəmi (AZN)";
-                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçının adı";
-                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçının VÖEN-i";
-                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçı ilə alqı-satqı müqaviləsinin tarixi və nömrəsi";
-                        sheet.Cells[2, col++].Value = "Malın təklif edilən qiyməti (manatla)";
-                        sheet.Cells[2, col++].Value = "Müqavilə üzrə malın qiyməti (ƏDV-siz)";
-                        sheet.Cells[2, col++].Value = "Ticarət əlavəsi (manatla)";
-                        sheet.Cells[2, col++].Value = "Ticarət əlavəsi (faizlə)";
-                        sheet.Cells[2, col++].Value = "Təchizat qiyməti (manatla ƏDV-siz)";
-                        sheet.Cells[2, col++].Value = "Təchizat qiyməti (manatla ƏDV ilə birlikdə)";
-                        sheet.Cells[2, col++].Value = "Təklifin həcmi (miqdarı)";
-                        sheet.Cells[2, col++].Value = "Müqavilə üzrə malın həcmi (miqdarı)";
-                        sheet.Cells[2, col++].Value = "Təklifin ümumi dəyəri (manatla)";
-                        sheet.Cells[2, col++].Value = "Müqavilənin ümumi dəyəri (ƏDV-siz, manatla)";
-                        sheet.Cells[2, col++].Value = "Müqavilənin ümumi dəyəri (ƏDV ilə birlikdə,manatla)";
-                        sheet.Cells[2, col++].Value = "Tədarükçünün növü (istehsalçı satıcı və ya idxalçı)";
-                        sheet.Cells[2, col++].Value = "Tədarükçünün hansı növ vergi ödəyicisi olması (ƏDV, sadələşdirilmiş K/T məhsulu istehsalçısı)";
+                        int i = 1;
+                        for (i = 1; i <= 24; i++)
+                        {
+                            sheet.Cells[2, col++].Value = i;
+                        }
+
+                        sheet.Row(2).Height = 50;
+                        sheet.Row(2).Style.Font.Size = 14;
+                        sheet.Row(2).Style.Font.Bold = true;
+                        sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Row(2).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        col = 1;
+                        sheet.Cells[3, col++].Value = "S/N";
+                        sheet.Cells[3, col++].Value = "Ərzaq məhsullarının adı";
+                        sheet.Cells[3, col++].Value = "Malın kodu";
+                        sheet.Cells[3, col++].Value = "Ərzaq məhsullarının növü";
+                        sheet.Cells[3, col++].Value = "Tələbatın həcmi (miqdar)";
+                        sheet.Cells[3, col++].Value = "Ölçü vahidi";
+                        sheet.Cells[3, col++].Value = "Qiymət (AZN)";
+                        sheet.Cells[3, col++].Value = "Cəmi (AZN)";
+                        sheet.Cells[3, col++].Value = "Satıcı və ya istehsalçının adı";
+                        sheet.Cells[3, col++].Value = "Satıcı və ya istehsalçının VÖEN-i";
+                        sheet.Cells[3, col++].Value = "Satıcı və ya istehsalçı ilə alqı-satqı müqaviləsinin tarixi və nömrəsi";
+                        sheet.Cells[3, col++].Value = "Malın təklif edilən qiyməti (manatla)";
+                        sheet.Cells[3, col++].Value = "Müqavilə üzrə malın qiyməti (ƏDV-siz)";
+                        sheet.Cells[3, col++].Value = "Ticarət əlavəsi (manatla)";
+                        sheet.Cells[3, col++].Value = "Ticarət əlavəsi (faizlə)";
+                        sheet.Cells[3, col++].Value = "Təchizat qiyməti (manatla ƏDV-siz)";
+                        sheet.Cells[3, col++].Value = "Təchizat qiyməti (manatla ƏDV ilə birlikdə)";
+                        sheet.Cells[3, col++].Value = "Təklifin həcmi (miqdarı)";
+                        sheet.Cells[3, col++].Value = "Müqavilə üzrə malın həcmi (miqdarı)";
+                        sheet.Cells[3, col++].Value = "Təklifin ümumi dəyəri (manatla)";
+                        sheet.Cells[3, col++].Value = "Müqavilənin ümumi dəyəri (ƏDV-siz, manatla)";
+                        sheet.Cells[3, col++].Value = "Müqavilənin ümumi dəyəri (ƏDV ilə birlikdə,manatla)";
+                        sheet.Cells[3, col++].Value = "Tədarükçünün növü (istehsalçı satıcı və ya idxalçı)";
+                        sheet.Cells[3, col++].Value = "Tədarükçünün hansı növ vergi ödəyicisi olması (ƏDV, sadələşdirilmiş K/T məhsulu istehsalçısı)";
 
                         sheet.Row(2).Style.Font.Bold = true;
                         sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                        sheet.Cells[2, 1, 2, 24].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                        sheet.Cells[2, 1, 2, 24].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+                        sheet.Cells[3, 1, 3, 24].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        sheet.Cells[3, 1, 3, 24].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
 
                         sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
@@ -262,9 +275,9 @@ namespace Emsal.UI.Controllers
                                 {
                                     modelOfferMonitoring.ContractDetailTemp = itemo.contractTempList.FirstOrDefault();
 
-                                    manat = (modelOfferMonitoring.ContractDetailTemp.product_asc_price - modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
+                                    manat = (((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 82) / 100) - ((modelOfferMonitoring.ContractDetailTemp.product_unit_price * 82) / 100)).ToString();
 
-                                    faiz = (((modelOfferMonitoring.ContractDetailTemp.product_asc_price - modelOfferMonitoring.ContractDetailTemp.product_unit_price) * 100) / modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
+                                    faiz = (((((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 82) / 100) - ((modelOfferMonitoring.ContractDetailTemp.product_unit_price * 82) / 100)) * 100) / ((modelOfferMonitoring.ContractDetailTemp.product_unit_price * 82) / 100)).ToString();
                                 }
 
                                 sheet.Cells[rowIndex, col2++].Value = ri.ToString();
@@ -544,7 +557,7 @@ namespace Emsal.UI.Controllers
 
                         var col = 1;
                         sheet.Cells[1, col++].Value = "Məhsul üzrə tələb və təkliflər";
-                        sheet.Row(1).Height = 50;
+                        sheet.Row(1).Height = 30;
                         sheet.Row(1).Style.Font.Size = 14;
                         sheet.Row(1).Style.Font.Bold = true;
                         sheet.Row(1).Style.WrapText = true;
@@ -553,35 +566,48 @@ namespace Emsal.UI.Controllers
                         sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
                         col = 1;
-                        sheet.Cells[2, col++].Value = "S/N";
-                        sheet.Cells[2, col++].Value = "Ərzaq məhsullarının adı";
-                        sheet.Cells[2, col++].Value = "Malın kodu";
-                        sheet.Cells[2, col++].Value = "Ərzaq məhsullarının növü";
-                        sheet.Cells[2, col++].Value = "Tələbatın həcmi (miqdar)";
-                        sheet.Cells[2, col++].Value = "Ölçü vahidi";
-                        sheet.Cells[2, col++].Value = "Qiymət (AZN)";
-                        sheet.Cells[2, col++].Value = "Cəmi (AZN)";
-                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçının adı";
-                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçının VÖEN-i";
-                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçı ilə alqı-satqı müqaviləsinin tarixi və nömrəsi";
-                        sheet.Cells[2, col++].Value = "Malın təklif edilən qiyməti (manatla)";
-                        sheet.Cells[2, col++].Value = "Müqavilə üzrə malın qiyməti (ƏDV-siz)";
-                        sheet.Cells[2, col++].Value = "Ticarət əlavəsi (manatla)";
-                        sheet.Cells[2, col++].Value = "Ticarət əlavəsi (faizlə)";
-                        sheet.Cells[2, col++].Value = "Təchizat qiyməti (manatla ƏDV-siz)";
-                        sheet.Cells[2, col++].Value = "Təchizat qiyməti (manatla ƏDV ilə birlikdə)";
-                        sheet.Cells[2, col++].Value = "Təklifin həcmi (miqdarı)";
-                        sheet.Cells[2, col++].Value = "Müqavilə üzrə malın həcmi (miqdarı)";
-                        sheet.Cells[2, col++].Value = "Təklifin ümumi dəyəri (manatla)";
-                        sheet.Cells[2, col++].Value = "Müqavilənin ümumi dəyəri (ƏDV-siz, manatla)";
-                        sheet.Cells[2, col++].Value = "Müqavilənin ümumi dəyəri (ƏDV ilə birlikdə,manatla)";
-                        sheet.Cells[2, col++].Value = "Tədarükçünün növü (istehsalçı satıcı və ya idxalçı)";
-                        sheet.Cells[2, col++].Value = "Tədarükçünün hansı növ vergi ödəyicisi olması (ƏDV, sadələşdirilmiş K/T məhsulu istehsalçısı)";
+                        int i = 1;
+                        for (i = 1; i <= 24; i++)
+                        {
+                            sheet.Cells[2, col++].Value = i;
+                        }
+
+                        sheet.Row(2).Height = 50;
+                        sheet.Row(2).Style.Font.Size = 14;
+                        sheet.Row(2).Style.Font.Bold = true;
+                        sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Row(2).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        col = 1;
+                        sheet.Cells[3, col++].Value = "S/N";
+                        sheet.Cells[3, col++].Value = "Ərzaq məhsullarının adı";
+                        sheet.Cells[3, col++].Value = "Malın kodu";
+                        sheet.Cells[3, col++].Value = "Ərzaq məhsullarının növü";
+                        sheet.Cells[3, col++].Value = "Tələbatın həcmi (miqdar)";
+                        sheet.Cells[3, col++].Value = "Ölçü vahidi";
+                        sheet.Cells[3, col++].Value = "Qiymət (AZN)";
+                        sheet.Cells[3, col++].Value = "Cəmi (AZN)";
+                        sheet.Cells[3, col++].Value = "Satıcı və ya istehsalçının adı";
+                        sheet.Cells[3, col++].Value = "Satıcı və ya istehsalçının VÖEN-i";
+                        sheet.Cells[3, col++].Value = "Satıcı və ya istehsalçı ilə alqı-satqı müqaviləsinin tarixi və nömrəsi";
+                        sheet.Cells[3, col++].Value = "Malın təklif edilən qiyməti (manatla)";
+                        sheet.Cells[3, col++].Value = "Müqavilə üzrə malın qiyməti (ƏDV-siz)";
+                        sheet.Cells[3, col++].Value = "Ticarət əlavəsi (manatla)";
+                        sheet.Cells[3, col++].Value = "Ticarət əlavəsi (faizlə)";
+                        sheet.Cells[3, col++].Value = "Təchizat qiyməti (manatla ƏDV-siz)";
+                        sheet.Cells[3, col++].Value = "Təchizat qiyməti (manatla ƏDV ilə birlikdə)";
+                        sheet.Cells[3, col++].Value = "Təklifin həcmi (miqdarı)";
+                        sheet.Cells[3, col++].Value = "Müqavilə üzrə malın həcmi (miqdarı)";
+                        sheet.Cells[3, col++].Value = "Təklifin ümumi dəyəri (manatla)";
+                        sheet.Cells[3, col++].Value = "Müqavilənin ümumi dəyəri (ƏDV-siz, manatla)";
+                        sheet.Cells[3, col++].Value = "Müqavilənin ümumi dəyəri (ƏDV ilə birlikdə,manatla)";
+                        sheet.Cells[3, col++].Value = "Tədarükçünün növü (istehsalçı satıcı və ya idxalçı)";
+                        sheet.Cells[3, col++].Value = "Tədarükçünün hansı növ vergi ödəyicisi olması (ƏDV, sadələşdirilmiş K/T məhsulu istehsalçısı)";
 
                         sheet.Row(2).Style.Font.Bold = true;
                         sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                        sheet.Cells[2, 1, 2, 24].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                        sheet.Cells[2, 1, 2, 24].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+                        sheet.Cells[3, 1, 3, 24].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        sheet.Cells[3, 1, 3, 24].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
 
                         sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
@@ -610,7 +636,7 @@ namespace Emsal.UI.Controllers
                         sheet.Column(23).Width = 20;
                         sheet.Column(24).Width = 20;
 
-                        int rowIndex = 3;
+                        int rowIndex = 4;
                         var ri = 1;
                         string orgName = "";
                         string contractNumber = "";
@@ -653,9 +679,9 @@ namespace Emsal.UI.Controllers
                                 {
                                     modelOfferMonitoring.ContractDetailTemp = itemo.contractTempList.FirstOrDefault();
 
-                                    manat = (modelOfferMonitoring.ContractDetailTemp.product_asc_price - modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
+                                    manat = (((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 82) / 100) - ((modelOfferMonitoring.ContractDetailTemp.product_unit_price * 82) / 100)).ToString();
 
-                                    faiz = (((modelOfferMonitoring.ContractDetailTemp.product_asc_price - modelOfferMonitoring.ContractDetailTemp.product_unit_price) * 100) / modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
+                                    faiz = (((((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 82) / 100) - ((modelOfferMonitoring.ContractDetailTemp.product_unit_price * 82) / 100)) * 100) / ((modelOfferMonitoring.ContractDetailTemp.product_unit_price * 82) / 100)).ToString();
                                 }
 
 
