@@ -38,7 +38,17 @@ namespace Emsal.AdminUI.Controllers
             HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName,
                     encTicket);
             Response.Cookies.Add(cookie);
-           
+
+            Session["rolId"] = "";
+            string str = null;
+            BaseOutput rolOut = srv.WS_GetUserRolesByUserId(binput, (long)User.Id, true, out modelUser.UserRoleArray);
+
+            foreach (var item in modelUser.UserRoleArray)
+            {
+                str = str + "/" + item.RoleId + "/";
+            }
+            Session["rolId"] = str;
+
             return RedirectToRoute(route);
 
         }
