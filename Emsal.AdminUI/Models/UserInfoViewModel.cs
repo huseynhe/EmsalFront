@@ -9,5 +9,6 @@ namespace Emsal.AdminUI.Models
     public abstract class UserInfoViewModel
     {
         public tblUser Admin;
+        public tblUserRole[] userRole;
     }
 }
