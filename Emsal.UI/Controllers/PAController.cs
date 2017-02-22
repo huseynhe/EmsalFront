@@ -275,14 +275,14 @@ namespace Emsal.UI.Controllers
                                 {
                                     modelOfferMonitoring.ContractDetailTemp = itemo.contractTempList.FirstOrDefault();
 
-                                    manat = (((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 82) / 100) - ((modelOfferMonitoring.ContractDetailTemp.product_unit_price * 82) / 100)).ToString();
+                                    manat = (((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / 118) - modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
 
-                                    faiz = (((((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 82) / 100) - ((modelOfferMonitoring.ContractDetailTemp.product_unit_price * 82) / 100)) * 100) / ((modelOfferMonitoring.ContractDetailTemp.product_unit_price * 82) / 100)).ToString();
+                                    faiz = (((((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / 118) - modelOfferMonitoring.ContractDetailTemp.product_unit_price) * 100) / modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
                                 }
 
                                 sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                                 sheet.Cells[rowIndex, col2++].Value = item.productParentName;
-                                sheet.Cells[rowIndex, col2++].Value = "--";
+                                sheet.Cells[rowIndex, col2++].Value = item.productCode;
                                 sheet.Cells[rowIndex, col2++].Value = item.productName;
                                 sheet.Cells[rowIndex, col2++].Value = @Custom.ConverPriceDelZero((decimal)item.totalQuantity);
 
@@ -335,7 +335,7 @@ namespace Emsal.UI.Controllers
 
                                 if (modelOfferMonitoring.ContractDetailTemp.product_unit_price != null)
                                 {
-                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_unit_price * 82) / 100));
+                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_unit_price);
                                 }
                                 else
                                 {
@@ -355,7 +355,7 @@ namespace Emsal.UI.Controllers
 
                                 if (modelOfferMonitoring.ContractDetailTemp.product_asc_price != null)
                                 {
-                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_asc_price * 82) / 100));
+                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / 118));
                                     sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_asc_price);
                                 }
                                 else
@@ -651,7 +651,7 @@ namespace Emsal.UI.Controllers
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = modelOfferMonitoring.DemanProductionGroup.productParentName;
-                            sheet.Cells[rowIndex, col2++].Value = "--";
+                            sheet.Cells[rowIndex, col2++].Value = modelOfferMonitoring.DemanProductionGroup.productCode;
                             sheet.Cells[rowIndex, col2++].Value = modelOfferMonitoring.DemanProductionGroup.productName;
                             sheet.Cells[rowIndex, col2++].Value = @Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.DemanProductionGroup.totalQuantity);
 
@@ -679,9 +679,9 @@ namespace Emsal.UI.Controllers
                                 {
                                     modelOfferMonitoring.ContractDetailTemp = itemo.contractTempList.FirstOrDefault();
 
-                                    manat = (((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 82) / 100) - ((modelOfferMonitoring.ContractDetailTemp.product_unit_price * 82) / 100)).ToString();
+                                    manat = (((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / 118) - modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
 
-                                    faiz = (((((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 82) / 100) - ((modelOfferMonitoring.ContractDetailTemp.product_unit_price * 82) / 100)) * 100) / ((modelOfferMonitoring.ContractDetailTemp.product_unit_price * 82) / 100)).ToString();
+                                    faiz = (((((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / 118) - modelOfferMonitoring.ContractDetailTemp.product_unit_price) * 100) / modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
                                 }
 
 
@@ -739,7 +739,7 @@ namespace Emsal.UI.Controllers
 
                                 if (modelOfferMonitoring.ContractDetailTemp.product_unit_price != null)
                                 {
-                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_unit_price * 82) / 100));
+                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_unit_price);
                                 }
                                 else
                                 {
@@ -760,7 +760,7 @@ namespace Emsal.UI.Controllers
 
                                 if (modelOfferMonitoring.ContractDetailTemp.product_asc_price != null)
                                 {
-                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_asc_price * 82) / 100));
+                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / 118));
                                     sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_asc_price);
                                 }
                                 else
