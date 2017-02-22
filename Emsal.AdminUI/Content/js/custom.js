@@ -67,6 +67,7 @@ function chosefiles(elem) {
 var parId = 0;
 var name = "";
 var description = "";
+var pCode = "";
 var camBeOrder = 0;
 
 //if ($('#productCheckEdit').is(':checked')) {
@@ -82,6 +83,7 @@ $('#productCheckEdit').click(function () {
     if (this.checked) {
         $('#productName').val(name);
         $('#productDescription').val(description);
+        $('#productCode').val(pCode);
         $('#ProductHeaderGroup').hide();
         if (camBeOrder == 1) {
             $("#canBeOrder").prop("checked", true);
@@ -106,6 +108,7 @@ $('#productCheckEdit').click(function () {
     else {
         $('#productName').val('');
         $('#productDescription').val('');
+        $('#productCode').val('');
         $('#ProductHeaderGroup').show();
 
 
@@ -151,10 +154,11 @@ function chcheck(elem) {
     }
 }
 
-function setParId(elem, ProductId, ProductName, ProductDescription, cBeOrder) {
+function setParId(elem, ProductId, ProductName, ProductDescription, cBeOrder,prodCode) {
     //parId = $(elem).val();
     parId = ProductId;
     name = ProductName;
+    pCode = prodCode;
     description = ProductDescription;
     camBeOrder = cBeOrder;
 
@@ -264,6 +268,7 @@ function AddProductCatalog() {
 
     productName = $('#productName').val();
     productDescription = $('#productDescription').val();
+   var productCode = $('#productCode').val();
     //fup = $('#fup').val();
 
     //$('#fupDanger').html('');
@@ -292,7 +297,7 @@ function AddProductCatalog() {
     $.ajax({
         url: '/Home/AddProductCatalog',
         type: 'GET',
-        data: { productName: productName, productDescription: productDescription, productCatalogParentID: parId, enumCatVal: enumCatVal, isEdit: isEdit, canBeOrder: canBeOrder },
+        data: { productName: productName, productDescription: productDescription, productCatalogParentID: parId, enumCatVal: enumCatVal, isEdit: isEdit, canBeOrder: canBeOrder, productCode: productCode },
         success: function (result) {
 
             sendFiles(result);

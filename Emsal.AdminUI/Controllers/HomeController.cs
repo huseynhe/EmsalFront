@@ -138,6 +138,7 @@ namespace Emsal.AdminUI.Controllers
         public long AddProductCatalog(
             string productName,
             string productDescription,
+            string productCode,
             int productCatalogParentID = 0,
             string enumCatVal=null,
             bool isEdit=false,
@@ -182,6 +183,7 @@ namespace Emsal.AdminUI.Controllers
 
             modelProductCatalog.ProductCatalog.ProductName = productName;
             modelProductCatalog.ProductCatalog.ProductDescription = productDescription;
+            modelProductCatalog.ProductCatalog.productCode = productCode;
             modelProductCatalog.ProductCatalog.canBeOrder = (int)canBeOrder;
             modelProductCatalog.ProductCatalog.canBeOrderSpecified = true;
 
