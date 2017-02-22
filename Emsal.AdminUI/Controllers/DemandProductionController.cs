@@ -220,7 +220,7 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.OrderBy(x => x.foreignOrganization.name).ToList();
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.ToList();
                 }
 
                 //if (sfullAddress != null)
@@ -735,7 +735,7 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    modelDemandProduction.DemanProductionGroupList = modelDemandProduction.DemanProductionGroupArray.OrderBy(x => x.productParentName).ThenBy(x => x.productName).ToList();
+                    modelDemandProduction.DemanProductionGroupList = modelDemandProduction.DemanProductionGroupArray.ToList();
                 }
 
                 BaseOutput gdpc = srv.WS_GetTotalDemandOffers_OPC(baseInput, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
@@ -1008,7 +1008,7 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    modelDemandProduction.DemanProductionGroupList = modelDemandProduction.DemanProductionGroupArray.OrderBy(x => x.productParentName).ThenBy(x => x.productName).ToList();
+                    modelDemandProduction.DemanProductionGroupList = modelDemandProduction.DemanProductionGroupArray.ToList();
                 }
 
                 BaseOutput gdpc = srv.WS_GetTotalDemandOffers_OPC(baseInput, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
@@ -1280,7 +1280,7 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.OrderBy(x => x.name).ToList();
+                    modelDemandProduction.ProductionDetailList = modelDemandProduction.ProductionDetailArray.ToList();
                 }
 
 
@@ -1878,7 +1878,7 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    modelDemandProduction.DemandOfferDetailList = modelDemandProduction.DemandOfferDetailArray.OrderBy(x => x.productParentName).ToList();
+                    modelDemandProduction.DemandOfferDetailList = modelDemandProduction.DemandOfferDetailArray.ToList();
                 }
 
                 modelDemandProduction.DemandProductionViewModelList = new List<DemandProductionViewModel>();
@@ -2097,7 +2097,7 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    modelDemandProduction.DemandOfferDetailList = modelDemandProduction.DemandOfferDetailArray.Where(x => x.enumKategoryID == modelDemandProduction.EnumCategory.Id).OrderBy(x => x.productParentName).ToList();
+                    modelDemandProduction.DemandOfferDetailList = modelDemandProduction.DemandOfferDetailArray.Where(x => x.enumKategoryID == modelDemandProduction.EnumCategory.Id).ToList();
                 }
 
                 if (sproductName != null)
@@ -2275,7 +2275,7 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    modelDemandProduction.OfferProductionDetailList = modelDemandProduction.OfferProductionDetailArray.OrderBy(x => x.adminName).ToList();
+                    modelDemandProduction.OfferProductionDetailList = modelDemandProduction.OfferProductionDetailArray.ToList();
                 }
 
                 if (sproductId > 0)
