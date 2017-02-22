@@ -57,6 +57,8 @@
                                                     @{
                                                         if (Model != null)
                                                         {
+                                                            
+                                                            
                                                             @Model.Admin.Username
                                                         }
                                                     }
@@ -214,7 +216,6 @@
                         @{
                             if (Model != null)
                             {
-
                                 @Model.Admin.Username
                             }
                         }
@@ -233,18 +234,33 @@
                 </form>
                 <ul class="sidebar-menu">
                     <li class="header">KEÇİDLƏR</li>
+                    @if (Session["rolId"] == null)
+                    {
+                        Response.Redirect("~/AdminLogin");
+                    }
+                    @if (Session["rolId"].ToString().Contains("/19/"))
+                    {
                     <li>
                         <a href="/">
                             <i class="fa fa-th"></i> <span>Məhsullar</span>
                         </a>
                     </li>
-                    
+                    }
+
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-users"></i>
                             <span>İstifadəçilər</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
+                        @if (Session["rolId"].ToString().Contains("/18/"))
+                        {
+                            <ul class="treeview-menu">
+                                <li><a href="/GovernmentOrganisation/ASCUsers"><i class="fa fa-circle-o"></i>ASC İstifadəçilər</a></li>
+                            </ul>
+                        } 
+                        @if (Session["rolId"].ToString().Contains("/19/"))
+                        {
                         <ul class="treeview-menu">
                             <li><a href="/GovernmentOrganisation"><i class="fa fa-circle-o"></i>Dövlət Təşkilatları</a></li>
                         </ul>
@@ -253,27 +269,36 @@
                         </ul>
                         <ul class="treeview-menu">
                             <li><a href="/GovernmentOrganisation/Individuals"><i class="fa fa-circle-o"></i>Fiziki Şəxslər</a></li>
-                        </ul>
-                        <ul class="treeview-menu">
-                            <li><a href="/GovernmentOrganisation/ASCUsers"><i class="fa fa-circle-o"></i>ASC İstifadəçilər</a></li>
-                        </ul>
+                        </ul>                                             
                         <ul class="treeview-menu">
                             <li><a href="/GovernmentOrganisation/KTNUsers"><i class="fa fa-circle-o"></i>KTN İstifadəçilər</a></li>
                         </ul>
                         <ul class="treeview-menu">
                             <li><a href="/GovernmentOrganisation/Admins"><i class="fa fa-circle-o"></i>Adminlər</a></li>
                         </ul>
+                        }
                     </li>
+
+                    @if (Session["rolId"].ToString().Contains("/18/"))
+                    {
                     <li>
                         <a href="/ASC/Index">
                             <i class="fa fa-list-alt"></i> <span>ASC</span>
                         </a>
                     </li>
+                    }
+
+                    @if (Session["rolId"].ToString().Contains("/19/"))
+                    {
                     <li>
                         <a href="/KTN/Index">
                             <i class="fa fa-list-alt"></i> <span>KTN</span>
                         </a>
                     </li>
+                    }
+
+                    @if (Session["rolId"].ToString().Contains("/19/"))
+                    {
                     <li class="treeview">
                         <a href="">
                             <i class="fa fa-cogs"></i>
@@ -291,7 +316,10 @@
                             <li><a href="/RoleManagement"><i class="fa fa-circle-o"></i>İstifadəçilər</a></li>
                         </ul>
                     </li>
+                    }
 
+                    @if (Session["rolId"].ToString().Contains("/19/"))
+                    {
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-list-alt"></i>
@@ -308,7 +336,10 @@
                             <li><a href="/DemandProduction/Index/?statusEV=reject"><i class="fa fa-circle-o"></i> İmtina olunan </a></li>
                         </ul>
                     </li>
+                    }
 
+                    @if (Session["rolId"].ToString().Contains("/19/"))
+                    {
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-list-alt"></i>
@@ -325,7 +356,10 @@
                             <li><a href="/OfferProduction/Index/?statusEV=reject"><i class="fa fa-circle-o"></i> İmtina olunan </a></li>
                         </ul>
                     </li>
+                    }
 
+                    @if (Session["rolId"].ToString().Contains("/19/"))
+                    {
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-list-alt"></i>
@@ -342,8 +376,10 @@
                             <li><a href="/PotentialProduction/Index/?statusEV=reject"><i class="fa fa-circle-o"></i> İmtina olunan</a></li>
                         </ul>
                     </li>
+                    }
 
-
+                    @if (Session["rolId"].ToString().Contains("/19/"))
+                    {
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-bullhorn"></i>
@@ -357,7 +393,10 @@
                             <li><a href="/Announcement/Approv"><i class="fa fa-circle-o"></i> Əlavə edilmişlər</a></li>
                         </ul>
                     </li>
+                    }
 
+                    @if (Session["rolId"].ToString().Contains("/19/"))
+                    {
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-bars"></i>
@@ -371,7 +410,10 @@
                             <li><a href="/ProductPrice/Approv"><i class="fa fa-circle-o"></i> Əlavə edilmişlər</a></li>
                         </ul>
                     </li>
+                    }
 
+                    @if (Session["rolId"].ToString().Contains("/19/"))
+                    {
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-list-alt"></i>
@@ -388,6 +430,7 @@
                             <li><a href="/AdminUnit"><i class="fa fa-circle-o"></i> AdminUnit</a></li>
                         </ul>
                     </li>
+                    }
 
                     <li class="treeview">
                         <a href="#">
@@ -493,6 +536,9 @@
                             <li><a href="/Report/DemandOfferDonutM"><i class="fa fa-circle-o"></i> Tələb - təklif ümumi</a></li>
                         </ul>
                     </li>
+
+                    @if (Session["rolId"].ToString().Contains("/19/"))
+                    {
                     <li>
                         <a href="#">
                             <i class="fa fa-files-o"></i> <span>Sənədlərin idarə olunması</span>
@@ -518,6 +564,7 @@
                             <i class="fa fa-server"></i> <span>Loqistika və CİS-server</span>
                         </a>
                     </li>
+                    }
                 </ul>
             </section>
         </aside>
