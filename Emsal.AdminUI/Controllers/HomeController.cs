@@ -45,6 +45,8 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelProductCatalog.Admin);
             baseInput.userName = modelProductCatalog.Admin.Username;
 
+            BaseOutput userRole = srv.WS_GetUserRolesByUserId(baseInput, (long)UserId, true, out modelProductCatalog.userRole);
+
             BaseOutput bouput = srv.WS_GetProductCatalogs(baseInput, out modelProductCatalog.ProductCatalogArray);
             modelProductCatalog.ProductCatalogList = modelProductCatalog.ProductCatalogArray.ToList();
 
