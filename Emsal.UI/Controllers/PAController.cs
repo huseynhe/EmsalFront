@@ -247,7 +247,7 @@ namespace Emsal.UI.Controllers
                                 col2 = 1;
                                 sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                                 sheet.Cells[rowIndex, col2++].Value = item.productParentName;
-                                sheet.Cells[rowIndex, col2++].Value = "--";
+                                sheet.Cells[rowIndex, col2++].Value = item.productCode;
                                 sheet.Cells[rowIndex, col2++].Value = item.productName;
                                 sheet.Cells[rowIndex, col2++].Value = @Custom.ConverPriceDelZero((decimal)item.totalQuantity);
 
@@ -687,7 +687,7 @@ namespace Emsal.UI.Controllers
 
                                 sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                                 sheet.Cells[rowIndex, col2++].Value = modelOfferMonitoring.DemanProductionGroup.productParentName;
-                                sheet.Cells[rowIndex, col2++].Value = "--";
+                                sheet.Cells[rowIndex, col2++].Value = modelOfferMonitoring.DemanProductionGroup.productCode;
                                 sheet.Cells[rowIndex, col2++].Value = modelOfferMonitoring.DemanProductionGroup.productName;
                                 sheet.Cells[rowIndex, col2++].Value = @Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.DemanProductionGroup.totalQuantity);
 
