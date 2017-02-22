@@ -29,6 +29,9 @@
                     Ərzaq məhsullarının adı
                 </th>
                 <th class="col-md-1">
+                    Malın kodu
+                </th>
+                <th class="col-md-1">
                     Ərzaq məhsullarının növü
                 </th>
                 <th class="col-md-1">
@@ -56,16 +59,19 @@
                     Malın təklif edilən qiyməti (manatla)
                 </th>
                 <th class="col-md-1">
-                    Müqavilə üzrə malın qiyməti
-                </th>
-                <th class="col-md-1">
-                    Təchizat qiyməti (manatla)
+                    Müqavilə üzrə malın qiyməti (ƏDV-siz)
                 </th>
                 <th class="col-md-1">
                     Ticarət əlavəsi (manatla)
                 </th>
                 <th class="col-md-1">
                     Ticarət əlavəsi (faizlə)
+                </th>
+                <th class="col-md-1">
+                    Təchizat qiyməti (manatla ƏDV-siz)
+                </th>
+                <th class="col-md-1">
+                    Təchizat qiyməti (manatla ƏDV ilə birlikdə)
                 </th>
                 <th class="col-md-1">
                     Təklifin həcmi (miqdarı)
@@ -77,7 +83,10 @@
                     Təklifin ümumi dəyəri (manatla)
                 </th>
                 <th class="col-md-1">
-                    Müqavilənin ümumi dəyəri (manatla)
+                    Müqavilənin ümumi dəyəri (ƏDV-siz, manatla)
+                </th>
+                <th class="col-md-1">
+                    Müqavilənin ümumi dəyəri (ƏDV ilə birlikdə,manatla)
                 </th>
                 <th class="col-md-1">
                     Tədarükçünün növü (istehsalçı satıcı və ya idxalçı)
@@ -92,7 +101,7 @@
                 Model.ContractDetailTemp = new Emsal.WebInt.EmsalSrv.tblContractDetailTemp();
                 manat = "";
                 faiz = "";
-
+                
                 if (itemo.contractTempList.Count() > 0)
                 {
                     Model.ContractDetailTemp = itemo.contractTempList.FirstOrDefault();
@@ -105,6 +114,9 @@
                         @Model.DemanProductionGroup.productParentName
                     </td>
 
+                    <td class="col-md-1">
+                       --
+                    </td>
                     <td class="col-md-1">
                         @Model.DemanProductionGroup.productName
                     </td>
@@ -158,16 +170,19 @@
                         @Custom.ConverPriceToStringDelZero((decimal)itemo.unit_price)
                     </td>
                     <td class="col-md-1">
-                        @Custom.ConverPriceToStringDelZero(Model.ContractDetailTemp.product_unit_price)
-                    </td>
-                    <td class="col-md-1">
-                        @Custom.ConverPriceToStringDelZero(Model.ContractDetailTemp.product_asc_price)
+                        @Custom.ConverPriceToStringDelZero(((Model.ContractDetailTemp.product_unit_price*82)/100))
                     </td>
                     <td class="col-md-1">
                         @manat
                     </td>
                     <td class="col-md-1">
                         @faiz
+                    </td>
+                    <td class="col-md-1">
+                        @Custom.ConverPriceToStringDelZero(((Model.ContractDetailTemp.product_asc_price * 82) / 100))
+                    </td>
+                    <td class="col-md-1">
+                        @Custom.ConverPriceToStringDelZero(Model.ContractDetailTemp.product_asc_price)
                     </td>
                     <td class="col-md-1">
                         @Custom.ConverPriceToStringDelZero((decimal)itemo.quantity)
@@ -177,6 +192,9 @@
                     </td>
                     <td class="col-md-1">
                         @Custom.ConverPriceToStringDelZero((decimal)itemo.totalQuantityPrice)
+                    </td>
+                    <td class="col-md-1">
+                        @Custom.ConverPriceToStringDelZero(((Model.ContractDetailTemp.product_total_price * 82) / 100))
                     </td>
                     <td class="col-md-1">
                         @Custom.ConverPriceToStringDelZero(Model.ContractDetailTemp.product_total_price)

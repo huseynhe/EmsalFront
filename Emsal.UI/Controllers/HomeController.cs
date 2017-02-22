@@ -258,8 +258,6 @@ namespace Emsal.UI.Controllers
                     modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailArray.ToList();
                 }
 
-                modelProductCatalog.AnnouncementDetailList = modelProductCatalog.AnnouncementDetailList.OrderBy(x => x.parentName).ThenBy(x => x.productName).ToList();
-
 
                 long[] aic = new long[modelProductCatalog.itemCount];
 
