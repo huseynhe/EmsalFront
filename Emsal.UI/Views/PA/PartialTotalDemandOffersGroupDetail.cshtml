@@ -194,10 +194,10 @@
                         @Custom.ConverPriceToStringDelZero((decimal)itemo.totalQuantityPrice)
                     </td>
                     <td class="col-md-1">
-                        @Custom.ConverPriceToStringDelZero(((Model.ContractDetailTemp.product_total_price * 82) / 100))
+                        @Custom.ConverPriceToStringDelZero(Model.ContractDetailTemp.product_total_price)
                     </td>
                     <td class="col-md-1">
-                        @Custom.ConverPriceToStringDelZero(Model.ContractDetailTemp.product_total_price)
+                        @Custom.ConverPriceToStringDelZero(((Model.ContractDetailTemp.product_total_price * 118) / 100))
                     </td>
                     <td class="col-md-1">
                         @itemo.roledesc

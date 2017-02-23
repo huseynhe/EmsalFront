@@ -379,8 +379,8 @@ namespace Emsal.UI.Controllers
 
                                 if (modelOfferMonitoring.ContractDetailTemp.product_total_price != null)
                                 {
-                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_total_price * 82) / 100));
                                     sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_total_price);
+                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_total_price * 118) / 100));
                                 }
                                 else
                                 {
@@ -785,8 +785,8 @@ namespace Emsal.UI.Controllers
 
                                 if (modelOfferMonitoring.ContractDetailTemp.product_total_price != null)
                                 {
-                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_total_price * 82) / 100));
                                     sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_total_price);
+                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_total_price * 118) / 100));
                                 }
                                 else
                                 {
