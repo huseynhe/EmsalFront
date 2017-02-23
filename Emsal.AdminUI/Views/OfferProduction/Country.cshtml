@@ -1,0 +1,21 @@
+﻿@model Emsal.AdminUI.Models.OfferProductionViewModel
+@{
+    ViewBag.Title = "ProductCatalog";
+    Layout = "";
+}
+<style>
+    .select2 {
+        width: 100% !important;
+    }
+</style>
+
+<select onchange="StatisticsSearch(this,'OfferProduction', '@Model.actionName', 'countryId')" class="form-control select2" style="width:auto !important;">
+    <option value="0">Ölkə üzrə axtar</option>
+    @foreach (var item in Model.PRMAdminUnitList)
+    {
+        <option value="@item.Id">@item.Name</option>
+    }
+</select>
+
+
+

@@ -21,6 +21,10 @@ namespace Emsal.AdminUI.Models
         public List<string> fileTypes = FileExtension.fileMimeTypes;
 
 
+        public AdminUnitRegion AdminUnitRegion;
+        public IList<AdminUnitRegion> AdminUnitRegionList { get; set; }
+        public AdminUnitRegion[] AdminUnitRegionArray;
+
         public tblOffer_Production OfferProduction;
         public IList<tblOffer_Production> OfferProductionList { get; set; }
         public tblOffer_Production[] OfferProductionArray;
@@ -164,6 +168,7 @@ namespace Emsal.AdminUI.Models
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası məcburidir.")]
         public long addressId { get; set; }
 
+        public long countryId { get; set; }
         public string startDate { get; set; }
         public string endDate { get; set; }
         public string forma { get; set; }

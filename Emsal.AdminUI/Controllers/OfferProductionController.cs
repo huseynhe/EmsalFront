@@ -30,6 +30,7 @@ namespace Emsal.AdminUI.Controllers
         private static string suserInfo;
         private static string sstatusEV;
         private static long saddressId;
+        private static long scountryId;
         private static long suserType;
         private static long slegalStatus;
         private static long sproductId;
@@ -709,6 +710,195 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
+        public ActionResult GroupRegionn(int? page, long countryId = -1, long addressId = -1, long productId = -1, bool excell = false)
+        {
+            try
+            {
+                int pageSize = 20;
+                int pageNumber = (page ?? 1);
+
+                if (addressId == -1 && countryId == -1 && productId == -1)
+                {
+                    saddressId = 0;
+                    scountryId = 0;
+                    sproductId = 0;
+                }
+
+                if (addressId >= 0)
+                    saddressId = addressId;
+                if (countryId >= 0)
+                    scountryId = countryId;
+                if (productId >= 0)
+                    sproductId = productId;
+
+
+                baseInput = new BaseInput();
+                modelOfferProduction = new OfferProductionViewModel();
+
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferProduction.Admin);
+                baseInput.userName = modelOfferProduction.Admin.Username;
+
+
+                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelOfferProduction.EnumCategory);
+
+                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferProduction.EnumValue);
+
+                modelOfferProduction.OfferProductionDetailSearch = new OfferProductionDetailSearch();
+                modelOfferProduction.OfferProductionDetailSearch.state_eV_Id = modelOfferProduction.EnumValue.Id;
+                modelOfferProduction.OfferProductionDetailSearch.roleID = suserType;
+                modelOfferProduction.OfferProductionDetailSearch.adminID = saddressId;
+                modelOfferProduction.OfferProductionDetailSearch.productID = sproductId;
+
+                BaseOutput gpp = srv.WS_GetOfferGroupedProductionDetailistForAccountingBySearch(baseInput, modelOfferProduction.OfferProductionDetailSearch, out modelOfferProduction.OfferProductionDetailArray);
+
+
+                if (modelOfferProduction.OfferProductionDetailArray == null)
+                {
+                    modelOfferProduction.OfferProductionDetailList = new List<OfferProductionDetail>();
+                }
+                else
+                {
+                    modelOfferProduction.OfferProductionDetailList = modelOfferProduction.OfferProductionDetailArray.OrderBy(x => x.adminName).ToList();
+                }
+
+                modelOfferProduction.itemCount = modelOfferProduction.OfferProductionDetailList.Count();
+                modelOfferProduction.OfferPaging = modelOfferProduction.OfferProductionDetailList.ToList().ToPagedList(pageNumber, pageSize);
+
+
+                modelOfferProduction.addressId = saddressId;
+                modelOfferProduction.countryId = scountryId;
+                modelOfferProduction.productId = sproductId;
+                
+
+                if (excell == true)
+                {
+
+                    using (var excelPackage = new ExcelPackage())
+                    {
+                        excelPackage.Workbook.Properties.Author = "tedaruk";
+                        excelPackage.Workbook.Properties.Title = "tedaruk.az";
+                        var sheet = excelPackage.Workbook.Worksheets.Add("Təklif");
+                        sheet.Name = "Təklif";
+
+                        var col = 1;
+                        sheet.Cells[1, col++].Value = "Regionlar üzrə təklif";
+                        sheet.Row(1).Height = 50;
+                        sheet.Row(1).Style.Font.Size = 14;
+                        sheet.Row(1).Style.Font.Bold = true;
+                        sheet.Row(1).Style.WrapText = true;
+                        sheet.Cells[1, 1, 1, 4].Merge = true;
+                        sheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        col = 1;
+                        sheet.Cells[2, col++].Value = "S/N";
+                        if (modelOfferProduction.productId > 0)
+                        {
+                            sheet.Cells[2, col++].Value = "Regionun adı";
+                        }
+                        else
+                        {
+                            sheet.Cells[2, col++].Value = "Məhsulun adı";
+                        }
+                        sheet.Cells[2, col++].Value = "Miqdarı";
+                        sheet.Cells[2, col++].Value = "Ölçü vahidi";
+
+                        sheet.Row(2).Style.Font.Bold = true;
+                        sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                        sheet.Column(1).Width = 8;
+                        sheet.Column(2).Width = 40;
+                        sheet.Column(3).Width = 15;
+                        sheet.Column(4).Width = 15;
+
+                        int rowIndex = 3;
+                        var ri = 1;
+                        string m = "";
+                        string om = "";
+                        foreach (var item in modelOfferProduction.OfferProductionDetailList)
+                        {
+                            var col2 = 1;
+
+                            m = item.adminName;
+
+                            if (m != om)
+                            {
+                                if (modelOfferProduction.productId > 0)
+                                {
+                                }
+                                else
+                                {
+                                    sheet.Cells[rowIndex, 1, rowIndex, 4].Merge = true;
+                                    sheet.Cells[rowIndex, 1].Value = m;
+
+                                    sheet.Cells[rowIndex, 1, rowIndex, 4].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                    sheet.Cells[rowIndex, 1, rowIndex, 4].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
+                                    sheet.Row(rowIndex).Height = 20;
+                                    sheet.Row(rowIndex).Style.Font.Bold = true;
+                                    rowIndex++;
+                                }
+                            }
+
+                            sheet.Cells[rowIndex, col2++].Value = ri.ToString();
+                            if (modelOfferProduction.productId > 0)
+                            {
+                                sheet.Cells[rowIndex, col2++].Value = m;
+                            }
+                            else
+                            {
+                                sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
+                            }
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity);
+                            sheet.Cells[rowIndex, col2++].Value = item.quantityType;
+
+                            rowIndex++;
+                            ri++;
+
+                            om = m;
+                        }
+
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.WrapText = true;
+                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                        string fileName = Guid.NewGuid() + ".xls";
+
+                        Response.ClearContent();
+                        Response.BinaryWrite(excelPackage.GetAsByteArray());
+                        Response.AddHeader("content-disposition", "attachment;filename=" + fileName);
+                        Response.AppendCookie(new HttpCookie("fileDownloadToken", "1111"));
+                        Response.ContentType = "application/excel";
+                        Response.Flush();
+                        Response.End();
+                    }
+                }
+
+                return Request.IsAjaxRequest()
+                   ? (ActionResult)PartialView("PartialGroupRegion", modelOfferProduction)
+                   : View(modelOfferProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
         public DataTable CustomTable(DataTable excelTable)
         {
             var table = new DataTable();
@@ -960,6 +1150,47 @@ namespace Emsal.AdminUI.Controllers
 
 
                 BaseOutput bouput = srv.WS_GetAdminUnitsByParentId(baseInput,1,true, out modelOfferProduction.PRMAdminUnitArray);
+
+                if (modelOfferProduction.PRMAdminUnitArray == null)
+                {
+                    modelOfferProduction.PRMAdminUnitList = new List<tblPRM_AdminUnit>();
+                }
+                else
+                {
+                    modelOfferProduction.PRMAdminUnitList = modelOfferProduction.PRMAdminUnitArray.ToList();
+                }
+                modelOfferProduction.actionName = actionName;
+                return View(modelOfferProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+
+        public ActionResult Country(string actionName)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+                modelOfferProduction = new OfferProductionViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferProduction.Admin);
+                baseInput.userName = modelOfferProduction.Admin.Username;
+
+
+                BaseOutput bouput = srv.WS_GetAdminUnitsByParentId(baseInput, 0, true, out modelOfferProduction.PRMAdminUnitArray);
 
                 if (modelOfferProduction.PRMAdminUnitArray == null)
                 {
