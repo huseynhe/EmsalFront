@@ -1,0 +1,80 @@
+﻿@model Emsal.AdminUI.Models.OfferProductionViewModel
+@using PagedList.Mvc;
+@using Emsal.Utility.CustomObjects;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+
+    string m = "";
+    string om = "";
+
+}
+
+<h4 class="text-danger text-center">
+    <a href="/OfferProduction/TotalOffer?countryId=@Model.countryId&addressId=@Model.addressId&productId = @Model.productId&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+        Yüklə
+    </a>
+</h4>
+<div class="clearfix"></div>
+<br />
+<div class="box-body no-padding">
+    <div class="table-responsive">
+        <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
+            <span class="badge " style="margin-top: -10px; float: right; margin-right: 15px;background:#D43F3A;">@Model.itemCount</span>
+        </div>
+        <table class="table table-bordered">
+            <tbody>
+                @foreach (var item in Model.ProductionDetailList)
+                {
+                    <tr>
+                        <td class="col-md-1">
+                            <span>@item.productName (@item.productParentName)</span>
+                        </td>
+                        <td class="col-md-1">
+                            @Custom.ConverPriceToStringDelZero((decimal)item.quantity) @item.enumValueName
+                        </td>
+                        <td class="col-md-1">
+                            @Custom.ConverPriceToStringDelZero((decimal)item.totalPrice)
+                        </td>
+                        <td class="col-md-1">
+                            @Custom.ConverPriceToStringDelZero((decimal)item.unitPrice)
+                        </td>
+                        <td class="col-md-1">
+                            @Custom.ConverPriceToStringDelZero((decimal)item.productUnitPrice)
+                        </td>
+                        <td class="col-md-1">
+                            @item.productOriginName
+                            <div class="clearfix"></div>
+                            @item.fullAddress
+                        </td>
+                        <td class="col-md-1">
+                            <span>@item.surname @item.name @item.fatherName</span>
+                        </td>
+
+                        <td class="col-md-1">
+                            @item.organizationName
+                        </td>
+                        <td class="col-md-1">
+                            @item.personAdress 
+                            @if (!string.IsNullOrEmpty(item.personAdressDesc)) {
+                                <span>(@item.personAdressDesc)</span>
+                                    }
+                        </td>
+                        <td class="col-md-1">
+                            @item.personcomList.LastOrDefault().description
+                        </td>
+                        <td class="col-md-1">
+                            @item.email
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="box-footer clearfix">
+    Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
+    @Html.PagedListPager(Model.PagingT, page => Url.Action("TotalOffer", new { page, countryId = Model.countryId, addressId = Model.addressId, productId = Model.productId }))
+</div>

@@ -710,7 +710,7 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
-        public ActionResult GroupRegionn(int? page, long countryId = -1, long addressId = -1, long productId = -1, bool excell = false)
+        public ActionResult TotalOffer(int? page, long countryId = -1, long addressId = -1, long productId = -1, bool excell = false)
         {
             try
             {
@@ -748,31 +748,37 @@ namespace Emsal.AdminUI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferProduction.Admin);
                 baseInput.userName = modelOfferProduction.Admin.Username;
 
-
-                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelOfferProduction.EnumCategory);
-
-                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferProduction.EnumValue);
+                if (excell == true)
+                {
+                    pageNumber = 1;
+                    pageSize = 1000000;
+                }
 
                 modelOfferProduction.OfferProductionDetailSearch = new OfferProductionDetailSearch();
-                modelOfferProduction.OfferProductionDetailSearch.state_eV_Id = modelOfferProduction.EnumValue.Id;
-                modelOfferProduction.OfferProductionDetailSearch.roleID = suserType;
-                modelOfferProduction.OfferProductionDetailSearch.adminID = saddressId;
+                modelOfferProduction.OfferProductionDetailSearch.page = pageNumber;
+                modelOfferProduction.OfferProductionDetailSearch.pageSize = pageSize;
                 modelOfferProduction.OfferProductionDetailSearch.productID = sproductId;
+                modelOfferProduction.OfferProductionDetailSearch.adminID = saddressId;
 
-                BaseOutput gpp = srv.WS_GetOfferGroupedProductionDetailistForAccountingBySearch(baseInput, modelOfferProduction.OfferProductionDetailSearch, out modelOfferProduction.OfferProductionDetailArray);
+                BaseOutput gpp = srv.WS_GetTotalOffer1(baseInput, modelOfferProduction.OfferProductionDetailSearch, out modelOfferProduction.ProductionDetailArray);
 
 
-                if (modelOfferProduction.OfferProductionDetailArray == null)
+                if (modelOfferProduction.ProductionDetailArray == null)
                 {
-                    modelOfferProduction.OfferProductionDetailList = new List<OfferProductionDetail>();
+                    modelOfferProduction.ProductionDetailList = new List<ProductionDetail>();
                 }
                 else
                 {
-                    modelOfferProduction.OfferProductionDetailList = modelOfferProduction.OfferProductionDetailArray.OrderBy(x => x.adminName).ToList();
+                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.ToList();
                 }
 
-                modelOfferProduction.itemCount = modelOfferProduction.OfferProductionDetailList.Count();
-                modelOfferProduction.OfferPaging = modelOfferProduction.OfferProductionDetailList.ToList().ToPagedList(pageNumber, pageSize);
+
+
+                BaseOutput gdpc = srv.WS_GetTotalOffer1_OPC(baseInput, modelOfferProduction.OfferProductionDetailSearch, out modelOfferProduction.itemCount, out modelOfferProduction.itemCountB);
+
+                long[] aic = new long[modelOfferProduction.itemCount];
+
+                modelOfferProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
 
 
                 modelOfferProduction.addressId = saddressId;
@@ -802,16 +808,17 @@ namespace Emsal.AdminUI.Controllers
 
                         col = 1;
                         sheet.Cells[2, col++].Value = "S/N";
-                        if (modelOfferProduction.productId > 0)
-                        {
-                            sheet.Cells[2, col++].Value = "Regionun adı";
-                        }
-                        else
-                        {
-                            sheet.Cells[2, col++].Value = "Məhsulun adı";
-                        }
-                        sheet.Cells[2, col++].Value = "Miqdarı";
-                        sheet.Cells[2, col++].Value = "Ölçü vahidi";
+                        sheet.Cells[2, col++].Value = "Məhsulun adı";
+                        sheet.Cells[2, col++].Value = "Miqdarı (vahidi)";
+                        sheet.Cells[2, col++].Value = "Qiyməti (AZN-lə)";
+                        sheet.Cells[2, col++].Value = "Təklifin qiyməti";
+                        sheet.Cells[2, col++].Value = "Portalın qiyməti";
+                        sheet.Cells[2, col++].Value = "Təklifin ünvanı - Mənşəyi";
+                        sheet.Cells[2, col++].Value = "Soyad, ad, ata adı";
+                        sheet.Cells[2, col++].Value = "Firma";
+                        sheet.Cells[2, col++].Value = "Ünvanı";
+                        sheet.Cells[2, col++].Value = "Telefon";
+                        sheet.Cells[2, col++].Value = "E-poçt";
 
                         sheet.Row(2).Style.Font.Bold = true;
                         sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;

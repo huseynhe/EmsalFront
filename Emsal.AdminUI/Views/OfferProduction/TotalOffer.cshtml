@@ -1,0 +1,95 @@
+﻿@model Emsal.AdminUI.Models.OfferProductionViewModel
+@*@using PagedList.Mvc;*@
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+    }
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title" style="width:100%;">Tədarük təchizat hesabatı</h3>
+                </div>
+
+                <div class="clearfix"></div>
+                <br />
+                <div class="form-group">
+              
+                    <div class="col-md-2">
+                        <label>Məhsulun ünvanı (ölkə)</label><br />
+                        @Html.Action("Country", "OfferProduction", new { actionName = "TotalOffer" })
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>Məhsulun ünvanı</label><br />
+                        @Html.Action("AdminUnit", "OfferProduction", new { actionName = "TotalOffer" })
+                    </div>
+
+                    <div class="col-md-2">
+                        <label>Məhsulun adı</label><br />
+                        @Html.Action("ProductCatalogForSale", "OfferProduction", new { actionName = "TotalOffer" })
+                    </div>
+
+                </div>
+                <div class="clearfix"></div>
+                <br />
+
+
+                <table class="table table-hover table-striped table-bordered" style="margin-bottom:0;">
+                    <tbody>
+                        <tr>
+                            <th class="col-md-1">
+                                Məhsulun adı
+                            </th>
+                            <th class="col-md-1">
+                                Miqdarı (vahidi)
+                            </th>
+                            <th class="col-md-1">
+                                Qiyməti (AZN-lə)
+                            </th>
+                            <th class="col-md-1">
+                                Təklifin qiyməti
+                            </th>
+                            <th class="col-md-1">
+                                Portalın qiyməti
+                            </th>
+                            <th class="col-md-1">
+                                Təklifin ünvanı - Mənşəyi
+                            </th>
+                            <th class="col-md-1">
+                                Soyad, ad, ata adı
+                            </th>
+                            <th class="col-md-1">
+                                Firma
+                            </th>
+                            <th class="col-md-1">
+                                Ünvanı
+                            </th>
+                            <th class="col-md-1">
+                                Telefon
+                            </th>
+                            <th class="col-md-1">
+                                E-poçt
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="AjaxPaginationList">
+                    @Html.Partial("PartialTotalOffer")
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/js/pagedList.js"></script>
+
+
+
+
