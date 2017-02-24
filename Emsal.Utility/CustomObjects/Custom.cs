@@ -35,7 +35,7 @@ namespace Emsal.Utility.CustomObjects
             string str = "";
 
             str = pr.ToString("G29");
-            return Decimal.Parse(str);
+            return Math.Round(Decimal.Parse(str) , 2);
 
             //Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator = ".";
 
