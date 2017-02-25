@@ -7,6 +7,7 @@
     Layout = "";
     string faiz = "";
     string manat = "";
+    int i=1;
 }
 
 <h4 class="text-danger text-center">
@@ -24,6 +25,14 @@
 
     <table class="table table-hover table-striped table-bordered">
         <tbody>
+            <tr style="text-align:center;font-weight:bold;">
+                @for (i = 1; i <= 23; i++)
+                {
+                    <td class="col-md-1">
+                       @i
+                    </td>
+                }
+            </tr>
             <tr>
                 <th class="col-md-1">
                     Ərzaq məhsullarının adı
@@ -101,7 +110,7 @@
                 Model.ContractDetailTemp = new Emsal.WebInt.EmsalSrv.tblContractDetailTemp();
                 manat = "";
                 faiz = "";
-                
+
                 if (itemo.contractTempList.Count() > 0)
                 {
                     Model.ContractDetailTemp = itemo.contractTempList.FirstOrDefault();
@@ -115,7 +124,7 @@
                     </td>
 
                     <td class="col-md-1">
-                       @Model.DemanProductionGroup.productCode
+                        @Model.DemanProductionGroup.productCode
                     </td>
                     <td class="col-md-1">
                         @Model.DemanProductionGroup.productName
@@ -179,7 +188,7 @@
                         @faiz
                     </td>
                     <td class="col-md-1">
-                        @Custom.ConverPriceToStringDelZero(((Model.ContractDetailTemp.product_asc_price *100 ) / 118))
+                        @Custom.ConverPriceToStringDelZero(((Model.ContractDetailTemp.product_asc_price * 100) / 118))
                     </td>
                     <td class="col-md-1">
                         @Custom.ConverPriceToStringDelZero(Model.ContractDetailTemp.product_asc_price)

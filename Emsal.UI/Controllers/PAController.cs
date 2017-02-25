@@ -163,7 +163,8 @@ namespace Emsal.UI.Controllers
 
                         col = 1;
                         int i = 1;
-                        for (i = 1; i <= 24; i++)
+                        sheet.Cells[2, col++].Value = "";
+                        for (i = 1; i <= 23; i++)
                         {
                             sheet.Cells[2, col++].Value = i;
                         }
@@ -567,7 +568,8 @@ namespace Emsal.UI.Controllers
 
                         col = 1;
                         int i = 1;
-                        for (i = 1; i <= 24; i++)
+                        sheet.Cells[2, col++].Value = "";
+                        for (i = 1; i <= 23; i++)
                         {
                             sheet.Cells[2, col++].Value = i;
                         }
