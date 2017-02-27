@@ -415,8 +415,8 @@ namespace Emsal.AdminUI.Controllers
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
                             sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName+")";
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.quantity)+" ("+ item.enumValueName + ")";
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.unitPrice);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.quantity)+" ("+ item.enumValueName + ")";
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unitPrice);
                             sheet.Cells[rowIndex, col2++].Value = item.fullAddress;
 
 
@@ -450,10 +450,10 @@ namespace Emsal.AdminUI.Controllers
                                     var col4 = 1;
                                     rowIndex++;
                                     sheet.Cells[rowIndex, col4++].Value = item2.TypeDescription + " - " + day + " " + item2.MonthDescription + " " + item2.year;
-                                    sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceToStringDelZero((decimal)item2.quantity);
-                                    sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceToStringDelZero((decimal)tquantity);
-                                    sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceToStringDelZero((decimal)item2.price);
-                                    sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceToStringDelZero((decimal)tprice);
+                                    sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceDelZero((decimal)item2.quantity);
+                                    sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceDelZero((decimal)tquantity);
+                                    sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceDelZero((decimal)item2.price);
+                                    sheet.Cells[rowIndex, col4++].Value = Custom.ConverPriceDelZero((decimal)tprice);
                                 }
                             }
                             rowIndex++;
@@ -671,7 +671,7 @@ namespace Emsal.AdminUI.Controllers
                             {
                                 sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
                             }
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalQuantity);
                             sheet.Cells[rowIndex, col2++].Value = item.quantityType;
 
                             rowIndex++;
@@ -797,12 +797,12 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Name = "Təklif";
 
                         var col = 1;
-                        sheet.Cells[1, col++].Value = "Regionlar üzrə təklif";
+                        sheet.Cells[1, col++].Value = "Tədarük təchizat hesabatı";
                         sheet.Row(1).Height = 50;
                         sheet.Row(1).Style.Font.Size = 14;
                         sheet.Row(1).Style.Font.Bold = true;
                         sheet.Row(1).Style.WrapText = true;
-                        sheet.Cells[1, 1, 1, 4].Merge = true;
+                        sheet.Cells[1, 1, 1, 12].Merge = true;
                         sheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
@@ -821,67 +821,73 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Cells[2, col++].Value = "E-poçt";
 
                         sheet.Row(2).Style.Font.Bold = true;
+                        sheet.Row(2).Height = 30;
                         sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        sheet.Cells[2, 1, 2, 12].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        sheet.Cells[2, 1, 2, 12].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
                         sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
                         sheet.Column(1).Width = 8;
-                        sheet.Column(2).Width = 40;
-                        sheet.Column(3).Width = 15;
-                        sheet.Column(4).Width = 15;
+                        sheet.Column(2).Width = 20;
+                        sheet.Column(3).Width = 20;
+                        sheet.Column(4).Width = 20;
+                        sheet.Column(5).Width = 20;
+                        sheet.Column(6).Width = 20;
+                        sheet.Column(6).Width = 20;
+                        sheet.Column(7).Width = 30;
+                        sheet.Column(8).Width = 30;
+                        sheet.Column(9).Width = 30;
+                        sheet.Column(10).Width = 30;
+                        sheet.Column(11).Width = 20;
+                        sheet.Column(12).Width = 20;
 
                         int rowIndex = 3;
                         var ri = 1;
-                        string m = "";
-                        string om = "";
-                        foreach (var item in modelOfferProduction.OfferProductionDetailList)
+                        string addressDesc = "";
+                        string paddressDesc = "";
+                        foreach (var item in modelOfferProduction.ProductionDetailList)
                         {
                             var col2 = 1;
-
-                            m = item.adminName;
-
-                            if (m != om)
-                            {
-                                if (modelOfferProduction.productId > 0)
-                                {
-                                }
-                                else
-                                {
-                                    sheet.Cells[rowIndex, 1, rowIndex, 4].Merge = true;
-                                    sheet.Cells[rowIndex, 1].Value = m;
-
-                                    sheet.Cells[rowIndex, 1, rowIndex, 4].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                    sheet.Cells[rowIndex, 1, rowIndex, 4].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
-
-                                    sheet.Row(rowIndex).Height = 20;
-                                    sheet.Row(rowIndex).Style.Font.Bold = true;
-                                    rowIndex++;
-                                }
-                            }
+                            addressDesc = "";
+                            paddressDesc = "";
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                            if (modelOfferProduction.productId > 0)
+                            sheet.Cells[rowIndex, col2++].Value = item.productName+" ("+item.productParentName+")";
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.quantity) + " "+item.enumValueName;
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalPrice);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unitPrice);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unitPrice);
+
+                            if (!string.IsNullOrEmpty(item.addressDesc))
                             {
-                                sheet.Cells[rowIndex, col2++].Value = m;
+                                addressDesc = " ("+ item.addressDesc+")";
                             }
-                            else
+
+                            sheet.Cells[rowIndex, col2++].Value = item.fullAddress + addressDesc+"\n"+item.productOriginName;
+
+                            sheet.Cells[rowIndex, col2++].Value = item.surname+" "+item.name + " " + item.fatherName;
+                            sheet.Cells[rowIndex, col2++].Value = item.organizationName;
+
+                            if (!string.IsNullOrEmpty(item.personAdressDesc))
                             {
-                                sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
+                                paddressDesc = " (" + item.personAdressDesc + ")";
                             }
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity);
-                            sheet.Cells[rowIndex, col2++].Value = item.quantityType;
+
+                            sheet.Cells[rowIndex, col2++].Value = item.personAdress + paddressDesc;
+                            sheet.Cells[rowIndex, col2++].Value = item.personcomList.LastOrDefault().description;
+                            sheet.Cells[rowIndex, col2++].Value = item.email;
 
                             rowIndex++;
                             ri++;
-
-                            om = m;
                         }
 
-                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.WrapText = true;
-                        sheet.Cells[1, 1, rowIndex - 1, 4].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                        sheet.Cells[1, 1, rowIndex - 1, 12].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 12].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 12].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 12].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 12].Style.WrapText = true;
+                        sheet.Cells[1, 1, rowIndex - 1, 12].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
                         string fileName = Guid.NewGuid() + ".xls";
 
@@ -896,7 +902,7 @@ namespace Emsal.AdminUI.Controllers
                 }
 
                 return Request.IsAjaxRequest()
-                   ? (ActionResult)PartialView("PartialGroupRegion", modelOfferProduction)
+                   ? (ActionResult)PartialView("PartialTotalOffer", modelOfferProduction)
                    : View(modelOfferProduction);
 
             }

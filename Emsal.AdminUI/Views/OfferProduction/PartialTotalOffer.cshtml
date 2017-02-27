@@ -42,12 +42,17 @@
                             @Custom.ConverPriceToStringDelZero((decimal)item.unitPrice)
                         </td>
                         <td class="col-md-1">
-                            @Custom.ConverPriceToStringDelZero((decimal)item.productUnitPrice)
+                            @Custom.ConverPriceToStringDelZero((decimal)item.unitPrice)
                         </td>
                         <td class="col-md-1">
-                            @item.productOriginName
-                            <div class="clearfix"></div>
                             @item.fullAddress
+                            @if (!string.IsNullOrEmpty(item.addressDesc))
+                            {
+                                <span>(@item.addressDesc)</span>
+                            }
+                            <div class="clearfix"></div>
+                            <hr style="margin:0;" />
+                            @item.productOriginName
                         </td>
                         <td class="col-md-1">
                             <span>@item.surname @item.name @item.fatherName</span>
