@@ -21,11 +21,11 @@
                 <div class="form-group">
               
                     <div class="col-md-2">
-                        <label>Məhsulun ünvanı (ölkə)</label><br />
+                        <label>Məhsulun mənşəyi (ölkə)</label><br />
                         @Html.Action("Country", "OfferProduction", new { actionName = "TotalOffer" })
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-2" id="AdminUnitTotalOffer">
                         <label>Məhsulun ünvanı</label><br />
                         @Html.Action("AdminUnit", "OfferProduction", new { actionName = "TotalOffer" })
                     </div>

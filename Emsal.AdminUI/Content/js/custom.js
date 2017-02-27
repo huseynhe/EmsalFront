@@ -725,6 +725,14 @@ function StatisticsSearch(elem, controller, action, param) {
         GetOrganisation(action, elemVal)
     }
 
+    if (controller == "OfferProduction" && action == "TotalOffer" && param == "countryId") {
+        if (elemVal == "1") {
+            $('#AdminUnitTotalOffer').show();
+        } else {
+            $('#AdminUnitTotalOffer').hide();
+        }
+    }
+
     $.ajax({
         url: '/' + controller + '/' + action + '?' + param + '=' + elemVal,
         type: 'GET',
