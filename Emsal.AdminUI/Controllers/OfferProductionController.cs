@@ -875,7 +875,14 @@ namespace Emsal.AdminUI.Controllers
                             }
 
                             sheet.Cells[rowIndex, col2++].Value = item.personAdress + paddressDesc;
-                            sheet.Cells[rowIndex, col2++].Value = item.personcomList.LastOrDefault().description;
+                            if (item.personcomList.Count() >0)
+                            {
+                                sheet.Cells[rowIndex, col2++].Value = item.personcomList.LastOrDefault().communication;
+                            }
+                            else
+                            {
+                                sheet.Cells[rowIndex, col2++].Value = "";
+                            }
                             sheet.Cells[rowIndex, col2++].Value = item.email;
 
                             rowIndex++;
