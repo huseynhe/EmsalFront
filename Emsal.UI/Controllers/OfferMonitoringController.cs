@@ -793,51 +793,7 @@ namespace Emsal.UI.Controllers
                 else
                 {
                     modelOfferMonitoring.ContractList = new List<tblContract>();
-                }
-
-                foreach (var item in modelOfferMonitoring.ContractList)
-                {
-                    string fileName = item.documentName;
-                    string targetPath = modelOfferMonitoring.tempFileDirectory;
-
-                    string sourceFile = System.IO.Path.Combine(item.documentUrl, fileName);
-                    string destFile = System.IO.Path.Combine(targetPath, fileName);
-
-                    string[] files = Directory.GetFiles(targetPath);
-
-                    foreach (string file in files)
-                    {
-                        FileInfo fi = new FileInfo(file);
-                        if (fi.LastAccessTime < DateTime.Now.AddMinutes(-5))
-                            fi.Delete();
-                    }
-
-                    if (!System.IO.Directory.Exists(targetPath))
-                    {
-                        System.IO.Directory.CreateDirectory(targetPath);
-                    }
-
-                    var extension = Path.GetExtension(fileName);
-
-                    if (String.IsNullOrWhiteSpace(extension))
-                    {
-                        return null;
-                    }
-
-
-                    //var registryKey = Registry.ClassesRoot.OpenSubKey(extension);
-
-                    //if (registryKey == null)
-                    //{
-                    //    return null;
-                    //}
-
-                    //modelOfferMonitoring.FCType = registryKey.GetValue("Content Type") as string;
-
-                    modelOfferMonitoring.FCType = FileExtension.GetMimeTypeSimple(extension);
-
-                    System.IO.File.Copy(sourceFile, destFile, true);
-                }
+                }               
 
                 return View(modelOfferMonitoring);
             }
@@ -969,7 +925,7 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult GetContractFile(string fname)
+        public ActionResult GetContractFile(long cid)
         {
             try
             {
@@ -988,7 +944,43 @@ namespace Emsal.UI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferMonitoring.User);
                 baseInput.userName = modelOfferMonitoring.User.Username;
 
-                modelOfferMonitoring.fname = fname;
+
+                BaseOutput gfobuid = srv.WS_GetContractById(baseInput,cid,true, out modelOfferMonitoring.Contract);
+
+
+                if(modelOfferMonitoring.Contract!=null)
+                {
+                    string fileName = modelOfferMonitoring.Contract.documentName;
+                    string targetPath = modelOfferMonitoring.tempFileDirectory;
+
+                    string sourceFile = System.IO.Path.Combine(modelOfferMonitoring.Contract.documentUrl, fileName);
+                    string destFile = System.IO.Path.Combine(targetPath, fileName);
+
+                    string[] files = Directory.GetFiles(targetPath);
+
+                    foreach (string file in files)
+                    {
+                        FileInfo fi = new FileInfo(file);
+                        if (fi.LastAccessTime < DateTime.Now.AddMinutes(-5))
+                            fi.Delete();
+                    }
+
+                    if (!System.IO.Directory.Exists(targetPath))
+                    {
+                        System.IO.Directory.CreateDirectory(targetPath);
+                    }
+
+                    var extension = Path.GetExtension(fileName);
+
+                    if (String.IsNullOrWhiteSpace(extension))
+                    {
+                        return null;
+                    }
+
+                    modelOfferMonitoring.FCType = FileExtension.GetMimeTypeSimple(extension);
+
+                    System.IO.File.Copy(sourceFile, destFile, true);
+                }                
 
                 return View(modelOfferMonitoring);
             }

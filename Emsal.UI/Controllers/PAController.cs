@@ -928,7 +928,7 @@ namespace Emsal.UI.Controllers
                 }
                 else
                 {
-                    modelOfferMonitoring.ProductCatalogDetailList = modelOfferMonitoring.ProductCatalogDetailArray.Where(x => x.productCatalog.canBeOrder == 1).ToList();
+                    modelOfferMonitoring.ProductCatalogDetailList = modelOfferMonitoring.ProductCatalogDetailArray.Where(x => x.productCatalog.canBeOrder == 1).OrderBy(x=>x.productName).ThenBy(x=>x.productCatalog.ProductName).ToList();
                 }
 
                 modelOfferMonitoring.actionName = actionName;
