@@ -233,7 +233,7 @@ namespace Emsal.UI.Controllers
                         sheet.Column(23).Width = 20;
                         sheet.Column(24).Width = 20;
 
-                        int rowIndex = 3;
+                        int rowIndex = 4;
                         var ri = 1;
                         string orgName = "";
                         string contractNumber = "";
