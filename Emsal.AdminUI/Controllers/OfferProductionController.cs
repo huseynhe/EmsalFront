@@ -758,7 +758,10 @@ namespace Emsal.AdminUI.Controllers
                 modelOfferProduction.OfferProductionDetailSearch.page = pageNumber;
                 modelOfferProduction.OfferProductionDetailSearch.pageSize = pageSize;
                 modelOfferProduction.OfferProductionDetailSearch.productID = sproductId;
-                modelOfferProduction.OfferProductionDetailSearch.adminID = saddressId;
+                if (scountryId == 1)
+                {
+                    modelOfferProduction.OfferProductionDetailSearch.adminID = saddressId;
+                }
 
                 BaseOutput gpp = srv.WS_GetTotalOffer1(baseInput, modelOfferProduction.OfferProductionDetailSearch, out modelOfferProduction.ProductionDetailArray);
 
