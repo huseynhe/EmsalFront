@@ -8,6 +8,7 @@
     string faiz = "";
     string manat = "";
     int i=1;
+    string connum = "";
 }
 
 <h4 class="text-danger text-center">
@@ -32,6 +33,7 @@
                        @i
                     </td>
                 }
+                <td class="col-md-1"></td>
             </tr>
             <tr>
                 <th class="col-md-1">
@@ -103,6 +105,9 @@
                 <th class="col-md-1">
                     Tədarükçünün hansı növ vergi ödəyicisi olması (ƏDV, sadələşdirilmiş K/T məhsulu istehsalçısı)
                 </th>
+                <th class="col-md-1">
+                    Müqavilə
+                </th>
             </tr>
 
             @foreach (var itemo in Model.DemanOfferProductionList)
@@ -110,6 +115,7 @@
                 Model.ContractDetailTemp = new Emsal.WebInt.EmsalSrv.tblContractDetailTemp();
                 manat = "";
                 faiz = "";
+                connum = "";
 
                 if (itemo.contractTempList.Count() > 0)
                 {
@@ -173,6 +179,7 @@
                             <div class="clearfix"></div>
                             <hr />
                             @Model.ContractDetailTemp.ContractNumber_
+                            connum = Model.ContractDetailTemp.ContractNumber_;
                         }
                     </td>
                     <td class="col-md-1">
@@ -214,6 +221,19 @@
                     <td class="col-md-1">
                         @itemo.taxesType
                     </td>
+
+                    <td class="col-md-1 text-center" style="font-size:20px;">
+                        @if (!string.IsNullOrEmpty(connum))
+                        {
+                            if (itemo.contractID > 0)
+                            {
+                        <a target="_blank" href="/PA/GetContractFile?cid=@itemo.contractID">
+                            <span class="glyphicon glyphicon-save-file"></span>
+                        </a>
+                            }
+                        }
+                    </td>
+
                 </tr>
             }
         </tbody>

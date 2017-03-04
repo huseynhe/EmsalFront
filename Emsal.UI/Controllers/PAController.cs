@@ -1015,5 +1015,71 @@ namespace Emsal.UI.Controllers
             }
         }
 
+
+        public ActionResult GetContractFile(long cid)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+                modelOfferMonitoring = new OfferMonitoringViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferMonitoring.User);
+                baseInput.userName = modelOfferMonitoring.User.Username;
+
+
+                BaseOutput gfobuid = srv.WS_GetContractById(baseInput, cid, true, out modelOfferMonitoring.Contract);
+
+
+                if (modelOfferMonitoring.Contract != null)
+                {
+                    string fileName = modelOfferMonitoring.Contract.documentName;
+                    string targetPath = modelOfferMonitoring.tempFileDirectory;
+
+                    string sourceFile = System.IO.Path.Combine(modelOfferMonitoring.Contract.documentUrl, fileName);
+                    string destFile = System.IO.Path.Combine(targetPath, fileName);
+
+                    string[] files = Directory.GetFiles(targetPath);
+
+                    foreach (string file in files)
+                    {
+                        FileInfo fi = new FileInfo(file);
+                        if (fi.LastAccessTime < DateTime.Now.AddMinutes(-5))
+                            fi.Delete();
+                    }
+
+                    if (!System.IO.Directory.Exists(targetPath))
+                    {
+                        System.IO.Directory.CreateDirectory(targetPath);
+                    }
+
+                    var extension = Path.GetExtension(fileName);
+
+                    if (String.IsNullOrWhiteSpace(extension))
+                    {
+                        return null;
+                    }
+
+                    modelOfferMonitoring.FCType = FileExtension.GetMimeTypeSimple(extension);
+
+                    System.IO.File.Copy(sourceFile, destFile, true);
+                }
+
+                return View(modelOfferMonitoring);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
     }
 }
