@@ -1,59 +1,58 @@
 ﻿@model Emsal.AdminUI.Models.AnnouncementViewModel
 @using PagedList.Mvc;
 @using Emsal.Utility.CustomObjects;
-
 @{
     ViewBag.Title = "Index";
     Layout = "";
 }
+<div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
+    <span class="badge " style="margin-top: -10px; float: right; margin-right: 15px;background:#D43F3A;">@Model.itemCount</span>
+</div>
+<table class="table table-bordered">
 
-                    <table class="table table-bordered">
-
-
-                        @foreach (var item in Model.AnnouncementDetailList)
-                        {
-                            <tr>
-                                <td class="col-md-5">
-                                    @item.productName (@item.parentName)
-                                </td>
-                                <td class="col-md-1">
-                                    @Custom.ConverPriceToStringDelZero((decimal)item.announcement.quantity) @item.announcement.quantity_type_Name
-                                </td>
-                                <td class="col-md-1">
-                                    @Custom.ConverPriceToStringDelZero((decimal)item.announcement.unit_price) AZN
-                                </td>
-                                <td class="col-md-1">
-                                    @item.announcement.description
-                                    @if (DatetimeExtension.toShortDate(item.announcement.startDate).ToShortDateString() != "01.01.0001")
-                                    {
-                                        <span>@DatetimeExtension.toShortDate(item.announcement.startDate).ToShortDateString()</span>
-                                    }
-                                </td>
-                                <td class="col-md-1">
-                                    @item.announcement.description
-                                    @if (DatetimeExtension.toShortDate(item.announcement.endDate).ToShortDateString() != "01.01.0001")
-                                    {
-                                        <span>@DatetimeExtension.toShortDate(item.announcement.endDate).ToShortDateString()</span>
-                                    }
-                                </td>
-                                <td class="col-md-1">
-                                    @item.announcement.description
-                                </td>
-                                <td  class="col-md-1 shsingle">
-                                        <a href="/Announcement/Edit/@item.announcement.Id" class="badge bg-light-blue">
-                                            <span class="glyphicon glyphicon-edit"></span>
-                                        </a>
-                                    </td>
-                                <td class="col-md-1 shsingle">
-                                    <a href="/Announcement/Delete/@item.announcement.Id" class="badge bg-light-blue">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </a>
-                                </td>
-                            </tr>
-                        }
-                    </table>
-
-                <div class="box-footer clearfix">
-                    Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
-                    @Html.PagedListPager(Model.PagingT, page => Url.Action("Approv", new { page, pname=Model.pname }))
-                </div>
+    @foreach (var item in Model.AnnouncementDetailList)
+    {
+        <tr>
+            <td class="col-md-5">
+                @item.productName (@item.parentName)
+            </td>
+            <td class="col-md-1">
+                @Custom.ConverPriceToStringDelZero((decimal)item.announcement.quantity) @item.announcement.quantity_type_Name
+            </td>
+            <td class="col-md-1">
+                @Custom.ConverPriceToStringDelZero((decimal)item.announcement.unit_price) AZN
+            </td>
+            <td class="col-md-1">
+                @item.announcement.description
+                @if (DatetimeExtension.toShortDate(item.announcement.startDate).ToShortDateString() != "01.01.0001")
+                {
+                    <span>@DatetimeExtension.toShortDate(item.announcement.startDate).ToShortDateString()</span>
+                }
+            </td>
+            <td class="col-md-1">
+                @item.announcement.description
+                @if (DatetimeExtension.toShortDate(item.announcement.endDate).ToShortDateString() != "01.01.0001")
+                {
+                    <span>@DatetimeExtension.toShortDate(item.announcement.endDate).ToShortDateString()</span>
+                }
+            </td>
+            <td class="col-md-1">
+                @item.announcement.description
+            </td>
+            <td class="col-md-1 shsingle">
+                <a href="/Announcement/Edit/@item.announcement.Id" class="badge bg-light-blue">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
+            </td>
+            <td class="col-md-1 shsingle">
+                <a href="/Announcement/Delete/@item.announcement.Id" class="badge bg-light-blue">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+            </td>
+        </tr>
+    }
+</table>
+<div class="box-footer clearfix">
+    Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
+    @Html.PagedListPager(Model.PagingT, page => Url.Action("Approv", new { page, pname = Model.pname }))
+</div>
