@@ -53,7 +53,7 @@
     {
         <div class="box-footer clearfix">
             Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
-            @Html.PagedListPager(Model.PagingT, page => Url.Action("OfferProduction", new { page, productId = Model.productId }))
+            @Html.PagedListPager(Model.PagingT, page => Url.Action("OfferProduction", new { page, productId = Model.productId, fv=Model.fv }))
         </div>
     }
 </div>
