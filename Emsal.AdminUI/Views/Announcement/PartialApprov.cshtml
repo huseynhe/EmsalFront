@@ -10,14 +10,11 @@
                     <table class="table table-bordered">
 
 
-                        @foreach (var item in Model.Paging)
+                        @foreach (var item in Model.AnnouncementDetailList)
                         {
                             <tr>
-                                @*<td>
-                                        <input onchange="getCheckedList()" name="ids" value="@item.productionID" class="ch" type="checkbox">
-                                    </td>*@
                                 <td class="col-md-5">
-                                    @item.announcement.product_name (@item.parentName)
+                                    @item.productName (@item.parentName)
                                 </td>
                                 <td class="col-md-1">
                                     @Custom.ConverPriceToStringDelZero((decimal)item.announcement.quantity) @item.announcement.quantity_type_Name
@@ -57,6 +54,6 @@
                     </table>
 
                 <div class="box-footer clearfix">
-                    Səhifə @(Model.Paging.PageCount < Model.Paging.PageNumber ? 0 : Model.Paging.PageNumber) (cəmi @Model.Paging.PageCount)
-                    @Html.PagedListPager(Model.Paging, page => Url.Action("Approv", new { page, pname=Model.pname }))
+                    Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
+                    @Html.PagedListPager(Model.PagingT, page => Url.Action("Approv", new { page, pname=Model.pname }))
                 </div>

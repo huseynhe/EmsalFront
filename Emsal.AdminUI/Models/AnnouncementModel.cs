@@ -32,13 +32,19 @@ namespace Emsal.AdminUI.Models
 
         public tblEnumCategory EnumCategory;
 
+        public ProductCatalogDetail[] ProductCatalogDetailArray;
+        public IList<ProductCatalogDetail> ProductCatalogDetailList { get; set; }
 
         public DemanProductionGroup DemanProductionGroup;
         public IList<DemanProductionGroup> DemanProductionGroupList { get; set; }
         public DemanProductionGroup[] DemanProductionGroupArray;
 
 
+        public OfferProductionDetailSearch OfferProductionDetailSearch;
+        public PotensialUserForAdminUnitIdList PotensialUserForAdminUnitIdList;
+
         public PagedList.IPagedList<AnnouncementDetail> Paging { get; set; }
+        public PagedList.IPagedList<long> PagingT { get; set; }
 
         [Display(Name = "Məhsulun adı")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
@@ -88,5 +94,10 @@ namespace Emsal.AdminUI.Models
 
         public int approv { get; set; }
         public string pname { get; set; }
+        public string actionName { get; set; }
+
+
+        public long itemCount = 0;
+        public bool itemCountB = true;
     }
 }

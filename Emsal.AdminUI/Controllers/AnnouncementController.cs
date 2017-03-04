@@ -191,17 +191,38 @@ namespace Emsal.AdminUI.Controllers
             baseInput.userName = modelAnnouncement.Admin.Username;
 
                 //sehv Dilare
-                BaseOutput gpp = srv.WS_GetAnnouncements(baseInput, out modelAnnouncement.AnnouncementDetailArray);
-                modelAnnouncement.AnnouncementDetailList = modelAnnouncement.AnnouncementDetailArray.ToList();
+                //BaseOutput gpp = srv.WS_GetAnnouncements(baseInput, out modelAnnouncement.AnnouncementDetailArray);
+                //modelAnnouncement.AnnouncementDetailList = modelAnnouncement.AnnouncementDetailArray.ToList();
 
-                if (spname != null)
-                {
-                    modelAnnouncement.Paging = modelAnnouncement.AnnouncementDetailArray.Where(x => x.announcement.product_name.ToLower().Contains(spname) || x.parentName.ToLower().Contains(spname)).ToPagedList(pageNumber, pageSize);
-                }
-                else
-                {
-                    modelAnnouncement.Paging = modelAnnouncement.AnnouncementDetailArray.ToPagedList(pageNumber, pageSize);
-                }
+                //if (spname != null)
+                //{
+                //    modelAnnouncement.Paging = modelAnnouncement.AnnouncementDetailArray.Where(x => x.announcement.product_name.ToLower().Contains(spname)).ToPagedList(pageNumber, pageSize);
+                //}
+                //else
+                //{
+                //    modelAnnouncement.Paging = modelAnnouncement.AnnouncementDetailArray.ToPagedList(pageNumber, pageSize);
+                //}
+
+
+                modelAnnouncement.OfferProductionDetailSearch = new OfferProductionDetailSearch();
+                modelAnnouncement.OfferProductionDetailSearch.page = pageNumber;
+                modelAnnouncement.OfferProductionDetailSearch.pageSize = pageSize;
+                modelAnnouncement.OfferProductionDetailSearch.productName = spname;
+
+                BaseOutput gap = srv.WS_GetAnnouncementDetails_Search(baseInput, modelAnnouncement.OfferProductionDetailSearch, out modelAnnouncement.AnnouncementDetailArray);
+
+                BaseOutput gapc = srv.WS_GetAnnouncementDetails_Search_OPC(baseInput, modelAnnouncement.OfferProductionDetailSearch, out modelAnnouncement.itemCount, out modelAnnouncement.itemCountB);
+
+
+                if (modelAnnouncement.AnnouncementDetailArray != null)
+            {
+                    modelAnnouncement.AnnouncementDetailList = modelAnnouncement.AnnouncementDetailArray.ToList();
+            }
+
+                long[] aic = new long[modelAnnouncement.itemCount];
+
+                modelAnnouncement.PagingT = aic.ToPagedList(pageNumber, pageSize);
+
 
                 modelAnnouncement.pname = spname;
 
@@ -216,6 +237,45 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
+
+        public ActionResult ProductCatalogForSale(string actionName)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+                modelAnnouncement = new AnnouncementViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelAnnouncement.Admin);
+                baseInput.userName = modelAnnouncement.Admin.Username;
+
+                BaseOutput bouput = srv.GetProductCatalogsWithParent(baseInput, out modelAnnouncement.ProductCatalogDetailArray);
+
+                if (modelAnnouncement.ProductCatalogDetailArray == null)
+                {
+                    modelAnnouncement.ProductCatalogDetailList = new List<ProductCatalogDetail>();
+                }
+                else
+                {
+                    modelAnnouncement.ProductCatalogDetailList = modelAnnouncement.ProductCatalogDetailArray.Where(x => x.productCatalog.canBeOrder == 1).ToList();
+                }
+                modelAnnouncement.actionName = actionName;
+                return View(modelAnnouncement);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
 
         public ActionResult Delete(int Id)
         {
