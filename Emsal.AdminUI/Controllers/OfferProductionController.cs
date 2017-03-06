@@ -758,6 +758,7 @@ namespace Emsal.AdminUI.Controllers
                 modelOfferProduction.OfferProductionDetailSearch.page = pageNumber;
                 modelOfferProduction.OfferProductionDetailSearch.pageSize = pageSize;
                 modelOfferProduction.OfferProductionDetailSearch.productID = sproductId;
+                modelOfferProduction.OfferProductionDetailSearch.countryId = scountryId;
                 if (scountryId == 1)
                 {
                     modelOfferProduction.OfferProductionDetailSearch.adminID = saddressId;
@@ -860,7 +861,7 @@ namespace Emsal.AdminUI.Controllers
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.quantity) + " "+item.enumValueName;
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalPrice);
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unitPrice);
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unitPrice);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unitPriceAnnouncement);
 
                             if (!string.IsNullOrEmpty(item.addressDesc))
                             {
@@ -877,7 +878,8 @@ namespace Emsal.AdminUI.Controllers
                                 paddressDesc = " (" + item.personAdressDesc + ")";
                             }
 
-                            sheet.Cells[rowIndex, col2++].Value = item.personAdress + paddressDesc;
+                            sheet.Cells[rowIndex, col2++].Value = item.personAdress + paddressDesc +"\n"+ item.organizationAddress;
+
                             if (item.personcomList.Count() >0)
                             {
                                 sheet.Cells[rowIndex, col2++].Value = item.personcomList.LastOrDefault().communication;
