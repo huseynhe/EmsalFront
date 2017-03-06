@@ -388,13 +388,13 @@ namespace Emsal.UI.Controllers
                     {
                         msg.Subject = "Təklifə imtina edilməsi";
 
-                        msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalında " + pr + " məhsulu ilə bağlı verdiyiniz təklif Ərzaq məhsullarının tədarükü və təchizatı Açıq Səhmdar Cəmiyyəti tərəfindən imtina edilmişdir. Həmin təklifə şəxsi səhifənizdə <b>Yararsız sayılan təkliflər</b> bölməsinə daxil olaraq görə bilərsiniz.<br/>İmtinanın səbəbi: " + model.ComMessage.message + " <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+                        msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/>Sizin <b>tedaruk.az</b> portalında " + pr + " məhsulu ilə bağlı verdiyiniz təklif Ərzaq məhsullarının tədarükü və təchizatı ASC tərəfindən imtina edilmişdir. Həmin təklifə şəxsi səhifənizdə <b>Yararsız sayılan təkliflər</b> bölməsinə daxil olaraq görə bilərsiniz.<br/><b>İmtinanın səbəbi:</b> " + model.ComMessage.message + " <br/><br/>Ərzaq Məhsullarının Tədarükü və Təchizatı ASC";
                     }
                     else if (model.OfferProduction.monitoring_eV_Id == 10117)
                     {
                         msg.Subject = "Təklifə düzəliş edilməsi";
 
-                        msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalında " + pr + " məhsulu ilə bağlı verdiyiniz təklif Ərzaq məhsullarının tədarükü və təchizatı Açıq Səhmdar Cəmiyyəti tərəfindən düzəliş üçün yenidən Sizə qaytarılmışdır. Həmin təklifə şəxsi səhifənizdə <b>Yararsız sayılan təkliflər</b> bölməsinə daxil olaraq düzəliş edə bilərsiniz.<br/>Düzəlişin səbəbi: " + model.ComMessage.message + " <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+                        msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/>Sizin <b>tedaruk.az</b> portalında " + pr + " məhsulu ilə bağlı verdiyiniz təklif 'Ərzaq Məhsullarının Tədarükü və Təchizatı ASC  tərəfindən düzəliş üçün yenidən Sizə qaytarılmışdır. Həmin təklifə şəxsi səhifənizdə <b>Yararsız sayılan təkliflər</b> bölməsinə daxil olaraq düzəliş edə bilərsiniz.<br/><b>İmtinanın səbəbi:<b> " + model.ComMessage.message + " <br/><br/>Ərzaq Məhsullarının Tədarükü və Təchizatı ASC ";
                     }
                     msg.IsBodyHtml = true;
 
