@@ -148,14 +148,14 @@ namespace Emsal.AdminUI.Controllers
             }
         }
 
-        public ActionResult Indexwd(int? page, long addressId = -1, bool excell = false, string startDate = null, string endDate = null, string forma=null, long userType = -1, long legalStatus = -1)
+        public ActionResult Indexwd(int? page, long addressId = -1, bool excell = false, string startDate = null, string endDate = null, string forma = null, long userType = -1, long legalStatus = -1)
         {
             try
             {
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (addressId == -1 && userType==-1 && legalStatus == -1 && startDate == null && endDate == null)
+                if (addressId == -1 && userType == -1 && legalStatus == -1 && startDate == null && endDate == null)
                 {
                     saddressId = 0;
                     suserType = 0;
@@ -174,7 +174,7 @@ namespace Emsal.AdminUI.Controllers
 
                 if (!string.IsNullOrEmpty(forma))
                     sforma = forma;
-                
+
                 if (string.IsNullOrEmpty(startDate) && string.IsNullOrEmpty(endDate))
                 {
                     sstartDate = null;
@@ -236,7 +236,7 @@ namespace Emsal.AdminUI.Controllers
                 }
                 else
                 {
-                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailList.OrderBy(x=>x.fullAddress).ThenBy(x => x.person.Surname).ThenBy(x => x.person.Name).ThenBy(x => x.person.FatherName).ToList();
+                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailList.OrderBy(x => x.fullAddress).ThenBy(x => x.person.Surname).ThenBy(x => x.person.Name).ThenBy(x => x.person.FatherName).ToList();
                 }
 
 
@@ -265,7 +265,7 @@ namespace Emsal.AdminUI.Controllers
                     modelOfferProduction.isMain = 0;
                 else
                     modelOfferProduction.isMain = 1;
-                
+
                 modelOfferProduction.addressId = saddressId;
                 modelOfferProduction.startDate = sstartDate;
                 modelOfferProduction.endDate = sendDate;
@@ -323,10 +323,10 @@ namespace Emsal.AdminUI.Controllers
 
                         int rowIndex = 3;
                         var ri = 1;
-                       string pname = "";
-                       string opname = "";
-                       string m = "";
-                       string om = "";
+                        string pname = "";
+                        string opname = "";
+                        string m = "";
+                        string om = "";
                         string on = "";
                         foreach (var item in modelOfferProduction.ProductionDetailList)
                         {
@@ -335,10 +335,11 @@ namespace Emsal.AdminUI.Controllers
 
                             modelOfferProduction.auArrName = item.fullAddress.Split(',').ToArray();
 
-                            if(modelOfferProduction.auArrName.Count()>1)
+                            if (modelOfferProduction.auArrName.Count() > 1)
                             {
                                 m = modelOfferProduction.auArrName[1];
-                            }else if (modelOfferProduction.auArrName.Count() == 1)
+                            }
+                            else if (modelOfferProduction.auArrName.Count() == 1)
                             {
                                 m = modelOfferProduction.auArrName[0];
                             }
@@ -348,10 +349,10 @@ namespace Emsal.AdminUI.Controllers
                             }
 
 
-                                if (m != om)
+                            if (m != om)
                             {
                                 sheet.Cells[rowIndex, 1, rowIndex, 5].Merge = true;
-                                sheet.Cells[rowIndex, 1].Value =  m;
+                                sheet.Cells[rowIndex, 1].Value = m;
 
                                 sheet.Cells[rowIndex, 1, rowIndex, 5].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                                 sheet.Cells[rowIndex, 1, rowIndex, 5].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
@@ -362,10 +363,10 @@ namespace Emsal.AdminUI.Controllers
                             }
 
                             if (pname != opname)
-                            {    
+                            {
                                 sheet.Cells[rowIndex, 1, rowIndex, 5].Merge = true;
 
-                               //sheet.Cells[rowIndex, 1].Value = " S.A.A: " + pname + "\n Qeydiyyat ünvanı: " + item.personAdress + " " + (item.personAdressDesc) + "\n Bank rekvizitləri: ";
+                                //sheet.Cells[rowIndex, 1].Value = " S.A.A: " + pname + "\n Qeydiyyat ünvanı: " + item.personAdress + " " + (item.personAdressDesc) + "\n Bank rekvizitləri: ";
 
 
                                 sheet.Cells[rowIndex, 1].IsRichText = true;
@@ -379,12 +380,12 @@ namespace Emsal.AdminUI.Controllers
                                 {
                                     on = item.organizationName + "\n";
                                 }
-                                ert = rtfCollection.Add(pname+ "\n"+ on);
+                                ert = rtfCollection.Add(pname + "\n" + on);
                                 ert.Bold = false;
 
                                 ert = rtfCollection.Add("Qeydiyyat ünvanı: ");
                                 ert.Bold = true;
-                                ert = rtfCollection.Add(item.personAdress + " " + (item.personAdressDesc) +"\n");
+                                ert = rtfCollection.Add(item.personAdress + " " + (item.personAdressDesc) + "\n");
                                 ert.Bold = false;
 
                                 ert = rtfCollection.Add("Telefon nömrəsi: ");
@@ -414,8 +415,8 @@ namespace Emsal.AdminUI.Controllers
 
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                            sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName+")";
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.quantity)+" ("+ item.enumValueName + ")";
+                            sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.quantity) + " (" + item.enumValueName + ")";
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unitPrice);
                             sheet.Cells[rowIndex, col2++].Value = item.fullAddress;
 
@@ -558,7 +559,7 @@ namespace Emsal.AdminUI.Controllers
 
                 modelOfferProduction.OfferProductionDetailSearch = new OfferProductionDetailSearch();
                 modelOfferProduction.OfferProductionDetailSearch.state_eV_Id = modelOfferProduction.EnumValue.Id;
-               modelOfferProduction.OfferProductionDetailSearch.roleID = suserType;
+                modelOfferProduction.OfferProductionDetailSearch.roleID = suserType;
                 modelOfferProduction.OfferProductionDetailSearch.adminID = saddressId;
                 modelOfferProduction.OfferProductionDetailSearch.productID = sproductId;
 
@@ -572,7 +573,7 @@ namespace Emsal.AdminUI.Controllers
                 else
                 {
                     modelOfferProduction.OfferProductionDetailList = modelOfferProduction.OfferProductionDetailArray.OrderBy(x => x.adminName).ToList();
-                }              
+                }
 
                 modelOfferProduction.itemCount = modelOfferProduction.OfferProductionDetailList.Count();
                 modelOfferProduction.OfferPaging = modelOfferProduction.OfferProductionDetailList.ToList().ToPagedList(pageNumber, pageSize);
@@ -640,7 +641,7 @@ namespace Emsal.AdminUI.Controllers
                         foreach (var item in modelOfferProduction.OfferProductionDetailList)
                         {
                             var col2 = 1;
-                            
+
                             m = item.adminName;
 
                             if (m != om)
@@ -759,7 +760,7 @@ namespace Emsal.AdminUI.Controllers
                 modelOfferProduction.OfferProductionDetailSearch.pageSize = pageSize;
                 modelOfferProduction.OfferProductionDetailSearch.productID = sproductId;
                 modelOfferProduction.OfferProductionDetailSearch.countryId = scountryId;
-                if (scountryId == 1)
+                if (scountryId == 1 || scountryId == 0)
                 {
                     modelOfferProduction.OfferProductionDetailSearch.adminID = saddressId;
                 }
@@ -788,7 +789,7 @@ namespace Emsal.AdminUI.Controllers
                 modelOfferProduction.addressId = saddressId;
                 modelOfferProduction.countryId = scountryId;
                 modelOfferProduction.productId = sproductId;
-                
+
 
                 if (excell == true)
                 {
@@ -850,27 +851,32 @@ namespace Emsal.AdminUI.Controllers
                         var ri = 1;
                         string addressDesc = "";
                         string paddressDesc = "";
+                        string orgAddress = "";
+                        string nl = "";
+
                         foreach (var item in modelOfferProduction.ProductionDetailList)
                         {
                             var col2 = 1;
                             addressDesc = "";
                             paddressDesc = "";
+                            orgAddress = "";
+                            nl = "";
 
                             sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                            sheet.Cells[rowIndex, col2++].Value = item.productName+" ("+item.productParentName+")";
-                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.quantity) + " "+item.enumValueName;
+                            sheet.Cells[rowIndex, col2++].Value = item.productName + " (" + item.productParentName + ")";
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.quantity) + " " + item.enumValueName;
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalPrice);
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unitPrice);
                             sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unitPriceAnnouncement);
 
                             if (!string.IsNullOrEmpty(item.addressDesc))
                             {
-                                addressDesc = " ("+ item.addressDesc+")";
+                                addressDesc = " (" + item.addressDesc + ")";
                             }
 
-                            sheet.Cells[rowIndex, col2++].Value = item.fullAddress + addressDesc+"\n"+item.productOriginName;
+                            sheet.Cells[rowIndex, col2++].Value = item.fullAddress + addressDesc + "\n" + item.productOriginName;
 
-                            sheet.Cells[rowIndex, col2++].Value = item.surname+" "+item.name + " " + item.fatherName;
+                            sheet.Cells[rowIndex, col2++].Value = item.surname + " " + item.name + " " + item.fatherName;
                             sheet.Cells[rowIndex, col2++].Value = item.organizationName;
 
                             if (!string.IsNullOrEmpty(item.personAdressDesc))
@@ -878,9 +884,20 @@ namespace Emsal.AdminUI.Controllers
                                 paddressDesc = " (" + item.personAdressDesc + ")";
                             }
 
-                            sheet.Cells[rowIndex, col2++].Value = item.personAdress + paddressDesc +"\n"+ item.organizationAddress;
+                            if (!string.IsNullOrEmpty(item.organizationName))
+                            {
+                                if (!string.IsNullOrEmpty(item.personAdressDesc) || !string.IsNullOrEmpty(item.personAdress))
+                                {
+                                    nl = "\n";
+                                }
 
-                            if (item.personcomList.Count() >0)
+                                orgAddress = nl + item.organizationAddress;
+                            }
+
+
+                            sheet.Cells[rowIndex, col2++].Value = item.personAdress + paddressDesc + orgAddress;
+
+                            if (item.personcomList.Count() > 0)
                             {
                                 sheet.Cells[rowIndex, col2++].Value = item.personcomList.LastOrDefault().communication;
                             }
@@ -1114,7 +1131,7 @@ namespace Emsal.AdminUI.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
-        
+
         public ActionResult ProductCatalogForSale(string actionName)
         {
             try
@@ -1174,7 +1191,7 @@ namespace Emsal.AdminUI.Controllers
                 baseInput.userName = modelOfferProduction.Admin.Username;
 
 
-                BaseOutput bouput = srv.WS_GetAdminUnitsByParentId(baseInput,1,true, out modelOfferProduction.PRMAdminUnitArray);
+                BaseOutput bouput = srv.WS_GetAdminUnitsByParentId(baseInput, 1, true, out modelOfferProduction.PRMAdminUnitArray);
 
                 if (modelOfferProduction.PRMAdminUnitArray == null)
                 {
