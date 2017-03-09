@@ -726,7 +726,7 @@ function StatisticsSearch(elem, controller, action, param) {
     }
 
     if (controller == "OfferProduction" && action == "TotalOffer" && param == "countryId") {
-        if (elemVal == "1") {
+        if (elemVal == "1" || elemVal == "0") {
             $('#AdminUnitTotalOffer').show();
         } else {
             $('#AdminUnitTotalOffer').hide();
