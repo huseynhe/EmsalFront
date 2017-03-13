@@ -204,6 +204,9 @@ namespace Emsal.AdminUI.Controllers
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.state_eV_Id = modelDemandProduction.EnumValue.Id;
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.pageSize = pageSize;
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.startDate = Convert.ToDateTime(sstartDate);
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.endate = Convert.ToDateTime(sendDate);
+
 
                 //if (excell == false)
                 //{
