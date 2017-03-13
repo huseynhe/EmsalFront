@@ -32,11 +32,13 @@ namespace Emsal.Utility.CustomObjects
             if(CheckForInternetConnection())
             {
                 msg.From = new MailAddress("tedaruk@agro.gov.az", "tedaruk.az");
-                string fromPassword = "e3WQ@Y2d9&r!";
+                string fromPassword = "123456";
+                //string fromPassword = "e3WQ@Y2d9&r!";
 
                 SmtpClient smtp = new SmtpClient();
                 smtp.Host = "smtp.mail.gov.az";
-                smtp.Port = 587;
+                //smtp.Port = 587;
+                smtp.Port = 465;
                 smtp.EnableSsl = true;
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Credentials = new NetworkCredential(msg.From.Address, fromPassword);
