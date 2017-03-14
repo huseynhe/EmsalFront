@@ -31,21 +31,22 @@ namespace Emsal.Utility.CustomObjects
         {
             if(CheckForInternetConnection())
             {
-                msg.From = new MailAddress("tedaruk@agro.gov.az", "tedaruk.az");
-                string fromPassword = "123456";
-                //string fromPassword = "e3WQ@Y2d9&r!";
+                    msg.From = new MailAddress("tedaruk@agro.gov.az", "tedaruk.az");
+                    string fromPassword = "123456";
+                    //string fromPassword = "e3WQ@Y2d9&r!";
 
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.mail.gov.az";
-                //smtp.Port = 587;
-                smtp.Port = 465;
-                smtp.EnableSsl = true;
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.Credentials = new NetworkCredential(msg.From.Address, fromPassword);
-                smtp.Timeout = 20000;
-                smtp.Send(msg);
+                    SmtpClient smtp = new SmtpClient();
+                    //smtp.Host = "smtp.mail.gov.az";
+                    smtp.Host = "85.132.122.243";
+                    //smtp.Port = 587;
+                    smtp.Port = 465;
+                    smtp.EnableSsl = false;
+                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    smtp.Credentials = new NetworkCredential(msg.From.Address, fromPassword);
+                    smtp.Timeout = 20000;
+                    smtp.Send(msg);
 
-                return true;
+                    return true;
             }
             else
             {
