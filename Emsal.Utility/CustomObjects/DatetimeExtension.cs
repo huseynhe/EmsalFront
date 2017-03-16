@@ -17,9 +17,13 @@ namespace Emsal.Utility.CustomObjects
       }
       public static Int64 getInt64ShortDate(this DateTime dtime)
       {
-          string guid = dtime.ToString("yyyy") + dtime.ToString("MM") + dtime.ToString("dd");// +dtime.ToString("HH") + dtime.ToString("mm") + dtime.ToString("ss") + dtime.ToString("fff");
-          System.Threading.Thread.Sleep(1);
+            string guid = "0";
 
+            if (dtime != DateTime.MinValue) {
+                guid = dtime.ToString("yyyy") + dtime.ToString("MM") + dtime.ToString("dd");// +dtime.ToString("HH") + dtime.ToString("mm") + dtime.ToString("ss") + dtime.ToString("fff");
+                System.Threading.Thread.Sleep(1);
+            }
+           
           return Int64.Parse(guid);
       }
         public static DateTime longDate(this Int64 i)
