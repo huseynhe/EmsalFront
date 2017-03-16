@@ -204,8 +204,8 @@ namespace Emsal.AdminUI.Controllers
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.state_eV_Id = modelDemandProduction.EnumValue.Id;
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.pageSize = pageSize;
-                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.startDate = Convert.ToDateTime(sstartDate).ToString("yyyy-MM-dd");
-                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.endate = Convert.ToDateTime(sendDate).ToString("yyyy-MM-dd");
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.startDate = (Convert.ToDateTime(sstartDate)).getInt64ShortDate();
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.endate = (Convert.ToDateTime(sendDate)).getInt64ShortDate();
 
 
                 //if (excell == false)
@@ -1274,6 +1274,8 @@ namespace Emsal.AdminUI.Controllers
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.pageSize = pageSize;
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.prodcutID = sproductId;
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.startDate= (Convert.ToDateTime(sstartDate)).getInt64ShortDate();
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.endate= (Convert.ToDateTime(sendDate)).getInt64ShortDate();
 
                 BaseOutput gpp = srv.WS_GetDemandProductDetailInfoForAccounting_OP(baseInput, modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch, year, true, rub, true, out modelDemandProduction.ProductionDetailArray);
 
@@ -2092,7 +2094,7 @@ namespace Emsal.AdminUI.Controllers
 
                 }
 
-                BaseOutput gpp = srv.WS_GetDemandProductionAmountOfEachProduct(baseInput, out modelDemandProduction.DemandOfferDetailArray);
+                BaseOutput gpp = srv.WS_GetDemandProductionAmountOfEachProduct(baseInput, (Convert.ToDateTime(sstartDate)).getInt64ShortDate(),true, (Convert.ToDateTime(sendDate)).getInt64ShortDate(), true, out modelDemandProduction.DemandOfferDetailArray);
 
                 if (modelDemandProduction.DemandOfferDetailArray == null)
                 {

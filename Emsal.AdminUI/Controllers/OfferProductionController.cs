@@ -224,7 +224,8 @@ namespace Emsal.AdminUI.Controllers
                 modelOfferProduction.OfferProductionDetailSearch.roleID = suserType;
                 modelOfferProduction.OfferProductionDetailSearch.usertypeEvId = slegalStatus;
                 modelOfferProduction.OfferProductionDetailSearch.adminID = saddressId;
-
+                modelOfferProduction.OfferProductionDetailSearch.startDate = (Convert.ToDateTime(sstartDate)).getInt64ShortDate();
+                modelOfferProduction.OfferProductionDetailSearch.endDate = (Convert.ToDateTime(sendDate)).getInt64ShortDate();
 
                 BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelOfferProduction.OfferProductionDetailSearch, out modelOfferProduction.ProductionDetailArray);
 
