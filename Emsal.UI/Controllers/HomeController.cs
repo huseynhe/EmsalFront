@@ -173,14 +173,14 @@ namespace Emsal.UI.Controllers
                 }
                 else
                 {
-                    modelProductCatalog.OfferProductionDetailSearch = new OfferProductionDetailSearch();
-                    modelProductCatalog.OfferProductionDetailSearch.page = pageNumber;
-                    modelProductCatalog.OfferProductionDetailSearch.pageSize = pageSize;
-                    modelProductCatalog.OfferProductionDetailSearch.productName = value;
+                    modelProductCatalog.OfferProductionDetailSearch1 = new OfferProductionDetailSearch1();
+                    modelProductCatalog.OfferProductionDetailSearch1.page = pageNumber;
+                    modelProductCatalog.OfferProductionDetailSearch1.pageSize = pageSize;
+                    modelProductCatalog.OfferProductionDetailSearch1.productName = value;
 
-                    BaseOutput gap = srv.WS_GetAnnouncementDetails_Search(baseInput, modelProductCatalog.OfferProductionDetailSearch, out modelProductCatalog.AnnouncementDetailArray);
+                    BaseOutput gap = srv.WS_GetAnnouncementDetails_Search(baseInput, modelProductCatalog.OfferProductionDetailSearch1, out modelProductCatalog.AnnouncementDetailArray);
 
-                    BaseOutput gapc = srv.WS_GetAnnouncementDetails_Search_OPC(baseInput, modelProductCatalog.OfferProductionDetailSearch, out modelProductCatalog.itemCount, out modelProductCatalog.itemCountB);
+                    BaseOutput gapc = srv.WS_GetAnnouncementDetails_Search_OPC(baseInput, modelProductCatalog.OfferProductionDetailSearch1, out modelProductCatalog.itemCount, out modelProductCatalog.itemCountB);
 
                 }
 

@@ -70,6 +70,7 @@ namespace Emsal.UI.Models
         public tblEnumCategory[] EnumCategoryArray;
 
         public OfferProductionDetailSearch OfferProductionDetailSearch;
+        public OfferProductionDetailSearch1 OfferProductionDetailSearch1;
 
         public tblEnumValue EnumValue;
         public tblEnumValue EnumValueST;
@@ -105,6 +106,8 @@ namespace Emsal.UI.Models
         public tblProductAddress[] ProductAddressArray;
 
         public GetDemandProductionDetailistForEValueIdSearch GetDemandProductionDetailistForEValueIdSearch;
+        public GetDemandProductionDetailistForEValueIdSearch1 GetDemandProductionDetailistForEValueIdSearch1;
+
         public IList<GetDemandProductionDetailistForEValueIdSearch> GetDemandProductionDetailistForEValueIdSearchList { get; set; }
         public GetDemandProductionDetailistForEValueIdSearch[] GetDemandProductionDetailistForEValueIdSearchArray;
 

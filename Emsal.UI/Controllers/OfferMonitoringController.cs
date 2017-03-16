@@ -99,17 +99,17 @@ namespace Emsal.UI.Controllers
                     pageSize = 10000;
                 }
 
-                modelOfferMonitoring.OfferProductionDetailSearch = new OfferProductionDetailSearch();
+                modelOfferMonitoring.OfferProductionDetailSearch1 = new OfferProductionDetailSearch1();
 
-                modelOfferMonitoring.OfferProductionDetailSearch.monintoring_eV_Id = modelOfferMonitoring.EnumValue.Id;
-                modelOfferMonitoring.OfferProductionDetailSearch.page = pageNumber;
-                modelOfferMonitoring.OfferProductionDetailSearch.pageSize = pageSize;
-                modelOfferMonitoring.OfferProductionDetailSearch.userID = (long)UserId;
-                modelOfferMonitoring.OfferProductionDetailSearch.productID = sproductId;
-                modelOfferMonitoring.OfferProductionDetailSearch.roleID = suserType;
-                modelOfferMonitoring.OfferProductionDetailSearch.name = suserInfo;
+                modelOfferMonitoring.OfferProductionDetailSearch1.monintoring_eV_Id = modelOfferMonitoring.EnumValue.Id;
+                modelOfferMonitoring.OfferProductionDetailSearch1.page = pageNumber;
+                modelOfferMonitoring.OfferProductionDetailSearch1.pageSize = pageSize;
+                modelOfferMonitoring.OfferProductionDetailSearch1.userID = (long)UserId;
+                modelOfferMonitoring.OfferProductionDetailSearch1.productID = sproductId;
+                modelOfferMonitoring.OfferProductionDetailSearch1.roleID = suserType;
+                modelOfferMonitoring.OfferProductionDetailSearch1.name = suserInfo;
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId_OP(baseInput, modelOfferMonitoring.OfferProductionDetailSearch, out modelOfferMonitoring.ProductionDetailArray);
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId_OP(baseInput, modelOfferMonitoring.OfferProductionDetailSearch1, out modelOfferMonitoring.ProductionDetailArray);
 
 
                 if (modelOfferMonitoring.ProductionDetailArray != null)
@@ -121,7 +121,7 @@ namespace Emsal.UI.Controllers
                     modelOfferMonitoring.ProductionDetailList = new List<ProductionDetail>();
                 }
 
-                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForMonitoringEVId_OPC(baseInput, modelOfferMonitoring.OfferProductionDetailSearch, out modelOfferMonitoring.itemCount, out modelOfferMonitoring.itemCountB);
+                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForMonitoringEVId_OPC(baseInput, modelOfferMonitoring.OfferProductionDetailSearch1, out modelOfferMonitoring.itemCount, out modelOfferMonitoring.itemCountB);
 
                 long[] aic = new long[modelOfferMonitoring.itemCount];
 
@@ -647,27 +647,27 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferMonitoring.EnumValue);
 
-                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch = new GetDemandProductionDetailistForEValueIdSearch();
-                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.monitoring_Ev_Id = modelOfferMonitoring.EnumValue.Id;
-                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
-                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.pageSize = pageSize;
-                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.Name = snameSurnameFathername;
-                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.pinNumber = spin;
-                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.voen = spin;
-                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.user_Id = modelOfferMonitoring.User.Id;
-                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.contractStatus = sisApprov;
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch1 = new GetDemandProductionDetailistForEValueIdSearch1();
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch1.monitoring_Ev_Id = modelOfferMonitoring.EnumValue.Id;
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch1.page = pageNumber;
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch1.pageSize = pageSize;
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch1.Name = snameSurnameFathername;
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch1.pinNumber = spin;
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch1.voen = spin;
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch1.user_Id = modelOfferMonitoring.User.Id;
+                modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch1.contractStatus = sisApprov;
 
 
                 if (sisSeller == true)
                 {
-                    modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.roleID = 11;
+                    modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch1.roleID = 11;
                 }
                 else
                 {
-                    modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch.roleID = 15;
+                    modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch1.roleID = 15;
                 }
 
-                BaseOutput gpp = srv.WS_GetUserDetailInfoForOffers_OP(baseInput, modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch, out modelOfferMonitoring.PersonDetailArray);
+                BaseOutput gpp = srv.WS_GetUserDetailInfoForOffers_OP(baseInput, modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch1, out modelOfferMonitoring.PersonDetailArray);
 
 
                 if (modelOfferMonitoring.PersonDetailArray != null)
@@ -679,7 +679,7 @@ namespace Emsal.UI.Controllers
                     modelOfferMonitoring.PersonDetailList = new List<PersonDetail>();
                 }
 
-                BaseOutput gppc = srv.WS_GetUserDetailInfoForOffers_OPC(baseInput, modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch, out modelOfferMonitoring.itemCount, out modelOfferMonitoring.itemCountB);
+                BaseOutput gppc = srv.WS_GetUserDetailInfoForOffers_OPC(baseInput, modelOfferMonitoring.GetDemandProductionDetailistForEValueIdSearch1, out modelOfferMonitoring.itemCount, out modelOfferMonitoring.itemCountB);
 
 
                 long[] aic = new long[modelOfferMonitoring.itemCount];
@@ -726,14 +726,14 @@ namespace Emsal.UI.Controllers
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferMonitoring.EnumValue);
 
 
-                modelOfferMonitoring.OfferProductionDetailSearch = new OfferProductionDetailSearch();
+                modelOfferMonitoring.OfferProductionDetailSearch1 = new OfferProductionDetailSearch1();
 
-                modelOfferMonitoring.OfferProductionDetailSearch.monintoring_eV_Id = modelOfferMonitoring.EnumValue.Id;
-                modelOfferMonitoring.OfferProductionDetailSearch.page = 1;
-                modelOfferMonitoring.OfferProductionDetailSearch.pageSize = 50;
-                modelOfferMonitoring.OfferProductionDetailSearch.personID = pid;
+                modelOfferMonitoring.OfferProductionDetailSearch1.monintoring_eV_Id = modelOfferMonitoring.EnumValue.Id;
+                modelOfferMonitoring.OfferProductionDetailSearch1.page = 1;
+                modelOfferMonitoring.OfferProductionDetailSearch1.pageSize = 50;
+                modelOfferMonitoring.OfferProductionDetailSearch1.personID = pid;
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId_OP(baseInput, modelOfferMonitoring.OfferProductionDetailSearch, out modelOfferMonitoring.ProductionDetailArray);
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId_OP(baseInput, modelOfferMonitoring.OfferProductionDetailSearch1, out modelOfferMonitoring.ProductionDetailArray);
 
                 if (modelOfferMonitoring.ProductionDetailArray != null)
                 {

@@ -54,6 +54,7 @@ namespace Emsal.UI.Models
 
 
         public OfferProductionDetailSearch OfferProductionDetailSearch;
+        public OfferProductionDetailSearch1 OfferProductionDetailSearch1;
         public PotensialUserForAdminUnitIdList PotensialUserForAdminUnitIdList;
 
         public tblDemand_Production DemandProduction;
