@@ -31,6 +31,7 @@ namespace Emsal.UI.Models
         public tblOffer_Production[] OfferProductionArray;
 
         public OfferProductionDetailSearch OfferProductionDetailSearch;
+        public OfferProductionDetailSearch1 OfferProductionDetailSearch1;
 
         public ProductionDetail ProductionDetail;
         public IList<ProductionDetail> ProductionDetailList { get; set; }

@@ -45,7 +45,7 @@ namespace Emsal.UI.Controllers
                 int pageSize = 20;
                 int pageNumber = (page ?? 1);
 
-                if (productId == -1 && userInfo == null && rId==-1)
+                if (productId == -1 && userInfo == null && rId == -1)
                 {
                     sproductId = 0;
                     suserInfo = null;
@@ -60,7 +60,7 @@ namespace Emsal.UI.Controllers
                     suserInfo = userInfo;
                 if (stateStatusEV != null)
                     sstateStatusEV = stateStatusEV;
-                if (rId >=0)
+                if (rId >= 0)
                     srId = rId;
 
                 baseInput = new BaseInput();
@@ -84,16 +84,16 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstateStatusEV, out modelOfferState.EnumValue);
 
-                modelOfferState.OfferProductionDetailSearch = new OfferProductionDetailSearch();
-                modelOfferState.OfferProductionDetailSearch.page = pageNumber;
-                modelOfferState.OfferProductionDetailSearch.pageSize = pageSize;
-                modelOfferState.OfferProductionDetailSearch.state_eV_Id = modelOfferState.EnumValue.Id;
-                modelOfferState.OfferProductionDetailSearch.userID = (long)UserId;
-                modelOfferState.OfferProductionDetailSearch.name = suserInfo;
-                modelOfferState.OfferProductionDetailSearch.productID = sproductId;
-                modelOfferState.OfferProductionDetailSearch.roleID = srId;
+                modelOfferState.OfferProductionDetailSearch1 = new OfferProductionDetailSearch1();
+                modelOfferState.OfferProductionDetailSearch1.page = pageNumber;
+                modelOfferState.OfferProductionDetailSearch1.pageSize = pageSize;
+                modelOfferState.OfferProductionDetailSearch1.state_eV_Id = modelOfferState.EnumValue.Id;
+                modelOfferState.OfferProductionDetailSearch1.userID = (long)UserId;
+                modelOfferState.OfferProductionDetailSearch1.name = suserInfo;
+                modelOfferState.OfferProductionDetailSearch1.productID = sproductId;
+                modelOfferState.OfferProductionDetailSearch1.roleID = srId;
 
-            BaseOutput gpp = srv.WS_GetOfferProductionDetailistForStateEVId_OP(baseInput, modelOfferState.OfferProductionDetailSearch, out modelOfferState.ProductionDetailArray);
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForStateEVId_OP(baseInput, modelOfferState.OfferProductionDetailSearch1, out modelOfferState.ProductionDetailArray);
 
                 if (modelOfferState.ProductionDetailArray != null)
                 {
@@ -104,7 +104,7 @@ namespace Emsal.UI.Controllers
                     modelOfferState.ProductionDetailList = new List<ProductionDetail>();
                 }
 
-                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForStateEVId_OPC(baseInput, modelOfferState.OfferProductionDetailSearch, out modelOfferState.itemCount, out modelOfferState.itemCountB);
+                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForStateEVId_OPC(baseInput, modelOfferState.OfferProductionDetailSearch1, out modelOfferState.itemCount, out modelOfferState.itemCountB);
 
                 long[] aic = new long[modelOfferState.itemCount];
 
@@ -203,7 +203,7 @@ namespace Emsal.UI.Controllers
 
                             if (modelOfferState.ProductCatalogDetail != null)
                             {
-                                pr = modelOfferState.ProductCatalogDetail.productCatalog.ProductName + " ("+ modelOfferState.ProductCatalogDetail.parentProductCatalog.ProductName+")";
+                                pr = modelOfferState.ProductCatalogDetail.productCatalog.ProductName + " (" + modelOfferState.ProductCatalogDetail.parentProductCatalog.ProductName + ")";
                             }
 
                             if (modelOfferState.Person != null)
@@ -216,7 +216,7 @@ namespace Emsal.UI.Controllers
                             msg.To.Add(modelOfferState.User.Email);
                             msg.Subject = "Təklifin təsdiqi";
 
-                            msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalında "+pr+ " məhsulu ilə bağlı verdiyiniz təklif Kənd Təsərrüfatı Nazirliyi tərəfindən təsdiq etdilmişdir. Öz təklifinizi portalda təkliflər bölməsində yoxlaya bilərsiniz. <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+                            msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalında " + pr + " məhsulu ilə bağlı verdiyiniz təklif Kənd Təsərrüfatı Nazirliyi tərəfindən təsdiq etdilmişdir. Öz təklifinizi portalda təkliflər bölməsində yoxlaya bilərsiniz. <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
 
                             msg.IsBodyHtml = true;
 
@@ -351,7 +351,7 @@ namespace Emsal.UI.Controllers
                     msg.To.Add(modelOfferState.User.Email);
                     msg.Subject = "Təklifə düzəliş edilməsi";
 
-                    msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalında " + pr + " məhsulu ilə bağlı verdiyiniz təklif Kənd Təsərrüfatı Nazirliyi tərəfindən düzəliş üçün yenidən Sizə qaytarılmışdır. Həmin təklifə şəxsi səhifənizdə <b>Yararsız sayılan təkliflər</b> bölməsinə daxil olaraq düzəliş edə bilərsiniz.<br/>Düzəlişin səbəbi: " + model.ComMessage.message+" <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+                    msg.Body = "<b>Hörmətli " + sn + ", </b><br/><br/> Sizin <b>tedaruk.az</b> portalında " + pr + " məhsulu ilə bağlı verdiyiniz təklif Kənd Təsərrüfatı Nazirliyi tərəfindən düzəliş üçün yenidən Sizə qaytarılmışdır. Həmin təklifə şəxsi səhifənizdə <b>Yararsız sayılan təkliflər</b> bölməsinə daxil olaraq düzəliş edə bilərsiniz.<br/>Düzəlişin səbəbi: " + model.ComMessage.message + " <br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
 
                     msg.IsBodyHtml = true;
 
@@ -383,43 +383,44 @@ namespace Emsal.UI.Controllers
 
                     foreach (var attachfile in model.attachfiles)
                     {
-                        if (attachfile != null) { 
-                        string fre = FileExtension.GetMimeType(attachfile.InputStream, attachfile.FileName);
-
-                        if (attachfile != null && attachfile.ContentLength > 0 && attachfile.ContentLength <= modelOfferState.fileSize && modelOfferState.fileTypes.Contains(fre))
+                        if (attachfile != null)
                         {
-                            var fileName = Path.GetFileName(attachfile.FileName);
-                            var ofileName = fileName;
+                            string fre = FileExtension.GetMimeType(attachfile.InputStream, attachfile.FileName);
 
-                            string ext = string.Empty;
-                            int fileExtPos = fileName.LastIndexOf(".", StringComparison.Ordinal);
-                            if (fileExtPos >= 0)
-                                ext = fileName.Substring(fileExtPos, fileName.Length - fileExtPos);
+                            if (attachfile != null && attachfile.ContentLength > 0 && attachfile.ContentLength <= modelOfferState.fileSize && modelOfferState.fileTypes.Contains(fre))
+                            {
+                                var fileName = Path.GetFileName(attachfile.FileName);
+                                var ofileName = fileName;
 
-                            var newFileName = Guid.NewGuid();
-                            fileName = newFileName.ToString() + ext;
+                                string ext = string.Empty;
+                                int fileExtPos = fileName.LastIndexOf(".", StringComparison.Ordinal);
+                                if (fileExtPos >= 0)
+                                    ext = fileName.Substring(fileExtPos, fileName.Length - fileExtPos);
 
-                            attachfile.SaveAs(Path.Combine(path, fileName));
+                                var newFileName = Guid.NewGuid();
+                                fileName = newFileName.ToString() + ext;
 
-                            modelOfferState.ComMessageAttachment = new tblComMessageAttachment();
+                                attachfile.SaveAs(Path.Combine(path, fileName));
 
-                            modelOfferState.ComMessageAttachment.CMessageId = model.ComMessage.Id;
-                            modelOfferState.ComMessageAttachment.CMessageIdSpecified = true;
+                                modelOfferState.ComMessageAttachment = new tblComMessageAttachment();
 
-                            modelOfferState.ComMessageAttachment.UserID = model.User.Id;
-                            modelOfferState.ComMessageAttachment.UserIDSpecified = true;
+                                modelOfferState.ComMessageAttachment.CMessageId = model.ComMessage.Id;
+                                modelOfferState.ComMessageAttachment.CMessageIdSpecified = true;
 
-                            modelOfferState.ComMessageAttachment.documentUrl = path;
-                            modelOfferState.ComMessageAttachment.documentName = fileName;
-                            modelOfferState.ComMessageAttachment.documentRealName = ofileName;
+                                modelOfferState.ComMessageAttachment.UserID = model.User.Id;
+                                modelOfferState.ComMessageAttachment.UserIDSpecified = true;
 
-                            modelOfferState.ComMessageAttachment.documentSize = attachfile.ContentLength;
-                            modelOfferState.ComMessageAttachment.documentSizeSpecified = true;
+                                modelOfferState.ComMessageAttachment.documentUrl = path;
+                                modelOfferState.ComMessageAttachment.documentName = fileName;
+                                modelOfferState.ComMessageAttachment.documentRealName = ofileName;
 
-                            BaseOutput apd = srv.WS_AddComMessageAttachment(baseInput, modelOfferState.ComMessageAttachment, out modelOfferState.ComMessageAttachment);
+                                modelOfferState.ComMessageAttachment.documentSize = attachfile.ContentLength;
+                                modelOfferState.ComMessageAttachment.documentSizeSpecified = true;
+
+                                BaseOutput apd = srv.WS_AddComMessageAttachment(baseInput, modelOfferState.ComMessageAttachment, out modelOfferState.ComMessageAttachment);
+                            }
                         }
                     }
-                }
                 }
 
 

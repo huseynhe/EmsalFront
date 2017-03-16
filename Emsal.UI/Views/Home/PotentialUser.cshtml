@@ -28,23 +28,6 @@
                         <div class="clearfix"></div>
                         <label class="control-label">Ünvanı</label><br />
                         <div id="puserMenu">
-                            @*@Html.Action("AdminUnit", "Home", new { pId = 0 })*@
-                            <script>
-                                $(document).ready(function () {
-                                    $.ajax({
-                                        url: '/Home/AdminUnit?pId=0&rId=15',
-                                        type: 'GET',
-                                        success: function (result) {
-                                            $('#puserMenu').html(result);
-
-                                            $('.select2').select2();
-                                        },
-                                        error: function () {
-
-                                        }
-                                    });
-                                });
-                            </script>
                         </div>
                     </div>
 

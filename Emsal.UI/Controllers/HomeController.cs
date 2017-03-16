@@ -315,10 +315,11 @@ namespace Emsal.UI.Controllers
                 }
 
                 if (addressId == -1)
-                    addressId = 0;
+                    saddressId = 0;
 
-                if (addressId >= 0)
+                if (addressId > 0)
                     saddressId = addressId;
+
                 if (rId > 0)
                     srId = rId;
                 if (sort != null)

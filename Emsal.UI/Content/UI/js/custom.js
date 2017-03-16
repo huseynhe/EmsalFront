@@ -100,24 +100,23 @@ var filefieldtemplate;
 function chosefiles(elem) {
     var requiredfs = 2;
     var totalfs = 0;
-    var fiv=0;
+    var fiv = 0;
     var flength = elem.files.length;
     var froot = $(elem).parent();
-    var filenames="";
+    var filenames = "";
 
 
-    if (froot.find('.scope').length == 0)
-    {
+    if (froot.find('.scope').length == 0) {
         if (froot.find('.true').length == 0)
-            tfilefieldtemplate=froot.html();
+            tfilefieldtemplate = froot.html();
         if (froot.find('.false').length == 0)
             ffilefieldtemplate = froot.html();
     }
-       
+
     if (froot.find('.true').length == 0)
-        filefieldtemplate=tfilefieldtemplate;
+        filefieldtemplate = tfilefieldtemplate;
     if (froot.find('.false').length == 0)
-        filefieldtemplate=ffilefieldtemplate;
+        filefieldtemplate = ffilefieldtemplate;
 
     for (l = 0; l < flength; l++) {
         if ($.inArray(elem.files[l].type, allowfiletype) < 0)
@@ -125,22 +124,21 @@ function chosefiles(elem) {
 
         totalfs = totalfs + parseInt(elem.files[l].size, 10) / 1024;
 
-       filenames = filenames + elem.files[l].name + ' - ' + (Math.round(((parseInt(elem.files[l].size, 10) / 1024)) / 1024 * 100) / 100) + ' mb' + '\n';
+        filenames = filenames + elem.files[l].name + ' - ' + (Math.round(((parseInt(elem.files[l].size, 10) / 1024)) / 1024 * 100) / 100) + ' mb' + '\n';
     }
 
     totalfs = (Math.round((totalfs / 1024) * 100) / 100);
 
     froot.find('.sel').html('<span class="scope" style="font-size: 16px;font-weight: bold;">' + flength + '</span> fayl seçilib, həcmi <span style="font-size: 16px;font-weight: bold;">' + totalfs + '</span> mb <span title="' + filenames + '" style="cursor:pointer;color:#428bca;" class="glyphicon glyphicon-info-sign"></span>');
 
-        $('span').tooltip()
+    $('span').tooltip()
 
     if (totalfs > requiredfs) {
-        alert('Seçilmiş faylların həcmi ' + requiredfs + ' MB-dan az olmalıdır. \n\n Sizin sənədin həcmi ' + totalfs + ' MB');       
+        alert('Seçilmiş faylların həcmi ' + requiredfs + ' MB-dan az olmalıdır. \n\n Sizin sənədin həcmi ' + totalfs + ' MB');
         froot.html(filefieldtemplate);
     }
 
-    if(fiv==1)
-    {
+    if (fiv == 1) {
         alert('Seçilmiş fayl tipinə icazə verilmir. \n\nQəbul olunan fayl tipləri: ' + ftypes);
         froot.html(filefieldtemplate);
     }
@@ -181,11 +179,19 @@ $(document).ready(function () {
 
 
 var valu;
+var orid = 0;
 
 function GetAdminUnit(elem) {
     $(elem).parent().nextAll().remove();
     pId = $(elem).val();
     var rId = $('#rId').val();
+
+    if (orid > 0 && rId != orid) {
+        $('#AjaxPaginationList').html('');
+        pId = -1;
+    }
+    orid = rId;
+
     valu = 0;
     if (pId == '') {
         var name = $(elem).attr('name');
@@ -203,27 +209,40 @@ function GetAdminUnit(elem) {
 
     }
 
-    if (pId == "") {
-        GetUserInfoBy(0, elem);
+    //if (pId == "") {
+    //    GetUserInfoBy(0, elem);
+    //}
+    var pIdz = 0;
+
+    if (pId == undefined)
+    {
+        pId = 0;
     }
 
-    if (pId >= 0) {
+    //if (pId >= -1) {
         //$('#puserMenu').html('');
+
+        
+        pIdz = pId;
+        if (pId == -1) {
+            pIdz = 0;
+        }
+
         $.ajax({
-            url: '/Home/AdminUnit?pId=' + pId + '&rId=' + rId,
+            url: '/Home/AdminUnit?pId=' + pIdz + '&rId=' + rId,
             type: 'GET',
             //data: { "pId": appId},
             success: function (result) {
                 //if (result == "")
                 //{
-               
+
                 //}
-                if (pId == 0) {
+                if (pId <= 0) {
                     $('#puserMenu').html(result);
                 } else {
                     $(elem).parent().parent().append(result);
                 }
-                    GetUserInfoBy(pId, elem);
+                GetUserInfoBy(pId, elem);
 
                 $('.select2').select2();
             },
@@ -231,9 +250,9 @@ function GetAdminUnit(elem) {
 
             }
         });
-    } else {
-        GetUserInfoBy(pId, elem);
-    }
+    //} else {
+    //    GetUserInfoBy(pId, elem);
+    //}
 }
 
 
@@ -243,13 +262,12 @@ var ad = " asc";
 var osort = "";
 var gsort = "";
 
-function GetDefaultSortIcon()
-{
+function GetDefaultSortIcon() {
     $('.sortingpu').html('<span class="glyphicon glyphicon-sort pull-right"></span>');
 }
 
 
-$( document ).ready(function() {
+$(document).ready(function () {
     GetDefaultSortIcon();
 
     var href;
@@ -257,8 +275,7 @@ $( document ).ready(function() {
 
     jQuery('.main_menu').find('a').each(function () {
         href = $(this).attr('href');
-        if (href == curpathname)
-        {
+        if (href == curpathname) {
             $(this).addClass('active');
         }
     });
@@ -277,7 +294,7 @@ function GetUserInfo(elem, sort) {
     }
 
     osort = sort;
-    gsort=sort + ad;
+    gsort = sort + ad;
     GetUserInfoSort(elem, gsort);
 
     if (s == 0) {
@@ -314,42 +331,41 @@ function GetUserInfoSort(elem, sort) {
 function GetUserInfoBy(addressId, elem) {
 
     //if (addressId > 0) {
-        $.ajax({
-            url: '/Home/UserInfo?addressId=' + addressId,
-            type: 'GET',
-            //data: { "pId": appId},
-            success: function (result) {
-                //$(elem).parent().parent().parent().find('#AjaxPaginationList').html(result);
-                $('#AjaxPaginationList').html(result);
-                if (valu > 0) {
-                    $(elem).parent().remove();
-                }
-
-            },
-            error: function () {
-
+    $.ajax({
+        url: '/Home/UserInfo?addressId=' + addressId,
+        type: 'GET',
+        //data: { "pId": appId},
+        success: function (result) {
+            //$(elem).parent().parent().parent().find('#AjaxPaginationList').html(result);
+            $('#AjaxPaginationList').html(result);
+            if (valu > 0) {
+                $(elem).parent().remove();
             }
-        });
+
+        },
+        error: function () {
+
+        }
+    });
     //}
 }
 
-function UserInfoSearch(elem, param)
-{
-    //var au = $('select[name="adId[0]"]');
-    //GetAdminUnit(au);
-    
+
+function UserInfoSearch(elem, param) {
+
     if (ri == 0 || ri == 2) {
 
         var value = $(elem).val();
         ri = 1;
 
-        if (value == '15' && param=='rId') {
+        if (value == '15' && param == 'rId') {
             $('#userListHeader').html('POTENSİAL İSTEHSALÇILAR');
         }
 
-        else if (value == '11' && param=='rId') {
+        else if (value == '11' && param == 'rId') {
             $('#userListHeader').html('İDXALÇILAR');
         }
+
 
         $.ajax({
             url: '/Home/UserInfo?' + param + '=' + $(elem).val(),
@@ -362,6 +378,11 @@ function UserInfoSearch(elem, param)
                 if ($(elem).val() != value) {
                     UserInfoSearch(elem, param);
                 }
+
+                var au = $('select[name="adId[0]"]');
+
+                GetAdminUnit(au);
+
             },
             error: function () {
 
@@ -374,8 +395,7 @@ var oldpId = 0;
 function GetProductCatalog(elem, pId) {
     var lStatus = $(elem).parent().find('.lstatus');
 
-    if (lStatus.val() == pId)
-    {
+    if (lStatus.val() == pId) {
         lStatus.val(1);
         $(elem).parent().find('.resp').html('');
     }
@@ -397,7 +417,7 @@ function GetProductCatalog(elem, pId) {
         });
     }
 
-    if (lStatus.val()<1)
+    if (lStatus.val() < 1)
         lStatus.val(pId);
 
     if (lStatus.val() == 1)
@@ -422,27 +442,26 @@ function GetAnnouncement(productId) {
 };
 
 
-function searchAnnouncement(elem) { 
+function searchAnnouncement(elem) {
     if (ri == 0 || ri == 2) {
 
         var value = $(elem).val();
         ri = 1;
 
-            $.ajax({
-                url: '/Home/SearchAnnouncement?value=' + value,
-                type: 'GET',
-                success: function (result) {
-                    $('#searchAnnouncementResult').html(result);
-                    ri = 2;
-                    if ($(elem).val() != value)
-                    {
-                        searchAnnouncement(elem);
-                    }
-                },
-                error: function () {
-
+        $.ajax({
+            url: '/Home/SearchAnnouncement?value=' + value,
+            type: 'GET',
+            success: function (result) {
+                $('#searchAnnouncementResult').html(result);
+                ri = 2;
+                if ($(elem).val() != value) {
+                    searchAnnouncement(elem);
                 }
-            });
+            },
+            error: function () {
+
+            }
+        });
     }
 }
 
