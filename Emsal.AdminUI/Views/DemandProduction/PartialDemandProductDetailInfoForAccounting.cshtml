@@ -10,7 +10,7 @@
     var otname = "";
 }
 
-               <h4 class="text-danger text-center"> cari səhifə üçün qiymət: @Model.currentPagePrice azn - bütün qiymət: @Model.tPrice azn
+               <h4 class="text-danger text-center"> cari səhifə üçün qiymət: @Custom.ConverPriceToStringDelZero((decimal)Model.currentPagePrice) azn - bütün qiymət: @Custom.ConverPriceToStringDelZero((decimal)Model.tPrice) azn
                    <a href="/DemandProduction/DemandProductDetailInfoForAccounting?productId=@Model.productId&startDate = @Model.startDate&endDate=@Model.endDate&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
                        Yüklə
