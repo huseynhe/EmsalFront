@@ -43,7 +43,6 @@ namespace Emsal.UI.Controllers
         {
             try
             {
-
                 if (monitoringStatusEV != null)
                     monitoringStatusEV = StripTag.strSqlBlocker(monitoringStatusEV.ToLower());
                 if (userInfo != null)
