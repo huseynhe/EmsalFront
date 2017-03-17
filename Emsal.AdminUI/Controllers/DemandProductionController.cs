@@ -1296,7 +1296,7 @@ namespace Emsal.AdminUI.Controllers
                 modelDemandProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
 
 
-                BaseOutput gdp = srv.WS_GetDemandProductDetailInfoForAccounting_OPP(baseInput, modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch1, year, true, rub, true, out modelDemandProduction.tPrice, out modelDemandProduction.tPriceSp);
+                BaseOutput gdp = srv.WS_GetDemandProductDetailInfoForAccounting_OPP(baseInput, modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch, year, true, rub, true, out modelDemandProduction.tPrice, out modelDemandProduction.tPriceSp);
 
 
                 foreach (var item in modelDemandProduction.ProductionDetailList)

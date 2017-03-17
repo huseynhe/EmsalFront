@@ -41,6 +41,7 @@ namespace Emsal.AdminUI.Models
 
 
         public OfferProductionDetailSearch OfferProductionDetailSearch;
+        public OfferProductionDetailSearch1 OfferProductionDetailSearch1;
         public PotensialUserForAdminUnitIdList PotensialUserForAdminUnitIdList;
 
         public PagedList.IPagedList<AnnouncementDetail> Paging { get; set; }

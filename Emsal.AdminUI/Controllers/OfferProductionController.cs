@@ -89,15 +89,15 @@ namespace Emsal.AdminUI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstatusEV, out modelOfferProduction.EnumValue);
 
-                modelOfferProduction.OfferProductionDetailSearch = new OfferProductionDetailSearch();
+                modelOfferProduction.OfferProductionDetailSearch1 = new OfferProductionDetailSearch1();
 
-                modelOfferProduction.OfferProductionDetailSearch.state_eV_Id = modelOfferProduction.EnumValue.Id;
-                modelOfferProduction.OfferProductionDetailSearch.page = pageNumber;
-                modelOfferProduction.OfferProductionDetailSearch.pageSize = pageSize;
-                modelOfferProduction.OfferProductionDetailSearch.productID = sproductId;
-                modelOfferProduction.OfferProductionDetailSearch.name = suserInfo;
+                modelOfferProduction.OfferProductionDetailSearch1.state_eV_Id = modelOfferProduction.EnumValue.Id;
+                modelOfferProduction.OfferProductionDetailSearch1.page = pageNumber;
+                modelOfferProduction.OfferProductionDetailSearch1.pageSize = pageSize;
+                modelOfferProduction.OfferProductionDetailSearch1.productID = sproductId;
+                modelOfferProduction.OfferProductionDetailSearch1.name = suserInfo;
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelOfferProduction.OfferProductionDetailSearch, out modelOfferProduction.ProductionDetailArray);
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelOfferProduction.OfferProductionDetailSearch1, out modelOfferProduction.ProductionDetailArray);
 
                 if (modelOfferProduction.ProductionDetailArray == null)
                 {
@@ -120,7 +120,7 @@ namespace Emsal.AdminUI.Controllers
 
                 //modelOfferProduction.Paging = modelOfferProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
 
-                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForEValueId_OPC(baseInput, modelOfferProduction.OfferProductionDetailSearch, out modelOfferProduction.itemCount, out modelOfferProduction.itemCountB);
+                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForEValueId_OPC(baseInput, modelOfferProduction.OfferProductionDetailSearch1, out modelOfferProduction.itemCount, out modelOfferProduction.itemCountB);
 
                 long[] aic = new long[modelOfferProduction.itemCount];
 
@@ -216,18 +216,18 @@ namespace Emsal.AdminUI.Controllers
                     pageSize = 10000;
                 }
 
-                modelOfferProduction.OfferProductionDetailSearch = new OfferProductionDetailSearch();
+                modelOfferProduction.OfferProductionDetailSearch1 = new OfferProductionDetailSearch1();
 
-                modelOfferProduction.OfferProductionDetailSearch.state_eV_Id = modelOfferProduction.EnumValue.Id;
-                modelOfferProduction.OfferProductionDetailSearch.page = pageNumber;
-                modelOfferProduction.OfferProductionDetailSearch.pageSize = pageSize;
-                modelOfferProduction.OfferProductionDetailSearch.roleID = suserType;
-                modelOfferProduction.OfferProductionDetailSearch.usertypeEvId = slegalStatus;
-                modelOfferProduction.OfferProductionDetailSearch.adminID = saddressId;
-                modelOfferProduction.OfferProductionDetailSearch.startDate = (Convert.ToDateTime(sstartDate)).getInt64ShortDate();
-                modelOfferProduction.OfferProductionDetailSearch.endDate = (Convert.ToDateTime(sendDate)).getInt64ShortDate();
+                modelOfferProduction.OfferProductionDetailSearch1.state_eV_Id = modelOfferProduction.EnumValue.Id;
+                modelOfferProduction.OfferProductionDetailSearch1.page = pageNumber;
+                modelOfferProduction.OfferProductionDetailSearch1.pageSize = pageSize;
+                modelOfferProduction.OfferProductionDetailSearch1.roleID = suserType;
+                modelOfferProduction.OfferProductionDetailSearch1.usertypeEvId = slegalStatus;
+                modelOfferProduction.OfferProductionDetailSearch1.adminID = saddressId;
+                modelOfferProduction.OfferProductionDetailSearch1.startDate = (Convert.ToDateTime(sstartDate)).getInt64ShortDate();
+                modelOfferProduction.OfferProductionDetailSearch1.endDate = (Convert.ToDateTime(sendDate)).getInt64ShortDate();
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelOfferProduction.OfferProductionDetailSearch, out modelOfferProduction.ProductionDetailArray);
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP(baseInput, modelOfferProduction.OfferProductionDetailSearch1, out modelOfferProduction.ProductionDetailArray);
 
                 modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.Where(x => x.person != null).ToList();
 
@@ -253,7 +253,7 @@ namespace Emsal.AdminUI.Controllers
 
                 //modelOfferProduction.Paging = modelOfferProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
 
-                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForEValueId_OPC(baseInput, modelOfferProduction.OfferProductionDetailSearch, out modelOfferProduction.itemCount, out modelOfferProduction.itemCountB);
+                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForEValueId_OPC(baseInput, modelOfferProduction.OfferProductionDetailSearch1, out modelOfferProduction.itemCount, out modelOfferProduction.itemCountB);
 
                 long[] aic = new long[modelOfferProduction.itemCount];
 

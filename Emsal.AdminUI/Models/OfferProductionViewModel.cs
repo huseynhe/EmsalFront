@@ -34,6 +34,7 @@ namespace Emsal.AdminUI.Models
         public OfferProducts[] OfferProductsArray;
 
         public OfferProductionDetailSearch OfferProductionDetailSearch;
+        public OfferProductionDetailSearch1 OfferProductionDetailSearch1;
         public DemandOfferProductsSearch DemandOfferProductsSearch;
 
         public IList<GetOfferProductionDetailistForEValueId> GetOfferProductionDetailistForEValueIdList { get; set; }

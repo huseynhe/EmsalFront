@@ -26,6 +26,7 @@ namespace Emsal.AdminUI.Models
         public tblPotential_Production[] PotentialProductionArray;
 
         public GetDemandProductionDetailistForEValueIdSearch GetDemandProductionDetailistForEValueIdSearch;
+        public GetDemandProductionDetailistForEValueIdSearch1 GetDemandProductionDetailistForEValueIdSearch1;
 
         public ProductionDetail ProductionDetail;
         public IList<ProductionDetail> ProductionDetailList { get; set; }
