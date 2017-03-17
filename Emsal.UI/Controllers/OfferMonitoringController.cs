@@ -99,17 +99,17 @@ namespace Emsal.UI.Controllers
                     pageSize = 10000;
                 }
 
-                modelOfferMonitoring.OfferProductionDetailSearch1 = new OfferProductionDetailSearch1();
+                modelOfferMonitoring.OfferProductionDetailSearch = new OfferProductionDetailSearch();
 
-                modelOfferMonitoring.OfferProductionDetailSearch1.monintoring_eV_Id = modelOfferMonitoring.EnumValue.Id;
-                modelOfferMonitoring.OfferProductionDetailSearch1.page = pageNumber;
-                modelOfferMonitoring.OfferProductionDetailSearch1.pageSize = pageSize;
-                modelOfferMonitoring.OfferProductionDetailSearch1.userID = (long)UserId;
-                modelOfferMonitoring.OfferProductionDetailSearch1.productID = sproductId;
-                modelOfferMonitoring.OfferProductionDetailSearch1.roleID = suserType;
-                modelOfferMonitoring.OfferProductionDetailSearch1.name = suserInfo;
+                modelOfferMonitoring.OfferProductionDetailSearch.monintoring_eV_Id = modelOfferMonitoring.EnumValue.Id;
+                modelOfferMonitoring.OfferProductionDetailSearch.page = pageNumber;
+                modelOfferMonitoring.OfferProductionDetailSearch.pageSize = pageSize;
+                modelOfferMonitoring.OfferProductionDetailSearch.userID = (long)UserId;
+                modelOfferMonitoring.OfferProductionDetailSearch.productID = sproductId;
+                modelOfferMonitoring.OfferProductionDetailSearch.roleID = suserType;
+                modelOfferMonitoring.OfferProductionDetailSearch.name = suserInfo;
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId_OP(baseInput, modelOfferMonitoring.OfferProductionDetailSearch1, out modelOfferMonitoring.ProductionDetailArray);
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId_OP(baseInput, modelOfferMonitoring.OfferProductionDetailSearch, out modelOfferMonitoring.ProductionDetailArray);
 
 
                 if (modelOfferMonitoring.ProductionDetailArray != null)
@@ -121,7 +121,7 @@ namespace Emsal.UI.Controllers
                     modelOfferMonitoring.ProductionDetailList = new List<ProductionDetail>();
                 }
 
-                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForMonitoringEVId_OPC(baseInput, modelOfferMonitoring.OfferProductionDetailSearch1, out modelOfferMonitoring.itemCount, out modelOfferMonitoring.itemCountB);
+                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForMonitoringEVId_OPC(baseInput, modelOfferMonitoring.OfferProductionDetailSearch, out modelOfferMonitoring.itemCount, out modelOfferMonitoring.itemCountB);
 
                 long[] aic = new long[modelOfferMonitoring.itemCount];
 
@@ -598,6 +598,40 @@ namespace Emsal.UI.Controllers
             }
         }
 
+        public ActionResult DeleteContractDetailTemp(long id)
+        {
+            try
+            {
+
+                baseInput = new BaseInput();
+                modelOfferMonitoring = new OfferMonitoringViewModel();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferMonitoring.User);
+                baseInput.userName = modelOfferMonitoring.User.Username;
+
+                BaseOutput bouput = srv.WS_GettblContractDetailTempById(baseInput, id, true, out modelOfferMonitoring.ContractDetailTempArray);
+
+                modelOfferMonitoring.ContractDetailTemp = modelOfferMonitoring.ContractDetailTempArray.FirstOrDefault();
+
+                BaseOutput dcdt = srv.WS_DeletetblContractDetailTemp(baseInput, modelOfferMonitoring.ContractDetailTemp);
+
+                return RedirectToAction("Index", "OfferMonitoring", new { monitoringStatusEV = "Tesdiqlenen", isPa = true });
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
         public ActionResult Contract(int? page, bool isApprov = false, bool isSeller = false, string nameSurnameFathername = null, string pin = null)
         {
             try
@@ -726,14 +760,14 @@ namespace Emsal.UI.Controllers
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelOfferMonitoring.EnumValue);
 
 
-                modelOfferMonitoring.OfferProductionDetailSearch1 = new OfferProductionDetailSearch1();
+                modelOfferMonitoring.OfferProductionDetailSearch = new OfferProductionDetailSearch();
 
-                modelOfferMonitoring.OfferProductionDetailSearch1.monintoring_eV_Id = modelOfferMonitoring.EnumValue.Id;
-                modelOfferMonitoring.OfferProductionDetailSearch1.page = 1;
-                modelOfferMonitoring.OfferProductionDetailSearch1.pageSize = 50;
-                modelOfferMonitoring.OfferProductionDetailSearch1.personID = pid;
+                modelOfferMonitoring.OfferProductionDetailSearch.monintoring_eV_Id = modelOfferMonitoring.EnumValue.Id;
+                modelOfferMonitoring.OfferProductionDetailSearch.page = 1;
+                modelOfferMonitoring.OfferProductionDetailSearch.pageSize = 50;
+                modelOfferMonitoring.OfferProductionDetailSearch.personID = pid;
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId_OP(baseInput, modelOfferMonitoring.OfferProductionDetailSearch1, out modelOfferMonitoring.ProductionDetailArray);
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForMonitoringEVId_OP(baseInput, modelOfferMonitoring.OfferProductionDetailSearch, out modelOfferMonitoring.ProductionDetailArray);
 
                 if (modelOfferMonitoring.ProductionDetailArray != null)
                 {

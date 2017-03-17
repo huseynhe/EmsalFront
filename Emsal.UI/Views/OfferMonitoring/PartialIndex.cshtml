@@ -174,8 +174,17 @@
                                 {
                                     <td class="col-md-1 shsingle text-center">
                                         <a href="/OfferMonitoring/EditPA/@item.productionID" class="badge bg-light-blue">
-                                            <span class="glyphicon glyphicon-plus"></span>
+                                            <span class="glyphicon glyphicon-plus"></span> | <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
+                                    </td>
+
+                                    <td class="col-md-1 shsingle text-center">
+                                        @if (!string.IsNullOrEmpty(item.ContractNumber))
+                                        {
+                                        <a href="/OfferMonitoring/DeleteContractDetailTemp/@item.contTempID" class="badge" style="background:#a94442;">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </a>
+                                        }
                                     </td>
                                 }
                             }

@@ -84,16 +84,16 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, sstateStatusEV, out modelOfferState.EnumValue);
 
-                modelOfferState.OfferProductionDetailSearch1 = new OfferProductionDetailSearch1();
-                modelOfferState.OfferProductionDetailSearch1.page = pageNumber;
-                modelOfferState.OfferProductionDetailSearch1.pageSize = pageSize;
-                modelOfferState.OfferProductionDetailSearch1.state_eV_Id = modelOfferState.EnumValue.Id;
-                modelOfferState.OfferProductionDetailSearch1.userID = (long)UserId;
-                modelOfferState.OfferProductionDetailSearch1.name = suserInfo;
-                modelOfferState.OfferProductionDetailSearch1.productID = sproductId;
-                modelOfferState.OfferProductionDetailSearch1.roleID = srId;
+                modelOfferState.OfferProductionDetailSearch = new OfferProductionDetailSearch();
+                modelOfferState.OfferProductionDetailSearch.page = pageNumber;
+                modelOfferState.OfferProductionDetailSearch.pageSize = pageSize;
+                modelOfferState.OfferProductionDetailSearch.state_eV_Id = modelOfferState.EnumValue.Id;
+                modelOfferState.OfferProductionDetailSearch.userID = (long)UserId;
+                modelOfferState.OfferProductionDetailSearch.name = suserInfo;
+                modelOfferState.OfferProductionDetailSearch.productID = sproductId;
+                modelOfferState.OfferProductionDetailSearch.roleID = srId;
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForStateEVId_OP(baseInput, modelOfferState.OfferProductionDetailSearch1, out modelOfferState.ProductionDetailArray);
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForStateEVId_OP(baseInput, modelOfferState.OfferProductionDetailSearch, out modelOfferState.ProductionDetailArray);
 
                 if (modelOfferState.ProductionDetailArray != null)
                 {
@@ -104,7 +104,7 @@ namespace Emsal.UI.Controllers
                     modelOfferState.ProductionDetailList = new List<ProductionDetail>();
                 }
 
-                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForStateEVId_OPC(baseInput, modelOfferState.OfferProductionDetailSearch1, out modelOfferState.itemCount, out modelOfferState.itemCountB);
+                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForStateEVId_OPC(baseInput, modelOfferState.OfferProductionDetailSearch, out modelOfferState.itemCount, out modelOfferState.itemCountB);
 
                 long[] aic = new long[modelOfferState.itemCount];
 

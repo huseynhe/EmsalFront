@@ -90,17 +90,17 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Tesdiqlenen", out modelProductCatalog.EnumValue);
 
-                modelProductCatalog.OfferProductionDetailSearch1 = new OfferProductionDetailSearch1();
+                modelProductCatalog.OfferProductionDetailSearch = new OfferProductionDetailSearch();
 
-                modelProductCatalog.OfferProductionDetailSearch1.state_eV_Id = modelProductCatalog.EnumValue.Id;
-                modelProductCatalog.OfferProductionDetailSearch1.page = pageNumber;
-                modelProductCatalog.OfferProductionDetailSearch1.pageSize = pageSize;
-                modelProductCatalog.OfferProductionDetailSearch1.productID = sproductId;
-                modelProductCatalog.OfferProductionDetailSearch1.pinNumber = sfv;
-                modelProductCatalog.OfferProductionDetailSearch1.voen = sfv;
+                modelProductCatalog.OfferProductionDetailSearch.state_eV_Id = modelProductCatalog.EnumValue.Id;
+                modelProductCatalog.OfferProductionDetailSearch.page = pageNumber;
+                modelProductCatalog.OfferProductionDetailSearch.pageSize = pageSize;
+                modelProductCatalog.OfferProductionDetailSearch.productID = sproductId;
+                modelProductCatalog.OfferProductionDetailSearch.pinNumber = sfv;
+                modelProductCatalog.OfferProductionDetailSearch.voen = sfv;
 
 
-                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP1(baseInput, modelProductCatalog.OfferProductionDetailSearch1, out modelProductCatalog.GetOfferProductionDetailistForEValueIdArray);
+                BaseOutput gpp = srv.WS_GetOfferProductionDetailistForEValueId_OP1(baseInput, modelProductCatalog.OfferProductionDetailSearch, out modelProductCatalog.GetOfferProductionDetailistForEValueIdArray);
 
                 if (modelProductCatalog.GetOfferProductionDetailistForEValueIdArray != null)
                 {
@@ -116,7 +116,7 @@ namespace Emsal.UI.Controllers
                     modelProductCatalog.GetOfferProductionDetailistForEValueIdList = new List<GetOfferProductionDetailistForEValueId>();
                 }
 
-                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForEValueId_OPC1(baseInput, modelProductCatalog.OfferProductionDetailSearch1, out modelProductCatalog.itemCount, out modelProductCatalog.itemCountB);
+                BaseOutput gppc = srv.WS_GetOfferProductionDetailistForEValueId_OPC1(baseInput, modelProductCatalog.OfferProductionDetailSearch, out modelProductCatalog.itemCount, out modelProductCatalog.itemCountB);
 
                 long[] aic = new long[modelProductCatalog.itemCount];
 
@@ -226,6 +226,7 @@ namespace Emsal.UI.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
+
         public ActionResult Signout()
         {
             try

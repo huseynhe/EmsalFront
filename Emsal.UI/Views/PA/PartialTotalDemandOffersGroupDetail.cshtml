@@ -9,6 +9,7 @@
     string manat = "";
     int i=1;
     string connum = "";
+    int edv = 0;
 }
 
 <h4 class="text-danger text-center">
@@ -116,13 +117,23 @@
                 manat = "";
                 faiz = "";
                 connum = "";
+                edv = 0;
+
+                if (Model.productIdArray.Contains(itemo.productId))
+                {
+                    edv = 100;
+                }
+                else
+                {
+                    edv = 118;
+                }
 
                 if (itemo.contractTempList.Count() > 0)
                 {
                     Model.ContractDetailTemp = itemo.contractTempList.FirstOrDefault();
 
-                    manat = Custom.ConverPriceToStringDelZero((((Model.ContractDetailTemp.product_asc_price * 100) / 118) - Model.ContractDetailTemp.product_unit_price));
-                    faiz = Custom.ConverPriceToStringDelZero(((((Model.ContractDetailTemp.product_asc_price * 100) / 118) - Model.ContractDetailTemp.product_unit_price) * 100) / Model.ContractDetailTemp.product_unit_price);
+                    manat = Custom.ConverPriceToStringDelZero((((Model.ContractDetailTemp.product_asc_price * 100) / edv) - Model.ContractDetailTemp.product_unit_price));
+                    faiz = Custom.ConverPriceToStringDelZero(((((Model.ContractDetailTemp.product_asc_price * 100) / edv) - Model.ContractDetailTemp.product_unit_price) * 100) / Model.ContractDetailTemp.product_unit_price);
                 }
                 <tr>
                     <td class="col-md-1">
@@ -195,7 +206,7 @@
                         @faiz
                     </td>
                     <td class="col-md-1">
-                        @Custom.ConverPriceToStringDelZero(((Model.ContractDetailTemp.product_asc_price * 100) / 118))
+                        @Custom.ConverPriceToStringDelZero(((Model.ContractDetailTemp.product_asc_price * 100) / edv))
                     </td>
                     <td class="col-md-1">
                         @Custom.ConverPriceToStringDelZero(Model.ContractDetailTemp.product_asc_price)
@@ -213,7 +224,7 @@
                         @Custom.ConverPriceToStringDelZero(Model.ContractDetailTemp.product_total_price)
                     </td>
                     <td class="col-md-1">
-                        @Custom.ConverPriceToStringDelZero(((Model.ContractDetailTemp.product_total_price * 118) / 100))
+                        @Custom.ConverPriceToStringDelZero(((Model.ContractDetailTemp.product_total_price * edv) / 100))
                     </td>
                     <td class="col-md-1">
                         @itemo.roledesc

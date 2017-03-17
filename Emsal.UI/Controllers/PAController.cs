@@ -239,6 +239,7 @@ namespace Emsal.UI.Controllers
                         string contractNumber = "";
                         string faiz = "";
                         string manat = "";
+                        int edv = 0;
 
                         foreach (var item in modelOfferMonitoring.DemanProductionGroupList)
                         {
@@ -269,6 +270,16 @@ namespace Emsal.UI.Controllers
                                 orgName = "";
                                 manat = "";
                                 faiz = "";
+                                edv = 0;
+
+                                if (sproductIdArray.Contains(itemo.productId))
+                                {
+                                    edv = 100;
+                                }
+                                else
+                                {
+                                    edv = 118;
+                                }
 
                                 modelOfferMonitoring.ContractDetailTemp = new tblContractDetailTemp();
 
@@ -276,9 +287,9 @@ namespace Emsal.UI.Controllers
                                 {
                                     modelOfferMonitoring.ContractDetailTemp = itemo.contractTempList.FirstOrDefault();
 
-                                    manat = (((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / 118) - modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
+                                    manat = (((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / edv) - modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
 
-                                    faiz = (((((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / 118) - modelOfferMonitoring.ContractDetailTemp.product_unit_price) * 100) / modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
+                                    faiz = (((((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / edv) - modelOfferMonitoring.ContractDetailTemp.product_unit_price) * 100) / modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
                                 }
 
                                 sheet.Cells[rowIndex, col2++].Value = ri.ToString();
@@ -356,7 +367,7 @@ namespace Emsal.UI.Controllers
 
                                 if (modelOfferMonitoring.ContractDetailTemp.product_asc_price != null)
                                 {
-                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / 118));
+                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / edv));
                                     sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_asc_price);
                                 }
                                 else
@@ -381,7 +392,7 @@ namespace Emsal.UI.Controllers
                                 if (modelOfferMonitoring.ContractDetailTemp.product_total_price != null)
                                 {
                                     sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_total_price);
-                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_total_price * 118) / 100));
+                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_total_price * edv) / 100));
                                 }
                                 else
                                 {
@@ -644,6 +655,7 @@ namespace Emsal.UI.Controllers
                         string contractNumber = "";
                         string faiz = "";
                         string manat = "";
+                        int edv = 0;
 
                         var col2 = 0;
 
@@ -675,15 +687,26 @@ namespace Emsal.UI.Controllers
                                 orgName = "";
                                 manat = "";
                                 faiz = "";
+                                edv = 0;
+
+                                if (sproductIdArray.Contains(itemo.productId))
+                                {
+                                    edv = 100;
+                                }
+                                else
+                                {
+                                    edv = 118;
+                                }
+
                                 modelOfferMonitoring.ContractDetailTemp = new tblContractDetailTemp();
 
                                 if (itemo.contractTempList.Count() > 0)
                                 {
                                     modelOfferMonitoring.ContractDetailTemp = itemo.contractTempList.FirstOrDefault();
 
-                                    manat = (((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / 118) - modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
+                                    manat = (((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / edv) - modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
 
-                                    faiz = (((((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / 118) - modelOfferMonitoring.ContractDetailTemp.product_unit_price) * 100) / modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
+                                    faiz = (((((modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / edv) - modelOfferMonitoring.ContractDetailTemp.product_unit_price) * 100) / modelOfferMonitoring.ContractDetailTemp.product_unit_price).ToString();
                                 }
 
 
@@ -762,7 +785,7 @@ namespace Emsal.UI.Controllers
 
                                 if (modelOfferMonitoring.ContractDetailTemp.product_asc_price != null)
                                 {
-                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / 118));
+                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_asc_price * 100) / edv));
                                     sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_asc_price);
                                 }
                                 else
@@ -788,7 +811,7 @@ namespace Emsal.UI.Controllers
                                 if (modelOfferMonitoring.ContractDetailTemp.product_total_price != null)
                                 {
                                     sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)modelOfferMonitoring.ContractDetailTemp.product_total_price);
-                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_total_price * 118) / 100));
+                                    sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((((decimal)modelOfferMonitoring.ContractDetailTemp.product_total_price * edv) / 100));
                                 }
                                 else
                                 {
