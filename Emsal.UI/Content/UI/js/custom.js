@@ -49,6 +49,22 @@ function resetStaticVariables() {
 }
 $(document).ready(function () {
     resetStaticVariables();
+
+    $("#rootId").trigger("click");
+
+    $("a").tooltip();
+
+    GetDefaultSortIcon();
+
+    var href;
+    var curpathname = window.location.pathname;
+
+    jQuery('.main_menu').find('a').each(function () {
+        href = $(this).attr('href');
+        if (href == curpathname) {
+            $(this).addClass('active');
+        }
+    });
 });
 
 var ri = 0;
@@ -173,11 +189,6 @@ function AddProductCatalog() {
 }
 
 
-$(document).ready(function () {
-    $("a").tooltip();
-});
-
-
 var valu;
 var orid = 0;
 
@@ -193,7 +204,8 @@ function GetAdminUnit(elem) {
     orid = rId;
 
     valu = 0;
-    if (pId == '') {
+
+    if (pId == '' || pId=='-1') {
         var name = $(elem).attr('name');
         var i = name.substring(5, name.length - 1);
         var val = 0;
@@ -207,6 +219,9 @@ function GetAdminUnit(elem) {
         }
         pId = valu;
 
+        if (pId == 0) {
+            pId = -1;
+        }
     }
 
     //if (pId == "") {
@@ -266,20 +281,6 @@ function GetDefaultSortIcon() {
     $('.sortingpu').html('<span class="glyphicon glyphicon-sort pull-right"></span>');
 }
 
-
-$(document).ready(function () {
-    GetDefaultSortIcon();
-
-    var href;
-    var curpathname = window.location.pathname;
-
-    jQuery('.main_menu').find('a').each(function () {
-        href = $(this).attr('href');
-        if (href == curpathname) {
-            $(this).addClass('active');
-        }
-    });
-});
 
 function GetUserInfo(elem, sort) {
     GetDefaultSortIcon();
@@ -400,14 +401,17 @@ function GetProductCatalog(elem, pId) {
         $(elem).parent().find('.resp').html('');
     }
     else {
+        if (pId == -1) {
+            pId = 0;
+        }
         $.ajax({
             url: '/Home/ProductCatalog?pId=' + pId,
             type: 'GET',
             //data: { "pId": appId},
             success: function (result) {
-                if (result.length < 10) {
+                //if (result.length < 10) {
                     GetAnnouncement(pId);
-                }
+                //}
                 //$('.resp').html('');
                 $(elem).parent().parent().find('.resp').html(result);
             },
@@ -476,14 +480,17 @@ function GetHomeOffer(elem, pId) {
         $(elem).parent().find('.resp').html('');
     }
     else {
+        if (pId == -1) {
+            pId = 0;
+        }
         $.ajax({
             url: '/OfferHome/ProductCatalog?pId=' + pId,
             type: 'GET',
             //data: { "pId": appId},
             success: function (result) {
-                if (result.length < 10) {
+                //if (result.length < 10) {
                     GetOfferProduction(pId);
-                }
+                //}
                 //$('.resp').html('');
                 $(elem).parent().parent().find('.resp').html(result);
             },

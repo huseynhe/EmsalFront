@@ -65,8 +65,8 @@ namespace Emsal.UI.Controllers
 
                     modelOfferProduction.UserRole = modelOfferProduction.UserRoleArray.ToList().Where(x => x.RoleId == 15).FirstOrDefault();
 
-                    if (modelOfferProduction.UserRole != null)
-                        return RedirectToAction("Redirect", "Home");
+                    //if (modelOfferProduction.UserRole != null)
+                    //    return RedirectToAction("Redirect", "Home");
                 }
 
                 BaseOutput enumcat = srv.WS_GetEnumCategorysByName(baseInput, "shippingSchedule", out modelOfferProduction.EnumCategory);
@@ -1053,6 +1053,12 @@ namespace Emsal.UI.Controllers
                     return RedirectToAction("Index", "OfferProduction");
                 }
 
+                if (modelOfferProduction.OfferProduction.user_Id != modelOfferProduction.User.Id)
+                {
+                    return RedirectToAction("Index", "OfferProduction");
+                }
+
+
                 //if (modelOfferProduction.OfferProduction.grup_Id != null)
                 //{
                 //    return RedirectToAction("Index", "OfferProduction");
@@ -1136,6 +1142,11 @@ namespace Emsal.UI.Controllers
                 modelOfferProduction = new OfferProductionViewModel();
 
                 BaseOutput gpp = srv.WS_GetOffer_ProductionById(baseInput, model.Id, true, out modelOfferProduction.OfferProduction);
+
+                if (modelOfferProduction.OfferProduction.user_Id != model.User.Id)
+                {
+                    return RedirectToAction("Index", "OfferProduction");
+                }
 
                 modelOfferProduction.OfferProduction.description = model.description;
                 modelOfferProduction.OfferProduction.product_Id = model.productId;
@@ -1732,7 +1743,10 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput gpd = srv.WS_GetOffer_ProductionById(baseInput, id, true, out modelOfferProduction.OfferProduction);
 
-                BaseOutput dpd = srv.WS_DeleteOffer_Production(baseInput, modelOfferProduction.OfferProduction);
+                if (modelOfferProduction.OfferProduction.user_Id == modelOfferProduction.User.Id)
+                {
+                    BaseOutput dpd = srv.WS_DeleteOffer_Production(baseInput, modelOfferProduction.OfferProduction);
+                }               
 
             }
             catch (Exception ex)
@@ -1740,5 +1754,6 @@ namespace Emsal.UI.Controllers
                 TempData["Error"] = ex.Message + ex.Source + ex.StackTrace;
             }
         }
+
     }
 }

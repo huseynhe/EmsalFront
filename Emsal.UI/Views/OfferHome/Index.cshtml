@@ -30,7 +30,19 @@
                         <div class="categoria_left_header">
                             <h3 class="text-bold">AXTARIŞ</h3>
                         </div>
-                        @Html.Action("ProductCatalog", "OfferHome", new { pId = 0 })
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span>
+                                    <a id="rootId" style="cursor:pointer;" onclick="GetHomeOffer(this, -1)">
+                                        Bütün məhsullar
+                                    </a>
+                                    <input hidden value="0" class="lstatus" />
+                                    <span style="margin-left:0px;" class="resp"></span>
+                                </span>
+                            </li>
+                        </ul>
+
+                        @*@Html.Action("ProductCatalog", "OfferHome", new { pId = 0 })*@
                     </div>
                     <div class="col-md-9" style="padding:0;">                       
                             @Html.Action("OfferProduction", "OfferHome")
