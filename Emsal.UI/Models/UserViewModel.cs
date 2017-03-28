@@ -77,7 +77,7 @@ namespace Emsal.UI.Models
 
         [Required(ErrorMessage = "Ünvan xanası məcburidir.")]
         [Display(Name = "Ünvan")]
-        [RegularExpression(@"^[a-zA-Z0-9-ƏəÜüĞğÖöIıÇçŞşİi \, \. \\ \ ]+$", ErrorMessage = "Yanlış {0}.")]
+        [RegularExpression(@"^[a-zA-Z0-9-ƏəÜüĞğÖöIıÇçŞşİi \, \. \\ \ \“ \” \/ \ \) \(""]+$", ErrorMessage = "Yanlış {0}.")]
         public string descAddress { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "{0} xanası məcburidir.")]
@@ -102,7 +102,7 @@ namespace Emsal.UI.Models
 
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         [Display(Name = "Hüquqi şəxsin adı")]
-        [RegularExpression(@"^[a-zA-Z0-9-ƏəÜüĞğÖöIıÇçŞşİi \, \. \\ \ \ \) \(""]+$", ErrorMessage = "Yanlış {0}.")]
+        [RegularExpression(@"^[a-zA-Z0-9-ƏəÜüĞğÖöIıÇçŞşİi \, \. \\ \ \“ \” \/ \ \) \(""]+$", ErrorMessage = "Yanlış {0}.")]
         public string legalPersonName { get; set; }
 
         public long ComMessageId { get; set; }
