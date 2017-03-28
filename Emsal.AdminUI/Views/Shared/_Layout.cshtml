@@ -23,6 +23,7 @@
     <script src="~/Content/js/jquery.js"></script>
     <script src="~/Content/js/jQuery-2.2.0.min.js"></script>
 
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -236,6 +237,7 @@
                     <li class="header">KEÇİDLƏR</li>
                     @if (Session["rolId"] == null)
                     {
+                        Session["rolId"] = "";
                         Response.Redirect("~/AdminLogin");
                     }
                     @if (Session["rolId"].ToString().Contains("/19/"))
