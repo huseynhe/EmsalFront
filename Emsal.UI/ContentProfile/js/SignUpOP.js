@@ -131,7 +131,9 @@ function check() {
                     $("#FatherName").val(result.data.Person.FatherName);
                     $('#gender').val(result.data.Person.gender).change();
                     $("#descAddress").val(result.data.descAddress);
-                    $("#birtday").val(result.data.birtday);
+                    if (result.data.birtday != null) {
+                        $("#birtday").val(result.data.birtday);
+                    }
 
                     if (result.data.profilePicture != null) {
                         document.getElementById("picture").style.display = "block";
@@ -178,7 +180,9 @@ function check() {
                     $('#formBody').show();
                 }
                 else {
-                    $("#birtday").val(result.data.birtday);
+                    if (result.data.birtday != null) {
+                        $("#birtday").val(result.data.birtday);
+                    }
 
                     $("#Name").attr('readonly', false);
                     $("#Surname").attr('readonly', false);
@@ -362,7 +366,7 @@ function SaveChanges() {
 
     if ($('#signUpDiv').validate().form()) {
 
-        if (ri == 0) {
+        //if (ri == 0) {
 
             ri = 1;
             $.ajax({
@@ -396,7 +400,7 @@ function SaveChanges() {
 
                 }
             });
-        }
+        //}
         //alert("Submit");
     }
 
