@@ -216,16 +216,21 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult Announcement(int? page, int productId = 0, string form = null)
+        public ActionResult Announcement(int? page, int productId = -1, string form = null)
         {
             try
             {
                 baseInput = new BaseInput();
                 string partial = "";
 
-                if (productId == 0)
+                if (productId == -1)
                 {
                     sform = form;
+                }
+
+                if (productId == -1)
+                {
+                    productId = 0;
                 }
 
                 int pageSize = 36;

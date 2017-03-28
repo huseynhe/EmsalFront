@@ -21,8 +21,8 @@
         <div id="mainf">
 
             <h4>Məhsulun mənşəyini seçin</h4>
-            <div class="row">
-                @Html.Action("ProductOrigin", "OfferProduction", new { selectedPOriginId = Model.productOriginId})
+            <div class="row" id="ProductOriginMD">
+                @Html.Action("ProductOrigin", "OfferProduction", new { selectedPOriginId = Model.productOriginId, originStatus = Model.originStatus })
             </div>
 
             <h4>Məhsulun çatdırılacağı ünvan</h4>

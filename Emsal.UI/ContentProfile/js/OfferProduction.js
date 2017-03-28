@@ -227,6 +227,40 @@ function getSelectedDocuments() {
     });
 }
 
+
+$(document).ready(function () {
+
+    $("label.productType").on("click", function () {
+
+        var originStatus = 0;
+
+        if ($(this).find('input').val() == '1') {
+            originStatus = 1;
+        }
+
+        getProductOrigin(originStatus);
+
+
+    });
+
+});
+
+
+function getProductOrigin(originStatus) {
+
+    $.ajax({
+        url: '/OfferProduction/ProductOrigin?originStatus=' + originStatus,
+        type: 'GET',
+        data: {},
+        success: function (result) {
+            $('#ProductOriginMD').html(result);
+        },
+        error: function () {
+
+        }
+    });
+}
+
 function getChooseFileTemplate(pIdn) {
     pId = pIdn;
 

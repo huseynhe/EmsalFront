@@ -22,6 +22,7 @@ namespace Emsal.UI.Controllers
         private static string fullAddressId = "";
         private BaseInput baseInput;
         private static IList<long> soldPID;
+        private static int soriginStatus;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
         // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
@@ -55,18 +56,24 @@ namespace Emsal.UI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelOfferProduction.User);
                 baseInput.userName = modelOfferProduction.User.Username;
 
+                BaseOutput userRolId = srv.WS_GetUserRolesByUserId(baseInput, (long)userId, true, out modelOfferProduction.UserRoleArray);
+
                 if (ppId > 0)
                 {
                     modelOfferProduction.ppId = ppId;
                 }
                 else
                 {
-                    BaseOutput userRolId = srv.WS_GetUserRolesByUserId(baseInput, (long)userId, true, out modelOfferProduction.UserRoleArray);
-
                     modelOfferProduction.UserRole = modelOfferProduction.UserRoleArray.ToList().Where(x => x.RoleId == 15).FirstOrDefault();
 
                     //if (modelOfferProduction.UserRole != null)
                     //    return RedirectToAction("Redirect", "Home");
+                }
+
+                modelOfferProduction.UserRole = modelOfferProduction.UserRoleArray.ToList().Where(x => x.RoleId == 24).FirstOrDefault();
+                if (modelOfferProduction.UserRole != null)
+                {
+                    modelOfferProduction.originStatus = 1;
                 }
 
                 BaseOutput enumcat = srv.WS_GetEnumCategorysByName(baseInput, "shippingSchedule", out modelOfferProduction.EnumCategory);
@@ -123,7 +130,7 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult ProductOrigin(long selectedPOriginId = 0)
+        public ActionResult ProductOrigin(long selectedPOriginId = 0, int originStatus = -1)
         {
             try
             {
@@ -153,13 +160,23 @@ namespace Emsal.UI.Controllers
                 }
 
 
-                BaseOutput userRole = srv.WS_GetUserRolesByUserId(baseInput, modelOfferProduction.User.Id, true, out modelOfferProduction.UserRoleArray);
-                modelOfferProduction.UserRole = modelOfferProduction.UserRoleArray.FirstOrDefault();
-
-                if (modelOfferProduction.UserRole.RoleId == 15 || modelOfferProduction.UserRole.RoleId == 24)
+                if (selectedPOriginId == 0 || originStatus == -1)
                 {
-                    modelOfferProduction.originStatus = 1;
+                    soriginStatus = 0;
                 }
+
+                if (originStatus >= 0)
+                {
+                    soriginStatus = originStatus;
+                }
+
+                //BaseOutput userRole = srv.WS_GetUserRolesByUserId(baseInput, modelOfferProduction.User.Id, true, out modelOfferProduction.UserRoleArray);
+                //modelOfferProduction.UserRole = modelOfferProduction.UserRoleArray.FirstOrDefault();
+
+                //if (modelOfferProduction.UserRole.RoleId == 15 || modelOfferProduction.UserRole.RoleId == 24)
+                //{
+                modelOfferProduction.originStatus = soriginStatus;
+                //}
 
                 return View(modelOfferProduction);
 
@@ -1059,6 +1076,15 @@ namespace Emsal.UI.Controllers
                 }
 
 
+                BaseOutput userRolId = srv.WS_GetUserRolesByUserId(baseInput, modelOfferProduction.User.Id, true, out modelOfferProduction.UserRoleArray);
+
+                modelOfferProduction.UserRole = modelOfferProduction.UserRoleArray.ToList().Where(x => x.RoleId == 24).FirstOrDefault();
+                if (modelOfferProduction.UserRole != null)
+                {
+                    modelOfferProduction.originStatus = 1;
+                }
+
+
                 //if (modelOfferProduction.OfferProduction.grup_Id != null)
                 //{
                 //    return RedirectToAction("Index", "OfferProduction");
@@ -1311,7 +1337,7 @@ namespace Emsal.UI.Controllers
                         }
                         else
                         {
-                            BaseOutput pcb = srv.WS_GetProductionControlsByOfferProductionId(baseInput, modelOfferProduction.OfferProduction.Id,true, out modelOfferProduction.ProductionControlArray);
+                            BaseOutput pcb = srv.WS_GetProductionControlsByOfferProductionId(baseInput, modelOfferProduction.OfferProduction.Id, true, out modelOfferProduction.ProductionControlArray);
 
                             modelOfferProduction.ProductionControlList = modelOfferProduction.ProductionControlArray.ToList();
 
@@ -1746,7 +1772,7 @@ namespace Emsal.UI.Controllers
                 if (modelOfferProduction.OfferProduction.user_Id == modelOfferProduction.User.Id)
                 {
                     BaseOutput dpd = srv.WS_DeleteOffer_Production(baseInput, modelOfferProduction.OfferProduction);
-                }               
+                }
 
             }
             catch (Exception ex)
