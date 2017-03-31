@@ -28,6 +28,7 @@ namespace Emsal.UI.Models
         public List<string> fileTypesPDF = FileExtension.fileMimeTypesPDF;
 
         public tblUser User;
+        public tblUser PUser;
 
         public tblOffer_Production OfferProduction;
         public IList<tblOffer_Production> OfferProductionList { get; set; }
@@ -71,6 +72,11 @@ namespace Emsal.UI.Models
 
         public OfferProductionDetailSearch OfferProductionDetailSearch;
         public OfferProductionDetailSearch1 OfferProductionDetailSearch1;
+
+        public PotensialUserForAdminUnitIdList PotensialUserForAdminUnitIdList;
+
+        public IList<UserInfo> UserInfoList { get; set; }
+        public UserInfo[] UserInfoArray;
 
         public tblEnumValue EnumValue;
         public tblEnumValue EnumValueST;
@@ -185,6 +191,10 @@ namespace Emsal.UI.Models
         [Display(Name = "Bildiriş")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         public string message { get; set; }
+
+        [Display(Name = "Qeyd")]
+        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        public string noteForPotentialUser { get; set; }
 
         [Display(Name = "Qiyməti (bir ölçü vahidinə düşən) (AZN-lə)")]
         [Required(ErrorMessage = "{0} xanası məcburidir.")]

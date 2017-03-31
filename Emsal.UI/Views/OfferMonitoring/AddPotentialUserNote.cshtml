@@ -1,0 +1,39 @@
+﻿@model Emsal.UI.Models.OfferMonitoringViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+<h2>&nbsp;</h2>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                @*<h3 class="box-title">----</h3>*@
+            </div>
+            @using (Html.BeginForm("AddPotentialUserNote", "OfferMonitoring", FormMethod.Post,
+                                         new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="clear-both"></div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.userId)
+
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.noteForPotentialUser, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextAreaFor(model => model.noteForPotentialUser, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.noteForPotentialUser, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <input type="submit" value="Təsdiqləyin" class="btn btn-primary active" style="float:right;" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<br />
+

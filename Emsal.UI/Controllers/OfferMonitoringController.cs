@@ -1124,5 +1124,149 @@ namespace Emsal.UI.Controllers
             }
         }
 
+
+
+        public ActionResult PotentialUser(int? page, string userInfo = null)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+                modelOfferMonitoring = new OfferMonitoringViewModel();
+
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferMonitoring.User);
+                baseInput.userName = modelOfferMonitoring.User.Username;
+
+
+                if (userInfo != null)
+                    userInfo = StripTag.strSqlBlocker(userInfo.ToLower());
+
+                if (userInfo == null)
+                {
+                    suserInfo = null;
+                }
+                
+                if (userInfo != null)
+                    suserInfo = userInfo;
+
+                int pageSize = 30;
+                int pageNumber = (page ?? 1);
+
+                modelOfferMonitoring.PotensialUserForAdminUnitIdList = new PotensialUserForAdminUnitIdList();
+                modelOfferMonitoring.PotensialUserForAdminUnitIdList.page = pageNumber;
+                modelOfferMonitoring.PotensialUserForAdminUnitIdList.pageSize = pageSize;
+                
+                modelOfferMonitoring.PotensialUserForAdminUnitIdList.name = suserInfo;
+
+
+                BaseOutput ui = srv.WS_GetPotensialUserList_OP(baseInput, modelOfferMonitoring.PotensialUserForAdminUnitIdList, out modelOfferMonitoring.UserInfoArray);
+
+
+                if (modelOfferMonitoring.UserInfoArray != null)
+                {
+                    modelOfferMonitoring.UserInfoList = modelOfferMonitoring.UserInfoArray.ToList();
+                }
+                else
+                {
+                    modelOfferMonitoring.UserInfoList = new List<UserInfo>();
+                }
+
+                modelOfferMonitoring.userInfo = suserInfo;
+
+                BaseOutput gdpc = srv.WS_GetPotensialUserList_OPC(baseInput, modelOfferMonitoring.PotensialUserForAdminUnitIdList, out modelOfferMonitoring.itemCount, out modelOfferMonitoring.itemCountB);
+
+                long[] aic = new long[modelOfferMonitoring.itemCount];
+
+                modelOfferMonitoring.PagingT = aic.ToPagedList(pageNumber, pageSize);
+
+                return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("PartialPotentialUser", modelOfferMonitoring)
+                    : View(modelOfferMonitoring);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+
+        public ActionResult AddPotentialUserNote(long puserId)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+                modelOfferMonitoring = new OfferMonitoringViewModel();
+
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelOfferMonitoring.User);
+                baseInput.userName = modelOfferMonitoring.User.Username;
+
+
+                BaseOutput puser = srv.WS_GetUserById(baseInput, puserId, true, out modelOfferMonitoring.PUser);
+
+                modelOfferMonitoring.noteForPotentialUser = modelOfferMonitoring.PUser.Username;
+
+                return View(modelOfferMonitoring);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
+
+        [HttpPost]
+        public ActionResult AddPotentialUserNote(OfferMonitoringViewModel model, FormCollection collection)
+        {
+            try
+            {
+                baseInput = new BaseInput();
+
+                model.ConfirmationMessage = new tblConfirmationMessage();
+
+                long? UserId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        UserId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out model.User);
+                baseInput.userName = model.User.Username;
+
+                var pu = model.noteForPotentialUser;
+
+                return RedirectToAction("PotentialUser", "OfferMonitoring");
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
     }
 }

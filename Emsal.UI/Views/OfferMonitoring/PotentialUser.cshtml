@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "PotentialUser";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+<script src="~/ContentProfile/js/Monitoring.js"></script>
+<br />
+<div class="bs-callout bs-callout-info" style="float: left;">
+    <h4>
+        <i class="glyphicon glyphicon-info-sign"></i>
+        <span>POTENSİAL İSTEHSALÇILAR</span>
+    </h4>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+
+                <table class="table table-hover table-striped table-bordered" style="margin:0;">
+                    <tbody>
+                        <tr>
+                            <td class="col-sm-4 text-black text-bold">
+                                <div style="float:left;width:90%;">Soyad, ad (hüquqi şəxsin adı)</div><div style="cursor:pointer;float:right;" onclick="GetUserInfo(this,'name')" class="sortingpu"></div>
+                                <br />
+                                @*<input onkeyup="UserInfoSearch(this, 'name')" class="form-control" placeholder="axtar" />*@
+
+                                <input onkeyup="StatisticsSearch(this,'OfferMonitoring','PotentialUser', 'userInfo')" class="form-control" placeholder="axtar" />
+
+                            </td>
+                            <td class="col-sm-1 text-center text-black text-bold">Qeyd əlavə et</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div id="AjaxPaginationList">
+                    @Html.Partial("PartialPotentialUser")
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/ContentProfile/js/pagedList.js"></script>
