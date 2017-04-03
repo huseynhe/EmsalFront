@@ -21,15 +21,15 @@
     <tbody>
         @foreach (var item in Model.UserInfoList)
         {
-            var sd = item.fullAddress.Split(',').ToArray();
-            if (sd.Length > 1)
-            {
-                item.adminUnitName = sd[1];
-            }
-            else
-            {
-                item.adminUnitName = sd[0];
-            }
+            //var sd = item.fullAddress.Split(',').ToArray();
+            //if (sd.Length > 1)
+            //{
+            //    item.adminUnitName = sd[1];
+            //}
+            //else
+            //{
+            //    item.adminUnitName = sd[0];
+            //}
 
             if (item.pinNumber != "")
             {
@@ -44,7 +44,8 @@
 
             <tr onclick="location.href = '@link'" style="cursor:pointer;" class="tr">
                 <td class="col-sm-4 text-black">@item.name</td>
-                <td class="col-sm-2 text-black">@item.adminUnitName</td>
+                <td class="col-sm-2 text-black">@item.adminUnitName
+                </td>
                 <td class="col-sm-5 text-black">@item.parentAdminUnitName</td>
                 <td class="col-sm-1 text-center">
                        <span class="@icon text-primary"></span>
