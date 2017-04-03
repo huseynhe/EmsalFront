@@ -5,6 +5,9 @@
 @{
     ViewBag.Title = "Index";
     Layout = "";
+
+    string oregName = "";
+    string regName = "";
 }
 <h4 class="text-danger text-center">
     <a href="/DemandProduction/TotalDemandOffersn?productId=@Model.productId&userType=@Model.userType&fin=@Model.fin&voen=@Model.voen&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
@@ -20,67 +23,43 @@
         </div>
         <table class="table table-hover table-striped table-bordered">
             <tbody>
-                @foreach (var item in Model.DemanProductionGroupList)
+                @foreach (var item in Model.DemandDetailList)
                 {
-                    foreach (var itemo in item.offerProductsList)
+                    regName = item.regionName;
+
+                    if (regName != oregName)
                     {
                         <tr>
-                            <td class="col-md-1">
-                                @item.productParentName
-                            </td>
-                            <td class="col-md-1">
-                                @item.productName
-                            </td>
-                            <td class="col-md-1">
-                                @Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity)
-                            </td>
-                            <td class="col-md-1">
-                                @item.enumValueName
-                            </td>
-                            <td class="col-md-1">
-                                @Custom.ConverPriceToStringDelZero((decimal)item.unitPrice)
-                            </td>
-                            <td class="col-md-1">
-                                @Custom.ConverPriceToStringDelZero((decimal)item.totalQuantityPrice)
-                            </td>
-                            <td class="col-md-1">
-                                @if (!string.IsNullOrEmpty(itemo.voen.Trim()))
-                                {
-                                    <span>@itemo.organizationName</span>
-                                }
-                                else
-                                {
-                                <span>@itemo.personName @itemo.surname @itemo.fatherName</span>
-                                }
-                            </td>
-                            <td class="col-md-1">
-                                @if (!string.IsNullOrEmpty(itemo.pinNumber.Trim()))
-                                {
-                                    <b>FİN: </b>@itemo.pinNumber
-                                    <div class="clearfix"></div>
-                                }
-                                @if (!string.IsNullOrEmpty(itemo.voen.Trim()))
-                                {
-                                    <b>VÖEN: </b>@itemo.voen
-                                }
-                            </td>
-                            <td class="col-md-1">
-                                @Custom.ConverPriceToStringDelZero((decimal)itemo.totalQuantityPrice)
-                            </td>
-                            <td class="col-md-1">
-                                @Custom.ConverPriceToStringDelZero((decimal)itemo.quantity)
-                            </td>
-                            <td class="col-md-1">
-                                @itemo.personName @itemo.surname @itemo.fatherName
-                            </td>
-                            <td class="col-md-1">
-                                @string.Join(", ", itemo.comList.Select(x => x.communication).LastOrDefault())
-                            </td>
-                            <td class="col-md-1">
-                                @itemo.roledesc
+                            <td colspan="7" class="text-center text-bold">
+                                @regName
                             </td>
                         </tr>
                     }
+
+                        <tr>
+                            <td class="col-md-1">
+                                @item.parentName (@item.productName)
+                            </td>
+                            <td class="col-md-1">
+                                @Custom.ConverPriceToStringDelZero((decimal)item.totalQuantity) @item.kategoryName
+                            </td>
+                            <td class="col-md-1">
+                                @Custom.ConverPriceToStringDelZero((decimal)item.unit_price)
+                            </td>
+                            <td class="col-md-1">
+                                @Custom.ConverPriceToStringDelZero((decimal)item.totalPrice)
+                            </td>
+                            <td class="col-md-1">
+                                @Custom.ConverPriceToStringDelZero((decimal)item.offerList.Where(x=>x.roleId==15).Sum(x=>x.totalQuantity))
+                            </td>
+                            <td class="col-md-1">
+                               @Custom.ConverPriceToStringDelZero((decimal)item.offerList.Where(x => x.roleId == 11).Sum(x => x.totalQuantity))
+                            </td>
+                            <td class="col-md-1">
+                                @Custom.ConverPriceToStringDelZero((decimal)item.offerList.Where(x => x.roleId == 15 || x.roleId==11).Sum(x => x.totalQuantity))
+                            </td>
+                        </tr>
+                    oregName = regName;
                 }
             </tbody>
         </table>

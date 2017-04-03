@@ -55,6 +55,10 @@ namespace Emsal.AdminUI.Models
         public IList<DemandOfferDetail> DemandOfferDetailList { get; set; }
         public DemandOfferDetail[] DemandOfferDetailArray;
 
+        public DemandDetail DemandDetail;
+        public IList<DemandDetail> DemandDetailList { get; set; }
+        public DemandDetail[] DemandDetailArray;
+
         public ForeignOrganization ForeignOrganization;
         public IList<ForeignOrganization> ForeignOrganizationList { get; set; }
         public ForeignOrganization[] ForeignOrganizationArray;

@@ -989,7 +989,7 @@ namespace Emsal.AdminUI.Controllers
                 if (excell == true)
                 {
                     pageNumber = 1;
-                    pageSize = 1000000;
+                    pageSize = 100;
                 }
 
                 modelDemandProduction.DemandOfferProductsSearch = new DemandOfferProductsSearch();
@@ -1002,19 +1002,19 @@ namespace Emsal.AdminUI.Controllers
                 modelDemandProduction.DemandOfferProductsSearch.pinNumber = sfin;
                 modelDemandProduction.DemandOfferProductsSearch.voen = svoen;
 
-                BaseOutput gpp = srv.WS_GetTotalDemandOffers(baseInput, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.DemanProductionGroupArray);
+                BaseOutput gpp = srv.WS_GetTotalDemandOffersRegion(baseInput, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.DemandDetailArray);
 
 
-                if (modelDemandProduction.DemanProductionGroupArray == null)
+                if (modelDemandProduction.DemandDetailArray == null)
                 {
-                    modelDemandProduction.DemanProductionGroupList = new List<DemanProductionGroup>();
+                    modelDemandProduction.DemandDetailList = new List<DemandDetail>();
                 }
                 else
                 {
-                    modelDemandProduction.DemanProductionGroupList = modelDemandProduction.DemanProductionGroupArray.ToList();
+                    modelDemandProduction.DemandDetailList = modelDemandProduction.DemandDetailArray.ToList();
                 }
 
-                BaseOutput gdpc = srv.WS_GetTotalDemandOffers_OPC(baseInput, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
+                BaseOutput gdpc = srv.WS_GetTotalDemandOffersRegion_OPC(baseInput, modelDemandProduction.DemandOfferProductsSearch, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
 
                 long[] aic = new long[modelDemandProduction.itemCount];
 
@@ -1040,32 +1040,43 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Row(1).Style.Font.Size = 14;
                         sheet.Row(1).Style.Font.Bold = true;
                         sheet.Row(1).Style.WrapText = true;
-                        sheet.Cells[1, 1, 1, 16].Merge = true;
+                        sheet.Cells[1, 1, 1, 9].Merge = true;
                         sheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         sheet.Row(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
                         col = 1;
+                        sheet.Cells[2, col,3,col].Merge = true;
                         sheet.Cells[2, col++].Value = "S/N";
-                        sheet.Cells[2, col++].Value = "Ərzaq məhsullarının adı";
-                        sheet.Cells[2, col++].Value = "Ərzaq məhsullarının adı və növü";
-                        sheet.Cells[2, col++].Value = "Tələbatın həcmi (miqdar)";
-                        sheet.Cells[2, col++].Value = "Ölçü vahidi";
-                        sheet.Cells[2, col++].Value = "Qiymət (AZN)";
-                        sheet.Cells[2, col++].Value = "Cəmi (Manatla)";
-                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçının adı";
-                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçının VÖEN-i";
-                        sheet.Cells[2, col++].Value = "Malın təklif edilən qiyməti";
-                        sheet.Cells[2, col++].Value = "Malın həcmi (miqdarı)";
-                        sheet.Cells[2, col++].Value = "Ümumi dəyər (manatla)";
-                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçının nümayəndəsinin adı";
-                        sheet.Cells[2, col++].Value = "Satıcı və ya istehsalçının nümayəndəsinin əlaqə vasitəsi";
-                        sheet.Cells[2, col++].Value = "Tədarükçünün növü (istehsalçı, satıcı və ya idxalçı)";
-                        sheet.Cells[2, col++].Value = "Tədarükçünün hansı növ vergi ödəyicisi olması (ƏDV, sadələşdirilmiş K/T məhsulu istehsalçısı)";
+                        sheet.Cells[2, col, 3, col].Merge = true;
+                        sheet.Cells[2, col++].Value = "Məhsulun adı";
+                        sheet.Cells[2, col, 3, col].Merge = true;
+                        sheet.Cells[2, col++].Value = "Tələbat (Cəmi)";
+                        sheet.Cells[2, col, 3, col].Merge = true;
+                        sheet.Cells[2, col++].Value = "Vahidi";
+                        sheet.Cells[2, col, 3, col].Merge = true;
+                        sheet.Cells[2, col++].Value = "Tələbat (AZN)-vahid";
+                        sheet.Cells[2, col, 3, col].Merge = true;
+                        sheet.Cells[2, col++].Value = "Tələbat (AZN) cəmi";
+
+                        sheet.Cells[2, col, 2, (col+3)].Merge = true;
+                        sheet.Cells[2, col++].Value = "Tələbat (AZN) cəmi";
+
+                        col--;
+                        sheet.Cells[3, col++].Value = "Potensial istehsalçı";
+                        sheet.Cells[3, col++].Value = "İdaxlçı";
+                        sheet.Cells[3, col++].Value = "Cəmi";
+
 
                         sheet.Row(2).Style.Font.Bold = true;
                         sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                        sheet.Cells[2, 1, 2, 16].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                        sheet.Cells[2, 1, 2, 16].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+                        sheet.Cells[2, 1, 3, 7].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        sheet.Cells[2, 1, 3, 7].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
+                        sheet.Row(3).Style.Font.Bold = true;
+                        sheet.Row(3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                        sheet.Row(2).Height = 25;
+                        sheet.Row(3).Height = 20;
 
                         sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
@@ -1076,109 +1087,58 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Column(5).Width = 20;
                         sheet.Column(6).Width = 20;
                         sheet.Column(7).Width = 20;
-                        sheet.Column(8).Width = 30;
+                        sheet.Column(8).Width = 20;
                         sheet.Column(9).Width = 20;
-                        sheet.Column(10).Width = 20;
-                        sheet.Column(11).Width = 20;
-                        sheet.Column(12).Width = 20;
-                        sheet.Column(13).Width = 30;
-                        sheet.Column(14).Width = 20;
-                        sheet.Column(15).Width = 20;
-                        sheet.Column(16).Width = 20;
 
-                        int rowIndex = 3;
+                        int rowIndex = 4;
                         var ri = 1;
+                        string regName = "";
+                        string oregName = "";
 
-                        foreach (var item in modelDemandProduction.DemanProductionGroupList)
+                        foreach (var item in modelDemandProduction.DemandDetailList)
                         {
-                            foreach (var itemo in item.offerProductsList)
+                            var col2 = 1;
+
+                            regName = item.regionName;
+
+                            if (regName != oregName)
                             {
-                                var col2 = 1;
+                                sheet.Cells[rowIndex, 1, rowIndex, 4].Merge = true;
 
-                                sheet.Cells[rowIndex, col2++].Value = ri.ToString();
-                                sheet.Cells[rowIndex, col2++].Value = item.productParentName;
-                                sheet.Cells[rowIndex, col2++].Value = item.productName;
-                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalQuantity);
+                                sheet.Cells[rowIndex, 1].Value = regName;
 
-                                //NumberFormatInfo nfi = new CultureInfo("az-Latn-AZ").NumberFormat;
+                                sheet.Cells[rowIndex, 1, rowIndex, 9].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                sheet.Cells[rowIndex, 1, rowIndex, 9].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
 
-                                //nfi.NumberGroupSeparator = " ";
-                                //sheet.Cells[rowIndex, col2++].Value = double.Parse("23 232 323.54", nfi);
-
-
-                                //sheet.Cells[rowIndex, col2++].Value = decimal.Parse("5 454 500.85", new NumberFormatInfo() { NumberGroupSeparator = " " });
-
-                                //sheet.Cells[rowIndex, col2++].Value = "5 454 500.85";                               
-
-
-                                sheet.Cells[rowIndex, col2++].Value = item.enumValueName;
-                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unitPrice);
-                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalQuantityPrice);
-
-                                if (!string.IsNullOrEmpty(itemo.voen.Trim()))
-                                {
-                                    sheet.Cells[rowIndex, col2++].Value = itemo.organizationName;
-                                }
-                                else
-                                {
-                                    sheet.Cells[rowIndex, col2++].Value = itemo.personName + " " + itemo.surname + " " + itemo.fatherName;
-                                }
-
-
-                                sheet.Cells[rowIndex, col2++].IsRichText = true;
-                                col2--;
-                                ExcelRichTextCollection rtfCollection = sheet.Cells[rowIndex, col2++].RichText;
-                                ExcelRichText ert;
-
-                                if (!string.IsNullOrEmpty(itemo.pinNumber.Trim()))
-                                {
-                                    ert = rtfCollection.Add("FİN: ");
-                                    ert.Bold = true;
-                                    ert = rtfCollection.Add(itemo.pinNumber);
-                                    ert.Bold = false;
-                                }
-
-                                if (!string.IsNullOrEmpty(itemo.voen.Trim()))
-                                {
-                                    if (!string.IsNullOrEmpty(itemo.pinNumber.Trim()))
-                                    {
-                                        ert = rtfCollection.Add("\n");
-                                        ert.Bold = false;
-                                    }
-
-                                    ert = rtfCollection.Add("VÖEN: ");
-                                    ert.Bold = true;
-                                    ert = rtfCollection.Add(itemo.voen);
-                                    ert.Bold = false;
-                                }
-
-                                sheet.Cells[rowIndex, col2++].Value = "";
-                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)itemo.quantity);
-                                sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)itemo.totalQuantityPrice);
-
-                                sheet.Cells[rowIndex, col2++].Value = itemo.personName + " " + itemo.surname + " " + itemo.fatherName;
-
-                                sheet.Cells[rowIndex, col2++].Value = string.Join(", ", itemo.comList.Select(x => x.communication).LastOrDefault());
-                                sheet.Cells[rowIndex, col2++].Value = itemo.roledesc;
-
-                                sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-
-                                //sheet.Row(rowIndex).Style.Numberformat.Format = "0:#,##0.000000";
-
-                                sheet.Cells[rowIndex, 8, rowIndex, 16].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                sheet.Cells[rowIndex, 8, rowIndex, 16].Style.Fill.BackgroundColor.SetColor(Color.Yellow);
-
+                                sheet.Row(rowIndex).Height = 40;
                                 rowIndex++;
-                                ri++;
                             }
+
+                            sheet.Cells[rowIndex, col2++].Value = ri.ToString();
+                            sheet.Cells[rowIndex, col2++].Value = item.parentName + " (" + item.productName + ")";
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalQuantity);
+                            sheet.Cells[rowIndex, col2++].Value = item.kategoryName;
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.unit_price);
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.totalPrice);
+
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.offerList.Where(x => x.roleId == 15).Sum(x => x.totalQuantity));
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.offerList.Where(x => x.roleId == 11).Sum(x => x.totalQuantity));
+                            sheet.Cells[rowIndex, col2++].Value = Custom.ConverPriceDelZero((decimal)item.offerList.Where(x => x.roleId == 15 || x.roleId == 11).Sum(x => x.totalQuantity));
+
+
+                            sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                            rowIndex++;
+                            ri++;
+                            oregName = regName;
                         }
 
-                        sheet.Cells[1, 1, rowIndex - 1, 16].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 16].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 16].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 16].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                        sheet.Cells[1, 1, rowIndex - 1, 16].Style.WrapText = true;
-                        sheet.Cells[1, 1, rowIndex - 1, 16].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.WrapText = true;
+                        sheet.Cells[1, 1, rowIndex - 1, 9].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
                         string fileName = Guid.NewGuid() + ".xls";
 
@@ -1274,8 +1234,8 @@ namespace Emsal.AdminUI.Controllers
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.page = pageNumber;
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.pageSize = pageSize;
                 modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.prodcutID = sproductId;
-                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.startDate= (Convert.ToDateTime(sstartDate)).getInt64ShortDate();
-                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.endate= (Convert.ToDateTime(sendDate)).getInt64ShortDate();
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.startDate = (Convert.ToDateTime(sstartDate)).getInt64ShortDate();
+                modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch.endate = (Convert.ToDateTime(sendDate)).getInt64ShortDate();
 
                 BaseOutput gpp = srv.WS_GetDemandProductDetailInfoForAccounting_OP(baseInput, modelDemandProduction.GetDemandProductionDetailistForEValueIdSearch, year, true, rub, true, out modelDemandProduction.ProductionDetailArray);
 
@@ -1651,7 +1611,7 @@ namespace Emsal.AdminUI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
                 baseInput.userName = modelDemandProduction.Admin.Username;
 
-                BaseOutput gpp = srv.WS_GetDemandOfferProductionTotal(baseInput, saddressId, true, out modelDemandProduction.DemandOfferDetailArray);
+                BaseOutput gpp = srv.WS_GetDemandOfferProductionTotal(baseInput, saddressId, true, (Convert.ToDateTime(sstartDate)).getInt64ShortDate(), true, (Convert.ToDateTime(sendDate)).getInt64ShortDate(), true, out modelDemandProduction.DemandOfferDetailArray);
 
                 if (modelDemandProduction.DemandOfferDetailArray == null)
                 {
@@ -1875,7 +1835,7 @@ namespace Emsal.AdminUI.Controllers
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out modelDemandProduction.Admin);
                 baseInput.userName = modelDemandProduction.Admin.Username;
 
-                BaseOutput gpp = srv.WS_GetDemandOfferProductionTotal(baseInput, saddressId, true, out modelDemandProduction.DemandOfferDetailArray);
+                BaseOutput gpp = srv.WS_GetDemandOfferProductionTotal(baseInput, saddressId, true, (Convert.ToDateTime(sstartDate)).getInt64ShortDate(), true, (Convert.ToDateTime(sendDate)).getInt64ShortDate(), true, out modelDemandProduction.DemandOfferDetailArray);
 
                 if (modelDemandProduction.DemandOfferDetailArray == null)
                 {
@@ -2094,7 +2054,7 @@ namespace Emsal.AdminUI.Controllers
 
                 }
 
-                BaseOutput gpp = srv.WS_GetDemandProductionAmountOfEachProduct(baseInput, (Convert.ToDateTime(sstartDate)).getInt64ShortDate(),true, (Convert.ToDateTime(sendDate)).getInt64ShortDate(), true, out modelDemandProduction.DemandOfferDetailArray);
+                BaseOutput gpp = srv.WS_GetDemandProductionAmountOfEachProduct(baseInput, (Convert.ToDateTime(sstartDate)).getInt64ShortDate(), true, (Convert.ToDateTime(sendDate)).getInt64ShortDate(), true, out modelDemandProduction.DemandOfferDetailArray);
 
                 if (modelDemandProduction.DemandOfferDetailArray == null)
                 {

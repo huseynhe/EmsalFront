@@ -17,7 +17,7 @@
 
 
 <select @mp onchange="StatisticsSearch(this,'DemandProduction', '@Model.actionName', 'addressId')" class="form-control select2" style="width:auto !important;">
-    @if (mp != "")
+    @if (mp == "")
     {
     <option value="0">Məhsulun ünvanı üzrə axtar</option>
     }
