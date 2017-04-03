@@ -989,7 +989,7 @@ namespace Emsal.AdminUI.Controllers
                 if (excell == true)
                 {
                     pageNumber = 1;
-                    pageSize = 100;
+                    pageSize = 1000000;
                 }
 
                 modelDemandProduction.DemandOfferProductsSearch = new DemandOfferProductsSearch();
@@ -1058,8 +1058,8 @@ namespace Emsal.AdminUI.Controllers
                         sheet.Cells[2, col, 3, col].Merge = true;
                         sheet.Cells[2, col++].Value = "Tələbat (AZN) cəmi";
 
-                        sheet.Cells[2, col, 2, (col+3)].Merge = true;
-                        sheet.Cells[2, col++].Value = "Tələbat (AZN) cəmi";
+                        sheet.Cells[2, col, 2, (col+2)].Merge = true;
+                        sheet.Cells[2, col++].Value = "Təkliflər";
 
                         col--;
                         sheet.Cells[3, col++].Value = "Potensial istehsalçı";
@@ -1069,8 +1069,8 @@ namespace Emsal.AdminUI.Controllers
 
                         sheet.Row(2).Style.Font.Bold = true;
                         sheet.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                        sheet.Cells[2, 1, 3, 7].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                        sheet.Cells[2, 1, 3, 7].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+                        sheet.Cells[2, 1, 3, 9].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        sheet.Cells[2, 1, 3, 9].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
 
                         sheet.Row(3).Style.Font.Bold = true;
                         sheet.Row(3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -1111,6 +1111,8 @@ namespace Emsal.AdminUI.Controllers
                                 sheet.Cells[rowIndex, 1, rowIndex, 9].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
 
                                 sheet.Row(rowIndex).Height = 40;
+                                sheet.Row(rowIndex).Style.Font.Bold = true;
+
                                 rowIndex++;
                             }
 
