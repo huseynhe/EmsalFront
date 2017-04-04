@@ -16,7 +16,7 @@
         jQuery('.bg').find('a').each(function () {
             href = $(this).attr('href');
             if (href == curpathname) {
-                $(this).addClass('active');
+                $(this).addClass('mactive');
             }
         });
     });
@@ -35,7 +35,7 @@
         padding: 0;
     }
 
-    .active {
+    .mactive {
         background-color: #428bca !important;
         border-color: #357ebd !important;
         color: #fff !important;
