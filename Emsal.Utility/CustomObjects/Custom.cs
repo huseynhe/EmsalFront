@@ -13,7 +13,10 @@ namespace Emsal.Utility.CustomObjects
         public static string ConverPriceToStringDelZero(decimal? pr)
         {
             string str = "";
- 
+
+            if (pr == 0)
+            {
+                return "0";            }
             //str = pr.ToString("G29");
             //return Decimal.Parse(str);
 
