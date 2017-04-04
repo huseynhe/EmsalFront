@@ -533,7 +533,7 @@ function SearchTimePeriod(status,controller, action) {
             return false;
         }
 
-        $('#btnSearch').hide();
+        //$('#btnSearch').hide();
         $('#btnClear').show();
 
         $('#divYear').hide();
