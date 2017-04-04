@@ -74,6 +74,7 @@ namespace Emsal.UI.Models
         public OfferProductionDetailSearch1 OfferProductionDetailSearch1;
 
         public PotensialUserForAdminUnitIdList PotensialUserForAdminUnitIdList;
+        public PotensialUserForAdminUnitIdList1 PotensialUserForAdminUnitIdList1;
 
         public IList<UserInfo> UserInfoList { get; set; }
         public UserInfo[] UserInfoArray;

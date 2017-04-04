@@ -1161,14 +1161,14 @@ namespace Emsal.UI.Controllers
                 int pageSize = 30;
                 int pageNumber = (page ?? 1);
 
-                modelOfferMonitoring.PotensialUserForAdminUnitIdList = new PotensialUserForAdminUnitIdList();
-                modelOfferMonitoring.PotensialUserForAdminUnitIdList.page = pageNumber;
-                modelOfferMonitoring.PotensialUserForAdminUnitIdList.pageSize = pageSize;
+                modelOfferMonitoring.PotensialUserForAdminUnitIdList1 = new PotensialUserForAdminUnitIdList1();
+                modelOfferMonitoring.PotensialUserForAdminUnitIdList1.page = pageNumber;
+                modelOfferMonitoring.PotensialUserForAdminUnitIdList1.pageSize = pageSize;
                 
-                modelOfferMonitoring.PotensialUserForAdminUnitIdList.name = suserInfo;
+                modelOfferMonitoring.PotensialUserForAdminUnitIdList1.name = suserInfo;
 
 
-                BaseOutput ui = srv.WS_GetPotensialUserList_OP(baseInput, modelOfferMonitoring.PotensialUserForAdminUnitIdList, out modelOfferMonitoring.UserInfoArray);
+                BaseOutput ui = srv.WS_GetPotensialUserList_OP(baseInput, modelOfferMonitoring.PotensialUserForAdminUnitIdList1, out modelOfferMonitoring.UserInfoArray);
 
 
                 if (modelOfferMonitoring.UserInfoArray != null)
@@ -1182,7 +1182,7 @@ namespace Emsal.UI.Controllers
 
                 modelOfferMonitoring.userInfo = suserInfo;
 
-                BaseOutput gdpc = srv.WS_GetPotensialUserList_OPC(baseInput, modelOfferMonitoring.PotensialUserForAdminUnitIdList, out modelOfferMonitoring.itemCount, out modelOfferMonitoring.itemCountB);
+                BaseOutput gdpc = srv.WS_GetPotensialUserList_OPC(baseInput, modelOfferMonitoring.PotensialUserForAdminUnitIdList1, out modelOfferMonitoring.itemCount, out modelOfferMonitoring.itemCountB);
 
                 long[] aic = new long[modelOfferMonitoring.itemCount];
 
