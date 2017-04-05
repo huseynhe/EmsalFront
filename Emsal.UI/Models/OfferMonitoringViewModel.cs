@@ -194,7 +194,7 @@ namespace Emsal.UI.Models
         public string message { get; set; }
 
         [Display(Name = "Qeyd")]
-        [Required(ErrorMessage = "{0} xanası məcburidir.")]
+        //[Required(ErrorMessage = "{0} xanası məcburidir.")]
         public string noteForPotentialUser { get; set; }
 
         [Display(Name = "Qiyməti (bir ölçü vahidinə düşən) (AZN-lə)")]

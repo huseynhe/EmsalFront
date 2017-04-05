@@ -13,6 +13,8 @@
         Layout = "";
     }
     decimal tquantity = 0;
+    string icon = "";
+    string ch = "|";
 }
 
 @using (Html.BeginForm("Approv", "OfferMonitoring", FormMethod.Post))
@@ -164,24 +166,36 @@
                                 }
                                 if (Model.isMain == 0)
                                 {
-                                    <td class="col-md-1 shsingle text-center">
-                                        <a href="/OfferMonitoring/Edit/@item.productionID" class="badge bg-light-blue">
+                                    <td class="col-md-1 shsingle text-center" style="font-size:16px;">
+                                        <a href="/OfferMonitoring/Edit/@item.productionID" class="label label-pill label-primary">
                                             <span class="glyphicon glyphicon-remove"></span>
                                         </a>
                                     </td>
                                 }
                                 if (Model.isPa == true)
                                 {
-                                    <td class="col-md-1 shsingle text-center">
-                                        <a href="/OfferMonitoring/EditPA/@item.productionID" class="badge bg-light-blue">
-                                            <span class="glyphicon glyphicon-plus"></span> | <span class="glyphicon glyphicon-pencil"></span>
+                                    if (!string.IsNullOrEmpty(item.ContractNumber))
+                                    {
+                                        icon = "glyphicon-eye-open";
+                                    }
+                                    else
+                                    {
+                                        icon = "glyphicon-plus";
+                                    }
+                                    <td class="col-md-1 shsingle text-center" style="font-size:16px;">
+                                        <a href="/OfferMonitoring/EditPA/@item.productionID" class="label label-pill label-primary">
+                                            @if (!string.IsNullOrEmpty(item.ContractNumber))
+                                            {
+                                               <span class="glyphicon glyphicon-pencil"></span> @ch
+                                            }
+                                            <span class="glyphicon @icon"></span>
                                         </a>
                                     </td>
 
-                                    <td class="col-md-1 shsingle text-center">
+                                    <td class="col-md-1 shsingle text-center" style="font-size:16px;">
                                         @if (!string.IsNullOrEmpty(item.ContractNumber))
                                         {
-                                        <a href="/OfferMonitoring/DeleteContractDetailTemp/@item.contTempID" class="badge" style="background:#a94442;">
+                                        <a href="/OfferMonitoring/DeleteContractDetailTemp/@item.contTempID" class="label label-pill label-danger">
                                             <span class="glyphicon glyphicon-remove"></span>
                                         </a>
                                         }

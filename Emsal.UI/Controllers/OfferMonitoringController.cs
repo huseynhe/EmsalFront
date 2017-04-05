@@ -1200,7 +1200,7 @@ namespace Emsal.UI.Controllers
         }
 
 
-        public ActionResult AddPotentialUserNote(long puserId)
+        public ActionResult EditPotentialUserNote(long puserId)
         {
             try
             {
@@ -1223,7 +1223,8 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput puser = srv.WS_GetUserById(baseInput, puserId, true, out modelOfferMonitoring.PUser);
 
-                modelOfferMonitoring.noteForPotentialUser = modelOfferMonitoring.PUser.Username;
+                modelOfferMonitoring.userId = modelOfferMonitoring.PUser.Id;
+                modelOfferMonitoring.noteForPotentialUser = modelOfferMonitoring.PUser.note;
 
                 return View(modelOfferMonitoring);
 
@@ -1236,13 +1237,13 @@ namespace Emsal.UI.Controllers
 
 
         [HttpPost]
-        public ActionResult AddPotentialUserNote(OfferMonitoringViewModel model, FormCollection collection)
+        public ActionResult EditPotentialUserNote(OfferMonitoringViewModel model, FormCollection collection)
         {
             try
             {
                 baseInput = new BaseInput();
 
-                model.ConfirmationMessage = new tblConfirmationMessage();
+                modelOfferMonitoring = new OfferMonitoringViewModel();
 
                 long? UserId = null;
                 if (User != null && User.Identity.IsAuthenticated)
@@ -1256,6 +1257,14 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput user = srv.WS_GetUserById(baseInput, (long)UserId, true, out model.User);
                 baseInput.userName = model.User.Username;
+
+
+
+                BaseOutput puser = srv.WS_GetUserById(baseInput, model.userId, true, out modelOfferMonitoring.PUser);
+
+                modelOfferMonitoring.PUser.note = model.noteForPotentialUser;
+
+                BaseOutput upuser = srv.WS_UpdateUser(baseInput, modelOfferMonitoring.PUser, out modelOfferMonitoring.PUser);
 
                 var pu = model.noteForPotentialUser;
 

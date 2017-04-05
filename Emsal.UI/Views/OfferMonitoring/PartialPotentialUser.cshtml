@@ -6,6 +6,7 @@
     Layout = "";
     string link = "";
     string icon = "";
+    string ch = "|";
 }
 <style>
     .tr:hover {
@@ -21,10 +22,24 @@
     <tbody>
         @foreach (var item in Model.UserInfoList)
         {
+            if (!string.IsNullOrEmpty(item.note_))
+            {
+                icon = "glyphicon-eye-open";
+            }
+            else
+            {
+                icon = "glyphicon-plus";
+            }
             <tr>
                 <td class="col-sm-4 text-black">@item.surname @item.name</td>
-                <td  style="cursor:pointer;font-size:20px;padding:0;" onclick="location.href = '/OfferMonitoring/AddPotentialUserNote?puserId=@item.userID'" class="col-sm-1 text-center">
-                        <span class="fa fa-plus-circle text-primary"></span>
+                <td  style="cursor:pointer;padding:0;font-size:16px;" onclick="location.href = '/OfferMonitoring/EditPotentialUserNote?puserId=@item.userID'" class="col-sm-1 text-center">
+                    <div class="label label-pill label-primary">
+                        @if (!string.IsNullOrEmpty(item.note_))
+                        {
+                            <span class="glyphicon glyphicon-pencil"></span> @ch 
+                        }
+                        <span class="glyphicon @icon"></span>
+                    </div>
                 </td>
             </tr>
         }
