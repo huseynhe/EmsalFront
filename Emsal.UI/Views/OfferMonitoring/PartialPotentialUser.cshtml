@@ -1,6 +1,5 @@
 ﻿@model Emsal.UI.Models.OfferMonitoringViewModel
 @using PagedList.Mvc;
-
 @{
     ViewBag.Title = "Index";
     Layout = "";
@@ -13,11 +12,9 @@
         background: #089c07;
     }
 </style>
-
 <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
     <span class="badge " style="margin-top: -10px; float: right;background:#D43F3A;">@Model.itemCount</span>
 </div>
-
 <table class="table table-hover table-striped table-bordered">
     <tbody>
         @foreach (var item in Model.UserInfoList)
@@ -32,27 +29,22 @@
             }
             <tr>
                 <td class="col-sm-4 text-black">@item.surname @item.name</td>
-                <td  style="cursor:pointer;padding:0;font-size:16px;" onclick="location.href = '/OfferMonitoring/EditPotentialUserNote?puserId=@item.userID'" class="col-sm-1 text-center">
+                <td style="cursor:pointer;padding:0;font-size:16px;" onclick="location.href = '/OfferMonitoring/EditPotentialUserNote?puserId=@item.userID'" class="col-sm-1 text-center">
                     <div class="label label-pill label-primary">
                         @if (!string.IsNullOrEmpty(item.note_))
                         {
-                            <span class="glyphicon glyphicon-pencil"></span> @ch 
+                            <span class="glyphicon glyphicon-pencil"></span> @ch
                         }
                         <span class="glyphicon @icon"></span>
                     </div>
                 </td>
             </tr>
         }
-
     </tbody>
 </table>
-
 <div class="clearfix"></div>
 <div class="box-footer clearfix text-black">
     Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
-    @Html.PagedListPager(Model.PagingT, page => Url.Action("PotentialUser", new { page, userInfo = Model.userInfo}))
+    @Html.PagedListPager(Model.PagingT, page => Url.Action("PotentialUser", new { page, userInfo = Model.userInfo }))
 </div>
-
-
-
 
