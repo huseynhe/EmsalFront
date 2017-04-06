@@ -631,7 +631,7 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult Contract(int? page, bool isApprov = false, bool isSeller = false, string nameSurnameFathername = null, string pin = null)
+        public ActionResult Contract(OfferMonitoringViewModel Model, int? page, bool isApprov = false, bool isSeller = false, string nameSurnameFathername = null, string pin = null)
         {
             try
             {
