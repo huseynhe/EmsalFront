@@ -490,6 +490,8 @@ namespace Emsal.AdminUI.Controllers
                 modelDemandProduction.DemandForegnOrganization.productID = sproductId;
                 modelDemandProduction.DemandForegnOrganization.year = syear;
                 modelDemandProduction.DemandForegnOrganization.listAdminID = saddressIdString;
+                modelDemandProduction.DemandForegnOrganization.startDate = (Convert.ToDateTime(sstartDate)).getInt64ShortDate();
+                modelDemandProduction.DemandForegnOrganization.endDate = (Convert.ToDateTime(sendDate)).getInt64ShortDate();
 
                 BaseOutput gpp = srv.WS_GetDemandByForganistion_OP(baseInput, modelDemandProduction.DemandForegnOrganization, out modelDemandProduction.OrganizationDetailArray);
 
