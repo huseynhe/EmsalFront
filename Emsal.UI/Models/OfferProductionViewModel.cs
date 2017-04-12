@@ -116,9 +116,14 @@ namespace Emsal.UI.Models
         public IList<tblProduction_Calendar> ProductionCalendarList { get; set; }
         public tblProduction_Calendar[] ProductionCalendarArray;
 
+        public DemandProductionDetailistForUser DemandProductionDetailistForUser;
+        public IList<ProductionDetail> ProductionDetailList { get; set; }
+
         public SelectedProduct SelectedProduct;
         public IList<SelectedProduct> SelectedProductList { get; set; }
         public SelectedProduct[] SelectedProductArray;
+
+        public PagedList.IPagedList<long> PagingT { get; set; }
 
         public bool isPDF { get; set; }
         public long userId { get; set; }
@@ -153,6 +158,8 @@ namespace Emsal.UI.Models
         public string[] size { get; set; }
 
         public IList<long> oldPID { get; set; }
+
+        public string actionName { get; set; }
 
         [Required(ErrorMessage = "{0} xanası məcburidir.")]
         public long productOriginId { get; set; }
@@ -245,6 +252,8 @@ public int productId { get; set; }
 
         public long[] productionControlEVIds { get; set; }
 
+        public long itemCount = 0;
+        public bool itemCountB = true;
 
         public string ProductParentName { get; set; }
         public string StartDateStr { get; set; }

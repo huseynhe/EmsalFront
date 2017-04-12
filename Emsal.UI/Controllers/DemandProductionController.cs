@@ -1580,7 +1580,7 @@ namespace Emsal.UI.Controllers
                 }
 
 
-                BaseOutput gdpc = srv.WS_GetDemandProductionDetailistForUser_OPC(baseInput, modelDemandProduction.DemandProductionDetailistForUser, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
+                BaseOutput gdpc = srv.WS_GetOfferProductionDetailistForUser_OPC(baseInput, modelDemandProduction.DemandProductionDetailistForUser, out modelDemandProduction.itemCount, out modelDemandProduction.itemCountB);
 
                 long[] aic = new long[modelDemandProduction.itemCount];
 
@@ -1600,7 +1600,7 @@ namespace Emsal.UI.Controllers
                 }
                 else
                 {
-                    modelDemandProduction.Paging = modelDemandProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
+                    //modelDemandProduction.Paging = modelDemandProduction.ProductionDetailList.ToPagedList(pageNumber, pageSize);
                     return Request.IsAjaxRequest()
          ? (ActionResult)PartialView("PartialSelectedProducts", modelDemandProduction)
          : View(modelDemandProduction);

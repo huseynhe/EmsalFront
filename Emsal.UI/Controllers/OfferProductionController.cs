@@ -2,6 +2,7 @@
 using Emsal.UI.Models;
 using Emsal.Utility.CustomObjects;
 using Emsal.WebInt.EmsalSrv;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -23,6 +24,7 @@ namespace Emsal.UI.Controllers
         private BaseInput baseInput;
         private static IList<long> soldPID;
         private static int soriginStatus;
+        private static long sproductId;
 
         Emsal.WebInt.EmsalSrv.EmsalService srv = Emsal.WebInt.EmsalService.emsalService;
         // Emsal.WebInt.IAMAS.Service1 iamasSrv = Emsal.WebInt.EmsalService.iamasService;
@@ -67,10 +69,11 @@ namespace Emsal.UI.Controllers
                     modelOfferProduction.UserRole = modelOfferProduction.UserRoleArray.ToList().Where(x => x.RoleId == 15).FirstOrDefault();
 
                     //if (modelOfferProduction.UserRole != null)
-                    //    return RedirectToAction("Redirect", "Home");
+                    //    return RedirectToAction("redirect", "home");
                 }
 
                 modelOfferProduction.UserRole = modelOfferProduction.UserRoleArray.ToList().Where(x => x.RoleId == 24).FirstOrDefault();
+
                 if (modelOfferProduction.UserRole != null)
                 {
                     modelOfferProduction.originStatus = 1;
@@ -187,7 +190,7 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult ProductCatalogForSale()
+        public ActionResult ProductCatalogForSale(string actionName=null)
         {
             try
             {
@@ -220,6 +223,8 @@ namespace Emsal.UI.Controllers
 
                 modelOfferProduction.oldPID = new List<long>();
                 modelOfferProduction.oldPID = soldPID;
+
+                modelOfferProduction.actionName = actionName;
 
                 return View(modelOfferProduction);
 
@@ -792,14 +797,44 @@ namespace Emsal.UI.Controllers
                 //else
                 //{
 
-                BaseOutput galf = srv.WS_GetAdminUnitListForID(baseInput, model.addressId, true, out modelOfferProduction.PRMAdminUnitArray);
+
+                if (model.confirmList == true)
+                {
+                    Guid grupId = Guid.NewGuid();
+                    modelOfferProduction.OfferProduction.grup_Id = grupId.ToString();
+                    modelOfferProduction.OfferProduction.user_Id = userId;
+                    modelOfferProduction.OfferProduction.user_IdSpecified = true;
+                    modelOfferProduction.OfferProduction.isSelected = true;
+                    modelOfferProduction.OfferProduction.isSelectedSpecified = true;
+
+                    modelOfferProduction.OfferProduction.production_type = 0;
+                    modelOfferProduction.OfferProduction.production_typeSpecified = true;
+
+                    BaseOutput envalid = srv.WS_GetEnumValueByName(baseInput, "Yayinda", out modelOfferProduction.EnumValue);
+                    modelOfferProduction.OfferProduction.state_eV_Id = modelOfferProduction.EnumValue.Id;
+                    modelOfferProduction.OfferProduction.state_eV_IdSpecified = true;
+
+                    BaseOutput envalidm = srv.WS_GetEnumValueByName(baseInput, "new", out modelOfferProduction.EnumValue);
+
+                    modelOfferProduction.OfferProduction.monitoring_eV_Id = modelOfferProduction.EnumValue.Id;
+                    modelOfferProduction.OfferProduction.monitoring_eV_IdSpecified = true;
+
+                    modelOfferProduction.OfferProduction.isNew = 1;
+                    modelOfferProduction.OfferProduction.isNewSpecified = true;
+
+                    BaseOutput uopui = srv.WS_UpdateOffer_ProductionForUserID(baseInput, modelOfferProduction.OfferProduction, out modelOfferProduction.OfferProductionArray);
+
+                }
+                else
+                {
+                    BaseOutput galf = srv.WS_GetAdminUnitListForID(baseInput, model.addressId, true, out modelOfferProduction.PRMAdminUnitArray);
                 modelOfferProduction.PRMAdminUnitList = modelOfferProduction.PRMAdminUnitArray.ToList();
                 fullAddressId = string.Join(",", modelOfferProduction.PRMAdminUnitList.Select(x => x.Id));
 
 
-                Guid grupId = Guid.NewGuid();
+                //Guid grupId = Guid.NewGuid();
 
-                modelOfferProduction.OfferProduction.grup_Id = grupId.ToString();
+                //modelOfferProduction.OfferProduction.grup_Id = grupId.ToString();
 
                 modelOfferProduction.OfferProduction.description = model.description;
                 modelOfferProduction.OfferProduction.product_Id = model.productId;
@@ -810,7 +845,8 @@ namespace Emsal.UI.Controllers
 
                 modelOfferProduction.OfferProduction.title = string.Join(",", modelOfferProduction.ProductCatalogList.Select(x => x.Id));
 
-                modelOfferProduction.OfferProduction.isSelected = false;
+
+                modelOfferProduction.OfferProduction.isSelected = true;
                 modelOfferProduction.OfferProduction.isSelectedSpecified = true;
 
                 modelOfferProduction.OfferProduction.user_Id = userId;
@@ -825,12 +861,12 @@ namespace Emsal.UI.Controllers
 
                 if (model.ppId > 0 || model.UserRole.RoleId == 11)
                 {
-                    status = "Yayinda";
+                    status = "new";
                 }
                 else
                 {
-                    status = "Yayinda";
-                    //status = "new";
+                    //status = "Yayinda";
+                    status = "new";
                 }
 
                 BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, status, out modelOfferProduction.EnumValue);
@@ -1017,8 +1053,13 @@ namespace Emsal.UI.Controllers
                 }
                 catch { }
 
+                //TempData["Success"] = message;
+                    modelOfferProduction.messageSuccess = message;
+                }
 
-                TempData["Success"] = message;
+                Session["documentGrupId"] = null;
+                TempData["Success"] = modelOfferProduction.messageSuccess;
+
 
                 if (model.ppId > 0)
                 {
@@ -1780,6 +1821,80 @@ namespace Emsal.UI.Controllers
                 TempData["Error"] = ex.Message + ex.Source + ex.StackTrace;
             }
         }
+
+
+
+        public ActionResult SelectedProducts(int? page, long productId = -1)
+        {
+            try
+            {
+                int pageSize = 10;
+                int pageNumber = (page ?? 1);
+
+                baseInput = new BaseInput();
+                modelOfferProduction = new OfferProductionViewModel();
+
+                if (productId == -1)
+                {
+                    sproductId = 0;
+                }
+
+                if (productId >= 0)
+                    sproductId = productId;
+
+                long? userId = null;
+                if (User != null && User.Identity.IsAuthenticated)
+                {
+                    FormsIdentity identity = (FormsIdentity)User.Identity;
+                    if (identity.Ticket.UserData.Length > 0)
+                    {
+                        userId = Int32.Parse(identity.Ticket.UserData);
+                    }
+                }
+                BaseOutput user = srv.WS_GetUserById(baseInput, (long)userId, true, out modelOfferProduction.User);
+                baseInput.userName = modelOfferProduction.User.Username;
+
+                BaseOutput enumcatid = srv.WS_GetEnumCategorysByName(baseInput, "olcuVahidi", out modelOfferProduction.EnumCategory);
+
+                modelOfferProduction.DemandProductionDetailistForUser = new DemandProductionDetailistForUser();
+                modelOfferProduction.DemandProductionDetailistForUser.page_num = pageNumber;
+                modelOfferProduction.DemandProductionDetailistForUser.page_size = pageSize;
+                modelOfferProduction.DemandProductionDetailistForUser.userID = (long)userId;
+                modelOfferProduction.DemandProductionDetailistForUser.productID = sproductId;
+
+                BaseOutput gpd = srv.WS_GetOfferProductionDetailistForUser_OP(baseInput, modelOfferProduction.DemandProductionDetailistForUser, out modelOfferProduction.ProductionDetailArray);
+
+                if (modelOfferProduction.ProductionDetailArray != null)
+                {
+                    modelOfferProduction.ProductionDetailList = modelOfferProduction.ProductionDetailArray.ToList();
+                }
+                else
+                {
+                    modelOfferProduction.ProductionDetailList = new List<ProductionDetail>();
+                }
+
+                BaseOutput gdpc = srv.WS_GetDemandProductionDetailistForUser_OPC(baseInput, modelOfferProduction.DemandProductionDetailistForUser, out modelOfferProduction.itemCount, out modelOfferProduction.itemCountB);
+
+                long[] aic = new long[modelOfferProduction.itemCount];
+
+                modelOfferProduction.PagingT = aic.ToPagedList(pageNumber, pageSize);
+
+                modelOfferProduction.userId = (long)userId;
+                modelOfferProduction.productId = (int)sproductId;
+
+                var gd = Guid.NewGuid();
+
+                return Request.IsAjaxRequest()
+         ? (ActionResult)PartialView("PartialSelectedProducts", modelOfferProduction)
+         : View(modelOfferProduction);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
+            }
+        }
+
 
     }
 }

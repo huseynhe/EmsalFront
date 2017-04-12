@@ -4,7 +4,8 @@
     Layout = "";
 }
 
-
+@if (Model.actionName == null)
+{
 <div class="form-group col-md-6">
     <select onchange="GetProductCatalogForSaleAS(this)" class="form-control unicase-form-control select select2">
         <option value="0">Satılacaq məhsul üzrə axtar</option>
@@ -21,4 +22,14 @@
         }
     </select>
 </div>
-
+}
+else
+{
+    <select onchange="StatisticsSearch(this,'OfferProduction','@Model.actionName', 'productId')" class="form-control unicase-form-control select select2">
+        <option value="0">Satılacaq məhsul üzrə axtar</option>
+        @foreach (var item in Model.ProductCatalogDetailList)
+        {
+            <option value="@item.productCatalog.Id">@item.productName (@item.productCatalog.ProductName)</option>
+        }
+    </select>
+}
