@@ -9,11 +9,15 @@
         Model.fullAddressId = "0," + Model.fullAddressId;
         fi = Model.fullAddressId.Split(',').Select(long.Parse).ToArray().Count() - 2;
     }
+
+    string active = "";
+    string strchecked = "";
+    int pi = 0;
 }
 <script src="~/ContentProfile/js/OfferProduction.js"></script>
 
 @using (Html.BeginForm("Index", "OfferProduction", FormMethod.Post,
-                                                                 new { enctype = "multipart/form-data" }))
+                                                                                         new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -23,17 +27,25 @@
     @Html.HiddenFor(model => model.ppId)
     <div class="potensial_client">
         <div id="mainf">
-            @if (Model.originStatus == 0)
+            @if (Model.originStatus == 1)
             {
                 <h4>Məhsulun növü</h4>
                 <div class="row">
                     <div class="btn-group col-md-12" data-toggle="buttons">
-                        <label class="btn btn-default active productType">
-                            <input name="productType" value="10413" class="active" checked="checked" type="radio">İstehsal olunan məhsul
-                        </label>
-                        <label class="btn btn-default productType">
-                            <input name="productType" value="10414" type="radio">İdxal olunan məhsul
-                        </label>
+                        @foreach (var item in Model.EnumValueProductionTypeList)
+                        {
+                            active = "";
+                            strchecked = "";
+                            if (pi == 0)
+                            {
+                                active = "active";
+                                strchecked = "checked";
+                            }
+                            <label class="btn btn-default @active ProductionType">
+                                <input name="ProductionType" value="@item.Id" class="@active" @strchecked type="radio">@item.description
+                            </label>
+                            pi = pi + 1;
+                        }
                     </div>
                 </div>
             }
@@ -51,30 +63,30 @@
                 }
                 <div class="sign-in-page inner-bottom-sm" id="offerProductionAdminUnit">
                     <script>
-                    $(document).ready(function () {
-                        var ppid=0;
+                        $(document).ready(function () {
+                            var ppid=0;
 
-                        if(@Model.ppId>0)
-                        {
-                            ppid=@Model.ppId;
-                        }
-                        $.ajax({
-                            url: '/OfferProduction/AdminUnit?pId=0&ppId='+ppid,
-                            type: 'GET',
-                            success: function (result) {
-                                $('#offerProductionAdminUnit').html(result);
-
-                                if(ppid==0)
-                                {
-                                    @*$("select[name='adId[@fi]']").change();*@
-                                    $("select[name='adId[0]']").change();
-                                }
-                            },
-                            error: function () {
-
+                            if(@Model.ppId>0)
+                            {
+                                ppid=@Model.ppId;
                             }
+                            $.ajax({
+                                url: '/OfferProduction/AdminUnit?pId=0&ppId='+ppid,
+                                type: 'GET',
+                                success: function (result) {
+                                    $('#offerProductionAdminUnit').html(result);
+
+                                    if(ppid==0)
+                                    {
+                                        @*$("select[name='adId[@fi]']").change();*@
+                                        $("select[name='adId[0]']").change();
+                                    }
+                                },
+                                error: function () {
+
+                                }
+                            });
                         });
-                    });
                     </script>
                     @*@Html.Action("AdminUnit", "OfferProduction", new { pId = 0 })*@
                 </div>
@@ -95,24 +107,24 @@
                 <div class="clearfix"></div>
                 <div class="sign-in-page inner-bottom-sm" id="offerProductionProductCatalog">
                     <script>
-                    $(document).ready(function () {
-                        var ppid=0;
+                        $(document).ready(function () {
+                            var ppid=0;
 
-                        if(@Model.ppId>0)
-                        {
-                            ppid=@Model.ppId;
-                        }
-                        $.ajax({
-                            url: '/OfferProduction/ProductCatalog?pId=0&ppId='+ppid,
-                            type: 'GET',
-                            success: function (result) {
-                                $('#offerProductionProductCatalog').html(result);
-                            },
-                            error: function () {
-
+                            if(@Model.ppId>0)
+                            {
+                                ppid=@Model.ppId;
                             }
+                            $.ajax({
+                                url: '/OfferProduction/ProductCatalog?pId=0&ppId='+ppid,
+                                type: 'GET',
+                                success: function (result) {
+                                    $('#offerProductionProductCatalog').html(result);
+                                },
+                                error: function () {
+
+                                }
+                            });
                         });
-                    });
                     </script>
                     @*@Html.Action("ProductCatalog", "OfferProduction", new { pId = 0 })*@
                 </div>
@@ -121,12 +133,12 @@
             <h4>Hansı aylarda məhsul verə bilərsiniz?</h4>
             <div class="row">
                 @*<div class="col-md-3">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.startDate, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.startDate, new { @class = "form-control", required = "required" })
-                        @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.startDate, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.startDate, new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
                 <div class="col-md-3" hidden>
                     <div class="form-group">
                         @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label" })
@@ -216,18 +228,18 @@
                 </div>
                 <div id="selectedDocuments">
                     <script>
-                    $(document).ready(function () {
-                        $.ajax({
-                            url: '/OfferProduction/SelectedDocuments',
-                            type: 'GET',
-                            success: function (result) {
-                                $('#selectedDocuments').html(result);
-                            },
-                            error: function () {
+                        $(document).ready(function () {
+                            $.ajax({
+                                url: '/OfferProduction/SelectedDocuments',
+                                type: 'GET',
+                                success: function (result) {
+                                    $('#selectedDocuments').html(result);
+                                },
+                                error: function () {
 
-                            }
+                                }
+                            });
                         });
-                    });
                     </script>
                     @*@Html.Action("SelectedDocuments", "OfferProduction")*@
                 </div>
@@ -240,11 +252,11 @@
             </div>
             <div class="clearfix"></div>
             <div class="clearfix"></div>
-            </div>
+        </div>
 
         <div id="selectedProducts">
             @Html.Action("SelectedProducts", "OfferProduction", new { })
-        </div>  
+        </div>
 
 
         <div class="row">
@@ -252,18 +264,20 @@
                 <div class="checkbox">
                     @Html.EditorFor(model => model.confirmList)
                 </div>
-                @Html.LabelFor(model => model.confirmList, htmlAttributes: new { @class = "control-label " })
+                <label class="control-label " for="confirmList">Yekun</label>
+
+                @*@Html.LabelFor(model => model.confirmList, htmlAttributes: new { @class = "control-label " })*@
             </div>
-            </div>
-
-
-            <button class="btn btn-primary btn-lg pull-right btnsubmit" type="submit">
-                <i class="glyphicon glyphicon-ok"></i>&nbsp;Satış təklifinizi Kənd Təsərrüfatı Nazirliyinə göndərin
-            </button>
-            <br />
-            <br />
-
         </div>
+
+
+        <button class="btn btn-primary btn-lg pull-right btnsubmit" type="submit">
+            <i class="glyphicon glyphicon-ok"></i>&nbsp;Satış təklifinizi Kənd Təsərrüfatı Nazirliyinə göndərin
+        </button>
+        <br />
+        <br />
+
+    </div>
 
 }
 

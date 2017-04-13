@@ -9,14 +9,23 @@
     <span class="badge " style="margin-top: -10px; float: right;background:#D43F3A;margin-right: 15px;">@Model.itemCount</span>
 </div>
 <table class="table table-bordered">
+    <tr>
+        <th class="col-md-2">Məhsulun adı</th>
+        <th class="col-md-1">Çəkisi</th>
+        <th class="col-md-1">Ölçü vahidi</th>
+        <th class="col-md-2">Məhsulun yerləşdiyi yer</th>
+        <th class="col-md-1">Qeyd</th>
+        <th class="col-md-1">Sil</th>
+        <th class="col-md-1">Redaktə</th>
+    </tr>
     @{
         foreach (var item in Model.ProductionDetailList)
         {
             <tr>
-                <td>
+                <td class="col-md-2">
                     @item.productParentName (@item.productName)
                 </td>
-                <td>
+                <td class="col-md-1">
                     @if ((decimal)Math.Round(item.quantity, 2) > (int)item.quantity)
                     {
                         @item.quantity
@@ -27,22 +36,17 @@
                         <span>@qi</span>
                     }
                 </td>
-                <td>@item.enumValueName</td>
-                <td>
-                    - @item.fullForeignOrganization
-                    <br />
+                <td class="col-md-1">@item.enumValueName</td>
+                <td class="col-md-2">
                     - @item.fullAddress
                 </td>
-                <td>@item.description</td>
-                @if (Model.isPDF == false)
-                {
-                    <td>
-                        <div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="deleteSelectedDemandProduct(@item.productionID)"></div>
-                    </td>
-                            <td class="text-center">
-                                <a href="/DemandProduction/Edit?id=@item.productionID" style="text-decoration:none;" class="glyphicon glyphicon-pencil text-primary"></a>
-                            </td>
-                }
+                <td class="col-md-1">@item.description</td>
+                <td class="text-center col-md-1">
+                    <div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="deleteSelectedOfferProduct(@item.productionID)"></div>
+                </td>
+                <td class="text-center col-md-1">
+                    <a href="/OfferProduction/Edit?id=@item.productionID" style="text-decoration:none;" class="glyphicon glyphicon-pencil text-primary"></a>
+                </td>
             </tr>
             if (item.productionCalendarList.Count() > 0)
             {

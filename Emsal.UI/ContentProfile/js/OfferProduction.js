@@ -230,11 +230,11 @@ function getSelectedDocuments() {
 
 $(document).ready(function () {
 
-    $("label.productType").on("click", function () {
+    $("label.ProductionType").on("click", function () {
 
         var originStatus = 0;
 
-        if ($(this).find('input').val() == '1') {
+        if ($(this).find('input').val() == '10413') {
             originStatus = 1;
         }
 
@@ -338,13 +338,14 @@ function deleteSelectedOfferProduct(id) {
 }
 
 function getSelectedProducts() {
-    $('#selectedProducts').html('');
+    $('#AjaxPaginationList').html('');
     $.ajax({
         url: '/OfferProduction/SelectedProducts',
         type: 'GET',
         data: {},
         success: function (result) {
-            $('#selectedProducts').html(result);
+            $('#AjaxPaginationList').html(result);
+            //$('#selectedProducts').html(result);
         },
         error: function () {
 

@@ -87,6 +87,14 @@ namespace Emsal.UI.Controllers
                 modelOfferProduction.EnumValueShippingScheduleList = modelOfferProduction.EnumValueArray.ToList();
 
 
+                BaseOutput enumcatpt = srv.WS_GetEnumCategorysByName(baseInput, "productionType", out modelOfferProduction.EnumCategory);
+                if (modelOfferProduction.EnumCategory == null)
+                    modelOfferProduction.EnumCategory = new tblEnumCategory();
+
+                BaseOutput enumvalpt = srv.WS_GetEnumValuesByEnumCategoryId(baseInput, modelOfferProduction.EnumCategory.Id, true, out modelOfferProduction.EnumValueArray);
+                modelOfferProduction.EnumValueProductionTypeList = modelOfferProduction.EnumValueArray.ToList();
+
+
                 BaseOutput ecat = srv.WS_GetEnumCategorysByName(baseInput, "month", out modelOfferProduction.EnumCategory);
                 if (modelOfferProduction.EnumCategory == null)
                     modelOfferProduction.EnumCategory = new tblEnumCategory();
@@ -190,7 +198,7 @@ namespace Emsal.UI.Controllers
             }
         }
 
-        public ActionResult ProductCatalogForSale(string actionName=null)
+        public ActionResult ProductCatalogForSale(string actionName = null)
         {
             try
             {
@@ -807,9 +815,6 @@ namespace Emsal.UI.Controllers
                     modelOfferProduction.OfferProduction.isSelected = true;
                     modelOfferProduction.OfferProduction.isSelectedSpecified = true;
 
-                    modelOfferProduction.OfferProduction.production_type = 0;
-                    modelOfferProduction.OfferProduction.production_typeSpecified = true;
-
                     BaseOutput envalid = srv.WS_GetEnumValueByName(baseInput, "Yayinda", out modelOfferProduction.EnumValue);
                     modelOfferProduction.OfferProduction.state_eV_Id = modelOfferProduction.EnumValue.Id;
                     modelOfferProduction.OfferProduction.state_eV_IdSpecified = true;
@@ -828,232 +833,236 @@ namespace Emsal.UI.Controllers
                 else
                 {
                     BaseOutput galf = srv.WS_GetAdminUnitListForID(baseInput, model.addressId, true, out modelOfferProduction.PRMAdminUnitArray);
-                modelOfferProduction.PRMAdminUnitList = modelOfferProduction.PRMAdminUnitArray.ToList();
-                fullAddressId = string.Join(",", modelOfferProduction.PRMAdminUnitList.Select(x => x.Id));
+                    modelOfferProduction.PRMAdminUnitList = modelOfferProduction.PRMAdminUnitArray.ToList();
+                    fullAddressId = string.Join(",", modelOfferProduction.PRMAdminUnitList.Select(x => x.Id));
 
 
-                //Guid grupId = Guid.NewGuid();
+                    //Guid grupId = Guid.NewGuid();
 
-                //modelOfferProduction.OfferProduction.grup_Id = grupId.ToString();
+                    //modelOfferProduction.OfferProduction.grup_Id = grupId.ToString();
 
-                modelOfferProduction.OfferProduction.description = model.description;
-                modelOfferProduction.OfferProduction.product_Id = model.productId;
-                modelOfferProduction.OfferProduction.product_IdSpecified = true;
+                    modelOfferProduction.OfferProduction.description = model.description;
+                    modelOfferProduction.OfferProduction.product_Id = model.productId;
+                    modelOfferProduction.OfferProduction.product_IdSpecified = true;
 
-                BaseOutput gcl = srv.WS_GetProductCatalogListForID(baseInput, model.productId, true, out modelOfferProduction.ProductCatalogArray);
-                modelOfferProduction.ProductCatalogList = modelOfferProduction.ProductCatalogArray.ToList();
+                    BaseOutput gcl = srv.WS_GetProductCatalogListForID(baseInput, model.productId, true, out modelOfferProduction.ProductCatalogArray);
+                    modelOfferProduction.ProductCatalogList = modelOfferProduction.ProductCatalogArray.ToList();
 
-                modelOfferProduction.OfferProduction.title = string.Join(",", modelOfferProduction.ProductCatalogList.Select(x => x.Id));
-
-
-                modelOfferProduction.OfferProduction.isSelected = true;
-                modelOfferProduction.OfferProduction.isSelectedSpecified = true;
-
-                modelOfferProduction.OfferProduction.user_Id = userId;
-                modelOfferProduction.OfferProduction.user_IdSpecified = true;
-
-                modelOfferProduction.OfferProduction.Status = 1;
-                modelOfferProduction.OfferProduction.StatusSpecified = true;
-
-                string status = "";
-                BaseOutput userRole = srv.WS_GetUserRolesByUserId(baseInput, model.User.Id, true, out model.UserRoleArray);
-                model.UserRole = model.UserRoleArray.FirstOrDefault();
-
-                if (model.ppId > 0 || model.UserRole.RoleId == 11)
-                {
-                    status = "new";
-                }
-                else
-                {
-                    //status = "Yayinda";
-                    status = "new";
-                }
-
-                BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, status, out modelOfferProduction.EnumValue);
-                modelOfferProduction.OfferProduction.state_eV_Id = modelOfferProduction.EnumValue.Id;
-                modelOfferProduction.OfferProduction.state_eV_IdSpecified = true;
+                    modelOfferProduction.OfferProduction.title = string.Join(",", modelOfferProduction.ProductCatalogList.Select(x => x.Id));
 
 
-                BaseOutput envalydn = srv.WS_GetEnumValueByName(baseInput, "new", out modelOfferProduction.EnumValue);
-                modelOfferProduction.OfferProduction.monitoring_eV_Id = modelOfferProduction.EnumValue.Id;
-                modelOfferProduction.OfferProduction.monitoring_eV_IdSpecified = true;
+                    modelOfferProduction.OfferProduction.isSelected = true;
+                    modelOfferProduction.OfferProduction.isSelectedSpecified = true;
 
-                BaseOutput evbid = srv.WS_GetEnumValueById(baseInput, long.Parse(model.startDateMonth), true, out modelOfferProduction.EnumValue);
-                int sm = DateTime.ParseExact(modelOfferProduction.EnumValue.name, "MMMM", CultureInfo.InvariantCulture).Month;
-                model.startDate = DateTime.Parse(model.startDateYear + "-" + sm.ToString() + "-01");
-                DateTime startDate = (DateTime)model.startDate;
-                modelOfferProduction.OfferProduction.startDate = startDate.Ticks;
-                modelOfferProduction.OfferProduction.startDateSpecified = true;
+                    modelOfferProduction.OfferProduction.user_Id = userId;
+                    modelOfferProduction.OfferProduction.user_IdSpecified = true;
 
-                BaseOutput evbide = srv.WS_GetEnumValueById(baseInput, long.Parse(model.endDateMonth), true, out modelOfferProduction.EnumValue);
-                int em = DateTime.ParseExact(modelOfferProduction.EnumValue.name, "MMMM", CultureInfo.InvariantCulture).Month;
-                model.endDate = DateTime.Parse(model.endDateYear + "-" + em.ToString() + "-01");
-                DateTime endDate = (DateTime)model.endDate;
-                modelOfferProduction.OfferProduction.endDate = endDate.Ticks;
-                modelOfferProduction.OfferProduction.endDateSpecified = true;
+                    modelOfferProduction.OfferProduction.Status = 1;
+                    modelOfferProduction.OfferProduction.StatusSpecified = true;
 
-                modelOfferProduction.ProductAddress = new tblProductAddress();
+                    modelOfferProduction.OfferProduction.production_type = model.ProductionType;
+                    modelOfferProduction.OfferProduction.production_typeSpecified = true;
 
-                modelOfferProduction.ProductAddress.adminUnit_Id = model.addressId;
 
-                BaseOutput gal = srv.WS_GetAdminUnitListForID(baseInput, model.addressId, true, out modelOfferProduction.PRMAdminUnitArray);
-                modelOfferProduction.PRMAdminUnitList = modelOfferProduction.PRMAdminUnitArray.ToList();
-                modelOfferProduction.ProductAddress.fullAddressId = string.Join(",", modelOfferProduction.PRMAdminUnitList.Select(x => x.Id));
-                modelOfferProduction.ProductAddress.fullAddress = string.Join(",", modelOfferProduction.PRMAdminUnitList.Select(x => x.Name));
+                    string status = "";
+                    BaseOutput userRole = srv.WS_GetUserRolesByUserId(baseInput, model.User.Id, true, out model.UserRoleArray);
+                    model.UserRole = model.UserRoleArray.FirstOrDefault();
 
-                modelOfferProduction.ProductAddress.adminUnit_IdSpecified = true;
-                modelOfferProduction.ProductAddress.addressDesc = model.descAddress;
-
-                BaseOutput apa = srv.WS_AddProductAddress(baseInput, modelOfferProduction.ProductAddress, out modelOfferProduction.ProductAddress);
-
-                modelOfferProduction.OfferProduction.productAddress_Id = modelOfferProduction.ProductAddress.Id;
-                modelOfferProduction.OfferProduction.productAddress_IdSpecified = true;
-
-                modelOfferProduction.OfferProduction.potentialProduct_Id = model.ppId;
-                modelOfferProduction.OfferProduction.potentialProduct_IdSpecified = true;
-
-                modelOfferProduction.OfferProduction.productOrigin = model.productOriginId;
-                modelOfferProduction.OfferProduction.productOriginSpecified = true;
-
-                modelOfferProduction.OfferProduction.isNew = 1;
-                modelOfferProduction.OfferProduction.isNewSpecified = true;
-
-                BaseOutput app = srv.WS_AddOffer_Production(baseInput, modelOfferProduction.OfferProduction, out modelOfferProduction.OfferProduction);
-
-                if (model.price != null)
-                {
-                    for (int i = 0; i < model.price.Length; i++)
+                    if (model.ppId > 0 || model.UserRole.RoleId == 11)
                     {
-                        BaseOutput envalpc = srv.WS_GetEnumValueByName(baseInput, "offer", out modelOfferProduction.EnumValue);
+                        status = "new";
+                    }
+                    else
+                    {
+                        //status = "Yayinda";
+                        status = "new";
+                    }
 
-                        modelOfferProduction.LProductionCalendar = new tblProductionCalendar();
+                    BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, status, out modelOfferProduction.EnumValue);
+                    modelOfferProduction.OfferProduction.state_eV_Id = modelOfferProduction.EnumValue.Id;
+                    modelOfferProduction.OfferProduction.state_eV_IdSpecified = true;
 
-                        modelOfferProduction.LProductionCalendar.Production_type_eV_Id = modelOfferProduction.EnumValue.Id;
-                        modelOfferProduction.LProductionCalendar.Production_type_eV_IdSpecified = true;
 
-                        modelOfferProduction.LProductionCalendar.Production_Id = modelOfferProduction.OfferProduction.Id;
-                        modelOfferProduction.LProductionCalendar.Production_IdSpecified = true;
+                    BaseOutput envalydn = srv.WS_GetEnumValueByName(baseInput, "new", out modelOfferProduction.EnumValue);
+                    modelOfferProduction.OfferProduction.monitoring_eV_Id = modelOfferProduction.EnumValue.Id;
+                    modelOfferProduction.OfferProduction.monitoring_eV_IdSpecified = true;
 
-                        modelOfferProduction.LProductionCalendar.year = model.year[i];
-                        modelOfferProduction.LProductionCalendar.yearSpecified = true;
+                    BaseOutput evbid = srv.WS_GetEnumValueById(baseInput, long.Parse(model.startDateMonth), true, out modelOfferProduction.EnumValue);
+                    int sm = DateTime.ParseExact(modelOfferProduction.EnumValue.name, "MMMM", CultureInfo.InvariantCulture).Month;
+                    model.startDate = DateTime.Parse(model.startDateYear + "-" + sm.ToString() + "-01");
+                    DateTime startDate = (DateTime)model.startDate;
+                    modelOfferProduction.OfferProduction.startDate = startDate.Ticks;
+                    modelOfferProduction.OfferProduction.startDateSpecified = true;
 
-                        if (model.day != null)
+                    BaseOutput evbide = srv.WS_GetEnumValueById(baseInput, long.Parse(model.endDateMonth), true, out modelOfferProduction.EnumValue);
+                    int em = DateTime.ParseExact(modelOfferProduction.EnumValue.name, "MMMM", CultureInfo.InvariantCulture).Month;
+                    model.endDate = DateTime.Parse(model.endDateYear + "-" + em.ToString() + "-01");
+                    DateTime endDate = (DateTime)model.endDate;
+                    modelOfferProduction.OfferProduction.endDate = endDate.Ticks;
+                    modelOfferProduction.OfferProduction.endDateSpecified = true;
+
+                    modelOfferProduction.ProductAddress = new tblProductAddress();
+
+                    modelOfferProduction.ProductAddress.adminUnit_Id = model.addressId;
+
+                    BaseOutput gal = srv.WS_GetAdminUnitListForID(baseInput, model.addressId, true, out modelOfferProduction.PRMAdminUnitArray);
+                    modelOfferProduction.PRMAdminUnitList = modelOfferProduction.PRMAdminUnitArray.ToList();
+                    modelOfferProduction.ProductAddress.fullAddressId = string.Join(",", modelOfferProduction.PRMAdminUnitList.Select(x => x.Id));
+                    modelOfferProduction.ProductAddress.fullAddress = string.Join(",", modelOfferProduction.PRMAdminUnitList.Select(x => x.Name));
+
+                    modelOfferProduction.ProductAddress.adminUnit_IdSpecified = true;
+                    modelOfferProduction.ProductAddress.addressDesc = model.descAddress;
+
+                    BaseOutput apa = srv.WS_AddProductAddress(baseInput, modelOfferProduction.ProductAddress, out modelOfferProduction.ProductAddress);
+
+                    modelOfferProduction.OfferProduction.productAddress_Id = modelOfferProduction.ProductAddress.Id;
+                    modelOfferProduction.OfferProduction.productAddress_IdSpecified = true;
+
+                    modelOfferProduction.OfferProduction.potentialProduct_Id = model.ppId;
+                    modelOfferProduction.OfferProduction.potentialProduct_IdSpecified = true;
+
+                    modelOfferProduction.OfferProduction.productOrigin = model.productOriginId;
+                    modelOfferProduction.OfferProduction.productOriginSpecified = true;
+
+                    modelOfferProduction.OfferProduction.isNew = 1;
+                    modelOfferProduction.OfferProduction.isNewSpecified = true;
+
+                    BaseOutput app = srv.WS_AddOffer_Production(baseInput, modelOfferProduction.OfferProduction, out modelOfferProduction.OfferProduction);
+
+                    if (model.price != null)
+                    {
+                        for (int i = 0; i < model.price.Length; i++)
                         {
-                            modelOfferProduction.LProductionCalendar.day = model.day[i];
-                            modelOfferProduction.LProductionCalendar.daySpecified = true;
-                        }
+                            BaseOutput envalpc = srv.WS_GetEnumValueByName(baseInput, "offer", out modelOfferProduction.EnumValue);
 
-                        BaseOutput evbidq = srv.WS_GetEnumValueById(baseInput, (long)model.month[i], true, out modelOfferProduction.EnumValue);
-                        modelOfferProduction.LProductionCalendar.partOfyear = GetQuarter(DateTime.ParseExact(modelOfferProduction.EnumValue.name, "MMMM", CultureInfo.InvariantCulture).Month);
-                        modelOfferProduction.LProductionCalendar.partOfyearSpecified = true;
+                            modelOfferProduction.LProductionCalendar = new tblProductionCalendar();
 
-                        BaseOutput envalgmbid = srv.WS_GetEnumValueById(baseInput, (long)(model.month[i]), true, out modelOfferProduction.EnumValue);
-                        modelOfferProduction.LProductionCalendar.months_eV_Id = modelOfferProduction.EnumValue.Id;
-                        modelOfferProduction.LProductionCalendar.months_eV_IdSpecified = true;
+                            modelOfferProduction.LProductionCalendar.Production_type_eV_Id = modelOfferProduction.EnumValue.Id;
+                            modelOfferProduction.LProductionCalendar.Production_type_eV_IdSpecified = true;
 
-                        //modelOfferProduction.LProductionCalendar.oclock = model.hour[i];
-                        //modelOfferProduction.LProductionCalendar.oclockSpecified = true;
+                            modelOfferProduction.LProductionCalendar.Production_Id = modelOfferProduction.OfferProduction.Id;
+                            modelOfferProduction.LProductionCalendar.Production_IdSpecified = true;
 
-                        modelOfferProduction.LProductionCalendar.transportation_eV_Id = model.howMany[i];
-                        modelOfferProduction.LProductionCalendar.transportation_eV_IdSpecified = true;
+                            modelOfferProduction.LProductionCalendar.year = model.year[i];
+                            modelOfferProduction.LProductionCalendar.yearSpecified = true;
 
-                        modelOfferProduction.LProductionCalendar.quantity = Convert.ToDecimal(model.size[i].Replace('.', ','));
-                        modelOfferProduction.LProductionCalendar.quantitySpecified = true;
+                            if (model.day != null)
+                            {
+                                modelOfferProduction.LProductionCalendar.day = model.day[i];
+                                modelOfferProduction.LProductionCalendar.daySpecified = true;
+                            }
 
-                        modelOfferProduction.LProductionCalendar.price = Convert.ToDecimal(model.price[i].Replace('.', ','));
-                        modelOfferProduction.LProductionCalendar.priceSpecified = true;
+                            BaseOutput evbidq = srv.WS_GetEnumValueById(baseInput, (long)model.month[i], true, out modelOfferProduction.EnumValue);
+                            modelOfferProduction.LProductionCalendar.partOfyear = GetQuarter(DateTime.ParseExact(modelOfferProduction.EnumValue.name, "MMMM", CultureInfo.InvariantCulture).Month);
+                            modelOfferProduction.LProductionCalendar.partOfyearSpecified = true;
 
-                        modelOfferProduction.LProductionCalendar.offer_Id = modelOfferProduction.OfferProduction.Id;
-                        modelOfferProduction.LProductionCalendar.offer_IdSpecified = true;
+                            BaseOutput envalgmbid = srv.WS_GetEnumValueById(baseInput, (long)(model.month[i]), true, out modelOfferProduction.EnumValue);
+                            modelOfferProduction.LProductionCalendar.months_eV_Id = modelOfferProduction.EnumValue.Id;
+                            modelOfferProduction.LProductionCalendar.months_eV_IdSpecified = true;
 
-                        modelOfferProduction.LProductionCalendar.type_eV_Id = model.shippingSchedule;
-                        modelOfferProduction.LProductionCalendar.type_eV_IdSpecified = true;
+                            //modelOfferProduction.LProductionCalendar.oclock = model.hour[i];
+                            //modelOfferProduction.LProductionCalendar.oclockSpecified = true;
 
-                        BaseOutput gpcbi = srv.WS_GetProductionCalendarByInstance(baseInput, modelOfferProduction.LProductionCalendar, out modelOfferProduction.LNProductionCalendar);
+                            modelOfferProduction.LProductionCalendar.transportation_eV_Id = model.howMany[i];
+                            modelOfferProduction.LProductionCalendar.transportation_eV_IdSpecified = true;
 
-                        //BaseOutput gpcall = srv.WS_GetProductionCalendar(baseInput, out modelOfferProduction.LProductionCalendarArray);
+                            modelOfferProduction.LProductionCalendar.quantity = Convert.ToDecimal(model.size[i].Replace('.', ','));
+                            modelOfferProduction.LProductionCalendar.quantitySpecified = true;
 
-                        //modelOfferProduction.LProductionCalendarList = modelOfferProduction.LProductionCalendarArray.ToList();
+                            modelOfferProduction.LProductionCalendar.price = Convert.ToDecimal(model.price[i].Replace('.', ','));
+                            modelOfferProduction.LProductionCalendar.priceSpecified = true;
 
-                        //modelOfferProduction.LProductionCalendarList = modelOfferProduction.LProductionCalendarList.Where(x => x.offer_Id == modelOfferProduction.LProductionCalendar.offer_Id).Where(x => x.Production_type_eV_Id == modelOfferProduction.LProductionCalendar.Production_type_eV_Id).Where(x => x.year == modelOfferProduction.LProductionCalendar.year).Where(x => x.months_eV_Id == modelOfferProduction.LProductionCalendar.months_eV_Id).Where(x => x.type_eV_Id == modelOfferProduction.LProductionCalendar.type_eV_Id).ToList();
+                            modelOfferProduction.LProductionCalendar.offer_Id = modelOfferProduction.OfferProduction.Id;
+                            modelOfferProduction.LProductionCalendar.offer_IdSpecified = true;
 
-                        if (modelOfferProduction.LNProductionCalendar == null)
-                        {
-                            BaseOutput alpc = srv.WS_AddProductionCalendar(baseInput, modelOfferProduction.LProductionCalendar, out modelOfferProduction.LProductionCalendar);
+                            modelOfferProduction.LProductionCalendar.type_eV_Id = model.shippingSchedule;
+                            modelOfferProduction.LProductionCalendar.type_eV_IdSpecified = true;
+
+                            BaseOutput gpcbi = srv.WS_GetProductionCalendarByInstance(baseInput, modelOfferProduction.LProductionCalendar, out modelOfferProduction.LNProductionCalendar);
+
+                            //BaseOutput gpcall = srv.WS_GetProductionCalendar(baseInput, out modelOfferProduction.LProductionCalendarArray);
+
+                            //modelOfferProduction.LProductionCalendarList = modelOfferProduction.LProductionCalendarArray.ToList();
+
+                            //modelOfferProduction.LProductionCalendarList = modelOfferProduction.LProductionCalendarList.Where(x => x.offer_Id == modelOfferProduction.LProductionCalendar.offer_Id).Where(x => x.Production_type_eV_Id == modelOfferProduction.LProductionCalendar.Production_type_eV_Id).Where(x => x.year == modelOfferProduction.LProductionCalendar.year).Where(x => x.months_eV_Id == modelOfferProduction.LProductionCalendar.months_eV_Id).Where(x => x.type_eV_Id == modelOfferProduction.LProductionCalendar.type_eV_Id).ToList();
+
+                            if (modelOfferProduction.LNProductionCalendar == null)
+                            {
+                                BaseOutput alpc = srv.WS_AddProductionCalendar(baseInput, modelOfferProduction.LProductionCalendar, out modelOfferProduction.LProductionCalendar);
+                            }
                         }
                     }
-                }
 
-                UpdateDP(modelOfferProduction.OfferProduction.Id);
+                    UpdateDP(modelOfferProduction.OfferProduction.Id);
 
 
-                BaseOutput enval = srv.WS_GetEnumValueByName(baseInput, "offer", out modelOfferProduction.EnumValue);
+                    BaseOutput enval = srv.WS_GetEnumValueByName(baseInput, "offer", out modelOfferProduction.EnumValue);
 
-                if (model.enumCat != null)
-                {
-                    for (int ecv = 0; ecv < model.enumCat.Length; ecv++)
+                    if (model.enumCat != null)
                     {
-                        modelOfferProduction.ProductionControl = new tblProductionControl();
+                        for (int ecv = 0; ecv < model.enumCat.Length; ecv++)
+                        {
+                            modelOfferProduction.ProductionControl = new tblProductionControl();
 
-                        modelOfferProduction.ProductionControl.Offer_Production_Id = modelOfferProduction.OfferProduction.Id;
-                        modelOfferProduction.ProductionControl.Offer_Production_IdSpecified = true;
+                            modelOfferProduction.ProductionControl.Offer_Production_Id = modelOfferProduction.OfferProduction.Id;
+                            modelOfferProduction.ProductionControl.Offer_Production_IdSpecified = true;
 
-                        modelOfferProduction.ProductionControl.EnumCategoryId = model.enumCat[ecv];
-                        modelOfferProduction.ProductionControl.EnumCategoryIdSpecified = true;
+                            modelOfferProduction.ProductionControl.EnumCategoryId = model.enumCat[ecv];
+                            modelOfferProduction.ProductionControl.EnumCategoryIdSpecified = true;
 
-                        modelOfferProduction.ProductionControl.EnumValueId = model.enumVal[ecv];
-                        modelOfferProduction.ProductionControl.EnumValueIdSpecified = true;
+                            modelOfferProduction.ProductionControl.EnumValueId = model.enumVal[ecv];
+                            modelOfferProduction.ProductionControl.EnumValueIdSpecified = true;
 
-                        modelOfferProduction.ProductionControl.Production_type_eV_Id = modelOfferProduction.EnumValue.Id;
-                        modelOfferProduction.ProductionControl.Production_type_eV_IdSpecified = true;
+                            modelOfferProduction.ProductionControl.Production_type_eV_Id = modelOfferProduction.EnumValue.Id;
+                            modelOfferProduction.ProductionControl.Production_type_eV_IdSpecified = true;
 
-                        BaseOutput ap = srv.WS_AddProductionControl(baseInput, modelOfferProduction.ProductionControl, out modelOfferProduction.ProductionControl);
+                            BaseOutput ap = srv.WS_AddProductionControl(baseInput, modelOfferProduction.ProductionControl, out modelOfferProduction.ProductionControl);
+                        }
                     }
-                }
 
-                modelOfferProduction.ProductionDocument = new tblProduction_Document();
-                modelOfferProduction.ProductionDocument.grup_Id = Session["documentGrupId"].ToString();
-                modelOfferProduction.ProductionDocument.Offer_Production_Id = modelOfferProduction.OfferProduction.Id;
-                modelOfferProduction.ProductionDocument.Offer_Production_IdSpecified = true;
-                modelOfferProduction.ProductionDocument.Production_type_eV_Id = modelOfferProduction.EnumValue.Id;
-                modelOfferProduction.ProductionDocument.Production_type_eV_IdSpecified = true;
+                    modelOfferProduction.ProductionDocument = new tblProduction_Document();
+                    modelOfferProduction.ProductionDocument.grup_Id = Session["documentGrupId"].ToString();
+                    modelOfferProduction.ProductionDocument.Offer_Production_Id = modelOfferProduction.OfferProduction.Id;
+                    modelOfferProduction.ProductionDocument.Offer_Production_IdSpecified = true;
+                    modelOfferProduction.ProductionDocument.Production_type_eV_Id = modelOfferProduction.EnumValue.Id;
+                    modelOfferProduction.ProductionDocument.Production_type_eV_IdSpecified = true;
 
-                BaseOutput updfg = srv.WS_UpdateProductionDocumentForGroupID(baseInput, modelOfferProduction.ProductionDocument, out modelOfferProduction.ProductionDocumentArray);
+                    BaseOutput updfg = srv.WS_UpdateProductionDocumentForGroupID(baseInput, modelOfferProduction.ProductionDocument, out modelOfferProduction.ProductionDocumentArray);
 
-                //}
+                    //}
 
-                Session["documentGrupId"] = null;
+                    Session["documentGrupId"] = null;
 
 
-                BaseOutput person = srv.WS_GetPersonByUserId(baseInput, model.User.Id, true, out model.Person);
+                    BaseOutput person = srv.WS_GetPersonByUserId(baseInput, model.User.Id, true, out model.Person);
 
-                string namesname = "";
+                    string namesname = "";
 
-                if (model.Person != null)
-                {
-                    namesname = model.Person.Name + " " + model.Person.Surname;
-                }
-                else
-                {
-                    namesname = model.User.Username;
-                }
+                    if (model.Person != null)
+                    {
+                        namesname = model.Person.Name + " " + model.Person.Surname;
+                    }
+                    else
+                    {
+                        namesname = model.User.Username;
+                    }
 
-                string message = "<b>Hörmətli " + namesname + ",</b> <br/><br/> Sizin ərzaq məhsulu təklifiniz  portalda qeydiyyata alınmışdır.<br/> Potensial istehsalçı kimi təqdim etmək istədiyiniz ərzaq məhsulu barədə yerləşdirdiyiniz təkliflər haqqında məlumat 48 saat ərzində təsdiqlənərək portalın “Potensial istehsalçılar və satıcılar” və “Təkliflər” bölmələrində əks olunacaq və eyni zamanda  elektron poçt ünvanınıza bu barədə məlumat göndəriləcəkdir.<br/> <br/> İstehsalçıların və digər satıcıların (idxalçı) fəaliyyətinin və təqdim edilən təkliflərin monitorinqi, habelə həmin ərzaq məhsullarının satın alınması prosedurları Azərbaycan Respublikası Prezidentinin 2016-cı il 11 aprel tarixli 859 nömrəli Fərmanı ilə təsdiq edilmiş “Dövlət müəssisə və təşkilatları (idarələri) tərəfindən ərzaq məhsullarının mərkəzləşdirilmiş qaydada dövlət büdcəsinin vəsaitləri hesabına satın alınması Qaydası”na uğun olaraq həyata keçirləcəkdir.<br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
+                    string message = "<b>Hörmətli " + namesname + ",</b> <br/><br/> Sizin ərzaq məhsulu təklifiniz  portalda qeydiyyata alınmışdır.<br/> Potensial istehsalçı kimi təqdim etmək istədiyiniz ərzaq məhsulu barədə yerləşdirdiyiniz təkliflər haqqında məlumat 48 saat ərzində təsdiqlənərək portalın “Potensial istehsalçılar və satıcılar” və “Təkliflər” bölmələrində əks olunacaq və eyni zamanda  elektron poçt ünvanınıza bu barədə məlumat göndəriləcəkdir.<br/> <br/> İstehsalçıların və digər satıcıların (idxalçı) fəaliyyətinin və təqdim edilən təkliflərin monitorinqi, habelə həmin ərzaq məhsullarının satın alınması prosedurları Azərbaycan Respublikası Prezidentinin 2016-cı il 11 aprel tarixli 859 nömrəli Fərmanı ilə təsdiq edilmiş “Dövlət müəssisə və təşkilatları (idarələri) tərəfindən ərzaq məhsullarının mərkəzləşdirilmiş qaydada dövlət büdcəsinin vəsaitləri hesabına satın alınması Qaydası”na uğun olaraq həyata keçirləcəkdir.<br/><br/>Azərbaycan Respublikasının Kənd Təsərrüfatı Nazirliyi";
 
-                try
-                {
-                    MailMessage msg = new MailMessage();
+                    try
+                    {
+                        MailMessage msg = new MailMessage();
 
-                    msg.To.Add(model.User.Email);
-                    msg.Subject = "tedatuk.az";
-                    msg.Body = message;
-                    msg.IsBodyHtml = true;
+                        msg.To.Add(model.User.Email);
+                        msg.Subject = "tedatuk.az";
+                        msg.Body = message;
+                        msg.IsBodyHtml = true;
 
-                    Mail.SendMail(msg);
-                }
-                catch { }
+                        Mail.SendMail(msg);
+                    }
+                    catch { }
 
-                //TempData["Success"] = message;
+                    //TempData["Success"] = message;
                     modelOfferProduction.messageSuccess = message;
                 }
 
@@ -1153,7 +1162,12 @@ namespace Emsal.UI.Controllers
                 BaseOutput enumval = srv.WS_GetEnumValuesByEnumCategoryId(baseInput, modelOfferProduction.EnumCategory.Id, true, out modelOfferProduction.EnumValueArray);
                 modelOfferProduction.EnumValueShippingScheduleList = modelOfferProduction.EnumValueArray.ToList();
 
+                BaseOutput enumcatpt = srv.WS_GetEnumCategorysByName(baseInput, "productionType", out modelOfferProduction.EnumCategory);
+                if (modelOfferProduction.EnumCategory == null)
+                    modelOfferProduction.EnumCategory = new tblEnumCategory();
 
+                BaseOutput enumvalpt = srv.WS_GetEnumValuesByEnumCategoryId(baseInput, modelOfferProduction.EnumCategory.Id, true, out modelOfferProduction.EnumValueArray);
+                modelOfferProduction.EnumValueProductionTypeList = modelOfferProduction.EnumValueArray.ToList();
 
                 BaseOutput ecat = srv.WS_GetEnumCategorysByName(baseInput, "month", out modelOfferProduction.EnumCategory);
                 if (modelOfferProduction.EnumCategory == null)
@@ -1161,6 +1175,22 @@ namespace Emsal.UI.Controllers
 
                 BaseOutput eval = srv.WS_GetEnumValuesByEnumCategoryId(baseInput, modelOfferProduction.EnumCategory.Id, true, out modelOfferProduction.EnumValueArray);
                 modelOfferProduction.EnumValueMonthList = modelOfferProduction.EnumValueArray.ToList();
+
+
+                BaseOutput gop = srv.WS_GetProductCatalogsOfferWitoutTypeOfEV(baseInput, (long)userId, true, out modelOfferProduction.ProductCatalogArray);
+
+                if (modelOfferProduction.ProductCatalogArray != null)
+                {
+                    soldPID = new List<long>(modelOfferProduction.ProductCatalogArray.Count());
+
+                    soldPID = modelOfferProduction.ProductCatalogArray.Select(x => x.Id).ToList();
+                }
+                else
+                {
+                    soldPID = new List<long>();
+                }
+
+                modelOfferProduction.oldPID = soldPID;
 
 
                 BaseOutput enval = srv.WS_GetEnumValueByName(baseInput, "offer", out modelOfferProduction.EnumValue);
@@ -1173,8 +1203,6 @@ namespace Emsal.UI.Controllers
                 }
                 Session["arrDPNum"] = null;
                 Session["arrDNum"] = null;
-
-                soldPID = new List<long>();
 
                 return View(modelOfferProduction);
 
@@ -1243,7 +1271,14 @@ namespace Emsal.UI.Controllers
 
                 if (modelOfferProduction.EnumValueo.Id != modelOfferProduction.OfferProduction.state_eV_Id)
                 {
-                    BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Yayinda", out modelOfferProduction.EnumValue);
+                    if (modelOfferProduction.OfferProduction.isSelected == true)
+                    {
+                        BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "new", out modelOfferProduction.EnumValue);
+                    }
+                    else
+                    {
+                        BaseOutput envalyd = srv.WS_GetEnumValueByName(baseInput, "Yayinda", out modelOfferProduction.EnumValue);
+                    }
                     modelOfferProduction.OfferProduction.state_eV_Id = modelOfferProduction.EnumValue.Id;
                     modelOfferProduction.OfferProduction.state_eV_IdSpecified = true;
                 }
@@ -1259,6 +1294,9 @@ namespace Emsal.UI.Controllers
 
                 modelOfferProduction.OfferProduction.productOrigin = model.productOriginId;
                 modelOfferProduction.OfferProduction.productOriginSpecified = true;
+
+                modelOfferProduction.OfferProduction.production_type = model.ProductionType;
+                modelOfferProduction.OfferProduction.production_typeSpecified = true;
 
                 modelOfferProduction.OfferProduction.isNew = 1;
                 modelOfferProduction.OfferProduction.isNewSpecified = true;
@@ -1822,8 +1860,6 @@ namespace Emsal.UI.Controllers
             }
         }
 
-
-
         public ActionResult SelectedProducts(int? page, long productId = -1)
         {
             try
@@ -1861,6 +1897,7 @@ namespace Emsal.UI.Controllers
                 modelOfferProduction.DemandProductionDetailistForUser.page_size = pageSize;
                 modelOfferProduction.DemandProductionDetailistForUser.userID = (long)userId;
                 modelOfferProduction.DemandProductionDetailistForUser.productID = sproductId;
+                modelOfferProduction.DemandProductionDetailistForUser.isSelected = true;
 
                 BaseOutput gpd = srv.WS_GetOfferProductionDetailistForUser_OP(baseInput, modelOfferProduction.DemandProductionDetailistForUser, out modelOfferProduction.ProductionDetailArray);
 
@@ -1894,7 +1931,6 @@ namespace Emsal.UI.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Error", "Error"));
             }
         }
-
 
     }
 }

@@ -1,5 +1,4 @@
 ﻿@model Emsal.UI.Models.OfferProductionViewModel
-
 @{
     ViewBag.Title = "OfferProduction";
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
@@ -7,7 +6,7 @@
 <script src="~/ContentProfile/js/OfferProduction.js"></script>
 
 @using (Html.BeginForm("Edit", "OfferProduction", FormMethod.Post,
-                                                     new { enctype = "multipart/form-data" }))
+                                                                             new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -19,12 +18,38 @@
 
     <div class="potensial_client">
         <div id="mainf">
+            @if (Model.originStatus == 1)
+            {
+                <h4>Məhsulun növü</h4>
+                <div class="row">
+                    <div class="btn-group col-md-12" data-toggle="buttons">
+                        @foreach (var item in Model.EnumValueProductionTypeList)
+                        {
+                            if (item.Id == Model.OfferProduction.production_type)
+                            {
+                            <label class="btn btn-default active ProductionType">
+                                <input name="ProductionType" value="@item.Id" class="active" checked="checked" type="radio">@item.description
+                            </label>
+                            }
+                            else
+                            {
+                                <label class="btn btn-default ProductionType">
+                                    <input name="ProductionType" value="@item.Id" type="radio">@item.description
+                                </label>
+                            }
 
+                            if (Model.OfferProduction.production_type == Model.EnumValueProductionTypeList.LastOrDefault().Id)
+                            {
+                                Model.originStatus = 0;
+                            }
+                        }
+                    </div>
+                </div>
+            }
             <h4>Məhsulun mənşəyini seçin</h4>
             <div class="row" id="ProductOriginMD">
                 @Html.Action("ProductOrigin", "OfferProduction", new { selectedPOriginId = Model.productOriginId, originStatus = Model.originStatus })
             </div>
-
             <h4>Məhsulun çatdırılacağı ünvan</h4>
             <div class="row">
                 <div class="sign-in-page inner-bottom-sm" id="adminUnit">
@@ -45,22 +70,8 @@
                     @*@Html.Action("AdminUnit", "OfferProduction", new { pId = 0, productAddressId = Model.productAddressId })*@
                 </div>
             </div>
-
-            <h4>Məhsulun növü</h4>
-            <div class="row">
-                <div class="btn-group col-md-12" data-toggle="buttons">
-                    <label class="btn btn-default active">
-                        <input name="productType" value="10413" class="active" checked="checked" type="radio">İstehsal olunan məhsul
-                    </label>
-                    <label class="btn btn-default">
-                        <input name="productType" value="10414" type="radio">İdxal olunan məhsul
-                    </label>
-                </div>
-            </div>
-
             <h4>Məhsulu seçin</h4>
             <div class="row">
-
                 <div class="sign-in-page inner-bottom-sm" id="offerProductionProductCatalog">
                     <script>
                         $(document).ready(function () {
@@ -79,9 +90,8 @@
                     @*@Html.Action("ProductCatalog", "OfferProduction", new { pId = Model.Id, ppId = Model.Id })*@
                 </div>
             </div>
-
             <h4>Təchizatın təqvim planı</h4>
-                <div class="row">
+            <div class="row">
                 <div class="col-md-3" hidden>
                     <div class="form-group">
                         @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label" })
@@ -108,7 +118,6 @@
                     </select>
                     <span data-valmsg-replace="true" data-valmsg-for="startDateYear" class="field-validation-valid text-danger"></span>
                 </div>
-
                 <div class="col-md-3">
                     <label for="startDate" class="control-label">&nbsp;</label>
                     <select required name="startDateMonth" onchange="Getotherdate(this, 'm', 'o')" id="startDateMonth" class="form-control select2">
@@ -128,7 +137,6 @@
                     <span data-valmsg-replace="true" data-valmsg-for="startDateMonth" class="field-validation-valid text-danger"></span>
                 </div>
 
-
                 <div class="col-md-2">
                     @Html.LabelFor(model => model.endDateYear, htmlAttributes: new { @class = "control-label" })
                     <select required name="endDateYear" id="endDateYear" onchange="Getotherdate(this, '', 'o')" class="form-control select2">
@@ -140,12 +148,11 @@
                         <option selected value="@(Model.endDateYear)">@(Model.endDateYear)</option>
                         @if (Model.startDateYear == Model.endDateYear)
                         {
-                        <option value="@(Model.endDateYear + 1)">@(Model.endDateYear + 1)</option>
+                            <option value="@(Model.endDateYear + 1)">@(Model.endDateYear + 1)</option>
                         }
                     </select>
                     <span data-valmsg-replace="true" data-valmsg-for="endDateYear" class="field-validation-valid text-danger"></span>
                 </div>
-
                 <div class="col-md-3">
                     <label for="endDate" class="control-label">&nbsp;</label>
                     <select required name="endDateMonth" id="endDateMonth" onchange="Getotherdate(this, '', 'o')" class="form-control select2">
@@ -164,13 +171,12 @@
                     </select>
                     <span data-valmsg-replace="true" data-valmsg-for="endDateMonth" class="field-validation-valid text-danger"></span>
                 </div>
-
             </div>
         </div>
         <div class="shdiv">
             <div id="mainl">
                 <div class="clear-both"></div>
-       
+
                 <div>
                     <div class="row">
                         <div class="col-md-7" id="calendarMainDiv">
@@ -186,7 +192,6 @@
                                             @item.description
                                         </label>
                                     }
-
                                 </div>
                                 <div class="clearfix"></div>
                                 <span data-valmsg-replace="true" data-valmsg-for="shippingSchedule" class="field-validation-valid text-danger"></span>
@@ -199,8 +204,6 @@
                             <div class="form-group chMonthName">
                             </div>
 
-
-
                         </div>
                         <div id="getmonthresult"></div>
                         <div class="clearfix"></div>
@@ -211,9 +214,8 @@
                                 </script>
                             </div>
                         </div>
-                        </div>
+                    </div>
                 </div>
-
                 <div class="clearfix"></div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label" })
@@ -223,11 +225,9 @@
                 <div class="clearfix"></div>
             </div>
         </div>
-
         <div class="clearfix"></div>
         <br />
         <br />
-
         <div class="shdiv mdivbut">
             <button class="btn btn-danger btn-lg pull-right btnmainsubmit" type="submit">
                 <i class="glyphicon glyphicon-ok"></i>&nbsp;Təsdiqləyin
@@ -236,14 +236,9 @@
             <br />
         </div>
 
-
-
     </div>
 
 }
-
-
-
 
 
 

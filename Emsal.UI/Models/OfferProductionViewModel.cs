@@ -74,6 +74,7 @@ namespace Emsal.UI.Models
         public IList<tblEnumValue> EnumValueMonthListFVL { get; set; }
         public IList<tblEnumValue> EnumValueMonthListFVE { get; set; }
         public IList<tblEnumValue> EnumValueShippingScheduleList { get; set; }
+        public IList<tblEnumValue> EnumValueProductionTypeList { get; set; }
         public IList<tblEnumValue> EnumValueDocumentTypeList { get; set; }
 
         public tblProductCatalogControl ProductCatalogControl;
@@ -242,6 +243,8 @@ public int productId { get; set; }
         public string Title { get; set; }
 
         public long ProductType { get; set; }
+
+        public long ProductionType { get; set; }
 
         public string Address { get; set; }
         public string QuantityTypeStr { get; set; }
