@@ -69,6 +69,7 @@ var name = "";
 var description = "";
 var pCode = "";
 var camBeOrder = 0;
+var edvStatus = 0;
 
 //if ($('#productCheckEdit').is(':checked')) {
 //    $('#productName').val(name);
@@ -90,6 +91,12 @@ $('#productCheckEdit').click(function () {
         }
         else {
             $("#canBeOrder").prop("checked", false);
+        }
+
+        if (edvStatus > 0) {
+            $("#edvStatus").prop("checked", true);
+        } else {
+            $("#edvStatus").prop("checked", false);
         }
 
         $.ajax({
@@ -154,13 +161,14 @@ function chcheck(elem) {
     }
 }
 
-function setParId(elem, ProductId, ProductName, ProductDescription, cBeOrder,prodCode) {
+function setParId(elem, ProductId, ProductName, ProductDescription, cBeOrder, prodCode, edvSts) {
     //parId = $(elem).val();
     parId = ProductId;
     name = ProductName;
     pCode = prodCode;
     description = ProductDescription;
     camBeOrder = cBeOrder;
+    edvStatus = edvSts;
 
     $('#ProductHeader').html($(elem).html() + ' &nbsp;&nbsp;<a href="/Home/DeleteProdCat/?&productCatalogId=' + ProductId + '" class="glyphicon glyphicon-remove text-danger"></a>');
 
@@ -182,6 +190,9 @@ function ifChecked()
     }
     if ($("#canBeOrder").is(':checked')) {
         $('#canBeOrder').trigger('click');
+    }
+    if ($("#edvStatus").is(':checked')) {
+        $('#edvStatus').trigger('click');
     }
 }
 
@@ -269,6 +280,8 @@ function AddProductCatalog() {
     productName = $('#productName').val();
     productDescription = $('#productDescription').val();
    var productCode = $('#productCode').val();
+   var nedvStatus;
+
     //fup = $('#fup').val();
 
     //$('#fupDanger').html('');
@@ -294,10 +307,14 @@ function AddProductCatalog() {
         canBeOrder = 1;
     }
 
+    if (document.getElementById('edvStatus').checked) {
+        nedvStatus = $('#edvStatus').val();
+    }
+
     $.ajax({
         url: '/Home/AddProductCatalog',
         type: 'GET',
-        data: { productName: productName, productDescription: productDescription, productCatalogParentID: parId, enumCatVal: enumCatVal, isEdit: isEdit, canBeOrder: canBeOrder, productCode: productCode },
+        data: { productName: productName, productDescription: productDescription, productCatalogParentID: parId, enumCatVal: enumCatVal, isEdit: isEdit, canBeOrder: canBeOrder, productCode: productCode, edvStatus: nedvStatus },
         success: function (result) {
 
             sendFiles(result);

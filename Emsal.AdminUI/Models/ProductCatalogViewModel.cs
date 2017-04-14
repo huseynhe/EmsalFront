@@ -42,6 +42,7 @@ namespace Emsal.AdminUI.Models
         public tblEnumValue EnumValue;
         public tblEnumValue EnumValueFP;
         public IList<tblEnumValue> EnumValueList { get; set; }
+        public IList<tblEnumValue> EnumValueEDVList { get; set; }
         public tblEnumValue[] EnumValueArray;
 
         public tblProductCatalogControl ProductCatalogControl;

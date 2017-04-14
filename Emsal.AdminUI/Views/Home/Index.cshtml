@@ -21,42 +21,42 @@
                 <div class="col-md-4"  style="width:63.33333333%;">
                     <ul id="tree3">
                         <li>
-                            <span onclick="setParId(this, 0, '', '',0,'')"> Əsas məhsul</span>
+                            <span onclick="setParId(this, 0, '', '',0,'',0)"> Əsas məhsul</span>
                         </li>
                         @foreach (var item in Model.ProductCatalogList)
                             {
                                 if (item.ProductCatalogParentID == 0)
                                 {
                             <li>
-                                <span onclick="setParId(this, @item.Id, '@item.ProductName', '@item.ProductDescription', @item.canBeOrder, '@item.productCode')"> @item.ProductName</span>
+                                <span onclick="setParId(this, @item.Id, '@item.ProductName', '@item.ProductDescription', @item.canBeOrder, '@item.productCode',@item.edvStatus)"> @item.ProductName</span>
                                 @foreach (var item2 in Model.ProductCatalogList)
                                         {
                                             if (item2.ProductCatalogParentID == item.Id)
                                             {
                                 <ul>
                                     <li>
-                                        <span onclick="setParId(this, @item2.Id, '@item2.ProductName', '@item2.ProductDescription',@item2.canBeOrder, '@item2.productCode')"> @item2.ProductName</span>
+                                        <span onclick="setParId(this, @item2.Id, '@item2.ProductName', '@item2.ProductDescription',@item2.canBeOrder, '@item2.productCode',@item2.edvStatus)"> @item2.ProductName</span>
                                         @foreach (var item3 in Model.ProductCatalogList)
                                                         {
                                                             if (item3.ProductCatalogParentID == item2.Id)
                                                             {
                                         <ul>
                                             <li>
-                                                <span onclick="setParId(this, @item3.Id, '@item3.ProductName', '@item3.ProductDescription', @item3.canBeOrder, '@item3.productCode')">@item3.ProductName</span>
+                                                <span onclick="setParId(this, @item3.Id, '@item3.ProductName', '@item3.ProductDescription', @item3.canBeOrder, '@item3.productCode',@item3.edvStatus)">@item3.ProductName</span>
                                                 @foreach (var item4 in Model.ProductCatalogList)
                                                                         {
                                                                             if (item4.ProductCatalogParentID == item3.Id)
                                                                             {
                                                         <ul>
                                                             <li>
-                                                                <span onclick="setParId(this, @item4.Id, '@item4.ProductName', '@item4.ProductDescription',@item4.canBeOrder, '@item4.productCode')">@item4.ProductName</span>
+                                                                <span onclick="setParId(this, @item4.Id, '@item4.ProductName', '@item4.ProductDescription',@item4.canBeOrder, '@item4.productCode',@item3.edvStatus)">@item4.ProductName</span>
                                                                 @foreach (var item5 in Model.ProductCatalogList)
                                                                                         {
                                                                                             if (item5.ProductCatalogParentID == item4.Id)
                                                                                             {
                                                                         <ul>
                                                                             <li>
-                                                                                <span onclick="setParId(this, @item5.Id, '@item5.ProductName', '@item5.ProductDescription',@item5.canBeOrder, '@item5.productCode')">@item5.ProductName</span>
+                                                                                <span onclick="setParId(this, @item5.Id, '@item5.ProductName', '@item5.ProductDescription',@item5.canBeOrder, '@item5.productCode',@item5.edvStatus)">@item5.ProductName</span>
                                                                             </li>
                                                                         </ul>
                                                                                             }
@@ -146,13 +146,26 @@
                     </div>
                 </div>
                 
+                <hr />
+
                  <div class="form-group">
-                    <div class="checkbox col-sm-12">
-                        <label class="pull-right">
+                     <div class="checkbox col-sm-6">
+                         @foreach (var item in Model.EnumValueEDVList)
+                         {
+                             <label>
+                                 <input id="edvStatus" value="@item.Id" type="checkbox">
+                                 @item.name
+                             </label>
+                         }
+                     </div>
+
+                    <div class="checkbox col-sm-6">
+                        <label>
                             <input id="canBeOrder" type="checkbox">
                             Satılacaq məhsul
                         </label>
                     </div>
+
                 </div>
 
             </div>
