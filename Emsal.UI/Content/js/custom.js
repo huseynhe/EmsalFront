@@ -14,6 +14,7 @@ function resetStaticVariables() {
     }
 }
 
+
 $(document).ready(function () {
     resetStaticVariables();
 });
