@@ -254,6 +254,7 @@ function getProductOrigin(originStatus) {
         data: {},
         success: function (result) {
             $('#ProductOriginMD').html(result);
+            $('.select2').select2();
         },
         error: function () {
 

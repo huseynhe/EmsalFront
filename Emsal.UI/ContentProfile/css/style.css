@@ -8,6 +8,12 @@ html, body, h1, h2, h3, h4, h5, h6, p, hr, ul, ol, li {
     height: 110px;
 margin-bottom: 10px;
 }
+
+.badgemargin{
+    margin-top: -10px; 
+    margin-right: 15px;
+}
+
 .loader {
 	position: fixed;
 	left: 0px;

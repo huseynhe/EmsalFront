@@ -5,10 +5,7 @@
     decimal tquantity = 0;
 }
 
-<div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
-    <span class="badge " style="margin-top: -10px; float: right;background:#D43F3A;margin-right: 15px;">@Model.itemCount</span>
-</div>
-<table class="table table-bordered">
+<table class="table table-bordered" style="margin-bottom:0;">
     <tr>
         <th class="col-md-2">Məhsulun adı</th>
         <th class="col-md-1">Çəkisi</th>
@@ -18,126 +15,142 @@
         <th class="col-md-1">Sil</th>
         <th class="col-md-1">Redaktə</th>
     </tr>
-    @{
-        foreach (var item in Model.ProductionDetailList)
-        {
-            <tr>
-                <td class="col-md-2">
-                    @item.productParentName (@item.productName)
-                </td>
-                <td class="col-md-1">
-                    @if ((decimal)Math.Round(item.quantity, 2) > (int)item.quantity)
-                    {
-                        @item.quantity
-                    }
-                    else
-                    {
-                        long qi = (int)Math.Round(item.quantity, 0);
-                        <span>@qi</span>
-                    }
-                </td>
-                <td class="col-md-1">@item.enumValueName</td>
-                <td class="col-md-2">
-                    - @item.fullAddress
-                </td>
-                <td class="col-md-1">@item.description</td>
-                <td class="text-center col-md-1">
-                    <div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="deleteSelectedOfferProduct(@item.productionID)"></div>
-                </td>
-                <td class="text-center col-md-1">
-                    <a href="/OfferProduction/Edit?id=@item.productionID" style="text-decoration:none;" class="glyphicon glyphicon-pencil text-primary"></a>
-                </td>
-            </tr>
-            if (item.productionCalendarList.Count() > 0)
+    </table>
+    <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
+        <span class="badge bg-danger pull-right badgemargin">@Model.itemCount</span>
+    </div>
+    <table class="table table-bordered">
+
+        @{
+            foreach (var item in Model.ProductionDetailList)
             {
                 <tr>
-                    <td colspan="8" style="padding:0;">
-                        <table class="table" style="margin:0;">
-                            <tbody>
-                                <tr>
-                                    <th>tipi</th>
-                                    <th>il</th>
-                                    <th>rüb</th>
-                                    <th>ay</th>
-                                    <th>gün</th>
-                                    <th>saat</th>
-                                    <th>miqdar</th>
-                                    <th>miqdar (cəmi)</th>
-                                    <th class="text-center">sil</th>
-                                </tr>
-                                @{
-                                    foreach (var itemn in item.productionCalendarList)
-                                    {
-                                        tquantity = ((decimal)itemn.quantity * (decimal)itemn.transportation_eV_Id);
-                                        <tr>
-                                            <td>
-                                                @if (itemn.TypeDescription != null)
-                                                {
-                                                    <span>@itemn.TypeDescription</span>
-                                                }
-                                            </td>
-                                            <td> @itemn.year </td>
-                                            <td> @itemn.partOfyear</td>
-                                            <td> @itemn.MonthDescription</td>
-                                            <td> @itemn.day</td>
-                                            <td> @itemn.oclock:00</td>
-                                            <td>
-                                                @if ((decimal)Math.Round(itemn.quantity, 2) > (int)itemn.quantity)
-                                                {
-                                                    @itemn.quantity
-                                                }
-                                                else
-                                                {
-                                                    long qi = (int)Math.Round(itemn.quantity, 0);
-                                                    <span>@qi</span>
-                                                }
-                                            </td>
-                                            <td>
-                                                @if ((decimal)Math.Round(tquantity, 2) > (int)tquantity)
-                                                {
-                                                    @tquantity
-                                                }
-                                                else
-                                                {
-                                                    long qi = (int)Math.Round(tquantity, 0);
-                                                    <span>@qi</span>
-                                                }
+                    <td class="col-md-2">
+                        @item.productParentName (@item.productName)
+                    </td>
+                    <td class="col-md-1">
+                        @if ((decimal)Math.Round(item.quantity, 2) > (int)item.quantity)
+                        {
+                            @item.quantity
+                        }
+                        else
+                        {
+                            long qi = (int)Math.Round(item.quantity, 0);
+                            <span>@qi</span>
+                        }
+                    </td>
+                    <td class="col-md-1">@item.enumValueName</td>
+                    <td class="col-md-2">
+                        - @item.fullAddress
+                    </td>
+                    <td class="col-md-1">@item.description</td>
+                    <td class="text-center col-md-1">
+                        <div onclick="deleteSelectedOfferProduct(@item.productionID)" class="btn btn-danger btn-xs">
+                            <i class="fa fa-trash-o"></i>
+                        </div>
 
-                                            </td>
-                                            @if (Model.isPDF == false)
-                                            {
-                                                <td class="text-center">
-                                                    <div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="deleteProductionCalendar(@itemn.ID, @itemn.demand_Id)"></div>
-                                                </td>
-                                            }
-                                        </tr>
-                                    }
-                                }
-                            </tbody>
-                        </table>
+                        @*<div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="deleteSelectedOfferProduct(@item.productionID)"></div>*@
+                    </td>
+                    <td class="text-center col-md-1">
+                        <a href="/OfferProduction/Edit?id=@item.productionID" class="btn btn-primary btn-xs">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+
+                        @*<a href="/OfferProduction/Edit?id=@item.productionID" style="text-decoration:none;" class="glyphicon glyphicon-pencil text-primary"></a>*@
                     </td>
                 </tr>
-                                    }
-                                    if (item != Model.ProductionDetailList.LastOrDefault())
-                                    {
-                                        <tr>
-                                            <td colspan="8" style="padding:0;background:#f2f2f2;">
-                                                &nbsp;
-                                            </td>
-                                        </tr>
+                if (item.productionCalendarList.Count() > 0)
+                {
+                    <tr>
+                        <td colspan="8" style="padding:0;">
+                            <table class="table" style="margin:0;">
+                                <tbody>
+                                    <tr>
+                                        <th>tipi</th>
+                                        <th>il</th>
+                                        <th>rüb</th>
+                                        <th>ay</th>
+                                        <th>gün</th>
+                                        <th>miqdar</th>
+                                        <th>miqdar (cəmi)</th>
+                                        <th class="text-center">sil</th>
+                                    </tr>
+                                    @{
+                                        foreach (var itemn in item.productionCalendarList)
+                                        {
+                                            tquantity = ((decimal)itemn.quantity * (decimal)itemn.transportation_eV_Id);
+                                            <tr>
+                                                <td>
+                                                    @if (itemn.TypeDescription != null)
+                                                    {
+                                                        <span>@itemn.TypeDescription</span>
+                                                    }
+                                                </td>
+                                                <td> @itemn.year </td>
+                                                <td> @itemn.partOfyear</td>
+                                                <td> @itemn.MonthDescription</td>
+                                                <td> @itemn.day</td>
+                                                <td>
+                                                    @if ((decimal)Math.Round(itemn.quantity, 2) > (int)itemn.quantity)
+                                                    {
+                                                        @itemn.quantity
+                                                    }
+                                                    else
+                                                    {
+                                                        long qi = (int)Math.Round(itemn.quantity, 0);
+                                                        <span>@qi</span>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if ((decimal)Math.Round(tquantity, 2) > (int)tquantity)
+                                                    {
+                                                        @tquantity
+                                                    }
+                                                    else
+                                                    {
+                                                        long qi = (int)Math.Round(tquantity, 0);
+                                                        <span>@qi</span>
+                                                    }
+
+                                                </td>
+                                                @if (Model.isPDF == false)
+                                                {
+                                                    <td class="text-center">
+                                                        <button onclick="deleteProductionCalendar(@itemn.ID, @itemn.demand_Id)" class="btn btn-danger btn-xs">
+                                                        <i class="fa fa-trash-o"></i>
+                                                        </button>
+
+                                                        @*<div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="deleteProductionCalendar(@itemn.ID, @itemn.demand_Id)"></div>*@
+                                                    </td>
+                                                }
+                                            </tr>
                                         }
                                     }
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                                        }
+                                        if (item != Model.ProductionDetailList.LastOrDefault())
+                                        {
+                                            <tr>
+                                                <td colspan="8" style="padding:0;background:#f2f2f2;">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            }
+                                        }
+        }
+    </table>
+    @if (Model.isPDF == false)
+    {
+        <div class="box-footer clearfix">
+            Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
+            @Html.PagedListPager(Model.PagingT, page => Url.Action("SelectedProducts", new { page, productId = Model.productId }))
+        </div>
     }
-</table>
-@if (Model.isPDF == false)
-{
-    <div class="box-footer clearfix">
-        Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
-        @Html.PagedListPager(Model.PagingT, page => Url.Action("SelectedProducts", new { page, productId = Model.productId, noButton = false }))
-    </div>
-}
 
-@if (Model.isPDF == true)
-{
-    @Html.Action("Style", "Home", new { pId = 0 })
-}
+    @if (Model.isPDF == true)
+    {
+        @Html.Action("Style", "Home", new { pId = 0 })
+    }

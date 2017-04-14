@@ -1,30 +1,27 @@
 ﻿
 @model Emsal.UI.Models.OfferProductionViewModel
-
 @{
     ViewBag.Title = "ProductionCalendar";
     Layout = "";
     decimal tquantity = 0;
 }
-
 @if (Model.LProductionCalendarDetailList.Count() > 0)
 {
 
-        <table class="table" style="margin:0;">
-            <tbody>
+    <table class="table" style="margin:0;">
+        <tbody>
             <tr>
                 <th>tipi</th>
                 <th>il</th>
                 <th>rüb</th>
                 <th>ay</th>
                 <th>gün</th>
-                <th>saat</th>
                 <th>miqdar</th>
                 <th>miqdar (cəmi)</th>
-@if (Model.isPDF == false)
-{
-                <th class="text-center">sil</th>
-}
+                @if (Model.isPDF == false)
+                {
+                    <th class="text-center">sil</th>
+                }
             </tr>
             @{
                 foreach (var item in Model.LProductionCalendarDetailList)
@@ -33,16 +30,15 @@
                     <tr>
                         <td>
                             @if (item.TypeDescription != null)
-                                {
-                                    <span>@item.TypeDescription</span>
-                                }
+                            {
+                                <span>@item.TypeDescription</span>
+                            }
                         </td>
                         <td> @item.year </td>
                         <td> @item.partOfyear</td>
                         <td> @item.MonthDescription</td>
                         <td> @item.day</td>
-                        <td> @item.oclock:00</td>
-                        <td> 
+                        <td>
                             @if ((decimal)Math.Round(item.quantity, 2) > (int)item.quantity)
                             {
                                 @item.quantity
@@ -52,9 +48,8 @@
                                 long qi = (int)Math.Round(item.quantity, 0);
                                 <span>@qi</span>
                             }
-
-                         </td>
-                        <td> 
+                        </td>
+                        <td>
                             @if ((decimal)Math.Round(tquantity, 2) > (int)tquantity)
                             {
                                 @tquantity
@@ -64,18 +59,21 @@
                                 long qi = (int)Math.Round(tquantity, 0);
                                 <span>@qi</span>
                             }
-                        
+
                         </td>
-@if (Model.isPDF == false)
-{
-                        <td class="text-center">
-                            <div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="deleteProductionCalendar(@item.ID, @item.offer_Id)"></div>
-                        </td>
-}
+                        @if (Model.isPDF == false)
+                        {
+                            <td class="text-center">
+                                <div onclick="deleteProductionCalendar(@item.ID, @item.offer_Id)" class="btn btn-danger btn-xs">
+                                    <i class="fa fa-trash-o"></i>
+                                </div>
+                                @*<div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="deleteProductionCalendar(@item.ID, @item.offer_Id)"></div>*@
+                            </td>
+                        }
                     </tr>
                 }
             }
-                </tbody>
-        </table>
+        </tbody>
+    </table>
 
                 }
