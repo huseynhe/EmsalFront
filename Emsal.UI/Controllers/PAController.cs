@@ -37,16 +37,15 @@ namespace Emsal.UI.Controllers
 
         private OfferMonitoringViewModel modelOfferMonitoring;
 
-
-        private static long[] sproductIdArray = {
-            334, //1-ci növ buğda unundan bişirilmiş ağ çörək
-            335, //2-ci növ buğda unundan bişirilmiş ağ çörək
-            343, //1-ci növ buğda unu
-            344, //2-ci növ buğda unu
-            346, //Doğranmış zülalsız buğda çörəyi
-            347, //Çovdar çörəyi
-            363 //Toyuq əti
-        };
+        //private static long[] sproductIdArray = {
+        //    334, //1-ci növ buğda unundan bişirilmiş ağ çörək
+        //    335, //2-ci növ buğda unundan bişirilmiş ağ çörək
+        //    343, //1-ci növ buğda unu
+        //    344, //2-ci növ buğda unu
+        //    346, //Doğranmış zülalsız buğda çörəyi
+        //    347, //Çovdar çörəyi
+        //    363 //Toyuq əti
+        //};
 
         public ActionResult TotalDemandOffersGroup(int? page, long productId = -1, long userTypeId = -1, long monthEVId = -1, string fin = null, string voen = null, bool excell = false)
         {
@@ -272,7 +271,7 @@ namespace Emsal.UI.Controllers
                                 faiz = "";
                                 edv = 0;
 
-                                if (sproductIdArray.Contains(itemo.productId))
+                                if (itemo.edvStatus>0)
                                 {
                                     edv = 100;
                                 }
@@ -404,9 +403,9 @@ namespace Emsal.UI.Controllers
                                 sheet.Cells[rowIndex, col2++].Value = itemo.taxesType;
 
                                 sheet.Row(rowIndex).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-
-                                if (sproductIdArray.Contains(itemo.productId))
-                                {
+                               
+                                    if (itemo.edvStatus > 0)
+                                    {
                                     sheet.Row(rowIndex).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                                     sheet.Row(rowIndex).Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
                                 }
@@ -555,8 +554,6 @@ namespace Emsal.UI.Controllers
                 modelOfferMonitoring.fin = sfin;
                 modelOfferMonitoring.voen = svoen;
 
-                modelOfferMonitoring.productIdArray = sproductIdArray;
-
 
                 if (excell == true)
                 {
@@ -689,7 +686,7 @@ namespace Emsal.UI.Controllers
                                 faiz = "";
                                 edv = 0;
 
-                                if (sproductIdArray.Contains(itemo.productId))
+                                if (itemo.edvStatus>0)
                                 {
                                     edv = 100;
                                 }

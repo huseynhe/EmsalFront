@@ -1898,6 +1898,8 @@ namespace Emsal.UI.Controllers
                 modelOfferProduction.DemandProductionDetailistForUser.userID = (long)userId;
                 modelOfferProduction.DemandProductionDetailistForUser.productID = sproductId;
                 modelOfferProduction.DemandProductionDetailistForUser.isSelected = true;
+                modelOfferProduction.DemandProductionDetailistForUser.roleID = 0;
+                modelOfferProduction.DemandProductionDetailistForUser.userType_eV_ID = 0;
 
                 BaseOutput gpd = srv.WS_GetOfferProductionDetailistForUser_OP(baseInput, modelOfferProduction.DemandProductionDetailistForUser, out modelOfferProduction.ProductionDetailArray);
 
@@ -1910,7 +1912,7 @@ namespace Emsal.UI.Controllers
                     modelOfferProduction.ProductionDetailList = new List<ProductionDetail>();
                 }
 
-                BaseOutput gdpc = srv.WS_GetDemandProductionDetailistForUser_OPC(baseInput, modelOfferProduction.DemandProductionDetailistForUser, out modelOfferProduction.itemCount, out modelOfferProduction.itemCountB);
+                BaseOutput gdpc = srv.WS_GetOfferProductionDetailistForUser_OPC(baseInput, modelOfferProduction.DemandProductionDetailistForUser, out modelOfferProduction.itemCount, out modelOfferProduction.itemCountB);
 
                 long[] aic = new long[modelOfferProduction.itemCount];
 
