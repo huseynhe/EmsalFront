@@ -17,8 +17,8 @@
                 </label>
             </div>
             <div class="btn-group" id="chall">
-                <button type="submit" class="btn btn-primary btn-sm">
-                    <span class="glyphicon glyphicon-check"></span>&nbsp;Təsdiqləyin
+                <button type="submit" class="btn btn-primary btn-icon btn-sm">
+                    <i class="fa fa-check"></i>&nbsp;Təsdiqləyin
                 </button>
             </div>
 
@@ -26,7 +26,7 @@
         <input hidden id="checkedList" />
         <div class="table-responsive">
             <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
-                <span class="badge " style="margin-top: -10px; float: right;background:#D43F3A;">@Model.itemCount</span>
+                <span class="badge bg-danger pull-right badgemargin">@Model.itemCount</span>
             </div>
             <table class="table table-hover table-striped table-bordered">
                 <tbody>
@@ -72,8 +72,8 @@
                                 <b>tel:</b> @string.Join(", ", item.personcomList.Select(x => x.communication).LastOrDefault())
                             </td>
                             <td class="col-md-1 shsingle text-center">
-                                <a href="/PotentialClientState/Edit/@item.userID" class="badge bg-light-blue">
-                                    <span class="glyphicon glyphicon-check"></span>
+                                <a href="/PotentialClientState/Edit/@item.userID" class="btn btn-primary btn-xs">
+                                    <i class="fa fa-check"></i>
                                 </a>
                             </td>
                         </tr>

@@ -37,10 +37,12 @@
                         </td>
                         <td>@item.description</td>
                         <td class="text-center">
-                            <div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="deleteSelectedPotentialProduct(@item.productionID)"></div>
+                            <div class="btn btn-danger btn-xs" onclick="deleteSelectedPotentialProduct(@item.productionID)"><i class="fa fa-trash-o"></i></div>
                         </td>
                         <td class="text-center">
-                            <a href="/PotentialClient/Edit/@item.productionID" style="text-decoration:none;" class="glyphicon glyphicon-pencil text-primary"></a>
+                            <a href="/PotentialClient/Edit/@item.productionID" class="btn btn-primary btn-xs">
+                                <i class="fa fa-pencil"></i>
+                            </a>
                         </td>
                     </tr>
                 }

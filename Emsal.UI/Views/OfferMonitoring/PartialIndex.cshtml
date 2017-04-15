@@ -23,7 +23,7 @@
     <div class="box-body no-padding">
         @if (Model.isPDF == false)
         {
-            <a href="/OfferMonitoring?monitoringStatusEV = @Model.monitoringStatusEV&productId=@Model.productId&userType=@Model.userType&userInfo=@Model.userInfo&pdf=true" class="btn btn-warning active pull-right" style="margin-top: 3px; margin-bottom: 3px;">
+            <a href="/OfferMonitoring?monitoringStatusEV = @Model.monitoringStatusEV&productId=@Model.productId&userType=@Model.userType&userInfo=@Model.userInfo&pdf=true" class="btn btn-warning active pull-right btn-icon" style="margin-top: 3px; margin-bottom: 3px;">
                 <i class="glyphicon glyphicon-save-file"></i>
                 Yüklə
             </a>
@@ -36,8 +36,8 @@
                     </label>
                 </div>
                 <div class="btn-group" id="chall">
-                    <button type="submit" class="btn btn-primary btn-sm">
-                        <span class="glyphicon glyphicon-check"></span>&nbsp;Təsdiqləyin
+                    <button type="submit" class="btn btn-primary btn-sm btn-icon">
+                        <i class="fa fa-check"></i>&nbsp;Təsdiqləyin
                     </button>
                 </div>
 
@@ -49,7 +49,7 @@
             @if (Model.isPDF == false)
             {
                 <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
-                    <span class="badge " style="margin-top: -10px; float: right;background:#D43F3A;">@Model.itemCount</span>
+                    <span class="badge bg-danger pull-right badgemargin">@Model.itemCount</span>
                 </div>
             }
             <table class="table table-hover table-striped table-bordered">
@@ -167,8 +167,8 @@
                                 if (Model.isMain == 0)
                                 {
                                     <td class="col-md-1 shsingle text-center" style="font-size:16px;">
-                                        <a href="/OfferMonitoring/Edit/@item.productionID" class="label label-pill label-danger">
-                                            <span class="glyphicon glyphicon-remove"></span>
+                                        <a href="/OfferMonitoring/Edit/@item.productionID" class="btn btn-danger btn-xs">
+                                            <i class="fa fa-trash-o"></i>
                                         </a>
                                     </td>
                                 }
@@ -176,27 +176,27 @@
                                 {
                                     if (!string.IsNullOrEmpty(item.ContractNumber))
                                     {
-                                        icon = "glyphicon-eye-open";
+                                        icon = "fa fa-eye";
                                     }
                                     else
                                     {
-                                        icon = "glyphicon-plus";
+                                        icon = "fa fa-plus";
                                     }
                                     <td class="col-md-1 shsingle text-center" style="font-size:16px;">
-                                        <a href="/OfferMonitoring/EditPA/@item.productionID" class="label label-pill label-primary">
+                                        <a href="/OfferMonitoring/EditPA/@item.productionID" class="btn btn-primary btn-xs">
                                             @if (!string.IsNullOrEmpty(item.ContractNumber))
                                             {
-                                               <span class="glyphicon glyphicon-pencil"></span> @ch
+                                               <i class="fa fa-pencil"></i> @ch
                                             }
-                                            <span class="glyphicon @icon"></span>
+                                            <span class="@icon"></span>
                                         </a>
                                     </td>
 
                                     <td class="col-md-1 shsingle text-center" style="font-size:16px;">
                                         @if (!string.IsNullOrEmpty(item.ContractNumber))
                                         {
-                                        <a href="/OfferMonitoring/DeleteContractDetailTemp/@item.contTempID" class="label label-pill label-danger">
-                                            <span class="glyphicon glyphicon-remove"></span>
+                                        <a href="/OfferMonitoring/DeleteContractDetailTemp/@item.contTempID" class="btn btn-danger btn-xs">
+                                            <i class="fa fa-trash-o"></i>
                                         </a>
                                         }
                                     </td>

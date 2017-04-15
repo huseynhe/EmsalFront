@@ -14,9 +14,9 @@
     string icn = "glyphicon-download";
 }
 
-<div class="box-body no-padding">
+
     <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
-        <span class="badge " style="margin-top: -10px; float: right;background:#D43F3A;">@Model.itemCount</span>
+        <span class="badge bg-danger pull-right badgemargin">@Model.itemCount</span>
     </div>
     <table class="table table-hover table-striped table-bordered">
         @foreach (var item in Model.PersonDetailList)
@@ -55,11 +55,11 @@
                     {
                         icn = "glyphicon-upload";
                         <td onclick="location.href = '/OfferMonitoring/ContractForm?isContract=true&pid=@item.personId'" class="col-md-1 text-center" style="cursor:pointer;font-size:20px;">
-                            <span class="glyphicon glyphicon-save-file"></span>
+                            <span class="glyphicon glyphicon-save-file text-primary"></span>
                         </td>
                     }
                     <td onclick="GetAttachFileTemp(this,@item.personId)" class="col-md-1 text-center" style="cursor:pointer;font-size:20px;">
-                        <span class="glyphicon @icn"></span>
+                        <span class="glyphicon @icn text-info"></span>
                     </td>
                 </tr>
                 <tr>
@@ -70,7 +70,7 @@
             </tbody>
         }
     </table>
-</div>
+
 <div class="box-footer clearfix">
     Səhifə @(Model.PagingT.PageCount < Model.PagingT.PageNumber ? 0 : Model.PagingT.PageNumber) (cəmi @Model.PagingT.PageCount)
     @Html.PagedListPager(Model.PagingT, page => Url.Action("Contract", new { page, nameSurnameFathername = Model.nameSurnameFathername, pin = Model.pin, isSeller=Model.isSeller }))

@@ -50,12 +50,14 @@ else
                             @Math.Round(((decimal)((item.documentSize) / 1024) / 1024), 2) mb
                         </td>
                         <td>
-                            <a target="_blank" href="/OfferMonitoring/GetContractFile?cid=@item.Id">
-                                <div style="cursor:pointer;" class="glyphicon glyphicon-eye-open text-primary"></div>
+                            <a target="_blank" class="btn btn-primary btn-xs" href="/OfferMonitoring/GetContractFile?cid=@item.Id">
+                                <i class="fa fa-eye"></i>
                             </a>
 </td>
                         <td>
-                            <div style="cursor:pointer;" class="glyphicon glyphicon-remove text-danger" onclick="DeleteContractById(@item.Id)"></div>
+                            <div style="cursor:pointer;" class="btn btn-danger btn-xs" onclick="DeleteContractById(@item.Id)">
+                                <i class="fa fa-trash-o"></i>
+                            </div>
                         </td>
                     </tr>
                 }

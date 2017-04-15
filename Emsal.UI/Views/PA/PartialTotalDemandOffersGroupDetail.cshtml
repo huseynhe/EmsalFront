@@ -13,7 +13,7 @@
 }
 
 <h4 class="text-danger text-center">
-    <a href="/PA/TotalDemandOffersGroupDetail?productId=@Model.productId&userTypeId=@Model.userTypeId&monthEVId=@Model.monthEVId&fin=@Model.fin&voen=@Model.voen&excell=true" class="btn btn-warning btn-sm active pull-right" style="margin-top: -5px;margin-right:5px;">
+    <a href="/PA/TotalDemandOffersGroupDetail?productId=@Model.productId&userTypeId=@Model.userTypeId&monthEVId=@Model.monthEVId&fin=@Model.fin&voen=@Model.voen&excell=true" class="btn btn-warning btn-sm btn-icon pull-right" style="margin-top: -5px;margin-right:5px;">
         <i class="fa fa-file-excel-o" aria-hidden="true"></i>
         Yüklə
     </a>
@@ -22,7 +22,7 @@
 
 <div class="table-responsive">
     <div class="col-sm-1 col-sm-offset-11" style="position: absolute;">
-        <span class="badge " style="margin-top: -10px; float: right; margin-right: 15px;background:#D43F3A;">@Model.itemCount</span>
+        <span class="badge bg-danger pull-right badgemargin">@Model.itemCount</span>
     </div>
 
     <table class="table table-hover table-striped table-bordered">
