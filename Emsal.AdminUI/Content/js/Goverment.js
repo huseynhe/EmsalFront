@@ -7,10 +7,10 @@ function enableDisable(state) {
 }
 
 function firstRun(state) {
-    $("#UserName").attr('readonly', state);
-    $("#Name").attr('readonly', state);
-    $("#Email").attr('readonly', state);
-    $("#Password").attr('readonly', state);
+    //$("#UserName").attr('readonly', state);
+    //$("#Name").attr('readonly', state);
+    //$("#Email").attr('readonly', state);
+    //$("#Password").attr('readonly', state);
 
     $("#name").attr('readonly', state);
     $("#surname").attr('readonly', state);
@@ -24,9 +24,6 @@ function firstRun(state) {
     $("#Gender").attr('disabled', state);
     $("#education").attr('disabled', state);
     $("#Job").attr('disabled', state);
-
-
-
 }
 
 
@@ -120,7 +117,7 @@ function SearchForProduct() {
     var actionName = $("#actionName").val();
 
     $.ajax({
-        url: '/GovernmentOrganisation/' + actionName + '?name=' + $("#pNameInput").val(),
+        url: '/GovernmentOrganisation',
         type: 'GET',
         success: function (result) {
             $('#AjaxPaginationList').html(result);
