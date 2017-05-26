@@ -29,12 +29,17 @@ namespace Emsal.AdminUI.Controllers
         Emsal.WebInt.TaxesSRV.VOENDATA taxesService = null;
         private BaseInput binput;
         Organisation modelUser;
-        public ActionResult Index(int? page, long? UserId, string name = null)
+        public ActionResult Index(int? page, Organisation form, long? UserId, string name = null)
         {
             binput = new BaseInput();
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
+
+            Organisation modelUser = new Organisation();
+            modelUser.actionName = "Organisations";
+            //get roles by name gelecek bura
+            modelUser = form;
             if (User != null && User.Identity.IsAuthenticated)
             {
                 FormsIdentity identity = (FormsIdentity)User.Identity;
@@ -43,69 +48,48 @@ namespace Emsal.AdminUI.Controllers
                     UserId = Int32.Parse(identity.Ticket.UserData);
                 }
             }
-
-            Organisation modelUser = new Organisation();
-            modelUser.actionName = "Index";
-            //get roles by name gelecek bura
             BaseOutput adminOut = srv.WS_GetUserById(binput, (long)UserId, true, out modelUser.Admin);
-            //BaseOutput bouput = srv.WS_GetGovernmentOrganisations(binput, 12, true, out modelUser.UserArray);
-            BaseOutput bout = srv.WS_GetForeign_Organizations(binput, out modelUser.ForeignOrganisationArray);
+            BaseOutput organisationEnumOut = srv.WS_GetEnumValueByName(binput, "legalPerson", out modelUser.EnumValue);
+            BaseOutput govRoleOut = srv.WS_GetRoleByName(binput, "governmentOrganisation", out modelUser.Role);
 
-            modelUser.GovernmentOrganisationList = new List<GovOrAnyOrganisation>();
-            modelUser.ForeignOrganisationArray = modelUser.ForeignOrganisationArray.Where(x => x.parent_Id == 0).ToArray();
-            foreach (var item in modelUser.ForeignOrganisationArray)
+            UserDetails[] userDet = new UserDetails[] { };
+            modelUser.search = new UserDetailSearch();
+            modelUser.search.usertype_Ev_Id = modelUser.EnumValue.Id;
+            modelUser.search.page = pageNumber;
+            modelUser.search.pageSize = pageSize;
+            //if (form.search != null)
+            //{
+            modelUser.search.username = form.UserName;
+            modelUser.search.email = form.SEMail;
+            modelUser.search.fullAddress = form.SFullAddress;
+            modelUser.search.organizationName = form.SOrganizationName;
+            modelUser.search.parentID = true;
+            modelUser.search.governmentOrg = true;
+
+            //modelUser.search.fullAddress = form.SFullAddress;
+            modelUser.search.username = form.SUserName;
+            BaseOutput legalOut = srv.WS_GetGovernmentOrganizationTypeUsers_OP(binput, modelUser.search, out modelUser.userDetailArray);
+
+            long countOfOrganizations;
+            bool t = true;
+            BaseOutput count2 = srv.WS_GetGovernmentOrganizationTypeUsers_OPC(binput, modelUser.search, out countOfOrganizations, out t);
+
+            int pageCount = 0;
+            pageCount = (int)countOfOrganizations / pageSize;
+
+            if ((int)countOfOrganizations % pageSize > 0)
             {
-                modelUser.GovernmentOrganisation = new GovOrAnyOrganisation();
-                BaseOutput bouput = srv.WS_GetUserById(binput, (long)item.userId, true, out modelUser.User);
-
-                modelUser.UserRole = new tblUserRole();
-                BaseOutput bout1 = srv.WS_GetUserRolesByUserId(binput, (long)item.userId, true, out modelUser.UserRolesArray);
-                modelUser.UserRolesArray = modelUser.UserRolesArray.Where(x => x.RoleId == 12).ToArray();
-
-                if (modelUser.UserRolesArray.Count() == 0)
-                    continue;
-
-                modelUser.GovernmentOrganisation.UserName = modelUser.User.Username;
-
-                if (name != null)
-                {
-                    if (!item.name.ToLower().Contains(name.ToLower()))
-                        continue;
-                }
-
-                //BaseOutput OrgOut = srv.WS_GetForeign_OrganizationByUserId(binput, item.Id, true, out modelUser.ForeignOrganisation);
-
-                //if (modelUser.ForeignOrganisation == null)
-                //continue;
-
-                modelUser.GovernmentOrganisation.OrganisationName = item.name.ToString();
-                modelUser.GovernmentOrganisation.Email = modelUser.User.Email;
-                modelUser.GovernmentOrganisation.Id = modelUser.User.Id;
-
-                if (item.address_Id != null)
-                {
-                    if (item.parent_Id != 0)
-                        continue;
-
-                    BaseOutput addressout = srv.WS_GetAddressById(binput, (long)item.address_Id, true, out modelUser.FutureAddress);
-                    BaseOutput fulladdressListOut = srv.WS_GetAdminUnitListForID(binput, (long)modelUser.FutureAddress.adminUnit_Id, true, out modelUser.PRMAdminUnitArray);
-
-
-                    foreach (var adminunit in modelUser.PRMAdminUnitArray)
-                    {
-                        if (adminunit.Name != "Azərbaycan Respublikası")
-                        {
-                            modelUser.GovernmentOrganisation.FullAddress += adminunit.Name + ",";
-                        }
-                    }
-                    modelUser.GovernmentOrganisation.FullAddress = modelUser.GovernmentOrganisation.FullAddress == null ? null : modelUser.GovernmentOrganisation.FullAddress.Remove(modelUser.GovernmentOrganisation.FullAddress.Length - 1);
-                }
-
-                modelUser.GovernmentOrganisationList.Add(modelUser.GovernmentOrganisation);
+                pageCount = pageCount + 1;
             }
 
+            modelUser.pageCount = pageCount;
+            modelUser.pageNumber = pageNumber;
 
-            modelUser.PagingOrganisation = modelUser.GovernmentOrganisationList.ToPagedList(pageNumber, pageSize);
+            long[] p = new long[countOfOrganizations];
+            modelUser.PagingOrganisation = p.ToPagedList(pageNumber, pageSize);
+
+
+            //modelUser.PagingOrganisation = modelUser.GovernmentOrganisationList.ToPagedList(pageNumber, pageSize);
 
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("PartialIndex", modelUser)
@@ -367,7 +351,7 @@ namespace Emsal.AdminUI.Controllers
                 modelUser.ForeignOrganisation.userId = modelUser.User.Id;
                 modelUser.ForeignOrganisation.userIdSpecified = true;
 
-                modelUser.ForeignOrganisation.voen = form.Voen;
+                //modelUser.ForeignOrganisation.voen = form.Voen;
                 modelUser.ForeignOrganisation.manager_Id = modelUser.Manager.Id;
 
                 modelUser.ForeignOrganisation.manager_IdSpecified = true;
@@ -755,7 +739,7 @@ namespace Emsal.AdminUI.Controllers
 
             //update foreign organisation
             modelUser.ForeignOrganisation.name = form.Name;
-            modelUser.ForeignOrganisation.voen = form.Voen;
+            //modelUser.ForeignOrganisation.voen = form.Voen;
 
             BaseOutput updateOrganisation = srv.WS_UpdateForeign_Organization(binput, modelUser.ForeignOrganisation, out modelUser.ForeignOrganisation);
 
@@ -1704,7 +1688,7 @@ namespace Emsal.AdminUI.Controllers
         //    return birthday;
         //}
 
-        public ActionResult Individuals(int? page, long? AdminId, string name = null)
+        public ActionResult Individuals(int? page,Organisation form, long? AdminId, string name = null)
         {
             binput = new BaseInput();
 
@@ -1712,6 +1696,9 @@ namespace Emsal.AdminUI.Controllers
             int pageNumber = (page ?? 1);
 
             Organisation modelUser = new Organisation();
+
+            modelUser = form;
+
             modelUser.actionName = "Individuals";
             //get roles by name gelecek bura
             if (User != null && User.Identity.IsAuthenticated)
@@ -1725,64 +1712,46 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput adminOut = srv.WS_GetUserById(binput, (long)AdminId, true, out modelUser.Admin);
 
             BaseOutput enumPersonOut = srv.WS_GetEnumValueByName(binput, "fizikişexs", out modelUser.EnumValue);
-            BaseOutput bouput = srv.WS_GetUsersByUserType(binput, modelUser.EnumValue.Id, true, out modelUser.UserArray);
 
-            modelUser.IndividualList = new List<Individual>();
-            foreach (var item in modelUser.UserArray)
+            UserDetails[] userDet = new UserDetails[] { };
+            modelUser.search  = new UserDetailSearch();
+            modelUser.search.usertype_Ev_Id = modelUser.EnumValue.Id;
+            modelUser.search.page = pageNumber;
+            modelUser.search.pageSize = pageSize;
+            //if (form.search != null)
+            //{
+                modelUser.search.name = form.SName;
+                modelUser.search.surName = form.SSurname;
+                modelUser.search.fatherName = form.SFName;
+                modelUser.search.email = form.SEMail;
+                modelUser.search.fullAddress = form.SFullAddress;
+                modelUser.search.username = form.SUserName;
+            //}
+            BaseOutput testout = srv.WS_GetUsersByUserType_OP(binput, modelUser.search, out modelUser.userDetailArray);
+
+            long countOfIndivuduals;
+            bool t = true;
+            BaseOutput count2 = srv.WS_GetUsersByUserType_OPC(binput, modelUser.search, out countOfIndivuduals, out t);
+
+            int pageCount = 0;
+            pageCount = (int)countOfIndivuduals / pageSize;
+
+            if ((int)countOfIndivuduals%pageSize > 0)
             {
-                modelUser.Individual = new Individual();
-                modelUser.Individual.Username = item.Username;
-
-                BaseOutput personOut = srv.WS_GetPersonByUserId(binput, item.Id, true, out modelUser.Person);
-
-                if (!String.IsNullOrEmpty(name))
-                {
-                    if (!modelUser.Person.Name.ToLower().Contains(name.ToLower()) && !modelUser.Person.Surname.ToLower().Contains(name.ToLower()) && !modelUser.Person.FatherName.ToLower().Contains(name.ToLower()))
-                    {
-                        continue;
-                    }
-                }
-
-                if (modelUser.Person != null)
-                {
-                    modelUser.Individual.Name = modelUser.Person.Name;
-                    modelUser.Individual.Surname = modelUser.Person.Surname;
-                    modelUser.Individual.Fathername = modelUser.Person.FatherName;
-
-                    if (modelUser.Person.address_Id != null)
-                    {
-                        BaseOutput addressout = srv.WS_GetAddressById(binput, (long)modelUser.Person.address_Id, true, out modelUser.FutureAddress);
-                        BaseOutput fulladdressListOut = srv.WS_GetAdminUnitListForID(binput, (long)modelUser.FutureAddress.adminUnit_Id, true, out modelUser.PRMAdminUnitArray);
-
-                        foreach (var adminunit in modelUser.PRMAdminUnitArray)
-                        {
-                            if (adminunit.Name != "Azərbaycan Respublikası")
-                            {
-                                modelUser.Individual.FullAddress += adminunit.Name + ",";
-                            }
-                        }
-                        if (modelUser.Individual.FullAddress != null)
-                        {
-                            modelUser.Individual.FullAddress = modelUser.Individual.FullAddress.Remove(modelUser.Individual.FullAddress.Length - 1);
-                        }
-                    }
-
-                }
-
-                modelUser.Individual.Email = item.Email;
-                modelUser.Individual.Id = item.Id;
-
-                modelUser.IndividualList.Add(modelUser.Individual);
+                pageCount = pageCount + 1;
             }
 
+            modelUser.pageCount = pageCount;
+            modelUser.pageNumber = pageNumber;
 
-            modelUser.PagingIndividual = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
+            long[] p = new long[countOfIndivuduals];
+            modelUser.PagingIndividual = p.ToPagedList(pageNumber, pageSize);
 
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("PartialIndividuals", modelUser)
                 : View(modelUser);
         }
-        public ActionResult Organisations(int? page, long? AdminId, string name = null)
+        public ActionResult Organisations(int? page,Organisation form, long? AdminId, string name = null)
         {
             binput = new BaseInput();
 
@@ -1792,7 +1761,7 @@ namespace Emsal.AdminUI.Controllers
             Organisation modelUser = new Organisation();
             modelUser.actionName = "Organisations";
             //get roles by name gelecek bura
-
+            modelUser = form;
             if (User != null && User.Identity.IsAuthenticated)
             {
                 FormsIdentity identity = (FormsIdentity)User.Identity;
@@ -1805,70 +1774,104 @@ namespace Emsal.AdminUI.Controllers
             BaseOutput organisationEnumOut = srv.WS_GetEnumValueByName(binput, "legalPerson", out modelUser.EnumValue);
             BaseOutput govRoleOut = srv.WS_GetRoleByName(binput, "governmentOrganisation", out modelUser.Role);
 
+            UserDetails[] userDet = new UserDetails[] { };
+            modelUser.search = new UserDetailSearch();
+            modelUser.search.usertype_Ev_Id = modelUser.EnumValue.Id;
+            modelUser.search.page = pageNumber;
+            modelUser.search.pageSize = pageSize;
+            //if (form.search != null)
+            //{
+            modelUser.search.name = form.SName;
+            modelUser.search.surName = form.SSurname;
+            modelUser.search.fatherName = form.SFName;
+            modelUser.search.email = form.SEMail;           
+            modelUser.search.organizationName = form.SOrganizationName;
 
-            BaseOutput userOut = srv.WS_GetOrganisationTypeUsers(binput, modelUser.Role.Id, true, modelUser.EnumValue.Id, true, out modelUser.UserArray);
+            //modelUser.search.fullAddress = form.SFullAddress;
+            modelUser.search.username = form.SUserName;
+            BaseOutput legalOut = srv.WS_GetGovernmentOrganizationTypeUsers_OP(binput, modelUser.search, out modelUser.userDetailArray);
 
-            modelUser.GovernmentOrganisationList = new List<GovOrAnyOrganisation>();
-            foreach (var item in modelUser.UserArray)
+            long countOfOrganizations;
+            bool t = true;
+            BaseOutput count2 = srv.WS_GetGovernmentOrganizationTypeUsers_OPC(binput, modelUser.search, out countOfOrganizations, out t);
+
+            int pageCount = 0;
+            pageCount = (int)countOfOrganizations / pageSize;
+            
+            if ((int)countOfOrganizations % pageSize > 0)
             {
-                modelUser.GovernmentOrganisation = new GovOrAnyOrganisation();
-                modelUser.GovernmentOrganisation.UserName = item.Username;
-
-                BaseOutput OrgOut = srv.WS_GetForeign_OrganizationByUserId(binput, item.Id, true, out modelUser.ForeignOrganisation);
-
-                if (!String.IsNullOrEmpty(name)) {
-                    if (!modelUser.ForeignOrganisation.name.ToLower().Contains(name.ToLower()))
-                    {
-                        continue;
-                    }
-                }
-
-                //if (modelUser.ForeignOrganisation == null)
-                //{
-                //    return null;
-                //}
-
-                modelUser.GovernmentOrganisation.OrganisationName = modelUser.ForeignOrganisation.name;
-
-                modelUser.GovernmentOrganisation.Email = item.Email;
-                modelUser.GovernmentOrganisation.Id = item.Id;
-
-
-                if (modelUser.ForeignOrganisation.address_Id != null)
-                {
-                    BaseOutput addressout = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
-                    BaseOutput fulladdressListOut = srv.WS_GetAdminUnitListForID(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.PRMAdminUnitArray);
-
-                    foreach (var adminunit in modelUser.PRMAdminUnitArray)
-                    {
-                        if (adminunit.Name != "Azərbaycan Respublikası")
-                        {
-                            modelUser.GovernmentOrganisation.FullAddress += adminunit.Name + ",";
-                        }
-                    }
-                    if (modelUser.GovernmentOrganisation.FullAddress != null)
-                    {
-                        modelUser.GovernmentOrganisation.FullAddress = modelUser.GovernmentOrganisation.FullAddress.Remove(modelUser.GovernmentOrganisation.FullAddress.Length - 1);
-                    }
-                }
-
-
-
-                //get manager infos
-                if (item.Id != null)
-                {
-                    BaseOutput managerOut = srv.WS_GetPersonByUserId(binput, (long)item.Id, true, out modelUser.Person);
-                    modelUser.GovernmentOrganisation.ManagerName = modelUser.Person.Name;
-                    modelUser.GovernmentOrganisation.ManagerFatherName = modelUser.Person.FatherName;
-                    modelUser.GovernmentOrganisation.ManagerSurname = modelUser.Person.Surname;
-                }
-
-
-                modelUser.GovernmentOrganisationList.Add(modelUser.GovernmentOrganisation);
+                pageCount = pageCount + 1;
             }
 
+            modelUser.pageCount = pageCount;
+            modelUser.pageNumber = pageNumber;
 
-            modelUser.PagingOrganisation = modelUser.GovernmentOrganisationList.ToPagedList(pageNumber, pageSize);
+            long[] p = new long[countOfOrganizations];
+            modelUser.PagingOrganisation = p.ToPagedList(pageNumber, pageSize);
+
+            //BaseOutput userOut = srv.WS_GetOrganisationTypeUsers(binput, modelUser.Role.Id, true, modelUser.EnumValue.Id, true, out modelUser.UserArray);
+
+            //modelUser.GovernmentOrganisationList = new List<GovOrAnyOrganisation>();
+            //foreach (var item in modelUser.UserArray)
+            //{
+            //    modelUser.GovernmentOrganisation = new GovOrAnyOrganisation();
+            //    modelUser.GovernmentOrganisation.UserName = item.Username;
+
+            //    BaseOutput OrgOut = srv.WS_GetForeign_OrganizationByUserId(binput, item.Id, true, out modelUser.ForeignOrganisation);
+
+            //    if (!String.IsNullOrEmpty(name)) {
+            //        if (!modelUser.ForeignOrganisation.name.ToLower().Contains(name.ToLower()))
+            //        {
+            //            continue;
+            //        }
+            //    }
+
+            //    //if (modelUser.ForeignOrganisation == null)
+            //    //{
+            //    //    return null;
+            //    //}
+
+            //    modelUser.GovernmentOrganisation.OrganisationName = modelUser.ForeignOrganisation.name;
+
+            //    modelUser.GovernmentOrganisation.Email = item.Email;
+            //    modelUser.GovernmentOrganisation.Id = item.Id;
+
+
+            //    if (modelUser.ForeignOrganisation.address_Id != null)
+            //    {
+            //        BaseOutput addressout = srv.WS_GetAddressById(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.FutureAddress);
+            //        BaseOutput fulladdressListOut = srv.WS_GetAdminUnitListForID(binput, (long)modelUser.ForeignOrganisation.address_Id, true, out modelUser.PRMAdminUnitArray);
+
+            //        foreach (var adminunit in modelUser.PRMAdminUnitArray)
+            //        {
+            //            if (adminunit.Name != "Azərbaycan Respublikası")
+            //            {
+            //                modelUser.GovernmentOrganisation.FullAddress += adminunit.Name + ",";
+            //            }
+            //        }
+            //        if (modelUser.GovernmentOrganisation.FullAddress != null)
+            //        {
+            //            modelUser.GovernmentOrganisation.FullAddress = modelUser.GovernmentOrganisation.FullAddress.Remove(modelUser.GovernmentOrganisation.FullAddress.Length - 1);
+            //        }
+            //    }
+
+
+
+            //    //get manager infos
+            //    if (item.Id != null)
+            //    {
+            //        BaseOutput managerOut = srv.WS_GetPersonByUserId(binput, (long)item.Id, true, out modelUser.Person);
+            //        modelUser.GovernmentOrganisation.ManagerName = modelUser.Person.Name;
+            //        modelUser.GovernmentOrganisation.ManagerFatherName = modelUser.Person.FatherName;
+            //        modelUser.GovernmentOrganisation.ManagerSurname = modelUser.Person.Surname;
+            //    }
+
+
+            //    modelUser.GovernmentOrganisationList.Add(modelUser.GovernmentOrganisation);
+            //}
+
+
+            //modelUser.PagingOrganisation = modelUser.GovernmentOrganisationList.ToPagedList(pageNumber, pageSize);
 
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("PartialOrganisation", modelUser)
@@ -1946,7 +1949,7 @@ namespace Emsal.AdminUI.Controllers
             }
 
 
-            modelUser.PagingIndividual = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
+            //modelUser.PagingIndividual = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
 
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("PartialAdmins", modelUser)
@@ -2084,7 +2087,7 @@ namespace Emsal.AdminUI.Controllers
 
 
 
-            modelUser.PagingIndividual = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
+            //modelUser.PagingIndividual = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
 
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("PartialASCUsers", modelUser)
@@ -2152,7 +2155,7 @@ namespace Emsal.AdminUI.Controllers
 
 
 
-            modelUser.PagingIndividual = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
+            //modelUser.PagingIndividual = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
 
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("PartialKTNUsers", modelUser)
