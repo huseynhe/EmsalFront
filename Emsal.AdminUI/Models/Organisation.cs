@@ -19,7 +19,7 @@ namespace Emsal.AdminUI.Models
             set;
         }
 
-        public PagedList.IPagedList<GovOrAnyOrganisation> PagingOrganisation
+        public PagedList.IPagedList<long> PagingOrganisation
         {
             get;
             set;
@@ -41,12 +41,17 @@ namespace Emsal.AdminUI.Models
             get;
             set;
         }
-        public PagedList.IPagedList<Individual> PagingIndividual
+        public PagedList.IPagedList<long> PagingIndividual
         {
             get;
             set;
         }
-        
+
+        public UserDetails[] userDetailArray;
+        public UserDetailSearch search { get; set; }
+        public int pageCount { get; set; }
+        public int pageNumber { get; set; }
+
         public string UserRoleType { get; set; }
 
         public string UserRoleTypeClient { get; set; }
@@ -301,5 +306,15 @@ namespace Emsal.AdminUI.Models
 
         public long[] branchesIdArr { get; set; }
         public string actionName { get; set; }
+
+        public string SName { get; set; }
+        public string SSurname { get; set; }
+        public string SFName { get; set; }
+        public string SEMail { get; set; }
+        public string SFullAddress { get; set; }
+        public string SUserName { get; set; }
+        public string SOrganizationName { get; set; }
     }
+
+
 }
