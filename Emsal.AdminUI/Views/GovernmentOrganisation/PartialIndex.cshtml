@@ -9,25 +9,8 @@
 
 <script src="~/Content/js/Goverment.js"></script>
 
-<p>
 
-</p>
-
-<section class="content">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box">
                 <div class="box-header with-border">
-
-                    <div class="row">
-                        <div class="col-md-5">
-                            <input class="form-control" placeholder="Təşkilat adına görə axtar" id="pNameInput" /><br />
-                        </div>
-
-                        <div class="col-lg-2">
-                            <button type="submit" class="btn btn-primary btn-sm" onclick="SearchForProduct()">Axtar</button>
-                        </div>
-                    </div>
 
                     <h3>Dövlət Təşkilatları<a class="btn btn-primary pull-right" href="/GovernmentOrganisation/AddGovOrganisation"><span class="glyphicon glyphicon-plus"></span> Əlavə et</a></h3>
                     @*<h3 class="box-title col-md-12">EnumCategory <a class="btn btn-primary pull-right" href="@Url.Action("Create","EnumCategory")"><span class="glyphicon glyphicon-plus"></span> Əlavə et</a></h3>*@
@@ -49,18 +32,19 @@
                             </th>
                         </tr>
 
-
-                        @foreach (var item in Model.PagingOrganisation)
-                        {
+@if (Model.userDetailArray != null)
+{
+    foreach (var item in Model.userDetailArray)
+    {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.OrganisationName)
+                                    @Html.DisplayFor(modelItem => item.organizationName)
                                 </td>
                                 <td>
-                                    @item.FullAddress
+                                    @item.fullAddress
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.UserName)
+                                    @Html.DisplayFor(modelItem => item.Username)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Email)
@@ -81,18 +65,16 @@
                                     </a>
                                 </td>
                             </tr>
-                        }
+    }
+}
                     </table>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    Səhifə @(Model.PagingOrganisation.PageCount < Model.PagingOrganisation.PageNumber ? 0 : Model.PagingOrganisation.PageNumber) (cəmi @Model.PagingOrganisation.PageCount)
-                    @Html.PagedListPager(Model.PagingOrganisation, page => Url.Action("Index", new { page }))
+                    Səhifə @(Model.pageCount < Model.pageNumber ? 0 : Model.pageNumber) (cəmi @Model.pageCount)
+                    @Html.PagedListPager(Model.PagingOrganisation, page => Url.Action("Index", new { page, Model.SName, Model.SSurname, Model.SFName, Model.SEMail, Model.SOrganizationName, Model.SUserName }))
                 </div>
 
                 @Html.HiddenFor(x => x.actionName);
-            </div>
-        </div>
-    </div>
-</section>
+
 

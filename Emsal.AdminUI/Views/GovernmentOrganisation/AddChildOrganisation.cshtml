@@ -34,7 +34,7 @@
 
             <div class="well" style="margin:8px; font-size:11px">
                 <div class="row">
-                    <div class="col-md-3">
+                    @*<div class="col-md-3">
                         <div class="form-group">
                             @Html.LabelFor(x => x.Voen, htmlAttributes: new { @class = "control-label required" })
                             @Html.TextBoxFor(x => x.Voen, new { @class = "form-control", required = "required" })
@@ -46,9 +46,9 @@
                         <label class="control-label" for="Voen">&nbsp;</label>
                         <div class="clearfix"></div>
                         <input class="btn btn-primary" type="button" value="Yoxlayın" onclick="check4voen()">
-                    </div>
+                    </div>*@
 
-                    <div class="col-md-7">
+                    <div class="col-md-12">
                         <div class="form-group" style="padding:5px;">
                             <label class="required">Təşkilatın Adı</label>
                             @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
@@ -172,7 +172,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            @Html.LabelFor(x => x.ManagerWorkPhone, new { @class = "control-label required" })
+                            @Html.LabelFor(x => x.ManagerWorkPhone, new { @class = "control-label" })
                             <div class="row">
                                 <div class="col-md-4">
                                     <select class="form-control" name="workPhonePrefix" id="workPhonePrefix">
@@ -192,7 +192,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            @Html.LabelFor(x => x.ManagerMobilePhone, new { @class = "control-label" })
+                            @Html.LabelFor(x => x.ManagerMobilePhone, new { @class = "control-label required" })
                             <div class="row">
                                 <div class="col-md-4">
                                     <select class="form-control" name="mobilePhonePrefix" id="mobilePhonePrefix">

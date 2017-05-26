@@ -1,64 +1,117 @@
-﻿@{
+﻿@model Emsal.AdminUI.Models.Organisation
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_AddGovernmentOrganisationLayout.cshtml";
 }
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
 
+                @using (Html.BeginForm("Organisations", "GovernmentOrganisation", FormMethod.Get))
+                {
+                    <div class="panel panel-default">
+                        <br />
 
-<div id="AjaxPaginationList">
-    @Html.Partial("PartialOrganisation")
-</div>
+                        <div class="row">
+                            <div class="col-md-1">&nbsp;</div>
+                            <div class="col-lg-3">
+                                @Html.TextBoxFor(model => Model.SName, new { @class = "form-control", @placeholder = "Ad" })
+                            </div>
+
+                            <div class="col-lg-3">
+                                @Html.TextBoxFor(model => Model.SSurname, new { @class = "form-control", @placeholder = "Soyad" })
+                            </div>
+
+                            <div class="col-lg-3">
+                                @Html.TextBoxFor(model => Model.SFName, new { @class = "form-control", @placeholder = "Ata adı" })
+                            </div>
+                        </div>
+
+                        <br />
+                        <div class="row">
+                            <div class="col-md-1">&nbsp;</div>
+                            <div class="col-md-3">
+                                @Html.TextBoxFor(model => Model.SEMail, new { @class = "form-control", @placeholder = "Elektron poçt " })
+                            </div>
+
+                            <div class="col-md-3">
+                                @Html.TextBoxFor(model => Model.SOrganizationName, new { @class = "form-control", @placeholder = "Təşkilat adı" })
+                            </div>
+
+                            <div class="col-md-3">
+                                @Html.TextBoxFor(model => Model.SUserName, new { @class = "form-control", @placeholder = "İstifadəçi Adı" })
+                            </div>
+                        </div>
+
+                        <br />
+                        <div class="col-md-10" align="right">
+                            <button type="submit" class="btn btn-primary btn-sm">Axtar</button>
+                        </div>
+
+                        <br />
+                        <br />
+                        @*<h3 class="box-title col-md-12">EnumCategory <a class="btn btn-primary pull-right" href="@Url.Action("Create","EnumCategory")"><span class="glyphicon glyphicon-plus"></span> Əlavə et</a></h3>*@
+                    </div>
+                }
+
+                <div id="AjaxPaginationList">
+                    @Html.Partial("PartialOrganisation")
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
 
 <script src="~/Content/js/pagedList.js"></script>
 @if (TempData["foreignOrganisationNotExist"] != null)
 {
-<script type="text/javascript">
-            $(document).ready(function () {
-                $("#myModal").modal('show');
-            });
-</script>
-<div id="myModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Məlumat</h4>
-            </div>
-            <div class="modal-body">
-                <p id="successMessage">Bu istifadəçiyə uyğun məlumatlar, sistemdə mövcud deyil</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
-            </div>
-        </div>
-    </div>
-</div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#myModal").modal('show');
+        });
+    </script>
+                    <div id="myModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Məlumat</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p id="successMessage">Bu istifadəçiyə uyğun məlumatlar, sistemdə mövcud deyil</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 }
-
 
 @if (TempData["orgDeleted"] != null)
 {
     <script type="text/javascript">
-            $(document).ready(function () {
-                $("#myModal2").modal('show');
-            });
+        $(document).ready(function () {
+            $("#myModal2").modal('show');
+        });
     </script>
-    <div id="myModal2" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Məlumat</h4>
-                </div>
-                <div class="modal-body">
-                    <p id="successMessage">Hüquqi şəxs sistemdən silindi</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
-                </div>
-            </div>
-        </div>
-    </div>
+                    <div id="myModal2" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Məlumat</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p id="successMessage">Hüquqi şəxs sistemdən silindi</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">bağla</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 }
-
-
 
