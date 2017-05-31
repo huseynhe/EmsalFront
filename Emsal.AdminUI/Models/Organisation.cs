@@ -47,6 +47,12 @@ namespace Emsal.AdminUI.Models
             set;
         }
 
+        public PagedList.IPagedList<Individual> PagingIndividualold
+        {
+            get;
+            set;
+        }
+
         public UserDetails[] userDetailArray;
         public UserDetailSearch search { get; set; }
         public int pageCount { get; set; }
