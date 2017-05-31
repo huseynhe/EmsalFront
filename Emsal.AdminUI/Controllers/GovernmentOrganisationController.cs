@@ -1949,7 +1949,7 @@ namespace Emsal.AdminUI.Controllers
             }
 
 
-            //modelUser.PagingIndividual = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
+            modelUser.PagingIndividualold = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
 
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("PartialAdmins", modelUser)
@@ -2087,7 +2087,7 @@ namespace Emsal.AdminUI.Controllers
 
 
 
-            //modelUser.PagingIndividual = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
+            modelUser.PagingIndividualold = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
 
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("PartialASCUsers", modelUser)
@@ -2155,7 +2155,7 @@ namespace Emsal.AdminUI.Controllers
 
 
 
-            //modelUser.PagingIndividual = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
+            modelUser.PagingIndividualold = modelUser.IndividualList.ToPagedList(pageNumber, pageSize);
 
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("PartialKTNUsers", modelUser)
