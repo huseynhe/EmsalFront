@@ -113,3 +113,31 @@
                     }
                 }
 
+
+
+<script>
+        function GetAdminUnit(elem) {
+            pId = $(elem).val();
+            $(elem).parent().nextAll().remove();
+            if (pId > 0) {
+                $.ajax({
+                    url: '/GovernmentOrganisation/AdminUnit?pId=' + pId,
+                    type: 'GET',
+                    //data: { "pId": appId},
+                    success: function (result) {
+                        $('#addressId').val(pId);
+                        $(elem).parent().parent().append(result);
+
+
+
+                        $("#FullAddress").val(pId);
+
+                        $('.select2').select2();
+                    },
+                    error: function () {
+
+                    }
+                });
+            }
+        }
+</script>

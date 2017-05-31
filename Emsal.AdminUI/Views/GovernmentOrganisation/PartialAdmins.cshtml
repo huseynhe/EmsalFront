@@ -41,7 +41,7 @@
                             </th>
                         </tr>
 
-                        @foreach (var item in Model.PagingIndividual)
+                        @foreach (var item in Model.PagingIndividualold)
                         {
                             <tr>
                                 <td>
@@ -66,8 +66,8 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    Səhifə @(Model.PagingIndividual.PageCount < Model.PagingIndividual.PageNumber ? 0 : Model.PagingIndividual.PageNumber) (cəmi @Model.PagingIndividual.PageCount)
-                    @Html.PagedListPager(Model.PagingIndividual, page => Url.Action("Admins", new { page }))
+                    Səhifə @(Model.PagingIndividualold.PageCount < Model.PagingIndividualold.PageNumber ? 0 : Model.PagingIndividualold.PageNumber) (cəmi @Model.PagingIndividualold.PageCount)
+                    @Html.PagedListPager(Model.PagingIndividualold, page => Url.Action("Admins", new { page }))
                 </div>
                 @Html.HiddenFor(x => x.actionName);
             </div>
